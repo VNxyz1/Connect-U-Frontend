@@ -55,9 +55,5 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - name: Install dependencies
-        run: |
-          npm install -g @angular/cli
-
       - name: Run tests
         run: ng test --no-watch --no-progress --browsers=ChromeHeadless
