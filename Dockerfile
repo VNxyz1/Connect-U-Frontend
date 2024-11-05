@@ -12,11 +12,11 @@ COPY . .
 
 RUN ng build --configuration=production
 
-FROM nginx:alpine
+FROM build
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
-COPY --from=build app/dist/entity-manager/ /app
+COPY --from=build app/dist/connect-u-frontend/ /app
 
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 4000
+CMD [ "node", "server/server.mjs" ]
