@@ -43,6 +43,7 @@ jobs:
 
   test:
     name: Run Tests
+    needs: setup
     runs-on: ubuntu-latest
 
     steps:
@@ -56,6 +57,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          npm install -g @angular/cli
 
       - name: Run tests
         run: ng test --no-watch --no-progress --browsers=ChromeHeadless
