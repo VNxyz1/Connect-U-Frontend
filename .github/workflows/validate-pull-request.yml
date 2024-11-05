@@ -54,4 +54,4 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Run tests
-        run: npm test -- --watch=false --no-progress
+        run: ng test --no-watch --no-progress --browsers=ChromeHeadless
