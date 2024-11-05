@@ -28,7 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install -g @angular/cli
+          npm install @angular/cli
           npm ci
 
       - name: Build project
