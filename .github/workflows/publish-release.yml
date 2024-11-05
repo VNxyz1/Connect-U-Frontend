@@ -16,7 +16,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
+      - name: Check out repositorycontainer registry push test
         uses: actions/checkout@v4
 
       - name: Set up Node
