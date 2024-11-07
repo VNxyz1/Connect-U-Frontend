@@ -1,0 +1,89 @@
+// Theme Specific Variables
+
+
+$orange: #EE8418;
+$orange-20: #cc7630;
+$orange-40: #a6632c;
+$blue: #3575a7;
+$blue-20: #336288;
+$blue-40: #2c506c;
+$dark-grey: #333333;
+$normal-grey: #D3D3D3;
+$light-grey: #F4F4F4;
+$white: #FFFFFF;
+$black: #000000;
+
+
+$primaryColor: $blue;
+$primaryDarkColor: $blue-20;
+$primaryDarkerColor: $blue-40;
+$primaryTextColor: $light-grey;
+$secondaryColor: $orange;
+$secondaryDarkColor: $orange-20;
+$secondaryDarkerColor: $orange-40;
+$text-color: $dark-grey;
+
+// Mandatory Designer Variables
+@import 'variables/general';
+@import 'variables/form';
+@import 'variables/button';
+@import 'variables/panel';
+@import 'variables/data';
+@import 'variables/overlay';
+@import 'variables/message';
+@import 'variables/menu';
+@import 'variables/media';
+@import 'variables/misc';
+
+:root {
+    font-family: 'Proxima Nova', sans-serif;
+    --font-family: 'Proxima Nova', sans-serif;
+
+    // Surface colors
+    --surface-a: #{$light-grey};
+    --surface-b: #{$light-grey};
+    --surface-c: #{$light-grey};
+    --surface-d: #{$light-grey};
+    --surface-e: #{$light-grey};
+    --surface-f: #{$light-grey};
+    --surface-0: #{$light-grey};
+    --surface-50: #{$light-grey};
+    --surface-100: #{$light-grey};
+    --surface-200: #{$light-grey};
+    --surface-300: #{$light-grey};
+    --surface-400: #{$light-grey};
+    --surface-500: #{$light-grey};
+    --surface-600: #{$light-grey};
+    --surface-700: #{$light-grey};
+    --surface-800: #{$light-grey};
+    --surface-900: #{$light-grey};
+
+    // Text colors
+    --text-color: #{$dark-grey};
+    --text-color-secondary: #{$normal-grey};
+
+    // Primary colors
+    --primary-color: #{$blue};
+    --primary-color-text: #{$light-grey};
+
+    // Padding, spacing, and radius
+    --content-padding: #{$panelContentPadding};
+    --inline-spacing: #{$inlineSpacing};
+    --border-radius: #{$borderRadius};
+
+    // Background and overlay surfaces
+    --surface-ground: #{$light-grey};
+    --surface-section: #{$light-grey};
+    --surface-card: #{$white};
+    --surface-overlay: #{$white};
+    --surface-border: #{$normal-grey};
+    --surface-hover: #e9ecef;
+
+    // Additional styling properties
+    --maskbg: #{$maskBg};
+    --highlight-bg: #{$light-grey};
+    --highlight-text-color: #{$highlightTextColor};
+    --focus-ring: #{$focusShadow};
+
+    color-scheme: light;
+}
