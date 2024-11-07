@@ -16,15 +16,46 @@ import {RegisterPageComponent} from './views/register-page/register-page.compone
  * Documentation: [Angular.dev](https://angular.dev/guide/routing/common-router-tasks#preventing-unauthorized-access)
  */
 export const routes: Routes = [
-    { path: '', title: 'Home | Connect-U', component: HomePageComponent },
-    { path: 'welcome', title: 'Welcome | Connect-U', component: LandingPageComponent },
+  { path: '', title: 'Home | Connect-U', component: HomePageComponent },
+  {
+    path: 'welcome',
+    title: 'Welcome | Connect-U',
+    component: LandingPageComponent,
+  },
     { path: 'register', title: 'Register | Connect-U', component: RegisterPageComponent },
-    { path: 'search', title: 'Search | Connect-U', component: SearchPageComponent },
-    { path: 'create-event', title: 'New Event | Connect-U', component: CreateEventPageComponent, canActivate: [isLoggedInGuard] },
-    { path: 'my-events', title: 'My Events | Connect-U', component: MyEventsPageComponent, canActivate: [isLoggedInGuard] },
-    { path: 'my-space', title: 'My Space | Connect-U', component: MySpacePageComponent, canActivate: [isLoggedInGuard] },
-    { path: 'event/:id', title: 'Event | Connect-U', component: EventDetailPageComponent },
-    { path: 'profile/:id', title: 'Profile | Connect-U', component: ProfilePageComponent },
+    {
+    path: 'search',
+    title: 'Search | Connect-U',
+    component: SearchPageComponent,
+  },
+  {
+    path: 'create-event',
+    title: 'New Event | Connect-U',
+    component: CreateEventPageComponent,
+    canActivate: [isLoggedInGuard],
+  },
+  {
+    path: 'my-events',
+    title: 'My Events | Connect-U',
+    component: MyEventsPageComponent,
+    canActivate: [isLoggedInGuard],
+  },
+  {
+    path: 'my-space',
+    title: 'My Space | Connect-U',
+    component: MySpacePageComponent,
+    canActivate: [isLoggedInGuard],
+  },
+  {
+    path: 'event/:id',
+    title: 'Event | Connect-U',
+    component: EventDetailPageComponent,
+  },
+  {
+    path: 'profile/:id',
+    title: 'Profile | Connect-U',
+    component: ProfilePageComponent,
+  },
 
     { path: '**', title: 'Not Found | Connect-U', component: NotFoundPageComponent },
 ];

@@ -8,9 +8,8 @@ describe('MySpacePageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MySpacePageComponent]
-    })
-    .compileComponents();
+      imports: [MySpacePageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MySpacePageComponent);
     component = fixture.componentInstance;

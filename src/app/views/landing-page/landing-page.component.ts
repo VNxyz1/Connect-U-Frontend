@@ -11,6 +11,4 @@ import {LoginComponent} from '../../components/login/login.component';
     ],
   templateUrl: './landing-page.component.html',
 })
-export class LandingPageComponent {
-
-}
+export class LandingPageComponent {}

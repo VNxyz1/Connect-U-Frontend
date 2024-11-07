@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './my-space-page.component.html',
 })
-export class MySpacePageComponent {
-
-}
+export class MySpacePageComponent {}
