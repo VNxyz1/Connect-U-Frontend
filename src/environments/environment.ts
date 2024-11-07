@@ -1,6 +1,6 @@
 export const environment = {
-    apiConfig: {
-        urlPrefix: '/api/',
-        withCredentials: false,
-    }
+  apiConfig: {
+    urlPrefix: '/api/',
+    withCredentials: false,
+  },
 };
