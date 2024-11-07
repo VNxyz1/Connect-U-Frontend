@@ -9,6 +9,7 @@ import {NotFoundPageComponent} from './views/not-found-page/not-found-page.compo
 import {ProfilePageComponent} from './views/profile-page/profile-page.component';
 import {LandingPageComponent} from './views/landing-page/landing-page.component';
 import {isLoggedInGuard} from './utils/guards/is-logged-in.guard';
+import {LoginComponent} from './components/login/login.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -16,7 +17,10 @@ import {isLoggedInGuard} from './utils/guards/is-logged-in.guard';
  */
 export const routes: Routes = [
     { path: '', title: 'Home | Connect-U', component: HomePageComponent },
-    { path: 'welcome', title: 'Welcome | Connect-U', component: LandingPageComponent },
+    { path: 'welcome', title: 'Welcome | Connect-U', component: LandingPageComponent, children: [
+            { path: 'login', title: 'Welcome | Connect-U', component: LoginComponent },
+        ]
+    },
     { path: 'search', title: 'Search | Connect-U', component: SearchPageComponent },
     { path: 'create-event', title: 'New Event | Connect-U', component: CreateEventPageComponent, canActivate: [isLoggedInGuard] },
     { path: 'my-events', title: 'My Events | Connect-U', component: MyEventsPageComponent, canActivate: [isLoggedInGuard] },
