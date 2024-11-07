@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  constructor() {}
 
-  constructor() { }
-
-    /**
-     * to be implemented
-     */
-    isLoggedIn(): boolean {
-      return true;
-    }
+  /**
+   * to be implemented
+   */
+  isLoggedIn(): boolean {
+    return true;
+  }
 }

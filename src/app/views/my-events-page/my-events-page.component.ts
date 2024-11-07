@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './my-events-page.component.html',
 })
-export class MyEventsPageComponent {
-
-}
+export class MyEventsPageComponent {}

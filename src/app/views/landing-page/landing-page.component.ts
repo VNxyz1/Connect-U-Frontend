@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './landing-page.component.html',
 })
-export class LandingPageComponent {
-
-}
+export class LandingPageComponent {}
