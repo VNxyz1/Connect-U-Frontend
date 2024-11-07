@@ -1,15 +1,15 @@
 import { Routes } from '@angular/router';
-import {HomePageComponent} from './views/home-page/home-page.component';
-import {SearchPageComponent} from './views/search-page/search-page.component';
-import {CreateEventPageComponent} from './views/create-event-page/create-event-page.component';
-import {MyEventsPageComponent} from './views/my-events-page/my-events-page.component';
-import {MySpacePageComponent} from './views/my-space-page/my-space-page.component';
-import {EventDetailPageComponent} from './views/event-detail-page/event-detail-page.component';
-import {NotFoundPageComponent} from './views/not-found-page/not-found-page.component';
-import {ProfilePageComponent} from './views/profile-page/profile-page.component';
-import {LandingPageComponent} from './views/landing-page/landing-page.component';
-import {isLoggedInGuard} from './utils/guards/is-logged-in.guard';
-import {RegisterPageComponent} from './views/register-page/register-page.component';
+import { HomePageComponent } from './views/home-page/home-page.component';
+import { SearchPageComponent } from './views/search-page/search-page.component';
+import { CreateEventPageComponent } from './views/create-event-page/create-event-page.component';
+import { MyEventsPageComponent } from './views/my-events-page/my-events-page.component';
+import { MySpacePageComponent } from './views/my-space-page/my-space-page.component';
+import { EventDetailPageComponent } from './views/event-detail-page/event-detail-page.component';
+import { NotFoundPageComponent } from './views/not-found-page/not-found-page.component';
+import { ProfilePageComponent } from './views/profile-page/profile-page.component';
+import { LandingPageComponent } from './views/landing-page/landing-page.component';
+import { isLoggedInGuard } from './utils/guards/is-logged-in.guard';
+import { RegisterPageComponent } from './views/register-page/register-page.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -22,8 +22,12 @@ export const routes: Routes = [
     title: 'Welcome | Connect-U',
     component: LandingPageComponent,
   },
-    { path: 'register', title: 'Register | Connect-U', component: RegisterPageComponent },
-    {
+  {
+    path: 'register',
+    title: 'Register | Connect-U',
+    component: RegisterPageComponent,
+  },
+  {
     path: 'search',
     title: 'Search | Connect-U',
     component: SearchPageComponent,
@@ -57,5 +61,9 @@ export const routes: Routes = [
     component: ProfilePageComponent,
   },
 
-    { path: '**', title: 'Not Found | Connect-U', component: NotFoundPageComponent },
+  {
+    path: '**',
+    title: 'Not Found | Connect-U',
+    component: NotFoundPageComponent,
+  },
 ];
