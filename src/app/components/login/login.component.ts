@@ -22,5 +22,8 @@ export class LoginComponent {
         password: new FormControl<string>('', Validators.required),
     })
 
+    submitLogin() {
+        console.log(this.form.value);
+    }
 
 }

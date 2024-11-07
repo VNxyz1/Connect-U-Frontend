@@ -1,8 +1,49 @@
-<form [formGroup]="form">
-  <div class="field">
-    <input type="text" pInputText formControlName="email" />
-  </div>
-  <div class="field">
-    <p-password formControlName="password" [toggleMask]="true" />
-  </div>
-</form>
+<div class="w-full">
+    <h2 id="login" class="w-full text-center">{{ 'LOGIN' }}</h2>
+
+    <form (ngSubmit)="submitLogin()" [formGroup]="form" class="w-full" aria-labelledby="loginFormTitle">
+
+        <div class="field w-full">
+            <label for="email" class="sr-only">E-Mail</label>
+            <input
+                    id="email"
+                    type="email"
+                    pInputText
+                    formControlName="email"
+                    class="w-full"
+                    placeholder="E-Mail"
+                    aria-required="true"
+                    [attr.aria-invalid]="form.get('email')?.invalid && form.get('email')?.touched"
+            />
+            @if (form.get('email')?.invalid && form.get('email')?.touched) {
+                @if (form.get('email')?.errors?.['required']) {
+                    <small class="text-red-500">E-Mail ist erforderlich.</small>
+                }
+                @if (form.get('email')?.errors?.['email']) {
+                    <small class="text-red-500">Bitte eine gültige E-Mail-Adresse eingeben.</small>
+                }
+            }
+        </div>
+
+        <div class="field w-full">
+            <label for="password" class="sr-only">Passwort</label>
+            <p-password
+                    id="password"
+                    formControlName="password"
+                    class="w-full"
+                    styleClass="w-full"
+                    inputStyleClass="w-full"
+                    [toggleMask]="true"
+                    placeholder="Passwort"
+                    inputId="password"
+                    aria-required="true"
+                    [attr.aria-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
+            />
+            @if (form.get('password')?.invalid && form.get('password')?.touched) {
+                <small class="text-red-500">Passwort ist erforderlich.</small>
+            }
+        </div>
+
+        <button type="submit" class="sr-only" [disabled]="form.invalid">{{ 'Einloggen' }}</button>
+    </form>
+</div>

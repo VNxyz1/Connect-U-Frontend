@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import {ImageModule} from 'primeng/image';
-import {RouterOutlet} from '@angular/router';
+import {LoginComponent} from '../../components/login/login.component';
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
     imports: [
         ImageModule,
-        RouterOutlet
+        LoginComponent
     ],
   templateUrl: './landing-page.component.html',
 })
