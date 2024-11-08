@@ -7,9 +7,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
-import { RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 type LoginForm = FormGroup<{
   email: FormControl<string>;
@@ -19,7 +20,14 @@ type LoginForm = FormGroup<{
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [InputTextModule, ReactiveFormsModule, PasswordModule, RouterLink],
+  imports: [
+    InputTextModule,
+    ReactiveFormsModule,
+    PasswordModule,
+    RouterLink,
+    ToastModule,
+  ],
+  providers: [MessageService],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
@@ -34,7 +42,11 @@ export class LoginComponent {
     }),
   });
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private messageService: MessageService,
+  ) {}
 
   submitLogin() {
     this.authService
@@ -43,8 +55,21 @@ export class LoginComponent {
         password: this.form.controls.password.value,
       })
       .subscribe({
-        next: console.log,
-        error: console.error,
+        next: () => this.router.navigateByUrl('/'),
+        error: err => {
+          this.showError(err.status);
+        },
       });
+  }
+
+  showError(code: number) {
+    switch (code) {
+      case 404:
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Login fehlgeschlagen',
+          detail: 'User mit diesen Anmeldedaten sind nicht bekannt.',
+        });
+    }
   }
 }

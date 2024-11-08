@@ -14,6 +14,7 @@ import {
 } from '@angular/common/http';
 import { apiInterceptor } from './utils/interceptors/api.interceptor';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { jwtInterceptor } from './utils/interceptors/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,7 +25,10 @@ export const appConfig: ApplicationConfig = {
       withRouterConfig({ paramsInheritanceStrategy: 'always' }),
     ),
     provideClientHydration(),
-    provideHttpClient(withFetch(), withInterceptors([apiInterceptor])),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([apiInterceptor, jwtInterceptor]),
+    ),
     provideAnimationsAsync(),
   ],
 };
