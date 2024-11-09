@@ -4,24 +4,44 @@
 $orange: #EE8418;
 $orange-20: #cc7630;
 $orange-40: #a6632c;
-$blue: #3575a7;
+$blue: #4989BB;
 $blue-20: #336288;
 $blue-40: #2c506c;
 $dark-grey: #333333;
+$dark-grey-20: #535353;
+$dark-grey-40: #737373;
 $normal-grey: #D3D3D3;
 $light-grey: #F4F4F4;
 $white: #FFFFFF;
 $black: #000000;
+$red: #d34e43;
 
 
-$primaryColor: $blue;
-$primaryDarkColor: $blue-20;
-$primaryDarkerColor: $blue-40;
-$primaryTextColor: $light-grey;
+$primaryColor: $dark-grey;
+$primaryDarkColor: $dark-grey-20;
+$primaryDarkerColor: $dark-grey-40;
 $secondaryColor: $orange;
 $secondaryDarkColor: $orange-20;
 $secondaryDarkerColor: $orange-40;
+
+$successColor: $blue;
+$successDarkColor: $blue-20;
+$successDarkerColor: $blue-40;
+
+
+$errorColor: $red;
+
+/* special colors */
+$errorColor: $red;
+$myFocusOutline: $blue;
+/* text */
+$primaryTextColor: $light-grey; //on buttons etc
 $text-color: $dark-grey;
+$font-weight-bold: bold;
+$font-weight-normal: normal;
+$font-weight-semi-bold: 600;
+$font-family: 'Proxima Nova', sans-serif;
+
 
 // Mandatory Designer Variables
 @import 'variables/general';
@@ -36,8 +56,8 @@ $text-color: $dark-grey;
 @import 'variables/misc';
 
 :root {
-    font-family: 'Proxima Nova', sans-serif;
-    --font-family: 'Proxima Nova', sans-serif;
+    font-family: #{$font-family};
+    --font-family: #{$font-family};
 
     // Surface colors
     --surface-a: #{$light-grey};
@@ -65,11 +85,17 @@ $text-color: $dark-grey;
     // Primary colors
     --primary-color: #{$blue};
     --primary-color-text: #{$light-grey};
+    --secondary-color: #{$orange};
 
     // Padding, spacing, and radius
     --content-padding: #{$panelContentPadding};
     --inline-spacing: #{$inlineSpacing};
     --border-radius: #{$borderRadius};
+
+    //card
+    --card-title-fontSize: h2;
+    --card-title-font-weight: h2;
+    --card-subtitle-color: var(--text-color-secondary);
 
     // Background and overlay surfaces
     --surface-ground: #{$light-grey};
@@ -83,7 +109,70 @@ $text-color: $dark-grey;
     --maskbg: #{$maskBg};
     --highlight-bg: #{$light-grey};
     --highlight-text-color: #{$highlightTextColor};
-    --focus-ring: #{$focusShadow};
+    --focus-ring: #{$blue-20};
+    --focus-shadow: lighten(#{$blue-20}, 60%);
 
     color-scheme: light;
 }
+
+//headings
+
+h1, h2, h3, h4, h5, h6, p, body {
+  font-family: $font-family;
+  color: $text-color;
+}
+
+h1 {
+  font-weight: $font-weight-bold;
+  font-size: 24px;
+}
+
+h2 {
+  font-weight: $font-weight-semi-bold;
+  font-size: 20px;
+}
+
+h3 {
+  font-weight: $font-weight-semi-bold;
+  font-size: 20px;
+}
+
+/* Buttons */
+
+.p-button {
+  font-weight: $font-weight-semi-bold;
+}
+
+.p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
+  background-color: var(--secondary-color); /* Set background color for checked state */
+  border: none;
+}
+
+// Checked state
+.p-radiobutton .p-radiobutton-box.p-highlight {
+  background-color: var(--secondary-color); // Background color for checked
+  border-color: var(--secondary-color); // Border color for checked
+  color: $primaryTextColor; // Icon color inside the checked radio
+}
+
+
+/* input */
+
+.p-inputtext {
+  &:disabled {
+    background: $normal-grey;
+  }
+}
+
+/* tag */
+
+.p-tag-secondary {
+  background-color: var(--secondary-color);
+}
+
+
+
+
+
+
+

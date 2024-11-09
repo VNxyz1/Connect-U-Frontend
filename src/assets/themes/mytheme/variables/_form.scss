@@ -4,7 +4,7 @@ $inputPadding: .5rem .5rem;
 
 /// Background of an input field
 /// @group form
-$inputBg: #ffffff;
+$inputBg: $white;
 
 /// Font size of an input field
 /// @group form
@@ -24,11 +24,11 @@ $inputBorder: 1px solid $normal-grey;
 
 /// Border of an input field in hover state
 /// @group form
-$inputHoverBorderColor: $primaryColor;
+$inputHoverBorderColor: $successColor;
 
 /// Border of an input field in focus state
 /// @group form
-$inputFocusBorderColor: $primaryColor;
+$inputFocusBorderColor: $successColor;
 
 /// Color of an input field in invalid state
 /// @group form
@@ -265,11 +265,11 @@ $ratingIconFontSize: 1.143rem;
 
 /// Icon color for the cancel icon of a rating
 /// @group form
-$ratingCancelIconColor: #e74c3c;
+$ratingCancelIconColor: $errorColor;
 
 /// Hover icon color for the cancel icon of a rating
 /// @group form
-$ratingCancelIconHoverColor: #c0392b;
+$ratingCancelIconHoverColor: $errorColor;
 
 /// Icon color for the star icon of a rating in unselected state
 /// @group form
@@ -511,7 +511,7 @@ $fileUploadProgressBarHeight: .25rem;
 /// @group input
 $fileUploadContentPadding: 2rem 1rem;
 
-/// 
+///
 /// @group input
 $fileUploadContentHoverBorder: 1px dashed #e9ecef !default;
 
@@ -553,7 +553,7 @@ $passwordMeterBg:#dee2e6;
 
 /// Background of a week password
 /// @group form
-$passwordWeakBg:#E53935;
+$passwordWeakBg:$errorColor;
 
 /// Background of a medium password
 /// @group form
@@ -561,4 +561,4 @@ $passwordMediumBg:#FFB300;
 
 /// Background of a strong password
 /// @group form
-$passwordStrongBg:#43A047;
+$passwordStrongBg:$successColor;

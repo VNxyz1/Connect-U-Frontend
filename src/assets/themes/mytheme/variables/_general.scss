@@ -76,11 +76,11 @@ $loadingIconFontSize: 2rem;
 
 /// Color to use on an invalid element e.g. invalid input
 /// @group general
-$errorColor: #e4677e;
+$errorColor: $errorColor;
 
 /// Outline color of a focused element
 /// @group general
-$focusOutlineColor: #bfd1f6;
+$focusOutlineColor: lighten($myFocusOutline, 50%);
 
 /// Outline of a focused element
 /// @group general
