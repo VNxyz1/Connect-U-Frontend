@@ -64,7 +64,7 @@ import { ImageModule } from 'primeng/image';
   providers: [MessageService],
 })
 export class StylingShowcaseSecretPageComponent implements OnInit {
-  constructor(public messageService: MessageService) {}
+
 
   sliderValue: number = 50; // Slider binding example
   value: string | undefined;
@@ -105,39 +105,15 @@ export class StylingShowcaseSecretPageComponent implements OnInit {
     this.stepsMenuItems = [
       {
         label: 'Personal',
-        command: (event: any) =>
-          this.messageService.add({
-            severity: 'info',
-            summary: 'First Step',
-            detail: event.item.label,
-          }),
       },
       {
         label: 'Seat',
-        command: (event: any) =>
-          this.messageService.add({
-            severity: 'info',
-            summary: 'Second Step',
-            detail: event.item.label,
-          }),
       },
       {
         label: 'Payment',
-        command: (event: any) =>
-          this.messageService.add({
-            severity: 'info',
-            summary: 'Third Step',
-            detail: event.item.label,
-          }),
       },
       {
         label: 'Confirmation',
-        command: (event: any) =>
-          this.messageService.add({
-            severity: 'info',
-            summary: 'Last Step',
-            detail: event.item.label,
-          }),
       },
     ];
 
