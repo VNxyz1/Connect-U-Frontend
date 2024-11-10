@@ -64,8 +64,6 @@ import { ImageModule } from 'primeng/image';
   providers: [MessageService],
 })
 export class StylingShowcaseSecretPageComponent implements OnInit {
-
-
   sliderValue: number = 50; // Slider binding example
   value: string | undefined;
 
