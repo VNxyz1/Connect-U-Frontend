@@ -22,10 +22,11 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { ChipsModule } from 'primeng/chips';
 import { TagModule } from 'primeng/tag';
 import { StepsModule } from 'primeng/steps';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { ImageModule } from 'primeng/image';
+
 
 @Component({
   selector: 'app-styling-showcase-secret-page',
@@ -59,8 +60,10 @@ import { ImageModule } from 'primeng/image';
     NgOptimizedImage,
   ],
   templateUrl: './styling-showcase-secret-page.component.html',
+  providers: [MessageService],
 })
 export class StylingShowcaseSecretPageComponent implements OnInit {
+  constructor(public messageService: MessageService) {}
   sliderValue: number = 50; // Slider binding example
   value: string | undefined;
 
@@ -99,17 +102,21 @@ export class StylingShowcaseSecretPageComponent implements OnInit {
     this.selectedCategory = this.categories[1];
     this.stepsMenuItems = [
       {
-        label: 'Personal'
+        label: 'Personal',
+        command: (event: any) => this.messageService.add({severity:'info', summary:'First Step', detail: event.item.label})
       },
       {
-        label: 'Seat'
+        label: 'Seat',
+        command: (event: any) => this.messageService.add({severity:'info', summary:'Second Step', detail: event.item.label})
       },
       {
-        label: 'Payment'
+        label: 'Payment',
+        command: (event: any) => this.messageService.add({severity:'info', summary:'Third Step', detail: event.item.label})
       },
       {
-        label: 'Confirmation'
-      },
+        label: 'Confirmation',
+        command: (event: any) => this.messageService.add({severity:'info', summary:'Last Step', detail: event.item.label})
+      }
     ];
 
     this.tabMenuItems = [
