@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { StylingShowcaseSecretPageComponent } from './styling-showcase-secret-page.component';
+import { MessageService } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('StylingShowcaseSecretPageComponent', () => {
   let component: StylingShowcaseSecretPageComponent;
@@ -9,6 +11,16 @@ describe('StylingShowcaseSecretPageComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [StylingShowcaseSecretPageComponent],
+      providers: [
+        MessageService,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({}), // Mock any route params if needed
+            snapshot: { paramMap: new Map() }, // Mock any snapshot data if needed
+          },
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(StylingShowcaseSecretPageComponent);

@@ -61,7 +61,6 @@ import { ImageModule } from 'primeng/image';
     NgOptimizedImage,
   ],
   templateUrl: './styling-showcase-secret-page.component.html',
-  providers: [MessageService],
 })
 export class StylingShowcaseSecretPageComponent implements OnInit {
   sliderValue: number = 50; // Slider binding example
