@@ -8,9 +8,8 @@ describe('StylingShowcaseSecretPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StylingShowcaseSecretPageComponent]
-    })
-    .compileComponents();
+      imports: [StylingShowcaseSecretPageComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(StylingShowcaseSecretPageComponent);
     component = fixture.componentInstance;

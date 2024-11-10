@@ -1,21 +1,19 @@
 // Theme Specific Variables
 
-
-$orange: #EE8418;
+$orange: #ee8418;
 $orange-20: #cc7630;
 $orange-40: #a6632c;
-$blue: #4989BB;
+$blue: #4989bb;
 $blue-20: #336288;
 $blue-40: #2c506c;
 $dark-grey: #333333;
 $dark-grey-20: #535353;
 $dark-grey-40: #737373;
-$normal-grey: #D3D3D3;
-$light-grey: #F4F4F4;
-$white: #FFFFFF;
+$normal-grey: #d3d3d3;
+$light-grey: #f4f4f4;
+$white: #ffffff;
 $black: #000000;
 $red: #d34e43;
-
 
 $primaryColor: $dark-grey;
 $primaryDarkColor: $dark-grey-20;
@@ -27,7 +25,6 @@ $secondaryDarkerColor: $orange-40;
 $successColor: $blue;
 $successDarkColor: $blue-20;
 $successDarkerColor: $blue-40;
-
 
 $errorColor: $red;
 
@@ -42,7 +39,6 @@ $font-weight-normal: normal;
 $font-weight-semi-bold: 600;
 $font-family: 'Proxima Nova', sans-serif;
 
-
 // Mandatory Designer Variables
 @import 'variables/general';
 @import 'variables/form';
@@ -56,66 +52,65 @@ $font-family: 'Proxima Nova', sans-serif;
 @import 'variables/misc';
 
 :root {
-    font-family: #{$font-family};
-    --font-family: #{$font-family};
+  font-family: #{$font-family};
+  --font-family: #{$font-family};
 
-    // Surface colors
-    --surface-a: #{$light-grey} !important;
-    --surface-b: #{$light-grey} !important;
-    --surface-c: #{$light-grey} !important;
-    --surface-d: #{$light-grey} !important;
-    --surface-e: #{$light-grey} !important;
-    --surface-f: #{$light-grey} !important;
-    --surface-0: #{$light-grey} !important;
-    --surface-50: #{$light-grey} !important;
-    --surface-100: #{$light-grey} !important;
-    --surface-200: #{$light-grey} !important;
-    --surface-300: #{$light-grey} !important;
-    --surface-400: #{$light-grey} !important;
-    --surface-500: #{$light-grey} !important;
-    --surface-600: #{$light-grey} !important;
-    --surface-700: #{$light-grey} !important;
-    --surface-800: #{$light-grey} !important;
-    --surface-900: #{$light-grey} !important;
+  // Surface colors
+  --surface-a: #{$light-grey} !important;
+  --surface-b: #{$light-grey} !important;
+  --surface-c: #{$light-grey} !important;
+  --surface-d: #{$light-grey} !important;
+  --surface-e: #{$light-grey} !important;
+  --surface-f: #{$light-grey} !important;
+  --surface-0: #{$light-grey} !important;
+  --surface-50: #{$light-grey} !important;
+  --surface-100: #{$light-grey} !important;
+  --surface-200: #{$light-grey} !important;
+  --surface-300: #{$light-grey} !important;
+  --surface-400: #{$light-grey} !important;
+  --surface-500: #{$light-grey} !important;
+  --surface-600: #{$light-grey} !important;
+  --surface-700: #{$light-grey} !important;
+  --surface-800: #{$light-grey} !important;
+  --surface-900: #{$light-grey} !important;
 
-    // Text colors
-    --text-color: #{$dark-grey} !important;
-    --text-color-secondary: #{$normal-grey} !important;
+  // Text colors
+  --text-color: #{$dark-grey} !important;
+  --text-color-secondary: #{$normal-grey} !important;
 
-    // Primary colors
-    --primary-color: #{$blue} !important;
-    --primary-color-text: #{$light-grey} !important;
-    --secondary-color: #{$orange} !important;
+  // Primary colors
+  --primary-color: #{$blue} !important;
+  --primary-color-text: #{$light-grey} !important;
+  --secondary-color: #{$orange} !important;
 
-    // Padding, spacing, and radius
-    --content-padding: #{$panelContentPadding} !important;
-    --inline-spacing: #{$inlineSpacing} !important;
-    --border-radius: #{$borderRadius} !important;
+  // Padding, spacing, and radius
+  --content-padding: #{$panelContentPadding} !important;
+  --inline-spacing: #{$inlineSpacing} !important;
+  --border-radius: #{$borderRadius} !important;
 
-    //card
-    --card-title-fontSize: h2 !important;
-    --card-title-font-weight: h2 !important;
-    --card-subtitle-color: var(--text-color-secondary) !important;
+  //card
+  --card-title-fontSize: h2 !important;
+  --card-title-font-weight: h2 !important;
+  --card-subtitle-color: var(--text-color-secondary) !important;
 
-    // Background and overlay surfaces
-    --surface-ground: #{$light-grey} !important;
-    --surface-section: #{$light-grey} !important;
-    --surface-card: #{$light-grey} !important;
-    --surface-overlay: #{$light-grey} !important;
-    --surface-border: #{$normal-grey} !important;
-    --surface-hover: #e9ecef !important;
+  // Background and overlay surfaces
+  --surface-ground: #{$light-grey} !important;
+  --surface-section: #{$light-grey} !important;
+  --surface-card: #{$light-grey} !important;
+  --surface-overlay: #{$light-grey} !important;
+  --surface-border: #{$normal-grey} !important;
+  --surface-hover: #e9ecef !important;
 
+  // Additional styling properties
+  --maskbg: #{$maskBg} !important;
+  --highlight-bg: #{$light-grey} !important;
+  --highlight-text-color: #{$highlightTextColor} !important;
+  --focus-ring: #{$blue-20} !important;
+  --focus-shadow: lighten(#{$blue-20}, 60%) !important;
 
-    // Additional styling properties
-    --maskbg: #{$maskBg} !important;
-    --highlight-bg: #{$light-grey} !important;
-    --highlight-text-color: #{$highlightTextColor} !important;
-    --focus-ring: #{$blue-20} !important;
-    --focus-shadow: lighten(#{$blue-20}, 60%) !important;
+  //menu
 
-    //menu
-
-    color-scheme: light;
+  color-scheme: light;
 }
 
 body {
@@ -123,7 +118,14 @@ body {
 }
 //headings
 
-h1, h2, h3, h4, h5, h6, p, body {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+body {
   font-family: $font-family;
   color: $text-color;
 }
@@ -150,7 +152,9 @@ h3 {
 }
 
 .p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
-  background-color: var(--secondary-color); /* Set background color for checked state */
+  background-color: var(
+    --secondary-color
+  ); /* Set background color for checked state */
   border: none;
 }
 
@@ -160,7 +164,6 @@ h3 {
   border-color: var(--secondary-color); // Border color for checked
   color: $primaryTextColor; // Icon color inside the checked radio
 }
-
 
 /* input */
 
@@ -194,7 +197,3 @@ h3 {
   border-color: $normal-grey;
   color: $normal-grey;
 }
-
-
-
-
