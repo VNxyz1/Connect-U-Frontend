@@ -100,10 +100,11 @@ $font-family: 'Proxima Nova', sans-serif;
     // Background and overlay surfaces
     --surface-ground: #{$light-grey};
     --surface-section: #{$light-grey};
-    --surface-card: #{$white};
-    --surface-overlay: #{$white};
+    --surface-card: #{$light-grey};
+    --surface-overlay: #{$light-grey};
     --surface-border: #{$normal-grey};
     --surface-hover: #e9ecef;
+
 
     // Additional styling properties
     --maskbg: #{$maskBg};
@@ -112,9 +113,14 @@ $font-family: 'Proxima Nova', sans-serif;
     --focus-ring: #{$blue-20};
     --focus-shadow: lighten(#{$blue-20}, 60%);
 
+    //menu
+
     color-scheme: light;
 }
 
+body {
+  background: var(--surface-ground);
+}
 //headings
 
 h1, h2, h3, h4, h5, h6, p, body {
@@ -170,8 +176,24 @@ h3 {
   background-color: var(--secondary-color);
 }
 
+/* menues */
 
+// steps
+.p-steps .p-steps-item.p-highlight .p-steps-number {
+  background: $secondaryColor; //active item background
+}
 
+// tab
+
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+  border-color: $secondaryColor;
+  color: $secondaryColor;
+}
+
+.p-tabmenu:hover {
+  border-color: $normal-grey;
+  color: $normal-grey;
+}
 
 
 

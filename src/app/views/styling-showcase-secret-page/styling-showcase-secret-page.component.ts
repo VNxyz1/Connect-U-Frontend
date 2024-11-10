@@ -23,7 +23,9 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { ChipsModule } from 'primeng/chips';
 import { TagModule } from 'primeng/tag';
 import { StepsModule } from 'primeng/steps';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 @Component({
   selector: 'app-styling-showcase-secret-page',
@@ -52,10 +54,16 @@ import { MenuItem } from 'primeng/api';
     ChipsModule,
     TagModule,
     StepsModule,
+    ToastModule,
+    TabMenuModule,
   ],
   templateUrl: './styling-showcase-secret-page.component.html',
+  providers: [MessageService]
 })
 export class StylingShowcaseSecretPageComponent implements OnInit{
+
+  constructor(public messageService: MessageService) {}
+
   sliderValue: number = 50; // Slider binding example
   value: string | undefined;
 
@@ -81,28 +89,42 @@ export class StylingShowcaseSecretPageComponent implements OnInit{
     { name: 'Research', key: 'R' }
   ];
 
-  items: MenuItem[] | undefined;
+  stepsMenuItems: MenuItem[] | undefined;
+  tabMenuItems: MenuItem[] | undefined;
+
+  activeIndex: number = 0;
+
+  onActiveIndexChange(event: number) {
+    this.activeIndex = event;
+  }
 
   ngOnInit() {
     this.selectedCategory = this.categories[1];
-    this.items = [
+    this.stepsMenuItems = [
       {
         label: 'Personal',
-        routerLink: 'personal'
+        command: (event: any) => this.messageService.add({severity:'info', summary:'First Step', detail: event.item.label})
       },
       {
         label: 'Seat',
-        routerLink: 'seat'
+        command: (event: any) => this.messageService.add({severity:'info', summary:'Second Step', detail: event.item.label})
       },
       {
         label: 'Payment',
-        routerLink: 'payment'
+        command: (event: any) => this.messageService.add({severity:'info', summary:'Third Step', detail: event.item.label})
       },
       {
         label: 'Confirmation',
-        routerLink: 'confirmation'
+        command: (event: any) => this.messageService.add({severity:'info', summary:'Last Step', detail: event.item.label})
       }
     ];
+
+    this.tabMenuItems = [
+      { label: 'Dashboard', icon: 'ri-home-2-line' },
+      { label: 'Transactions', icon: 'ri-qr-scan-2-line' },
+      { label: 'Products', icon: 'ri-edit-box-line' },
+      { label: 'Messages', icon: 'pi pi-inbox' }
+    ]
   }
 
 }
