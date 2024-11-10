@@ -1,0 +1,74 @@
+<div class="w-full">
+  <p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />
+  <h2 id="login" class="w-full text-center">{{ 'LOGIN' }}</h2>
+  <form
+    (ngSubmit)="submitLogin()"
+    [formGroup]="form"
+    class="w-full"
+    aria-labelledby="loginFormTitle">
+    <div class="field w-full">
+      <label for="email" class="sr-only">E-Mail</label>
+      <input
+        id="email"
+        type="email"
+        pInputText
+        formControlName="email"
+        class="w-full"
+        placeholder="E-Mail"
+        aria-required="true"
+        [attr.aria-invalid]="
+          form.get('email')?.invalid && form.get('email')?.touched
+        " />
+      @if (form.get('email')?.invalid && form.get('email')?.touched) {
+        @if (form.get('email')?.errors?.['required']) {
+          <small class="text-red-500">E-Mail ist erforderlich.</small>
+        }
+        @if (form.get('email')?.errors?.['email']) {
+          <small class="text-red-500"
+            >Bitte eine gültige E-Mail-Adresse eingeben.</small
+          >
+        }
+      }
+    </div>
+
+    <div class="field w-full">
+      <label for="password" class="sr-only">Passwort</label>
+      <p-password
+        id="password"
+        formControlName="password"
+        class="w-full"
+        styleClass="w-full"
+        inputStyleClass="w-full"
+        [toggleMask]="true"
+        [feedback]="false"
+        placeholder="Passwort"
+        inputId="password"
+        aria-required="true"
+        [attr.aria-invalid]="
+          form.get('password')?.invalid && form.get('password')?.touched
+        " />
+      @if (form.get('password')?.invalid && form.get('password')?.touched) {
+        @if (form.get('password')?.errors?.['required']) {
+          <small class="text-red-500">Passwort ist erforderlich.</small>
+        }
+        @if (form.get('password')?.errors?.['minlength']) {
+          <small class="text-red-500"
+            >Das Passwort muss mindestens 8 Zeichen lang sein.</small
+          >
+        }
+      }
+    </div>
+
+    <button type="submit" class="sr-only" [disabled]="form.invalid">
+      {{ 'Einloggen' }}
+    </button>
+  </form>
+  <div class="flex justify-content-center">
+    <span>
+      {{ 'Noch kein Account?' }}
+      <a [routerLink]="['/register']" class="text-primary no-underline">{{
+        'Hier registrieren!'
+      }}</a></span
+    >
+  </div>
+</div>
