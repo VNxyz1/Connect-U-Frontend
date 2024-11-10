@@ -60,58 +60,58 @@ $font-family: 'Proxima Nova', sans-serif;
     --font-family: #{$font-family};
 
     // Surface colors
-    --surface-a: #{$light-grey};
-    --surface-b: #{$light-grey};
-    --surface-c: #{$light-grey};
-    --surface-d: #{$light-grey};
-    --surface-e: #{$light-grey};
-    --surface-f: #{$light-grey};
-    --surface-0: #{$light-grey};
-    --surface-50: #{$light-grey};
-    --surface-100: #{$light-grey};
-    --surface-200: #{$light-grey};
-    --surface-300: #{$light-grey};
-    --surface-400: #{$light-grey};
-    --surface-500: #{$light-grey};
-    --surface-600: #{$light-grey};
-    --surface-700: #{$light-grey};
-    --surface-800: #{$light-grey};
-    --surface-900: #{$light-grey};
+    --surface-a: #{$light-grey} !important;
+    --surface-b: #{$light-grey} !important;
+    --surface-c: #{$light-grey} !important;
+    --surface-d: #{$light-grey} !important;
+    --surface-e: #{$light-grey} !important;
+    --surface-f: #{$light-grey} !important;
+    --surface-0: #{$light-grey} !important;
+    --surface-50: #{$light-grey} !important;
+    --surface-100: #{$light-grey} !important;
+    --surface-200: #{$light-grey} !important;
+    --surface-300: #{$light-grey} !important;
+    --surface-400: #{$light-grey} !important;
+    --surface-500: #{$light-grey} !important;
+    --surface-600: #{$light-grey} !important;
+    --surface-700: #{$light-grey} !important;
+    --surface-800: #{$light-grey} !important;
+    --surface-900: #{$light-grey} !important;
 
     // Text colors
-    --text-color: #{$dark-grey};
-    --text-color-secondary: #{$normal-grey};
+    --text-color: #{$dark-grey} !important;
+    --text-color-secondary: #{$normal-grey} !important;
 
     // Primary colors
-    --primary-color: #{$blue};
-    --primary-color-text: #{$light-grey};
-    --secondary-color: #{$orange};
+    --primary-color: #{$blue} !important;
+    --primary-color-text: #{$light-grey} !important;
+    --secondary-color: #{$orange} !important;
 
     // Padding, spacing, and radius
-    --content-padding: #{$panelContentPadding};
-    --inline-spacing: #{$inlineSpacing};
-    --border-radius: #{$borderRadius};
+    --content-padding: #{$panelContentPadding} !important;
+    --inline-spacing: #{$inlineSpacing} !important;
+    --border-radius: #{$borderRadius} !important;
 
     //card
-    --card-title-fontSize: h2;
-    --card-title-font-weight: h2;
-    --card-subtitle-color: var(--text-color-secondary);
+    --card-title-fontSize: h2 !important;
+    --card-title-font-weight: h2 !important;
+    --card-subtitle-color: var(--text-color-secondary) !important;
 
     // Background and overlay surfaces
-    --surface-ground: #{$light-grey};
-    --surface-section: #{$light-grey};
-    --surface-card: #{$light-grey};
-    --surface-overlay: #{$light-grey};
-    --surface-border: #{$normal-grey};
-    --surface-hover: #e9ecef;
+    --surface-ground: #{$light-grey} !important;
+    --surface-section: #{$light-grey} !important;
+    --surface-card: #{$light-grey} !important;
+    --surface-overlay: #{$light-grey} !important;
+    --surface-border: #{$normal-grey} !important;
+    --surface-hover: #e9ecef !important;
 
 
     // Additional styling properties
-    --maskbg: #{$maskBg};
-    --highlight-bg: #{$light-grey};
-    --highlight-text-color: #{$highlightTextColor};
-    --focus-ring: #{$blue-20};
-    --focus-shadow: lighten(#{$blue-20}, 60%);
+    --maskbg: #{$maskBg} !important;
+    --highlight-bg: #{$light-grey} !important;
+    --highlight-text-color: #{$highlightTextColor} !important;
+    --focus-ring: #{$blue-20} !important;
+    --focus-shadow: lighten(#{$blue-20}, 60%) !important;
 
     //menu
 
