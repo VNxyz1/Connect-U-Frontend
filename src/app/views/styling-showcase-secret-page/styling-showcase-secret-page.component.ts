@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // PrimeNG Modules
@@ -26,6 +26,7 @@ import { StepsModule } from 'primeng/steps';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { ImageModule } from 'primeng/image';
 
 @Component({
   selector: 'app-styling-showcase-secret-page',
@@ -56,6 +57,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
     StepsModule,
     ToastModule,
     TabMenuModule,
+    ImageModule,
+    NgOptimizedImage,
   ],
   templateUrl: './styling-showcase-secret-page.component.html',
   providers: [MessageService]
