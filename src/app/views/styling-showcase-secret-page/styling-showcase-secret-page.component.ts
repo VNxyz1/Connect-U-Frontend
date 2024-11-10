@@ -13,7 +13,6 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { SliderModule } from 'primeng/slider';
 import { TableModule } from 'primeng/table';
-import { MessageModule } from 'primeng/message';
 import { PasswordModule } from 'primeng/password';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -23,7 +22,7 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { ChipsModule } from 'primeng/chips';
 import { TagModule } from 'primeng/tag';
 import { StepsModule } from 'primeng/steps';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { ImageModule } from 'primeng/image';
@@ -45,7 +44,6 @@ import { ImageModule } from 'primeng/image';
     ToggleButtonModule,
     SliderModule,
     TableModule,
-    MessageModule,
     PasswordModule,
     InputTextareaModule,
     FloatLabelModule,
@@ -101,16 +99,16 @@ export class StylingShowcaseSecretPageComponent implements OnInit {
     this.selectedCategory = this.categories[1];
     this.stepsMenuItems = [
       {
-        label: 'Personal',
+        label: 'Personal'
       },
       {
-        label: 'Seat',
+        label: 'Seat'
       },
       {
-        label: 'Payment',
+        label: 'Payment'
       },
       {
-        label: 'Confirmation',
+        label: 'Confirmation'
       },
     ];
 
