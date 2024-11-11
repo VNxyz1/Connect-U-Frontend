@@ -8,7 +8,9 @@ import { EventDetailPageComponent } from './views/event-detail-page/event-detail
 import { NotFoundPageComponent } from './views/not-found-page/not-found-page.component';
 import { ProfilePageComponent } from './views/profile-page/profile-page.component';
 import { LandingPageComponent } from './views/landing-page/landing-page.component';
+import { StylingShowcaseSecretPageComponent } from './views/styling-showcase-secret-page/styling-showcase-secret-page.component';
 import { isLoggedInGuard } from './utils/guards/is-logged-in.guard';
+import { RegisterPageComponent } from './views/register-page/register-page.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -20,6 +22,11 @@ export const routes: Routes = [
     path: 'welcome',
     title: 'Welcome | Connect-U',
     component: LandingPageComponent,
+  },
+  {
+    path: 'register',
+    title: 'Register | Connect-U',
+    component: RegisterPageComponent,
   },
   {
     path: 'search',
@@ -53,6 +60,11 @@ export const routes: Routes = [
     path: 'profile/:id',
     title: 'Profile | Connect-U',
     component: ProfilePageComponent,
+  },
+  {
+    path: 'styling',
+    title: 'Styling | Connect-U',
+    component: StylingShowcaseSecretPageComponent,
   },
 
   {
