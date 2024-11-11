@@ -26,6 +26,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { ImageModule } from 'primeng/image';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
 
 @Component({
   selector: 'app-styling-showcase-secret-page',
@@ -57,6 +58,7 @@ import { ImageModule } from 'primeng/image';
     TabMenuModule,
     ImageModule,
     NgOptimizedImage,
+    AngularRemixIconComponent,
   ],
   templateUrl: './styling-showcase-secret-page.component.html',
   providers: [MessageService],
