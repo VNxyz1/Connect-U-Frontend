@@ -15,6 +15,24 @@ import {
 import { apiInterceptor } from './utils/interceptors/api.interceptor';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { jwtInterceptor } from './utils/interceptors/jwt.interceptor';
+import {
+  provideRemixIcon,
+  RiBookmarkLine,
+  RiCheckLine,
+  RiHeart3Line,
+  RiHome2Line,
+  RiSearchLine,
+  RiUser3Line,
+} from 'angular-remix-icon';
+
+const icons = {
+  RiHome2Line,
+  RiCheckLine,
+  RiBookmarkLine,
+  RiSearchLine,
+  RiUser3Line,
+  RiHeart3Line,
+};
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,5 +48,6 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([apiInterceptor, jwtInterceptor]),
     ),
     provideAnimationsAsync(),
+    provideRemixIcon(icons),
   ],
 };
