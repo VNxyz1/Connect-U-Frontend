@@ -32,7 +32,7 @@ export class Step3Component implements OnInit {
   participantsNumber: number | undefined;
   participants: string[] | undefined;
   selectedParticipants: string[] | undefined;
-  genders: { id: number; name: string }[] = [];
+  genders: { id: number; gender: number }[] = [];
   preferredGenders: number[] | undefined;
   ageValues: number[] = [16, 99];
   private unsubscribe$ = new Subject<void>();
@@ -58,6 +58,11 @@ export class Step3Component implements OnInit {
         next: (data) => (this.genders = data),
         error: (error) => console.error('Error loading genders:', error),
       });
+  }
+
+  protected onAgeChange(index: number, value: string | number) {
+    // Parse the input to an integer if it's a number, otherwise leave it as 'none' to set 99
+    this.ageValues[index] = value === 'none' ? 99 : Number(value);
   }
 
   complete() {

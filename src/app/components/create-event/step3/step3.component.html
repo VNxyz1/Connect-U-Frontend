@@ -1,5 +1,5 @@
 <div class="content pFocusTrap mt-5">
-  <div class="p-fluid">
+  <div class="p-fluid justify-content-center">
     <div class="field">
       <p-floatLabel class="mb-4">
         <input id="participantsNumber" type="number" pInputText [(ngModel)]="participantsNumber" />
@@ -34,39 +34,62 @@
         <label for="genders">Preferred Genders</label>
       </p-floatLabel>
     </div>
-    <div class="field">
-      <p-slider [(ngModel)]="ageValues" [range]="true" styleClass="w-14rem"></p-slider>
+
+    <h2>Age</h2>
+
+    <div class="field justify-content-center w-full text-center">
+      <p-slider [(ngModel)]="ageValues" min="16" max="99" [range]="true" styleClass="centered-slider"></p-slider>
+      <div class="flex align-items-center justify-content-between mt-4 slider-input-container">
+        <!-- Minimum Age Input -->
+        <input
+          type="text"
+          pInputText
+          [ngModel]="ageValues[0]"
+          (ngModelChange)="onAgeChange(0, $event)"
+          class="slider-input"
+        />
+        <!-- Maximum Age Input with "none" display for 99 -->
+        <input
+          type="text"
+          pInputText
+          [ngModel]="ageValues[1] === 99 ? 'none' : ageValues[1]"
+          (ngModelChange)="onAgeChange(1, $event === 'none' ? 99 : $event)"
+          class="slider-input"
+        />
+      </div>
     </div>
   </div>
 
   <!-- Footer Section -->
-  <div class="grid grid-nogutter justify-content-between mt-4">
-    <p-button
-      [raised]="true"
-      label="Back"
-      class="align-items-center"
-      (onClick)="prevPage()">
-      <ng-template pTemplate="icon">
-        <rmx-icon
-          class="mr-2"
-          style="width: 16px; height: 16px"
-          name="arrow-left-circle-line">
-        </rmx-icon>
-      </ng-template>
-    </p-button>
-    <p-button
-      [raised]="true"
-      severity="success"
-      label="Finish"
-      class="align-items-center"
-      (onClick)="complete()">
-      <ng-template pTemplate="icon">
-        <rmx-icon
-          class="mr-2"
-          style="width: 16px; height: 16px"
-          name="check-line">
-        </rmx-icon>
-      </ng-template>
-    </p-button>
+  <div class="content fixed-bottom-responsive-container">
+    <div class="content button-wrapper p-grid p-nogutter">
+      <p-button
+        [raised]="true"
+        label="Back"
+        class="align-items-center"
+        (onClick)="prevPage()">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            class="mr-2"
+            style="width: 16px; height: 16px"
+            name="arrow-left-circle-line">
+          </rmx-icon>
+        </ng-template>
+      </p-button>
+      <p-button
+        [raised]="true"
+        severity="success"
+        label="Finish"
+        class="align-items-center"
+        (onClick)="complete()">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            class="mr-2"
+            style="width: 16px; height: 16px"
+            name="check-line">
+          </rmx-icon>
+        </ng-template>
+      </p-button>
+    </div>
   </div>
 </div>

@@ -22,7 +22,7 @@ type EventData = {
 };
 
 type Category = { id: number; name: string };
-type Gender = { id: number; name: string };
+type Gender = { id: number; gender: number };
 
 @Injectable({
   providedIn: 'root',
@@ -87,10 +87,20 @@ export class EventService {
   sendEventToServer(): Observable<EventData> {
     const url = 'event';
 
-    // Since categories and preferredGenders are already arrays of numbers, no transformation is needed
-    console.log("Sending data:", JSON.stringify(this._eventInformation, null, 2));
+    // Transform _eventInformation to include only the category and gender IDs
+    const payload: EventData = {
+      ...this._eventInformation,
+      categories: this._eventInformation.categories.map((category: any) =>
+        typeof category === 'object' && 'id' in category ? category.id : category
+      ),
+      preferredGenders: this._eventInformation.preferredGenders.map((gender: any) =>
+        typeof gender === 'object' && 'id' in gender ? gender.id : gender
+      )
+    };
 
-    return this.http.post<EventData>(url, this._eventInformation).pipe(
+    console.log("Sending transformed data:", JSON.stringify(payload, null, 2));
+
+    return this.http.post<EventData>(url, payload).pipe(
       map(response => {
         this.eventComplete.next(response);
         return response;

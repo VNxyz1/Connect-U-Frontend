@@ -1,4 +1,4 @@
-<div class="content  pFocusTrap mt-5">
+<div class="content pFocusTrap mt-5">
   <div class="p-grid p-fluid column-gap-3">
     <div class="p-col-12 p-md-6 field flex flex-wrap gap-3 lg:gap-8 align-items-center justify-content-center">
       <div class="flex align-items-center">
@@ -72,16 +72,16 @@
           rows="5"
           cols="30"
           pInputTextarea
-          [(ngModel)]="description">
+          [(ngModel)]="description"
+          class="vertical-resize-only">
         </textarea>
         <label for="description">Description</label>
       </p-floatLabel>
     </div>
-
   </div>
 
-  <div class="grid grid-nogutter justify-content-end mt-4">
-    <div class="p-col-auto">
+  <div class="grid grid-nogutter justify-content-end mt-4 mb-4 md:mb-0">
+    <div class="p-col-12 md:p-col-auto fixed-bottom-responsive-container justify-content-end">
       <p-button
         [raised]="true"
         severity="secondary"

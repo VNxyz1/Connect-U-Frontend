@@ -89,38 +89,42 @@
         If selected, only Area Code and City are published.
       </small>
     </div>
+
   </div>
 
   <!-- Navigation Buttons -->
-  <div class="grid grid-nogutter justify-content-between mt-4">
-    <div class="p-col-auto">
-      <p-button
-        [raised]="true"
-        label="Back"
-        (onClick)="prevPage()">
-        <ng-template pTemplate="icon">
-          <rmx-icon
-            class="mr-2"
-            style="width: 16px; height: 16px"
-            name="arrow-left-circle-line">
-          </rmx-icon>
-        </ng-template>
-      </p-button>
-    </div>
-    <div class="p-col-auto">
-      <p-button
-        [raised]="true"
-        severity="secondary"
-        label="Continue"
-        (onClick)="nextPage()">
-        <ng-template pTemplate="icon">
-          <rmx-icon
-            class="mr-2"
-            style="width: 16px; height: 16px"
-            name="arrow-right-circle-line">
-          </rmx-icon>
-        </ng-template>
-      </p-button>
+  <div class="content fixed-bottom-responsive-container">
+    <div class="content button-wrapper p-grid p-nogutter">
+      <div class="p-col-6 p-md-3">
+        <p-button
+          [raised]="true"
+          label="Back"
+          (onClick)="prevPage()">
+          <ng-template pTemplate="icon">
+            <rmx-icon
+              class="mr-2"
+              style="width: 16px; height: 16px"
+              name="arrow-left-circle-line">
+            </rmx-icon>
+          </ng-template>
+        </p-button>
+      </div>
+      <div class="p-col-6 p-md-3">
+        <p-button
+          [raised]="true"
+          severity="secondary"
+          label="Continue"
+          (onClick)="nextPage()">
+          <ng-template pTemplate="icon">
+            <rmx-icon
+              class="mr-2"
+              style="width: 16px; height: 16px"
+              name="arrow-right-circle-line">
+            </rmx-icon>
+          </ng-template>
+        </p-button>
+      </div>
     </div>
   </div>
+
 </div>
