@@ -1,0 +1,62 @@
+<div class="pFocusTrap mt-8">
+  <div class="p-fluid">
+    <div class="field">
+      <p-floatLabel class="mb-4">
+        <input id="participantsNumber" type="number" pInputText [(ngModel)]="participantsNumber" />
+        <label for="participantsNumber">Participants Number</label>
+      </p-floatLabel>
+    </div>
+    <div class="field">
+      <p-dropdown
+        [options]="participantsOptions"
+        [(ngModel)]="selectedParticipants"
+        placeholder="Add participants"
+        [editable]="true"
+        optionLabel="name">
+      </p-dropdown>
+    </div>
+    <div class="field">
+      <p-dropdown
+        [options]="genderOptions"
+        [(ngModel)]="selectedGenders"
+        placeholder="Desired genders"
+        [editable]="true"
+        optionLabel="name">
+      </p-dropdown>
+    </div>
+    <div class="field">
+      <p-slider [(ngModel)]="ageValues" [range]="true" styleClass="w-14rem"></p-slider>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <div class="grid grid-nogutter justify-content-between mt-4">
+    <p-button
+      [raised]="true"
+      label="Back"
+      class="align-items-center"
+      (onClick)="prevPage()">
+      <ng-template pTemplate="icon">
+        <rmx-icon
+          class="mr-2"
+          style="width: 16px; height: 16px"
+          name="arrow-left-circle-line">
+        </rmx-icon>
+      </ng-template>
+    </p-button>
+    <p-button
+      [raised]="true"
+      severity="success"
+      label="Finish"
+      class="align-items-center"
+      (onClick)="complete()">
+      <ng-template pTemplate="icon">
+        <rmx-icon
+          class="mr-2"
+          style="width: 16px; height: 16px"
+          name="check-line">
+        </rmx-icon>
+      </ng-template>
+    </p-button>
+  </div>
+</div>

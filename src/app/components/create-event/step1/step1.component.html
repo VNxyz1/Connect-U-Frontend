@@ -1,0 +1,57 @@
+<div class="content mt-4">
+  <div class="p-grid p-fluid column-gap-3">
+    <div class="p-col-12 p-md-6 field">
+      <p-floatLabel>
+        <input
+          id="event-title"
+          type="text"
+          required
+          pInputText
+          [(ngModel)]="eventTitle" />
+        <label for="event-title">Title</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="p-col-12 p-md-6 field">
+      <p-dropdown
+        [options]="categories"
+        [(ngModel)]="selectedCategories"
+        placeholder="Select a Category"
+        [editable]="true"
+        optionLabel="name">
+      </p-dropdown>
+    </div>
+
+    <div class="p-col-12 field">
+      <p-floatLabel>
+        <textarea
+          id="description"
+          rows="5"
+          cols="30"
+          pInputTextarea
+          [(ngModel)]="description">
+        </textarea>
+        <label for="description">Description</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="p-justify-end justify-content-end">
+      <p-button
+        [raised]="true"
+        severity="secondary"
+        label="Continue"
+        class=""
+        (onClick)="nextPage()">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            class="mr-2"
+            style="width: 16px; height: 16px"
+            name="arrow-right-circle-line">
+          </rmx-icon>
+        </ng-template>
+      </p-button>
+    </div>
+
+  </div>
+
+</div>
