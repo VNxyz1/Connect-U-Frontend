@@ -1,4 +1,4 @@
-<div class="pFocusTrap mt-8">
+<div class="content pFocusTrap mt-5">
   <div class="p-fluid">
     <div class="field">
       <p-floatLabel class="mb-4">
@@ -7,22 +7,32 @@
       </p-floatLabel>
     </div>
     <div class="field">
-      <p-dropdown
-        [options]="participantsOptions"
-        [(ngModel)]="selectedParticipants"
-        placeholder="Add participants"
-        [editable]="true"
-        optionLabel="name">
-      </p-dropdown>
+      <p-floatLabel>
+        <p-multiSelect
+          id="participants"
+          [options]="participants"
+          [(ngModel)]="selectedParticipants"
+          optionLabel="name"
+          display="chip"
+          [showClear]="true"
+          styleClass="capitalize">
+        </p-multiSelect>
+        <label for="participants">Selected Participants</label>
+      </p-floatLabel>
     </div>
     <div class="field">
-      <p-dropdown
-        [options]="genderOptions"
-        [(ngModel)]="selectedGenders"
-        placeholder="Desired genders"
-        [editable]="true"
-        optionLabel="name">
-      </p-dropdown>
+      <p-floatLabel>
+        <p-multiSelect
+          id="genders"
+          [options]="genders"
+          [(ngModel)]="preferredGenders"
+          optionLabel="name"
+          display="chip"
+          [showClear]="true"
+          styleClass="capitalize">
+        </p-multiSelect>
+        <label for="genders">Preferred Genders</label>
+      </p-floatLabel>
     </div>
     <div class="field">
       <p-slider [(ngModel)]="ageValues" [range]="true" styleClass="w-14rem"></p-slider>

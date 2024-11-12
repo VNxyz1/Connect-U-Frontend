@@ -7,7 +7,7 @@
   </ng-template>
 </p-confirmDialog>
 
-<div class="content">
+<div class="content pFocusTrap mt-5">
   <div class="p-fluid">
     <div class="field">
       <p-floatLabel>
@@ -36,25 +36,25 @@
     <div class="field">
       <p-checkbox
         name="online"
-        value="true"
         label="Online-Event"
         [(ngModel)]="online"
         [binary]="true"
         id="online-true"
-        variant="filled" />
+        variant="filled">
+      </p-checkbox>
     </div>
 
     <div class="p-grid">
       <div class="p-col-12 p-md-6 field">
         <p-floatLabel>
-          <input pInputText id="street" [(ngModel)]="street" />
+          <input pInputText id="street" [(ngModel)]="street" [disabled]="online" />
           <label for="street">Street</label>
         </p-floatLabel>
       </div>
       <div class="p-col-12 p-md-6 field">
         <p-floatLabel>
-          <input pInputText id="hnr" [(ngModel)]="hnr" />
-          <label for="hnr">HNr</label>
+          <input pInputText id="streetNumber" [(ngModel)]="streetNumber" [disabled]="online" />
+          <label for="streetNumber">Street Number</label>
         </p-floatLabel>
       </div>
     </div>
@@ -62,19 +62,19 @@
     <div class="p-grid">
       <div class="p-col-12 p-md-6 field">
         <p-floatLabel>
-          <input pInputText id="zipCode" [(ngModel)]="zipCode" />
+          <input pInputText id="zipCode" [(ngModel)]="zipCode" [disabled]="online" />
           <label for="zipCode">ZIP Code</label>
         </p-floatLabel>
       </div>
       <div class="p-col-12 p-md-6 field">
         <p-floatLabel>
-          <input pInputText id="city" [(ngModel)]="city" />
+          <input pInputText id="city" [(ngModel)]="city" [disabled]="online" />
           <label for="city">City</label>
         </p-floatLabel>
       </div>
     </div>
 
-    <div class="field">
+    <div class="field" [hidden]="online">
       <p-checkbox
         name="hideAddress"
         value="true"
@@ -83,7 +83,8 @@
         [(ngModel)]="hideAddress"
         [binary]="true"
         id="hideAddress-true"
-        variant="filled" />
+        variant="filled">
+      </p-checkbox>
       <small id="hideAddress-help">
         If selected, only Area Code and City are published.
       </small>
@@ -91,7 +92,7 @@
   </div>
 
   <!-- Navigation Buttons -->
-  <div class="p-grid p-justify-between mt-3">
+  <div class="grid grid-nogutter justify-content-between mt-4">
     <div class="p-col-auto">
       <p-button
         [raised]="true"

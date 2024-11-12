@@ -10,6 +10,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Subject, filter, takeUntil } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
   selector: 'app-step1',
@@ -22,11 +23,12 @@ import { MessageService } from 'primeng/api';
     InputTextareaModule,
     MultiSelectModule,
     FormsModule,
+    RadioButtonModule,
   ],
-  providers: [EventService],
   templateUrl: './step1.component.html',
 })
 export class Step1Component implements OnInit, OnDestroy {
+  eventType: number | undefined;
   eventTitle: string | undefined;
   description: string | undefined;
   categories: { id: number; name: string }[] = [];
@@ -67,9 +69,8 @@ export class Step1Component implements OnInit, OnDestroy {
 
   private insertValuesAgain() {
     // Load existing form data from EventService
-    console.log("1");
     const savedData = this.eventService.getEventInformation();
-    console.log('Restoring savedData:', savedData);
+    this.eventType = savedData.type || 0;
     this.eventTitle = savedData.title || '';
     this.description = savedData.description || '';
     this.selectedCategories = savedData.categories || [];
@@ -78,7 +79,7 @@ export class Step1Component implements OnInit, OnDestroy {
     this.cdr.detectChanges();
   }
 
-  onCategoryChange(event: any) {
+  onCategoryChange() {
     if (this.selectedCategories.length > 3) {
       this.selectedCategories.pop(); // Remove last category if limit exceeded
       this.messageService.add({
@@ -93,13 +94,20 @@ export class Step1Component implements OnInit, OnDestroy {
   nextPage() {
     // Save data to the service before navigating
     this.eventService.setEventInformation({
+      type: this.eventType,
       title: this.eventTitle,
       categories: this.selectedCategories,
       description: this.description
     });
 
     // Navigate to the next step
-    this.router.navigate(['../step2'], { relativeTo: this.route });
+    this.router.navigate(['../step2'], { relativeTo: this.route })
+      .then(() => {
+        // Navigation successful
+      })
+      .catch(err => {
+        console.error('Navigation error:', err);
+      });
   }
 
   ngOnDestroy() {

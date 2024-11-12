@@ -1,5 +1,41 @@
-<div class="content mt-4">
+<div class="content  pFocusTrap mt-5">
   <div class="p-grid p-fluid column-gap-3">
+    <div class="p-col-12 p-md-6 field flex flex-wrap gap-3 lg:gap-8 align-items-center justify-content-center">
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="event-type"
+          value="0"
+          [(ngModel)]="eventType"
+          id="type-0"
+          variant="filled" />
+        <label for="type-0" class="ml-2">
+          Public
+        </label>
+      </div>
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="event-type"
+          value="1"
+          [(ngModel)]="eventType"
+          id="type-1"
+          variant="filled" />
+        <label for="type-1" class="ml-2">
+          Semi-Public
+        </label>
+      </div>
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="event-type"
+          value="2"
+          [(ngModel)]="eventType"
+          id="type-2"
+          variant="filled" />
+        <label for="type-2" class="ml-2">
+          Private
+        </label>
+      </div>
+    </div>
+
     <div class="p-col-12 p-md-6 field">
       <p-floatLabel>
         <input
@@ -21,7 +57,8 @@
           optionLabel="name"
           display="chip"
           [showClear]="true"
-          (onChange)="onCategoryChange($event)"
+          [showToggleAll]="false"
+          (onChange)="onCategoryChange()"
           styleClass="capitalize">
         </p-multiSelect>
         <label for="categories">Select Categories</label>
@@ -41,7 +78,10 @@
       </p-floatLabel>
     </div>
 
-    <div class="p-justify-end justify-content-end">
+  </div>
+
+  <div class="grid grid-nogutter justify-content-end mt-4">
+    <div class="p-col-auto">
       <p-button
         [raised]="true"
         severity="secondary"

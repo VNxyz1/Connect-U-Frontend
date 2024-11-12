@@ -28,17 +28,17 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     CheckboxModule,
     ConfirmDialogModule,
   ],
-  providers: [EventService, ConfirmationService],
+  providers: [ConfirmationService],
   templateUrl: './step2.component.html',
 })
 export class Step2Component implements OnInit {
   dateAndTime: Date | undefined;
-  online: boolean | undefined = false;
+  online: boolean = false;
   street: string | undefined;
-  hnr: string | undefined;
+  streetNumber: string | undefined;
   zipCode: string | undefined;
   city: string | undefined;
-  hideAddress: boolean | undefined;
+  hideAddress: string | boolean = true;
   minDate: Date;
 
   constructor(
@@ -56,7 +56,7 @@ export class Step2Component implements OnInit {
     this.dateAndTime = step2Data.dateAndTime ? new Date(step2Data.dateAndTime) : this.minDate;
     this.online = step2Data.isOnline;
     this.street = step2Data.street;
-    this.hnr = step2Data.streetNumber;
+    this.streetNumber = step2Data.streetNumber;
     this.zipCode = step2Data.zipCode;
     this.city = step2Data.city;
     this.hideAddress = !step2Data.showAddress;
@@ -81,20 +81,37 @@ export class Step2Component implements OnInit {
     }
   }
 
-  proceedToNextPage() {
+  private proceedToNextPage() {
+    this.sendEventInformation();
+    this.router.navigate(['../step3'], { relativeTo: this.route })
+      .then(() => {
+        // Navigation successful
+      })
+      .catch(err => {
+        console.error('Navigation error:', err);
+      });
+  }
+
+  prevPage() {
+    this.sendEventInformation();
+    this.router.navigate(['../step1'], { relativeTo: this.route })
+      .then(() => {
+        // Navigation successful
+      })
+      .catch(err => {
+        console.error('Navigation error:', err);
+      });
+  }
+
+  private sendEventInformation() {
     this.eventService.setEventInformation({
       dateAndTime: this.dateAndTime?.toISOString(),
       isOnline: this.online,
       street: this.online ? undefined : this.street,
-      streetNumber: this.online ? undefined : this.hnr,
+      streetNumber: this.online ? undefined : this.streetNumber,
       zipCode: this.online ? undefined : this.zipCode,
       city: this.online ? undefined : this.city,
       showAddress: !this.hideAddress,
     });
-    this.router.navigate(['../step3'], { relativeTo: this.route });
-  }
-
-  prevPage() {
-    this.router.navigate(['../step1'], { relativeTo: this.route });
   }
 }

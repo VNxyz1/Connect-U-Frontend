@@ -22,13 +22,13 @@ type EventData = {
 };
 
 type Category = { id: number; name: string };
+type Gender = { id: number; name: string };
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventService {
-  private static instanceCounter = 0; // Static counter to track instances
-  private instanceId: number;
+
   private _eventInformation: EventData = {
     categories: [],
     dateAndTime: '',
@@ -44,21 +44,23 @@ export class EventService {
     participantsNumber: 0,
     preferredGenders: [],
     startAge: 0,
-    endAge: 0,
+    endAge: 0
   };
 
   constructor(private http: HttpClient) {
-    this.instanceId = EventService.instanceCounter++;
-    console.log(`EventService instance created with ID: ${this.instanceId}`);
   }
 
 
-  private eventComplete = new Subject<EventData>();
+  private readonly eventComplete = new Subject<EventData>();
   eventComplete$ = this.eventComplete.asObservable();
 
 
   getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>('category/all');
+  }
+
+  getGenders(): Observable<Gender[]> {
+    return this.http.get<Gender[]>('gender/all');
   }
 
   setEventInformation(data: Partial<EventData>): void {
@@ -83,7 +85,11 @@ export class EventService {
   }
 
   sendEventToServer(): Observable<EventData> {
-    const url = '/event';
+    const url = 'event';
+
+    // Since categories and preferredGenders are already arrays of numbers, no transformation is needed
+    console.log("Sending data:", JSON.stringify(this._eventInformation, null, 2));
+
     return this.http.post<EventData>(url, this._eventInformation).pipe(
       map(response => {
         this.eventComplete.next(response);
