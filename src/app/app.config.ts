@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection, isDevMode } from '@angular/core';
 import {
   provideRouter,
   withComponentInputBinding,
@@ -24,6 +24,8 @@ import {
   RiSearchLine,
   RiUser3Line,
 } from 'angular-remix-icon';
+import { TranslocoHttpLoader } from './transloco-loader';
+import { provideTransloco } from '@jsverse/transloco';
 
 const icons = {
   RiHome2Line,
@@ -48,6 +50,15 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([apiInterceptor, jwtInterceptor]),
     ),
     provideAnimationsAsync(),
-    provideRemixIcon(icons),
+    provideRemixIcon(icons), provideHttpClient(), provideTransloco({
+        config: {
+          availableLangs: ['en', 'de'],
+          defaultLang: 'de',
+          // Remove this option if your application doesn't support changing language in runtime.
+          reRenderOnLangChange: true,
+          prodMode: !isDevMode(),
+        },
+        loader: TranslocoHttpLoader
+      }),
   ],
 };

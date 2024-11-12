@@ -1,6 +1,6 @@
 <div class="w-full">
   <p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />
-  <h2 id="login" class="w-full text-center">{{ 'LOGIN' }}</h2>
+  <h2 id="login" class="w-full text-center">{{ 'loginComponent.title' | transloco }}</h2>
   <form
     (ngSubmit)="submitLogin()"
     [formGroup]="form"
@@ -65,9 +65,9 @@
   </form>
   <div class="flex justify-content-center">
     <span>
-      {{ 'Noch kein Account?' }}
+      {{ 'loginComponent.noAccountYet' | transloco }}
       <a [routerLink]="['/register']" class="text-primary no-underline">{{
-        'Hier registrieren!'
+        'loginComponent.registerLink' | transloco
       }}</a></span
     >
   </div>

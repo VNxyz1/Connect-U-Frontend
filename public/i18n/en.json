@@ -1,0 +1,7 @@
+{
+  "loginComponent": {
+    "title": "LOGIN",
+    "noAccountYet": "No account yet?",
+    "registerLink": "Register here!"
+  }
+}
