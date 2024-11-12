@@ -16,12 +16,12 @@ import { apiInterceptor } from './utils/interceptors/api.interceptor';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { jwtInterceptor } from './utils/interceptors/jwt.interceptor';
 import {
-  provideRemixIcon,
+  provideRemixIcon, RiAddLine,
   RiBookmarkLine,
-  RiCheckLine,
-  RiHeart3Line,
-  RiHome2Line,
-  RiSearchLine,
+  RiCheckLine, RiFunctionFill, RiFunctionLine,
+  RiHeart3Line, RiHome2Fill,
+  RiHome2Line, RiLayoutGridFill, RiSearchFill,
+  RiSearchLine, RiUser3Fill,
   RiUser3Line,
 } from 'angular-remix-icon';
 
@@ -32,6 +32,13 @@ const icons = {
   RiSearchLine,
   RiUser3Line,
   RiHeart3Line,
+  RiAddLine,
+  RiLayoutGridFill,
+  RiHome2Fill,
+  RiFunctionLine,
+  RiUser3Fill,
+  RiFunctionFill,
+  RiSearchFill
 };
 
 export const appConfig: ApplicationConfig = {
