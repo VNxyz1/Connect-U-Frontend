@@ -13,13 +13,19 @@
     </div>
 
     <div class="p-col-12 p-md-6 field">
-      <p-dropdown
-        [options]="categories"
-        [(ngModel)]="selectedCategories"
-        placeholder="Select a Category"
-        [editable]="true"
-        optionLabel="name">
-      </p-dropdown>
+      <p-floatLabel>
+        <p-multiSelect
+          id="categories"
+          [options]="categories"
+          [(ngModel)]="selectedCategories"
+          optionLabel="name"
+          display="chip"
+          [showClear]="true"
+          (onChange)="onCategoryChange($event)"
+          styleClass="capitalize">
+        </p-multiSelect>
+        <label for="categories">Select Categories</label>
+      </p-floatLabel>
     </div>
 
     <div class="p-col-12 field">
@@ -40,7 +46,6 @@
         [raised]="true"
         severity="secondary"
         label="Continue"
-        class=""
         (onClick)="nextPage()">
         <ng-template pTemplate="icon">
           <rmx-icon
@@ -51,7 +56,5 @@
         </ng-template>
       </p-button>
     </div>
-
   </div>
-
 </div>

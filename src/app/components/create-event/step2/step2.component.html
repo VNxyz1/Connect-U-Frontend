@@ -1,83 +1,87 @@
+<p-confirmDialog>
+  <ng-template pTemplate="message" let-message>
+    <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border">
+      <i class="ri-alert-line text-6xl text-primary-500"></i>
+      <p>{{ message.message }}</p>
+    </div>
+  </ng-template>
+</p-confirmDialog>
+
 <div class="content">
   <div class="p-fluid">
     <div class="field">
       <p-floatLabel>
         <p-calendar
-          [(ngModel)]="date"
+          [(ngModel)]="dateAndTime"
+          [showTime]="true"
+          [hourFormat]="'24'"
           [showIcon]="true"
-          [showOnFocus]="false"
+          [showOnFocus]="true"
+          [minDate]="minDate"
           id="date">
           <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
             <rmx-icon
               style="width: 16px; height: 16px"
-              name="calendar-line" (click)="clickCallBack($event)">
+              name="calendar-line"
+              (click)="clickCallBack($event)">
             </rmx-icon>
           </ng-template>
         </p-calendar>
-        <label for="date">Date</label>
-      </p-floatLabel>
-    </div>
-
-    <div class="field">
-      <p-floatLabel>
-        <p-calendar
-          [(ngModel)]="time"
-          [iconDisplay]="'input'"
-          [showIcon]="true"
-          [timeOnly]="true"
-          id="time">
-          <ng-template pTemplate="time" let-clickCallBack="clickCallBack">
-            <rmx-icon
-              style="width: 16px; height: 16px"
-              name="time-line" (click)="clickCallBack($event)">
-            </rmx-icon>
-          </ng-template>
-        </p-calendar>
-        <label for="time">Time</label>
+        <label for="date">Date and Time</label>
       </p-floatLabel>
     </div>
 
     <h2>Address</h2>
 
     <div class="field">
-      <p-radioButton
+      <p-checkbox
         name="online"
         value="true"
         label="Online-Event"
         [(ngModel)]="online"
+        [binary]="true"
         id="online-true"
         variant="filled" />
     </div>
 
-    <div class="field justify-content-between">
-      <p-floatLabel>
-        <input pInputText id="street" [(ngModel)]="street" />
-        <label for="street">Street</label>
-      </p-floatLabel>
-      <p-floatLabel>
-        <input pInputText id="hnr" [(ngModel)]="hnr" />
-        <label for="hnr">HNr</label>
-      </p-floatLabel>
+    <div class="p-grid">
+      <div class="p-col-12 p-md-6 field">
+        <p-floatLabel>
+          <input pInputText id="street" [(ngModel)]="street" />
+          <label for="street">Street</label>
+        </p-floatLabel>
+      </div>
+      <div class="p-col-12 p-md-6 field">
+        <p-floatLabel>
+          <input pInputText id="hnr" [(ngModel)]="hnr" />
+          <label for="hnr">HNr</label>
+        </p-floatLabel>
+      </div>
     </div>
 
-    <div class="field justify-content-between">
-      <p-floatLabel>
-        <input pInputText id="zipCode" [(ngModel)]="zipCode" />
-        <label for="zipCode">ZIP Code</label>
-      </p-floatLabel>
-      <p-floatLabel>
-        <input pInputText id="city" [(ngModel)]="city" />
-        <label for="city">City</label>
-      </p-floatLabel>
+    <div class="p-grid">
+      <div class="p-col-12 p-md-6 field">
+        <p-floatLabel>
+          <input pInputText id="zipCode" [(ngModel)]="zipCode" />
+          <label for="zipCode">ZIP Code</label>
+        </p-floatLabel>
+      </div>
+      <div class="p-col-12 p-md-6 field">
+        <p-floatLabel>
+          <input pInputText id="city" [(ngModel)]="city" />
+          <label for="city">City</label>
+        </p-floatLabel>
+      </div>
     </div>
 
     <div class="field">
-      <p-radioButton
+      <p-checkbox
         name="hideAddress"
         value="true"
         label="Hide Address"
         aria-describedby="hideAddress-help"
-        [(ngModel)]="hideAdress"
+        [(ngModel)]="hideAddress"
+        [binary]="true"
         id="hideAddress-true"
         variant="filled" />
       <small id="hideAddress-help">
@@ -86,31 +90,36 @@
     </div>
   </div>
 
-  <div class="grid grid-nogutter justify-content-between">
-    <p-button
-      [raised]="true"
-      label="Back"
-      (onClick)="prevPage()">
-      <ng-template pTemplate="icon">
-        <rmx-icon
-          class="mr-2"
-          style="width: 16px; height: 16px"
-          name="arrow-left-circle-line">
-        </rmx-icon>
-      </ng-template>
-    </p-button>
-    <p-button
-      [raised]="true"
-      severity="secondary"
-      label="Continue"
-      (onClick)="nextPage()">
-      <ng-template pTemplate="icon">
-        <rmx-icon
-          class="mr-2"
-          style="width: 16px; height: 16px"
-          name="arrow-right-circle-line">
-        </rmx-icon>
-      </ng-template>
-    </p-button>
+  <!-- Navigation Buttons -->
+  <div class="p-grid p-justify-between mt-3">
+    <div class="p-col-auto">
+      <p-button
+        [raised]="true"
+        label="Back"
+        (onClick)="prevPage()">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            class="mr-2"
+            style="width: 16px; height: 16px"
+            name="arrow-left-circle-line">
+          </rmx-icon>
+        </ng-template>
+      </p-button>
+    </div>
+    <div class="p-col-auto">
+      <p-button
+        [raised]="true"
+        severity="secondary"
+        label="Continue"
+        (onClick)="nextPage()">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            class="mr-2"
+            style="width: 16px; height: 16px"
+            name="arrow-right-circle-line">
+          </rmx-icon>
+        </ng-template>
+      </p-button>
+    </div>
   </div>
 </div>

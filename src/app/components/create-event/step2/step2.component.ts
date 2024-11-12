@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 import { EventService } from '../../../services/event/eventservice';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
@@ -9,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PrimeTemplate } from 'primeng/api';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-step2',
@@ -22,34 +25,73 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     InputTextModule,
     PrimeTemplate,
     RadioButtonModule,
+    CheckboxModule,
+    ConfirmDialogModule,
   ],
-  providers: [EventService],
+  providers: [EventService, ConfirmationService],
   templateUrl: './step2.component.html',
 })
-export class Step2Component {
-  step2: any;
-
-  date: Date | undefined;
-  time: Date | undefined;
-  online: boolean | false | undefined;
+export class Step2Component implements OnInit {
+  dateAndTime: Date | undefined;
+  online: boolean | undefined = false;
   street: string | undefined;
-  hnr:  string | undefined;
+  hnr: string | undefined;
   zipCode: string | undefined;
   city: string | undefined;
-  hideAdress: boolean | undefined;
+  hideAddress: boolean | undefined;
+  minDate: Date;
 
-  constructor(public eventService: EventService, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    public eventService: EventService,
+    private confirmationService: ConfirmationService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.minDate = new Date();
+    this.minDate.setMinutes(this.minDate.getMinutes() + 15);
+  }
 
   ngOnInit() {
-    this.step2 = this.eventService.getEventInformation().step2;
+    const step2Data = this.eventService.getEventInformation();
+    this.dateAndTime = step2Data.dateAndTime ? new Date(step2Data.dateAndTime) : this.minDate;
+    this.online = step2Data.isOnline;
+    this.street = step2Data.street;
+    this.hnr = step2Data.streetNumber;
+    this.zipCode = step2Data.zipCode;
+    this.city = step2Data.city;
+    this.hideAddress = !step2Data.showAddress;
   }
 
   nextPage() {
-    if (this.step2.date && this.step2.time) {
-      this.step2.eventService.step2 = this.step2;
-      this.router.navigate(['../step2'], { relativeTo: this.route });
+    if (this.dateAndTime?.getTime() === this.minDate.getTime()) {
+      // Show confirmation dialog if date is still set to minDate
+      this.confirmationService.confirm({
+        message: 'The selected date and time are set to the minimum. Do you want to proceed?',
+        header: 'Confirm Date Selection',
+        icon: 'pi pi-exclamation-circle',
+        accept: () => {
+          this.proceedToNextPage(); // Perform nextPage actions on confirmation
+        },
+        reject: () => {
+          // Do nothing if the user selects "No"
+        },
+      });
+    } else {
+      this.proceedToNextPage();
     }
-    return;
+  }
+
+  proceedToNextPage() {
+    this.eventService.setEventInformation({
+      dateAndTime: this.dateAndTime?.toISOString(),
+      isOnline: this.online,
+      street: this.online ? undefined : this.street,
+      streetNumber: this.online ? undefined : this.hnr,
+      zipCode: this.online ? undefined : this.zipCode,
+      city: this.online ? undefined : this.city,
+      showAddress: !this.hideAddress,
+    });
+    this.router.navigate(['../step3'], { relativeTo: this.route });
   }
 
   prevPage() {

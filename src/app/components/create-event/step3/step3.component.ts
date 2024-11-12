@@ -27,25 +27,49 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './step3.component.html',
 })
 export class Step3Component {
-  step3: any;
-
   participantsNumber: number | undefined;
   participantsOptions: string[] | undefined;
   selectedParticipants: string[] | undefined;
   genderOptions: string[] | undefined;
-  selectedGenders: any;
-  ageValues: number[] = [16, 99];
+  selectedGenders: number[] | undefined; // Adjusted to ensure correct type
+  ageValues: number[] = [16, 99]; // Array for min and max age range
 
-
-  constructor(public eventService: EventService, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    public eventService: EventService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.step3 = this.eventService.getEventInformation().step3;
+    const step3Data = this.eventService.getEventInformation();
+    this.participantsNumber = step3Data.participantsNumber;
+    this.selectedGenders = step3Data.preferredGenders;
+    this.ageValues = [step3Data.startAge || 16, step3Data.endAge || 99];
   }
 
   complete() {
-    this.eventService.eventInformation.step3 = this.step3;
-    this.eventService.complete();
+    this.eventService.setEventInformation({
+      participantsNumber: this.participantsNumber,
+      preferredGenders: this.selectedGenders,
+      startAge: this.ageValues[0],
+      endAge: this.ageValues[1],
+    });
+
+    // Submitting event data to server
+    this.eventService.sendEventToServer().subscribe({
+      next: (response) => {
+        console.log('Event successfully created:', response);
+        // Redirect or notify user of success, if needed
+      },
+      error: (error) => {
+        console.error('Error creating event:', error);
+        // Handle error or notify user, if needed
+      },
+      complete: () => {
+        console.log('Request complete');
+        // Any additional actions upon completion
+      }
+    });
   }
 
   prevPage() {
