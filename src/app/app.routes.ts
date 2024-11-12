@@ -11,9 +11,9 @@ import { LandingPageComponent } from './views/landing-page/landing-page.componen
 import { StylingShowcaseSecretPageComponent } from './views/styling-showcase-secret-page/styling-showcase-secret-page.component';
 import { isLoggedInGuard } from './utils/guards/is-logged-in.guard';
 import { RegisterPageComponent } from './views/register-page/register-page.component';
-import { CreateEventStep1 } from './components/create-event/create-event-step1';
-import { CreateEventStep2 } from './components/create-event/create-event-step2';
-import { CreateEventStep3 } from './components/create-event/create-event-step3';
+import { Step1Component } from './components/create-event/step1/step1.component';
+import { Step2Component } from './components/create-event/step2/step2.component';
+import { Step3Component } from './components/create-event/step3/step3.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -41,24 +41,20 @@ export const routes: Routes = [
     title: 'New Event | Connect-U',
     component: CreateEventPageComponent,
     canActivate: [isLoggedInGuard],
-  },
-  {
-    path: 'create-event/step1',
-    title: 'New Event | Connect-U',
-    component: CreateEventStep1,
-    canActivate: [isLoggedInGuard],
-  },
-  {
-    path: 'create-event/step2',
-    title: 'New Event | Connect-U',
-    component: CreateEventStep2,
-    canActivate: [isLoggedInGuard],
-  },
-  {
-    path: 'create-event/step3',
-    title: 'New Event | Connect-U',
-    component: CreateEventStep3,
-    canActivate: [isLoggedInGuard],
+    children: [
+      {
+        path: 'step1',
+        component: Step1Component,
+      },
+      {
+        path: 'step2',
+        component: Step2Component,
+      },
+      {
+        path: 'step3',
+        component: Step3Component,
+      },
+    ]
   },
   {
     path: 'my-events',

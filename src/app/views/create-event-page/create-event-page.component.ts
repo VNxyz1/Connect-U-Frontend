@@ -18,22 +18,11 @@ export class CreateEventPageComponent {
 
   subscription: Subscription | undefined;
 
-  constructor(public messageService: MessageService, public eventService: EventService) {}
-
-  ngOnInit() {
+  constructor(public messageService: MessageService, public eventService: EventService) {
     this.items = [
-      {
-        label: '',
-        routerLink: 'step1'
-      },
-      {
-        label: '',
-        routerLink: 'step2'
-      },
-      {
-        label: '',
-        routerLink: 'step3'
-      }
+      { routerLink: 'step1' },
+      { routerLink: 'step2' },
+      { routerLink: 'step3' }
     ];
 
     this.subscription = this.eventService.eventComplete$.subscribe((step1) => {

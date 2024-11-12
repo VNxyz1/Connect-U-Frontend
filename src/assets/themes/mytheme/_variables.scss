@@ -74,6 +74,8 @@ $font-family: 'Proxima Nova', sans-serif;
   --surface-800: #{$light-grey} !important;
   --surface-900: #{$light-grey} !important;
 
+  --gray-50: #{$light-grey};
+
   // Text colors
   --text-color: #{$dark-grey} !important;
   --text-color-secondary: #{$normal-grey} !important;
@@ -82,6 +84,7 @@ $font-family: 'Proxima Nova', sans-serif;
   --primary-color: #{$blue} !important;
   --primary-color-text: #{$light-grey} !important;
   --secondary-color: #{$orange} !important;
+  --white: #{$white};
 
   // Padding, spacing, and radius
   --content-padding: #{$panelContentPadding} !important;
@@ -111,6 +114,11 @@ $font-family: 'Proxima Nova', sans-serif;
   //menu
 
   color-scheme: light;
+}
+
+.content {
+  max-width: 1400px;
+  margin: 0 auto; /* Centers the div horizontally */
 }
 
 body {
@@ -182,9 +190,23 @@ h3 {
 /* menues */
 
 // steps
+
+.p-steps {
+  background: $white !important;
+}
+
+.p-steps .p-steps-item:before {
+  border-top: none;
+}
+
 .p-steps .p-steps-item.p-highlight .p-steps-number {
   background: $secondaryColor; //active item background
 }
+
+.p-steps .p-steps-item .p-steps-number {
+  background: $light-grey; //active item background
+}
+
 
 // tab
 

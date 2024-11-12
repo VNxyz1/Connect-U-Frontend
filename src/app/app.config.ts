@@ -23,6 +23,10 @@ import {
   RiHome2Line,
   RiSearchLine,
   RiUser3Line,
+  RiArrowRightCircleLine,
+  RiArrowLeftCircleLine,
+  RiCalendarLine,
+  RiTimeLine
 } from 'angular-remix-icon';
 
 const icons = {
@@ -32,6 +36,10 @@ const icons = {
   RiSearchLine,
   RiUser3Line,
   RiHeart3Line,
+  RiArrowRightCircleLine,
+  RiArrowLeftCircleLine,
+  RiCalendarLine,
+  RiTimeLine
 };
 
 export const appConfig: ApplicationConfig = {

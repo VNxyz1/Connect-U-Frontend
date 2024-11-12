@@ -35,7 +35,7 @@ export class EventService {
   eventComplete$ = this.eventComplete.asObservable();
 
   getEventInformation() {
-    return this.eventInformation();
+    return this.eventInformation;
   }
 
   setEventInformation(eventInformation: Event): void {
