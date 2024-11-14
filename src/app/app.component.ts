@@ -1,24 +1,41 @@
-import { Component, Inject, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SocketService } from './services/socket/socket.service';
 import { isPlatformBrowser } from '@angular/common';
+import { Storage } from '@ionic/storage-angular';
+
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'Connect-U-Frontend';
+  private storageInitialized = false;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private socket: SocketService,
-  ) {
+    @Inject(PLATFORM_ID) private readonly platformId: Object,
+    private readonly socket: SocketService,
+    private readonly storage: Storage
+  ) {}
+
+  ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.socket.init();
+      this.initStorage(); // Initialize storage
+    }
+  }
+
+  async initStorage(): Promise<void> {
+    try {
+      await this.storage.create(); // Creates a storage instance
+      this.storageInitialized = true;
+      console.log('Storage initialized successfully');
+    } catch (error) {
+      console.error('Error initializing storage:', error);
     }
   }
 

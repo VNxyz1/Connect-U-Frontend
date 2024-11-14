@@ -11,6 +11,7 @@ import { SliderModule } from 'primeng/slider';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { Subject, takeUntil } from 'rxjs';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-step3',
@@ -25,33 +26,33 @@ import { Subject, takeUntil } from 'rxjs';
     PrimeTemplate,
     SliderModule,
     MultiSelectModule,
+    NgClass,
+    NgIf,
   ],
   templateUrl: './step3.component.html',
 })
 export class Step3Component implements OnInit {
   participantsNumber: number | undefined;
-  participants: string[] | undefined;
-  selectedParticipants: string[] | undefined;
+  participants: { id: number; name: string }[] = [];
+  selectedParticipants: number[] = [];
   genders: { id: number; gender: number }[] = [];
-  preferredGenders: number[] | undefined;
+  preferredGenders: number[] = [];
   ageValues: number[] = [16, 99];
-  private unsubscribe$ = new Subject<void>();
+  submitted: boolean = false;
+  private readonly unsubscribe$ = new Subject<void>();
 
   constructor(
     public eventService: EventService,
-    private router: Router,
-    private route: ActivatedRoute
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
   ) {}
 
-  ngOnInit() {
-    this.loadGenders();
-    const step3Data = this.eventService.getEventInformation();
-    this.participantsNumber = step3Data.participantsNumber || 2;
-    this.preferredGenders = step3Data.preferredGenders;
-    this.ageValues = [step3Data.startAge || 16, step3Data.endAge || 99];
+  async ngOnInit() {
+    await this.loadGenders();
+    await this.insertValuesAgain();
   }
 
-  private loadGenders() {
+  private async loadGenders() {
     this.eventService.getGenders()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
@@ -60,32 +61,52 @@ export class Step3Component implements OnInit {
       });
   }
 
+  private async insertValuesAgain() {
+    const step3Data = await this.eventService.getEventInformation();
+    this.participantsNumber = step3Data.participantsNumber || 2;
+    this.preferredGenders = step3Data.preferredGenders || [];
+    this.ageValues = [step3Data.startAge || 16, step3Data.endAge || 99];
+  }
+
   protected onAgeChange(index: number, value: string | number) {
-    // Parse the input to an integer if it's a number, otherwise leave it as 'none' to set 99
     this.ageValues[index] = value === 'none' ? 99 : Number(value);
   }
 
-  complete() {
+  protected complete() {
+    this.submitted = true;
+
+    // Validate required fields
+    if (
+      !this.participantsNumber ||
+      this.participantsNumber < 2 ||
+      this.ageValues[0] < 16 ||
+      this.ageValues[1] > 99 ||
+      this.ageValues[0] > this.ageValues[1]
+    ) {
+      return; // Stop execution if validation fails
+    }
+
+    // Save event information
     this.sendEventInformation();
 
-    // Submitting event data to server
+    // Submit event data to the server
     this.eventService.sendEventToServer().subscribe({
       next: (response) => {
         console.log('Event successfully created:', response);
-        // Redirect or notify user of success, if needed
+        // Redirect or notify user of success
       },
       error: (error) => {
         console.error('Error creating event:', error);
-        // Handle error or notify user, if needed
+        // Handle error
       },
       complete: () => {
         console.log('Request complete');
-        // Any additional actions upon completion
-      }
+        // Additional actions upon completion
+      },
     });
   }
 
-  prevPage() {
+  protected prevPage() {
     this.sendEventInformation();
     this.router.navigate(['../step2'], { relativeTo: this.route })
       .then(() => {
@@ -96,8 +117,8 @@ export class Step3Component implements OnInit {
       });
   }
 
-  private sendEventInformation() {
-    this.eventService.setEventInformation({
+  private async sendEventInformation() {
+    await this.eventService.setEventInformation({
       participantsNumber: this.participantsNumber,
       preferredGenders: this.preferredGenders,
       startAge: this.ageValues[0],

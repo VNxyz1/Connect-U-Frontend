@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { Subject, filter, takeUntil } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-step1',
@@ -24,25 +25,28 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     MultiSelectModule,
     FormsModule,
     RadioButtonModule,
+    NgIf,
+    NgClass,
   ],
   templateUrl: './step1.component.html',
 })
 export class Step1Component implements OnInit, OnDestroy {
-  eventType: number | undefined;
-  eventTitle: string | undefined;
-  description: string | undefined;
+  eventType: number | undefined = 0;
+  eventTitle: string = '';
+  description: string = '';
   categories: { id: number; name: string }[] = [];
   selectedCategories: number[] = [];
-  private unsubscribe$ = new Subject<void>();
+  submitted: boolean = false;
+  private readonly unsubscribe$ = new Subject<void>();
 
   constructor(
     public eventService: EventService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private messageService: MessageService,
-    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
+    private readonly router: Router,
+    private readonly route: ActivatedRoute,
+    private readonly messageService: MessageService,
+    private readonly cdr: ChangeDetectorRef
   ) {
-    // Listen to router events
+    // Listen to router events to reapply form data on navigation
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),
@@ -53,9 +57,9 @@ export class Step1Component implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.loadCategories();
-    this.insertValuesAgain();
+    await this.insertValuesAgain();
   }
 
   private loadCategories() {
@@ -67,19 +71,22 @@ export class Step1Component implements OnInit, OnDestroy {
       });
   }
 
-  private insertValuesAgain() {
-    // Load existing form data from EventService
-    const savedData = this.eventService.getEventInformation();
-    this.eventType = savedData.type || 0;
-    this.eventTitle = savedData.title || '';
-    this.description = savedData.description || '';
-    this.selectedCategories = savedData.categories || [];
+  private async insertValuesAgain() {
+    try {
+      const savedData = await this.eventService.getEventInformation();
+      this.eventType = savedData.type || 0;
+      this.eventTitle = savedData.title || '';
+      this.description = savedData.description || '';
+      this.selectedCategories = savedData.categories || [];
 
-    // Manually trigger change detection
-    this.cdr.detectChanges();
+      // Manually trigger change detection
+      this.cdr.detectChanges();
+    } catch (error) {
+      console.error('Error loading saved data:', error);
+    }
   }
 
-  onCategoryChange() {
+  protected onCategoryChange() {
     if (this.selectedCategories.length > 3) {
       this.selectedCategories.pop(); // Remove last category if limit exceeded
       this.messageService.add({
@@ -91,23 +98,27 @@ export class Step1Component implements OnInit, OnDestroy {
     }
   }
 
-  nextPage() {
-    // Save data to the service before navigating
-    this.eventService.setEventInformation({
-      type: this.eventType,
-      title: this.eventTitle,
-      categories: this.selectedCategories,
-      description: this.description
-    });
+  protected async nextPage() {
+    this.submitted = true;
 
-    // Navigate to the next step
-    this.router.navigate(['../step2'], { relativeTo: this.route })
-      .then(() => {
-        // Navigation successful
-      })
-      .catch(err => {
-        console.error('Navigation error:', err);
+    if (!this.eventTitle || !this.selectedCategories?.length || !this.description) {
+      return; // Prevent navigation if validation fails
+    }
+
+    try {
+      // Save data to the service before navigating
+      await this.eventService.setEventInformation({
+        type: this.eventType,
+        title: this.eventTitle,
+        categories: this.selectedCategories,
+        description: this.description,
       });
+
+      // Navigate to the next step
+      this.router.navigate(['../step2'], { relativeTo: this.route });
+    } catch (error) {
+      console.error('Error saving event information or navigating:', error);
+    }
   }
 
   ngOnDestroy() {

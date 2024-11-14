@@ -2,6 +2,7 @@ import {
   ApplicationConfig,
   provideZoneChangeDetection,
   isDevMode,
+  PLATFORM_ID, importProvidersFrom,
 } from '@angular/core';
 import {
   provideRouter,
@@ -30,10 +31,11 @@ import {
   RiArrowRightCircleLine,
   RiArrowLeftCircleLine,
   RiCalendarLine,
-  RiTimeLine
+  RiTimeLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 const icons = {
   RiHome2Line,
@@ -45,14 +47,13 @@ const icons = {
   RiArrowRightCircleLine,
   RiArrowLeftCircleLine,
   RiCalendarLine,
-  RiTimeLine
+  RiTimeLine,
 };
 
 export const translocoConfig = {
   config: {
     availableLangs: ['en', 'de'],
     defaultLang: 'de',
-    // Remove this option if your application doesn't support changing language in runtime.
     reRenderOnLangChange: true,
     prodMode: !isDevMode(),
   },
@@ -76,5 +77,6 @@ export const appConfig: ApplicationConfig = {
     provideRemixIcon(icons),
     provideHttpClient(),
     provideTransloco(translocoConfig),
+    importProvidersFrom(IonicStorageModule.forRoot()),
   ],
 };

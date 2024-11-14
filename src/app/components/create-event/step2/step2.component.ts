@@ -38,7 +38,7 @@ export class Step2Component implements OnInit {
   streetNumber: string | undefined;
   zipCode: string | undefined;
   city: string | undefined;
-  hideAddress: string | boolean = true;
+  hideAddress: boolean = true; // Updated type for better usage
   minDate: Date;
 
   constructor(
@@ -51,8 +51,8 @@ export class Step2Component implements OnInit {
     this.minDate.setMinutes(this.minDate.getMinutes() + 15);
   }
 
-  ngOnInit() {
-    const step2Data = this.eventService.getEventInformation();
+  async ngOnInit() {
+    const step2Data = await this.eventService.getEventInformation(); // Await data retrieval
     this.dateAndTime = step2Data.dateAndTime ? new Date(step2Data.dateAndTime) : this.minDate;
     this.online = step2Data.isOnline;
     this.street = step2Data.street;
@@ -71,9 +71,6 @@ export class Step2Component implements OnInit {
         icon: 'pi pi-exclamation-circle',
         accept: () => {
           this.proceedToNextPage(); // Perform nextPage actions on confirmation
-        },
-        reject: () => {
-          // Do nothing if the user selects "No"
         },
       });
     } else {
@@ -103,8 +100,8 @@ export class Step2Component implements OnInit {
       });
   }
 
-  private sendEventInformation() {
-    this.eventService.setEventInformation({
+  private async sendEventInformation() {
+    await this.eventService.setEventInformation({
       dateAndTime: this.dateAndTime?.toISOString(),
       isOnline: this.online,
       street: this.online ? undefined : this.street,

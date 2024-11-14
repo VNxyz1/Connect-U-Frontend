@@ -2,9 +2,21 @@
   <div class="p-fluid justify-content-center">
     <div class="field">
       <p-floatLabel class="mb-4">
-        <input id="participantsNumber" type="number" pInputText [(ngModel)]="participantsNumber" />
+        <input
+          id="participantsNumber"
+          min="2"
+          type="number"
+          pInputText
+          [(ngModel)]="participantsNumber"
+          #participantsInput="ngModel"
+          required
+          [ngClass]="{ 'ng-invalid ng-dirty': (participantsInput.invalid && submitted) || (participantsInput.dirty && participantsInput.invalid) }"
+        />
         <label for="participantsNumber">Participants Number</label>
       </p-floatLabel>
+      <small *ngIf="(participantsInput.invalid && submitted) || (participantsInput.dirty && participantsInput.invalid)" class="p-error">
+        Participants Number is required and must be at least 2.
+      </small>
     </div>
     <div class="field">
       <p-floatLabel>

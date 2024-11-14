@@ -37,15 +37,23 @@
     </div>
 
     <div class="p-col-12 p-md-6 field">
+
       <p-floatLabel>
         <input
+          #eventTitleInput="ngModel"
           id="event-title"
           type="text"
           required
           pInputText
-          [(ngModel)]="eventTitle" />
+          [(ngModel)]="eventTitle"
+          [ngClass]="{ 'ng-invalid ng-dirty': (eventTitleInput.invalid && submitted) || (eventTitleInput.dirty && eventTitleInput.invalid) }"
+        />
         <label for="event-title">Title</label>
       </p-floatLabel>
+      <small *ngIf="(eventTitleInput.invalid && submitted) || (eventTitleInput.dirty && eventTitleInput.invalid)" class="p-error">
+        Event title is required.
+      </small>
+
     </div>
 
     <div class="p-col-12 p-md-6 field">
@@ -54,29 +62,41 @@
           id="categories"
           [options]="categories"
           [(ngModel)]="selectedCategories"
+          required
           optionLabel="name"
           display="chip"
           [showClear]="true"
           [showToggleAll]="false"
           (onChange)="onCategoryChange()"
-          styleClass="capitalize">
-        </p-multiSelect>
+          styleClass="capitalize"
+          [ngClass]="{ 'ng-invalid ng-dirty': (selectedCategories.length === 0 && submitted) }"
+        />
         <label for="categories">Select Categories</label>
       </p-floatLabel>
+      <small *ngIf="selectedCategories?.length === 0 && submitted" class="p-error">
+        At least one category must be selected.
+      </small>
     </div>
 
     <div class="p-col-12 field">
       <p-floatLabel>
         <textarea
+          #descriptionInput="ngModel"
           id="description"
           rows="5"
           cols="30"
           pInputTextarea
+          required
           [(ngModel)]="description"
-          class="vertical-resize-only">
+          class="vertical-resize-only"
+          [ngClass]="{ 'ng-invalid ng-dirty': (descriptionInput.invalid && submitted) || (descriptionInput.dirty && descriptionInput.invalid) }"
+        >
         </textarea>
         <label for="description">Description</label>
       </p-floatLabel>
+      <small *ngIf="(descriptionInput.invalid && submitted) || (descriptionInput.dirty && descriptionInput.invalid)" class="p-error">
+        Description is required.
+      </small>
     </div>
   </div>
 
