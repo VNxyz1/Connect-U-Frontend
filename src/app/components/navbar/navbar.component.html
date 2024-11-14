@@ -49,17 +49,12 @@
     </div>
   </div>
 }
-<div class="fixed top-0 left-0 grid">
-  <!-- Sidebar for Desktop-View -->
-  <div class="col-12 bg-black-alpha-20 hidden sm:hidden md:flex flex-column align-items-start p-3 h-full">
-    <p-button label="Startseite" [rounded]="false" [text]="true" class="w-full mb-2" (click)="navigateTo('/')"/>
-    <p-button label="Event suchen" [rounded]="false" [text]="true" class="w-full mb-2" (click)="navigateTo('/search')"/>
-    <p-button label="Event erstellen" [rounded]="false" [text]="true" class="w-full mb-2"
-              (click)="navigateTo('/create-event')"/>
-    <p-button label="Meine Events" [rounded]="false" [text]="true" class="w-full mb-2"
-              (click)="navigateTo('/my-events')"/>
-    <p-button label="Mein Bereich" [rounded]="false" [text]="true" class="w-full" (click)="navigateTo('my-space')"/>
-  </div>
-
+<!-- Sidebar für Desktop-Ansicht -->
+<div class="col-12 bg-black-alpha-20 hidden md:flex flex-column align-items-start  h-full">
+  <p-button label="Startseite" [rounded]="false" [text]="true" class="w-full mb-2" (click)="navigateTo('/')"/>
+  <p-button label="Event suchen" [rounded]="false" [text]="true" class="w-full mb-2" (click)="navigateTo('/search')"/>
+  <p-button label="Event erstellen" [rounded]="false" [text]="true" class="w-full mb-2" (click)="navigateTo('/create-event')"/>
+  <p-button label="Meine Events" [rounded]="false" [text]="true" class="w-full mb-2" (click)="navigateTo('/my-events')"/>
+  <p-button label="Mein Bereich" [rounded]="false" [text]="true" class="w-full" (click)="navigateTo('my-space')"/>
 </div>
 
