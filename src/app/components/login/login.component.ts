@@ -11,7 +11,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { TranslocoPipe } from '@jsverse/transloco';
+import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
 
 type LoginForm = FormGroup<{
   email: FormControl<string>;
@@ -48,6 +48,7 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router,
     private messageService: MessageService,
+    private translocoService: TranslocoService
   ) {}
 
   submitLogin() {
@@ -69,8 +70,8 @@ export class LoginComponent {
       case 404:
         this.messageService.add({
           severity: 'error',
-          summary: 'Login fehlgeschlagen',
-          detail: 'User mit diesen Anmeldedaten sind nicht bekannt.',
+          summary: this.translocoService.translate('loginComponent.messages.loginFailed'),
+          detail: this.translocoService.translate('loginComponent.messages.loginDataUnknown'),
         });
     }
   }

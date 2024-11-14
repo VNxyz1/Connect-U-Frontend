@@ -15,7 +15,11 @@
       "placeholder": "Email",
       "label": "Email"
     },
-    "loginButtonLabel": "Login"
+    "loginButtonLabel": "Login",
+    "messages": {
+      "loginFailed": "Login failed",
+      "loginDataUnknown": "A user with these login credentials is not known."
+    }
   },
   "landingPage": {
     "headerImageAlt": "connect-u logo",

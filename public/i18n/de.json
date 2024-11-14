@@ -15,7 +15,11 @@
       "placeholder": "E-Mail",
       "label": "Passwort"
     },
-    "loginButtonLabel": "Einloggen"
+    "loginButtonLabel": "Einloggen",
+    "messages": {
+      "loginFailed": "Login fehlgeschlagen",
+      "loginDataUnknown": "Ein Nutzer mit diesen Anmeldedaten ist nicht bekannt."
+    }
   },
   "landingPage": {
     "headerImageAlt": "connect-u logo",
