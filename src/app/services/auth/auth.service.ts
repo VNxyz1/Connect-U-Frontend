@@ -6,6 +6,15 @@ type LoginBody = {
   email: string;
   password: string;
 };
+type RegisterBody = {
+  username: string;
+  email:string;
+  firstname:string;
+  lastname:string;
+  birthdate: Date;
+  gender: string;
+  password: string;
+}
 
 type LoginResponse = {
   access_token: string;
@@ -33,6 +42,14 @@ export class AuthService {
         return response;
       }),
     );
+  }
+  register(body: RegisterBody): Observable<any>{
+    return this.http.post<any>('auth/register', body).pipe(
+      map(response => {
+        this._accessToken = response.access_token;
+        return response;
+      })
+    )
   }
 
   getAccessToken(): string | undefined {

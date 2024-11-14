@@ -1,1 +1,79 @@
-<p>register-page works!</p>
+<div class="p-fluid grid justify-content-center">
+  <div class="col-12 sm:col-8 md:col-6 lg:col-4">
+    <h3 class="col-12 text-center">Registrieren</h3>
+    <form>
+      <div class="field mb-4">
+        <input pInputText type="text" id="username" placeholder="Nutzername">
+      </div>
+
+      <div class="field mb-4">
+        <input pInputText type="email"
+               id="email"
+               placeholder="E-Mail"
+               aria-required="true"
+               [attr.aria-invalid]="">
+      </div>
+
+      <div class="field mb-4">
+
+        <input pInputText type="text" id="firstName" placeholder="Vorname">
+      </div>
+
+      <div class="field mb-4">
+        <input pInputText type="text" id="lastName" placeholder="Nachname">
+      </div>
+
+      <div class="field mb-4">
+        <input pInputText type="date" id="birthday" placeholder="Geburtstag">
+      </div>
+
+      <div class="field mb-4">
+        <p-dropdown [options]="genderOptions" placeholder="Geschlecht"></p-dropdown>
+      </div>
+      <div class="field mb-4">
+        <p-iconField iconPosition="right">
+          <p-inputIcon
+            [styleClass]="passwordRegVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
+            (click)="togglePasswordVisibility('regPassword')"
+            (keydown.enter)="togglePasswordVisibility('regPassword')"
+            (keydown.space)="togglePasswordVisibility('regPassword')"
+            tabindex="0"
+            aria-label="Toggle password visibility"/>
+
+          <input
+            [type]="passwordRegVisible ? 'text' : 'password'"
+            pInputText
+            placeholder="Password"
+            [(ngModel)]="passwordValue"
+            name="password"/>
+        </p-iconField>
+      </div>
+
+      <div class="field mb-4">
+        <p-iconField iconPosition="right">
+          <p-inputIcon
+            [styleClass]="passwordVisible ? 'ri-eye-off-line' : 'ri-eye-line'"
+            (click)="togglePasswordVisibility('proofPassword')"
+            (keydown.enter)="togglePasswordVisibility('proofPassword')"
+            (keydown.space)="togglePasswordVisibility('proofPassword')"
+            tabindex="0"
+            aria-label="Toggle password visibility"/>
+
+          <input
+            [type]="passwordVisible ? 'text' : 'password'"
+            pInputText
+            placeholder="Password"
+            [(ngModel)]="proofPasswordValue"
+            name="proofPassword"/>
+        </p-iconField>
+      </div>
+
+      <div class="field ">
+        <p-button [raised]="true" label="Registrieren" severity="secondary"/>
+      </div>
+    </form>
+  </div>
+  <p>Du hast bereits einen Account?
+    <a routerLink="/welcome" class="">Hier einloggen!</a>
+  </p>
+</div>
