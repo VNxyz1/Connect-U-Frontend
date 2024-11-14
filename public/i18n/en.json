@@ -1,0 +1,31 @@
+{
+  "loginComponent": {
+    "title": "LOGIN",
+    "noAccountYet": "No account yet?",
+    "registerLink": "Register here!",
+    "passwordInput": {
+      "lengthWarning": "The password must be at least 8 characters long.",
+      "requiredWarning": "Password is required.",
+      "placeholder": "Password",
+      "label": "Password"
+    },
+    "eMailInput": {
+      "validEmailWarning": "Please enter a valid email address.",
+      "requiredWarning": "Email is required.",
+      "placeholder": "Email",
+      "label": "Email"
+    },
+    "loginButtonLabel": "Login",
+    "messages": {
+      "loginFailed": "Login failed",
+      "loginDataUnknown": "A user with these login credentials is not known."
+    }
+  },
+  "landingPage": {
+    "headerImageAlt": "connect-u logo",
+    "imageText": {
+      "title": "Event planning made easy - for private meetups or public events.",
+      "subtitle": "Plan, Share, Connect."
+    }
+  }
+}
