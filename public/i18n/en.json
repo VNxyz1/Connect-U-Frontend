@@ -2,6 +2,19 @@
   "loginComponent": {
     "title": "LOGIN",
     "noAccountYet": "No account yet?",
-    "registerLink": "Register here!"
+    "registerLink": "Register here!",
+    "passwordInput": {
+      "lengthWarning": "The password must be at least 8 characters long.",
+      "requiredWarning": "Password is required.",
+      "placeholder": "Password",
+      "label": "Password"
+    },
+    "eMailInput": {
+      "validEmailWarning": "Please enter a valid email address.",
+      "requiredWarning": "Email is required.",
+      "placeholder": "Email",
+      "label": "Email"
+    },
+    "loginButtonLabel": "Login"
   }
 }

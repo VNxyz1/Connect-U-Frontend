@@ -11,7 +11,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import {TranslocoPipe} from '@jsverse/transloco';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 type LoginForm = FormGroup<{
   email: FormControl<string>;

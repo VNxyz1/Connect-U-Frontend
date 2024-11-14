@@ -1,4 +1,8 @@
-import { ApplicationConfig, provideZoneChangeDetection, isDevMode } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideZoneChangeDetection,
+  isDevMode,
+} from '@angular/core';
 import {
   provideRouter,
   withComponentInputBinding,
@@ -36,6 +40,17 @@ const icons = {
   RiHeart3Line,
 };
 
+export const translocoConfig = {
+  config: {
+    availableLangs: ['en', 'de'],
+    defaultLang: 'de',
+    // Remove this option if your application doesn't support changing language in runtime.
+    reRenderOnLangChange: true,
+    prodMode: !isDevMode(),
+  },
+  loader: TranslocoHttpLoader,
+};
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -50,15 +65,8 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([apiInterceptor, jwtInterceptor]),
     ),
     provideAnimationsAsync(),
-    provideRemixIcon(icons), provideHttpClient(), provideTransloco({
-        config: {
-          availableLangs: ['en', 'de'],
-          defaultLang: 'de',
-          // Remove this option if your application doesn't support changing language in runtime.
-          reRenderOnLangChange: true,
-          prodMode: !isDevMode(),
-        },
-        loader: TranslocoHttpLoader
-      }),
+    provideRemixIcon(icons),
+    provideHttpClient(),
+    provideTransloco(translocoConfig),
   ],
 };
