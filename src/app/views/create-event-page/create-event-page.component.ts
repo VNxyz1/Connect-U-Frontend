@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { MenuItem, MessageService } from 'primeng/api';
 import { EventService } from '../../services/event/eventservice';
@@ -11,26 +11,24 @@ import { StepsModule } from 'primeng/steps';
   standalone: true,
   imports: [AngularRemixIconComponent, ToastModule, StepsModule],
   templateUrl: './create-event-page.component.html',
-  providers: [MessageService, EventService]
+  providers: [MessageService, EventService],
 })
-export class CreateEventPageComponent {
+export class CreateEventPageComponent implements OnDestroy {
   items: MenuItem[] | undefined;
-
   subscription: Subscription | undefined;
 
-  constructor(public messageService: MessageService, public eventService: EventService) {
+  constructor(
+  ) {
+    // Step navigation items
     this.items = [
-      { routerLink: 'step1' },
-      { routerLink: 'step2' },
-      { routerLink: 'step3' }
+      { routerLink: 'step1', label: 'Step 1' },
+      { routerLink: 'step2', label: 'Step 2' },
+      { routerLink: 'step3', label: 'Step 3' },
     ];
-
-    this.subscription = this.eventService.eventComplete$.subscribe((step1) => {
-      this.messageService.add({ severity: 'success', summary: 'Event ' + step1.title + 'created.' });
-    });
   }
 
   ngOnDestroy() {
+    // Unsubscribe to prevent memory leaks
     if (this.subscription) {
       this.subscription.unsubscribe();
     }

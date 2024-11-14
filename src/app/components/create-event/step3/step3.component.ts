@@ -6,7 +6,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { PrimeTemplate } from 'primeng/api';
+import { MessageService, PrimeTemplate } from 'primeng/api';
 import { SliderModule } from 'primeng/slider';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -32,6 +32,7 @@ import { NgClass, NgIf } from '@angular/common';
   templateUrl: './step3.component.html',
 })
 export class Step3Component implements OnInit {
+  title: string | undefined;
   participantsNumber: number | undefined;
   participants: { id: number; name: string }[] = [];
   selectedParticipants: number[] = [];
@@ -42,7 +43,8 @@ export class Step3Component implements OnInit {
   private readonly unsubscribe$ = new Subject<void>();
 
   constructor(
-    public eventService: EventService,
+    private readonly eventService: EventService,
+    private readonly messageService: MessageService,
     private readonly router: Router,
     private readonly route: ActivatedRoute
   ) {}
@@ -63,6 +65,7 @@ export class Step3Component implements OnInit {
 
   private async insertValuesAgain() {
     const step3Data = await this.eventService.getEventInformation();
+    this.title = step3Data.title || '';
     this.participantsNumber = step3Data.participantsNumber || 2;
     this.preferredGenders = step3Data.preferredGenders || [];
     this.ageValues = [step3Data.startAge || 16, step3Data.endAge || 99];
@@ -90,20 +93,32 @@ export class Step3Component implements OnInit {
     this.sendEventInformation();
 
     // Submit event data to the server
-    this.eventService.sendEventToServer().subscribe({
+    this.eventService.postEvent().subscribe({
       next: (response) => {
-        console.log('Event successfully created:', response);
-        // Redirect or notify user of success
+        console.log('Event successfully posted:', response);
+
+        // Add success message
+        this.messageService.add({
+          severity: 'success',
+          summary: `Event "${response.title}" created successfully!`,
+        });
       },
       error: (error) => {
-        console.error('Error creating event:', error);
-        // Handle error
+        console.error('Error posting event:', error);
+
+        // Add error message
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Failed to post event',
+          detail: error.message,
+        });
       },
       complete: () => {
         console.log('Request complete');
-        // Additional actions upon completion
+        // Additional cleanup or actions can be performed here
       },
     });
+
   }
 
   protected prevPage() {

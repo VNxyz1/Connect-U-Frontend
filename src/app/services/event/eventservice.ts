@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../storage/storage.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 type EventData = {
@@ -70,7 +70,7 @@ export class EventService {
     return this.http.get<Gender[]>('gender/all');
   }
 
-  sendEventToServer(): Observable<EventData> {
+  postEvent(): Observable<EventData> {
     const url = 'event';
 
     // Transform _eventInformation to include only the category and gender IDs
@@ -79,20 +79,29 @@ export class EventService {
       categories: this._eventInformation?.categories.map((category: any) =>
         typeof category === 'object' && 'id' in category ? category.id : category
       ) || [],
-      preferredGenders: this._eventInformation?.preferredGenders.map((gender: any) =>
-        typeof gender === 'object' && 'id' in gender ? gender.id : gender
-      ) || [],
+      ...(this._eventInformation?.preferredGenders?.length
+        ? {
+          preferredGenders: this._eventInformation.preferredGenders.map((gender: any) =>
+            typeof gender === 'object' && 'id' in gender ? gender.id : gender
+          ),
+        }
+        : {}),
     };
-
-    console.log('Sending transformed data:', JSON.stringify(payload, null, 2));
 
     return this.http.post<EventData>(url, payload).pipe(
       map((response) => {
+        // Emit the response upon success
         this.eventComplete.next(response);
+
+        // Reset _eventInformation and delete the storage key upon successful creation
+        this._eventInformation = this.getDefaultEventData();
+        this.storageService.remove(this.STORAGE_KEY);
+
         return response;
       })
     );
   }
+
 
   private getDefaultEventData(): EventData {
     return {
