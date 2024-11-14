@@ -47,7 +47,7 @@ const icons = {
 // Mock für NavigationEnd Event
 class MockRouter {
   public events = of(new NavigationEnd(0, '/my-space', '/my-space'));
-  navigate(path: string[]) {}
+  navigate() {}
 }
 
 describe('HeaderComponent', () => {
