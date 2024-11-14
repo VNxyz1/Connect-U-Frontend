@@ -1,24 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {NgOptimizedImage} from '@angular/common';
-import {ImageModule} from 'primeng/image';
-import {NavigationEnd, Router} from '@angular/router';
-import {filter} from 'rxjs/operators';
-import {AngularRemixIconComponent} from 'angular-remix-icon';
-import {Button} from 'primeng/button';
+import { Component, OnInit } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { ImageModule } from 'primeng/image';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
+import { Button } from 'primeng/button';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [
-    NgOptimizedImage,
-    ImageModule,
-    AngularRemixIconComponent,
-    Button
-  ],
+  imports: [NgOptimizedImage, ImageModule, AngularRemixIconComponent, Button],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
   currentUrl: string | undefined;
   constructor(private router: Router) {}
   ngOnInit() {
@@ -28,9 +23,8 @@ export class HeaderComponent implements OnInit{
         this.currentUrl = event.url;
       });
   }
-  backToHome(){
+  backToHome() {
     let path = '/';
-    this.router.navigate([path])
+    this.router.navigate([path]);
   }
-
 }

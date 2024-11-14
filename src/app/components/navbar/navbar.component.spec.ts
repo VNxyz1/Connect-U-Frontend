@@ -52,5 +52,4 @@ describe('NavbarComponent', () => {
     component.currentUrl = '/home';
     expect(component.activeIcon('/search')).toBe('search-line');
   });
-
 });

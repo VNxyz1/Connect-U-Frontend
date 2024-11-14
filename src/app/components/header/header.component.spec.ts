@@ -4,7 +4,10 @@ import { of } from 'rxjs';
 import { HeaderComponent } from './header.component';
 import { NgOptimizedImage } from '@angular/common';
 import { ImageModule } from 'primeng/image';
-import { AngularRemixIconComponent, provideRemixIcon } from 'angular-remix-icon';
+import {
+  AngularRemixIconComponent,
+  provideRemixIcon,
+} from 'angular-remix-icon';
 import { Button } from 'primeng/button';
 import { provideRouter } from '@angular/router';
 
@@ -24,7 +27,7 @@ import {
   RiUser3Fill,
   RiUser3Line,
 } from 'angular-remix-icon';
-import {routes} from '../../app.routes';
+import { routes } from '../../app.routes';
 
 // Erstellen Sie eine Icons-Objekt-Konfiguration ähnlich wie in der App-Konfiguration.
 const icons = {
@@ -62,13 +65,13 @@ describe('HeaderComponent', () => {
         ImageModule,
         AngularRemixIconComponent,
         Button,
-        HeaderComponent
+        HeaderComponent,
       ],
       providers: [
-        provideRouter(routes),  // Bereitstellung des Routers
-        provideRemixIcon(icons),  // Bereitstellung der Remix-Icons
+        provideRouter(routes), // Bereitstellung des Routers
+        provideRemixIcon(icons), // Bereitstellung der Remix-Icons
         { provide: Router, useClass: MockRouter }, // Mock des Routers für Tests
-      ]
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);
@@ -108,6 +111,8 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('p-image')).toBeTruthy();
-    expect(compiled.querySelector('p-image').getAttribute('alt')).toBe('Connect-U Logo');
+    expect(compiled.querySelector('p-image').getAttribute('alt')).toBe(
+      'Connect-U Logo',
+    );
   });
 });

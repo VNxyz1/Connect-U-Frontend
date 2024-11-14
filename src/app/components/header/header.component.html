@@ -2,29 +2,38 @@
   <section class="flex flex-column gap-3 mb-4">
     <div class="flex align-items-center justify-content-between w-full">
       <div class="flex align-items-center">
-        @if(currentUrl !== "/") {
-          <p-button [text]="true" severity="primary" (click)="backToHome()" class="mr-3">
+        @if (currentUrl !== '/') {
+          <p-button
+            [text]="true"
+            severity="primary"
+            (click)="backToHome()"
+            class="mr-3">
             <ng-template pTemplate="icon">
-              <rmx-icon style="width: 24px; height: 24px" name="arrow-left-s-line"></rmx-icon>
+              <rmx-icon
+                style="width: 24px; height: 24px"
+                name="arrow-left-s-line"></rmx-icon>
             </ng-template>
           </p-button>
         }
       </div>
 
       <div class="flex-grow-1 text-center">
-        @if (currentUrl == "/my-space") {
+        @if (currentUrl == '/my-space') {
           <h1 class="m-0">Mein Bereich</h1>
-        } @else if (currentUrl == "/my-events") {
+        } @else if (currentUrl == '/my-events') {
           <h1 class="m-0">Meine Events</h1>
-        } @else if (currentUrl == "/create-event") {
+        } @else if (currentUrl == '/create-event') {
           <h1 class="m-0">Event erstellen</h1>
-        } @else if (currentUrl == "/search") {
+        } @else if (currentUrl == '/search') {
           <h1 class="m-0">Event suchen</h1>
-        } @else if (currentUrl == "/") {
-          <p-image src="images/logo_full_dark.svg" width="250" alt="Connect-U Logo" />
+        } @else if (currentUrl == '/') {
+          <p-image
+            src="images/logo_full_dark.svg"
+            width="250"
+            alt="Connect-U Logo" />
         }
       </div>
-      <div style="width: 24px;"></div>
+      <div style="width: 24px"></div>
     </div>
   </section>
 </div>
