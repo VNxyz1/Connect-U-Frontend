@@ -5,6 +5,8 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { routes } from '../../app.routes';
+import { provideTransloco } from '@jsverse/transloco';
+import { translocoConfig } from '../../app.config';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -16,6 +18,7 @@ describe('LoginComponent', () => {
       providers: [
         provideRouter(routes),
         provideHttpClient(),
+        provideTransloco(translocoConfig),
         provideHttpClientTesting(),
       ],
     }).compileComponents();

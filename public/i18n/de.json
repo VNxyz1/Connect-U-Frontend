@@ -1,0 +1,31 @@
+{
+  "loginComponent": {
+    "title": "ANMELDEN",
+    "noAccountYet": "Noch kein Account?",
+    "registerLink": "Hier registrieren!",
+    "passwordInput" : {
+      "lengthWarning": "Das Passwort muss mindestens 8 Zeichen lang sein.",
+      "requiredWarning": "Passwort ist erforderlich.",
+      "placeholder": "Passwort",
+      "label": "Passwort"
+    },
+    "eMailInput" : {
+      "validEmailWarning": "Bitte eine gültige E-Mail-Adresse eingeben.",
+      "requiredWarning": "E-Mail ist erforderlich.",
+      "placeholder": "E-Mail",
+      "label": "Passwort"
+    },
+    "loginButtonLabel": "Einloggen",
+    "messages": {
+      "loginFailed": "Login fehlgeschlagen",
+      "loginDataUnknown": "Ein Nutzer mit diesen Anmeldedaten ist nicht bekannt."
+    }
+  },
+  "landingPage": {
+    "headerImageAlt": "connect-u logo",
+    "imageText": {
+      "title": "Eventplanung leicht gemacht - für private Treffen oder öffentliche Events.",
+      "subtitle": "Plane, Teile, Verbinde."
+    }
+  }
+}
