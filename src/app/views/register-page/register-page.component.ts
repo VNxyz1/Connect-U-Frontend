@@ -2,11 +2,13 @@ import {Component} from '@angular/core';
 import {Button, ButtonDirective} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import {DropdownModule} from 'primeng/dropdown';
-import {RouterLink} from '@angular/router';
-import {FormControl, FormGroup, FormsModule, Validators} from '@angular/forms';
+import {Router, RouterLink} from '@angular/router';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {IconFieldModule} from 'primeng/iconfield';
 import {InputIconModule} from 'primeng/inputicon';
 import {minAgeValidator, passwordMatchValidator} from '../../utils/validators/validators';
+import {AuthService} from '../../services/auth/auth.service';
+import {CalendarModule} from 'primeng/calendar';
 
 type RegisterForm = FormGroup<{
   username: FormControl<string>;
@@ -30,7 +32,9 @@ type RegisterForm = FormGroup<{
     FormsModule,
     IconFieldModule,
     InputIconModule,
-    Button
+    Button,
+    ReactiveFormsModule,
+    CalendarModule
   ],
   templateUrl: './register-page.component.html',
 })
@@ -42,8 +46,6 @@ export class RegisterPageComponent {
   ];
   protected passwordVisible: boolean | undefined;
   protected passwordRegVisible: boolean | undefined;
-  passwordValue: string = '';
-  proofPasswordValue: string = '';
 
   form: RegisterForm = new FormGroup(
     {
@@ -57,11 +59,11 @@ export class RegisterPageComponent {
       }),
       firstname: new FormControl<string>('', {
         nonNullable: true,
-        validators: [Validators.required, Validators.minLength(3)]
+        validators: [Validators.required, Validators.minLength(2)]
       }),
       lastname: new FormControl<string>('', {
         nonNullable: true,
-        validators: [Validators.required, Validators.minLength(2)]
+        validators: [Validators.required]
       }),
       birthdate: new FormControl('', {
         nonNullable: true,
@@ -80,9 +82,10 @@ export class RegisterPageComponent {
         validators: [Validators.required]
       })
     },
-    { validators: passwordMatchValidator('password', 'confirmPassword') } // Passwortabgleichs-Validator
+    { validators: passwordMatchValidator('password', 'confirmPassword') }
   );
 
+  constructor( private router:Router, private authService: AuthService) {}
   togglePasswordVisibility(val: string): void {
     if (val == 'regPassword') {
       this.passwordRegVisible = !this.passwordRegVisible;
@@ -91,5 +94,31 @@ export class RegisterPageComponent {
       this.passwordVisible = !this.passwordVisible;
     }
   }
+  submitRegister(){
+
+  }
+
+  showErrorMessage(code:number): void {
+
+  }
+
+  protected readonly minAgeValidator = minAgeValidator;
+  protected readonly require = require;
+  protected readonly passwordMatchValidator = passwordMatchValidator;
 }
 
+/*
+  submitLogin() {
+    this.authService
+      .logIn({
+        email: this.form.controls.email.value,
+        password: this.form.controls.password.value,
+      })
+      .subscribe({
+        next: () => this.router.navigateByUrl('/'),
+        error: err => {
+          this.showError(err.status);
+        },
+      });
+  }
+ */

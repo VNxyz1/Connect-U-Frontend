@@ -11,7 +11,7 @@ type RegisterBody = {
   email:string;
   firstname:string;
   lastname:string;
-  birthdate: Date;
+  birthdate: string;
   gender: string;
   password: string;
 }
