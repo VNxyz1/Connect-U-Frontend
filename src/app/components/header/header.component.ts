@@ -11,7 +11,6 @@ import { Button } from 'primeng/button';
   standalone: true,
   imports: [NgOptimizedImage, ImageModule, AngularRemixIconComponent, Button],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
   currentUrl: string | undefined;
