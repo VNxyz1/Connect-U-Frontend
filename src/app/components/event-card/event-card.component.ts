@@ -7,6 +7,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import {EventCardItem} from '../../interfaces/EventCardItem';
 import {DatePipe} from '@angular/common';
 import {EventService} from '../../services/event/eventservice';
+import {TranslocoDatePipe} from '@jsverse/transloco-locale';
 
 @Component({
   selector: 'app-event-card',
@@ -18,6 +19,7 @@ import {EventService} from '../../services/event/eventservice';
     AngularRemixIconComponent,
     SkeletonModule,
     DatePipe,
+    TranslocoDatePipe,
   ],
   templateUrl: './event-card.component.html',
 })
@@ -25,8 +27,7 @@ export class EventCardComponent {
   @Input({ transform: booleanAttribute }) skeleton: boolean = false;
   @Input() event!: EventCardItem;
 
-  constructor(@Inject(LOCALE_ID) locale: string) {
-    console.log(locale);
+  constructor() {
   }
 
 
