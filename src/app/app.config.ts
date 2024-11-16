@@ -21,11 +21,19 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { jwtInterceptor } from './utils/interceptors/jwt.interceptor';
 import {
   provideRemixIcon,
+  RiAddLine,
+  RiArrowLeftSLine,
   RiBookmarkLine,
   RiCheckLine,
+  RiFunctionFill,
+  RiFunctionLine,
   RiHeart3Line,
+  RiHome2Fill,
   RiHome2Line,
+  RiLayoutGridFill,
+  RiSearchFill,
   RiSearchLine,
+  RiUser3Fill,
   RiUser3Line,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
@@ -38,6 +46,14 @@ const icons = {
   RiSearchLine,
   RiUser3Line,
   RiHeart3Line,
+  RiAddLine,
+  RiLayoutGridFill,
+  RiHome2Fill,
+  RiFunctionLine,
+  RiUser3Fill,
+  RiFunctionFill,
+  RiSearchFill,
+  RiArrowLeftSLine,
 };
 
 export const translocoConfig = {
