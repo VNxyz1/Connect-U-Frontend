@@ -21,10 +21,14 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { jwtInterceptor } from './utils/interceptors/jwt.interceptor';
 import {
   provideRemixIcon,
-  RiBookmarkLine, RiCalendarLine,
-  RiCheckLine, RiGroupLine,
+  RiBookmarkLine,
+  RiCalendarLine,
+  RiCheckLine,
+  RiGroupLine,
   RiHeart3Line,
-  RiHome2Line, RiMapPin2Line, RiPriceTag3Line,
+  RiHome2Line,
+  RiMapPin2Line,
+  RiPriceTag3Line,
   RiSearchLine,
   RiUser3Line,
 } from 'angular-remix-icon';
