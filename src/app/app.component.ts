@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy, PLATFORM_ID} from '@angular/core';
+import { Component, Inject, OnDestroy, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SocketService } from './services/socket/socket.service';
 import { isPlatformBrowser } from '@angular/common';
@@ -7,7 +7,6 @@ import { isPlatformBrowser } from '@angular/common';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet],
-  providers: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

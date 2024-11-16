@@ -1,7 +1,7 @@
 import {
   ApplicationConfig,
   provideZoneChangeDetection,
-  isDevMode, LOCALE_ID,
+  isDevMode,
 } from '@angular/core';
 import {
   provideRouter,
@@ -34,9 +34,9 @@ import {
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
-import {provideTranslocoLocale} from '@jsverse/transloco-locale';
+import { provideTranslocoLocale } from '@jsverse/transloco-locale';
 
-const icons = {
+export const icons = {
   RiHome2Line,
   RiCheckLine,
   RiBookmarkLine,
@@ -81,7 +81,7 @@ export const appConfig: ApplicationConfig = {
       langToLocaleMapping: {
         'en-US': 'en-US',
         de: 'de-DE',
-      }
-    })
+      },
+    }),
   ],
 };

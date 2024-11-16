@@ -1,13 +1,12 @@
-import {booleanAttribute, Component, Inject, Input, LOCALE_ID} from '@angular/core';
+import { booleanAttribute, Component, Input } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { ImageModule } from 'primeng/image';
 import { TagModule } from 'primeng/tag';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { SkeletonModule } from 'primeng/skeleton';
-import {EventCardItem} from '../../interfaces/EventCardItem';
-import {DatePipe} from '@angular/common';
-import {EventService} from '../../services/event/eventservice';
-import {TranslocoDatePipe} from '@jsverse/transloco-locale';
+import { EventCardItem } from '../../interfaces/EventCardItem';
+import { DatePipe } from '@angular/common';
+import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 
 @Component({
   selector: 'app-event-card',
@@ -27,9 +26,7 @@ export class EventCardComponent {
   @Input({ transform: booleanAttribute }) skeleton: boolean = false;
   @Input() event!: EventCardItem;
 
-  constructor() {
-  }
-
+  constructor() {}
 
   /**
    * Accepts an ISO-Date-String
@@ -39,11 +36,10 @@ export class EventCardComponent {
     return new Date(date);
   }
 
-  toImageUrl(url: string|undefined|null): string {
+  toImageUrl(url: string | undefined | null): string {
     if (url) {
       return `url('images/${url}')`;
     }
     return "url('https://placehold.co/600x400')";
   }
-
 }

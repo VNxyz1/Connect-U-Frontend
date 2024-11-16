@@ -4,7 +4,7 @@
       <div class="overflow-hidden" [style]="{ 'aspect-ratio': '2/1' }">
         <div
           class="bg-cover bg-center border-round h-full w-full"
-          [style]="{'background-image': toImageUrl(event.picture)}">
+          [style]="{ 'background-image': toImageUrl(event.picture) }">
           <div class="flex gap-2 p-3">
             @for (category of event.categories; track $index) {
               <p-tag [value]="category.name" [rounded]="true" />
@@ -23,7 +23,10 @@
                 style="width: 16px; height: 16px" />
             </ng-template>
           </p-tag>
-          <p-tag value="cause missing in Backend" [rounded]="true" severity="secondary">
+          <p-tag
+            value="cause missing in Backend"
+            [rounded]="true"
+            severity="secondary">
             <ng-template pTemplate="icon">
               <rmx-icon
                 name="price-tag-3-line"
@@ -32,18 +35,24 @@
           </p-tag>
         </div>
         <div class="col-12">
-          <h3 class="m-0">{{event.title}}</h3>
+          <h3 class="m-0">{{ event.title }}</h3>
         </div>
         <div class="col-12 flex flex-wrap">
           <div
             class="col-fixed w-max flex gap-1 align-items-center text-center">
             <rmx-icon name="group-line" />
-            <span>{{ event.participantsNumber }}/{{event.maxParticipantsNumber}}</span>
+            <span
+              >{{ event.participantsNumber }}/{{
+                event.maxParticipantsNumber
+              }}</span
+            >
           </div>
           <div
             class="col-fixed w-max flex gap-1 align-items-center text-center">
             <rmx-icon name="calendar-line" />
-            <span>{{ toDate(event.dateAndTime) | translocoDate: {dateStyle: 'short'} }}</span>
+            <span>{{
+              toDate(event.dateAndTime) | translocoDate: { dateStyle: 'short' }
+            }}</span>
           </div>
           <div
             class="col-fixed w-max flex gap-1 align-items-center text-center">
