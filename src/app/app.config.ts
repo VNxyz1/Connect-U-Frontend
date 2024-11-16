@@ -21,10 +21,10 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { jwtInterceptor } from './utils/interceptors/jwt.interceptor';
 import {
   provideRemixIcon,
-  RiBookmarkLine,
-  RiCheckLine,
+  RiBookmarkLine, RiCalendarLine,
+  RiCheckLine, RiGroupLine,
   RiHeart3Line,
-  RiHome2Line,
+  RiHome2Line, RiMapPin2Line, RiPriceTag3Line,
   RiSearchLine,
   RiUser3Line,
 } from 'angular-remix-icon';
@@ -38,6 +38,10 @@ const icons = {
   RiSearchLine,
   RiUser3Line,
   RiHeart3Line,
+  RiPriceTag3Line,
+  RiGroupLine,
+  RiCalendarLine,
+  RiMapPin2Line,
 };
 
 export const translocoConfig = {
