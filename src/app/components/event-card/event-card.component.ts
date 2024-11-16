@@ -39,4 +39,11 @@ export class EventCardComponent {
     return new Date(date);
   }
 
+  toImageUrl(url: string|undefined|null): string {
+    if (url) {
+      return `url('images/${url}')`;
+    }
+    return "url('https://placehold.co/600x400')";
+  }
+
 }
