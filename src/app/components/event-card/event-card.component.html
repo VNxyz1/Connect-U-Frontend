@@ -19,18 +19,18 @@
           </p-tag>
         </div>
         <div class="col-12">
-          <h3 class="m-0">Feiern gehen auf dem Ramsberg</h3>
+          <h3 class="m-0">{{event.title}}</h3>
         </div>
         <div class="col-12 flex flex-wrap">
           <div
             class="col-fixed w-max flex gap-1 align-items-center text-center">
             <rmx-icon name="group-line" />
-            <span>{{ '3/12' }}</span>
+            <span>{{ event.participantsNumber }}/{{event.maxParticipantsNumber}}</span>
           </div>
           <div
             class="col-fixed w-max flex gap-1 align-items-center text-center">
             <rmx-icon name="calendar-line" />
-            <span>{{ '18.02.26' }}</span>
+            <span>{{ toDate(event.dateAndTime) | date }}</span>
           </div>
           <div
             class="col-fixed w-max flex gap-1 align-items-center text-center">

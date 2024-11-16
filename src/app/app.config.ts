@@ -1,7 +1,7 @@
 import {
   ApplicationConfig,
   provideZoneChangeDetection,
-  isDevMode,
+  isDevMode, LOCALE_ID,
 } from '@angular/core';
 import {
   provideRouter,
@@ -76,5 +76,6 @@ export const appConfig: ApplicationConfig = {
     provideRemixIcon(icons),
     provideHttpClient(),
     provideTransloco(translocoConfig),
+    { provide: LOCALE_ID, useValue: navigator.language}
   ],
 };
