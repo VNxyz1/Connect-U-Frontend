@@ -1,3 +1,11 @@
 <p>search-page works!</p>
 
-<app-event-card />
+@if (events$ | async; as events) {
+  <app-event-card />
+} @else {
+  @for (event of [0, 1, 2, 3, 4]; track $index) {
+    <div class="mb-3">
+      <app-event-card skeleton />
+    </div>
+  }
+}

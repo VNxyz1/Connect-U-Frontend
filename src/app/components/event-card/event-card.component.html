@@ -1,39 +1,77 @@
-<p-card>
-  <ng-template pTemplate="header">
-    <div class="overflow-hidden" [style]="{ 'aspect-ratio': '2/1' }">
-      <div
-        class="bg-cover bg-center border-round h-full w-full"
-        style="background-image: url('https://placehold.co/600x400')"></div>
-    </div>
-  </ng-template>
-  <ng-template pTemplate="content">
-    <div class="test grid p-0">
-      <div class="col-12">
-        <p-tag value="LGBTQ+ Friendly" [rounded]="true" severity="secondary">
-          <ng-template pTemplate="icon">
-            <rmx-icon
-              name="price-tag-3-line"
-              style="width: 16px; height: 16px" />
-          </ng-template>
-        </p-tag>
+@if (!skeleton) {
+  <p-card>
+    <ng-template pTemplate="header">
+      <div class="overflow-hidden" [style]="{ 'aspect-ratio': '2/1' }">
+        <div
+          class="bg-cover bg-center border-round h-full w-full"
+          style="background-image: url('https://placehold.co/600x400')"></div>
       </div>
-      <div class="col-12">
-        <h3 class="m-0">Feiern gehen auf dem Ramsberg</h3>
+    </ng-template>
+    <ng-template pTemplate="content">
+      <div class="test grid p-0">
+        <div class="col-12">
+          <p-tag value="LGBTQ+ Friendly" [rounded]="true" severity="secondary">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                name="price-tag-3-line"
+                style="width: 16px; height: 16px" />
+            </ng-template>
+          </p-tag>
+        </div>
+        <div class="col-12">
+          <h3 class="m-0">Feiern gehen auf dem Ramsberg</h3>
+        </div>
+        <div class="col-12 flex flex-wrap">
+          <div
+            class="col-fixed w-max flex gap-1 align-items-center text-center">
+            <rmx-icon name="group-line" />
+            <span>{{ '3/12' }}</span>
+          </div>
+          <div
+            class="col-fixed w-max flex gap-1 align-items-center text-center">
+            <rmx-icon name="calendar-line" />
+            <span>{{ '18.02.26' }}</span>
+          </div>
+          <div
+            class="col-fixed w-max flex gap-1 align-items-center text-center">
+            <rmx-icon name="map-pin-2-line" />
+            <span>{{ 'Gießen' }}</span>
+          </div>
+        </div>
       </div>
-      <div class="col-12 flex flex-wrap">
-        <div class="col-fixed w-max flex gap-1 align-items-center text-center">
-          <rmx-icon name="group-line" />
-          <span>{{ '3/12' }}</span>
+    </ng-template>
+  </p-card>
+} @else {
+  <p-card>
+    <ng-template pTemplate="header">
+      <div class="overflow-hidden" [style]="{ 'aspect-ratio': '2/1' }">
+        <p-skeleton width="100%" height="100%" />
+      </div>
+    </ng-template>
+    <ng-template pTemplate="content">
+      <div class="test grid p-0">
+        <div class="col-12 flex gap-2">
+          <p-skeleton borderRadius="18px" width="5rem" height="1.5rem" />
+          <p-skeleton borderRadius="18px" width="6rem" height="1.5rem" />
         </div>
-        <div class="col-fixed w-max flex gap-1 align-items-center text-center">
-          <rmx-icon name="calendar-line" />
-          <span>{{ '18.02.26' }}</span>
+        <div class="col-12">
+          <p-skeleton width="90%" height="1.5rem" />
         </div>
-        <div class="col-fixed w-max flex gap-1 align-items-center text-center">
-          <rmx-icon name="map-pin-2-line" />
-          <span>{{ 'Gießen' }}</span>
+        <div class="col-12 flex flex-wrap">
+          <div
+            class="col-fixed w-max flex gap-1 align-items-center text-center">
+            <p-skeleton height="1.5rem" width="5rem" styleClass="mb-2" />
+          </div>
+          <div
+            class="col-fixed w-max flex gap-1 align-items-center text-center">
+            <p-skeleton height="1.5rem" width="5rem" styleClass="mb-2" />
+          </div>
+          <div
+            class="col-fixed w-max flex gap-1 align-items-center text-center">
+            <p-skeleton height="1.5rem" width="5rem" styleClass="mb-2" />
+          </div>
         </div>
       </div>
-    </div>
-  </ng-template>
-</p-card>
+    </ng-template>
+  </p-card>
+}

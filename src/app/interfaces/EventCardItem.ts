@@ -1,6 +1,6 @@
-import {EventtypeEnum} from './EventtypeEnum';
-import {Category} from './Category';
-import {StatusEnum} from './StatusEnum';
+import { EventtypeEnum } from './EventtypeEnum';
+import { Category } from './Category';
+import { StatusEnum } from './StatusEnum';
 
 export interface EventCardItem {
   id: string;
