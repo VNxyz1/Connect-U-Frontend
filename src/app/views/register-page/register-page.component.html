@@ -177,16 +177,16 @@
           <input
             [type]="passwordVisible ? 'text' : 'password'"
             pInputText
-            formControlName="confirmPassword"
-            id="confirmPassword"
+            formControlName="passwordConfirm"
+            id="passwordConfirm"
             placeholder="Passwort wiederholen*"
             name="proofPassword"
             aria-required="true"
             [attr.aria-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
           />
         </p-iconField>
-        @if (form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.touched) {
-          @if (form.get('confirmPassword')?.errors?.['required']) {
+        @if (form.get('passwordConfirm')?.invalid && form.get('passwordConfirm')?.touched) {
+          @if (form.get('passwordConfirm')?.errors?.['required']) {
             <small class="text-red-500">Passwort muss wiederholt werden!</small>
           }
           @if (form.errors?.['passwordMissmatch']) {
@@ -199,7 +199,7 @@
       </div>
       <div class="field mb-4">
         <div>
-          Bitte bestätigen Sie die
+          Bitte bestätige unsere
           <a [routerLink]="['/agb']" class="text-primary no-underline">AGBs</a>
           <p-checkbox
             formControlName="agb"

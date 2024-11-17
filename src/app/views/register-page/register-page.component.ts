@@ -22,7 +22,7 @@ type RegisterForm = FormGroup<{
   birthday: FormControl<string>;
   gender: FormControl<number>;
   password: FormControl<string>;
-  confirmPassword: FormControl<string>;
+  passwordConfirm: FormControl<string>;
   agb: FormControl<boolean>;
 }>;
 
@@ -85,7 +85,7 @@ export class RegisterPageComponent {
         nonNullable: true,
         validators: [Validators.required, Validators.minLength(8)]
       }),
-      confirmPassword: new FormControl('', {
+      passwordConfirm: new FormControl('', {
         nonNullable: true,
         validators: [Validators.required]
       }),
@@ -121,17 +121,15 @@ export class RegisterPageComponent {
         birthday: formattedBirthday,
         gender: formValue.gender !== undefined ? formValue.gender : 0,
         password: formValue.password !== undefined ? formValue.password : '',
-        confirmPassword: formValue.confirmPassword !== undefined ? formValue.confirmPassword : '',
+        passwordConfirm: formValue.passwordConfirm !== undefined ? formValue.passwordConfirm : '',
         agb: formValue.agb !== undefined ? formValue.agb : false,
       }
 
-    console.log(typeof(requestBody));
     this.authService.register(
     requestBody
     ).subscribe({
       next: () => this.router.navigateByUrl('/'),
       error: err => {
-        console.log('Fehlerstatus', err.status);
         this.showErrorMessage(err.status);
       },
     })
@@ -154,17 +152,5 @@ export class RegisterPageComponent {
         })
     }
   }
-
-  //protected readonly passwordMatchValidator = passwordMatchValidator;
-  //protected readonly minAgeValidator = minAgeValidator;
   protected readonly require = require;
-
 }
-
-/*
-,
-      agb: new FormControl('',{
-        nonNullable: true,
-        validators: [Validators.required]
-      }),
- */

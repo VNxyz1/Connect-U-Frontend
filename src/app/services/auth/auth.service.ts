@@ -14,7 +14,7 @@ export type RegisterBody = {
   birthday: string;
   gender: number;
   password: string;
-  confirmPassword: string;
+  passwordConfirm: string;
   agb: boolean;
 }
 
@@ -48,12 +48,9 @@ export class AuthService {
   }
 
   register(body: RegisterBody): Observable<LoginResponse> {
-    console.log(body);
     return this.http.post<LoginResponse>('user', body).pipe(
       map(response => {
-        console.log('req durch')
         this._accessToken = response.access_token;
-        console.log('response?',response);
         return response;
       })
     )
