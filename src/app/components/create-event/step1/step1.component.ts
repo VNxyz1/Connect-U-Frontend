@@ -31,7 +31,7 @@ import { NgClass, NgIf } from '@angular/common';
   templateUrl: './step1.component.html',
 })
 export class Step1Component implements OnInit, OnDestroy {
-  eventType: number | undefined = 0;
+  eventType: number | undefined = 1;
   eventTitle: string = '';
   description: string = '';
   categories: { id: number; name: string }[] = [];
@@ -74,7 +74,7 @@ export class Step1Component implements OnInit, OnDestroy {
   private async insertValuesAgain() {
     try {
       const savedData = await this.eventService.getEventInformation();
-      this.eventType = savedData.type || 0;
+      this.eventType = savedData.type || 1;
       this.eventTitle = savedData.title || '';
       this.description = savedData.description || '';
       this.selectedCategories = savedData.categories || [];
@@ -101,7 +101,7 @@ export class Step1Component implements OnInit, OnDestroy {
   protected async nextPage() {
     this.submitted = true;
 
-    if (!this.eventTitle || !this.selectedCategories?.length || !this.description) {
+    if (!this.eventTitle.trim() || this.eventTitle.length > 50 || !this.selectedCategories?.length) {
       return; // Prevent navigation if validation fails
     }
 

@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { Subject, takeUntil } from 'rxjs';
 import { NgClass, NgIf } from '@angular/common';
+import { EventData } from '../../../services/event/eventservice';
 
 @Component({
   selector: 'app-step3',
@@ -133,11 +134,23 @@ export class Step3Component implements OnInit {
   }
 
   private async sendEventInformation() {
-    await this.eventService.setEventInformation({
+    // Create partial event data object
+    const data: Partial<EventData> = {
       participantsNumber: this.participantsNumber,
       preferredGenders: this.preferredGenders,
-      startAge: this.ageValues[0],
-      endAge: this.ageValues[1],
-    });
+    };
+
+    // Only include startAge if it's not the default value of 16
+    if (this.ageValues[0] !== 16) {
+      data.startAge = this.ageValues[0];
+    }
+
+    // Only include endAge if it's not the default value of 99
+    if (this.ageValues[1] !== 99) {
+      data.endAge = this.ageValues[1];
+    }
+
+    // Save event information
+    await this.eventService.setEventInformation(data);
   }
 }

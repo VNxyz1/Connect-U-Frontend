@@ -11,6 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PrimeTemplate } from 'primeng/api';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
+import { NgClass, NgIf } from '@angular/common';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
@@ -26,6 +27,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     PrimeTemplate,
     RadioButtonModule,
     CheckboxModule,
+    NgClass,
+    NgIf,
     ConfirmDialogModule,
   ],
   providers: [ConfirmationService],
@@ -34,12 +37,16 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 export class Step2Component implements OnInit {
   dateAndTime: Date | undefined;
   online: boolean = false;
-  street: string | undefined;
-  streetNumber: string | undefined;
-  zipCode: string | undefined;
-  city: string | undefined;
-  hideAddress: boolean = true; // Updated type for better usage
+  street: string = '';
+  streetNumber: string = '';
+  zipCode: string = '';
+  city: string = '';
+  hideAddress: boolean = false; // Updated type for better usage
+
+  zipCodeRegex: RegExp = /^[A-Za-z0-9 ]{3,10}$/;
+
   minDate: Date;
+  submitted: boolean = false;
 
   constructor(
     public eventService: EventService,
@@ -48,12 +55,20 @@ export class Step2Component implements OnInit {
     private route: ActivatedRoute
   ) {
     this.minDate = new Date();
-    this.minDate.setMinutes(this.minDate.getMinutes() + 15);
+    this.minDate.setMinutes(this.minDate.getMinutes() + 15); // Ensure a minimum 15-minute lead
   }
 
   async ngOnInit() {
     const step2Data = await this.eventService.getEventInformation(); // Await data retrieval
-    this.dateAndTime = step2Data.dateAndTime ? new Date(step2Data.dateAndTime) : this.minDate;
+    // Ensure `dateAndTime` is a valid Date object or leave undefined
+    this.dateAndTime = step2Data.dateAndTime
+      ? new Date(step2Data.dateAndTime)
+      : undefined;
+
+    if (!this.dateAndTime) {
+      // Default to `minDate` if no valid date exists
+      this.dateAndTime = this.minDate;
+    }
     this.online = step2Data.isOnline;
     this.street = step2Data.street;
     this.streetNumber = step2Data.streetNumber;
@@ -63,28 +78,54 @@ export class Step2Component implements OnInit {
   }
 
   nextPage() {
-    if (this.dateAndTime?.getTime() === this.minDate.getTime()) {
-      // Show confirmation dialog if date is still set to minDate
+    this.submitted = true;
+
+    // Validate Date & Time
+    if (!this.dateAndTime || isNaN(this.dateAndTime.getTime())) {
+      return; // Block navigation if invalid
+    }
+
+    // Validate Address Fields if the event is not online
+    if (!this.online) {
+      if (
+        !this.street.trim() ||
+        !this.streetNumber.trim() ||
+        !this.zipCode.trim() ||
+        !this.city.trim()
+      ) {
+        return; // Block navigation if address fields are incomplete
+      }
+
+      if (!this.zipCodeRegex.test(this.zipCode.trim())) {
+        return; // Block navigation if ZIP code is invalid
+      }
+    }
+
+    // Check for minimum or earlier date
+    if (this.dateAndTime.getTime() <= this.minDate.getTime()) {
       this.confirmationService.confirm({
-        message: 'The selected date and time are set to the minimum. Do you want to proceed?',
+        message: 'Date and time are set to the minimum. Do you want to proceed?',
         header: 'Confirm Date Selection',
-        icon: 'pi pi-exclamation-circle',
+        icon: 'pi pi-exclamation-triangle',
         accept: () => {
-          this.proceedToNextPage(); // Perform nextPage actions on confirmation
+          this.navigateNext();
+        },
+        reject: () => {
+          console.log('User declined to proceed.');
         },
       });
     } else {
-      this.proceedToNextPage();
+      this.navigateNext();
     }
   }
 
-  private proceedToNextPage() {
+  private navigateNext() {
     this.sendEventInformation();
     this.router.navigate(['../step3'], { relativeTo: this.route })
       .then(() => {
-        // Navigation successful
+        console.log('Navigation to step 3 successful.');
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Navigation error:', err);
       });
   }
@@ -93,7 +134,7 @@ export class Step2Component implements OnInit {
     this.sendEventInformation();
     this.router.navigate(['../step1'], { relativeTo: this.route })
       .then(() => {
-        // Navigation successful
+        console.log('Navigation to step 1 successful.');
       })
       .catch(err => {
         console.error('Navigation error:', err);
@@ -104,10 +145,10 @@ export class Step2Component implements OnInit {
     await this.eventService.setEventInformation({
       dateAndTime: this.dateAndTime?.toISOString(),
       isOnline: this.online,
-      street: this.online ? undefined : this.street,
-      streetNumber: this.online ? undefined : this.streetNumber,
-      zipCode: this.online ? undefined : this.zipCode,
-      city: this.online ? undefined : this.city,
+      street: this.online ? "" : this.street,
+      streetNumber: this.online ? "" : this.streetNumber.trim(),
+      zipCode: this.online ? "" : this.zipCode.trim(),
+      city: this.online ? "" : this.city,
       showAddress: !this.hideAddress,
     });
   }

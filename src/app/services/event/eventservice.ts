@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../storage/storage.service';
 import { Observable, Subject, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
-type EventData = {
+export type EventData = {
   categories: number[];
   dateAndTime: string;
   title: string;
@@ -18,8 +18,8 @@ type EventData = {
   city: string;
   participantsNumber: number;
   preferredGenders: number[];
-  startAge: number;
-  endAge: number;
+  startAge: number | null;
+  endAge: number | null;
 };
 
 type Category = { id: number; name: string };
@@ -73,9 +73,38 @@ export class EventService {
   postEvent(): Observable<EventData> {
     const url = 'event';
 
+    // Validate required fields before posting
+    if (
+      !this._eventInformation?.title?.trim() || // Title should not be empty or whitespace
+      this._eventInformation.categories.length === 0 || // At least one category
+      !this._eventInformation.dateAndTime || // Date must be filled
+      isNaN(Date.parse(this._eventInformation.dateAndTime)) || // Date must be valid ISO format
+      (
+        !this._eventInformation.isOnline && // If not online, address must be valid
+        (
+          !this._eventInformation.street.trim() ||
+          !this._eventInformation.streetNumber.trim() ||
+          !this._eventInformation.zipCode.trim() ||
+          !this._eventInformation.city.trim()
+        )
+      ) ||
+      this._eventInformation.participantsNumber < 2 // Participants number >= 2
+    ) {
+      console.error('Validation failed. Required fields are missing or invalid.');
+      return throwError(() => new Error('Validation failed. Check your inputs.'));
+    } else if (this._eventInformation.startAge == 16 ) {
+      this._eventInformation.startAge = null;
+    } else if (this._eventInformation.endAge == 99 ) {
+      this._eventInformation.endAge = null;
+    }
+
+    // Ensure the date is in ISO format
+    const isoDateAndTime = new Date(this._eventInformation.dateAndTime).toISOString();
+
     // Transform _eventInformation to include only the category and gender IDs
     const payload: EventData = {
       ...(this._eventInformation || this.getDefaultEventData()),
+      dateAndTime: isoDateAndTime, // Use ISO-formatted date
       categories: this._eventInformation?.categories.map((category: any) =>
         typeof category === 'object' && 'id' in category ? category.id : category
       ) || [],
@@ -88,6 +117,8 @@ export class EventService {
         : {}),
     };
 
+    console.log(JSON.stringify(payload, null, 2));
+
     return this.http.post<EventData>(url, payload).pipe(
       map((response) => {
         // Emit the response upon success
@@ -98,6 +129,10 @@ export class EventService {
         this.storageService.remove(this.STORAGE_KEY);
 
         return response;
+      }),
+      catchError((error) => {
+        console.error('Error posting event:', error);
+        return throwError(() => error);
       })
     );
   }

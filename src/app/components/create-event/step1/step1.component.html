@@ -4,23 +4,12 @@
       <div class="flex align-items-center">
         <p-radioButton
           name="event-type"
-          value="0"
-          [(ngModel)]="eventType"
-          id="type-0"
-          variant="filled" />
-        <label for="type-0" class="ml-2">
-          Public
-        </label>
-      </div>
-      <div class="flex align-items-center">
-        <p-radioButton
-          name="event-type"
           value="1"
           [(ngModel)]="eventType"
           id="type-1"
           variant="filled" />
         <label for="type-1" class="ml-2">
-          Semi-Public
+          Public
         </label>
       </div>
       <div class="flex align-items-center">
@@ -31,6 +20,17 @@
           id="type-2"
           variant="filled" />
         <label for="type-2" class="ml-2">
+          Semi-Public
+        </label>
+      </div>
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="event-type"
+          value="3"
+          [(ngModel)]="eventType"
+          id="type-3"
+          variant="filled" />
+        <label for="type-3" class="ml-2">
           Private
         </label>
       </div>
@@ -46,11 +46,11 @@
           required
           pInputText
           [(ngModel)]="eventTitle"
-          [ngClass]="{ 'ng-invalid ng-dirty': (eventTitleInput.invalid && submitted) || (eventTitleInput.dirty && eventTitleInput.invalid) }"
+          [ngClass]="{ 'ng-invalid ng-dirty': (eventTitleInput.invalid && submitted) || (eventTitleInput.dirty && eventTitleInput.invalid || eventTitle.trim() === '' ) }"
         />
         <label for="event-title">Title</label>
       </p-floatLabel>
-      <small *ngIf="(eventTitleInput.invalid && submitted) || (eventTitleInput.dirty && eventTitleInput.invalid)" class="p-error">
+      <small *ngIf="(eventTitleInput.invalid && submitted) || (eventTitleInput.dirty && eventTitleInput.invalid || eventTitle.trim() === '')" class="p-error">
         Event title is required.
       </small>
 
@@ -69,7 +69,7 @@
           [showToggleAll]="false"
           (onChange)="onCategoryChange()"
           styleClass="capitalize"
-          [ngClass]="{ 'ng-invalid ng-dirty': (selectedCategories.length === 0 && submitted) }"
+          [ngClass]="{ 'ng-invalid ng-dirty': ( submitted) }"
         />
         <label for="categories">Select Categories</label>
       </p-floatLabel>
@@ -86,17 +86,12 @@
           rows="5"
           cols="30"
           pInputTextarea
-          required
           [(ngModel)]="description"
           class="vertical-resize-only"
-          [ngClass]="{ 'ng-invalid ng-dirty': (descriptionInput.invalid && submitted) || (descriptionInput.dirty && descriptionInput.invalid) }"
         >
         </textarea>
         <label for="description">Description</label>
       </p-floatLabel>
-      <small *ngIf="(descriptionInput.invalid && submitted) || (descriptionInput.dirty && descriptionInput.invalid)" class="p-error">
-        Description is required.
-      </small>
     </div>
   </div>
 
