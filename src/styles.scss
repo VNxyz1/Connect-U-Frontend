@@ -33,25 +33,13 @@
 /* BOTTOM BUTTONS CONTAINER, see at create-event pages */
 
 .fixed-bottom-responsive-container {
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  bottom: 10px;
-  width: 100vw; // Allows it to stretch across the parent's width
-  max-width: inherit; // Respect max-width set by any parent container
-  padding: 0;
-
-  .button-wrapper {
-    display: flex;
-    width: 100vw; // Ensure the buttons take up the entire container width
-    max-width: inherit; // Inherit the parent's max width
-    justify-content: space-between;
-  }
+  bottom: -20% !important;
+  position: relative;
 }
 
 @media screen and (min-width: 576px) {
   .fixed-bottom-responsive-container {
-    bottom: 25%;
+    bottom: 25% !important;
   }
 }
 

@@ -21,9 +21,9 @@ export class CreateEventPageComponent implements OnDestroy {
   ) {
     // Step navigation items
     this.items = [
-      { routerLink: 'step1', label: 'Step 1' },
-      { routerLink: 'step2', label: 'Step 2' },
-      { routerLink: 'step3', label: 'Step 3' },
+      { routerLink: 'step1' },
+      { routerLink: 'step2' },
+      { routerLink: 'step3' },
     ];
   }
 

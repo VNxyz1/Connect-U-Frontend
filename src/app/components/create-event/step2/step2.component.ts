@@ -13,6 +13,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { NgClass, NgIf } from '@angular/common';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-step2',
@@ -30,6 +31,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     NgClass,
     NgIf,
     ConfirmDialogModule,
+    ToastModule,
   ],
   providers: [ConfirmationService],
   templateUrl: './step2.component.html',

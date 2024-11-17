@@ -101,7 +101,7 @@ export class Step3Component implements OnInit {
         // Add success message
         this.messageService.add({
           severity: 'success',
-          summary: `Event "${response.title}" created successfully!`,
+          summary: `Event "${this.title}" created successfully!`,
         });
       },
       error: (error) => {
