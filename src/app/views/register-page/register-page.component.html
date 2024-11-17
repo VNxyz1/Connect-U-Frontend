@@ -1,6 +1,7 @@
 <div class="p-fluid grid justify-content-center">
   <div class="col-10 sm:col-8 md:col-6 lg:col-4">
     <h3 class="col-12 text-center">Registrieren</h3>
+    <p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />
     <form (ngSubmit)="submitRegister()"
           [formGroup]="form">
       <div class="field mb-4">
@@ -8,7 +9,7 @@
           pInputText
           formControlName="username"
           type="text"
-          id="username" placeholder="Nutzername"
+          id="username" placeholder="Nutzername*"
           aria-required="true"
           [attr.aria-invalid]="
           form.get('username')?.invalid && form.get('username')?.touched
@@ -32,7 +33,7 @@
           pInputText
           formControlName="email"
           class="w-full"
-          placeholder="E-Mail"
+          placeholder="E-Mail*"
           aria-required="true"
           [attr.aria-invalid]="
           form.get('email')?.invalid && form.get('email')?.touched
@@ -50,23 +51,23 @@
       </div>
 
       <div class="field mb-4">
-        <label for="firstname" class="sr-only">E-Mail</label>
+        <label for="firstName" class="sr-only">Firstname</label>
         <input
-          id="firstname"
+          id="firstName"
           type="text"
           pInputText
-          formControlName="firstname"
+          formControlName="firstName"
           class="w-full"
-          placeholder="Vorname"
+          placeholder="Vorname*"
           aria-required="true"
           [attr.aria-invalid]="
-          form.get('firstname')?.invalid && form.get('firstname')?.touched
+          form.get('firstName')?.invalid && form.get('firstName')?.touched
         " />
-        @if (form.get('firstname')?.invalid && form.get('firstname')?.touched) {
-          @if (form.get('firstname')?.errors?.['required']) {
+        @if (form.get('firstName')?.invalid && form.get('firstName')?.touched) {
+          @if (form.get('firstName')?.errors?.['required']) {
             <small class="text-red-500">Vorname ist erforderlich.</small>
           }
-          @if (form.get('firstname')?.errors?.['minlength']) {
+          @if (form.get('firstName')?.errors?.['minlength']) {
             <small class="text-red-500">Vorname muss mindestens 3 Zeichen enthalten.</small>
           }
         }
@@ -75,15 +76,15 @@
       <div class="field mb-4">
         <input
           pInputText
-          formControlName="lastname"
+          formControlName="lastName"
           type="text"
           id="lastName"
-          placeholder="Nachname"
+          placeholder="Nachname*"
           class="w-full"
           aria-required="true"
-          [attr.aria-invalid]="form.get('lastname')?.invalid && form.get('lastname')?.touched">
-        @if(form.get('lastname')?.invalid && form.get('lastname')?.touched){
-          @if(form.get('lastname')?.errors?.['required']){
+          [attr.aria-invalid]="form.get('lastName')?.invalid && form.get('lastName')?.touched">
+        @if(form.get('lastName')?.invalid && form.get('lastName')?.touched){
+          @if(form.get('lastName')?.errors?.['required']){
             <small class="text-red-500">Nachname ist erforderlich </small>
           }
         }
@@ -93,24 +94,25 @@
         <p-calendar
           [iconDisplay]="'input'"
           [showIcon]="true"
-          placeholder="Geburtsdatum"
+          placeholder="Geburtsdatum*"
           inputId="templatedisplay"
           class="w-full"
-          formControlName="birthdate"
+          formControlName="birthday"
           aria-required="true"
-          [attr.aria-invalid]="form.get('birthdate')?.invalid && form.get('birthdate')?.touched">
+          dateFormat="yy-mm-dd"
+          [attr.aria-invalid]="form.get('birthday')?.invalid && form.get('birthday')?.touched">
           <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
             <i class="pi pi-user pointer-events-none" (click)="clickCallBack($event)"></i>
           </ng-template>
         </p-calendar>
-        @if(form.get('birthdate')?.invalid && form.get('birthdate')?.touched){
-         @if(form.get('birthdate')?.errors?.['required']){
+        @if(form.get('birthday')?.invalid && form.get('birthday')?.touched){
+         @if(form.get('birthday')?.errors?.['required']){
            <small>Geburtsdatum ist erforderlich </small>
          }
-          @if (form.get('birthdate')?.errors?.['invalidDate']){
+          @if (form.get('birthday')?.errors?.['invalidDay']){
             <small>Das eingegebene Datum ist ungültig</small>
           }
-          @if(form.get('birthdate')?.errors?.['minAge']){
+          @if(form.get('birthday')?.errors?.['minAge']){
             <small>Du musst mind. 16 Jahre alt sein!</small>
           }
         }
@@ -122,7 +124,7 @@
           id="gender"
           formControlName="gender"
           [options]="genderOptions"
-          placeholder="Geschlecht"
+          placeholder="Geschlecht*"
           aria-required="true"
           [attr.aria-invalid]="form.get('gender')?.invalid && form.get('gender')?.touched"
         />
@@ -147,7 +149,7 @@
             [type]="passwordRegVisible ? 'text' : 'password'"
             pInputText
             formControlName="password"
-            placeholder="Password"
+            placeholder="Passwort*"
             name="password"/>
         </p-iconField>
         @if (form.get('password')?.invalid && form.get('password')?.touched) {
@@ -177,7 +179,7 @@
             pInputText
             formControlName="confirmPassword"
             id="confirmPassword"
-            placeholder="Password"
+            placeholder="Passwort wiederholen*"
             name="proofPassword"
             aria-required="true"
             [attr.aria-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
@@ -195,13 +197,30 @@
         }
 
       </div>
+      <div class="field mb-4">
+        <div>
+          Bitte bestätigen Sie die
+          <a [routerLink]="['/agb']" class="text-primary no-underline">AGBs</a>
+          <p-checkbox
+            formControlName="agb"
+            class="ml-3"
+            [binary]="true"
+            variant="filled"
+            inputId="agbCheckbox">
+          </p-checkbox>
+        </div>
+      </div>
 
       <div class="field ">
-        <p-button [raised]="true" label="Registrieren" severity="secondary"/>
+        <p-button [raised]="true"
+                  type="submit"
+                  label="Registrieren"
+                  severity="secondary"/>
       </div>
     </form>
+    <p class="text-center">Du hast bereits einen Account?
+      <a [routerLink]="['/welcome']" class="text-primary no-underline">Hier einloggen!</a>
+    </p>
   </div>
-  <p>Du hast bereits einen Account?
-    <a routerLink="/welcome" class="">Hier einloggen!</a>
-  </p>
+
 </div>

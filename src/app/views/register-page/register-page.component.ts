@@ -9,16 +9,21 @@ import {InputIconModule} from 'primeng/inputicon';
 import {minAgeValidator, passwordMatchValidator} from '../../utils/validators/validators';
 import {AuthService} from '../../services/auth/auth.service';
 import {CalendarModule} from 'primeng/calendar';
+import {MessageService} from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
+import {CheckboxModule} from 'primeng/checkbox';
+import { RegisterBody } from '../../services/auth/auth.service';
 
 type RegisterForm = FormGroup<{
   username: FormControl<string>;
   email: FormControl<string>;
-  firstname: FormControl<string>;
-  lastname: FormControl<string>;
-  birthdate: FormControl<string>;
-  gender: FormControl<string>;
+  firstName: FormControl<string>;
+  lastName: FormControl<string>;
+  birthday: FormControl<string>;
+  gender: FormControl<number>;
   password: FormControl<string>;
   confirmPassword: FormControl<string>;
+  agb: FormControl<boolean>;
 }>;
 
 @Component({
@@ -34,15 +39,18 @@ type RegisterForm = FormGroup<{
     InputIconModule,
     Button,
     ReactiveFormsModule,
-    CalendarModule
+    CalendarModule,
+    ToastModule,
+    CheckboxModule
   ],
+  providers: [AuthService, MessageService],
   templateUrl: './register-page.component.html',
 })
 export class RegisterPageComponent {
   genderOptions = [
-    {label: 'Männlich', value: 'male'},
-    {label: 'Weiblich', value: 'female'},
-    {label: 'Divers', value: 'diverse'}
+    {label: 'Männlich', value: 1},
+    {label: 'Weiblich', value: 2},
+    {label: 'Divers', value: 3}
   ];
   protected passwordVisible: boolean | undefined;
   protected passwordRegVisible: boolean | undefined;
@@ -57,19 +65,19 @@ export class RegisterPageComponent {
         nonNullable: true,
         validators: [Validators.required, Validators.email]
       }),
-      firstname: new FormControl<string>('', {
+      firstName: new FormControl<string>('', {
         nonNullable: true,
         validators: [Validators.required, Validators.minLength(2)]
       }),
-      lastname: new FormControl<string>('', {
+      lastName: new FormControl<string>('', {
         nonNullable: true,
         validators: [Validators.required]
       }),
-      birthdate: new FormControl('', {
+      birthday: new FormControl('', {
         nonNullable: true,
         validators: [Validators.required, minAgeValidator(16)]
       }),
-      gender: new FormControl('', {
+      gender: new FormControl( 0 , {
         nonNullable: true,
         validators: [Validators.required]
       }),
@@ -80,12 +88,18 @@ export class RegisterPageComponent {
       confirmPassword: new FormControl('', {
         nonNullable: true,
         validators: [Validators.required]
+      }),
+      agb: new FormControl<boolean>(false, {
+        nonNullable: true,
+        validators: [Validators.required]
       })
     },
-    { validators: passwordMatchValidator('password', 'confirmPassword') }
+    {validators: passwordMatchValidator('password', 'confirmPassword')}
   );
 
-  constructor( private router:Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService, private messageService: MessageService) {
+  }
+
   togglePasswordVisibility(val: string): void {
     if (val == 'regPassword') {
       this.passwordRegVisible = !this.passwordRegVisible;
@@ -94,31 +108,63 @@ export class RegisterPageComponent {
       this.passwordVisible = !this.passwordVisible;
     }
   }
-  submitRegister(){
 
+  submitRegister() {
+    const formValue = this.form.value;
+
+    const formattedBirthday = new Date(this.form.controls.birthday.value).toISOString().split('T')[0];
+      const requestBody: RegisterBody = {
+        username: formValue.username !== undefined ? formValue.username : '',
+        email: formValue.email !== undefined ? formValue.email : '',
+        firstName: formValue.firstName !== undefined ? formValue.firstName : '',
+        lastName: formValue.lastName !== undefined ? formValue.lastName : '',
+        birthday: formattedBirthday,
+        gender: formValue.gender !== undefined ? formValue.gender : 0,
+        password: formValue.password !== undefined ? formValue.password : '',
+        confirmPassword: formValue.confirmPassword !== undefined ? formValue.confirmPassword : '',
+        agb: formValue.agb !== undefined ? formValue.agb : false,
+      }
+
+    console.log(typeof(requestBody));
+    this.authService.register(
+    requestBody
+    ).subscribe({
+      next: () => this.router.navigateByUrl('/'),
+      error: err => {
+        console.log('Fehlerstatus', err.status);
+        this.showErrorMessage(err.status);
+      },
+    })
   }
 
-  showErrorMessage(code:number): void {
-
+  showErrorMessage(code: number): void {
+    switch (code) {
+      case 404:
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Registrierung fehlgeschlagen',
+          detail: 'Es wurden nicht alle Felder ausgefüllt',
+        });
+        break;
+      case 400:
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Registrierung fehlgeschlagen',
+          detail: 'Etwas ist schiefgelaufen'
+        })
+    }
   }
 
-  protected readonly minAgeValidator = minAgeValidator;
+  //protected readonly passwordMatchValidator = passwordMatchValidator;
+  //protected readonly minAgeValidator = minAgeValidator;
   protected readonly require = require;
-  protected readonly passwordMatchValidator = passwordMatchValidator;
+
 }
 
 /*
-  submitLogin() {
-    this.authService
-      .logIn({
-        email: this.form.controls.email.value,
-        password: this.form.controls.password.value,
-      })
-      .subscribe({
-        next: () => this.router.navigateByUrl('/'),
-        error: err => {
-          this.showError(err.status);
-        },
-      });
-  }
+,
+      agb: new FormControl('',{
+        nonNullable: true,
+        validators: [Validators.required]
+      }),
  */

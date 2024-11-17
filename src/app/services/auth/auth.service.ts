@@ -1,19 +1,21 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {map, Observable} from 'rxjs';
 
 type LoginBody = {
   email: string;
   password: string;
 };
-type RegisterBody = {
+export type RegisterBody = {
   username: string;
-  email:string;
-  firstname:string;
-  lastname:string;
-  birthdate: string;
-  gender: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  birthday: string;
+  gender: number;
   password: string;
+  confirmPassword: string;
+  agb: boolean;
 }
 
 type LoginResponse = {
@@ -26,7 +28,8 @@ type LoginResponse = {
 export class AuthService {
   private _accessToken: string | undefined;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   /**
    * to be implemented
@@ -43,10 +46,14 @@ export class AuthService {
       }),
     );
   }
-  register(body: RegisterBody): Observable<any>{
-    return this.http.post<any>('auth/register', body).pipe(
+
+  register(body: RegisterBody): Observable<LoginResponse> {
+    console.log(body);
+    return this.http.post<LoginResponse>('user', body).pipe(
       map(response => {
+        console.log('req durch')
         this._accessToken = response.access_token;
+        console.log('response?',response);
         return response;
       })
     )
