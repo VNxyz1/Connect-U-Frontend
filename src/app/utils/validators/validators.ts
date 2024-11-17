@@ -1,4 +1,9 @@
-import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
+import {
+  AbstractControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 
 export function minAgeValidator(minAge: number): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -20,7 +25,10 @@ export function minAgeValidator(minAge: number): ValidatorFn {
     const monthDifference = today.getMonth() - birthDate.getMonth();
 
     // Alter berechnen
-    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+    if (
+      monthDifference < 0 ||
+      (monthDifference === 0 && today.getDate() < birthDate.getDate())
+    ) {
       age--;
     }
 
@@ -31,7 +39,10 @@ export function minAgeValidator(minAge: number): ValidatorFn {
   };
 }
 
-export function passwordMatchValidator(passwordField: string, confirmPasswordField: string): ValidatorFn {
+export function passwordMatchValidator(
+  passwordField: string,
+  confirmPasswordField: string,
+): ValidatorFn {
   return (group: AbstractControl): ValidationErrors | null => {
     const formGroup = group as FormGroup;
     const password = formGroup.get(passwordField)?.value;

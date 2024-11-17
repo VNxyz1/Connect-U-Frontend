@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {map, Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
 
 type LoginBody = {
   email: string;
@@ -16,7 +16,7 @@ export type RegisterBody = {
   password: string;
   passwordConfirm: string;
   agb: boolean;
-}
+};
 
 type LoginResponse = {
   access_token: string;
@@ -28,8 +28,7 @@ type LoginResponse = {
 export class AuthService {
   private _accessToken: string | undefined;
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   /**
    * to be implemented
@@ -52,8 +51,8 @@ export class AuthService {
       map(response => {
         this._accessToken = response.access_token;
         return response;
-      })
-    )
+      }),
+    );
   }
 
   getAccessToken(): string | undefined {
