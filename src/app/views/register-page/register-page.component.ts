@@ -167,5 +167,4 @@ export class RegisterPageComponent {
         });
     }
   }
-  protected readonly require = require;
 }
