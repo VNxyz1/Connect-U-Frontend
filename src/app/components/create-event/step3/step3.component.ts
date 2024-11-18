@@ -113,7 +113,7 @@ export class Step3Component implements OnInit {
     // Submit event data to the server
     this.eventService.postEvent().subscribe({
       next: (response: any) => {
-        console.log(response);
+
         let eventId = response?.eventId;
         if (eventId) {
           // Add success message

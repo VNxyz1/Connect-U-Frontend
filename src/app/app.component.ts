@@ -35,7 +35,6 @@ export class AppComponent implements OnInit, OnDestroy {
     try {
       await this.storage.create(); // Creates a storage instance
       this.storageInitialized = true;
-      console.log('Storage initialized successfully');
     } catch (error) {
       console.error('Error initializing storage:', error);
     }

@@ -37,14 +37,12 @@ export class CreateEventPageComponent implements OnInit, OnDestroy {
     if (this.authService.isLoggedIn()) {
       // Navigate to step1 if logged in
       this.router.navigate(['step1'], { relativeTo: this.route }).then(() => {
-        console.log('User is logged in, navigating to step1.');
       }).catch(err => {
         console.error('Navigation error:', err);
       });
     } else {
       // Navigate to ../welcome if not logged in
       this.router.navigate(['../welcome']).then(() => {
-        console.log('User is not logged in, navigating to welcome.');
       }).catch(err => {
         console.error('Navigation error:', err);
       });

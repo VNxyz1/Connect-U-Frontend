@@ -115,7 +115,7 @@ export class Step2Component implements OnInit {
           this.navigateNext();
         },
         reject: () => {
-          console.log('User declined to proceed.');
+          return;
         },
       });
     } else {
@@ -127,7 +127,7 @@ export class Step2Component implements OnInit {
     this.sendEventInformation();
     this.router.navigate(['../step3'], { relativeTo: this.route })
       .then(() => {
-        console.log('Navigation to step 3 successful.');
+
       })
       .catch((err) => {
         console.error('Navigation error:', err);
@@ -138,7 +138,6 @@ export class Step2Component implements OnInit {
     this.sendEventInformation();
     this.router.navigate(['../step1'], { relativeTo: this.route })
       .then(() => {
-        console.log('Navigation to step 1 successful.');
       })
       .catch(err => {
         console.error('Navigation error:', err);

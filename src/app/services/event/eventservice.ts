@@ -47,13 +47,10 @@ export class EventService {
       const savedData = await this.storageService.get<EventData>(this.STORAGE_KEY);
       this._eventInformation = savedData || this.getDefaultEventData();
     }
-    console.log('getEventInformation:', this._eventInformation);
     return this._eventInformation;
   }
 
   async setEventInformation(data: Partial<EventData>): Promise<void> {
-    console.log('Setting event information...');
-    console.log('Incoming data:', JSON.stringify(data, null, 2));
 
     this._eventInformation = {
       ...(this._eventInformation || this.getDefaultEventData()),
@@ -61,7 +58,6 @@ export class EventService {
     };
 
     await this.storageService.set(this.STORAGE_KEY, this._eventInformation);
-    console.log('Updated _eventInformation:', JSON.stringify(this._eventInformation, null, 2));
   }
 
   getCategories(): Observable<Category[]> {
