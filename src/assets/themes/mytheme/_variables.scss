@@ -167,6 +167,10 @@ h3 {
   border: none;
 }
 
+.p-calendar .p-datepicker-trigger {
+  background-color: $secondaryColor;
+}
+
 // Checked state
 .p-radiobutton .p-radiobutton-box.p-highlight {
   background-color: var(--secondary-color); // Background color for checked
@@ -223,4 +227,8 @@ h3 {
 .p-tabmenu:hover {
   border-color: $normal-grey;
   color: $normal-grey;
+}
+
+.p-confirm-dialog-accept {
+ background-color: $successColor;
 }

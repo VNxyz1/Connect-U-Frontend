@@ -34,6 +34,24 @@
           Private
         </label>
       </div>
+      <p-button [rounded]="true"
+                [text]="true"
+                [pTooltip]="tooltipContent"
+                tooltipPosition="bottom"
+                severity="secondary">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            class="mr-2"
+            style="width: 22px; height: 22px"
+            name="information-2-line">
+          </rmx-icon>
+        </ng-template>
+      </p-button>
+      <ng-template #tooltipContent>
+        <div class="flex align-items-center">
+          <span> <strong>Public:</strong> Everyone can apply directly.<br><br><strong>Semi-public:</strong> Participants need to be approved by event host.<br><br><strong>Private:</strong> Only event host can invite participants and event is not seen on page.</span>
+        </div>
+      </ng-template>
     </div>
 
     <div class="p-col-12 p-md-6 field">
@@ -82,7 +100,6 @@
     <div class="p-col-12 field">
       <p-floatLabel>
         <textarea
-          #descriptionInput="ngModel"
           id="description"
           rows="5"
           cols="30"

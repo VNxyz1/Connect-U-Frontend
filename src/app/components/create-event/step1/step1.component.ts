@@ -12,6 +12,7 @@ import { Subject, filter, takeUntil } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { NgClass, NgIf } from '@angular/common';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-step1',
@@ -27,6 +28,7 @@ import { NgClass, NgIf } from '@angular/common';
     RadioButtonModule,
     NgIf,
     NgClass,
+    TooltipModule,
   ],
   templateUrl: './step1.component.html',
 })

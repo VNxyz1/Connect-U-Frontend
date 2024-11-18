@@ -92,9 +92,11 @@ export class EventService {
     ) {
       console.error('Validation failed. Required fields are missing or invalid.');
       return throwError(() => new Error('Validation failed. Check your inputs.'));
-    } else if (this._eventInformation.startAge == 16 ) {
+    }
+    if (this._eventInformation.startAge == 16 ) {
       this._eventInformation.startAge = null;
-    } else if (this._eventInformation.endAge == 99 ) {
+    }
+    if (this._eventInformation.endAge == 99 ) {
       this._eventInformation.endAge = null;
     }
 

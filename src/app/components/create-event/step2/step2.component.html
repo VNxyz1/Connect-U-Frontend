@@ -11,6 +11,7 @@
           [showIcon]="true"
           [showOnFocus]="true"
           [minDate]="minDate"
+          severity="secondary"
           required
           id="date"
           [ngClass]="{
@@ -167,6 +168,50 @@
         </small>
       </div>
     </div>
+
+    <div class="field flex align-items-center">
+      <!-- Checkbox -->
+      <p-checkbox
+        name="hideAddress"
+        label="Hide Address"
+        [(ngModel)]="hideAddress"
+        [binary]="true"
+        id="hideAddress"
+        variant="filled"
+        class="mr-2"
+      >
+      </p-checkbox>
+
+      <!-- Info Button -->
+      <p-button
+        [rounded]="true"
+        [text]="true"
+        [pTooltip]="tooltipContent"
+        tooltipPosition="right"
+        severity="secondary"
+        class="ml-2"
+      >
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            class="mr-2"
+            style="width: 22px; height: 22px"
+            name="information-2-line">
+          </rmx-icon>
+        </ng-template>
+      </p-button>
+
+      <!-- Tooltip Content -->
+      <ng-template #tooltipContent>
+        <div class="flex align-items-center">
+      <span>
+        <strong>Check:</strong> Only <strong>ZIP Code</strong> and <strong>City</strong> will be visible to non-participants.
+        <br>
+        <em>Street</em> and <em>Street-Number</em> will be shown only to participants.
+      </span>
+        </div>
+      </ng-template>
+    </div>
+
   </div>
 
   <!-- Navigation Buttons -->

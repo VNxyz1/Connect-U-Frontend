@@ -37,7 +37,7 @@ export class Step3Component implements OnInit {
   participantsNumber: number | undefined;
   participants: { id: number; name: string }[] = [];
   selectedParticipants: number[] = [];
-  genders: { id: number; gender: number }[] = [];
+  genders: { label: string; value: number }[] = [];
   preferredGenders: number[] = [];
   ageValues: number[] = [16, 99];
   submitted: boolean = false;
@@ -59,7 +59,24 @@ export class Step3Component implements OnInit {
     this.eventService.getGenders()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
-        next: (data) => (this.genders = data),
+        next: (data) => {
+          // Transform the genders to include label and value
+          this.genders = data.map((gender) => {
+            let label = '';
+            switch (gender.gender) {
+              case 1:
+                label = 'Male';
+                break;
+              case 2:
+                label = 'Female';
+                break;
+              case 3:
+                label = 'Divers';
+                break;
+            }
+            return { label, value: gender.id };
+          });
+        },
         error: (error) => console.error('Error loading genders:', error),
       });
   }

@@ -14,6 +14,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { NgClass, NgIf } from '@angular/common';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-step2',
@@ -32,6 +33,7 @@ import { ToastModule } from 'primeng/toast';
     NgIf,
     ConfirmDialogModule,
     ToastModule,
+    TooltipModule,
   ],
   providers: [ConfirmationService],
   templateUrl: './step2.component.html',
@@ -43,9 +45,9 @@ export class Step2Component implements OnInit {
   streetNumber: string = '';
   zipCode: string = '';
   city: string = '';
-  hideAddress: boolean = false; // Updated type for better usage
+  hideAddress: boolean = false;
 
-  zipCodeRegex: RegExp = /^[A-Za-z0-9 ]{3,10}$/;
+  zipCodeRegex: RegExp = /^\d{5}$/;
 
   minDate: Date;
   submitted: boolean = false;
