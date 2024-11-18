@@ -58,11 +58,7 @@ type RegisterForm = FormGroup<{
   templateUrl: './register-page.component.html',
 })
 export class RegisterPageComponent {
-  genderOptions = [
-    { label: 'Männlich', value: 1 },
-    { label: 'Weiblich', value: 2 },
-    { label: 'Divers', value: 3 },
-  ];
+  genderOptions: Array<{ label: string; value: number }> = [];
   protected passwordVisible: boolean | undefined;
   protected passwordRegVisible: boolean | undefined;
   protected calendarLocale:any;
@@ -116,6 +112,14 @@ export class RegisterPageComponent {
     private translocoService: TranslocoService
   ) {
     this.setCalendarLocale();
+    this.loadGenderOptions();
+  }
+  loadGenderOptions(){
+    this.genderOptions = [
+      { label: this.translocoService.translate('registerComponent.genderOption.male'), value: 1 },
+      { label: this.translocoService.translate('registerComponent.genderOption.female'), value: 2 },
+      { label: this.translocoService.translate('registerComponent.genderOption.diverse'), value: 3 },
+    ];
   }
 
   togglePasswordVisibility(val: string): void {

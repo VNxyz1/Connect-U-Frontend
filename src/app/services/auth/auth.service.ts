@@ -21,7 +21,9 @@ export type RegisterBody = {
 type LoginResponse = {
   access_token: string;
 };
-
+type RegisterResponse = {
+  "message": string;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -46,13 +48,8 @@ export class AuthService {
     );
   }
 
-  register(body: RegisterBody): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>('user', body).pipe(
-      map(response => {
-        this._accessToken = response.access_token;
-        return response;
-      }),
-    );
+  register(body: RegisterBody): Observable<RegisterResponse> {
+    return this.http.post<RegisterResponse>('user', body);
   }
 
   getAccessToken(): string | undefined {

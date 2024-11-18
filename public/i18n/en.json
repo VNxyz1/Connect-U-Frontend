@@ -37,7 +37,7 @@
       "requiredWarning": "You have to choose a Gender",
       "label": "Gender"
     },
-    "genderOptions": {
+    "genderOption": {
       "male": "Male",
       "female": "Female",
       "diverse": "Diverse"

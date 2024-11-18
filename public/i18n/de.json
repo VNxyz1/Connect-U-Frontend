@@ -68,7 +68,7 @@
       "requiredWarning": "Ein Geschlecht ist erforderlich.",
       "label": "Geschlecht"
     },
-    "genderOptions": {
+    "genderOption": {
       "male": "Männlich",
       "female": "Weiblich",
       "diverse": "Divers"
