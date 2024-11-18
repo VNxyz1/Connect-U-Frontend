@@ -97,18 +97,23 @@ export class Step3Component implements OnInit {
     this.eventService.postEvent().subscribe({
       next: (response: any) => {
         console.log(response);
-        let eventId = response?.id;
+        let eventId = response?.eventId;
         if (eventId) {
-          console.log('Event ID:', eventId);
+          // Add success message
+          this.messageService.add({
+            severity: 'success',
+            summary: `Event "${this.title}" created successfully!`,
+          });
+          setTimeout(() => {
+            // Your code logic here
+            this.router.navigate([`../../event/:${eventId}`], { relativeTo: this.route }).then(() => {
+
+            })
+          }, 2000);
         } else {
-          console.warn('Event ID not found in response');
+          throw new Error ("No Event Id");
         }
 
-        // Add success message
-        this.messageService.add({
-          severity: 'success',
-          summary: `Event "${this.title}" created successfully!`,
-        });
       },
       error: (error) => {
         console.error('Error posting event:', error);
