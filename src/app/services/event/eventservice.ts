@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../storage/storage.service';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { EventCardItem } from '../../interfaces/EventCardItem';
 
 export type EventData = {
   categories: number[];
@@ -24,6 +25,7 @@ export type EventData = {
 
 type Category = { id: number; name: string };
 type Gender = { id: number; gender: number };
+
 
 @Injectable({
   providedIn: 'root',
@@ -135,6 +137,10 @@ export class EventService {
         return throwError(() => error);
       })
     );
+  }
+
+  getAllEvents(): Observable<EventCardItem[]> {
+    return this.http.get<EventCardItem[]>('event/allEvents');
   }
 
 

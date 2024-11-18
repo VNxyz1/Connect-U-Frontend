@@ -1,1 +1,11 @@
-<router-outlet></router-outlet>
+<div class="grid">
+  <div class="col-12">
+    <app-header></app-header>
+  </div>
+  <div class="col-12 md:col-2 md:flex md:flex-column md:order-1">
+    <app-navbar></app-navbar>
+  </div>
+  <div class="col-12 md:col-10 md:order-2">
+    <router-outlet></router-outlet>
+  </div>
+</div>

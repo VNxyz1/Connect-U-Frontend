@@ -22,20 +22,32 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { jwtInterceptor } from './utils/interceptors/jwt.interceptor';
 import {
   provideRemixIcon,
+  RiAddLine,
+  RiArrowLeftSLine,
   RiBookmarkLine,
+  RiCalendarLine,
   RiCheckLine,
+  RiFunctionFill,
+  RiFunctionLine,
+  RiGroupLine,
   RiHeart3Line,
+  RiHome2Fill,
   RiHome2Line,
+  RiLayoutGridFill,
+  RiSearchFill,
+  RiMapPin2Line,
+  RiPriceTag3Line,
   RiSearchLine,
+  RiUser3Fill,
   RiUser3Line,
   RiArrowRightCircleLine,
   RiArrowLeftCircleLine,
-  RiCalendarLine,
   RiTimeLine,
   RiInformation2Line
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
+import { provideTranslocoLocale } from '@jsverse/transloco-locale';
 import { IonicStorageModule } from '@ionic/storage-angular';
 
 const icons = {
@@ -45,17 +57,29 @@ const icons = {
   RiSearchLine,
   RiUser3Line,
   RiHeart3Line,
+  RiAddLine,
+  RiLayoutGridFill,
+  RiHome2Fill,
+  RiFunctionLine,
+  RiUser3Fill,
+  RiFunctionFill,
+  RiSearchFill,
+  RiArrowLeftSLine,
+  RiPriceTag3Line,
+  RiGroupLine,
+  RiCalendarLine,
+  RiMapPin2Line,
   RiArrowRightCircleLine,
   RiArrowLeftCircleLine,
-  RiCalendarLine,
   RiTimeLine,
   RiInformation2Line
 };
 
 export const translocoConfig = {
   config: {
-    availableLangs: ['en', 'de'],
+    availableLangs: ['en-US', 'de'],
     defaultLang: 'de',
+    // Remove this option if your application doesn't support changing language in runtime.
     reRenderOnLangChange: true,
     prodMode: !isDevMode(),
   },
@@ -80,5 +104,11 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideTransloco(translocoConfig),
     importProvidersFrom(IonicStorageModule.forRoot()),
+    provideTranslocoLocale({
+      langToLocaleMapping: {
+        'en-US': 'en-US',
+        de: 'de-DE',
+      },
+    }),
   ],
 };

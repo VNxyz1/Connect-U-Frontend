@@ -1,5 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HeaderComponent } from './components/header/header.component';
 import { SocketService } from './services/socket/socket.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Storage } from '@ionic/storage-angular';
@@ -8,7 +10,7 @@ import { Storage } from '@ionic/storage-angular';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NavbarComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
