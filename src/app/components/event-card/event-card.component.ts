@@ -37,9 +37,9 @@ export class EventCardComponent {
   }
 
   toImageUrl(url: string | undefined | null): string {
-    if (url) {
+    if (url && url.trim().length > 0) {
       return `url('images/${url}')`;
     }
-    return "url('https://placehold.co/600x400')";
+    return "url('images/empty.png')";
   }
 }
