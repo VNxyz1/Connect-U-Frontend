@@ -15,7 +15,10 @@
     </ng-template>
     <ng-template pTemplate="content">
       <div class="grid p-0">
-        @for (tag of ['Placeholder','cause_missing_in_Backend']; track $index) {
+        @for (
+          tag of ['Placeholder', 'cause_missing_in_Backend'];
+          track $index
+        ) {
           <div class="col-fixed w-min p-1">
             <p-tag [value]="tag" [rounded]="true" severity="secondary">
               <ng-template pTemplate="icon">
