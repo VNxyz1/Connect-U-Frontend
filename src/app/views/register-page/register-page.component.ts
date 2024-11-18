@@ -22,6 +22,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RegisterBody } from '../../services/auth/auth.service';
+import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
 
 type RegisterForm = FormGroup<{
   username: FormControl<string>;
@@ -51,6 +52,7 @@ type RegisterForm = FormGroup<{
     CalendarModule,
     ToastModule,
     CheckboxModule,
+    TranslocoPipe,
   ],
   providers: [AuthService, MessageService],
   templateUrl: './register-page.component.html',
@@ -110,6 +112,7 @@ export class RegisterPageComponent {
     private router: Router,
     private authService: AuthService,
     private messageService: MessageService,
+    private translocoService: TranslocoService
   ) {}
 
   togglePasswordVisibility(val: string): void {
@@ -162,8 +165,12 @@ export class RegisterPageComponent {
       case 400:
         this.messageService.add({
           severity: 'error',
-          summary: 'Registrierung fehlgeschlagen',
-          detail: 'Etwas ist schiefgelaufen',
+          summary: this.translocoService.translate(
+            'registerComponent.errorMessages.registerFailed'
+          ),
+          detail: this.translocoService.translate(
+            'registerComponent.errorMessages.registerFailedData'
+          ),
         });
     }
   }

@@ -59,7 +59,7 @@ const icons = {
 export const translocoConfig = {
   config: {
     availableLangs: ['en', 'de'],
-    defaultLang: 'de',
+    defaultLang: 'en',
     // Remove this option if your application doesn't support changing language in runtime.
     reRenderOnLangChange: true,
     prodMode: !isDevMode(),

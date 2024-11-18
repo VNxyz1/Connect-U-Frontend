@@ -27,5 +27,71 @@
       "title": "Event planning made easy - for private meetups or public events.",
       "subtitle": "Plan, Share, Connect."
     }
+  },
+  "registerComponent": {
+    "title": "Register",
+    "alreadyAccount": "Already have an account?",
+    "loginLink": "Log in here!",
+    "genderInput": {
+      "placeholder": "Gender*",
+      "requiredWarning": "You have to choose a Gender",
+      "label": "Gender"
+    },
+    "genderOptions": {
+      "male": "Male",
+      "female": "Female",
+      "diverse": "Diverse"
+    },
+    "agbCheckbox": {
+      "text": "Please confirm our",
+      "agb": "terms and conditions."
+    },
+    "submitButton": {
+      "label": "Register"
+    },
+    "usernameInput": {
+      "placeholder": "Username*",
+      "lengthWarning": "Your username must be at least 3 characters long.",
+      "requiredWarning": "A username is required!",
+      "label": "Username"
+    },
+    "emailInput": {
+      "placeholder": "Email*",
+      "validEmailWarning": "Please enter a valid email address.",
+      "requiredWarning": "An email address is required.",
+      "label": "Email"
+    },
+    "firstnameInput": {
+      "placeholder": "First name*",
+      "lengthWarning": "Your first name must be at least 2 characters long.",
+      "requiredWarning": "A first name is required.",
+      "label": "First name"
+    },
+    "lastnameInput": {
+      "placeholder": "Last name*",
+      "lengthWarning": "Your last name must be at least 2 characters long.",
+      "requiredWarning": "A last name is required.",
+      "label": "Last name"
+    },
+    "calendarInput": {
+      "placeholder": "Birthdate*",
+      "requiredWarning": "A birthdate is required.",
+      "invalidDayWarning": "The entered date is invalid.",
+      "minAgeWarning": "You must be at least 16 years old.",
+      "label": "Birthdate"
+    },
+    "passwordInput": {
+      "placeholder": "Password*",
+      "lengthWarning": "The password must be at least 8 characters long.",
+      "requiredWarning": "A password is required.",
+      "label": "Password",
+      "toggleVisibility": "Toggle password visibility"
+    },
+    "confirmPasswordInput": {
+      "placeholder": "Repeat password*",
+      "requiredWarning": "Please repeat your password.",
+      "mismatchWarning": "The passwords do not match.",
+      "label": "Repeat password"
+    }
   }
 }
