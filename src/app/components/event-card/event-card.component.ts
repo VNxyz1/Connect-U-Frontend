@@ -38,8 +38,8 @@ export class EventCardComponent {
 
   toImageUrl(url: string | undefined | null): string {
     if (url && url.trim().length > 0) {
-      return `url('images/${url}')`;
+      return `url('/images/${url}')`;
     }
-    return "url('images/empty.png')";
+    return "url('/images/empty.png')";
   }
 }

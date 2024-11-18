@@ -12,6 +12,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { Button } from 'primeng/button';
 
 type LoginForm = FormGroup<{
   email: FormControl<string>;
@@ -28,6 +29,7 @@ type LoginForm = FormGroup<{
     RouterLink,
     ToastModule,
     TranslocoPipe,
+    Button,
   ],
   providers: [MessageService],
   templateUrl: './login.component.html',

@@ -68,10 +68,13 @@
         }
       }
     </div>
-
-    <button type="submit" class="sr-only" [disabled]="form.invalid">
-      {{ 'loginComponent.loginButtonLabel' | transloco }}
-    </button>
+    <div class="grid justify-content-center mb-2">
+      <div class="col-fixed w-max">
+        <p-button type="submit" severity="success" [disabled]="form.invalid">
+          {{ 'loginComponent.loginButtonLabel' | transloco }}
+        </p-button>
+      </div>
+    </div>
   </form>
   <div class="flex justify-content-center">
     <span>
