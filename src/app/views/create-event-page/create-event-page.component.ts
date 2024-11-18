@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-create-event-page',
   standalone: true,
-  imports: [AngularRemixIconComponent, ToastModule, StepsModule],
+  imports: [ToastModule, StepsModule],
   templateUrl: './create-event-page.component.html',
   providers: [MessageService, EventService, AuthService],
 })
