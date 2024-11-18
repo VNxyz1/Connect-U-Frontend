@@ -1,23 +1,28 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { MenuItem, MessageService } from 'primeng/api';
 import { EventService } from '../../services/event/eventservice';
 import { Subscription } from 'rxjs';
 import { ToastModule } from 'primeng/toast';
 import { StepsModule } from 'primeng/steps';
+import { AuthService } from '../../services/auth/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-event-page',
   standalone: true,
   imports: [AngularRemixIconComponent, ToastModule, StepsModule],
   templateUrl: './create-event-page.component.html',
-  providers: [MessageService, EventService],
+  providers: [MessageService, EventService, AuthService],
 })
-export class CreateEventPageComponent implements OnDestroy {
+export class CreateEventPageComponent implements OnInit, OnDestroy {
   items: MenuItem[] | undefined;
   subscription: Subscription | undefined;
 
   constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     // Step navigation items
     this.items = [
@@ -25,6 +30,25 @@ export class CreateEventPageComponent implements OnDestroy {
       { routerLink: 'step2' },
       { routerLink: 'step3' },
     ];
+  }
+
+  ngOnInit(): void {
+    // Check if the user is logged in
+    if (this.authService.isLoggedIn()) {
+      // Navigate to step1 if logged in
+      this.router.navigate(['step1'], { relativeTo: this.route }).then(() => {
+        console.log('User is logged in, navigating to step1.');
+      }).catch(err => {
+        console.error('Navigation error:', err);
+      });
+    } else {
+      // Navigate to ../welcome if not logged in
+      this.router.navigate(['../welcome']).then(() => {
+        console.log('User is not logged in, navigating to welcome.');
+      }).catch(err => {
+        console.error('Navigation error:', err);
+      });
+    }
   }
 
   ngOnDestroy() {

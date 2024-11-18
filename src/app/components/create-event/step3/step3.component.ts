@@ -95,8 +95,14 @@ export class Step3Component implements OnInit {
 
     // Submit event data to the server
     this.eventService.postEvent().subscribe({
-      next: (response) => {
-        console.log('Event successfully posted:', response);
+      next: (response: any) => {
+        console.log(response);
+        let eventId = response?.id;
+        if (eventId) {
+          console.log('Event ID:', eventId);
+        } else {
+          console.warn('Event ID not found in response');
+        }
 
         // Add success message
         this.messageService.add({
@@ -113,10 +119,11 @@ export class Step3Component implements OnInit {
           summary: 'Failed to post event',
           detail: error.message,
         });
+
+        return;
       },
       complete: () => {
-        console.log('Request complete');
-        // Additional cleanup or actions can be performed here
+
       },
     });
 

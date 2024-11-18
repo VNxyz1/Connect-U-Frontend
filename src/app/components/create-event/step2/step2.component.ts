@@ -67,7 +67,7 @@ export class Step2Component implements OnInit {
       ? new Date(step2Data.dateAndTime)
       : undefined;
 
-    if (!this.dateAndTime) {
+    if (!this.dateAndTime || this.dateAndTime < this.minDate) {
       // Default to `minDate` if no valid date exists
       this.dateAndTime = this.minDate;
     }

@@ -117,8 +117,6 @@ export class EventService {
         : {}),
     };
 
-    console.log(JSON.stringify(payload, null, 2));
-
     return this.http.post<EventData>(url, payload).pipe(
       map((response) => {
         // Emit the response upon success
