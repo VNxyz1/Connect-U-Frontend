@@ -67,6 +67,7 @@ export class LoginComponent {
 
   showError(code: number) {
     switch (code) {
+      case 401:
       case 404:
         this.messageService.add({
           severity: 'error',
