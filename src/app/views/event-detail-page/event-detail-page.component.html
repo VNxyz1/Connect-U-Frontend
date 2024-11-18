@@ -1,1 +1,68 @@
-<p>event-detail-page works!</p>
+<div class="xl:ml-8 p-0 m-0 grid">
+  <div class="xl:col-7">
+<div
+  class="flex justify-content-center p-0 sm:p-0 m-0">
+  <p-image
+    [alt]="'landingPage.headerImageAlt' | transloco"
+    src="./images/pexels-elevate-1267254.jpg"
+    class="w-full"
+    styleClass="w-full"
+    imageClass="w-full" />
+</div>
+
+<h1>Eventtitel</h1>
+
+  <p-tag value="Primary" [rounded]="true" />
+  <p-tag value="Primary" [rounded]="true" />
+  <p-tag value="Primary" [rounded]="true" />
+
+
+  <p-card styleClass="p-mb-3 mt-3">
+      <div class="grid">
+      <div class="col">
+        <p>18.12.24</p>
+        <p>15:30</p>
+      </div>
+      <div class="col">
+        <p>Erdbeerstraße 23</p>
+        <p>35390 Gießen</p>
+      </div>
+    </div>
+    <h2>Eventdetails</h2>
+    <p>Wir treffen uns bei mir zuhause in der Erdbeerstraße und dann laufen wir zusammen auf den Berg!
+      Jeder ist willkommen !! 😊😊😊😊
+    </p>
+    </p-card>
+<div class="my-3">
+  <p-tag severity="secondary" value="Secondary" [rounded]="true" />
+  <p-tag severity="secondary" value="Secondary" [rounded]="true" />
+  <p-tag severity="secondary" value="Secondary" [rounded]="true" />
+</div>
+    <p-card header="Zutrittsbeschränkungen" styleClass="p-mb-3">
+      <div class="grid">
+        <div class="col">
+          <p>Geschlecht</p>
+          <p>Alter</p>
+        </div>
+        <div class="col">
+          <p>Jeder ist willkommen!</p>
+          <p>ab 18 Jahre</p>
+        </div>
+      </div>
+    </p-card>
+  <div class="justify-content-end mt-3">
+  <p-button [raised]="true" severity="info">
+    <ng-template pTemplate="icon">
+      <rmx-icon
+        style="width: 16px; height: 16px"
+        name="heart-3-line"></rmx-icon>
+    </ng-template>
+  </p-button>
+  <p-button class="ml-2" [raised]="true" label="anfragen" severity="success" />
+  </div>
+  </div>
+  <div class="xl:col-5"></div>
+</div>
+
+
+
