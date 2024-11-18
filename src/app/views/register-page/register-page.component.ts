@@ -65,7 +65,8 @@ export class RegisterPageComponent {
   ];
   protected passwordVisible: boolean | undefined;
   protected passwordRegVisible: boolean | undefined;
-
+  protected calendarLocale:any;
+  protected calendarDateFormat:string = 'yy-mm-dd';
   form: RegisterForm = new FormGroup(
     {
       username: new FormControl<string>('', {
@@ -113,7 +114,9 @@ export class RegisterPageComponent {
     private authService: AuthService,
     private messageService: MessageService,
     private translocoService: TranslocoService
-  ) {}
+  ) {
+    this.setCalendarLocale();
+  }
 
   togglePasswordVisibility(val: string): void {
     if (val == 'regPassword') {
@@ -172,6 +175,55 @@ export class RegisterPageComponent {
             'registerComponent.errorMessages.registerFailedData'
           ),
         });
+    }
+  }
+
+  setCalendarLocale(): void {
+    const activeLang = this.translocoService.getActiveLang();
+
+    const locales = {
+      de: {
+        firstDayOfWeek: 1,
+        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+        dayNamesShort: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+        dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+        monthNames: [
+          'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+          'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember',
+        ],
+        monthNamesShort: [
+          'Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez',
+        ],
+        today: 'Heute',
+        clear: 'Löschen',
+      },
+      en: {
+        firstDayOfWeek: 0,
+        dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        dayNamesMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+        monthNames: [
+          'January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December',
+        ],
+        monthNamesShort: [
+          'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+        ],
+        today: 'Today',
+        clear: 'Clear',
+      },
+    };
+
+    switch (activeLang) {
+    case 'de':
+      this.calendarLocale = locales.de;
+      this.calendarDateFormat = 'dd.mm.yy';
+      break;
+    default:
+      this.calendarLocale = locales.en;
+      this.calendarDateFormat = 'mm/dd/yy';
     }
   }
 }

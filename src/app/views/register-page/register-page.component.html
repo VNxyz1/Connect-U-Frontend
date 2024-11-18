@@ -104,7 +104,8 @@
           class="w-full"
           formControlName="birthday"
           aria-required="true"
-          dateFormat="yy-mm-dd"
+          [locale]="calendarLocale"
+          [dateFormat]="calendarDateFormat"
           [attr.aria-invalid]="
             form.get('birthday')?.invalid && form.get('birthday')?.touched
           ">
