@@ -24,20 +24,25 @@ import {
   RiAddLine,
   RiArrowLeftSLine,
   RiBookmarkLine,
+  RiCalendarLine,
   RiCheckLine,
   RiFunctionFill,
   RiFunctionLine,
+  RiGroupLine,
   RiHeart3Line,
   RiHome2Fill,
   RiHome2Line,
   RiLayoutGridFill,
   RiSearchFill,
+  RiMapPin2Line,
+  RiPriceTag3Line,
   RiSearchLine,
   RiUser3Fill,
   RiUser3Line,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
+import { provideTranslocoLocale } from '@jsverse/transloco-locale';
 
 const icons = {
   RiHome2Line,
@@ -54,11 +59,15 @@ const icons = {
   RiFunctionFill,
   RiSearchFill,
   RiArrowLeftSLine,
+  RiPriceTag3Line,
+  RiGroupLine,
+  RiCalendarLine,
+  RiMapPin2Line,
 };
 
 export const translocoConfig = {
   config: {
-    availableLangs: ['en', 'de'],
+    availableLangs: ['en-US', 'de'],
     defaultLang: 'de',
     // Remove this option if your application doesn't support changing language in runtime.
     reRenderOnLangChange: true,
@@ -84,5 +93,11 @@ export const appConfig: ApplicationConfig = {
     provideRemixIcon(icons),
     provideHttpClient(),
     provideTransloco(translocoConfig),
+    provideTranslocoLocale({
+      langToLocaleMapping: {
+        'en-US': 'en-US',
+        de: 'de-DE',
+      },
+    }),
   ],
 };
