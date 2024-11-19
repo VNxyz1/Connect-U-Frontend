@@ -97,5 +97,8 @@
       "registerFailed": "Registrierung fehlgeschlagen",
       "registerFailedData" : "Etwas scheint wohl schief gelaufen zu sein!"
     }
+  },
+  "searchPageComponent": {
+
   }
 }

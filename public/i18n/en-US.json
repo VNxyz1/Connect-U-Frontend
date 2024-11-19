@@ -97,5 +97,8 @@
       "registerFailed": "register failed",
       "registerFailedData" : "Something went wrong!"
     }
+  },
+  "searchPageComponent": {
+
   }
 }
