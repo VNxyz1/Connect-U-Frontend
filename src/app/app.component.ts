@@ -4,7 +4,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SocketService } from './services/socket/socket.service';
 import { isPlatformBrowser } from '@angular/common';
-import {AuthService} from './services/auth/auth.service';
+import { AuthService } from './services/auth/auth.service';
 
 @Component({
   selector: 'app-root',

@@ -13,9 +13,9 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { Button } from 'primeng/button';
-import {AngularRemixIconComponent} from 'angular-remix-icon';
-import {IconFieldModule} from 'primeng/iconfield';
-import {InputIconModule} from 'primeng/inputicon';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 type LoginForm = FormGroup<{
   email: FormControl<string>;

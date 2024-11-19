@@ -38,7 +38,9 @@ import {
   RiPriceTag3Line,
   RiSearchLine,
   RiUser3Fill,
-  RiUser3Line, RiEyeLine, RiEyeOffLine,
+  RiUser3Line,
+  RiEyeLine,
+  RiEyeOffLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';

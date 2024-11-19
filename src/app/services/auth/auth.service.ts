@@ -20,7 +20,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   /**
-   * to be implemented
+   * to be implemented with ionic storage
    */
   isLoggedIn(): boolean {
     return !!this.getAccessToken();

@@ -52,9 +52,13 @@
           tabindex="0"
           aria-label="Toggle password visibility">
           @if (passwordVisible) {
-            <rmx-icon name="eye-off-line" style="width:16px; height: 16px"></rmx-icon>
+            <rmx-icon
+              name="eye-off-line"
+              style="width: 16px; height: 16px"></rmx-icon>
           } @else {
-            <rmx-icon name="eye-line" style="width:16px; height: 16px"></rmx-icon>
+            <rmx-icon
+              name="eye-line"
+              style="width: 16px; height: 16px"></rmx-icon>
           }
         </p-inputIcon>
 
@@ -69,8 +73,8 @@
           [placeholder]="'loginComponent.passwordInput.placeholder' | transloco"
           aria-required="true"
           [attr.aria-invalid]="
-          form.get('password')?.invalid && form.get('password')?.touched
-        ">
+            form.get('password')?.invalid && form.get('password')?.touched
+          " />
       </p-iconField>
       @if (form.get('password')?.invalid && form.get('password')?.touched) {
         @if (form.get('password')?.errors?.['required']) {
@@ -96,9 +100,11 @@
   <div class="flex justify-content-center">
     <span>
       {{ 'loginComponent.noAccountYet' | transloco }}
-      <a [routerLink]="['/register']" class="text-color-secondary no-underline">{{
-        'loginComponent.registerLink' | transloco
-      }}</a></span
+      <a
+        [routerLink]="['/register']"
+        class="text-color-secondary no-underline"
+        >{{ 'loginComponent.registerLink' | transloco }}</a
+      ></span
     >
   </div>
 </div>
