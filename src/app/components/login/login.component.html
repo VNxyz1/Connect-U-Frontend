@@ -28,12 +28,12 @@
         " />
       @if (form.get('email')?.invalid && form.get('email')?.touched) {
         @if (form.get('email')?.errors?.['required']) {
-          <small class="text-red-500">{{
+          <small class="p-error">{{
             'loginComponent.eMailInput.requiredWarning' | transloco
           }}</small>
         }
         @if (form.get('email')?.errors?.['email']) {
-          <small class="text-red-500">{{
+          <small class="p-error">{{
             'loginComponent.eMailInput.validEmailWarning' | transloco
           }}</small>
         }
@@ -62,12 +62,12 @@
         " />
       @if (form.get('password')?.invalid && form.get('password')?.touched) {
         @if (form.get('password')?.errors?.['required']) {
-          <small class="text-red-500">{{
+          <small class="p-error">{{
             'loginComponent.passwordInput.requiredWarning' | transloco
           }}</small>
         }
         @if (form.get('password')?.errors?.['minlength']) {
-          <small class="text-red-500">{{
+          <small class="p-error">{{
             'loginComponent.passwordInput.lengthWarning' | transloco
           }}</small>
         }
