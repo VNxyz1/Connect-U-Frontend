@@ -36,11 +36,12 @@
               @if (eventDetails.street || eventDetails.streetNumber) {
                 <p class="m-0">{{ eventDetails.street }} {{ eventDetails.streetNumber }}</p>
               }
+              @if (!eventDetails.city) {
+                <p class="m-0">Online-Event</p>
+              }
             </div>
-            @if (eventDetails.city) {
+             @if (eventDetails.city) {
               <p class="m-0 ml-5">{{ eventDetails.zipCode }} {{ eventDetails.city }}</p>
-            } @else {
-              <p class="m-0 ml-5">Online-Event</p>
             }
           </div>
         </div>
