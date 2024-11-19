@@ -38,7 +38,7 @@ import {
   RiPriceTag3Line,
   RiSearchLine,
   RiUser3Fill,
-  RiUser3Line,
+  RiUser3Line, RiEyeLine, RiEyeOffLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
@@ -63,6 +63,8 @@ const icons = {
   RiGroupLine,
   RiCalendarLine,
   RiMapPin2Line,
+  RiEyeLine,
+  RiEyeOffLine,
 };
 
 export const translocoConfig = {
