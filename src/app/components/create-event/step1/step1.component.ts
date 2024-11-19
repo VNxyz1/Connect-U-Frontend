@@ -48,12 +48,12 @@ export class Step1Component implements OnInit, OnDestroy {
     private readonly route: ActivatedRoute,
     private readonly messageService: MessageService,
     private readonly cdr: ChangeDetectorRef,
-    private readonly translocoService: TranslocoService
+    private readonly translocoService: TranslocoService,
   ) {
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),
-        takeUntil(this.unsubscribe$)
+        takeUntil(this.unsubscribe$),
       )
       .subscribe(() => {
         this.insertValuesAgain();
@@ -66,11 +66,12 @@ export class Step1Component implements OnInit, OnDestroy {
   }
 
   private loadCategories() {
-    this.eventService.getCategories()
+    this.eventService
+      .getCategories()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
-        next: (data) => (this.categories = data),
-        error: (error) => console.error('Error loading categories:', error),
+        next: data => (this.categories = data),
+        error: error => console.error('Error loading categories:', error),
       });
   }
 
@@ -93,10 +94,10 @@ export class Step1Component implements OnInit, OnDestroy {
       this.messageService.add({
         severity: 'warn',
         summary: this.translocoService.translate(
-          'createEventStep1Component.messages.categoryLimitTitle'
+          'createEventStep1Component.messages.categoryLimitTitle',
         ),
         detail: this.translocoService.translate(
-          'createEventStep1Component.messages.categoryLimitDetail'
+          'createEventStep1Component.messages.categoryLimitDetail',
         ),
         life: 3000,
       });
@@ -106,14 +107,18 @@ export class Step1Component implements OnInit, OnDestroy {
   protected async nextPage() {
     this.submitted = true;
 
-    if (!this.eventTitle.trim() || this.eventTitle.length > 50 || !this.selectedCategories?.length) {
+    if (
+      !this.eventTitle.trim() ||
+      this.eventTitle.length > 50 ||
+      !this.selectedCategories?.length
+    ) {
       this.messageService.add({
         severity: 'error',
         summary: this.translocoService.translate(
-          'createEventStep1Component.messages.validationFailedTitle'
+          'createEventStep1Component.messages.validationFailedTitle',
         ),
         detail: this.translocoService.translate(
-          'createEventStep1Component.messages.validationFailedDetail'
+          'createEventStep1Component.messages.validationFailedDetail',
         ),
       });
       return; // Prevent navigation if validation fails

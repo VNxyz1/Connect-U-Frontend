@@ -26,7 +26,6 @@ export type EventData = {
 type Category = { id: number; name: string };
 type Gender = { id: number; gender: number };
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -39,7 +38,7 @@ export class EventService {
 
   constructor(
     private readonly http: HttpClient,
-    private readonly storageService: StorageService // Injected storage service
+    private readonly storageService: StorageService, // Injected storage service
   ) {}
 
   /**
@@ -48,7 +47,9 @@ export class EventService {
    */
   async getEventInformation(): Promise<EventData> {
     if (!this._eventInformation) {
-      const savedData = await this.storageService.get<EventData>(this.STORAGE_KEY);
+      const savedData = await this.storageService.get<EventData>(
+        this.STORAGE_KEY,
+      );
       this._eventInformation = savedData || this.getDefaultEventData();
     }
     return this._eventInformation;
@@ -60,7 +61,6 @@ export class EventService {
    * @returns {Promise<void>} A promise that resolves when the data is saved.
    */
   async setEventInformation(data: Partial<EventData>): Promise<void> {
-
     this._eventInformation = {
       ...(this._eventInformation || this.getDefaultEventData()),
       ...data,
@@ -99,48 +99,56 @@ export class EventService {
       this._eventInformation.categories.length === 0 || // At least one category
       !this._eventInformation.dateAndTime || // Date must be filled
       isNaN(Date.parse(this._eventInformation.dateAndTime)) || // Date must be valid ISO format
-      (
-        !this._eventInformation.isOnline && // If not online, address must be valid
-        (
-          !this._eventInformation.street.trim() ||
+      (!this._eventInformation.isOnline && // If not online, address must be valid
+        (!this._eventInformation.street.trim() ||
           !this._eventInformation.streetNumber.trim() ||
           !this._eventInformation.zipCode.trim() ||
-          !this._eventInformation.city.trim()
-        )
-      ) ||
+          !this._eventInformation.city.trim())) ||
       this._eventInformation.participantsNumber < 2 // Participants number >= 2
     ) {
-      console.error('Validation failed. Required fields are missing or invalid.');
-      return throwError(() => new Error('Validation failed. Check your inputs.'));
+      console.error(
+        'Validation failed. Required fields are missing or invalid.',
+      );
+      return throwError(
+        () => new Error('Validation failed. Check your inputs.'),
+      );
     }
-    if (this._eventInformation.startAge == 16 ) {
+    if (this._eventInformation.startAge == 16) {
       this._eventInformation.startAge = null;
     }
-    if (this._eventInformation.endAge == 99 ) {
+    if (this._eventInformation.endAge == 99) {
       this._eventInformation.endAge = null;
     }
 
     // Ensure the date is in ISO format
-    const isoDateAndTime = new Date(this._eventInformation.dateAndTime).toISOString();
+    const isoDateAndTime = new Date(
+      this._eventInformation.dateAndTime,
+    ).toISOString();
 
     // Transform _eventInformation to include only the category and gender IDs
     const payload: EventData = {
       ...(this._eventInformation || this.getDefaultEventData()),
       dateAndTime: isoDateAndTime, // Use ISO-formatted date
-      categories: this._eventInformation?.categories.map((category: any) =>
-        typeof category === 'object' && 'id' in category ? category.id : category
-      ) || [],
+      categories:
+        this._eventInformation?.categories.map((category: any) =>
+          typeof category === 'object' && 'id' in category
+            ? category.id
+            : category,
+        ) || [],
       ...(this._eventInformation?.preferredGenders?.length
         ? {
-          preferredGenders: this._eventInformation.preferredGenders.map((gender: any) =>
-            typeof gender === 'object' && 'id' in gender ? gender.id : gender
-          ),
-        }
+            preferredGenders: this._eventInformation.preferredGenders.map(
+              (gender: any) =>
+                typeof gender === 'object' && 'id' in gender
+                  ? gender.id
+                  : gender,
+            ),
+          }
         : {}),
     };
 
     return this.http.post<EventData>(url, payload).pipe(
-      map((response) => {
+      map(response => {
         // Emit the response upon success
         this.eventComplete.next(response);
 
@@ -150,10 +158,10 @@ export class EventService {
 
         return response;
       }),
-      catchError((error) => {
+      catchError(error => {
         console.error('Error posting event:', error);
         return throwError(() => error);
-      })
+      }),
     );
   }
 
@@ -164,7 +172,6 @@ export class EventService {
   getAllEvents(): Observable<EventCardItem[]> {
     return this.http.get<EventCardItem[]>('event/allEvents');
   }
-
 
   private getDefaultEventData(): EventData {
     return {

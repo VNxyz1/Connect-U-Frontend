@@ -10,16 +10,26 @@
           [(ngModel)]="participantsNumber"
           #participantsInput="ngModel"
           required
-          [ngClass]="{ 'ng-invalid ng-dirty': (participantsInput.invalid && submitted) || (participantsInput.dirty && participantsInput.invalid) }"
-        />
-        <label for="participantsNumber">{{ 'createEventStep3Component.participantsNumberInput.label' | transloco }}</label>
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              (participantsInput.invalid && submitted) ||
+              (participantsInput.dirty && participantsInput.invalid),
+          }" />
+        <label for="participantsNumber">{{
+          'createEventStep3Component.participantsNumberInput.label' | transloco
+        }}</label>
       </p-floatLabel>
-      @if((participantsInput.invalid && submitted) || (participantsInput.dirty && participantsInput.invalid)){
+      @if (
+        (participantsInput.invalid && submitted) ||
+        (participantsInput.dirty && participantsInput.invalid)
+      ) {
         <small class="p-error">
-          {{ 'createEventStep3Component.participantsNumberInput.errorMessage' | transloco }}
+          {{
+            'createEventStep3Component.participantsNumberInput.errorMessage'
+              | transloco
+          }}
         </small>
       }
-
     </div>
     <div class="field">
       <p-floatLabel>
@@ -32,7 +42,9 @@
           [showClear]="true"
           styleClass="capitalize">
         </p-multiSelect>
-        <label for="participants">{{ 'createEventStep3Component.participantsInput.label' | transloco }}</label>
+        <label for="participants">{{
+          'createEventStep3Component.participantsInput.label' | transloco
+        }}</label>
       </p-floatLabel>
     </div>
     <div class="field">
@@ -47,37 +59,46 @@
           [showClear]="true"
           styleClass="capitalize">
         </p-multiSelect>
-        <label for="genders">{{ 'createEventStep3Component.preferredGendersInput.label' | transloco }}</label>
+        <label for="genders">{{
+          'createEventStep3Component.preferredGendersInput.label' | transloco
+        }}</label>
       </p-floatLabel>
     </div>
 
     <h2>{{ 'createEventStep3Component.ageSection.title' | transloco }}</h2>
 
     <div class="field justify-content-center w-full text-center">
-      <p-slider [(ngModel)]="ageValues" min="16" max="99" [range]="true" styleClass="centered-slider"></p-slider>
-      <div class="flex align-items-center justify-content-between mt-4 slider-input-container">
+      <p-slider
+        [(ngModel)]="ageValues"
+        min="16"
+        max="99"
+        [range]="true"
+        styleClass="centered-slider"></p-slider>
+      <div
+        class="flex align-items-center justify-content-between mt-4 slider-input-container">
         <!-- Minimum Age Input -->
         <input
           type="text"
           pInputText
           [ngModel]="ageValues[0]"
           (ngModelChange)="onAgeChange(0, $event)"
-          class="slider-input"
-        />
+          class="slider-input" />
         <!-- Maximum Age Input with "none" display for 99 -->
         <input
           type="text"
           pInputText
-          [ngModel]="ageValues[1] === 99 ? getMaxAgePlaceholder() : ageValues[1]"
+          [ngModel]="
+            ageValues[1] === 99 ? getMaxAgePlaceholder() : ageValues[1]
+          "
           (ngModelChange)="onAgeChange(1, $event)"
-          class="slider-input"
-        />
+          class="slider-input" />
       </div>
     </div>
   </div>
 
   <!-- Footer Section -->
-  <div class="flex justify-content-between align-items-center fixed-bottom-responsive-container">
+  <div
+    class="flex justify-content-between align-items-center fixed-bottom-responsive-container">
     <div>
       <p-button
         [raised]="true"
@@ -97,7 +118,9 @@
       <p-button
         [raised]="true"
         severity="success"
-        [label]="'createEventStep3Component.navigationButtons.finish' | transloco"
+        [label]="
+          'createEventStep3Component.navigationButtons.finish' | transloco
+        "
         class="align-items-center"
         (onClick)="complete()">
         <ng-template pTemplate="icon">

@@ -49,7 +49,7 @@ export class Step3Component implements OnInit {
     private readonly messageService: MessageService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
-    private translocoService: TranslocoService
+    private translocoService: TranslocoService,
   ) {}
 
   async ngOnInit() {
@@ -58,28 +58,35 @@ export class Step3Component implements OnInit {
   }
 
   private async loadGenders() {
-    this.eventService.getGenders()
+    this.eventService
+      .getGenders()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
-        next: (data) => {
+        next: data => {
           // Transform the genders to include translated label and value
-          this.genders = data.map((gender) => {
+          this.genders = data.map(gender => {
             let label = '';
             switch (gender.gender) {
               case 1:
-                label = this.translocoService.translate('createEventStep3Component.genders.male');
+                label = this.translocoService.translate(
+                  'createEventStep3Component.genders.male',
+                );
                 break;
               case 2:
-                label = this.translocoService.translate('createEventStep3Component.genders.female');
+                label = this.translocoService.translate(
+                  'createEventStep3Component.genders.female',
+                );
                 break;
               case 3:
-                label = this.translocoService.translate('createEventStep3Component.genders.divers');
+                label = this.translocoService.translate(
+                  'createEventStep3Component.genders.divers',
+                );
                 break;
             }
             return { label, value: gender.id };
           });
         },
-        error: (error) => console.error('Error loading genders:', error),
+        error: error => console.error('Error loading genders:', error),
       });
   }
 
@@ -92,11 +99,14 @@ export class Step3Component implements OnInit {
   }
 
   protected getMaxAgePlaceholder(): string {
-    return this.translocoService.translate('createEventStep3Component.ageSection.maxAgePlaceholder');
+    return this.translocoService.translate(
+      'createEventStep3Component.ageSection.maxAgePlaceholder',
+    );
   }
 
   protected onAgeChange(index: number, value: string | number) {
-    this.ageValues[index] = value === this.getMaxAgePlaceholder() ? 99 : Number(value);
+    this.ageValues[index] =
+      value === this.getMaxAgePlaceholder() ? 99 : Number(value);
   }
 
   protected complete() {
@@ -127,28 +137,32 @@ export class Step3Component implements OnInit {
             severity: 'success',
             summary: this.translocoService.translate(
               'createEventStep3Component.messages.eventCreatedSuccess',
-              { title: this.title }
+              { title: this.title },
             ),
           });
 
           setTimeout(() => {
             // Navigate to the created event page
-            this.router.navigate([`../../event/${eventId}`], { relativeTo: this.route }).then(() => {});
+            this.router
+              .navigate([`../../event/${eventId}`], { relativeTo: this.route })
+              .then(() => {});
           }, 2000);
         } else {
           throw new Error(
-            this.translocoService.translate('createEventStep3Component.messages.noEventIdError')
+            this.translocoService.translate(
+              'createEventStep3Component.messages.noEventIdError',
+            ),
           );
         }
       },
-      error: (error) => {
+      error: error => {
         console.error('Error posting event:', error);
 
         // Add error message with translation
         this.messageService.add({
           severity: 'error',
           summary: this.translocoService.translate(
-            'createEventStep3Component.messages.eventCreatedError'
+            'createEventStep3Component.messages.eventCreatedError',
           ),
           detail: error.message,
         });
@@ -160,7 +174,8 @@ export class Step3Component implements OnInit {
 
   protected prevPage() {
     this.sendEventInformation();
-    this.router.navigate(['../step2'], { relativeTo: this.route })
+    this.router
+      .navigate(['../step2'], { relativeTo: this.route })
       .then(() => {
         // Navigation successful
       })

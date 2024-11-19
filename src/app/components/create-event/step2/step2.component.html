@@ -17,23 +17,29 @@
           [ngClass]="{
             'ng-invalid ng-dirty':
               (dateAndTimeInput.invalid && submitted) ||
-              (dateAndTimeInput.dirty && dateAndTimeInput.invalid)
-          }"
-        >
+              (dateAndTimeInput.dirty && dateAndTimeInput.invalid),
+          }">
           <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
             <rmx-icon
               style="width: 16px; height: 16px"
               name="calendar-line"
-              (click)="clickCallBack($event)"
-            >
+              (click)="clickCallBack($event)">
             </rmx-icon>
           </ng-template>
         </p-calendar>
-        <label for="date">{{ 'createEventStep2Component.dateAndTimeInput.label' | transloco }}</label>
+        <label for="date">{{
+          'createEventStep2Component.dateAndTimeInput.label' | transloco
+        }}</label>
       </p-floatLabel>
-      @if ((dateAndTimeInput.invalid && submitted) || (dateAndTimeInput.dirty && dateAndTimeInput.invalid)) {
+      @if (
+        (dateAndTimeInput.invalid && submitted) ||
+        (dateAndTimeInput.dirty && dateAndTimeInput.invalid)
+      ) {
         <small class="p-error">
-          {{ 'createEventStep2Component.dateAndTimeInput.errorMessage' | transloco }}
+          {{
+            'createEventStep2Component.dateAndTimeInput.errorMessage'
+              | transloco
+          }}
         </small>
       }
     </div>
@@ -43,12 +49,14 @@
     <div class="field">
       <p-checkbox
         name="online"
-        [label]="'createEventStep2Component.addressSection.onlineEventCheckbox' | transloco"
+        [label]="
+          'createEventStep2Component.addressSection.onlineEventCheckbox'
+            | transloco
+        "
         [(ngModel)]="online"
         [binary]="true"
         id="online-true"
-        variant="filled"
-      >
+        variant="filled">
       </p-checkbox>
     </div>
 
@@ -65,14 +73,22 @@
             [ngClass]="{
               'ng-invalid ng-dirty':
                 (!online && streetInput.invalid && submitted) ||
-                (streetInput.dirty && streetInput.invalid)
-            }"
-          />
-          <label for="street">{{ 'createEventStep2Component.addressSection.streetInput.label' | transloco }}</label>
+                (streetInput.dirty && streetInput.invalid),
+            }" />
+          <label for="street">{{
+            'createEventStep2Component.addressSection.streetInput.label'
+              | transloco
+          }}</label>
         </p-floatLabel>
-        @if ((!online && streetInput.invalid && submitted) || (streetInput.dirty && streetInput.invalid)) {
+        @if (
+          (!online && streetInput.invalid && submitted) ||
+          (streetInput.dirty && streetInput.invalid)
+        ) {
           <small class="p-error">
-            {{ 'createEventStep2Component.addressSection.streetInput.errorMessage' | transloco }}
+            {{
+              'createEventStep2Component.addressSection.streetInput.errorMessage'
+                | transloco
+            }}
           </small>
         }
       </div>
@@ -88,14 +104,22 @@
             [ngClass]="{
               'ng-invalid ng-dirty':
                 (!online && streetNumberInput.invalid && submitted) ||
-                (streetNumberInput.dirty && streetNumberInput.invalid)
-            }"
-          />
-          <label for="streetNumber">{{ 'createEventStep2Component.addressSection.streetNumberInput.label' | transloco }}</label>
+                (streetNumberInput.dirty && streetNumberInput.invalid),
+            }" />
+          <label for="streetNumber">{{
+            'createEventStep2Component.addressSection.streetNumberInput.label'
+              | transloco
+          }}</label>
         </p-floatLabel>
-        @if ((!online && streetNumberInput.invalid && submitted) || (streetNumberInput.dirty && streetNumberInput.invalid)) {
+        @if (
+          (!online && streetNumberInput.invalid && submitted) ||
+          (streetNumberInput.dirty && streetNumberInput.invalid)
+        ) {
           <small class="p-error">
-            {{ 'createEventStep2Component.addressSection.streetNumberInput.errorMessage' | transloco }}
+            {{
+              'createEventStep2Component.addressSection.streetNumberInput.errorMessage'
+                | transloco
+            }}
           </small>
         }
       </div>
@@ -116,19 +140,27 @@
             [ngClass]="{
               'ng-invalid ng-dirty':
                 (!online && zipCodeInput.invalid && submitted) ||
-                (zipCodeInput.dirty && zipCodeInput.invalid)
-            }"
-          />
-          <label for="zipCode">{{ 'createEventStep2Component.addressSection.zipCodeInput.label' | transloco }}</label>
+                (zipCodeInput.dirty && zipCodeInput.invalid),
+            }" />
+          <label for="zipCode">{{
+            'createEventStep2Component.addressSection.zipCodeInput.label'
+              | transloco
+          }}</label>
         </p-floatLabel>
-        @if ((!online && zipCodeInput.invalid && submitted)) {
+        @if (!online && zipCodeInput.invalid && submitted) {
           <small class="p-error">
-            {{ 'createEventStep2Component.addressSection.zipCodeInput.errorMessageRequired' | transloco }}
+            {{
+              'createEventStep2Component.addressSection.zipCodeInput.errorMessageRequired'
+                | transloco
+            }}
           </small>
         }
-        @if ((!online && zipCodeInput.errors?.['pattern'] && submitted)) {
+        @if (!online && zipCodeInput.errors?.['pattern'] && submitted) {
           <small class="p-error">
-            {{ 'createEventStep2Component.addressSection.zipCodeInput.errorMessageInvalid' | transloco }}
+            {{
+              'createEventStep2Component.addressSection.zipCodeInput.errorMessageInvalid'
+                | transloco
+            }}
           </small>
         }
       </div>
@@ -144,14 +176,19 @@
             [ngClass]="{
               'ng-invalid ng-dirty':
                 (!online && cityInput.invalid && submitted) ||
-                (cityInput.dirty && cityInput.invalid)
-            }"
-          />
-          <label for="city">{{ 'createEventStep2Component.addressSection.cityInput.label' | transloco }}</label>
+                (cityInput.dirty && cityInput.invalid),
+            }" />
+          <label for="city">{{
+            'createEventStep2Component.addressSection.cityInput.label'
+              | transloco
+          }}</label>
         </p-floatLabel>
-        @if ((!online && cityInput.invalid && submitted)) {
+        @if (!online && cityInput.invalid && submitted) {
           <small class="p-error">
-            {{ 'createEventStep2Component.addressSection.cityInput.errorMessage' | transloco }}
+            {{
+              'createEventStep2Component.addressSection.cityInput.errorMessage'
+                | transloco
+            }}
           </small>
         }
       </div>
@@ -161,13 +198,15 @@
     <div class="field flex align-items-center">
       <p-checkbox
         name="hideAddress"
-        [label]="'createEventStep2Component.addressSection.hideAddressCheckbox' | transloco"
+        [label]="
+          'createEventStep2Component.addressSection.hideAddressCheckbox'
+            | transloco
+        "
         [(ngModel)]="hideAddress"
         [binary]="true"
         id="hideAddress"
         variant="filled"
-        class="mr-2"
-      >
+        class="mr-2">
       </p-checkbox>
       <p-button
         [rounded]="true"
@@ -175,8 +214,7 @@
         [pTooltip]="tooltipContent"
         tooltipPosition="right"
         severity="secondary"
-        class="ml-2"
-      >
+        class="ml-2">
         <ng-template pTemplate="icon">
           <rmx-icon
             class="mr-2"
@@ -187,14 +225,18 @@
       </p-button>
       <ng-template #tooltipContent>
         <span>
-          {{ 'createEventStep2Component.addressSection.hideAddressTooltip.content' | transloco }}
+          {{
+            'createEventStep2Component.addressSection.hideAddressTooltip.content'
+              | transloco
+          }}
         </span>
       </ng-template>
     </div>
   </div>
 
   <!-- Navigation Buttons -->
-  <div class="flex justify-content-between align-items-center fixed-bottom-responsive-container">
+  <div
+    class="flex justify-content-between align-items-center fixed-bottom-responsive-container">
     <p-button
       [raised]="true"
       [label]="'createEventStep2Component.navigationButtons.back' | transloco"
@@ -210,7 +252,9 @@
     <p-button
       [raised]="true"
       severity="secondary"
-      [label]="'createEventStep2Component.navigationButtons.continue' | transloco"
+      [label]="
+        'createEventStep2Component.navigationButtons.continue' | transloco
+      "
       (onClick)="nextPage()">
       <ng-template pTemplate="icon">
         <rmx-icon
@@ -224,21 +268,26 @@
 
   <p-confirmDialog #cdDate>
     <ng-template pTemplate="headless" let-message>
-      <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
-        <div class="inline-flex justify-content-center align-items-center h-6rem w-6rem">
+      <div
+        class="flex flex-column align-items-center p-5 surface-overlay border-round">
+        <div
+          class="inline-flex justify-content-center align-items-center h-6rem w-6rem">
           <rmx-icon
             class="text-6xl"
-            style="height: 100px; width: 100px;"
+            style="height: 100px; width: 100px"
             name="alert-line">
           </rmx-icon>
         </div>
         <span class="font-bold text-2xl block mb-2 mt-4">
-                {{ message.header }}
-            </span>
+          {{ message.header }}
+        </span>
         <p class="mb-0">{{ message.message }}</p>
         <div class="flex align-items-center justify-content-between gap-3 mt-4">
           <p-button
-            label="{{ 'createEventStep2Component.messages.dateConfirmationCancel' | transloco }}"
+            label="{{
+              'createEventStep2Component.messages.dateConfirmationCancel'
+                | transloco
+            }}"
             (click)="cdDate.reject()"
             class="">
             <ng-template pTemplate="icon">
@@ -250,7 +299,10 @@
             </ng-template>
           </p-button>
           <p-button
-            label="{{ 'createEventStep2Component.messages.dateConfirmationSubmit' | transloco }}"
+            label="{{
+              'createEventStep2Component.messages.dateConfirmationSubmit'
+                | transloco
+            }}"
             (click)="cdDate.accept()"
             severity="success"
             class="">
@@ -267,4 +319,3 @@
     </ng-template>
   </p-confirmDialog>
 </div>
-

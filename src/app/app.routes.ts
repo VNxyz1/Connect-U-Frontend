@@ -54,7 +54,7 @@ export const routes: Routes = [
         path: 'step3',
         component: Step3Component,
       },
-    ]
+    ],
   },
   {
     path: 'my-events',

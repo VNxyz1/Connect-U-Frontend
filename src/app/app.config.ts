@@ -2,7 +2,8 @@ import {
   ApplicationConfig,
   provideZoneChangeDetection,
   isDevMode,
-  PLATFORM_ID, importProvidersFrom,
+  PLATFORM_ID,
+  importProvidersFrom,
 } from '@angular/core';
 import {
   provideRouter,
@@ -44,7 +45,9 @@ import {
   RiArrowLeftCircleLine,
   RiTimeLine,
   RiInformation2Line,
-  RiAlertLine, RiArrowGoBackLine, RiCheckboxLine,
+  RiAlertLine,
+  RiArrowGoBackLine,
+  RiCheckboxLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';

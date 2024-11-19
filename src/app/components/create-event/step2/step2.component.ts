@@ -56,7 +56,7 @@ export class Step2Component implements OnInit {
     private confirmationService: ConfirmationService,
     private router: Router,
     private route: ActivatedRoute,
-    private translocoService: TranslocoService
+    private translocoService: TranslocoService,
   ) {
     this.minDate = new Date();
     this.minDate.setMinutes(this.minDate.getMinutes() + 15); // Ensure a minimum 15-minute lead
@@ -104,10 +104,10 @@ export class Step2Component implements OnInit {
     if (this.dateAndTime.getTime() <= this.minDate.getTime()) {
       this.confirmationService.confirm({
         message: this.translocoService.translate(
-          'createEventStep2Component.messages.dateConfirmationMessage'
+          'createEventStep2Component.messages.dateConfirmationMessage',
         ),
         header: this.translocoService.translate(
-          'createEventStep2Component.messages.dateConfirmationHeader'
+          'createEventStep2Component.messages.dateConfirmationHeader',
         ),
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
@@ -124,16 +124,20 @@ export class Step2Component implements OnInit {
 
   private navigateNext() {
     this.sendEventInformation();
-    this.router.navigate(['../step3'], { relativeTo: this.route }).catch((err) => {
-      console.error('Navigation error:', err);
-    });
+    this.router
+      .navigate(['../step3'], { relativeTo: this.route })
+      .catch(err => {
+        console.error('Navigation error:', err);
+      });
   }
 
   prevPage() {
     this.sendEventInformation();
-    this.router.navigate(['../step1'], { relativeTo: this.route }).catch((err) => {
-      console.error('Navigation error:', err);
-    });
+    this.router
+      .navigate(['../step1'], { relativeTo: this.route })
+      .catch(err => {
+        console.error('Navigation error:', err);
+      });
   }
 
   private async sendEventInformation() {

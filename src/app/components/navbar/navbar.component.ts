@@ -10,7 +10,6 @@ import { filter } from 'rxjs/operators';
   standalone: true,
   imports: [TabMenuModule, Button, AngularRemixIconComponent],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit {
   currentUrl: string | undefined;
