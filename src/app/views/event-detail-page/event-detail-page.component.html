@@ -1,3 +1,4 @@
+@if(eventDetails$ | async; as eventDetails) {
 <div class="xl:ml-8 p-0 m-0 grid">
   <div class="xl:col-7">
 <div
@@ -10,43 +11,54 @@
     imageClass="w-full" />
 </div>
 
-<h1>Eventtitel</h1>
+<h1>{{eventDetails.title}}</h1>
 
-  <p-tag value="Primary" [rounded]="true" />
-  <p-tag value="Primary" [rounded]="true" />
-  <p-tag value="Primary" [rounded]="true" />
-
+    @for (category of eventDetails.categories; track $index) {
+      <p-tag [value]="category.name" [rounded]="true" class="mr-1" />
+    }
 
   <p-card styleClass="p-mb-3 mt-3">
       <div class="grid">
+        <div class="col">
+          <div class="flex items-center">
+            <rmx-icon name="calendar-line" class="mr-2"></rmx-icon>
+            <p class="m-0">18.12.24</p>
+          </div>
+          <div class="flex items-center mt-3">
+          <rmx-icon name="time-line" class="mr-2"></rmx-icon>
+          <p class="m-0">15:30</p>
+          </div>
+        </div>
       <div class="col">
-        <p>18.12.24</p>
-        <p>15:30</p>
-      </div>
-      <div class="col">
-        <p>Erdbeerstraße 23</p>
-        <p>35390 Gießen</p>
+        <div class="flex items-center">
+        <rmx-icon name="map-pin-2-line" class="mr-2"></rmx-icon>
+        <p class="m-0">{{eventDetails.street}} {{eventDetails.streetNumber}}</p>
+        </div>
+        <p class="m-0 ml-5">{{eventDetails.zipCode}} {{eventDetails.city}}</p>
       </div>
     </div>
     <h2>Eventdetails</h2>
-    <p>Wir treffen uns bei mir zuhause in der Erdbeerstraße und dann laufen wir zusammen auf den Berg!
-      Jeder ist willkommen !! 😊😊😊😊
+    <p>{{eventDetails.description}}
     </p>
+    <div>
+      <p-tag severity="secondary" value="Secondary" [rounded]="true" class="mr-1"/>
+      <p-tag severity="secondary" value="Secondary" [rounded]="true" class="mr-1"/>
+      <p-tag severity="secondary" value="Secondary" [rounded]="true" class="mr-1"/>
+    </div>
     </p-card>
-<div class="my-3">
-  <p-tag severity="secondary" value="Secondary" [rounded]="true" />
-  <p-tag severity="secondary" value="Secondary" [rounded]="true" />
-  <p-tag severity="secondary" value="Secondary" [rounded]="true" />
-</div>
-    <p-card header="Zutrittsbeschränkungen" styleClass="p-mb-3">
+    <p-card styleClass="p-mb-3">
+      <h2>Zutrittsbeschränkungen</h2>
       <div class="grid">
         <div class="col">
-          <p>Geschlecht</p>
-          <p>Alter</p>
+          <p class="pb-3" style="color: #EE8418">Geschlecht</p>
+          @if (eventDetails.startAge || eventDetails.endAge) {
+          <p style="color: #EE8418">Alter</p>
+          }
         </div>
         <div class="col">
-          <p>Jeder ist willkommen!</p>
-          <p>ab 18 Jahre</p>
+          <p class="pb-3">Jeder ist willkommen!</p>
+          <p>{{ eventDetails.startAge ? 'ab ' + eventDetails.startAge + ' Jahre' : '' }} </p>
+           <p> {{ eventDetails.endAge ? 'bis ' + eventDetails.endAge + ' Jahre' : '' }}</p>
         </div>
       </div>
     </p-card>
@@ -63,6 +75,7 @@
   </div>
   <div class="xl:col-5"></div>
 </div>
+}
 
 
 

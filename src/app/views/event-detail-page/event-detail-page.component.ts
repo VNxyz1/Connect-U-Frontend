@@ -1,31 +1,44 @@
-import { Component, Input } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { ImageModule } from 'primeng/image';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
 import { Button } from 'primeng/button';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
+import { EventService } from '../../services/event/eventservice';
+import { EventDetails } from '../../interfaces/EventDetails';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-event-detail-page',
   standalone: true,
   imports: [
-    NgOptimizedImage,
     ImageModule,
     TranslocoPipe,
     CardModule,
     TagModule,
     Button,
     AngularRemixIconComponent,
+    AsyncPipe,
   ],
   templateUrl: './event-detail-page.component.html',
 })
-export class EventDetailPageComponent {
-  /**
-   * The eventId is extracted from the route param.
-   * Documentation: [Angular.dev](https://angular.dev/guide/routing/common-router-tasks#getting-route-information)
-   */
-  @Input()
-  set id(eventId: string) {}
+export class EventDetailPageComponent implements OnInit {
+  eventId!: string;
+  eventDetails$!: Observable<EventDetails>;
+
+  constructor(
+    private readonly route: ActivatedRoute,
+    private readonly eventService: EventService,
+  ) {}
+
+  ngOnInit(): void {
+    this.eventId = this.route.snapshot.paramMap.get('id')!;
+
+    if (this.eventId) {
+      this.eventDetails$ = this.eventService.getEventDetails(this.eventId);
+    }
+  }
 }
