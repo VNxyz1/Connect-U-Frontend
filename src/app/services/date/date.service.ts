@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import {TranslocoService} from '@jsverse/transloco';
+import { TranslocoService } from '@jsverse/transloco';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DateService {
-
-  constructor(private translocoService: TranslocoService) { }
+  constructor(private translocoService: TranslocoService) {}
 
   formatDateForLocale(date: string | Date): string {
     const activeLang = this.translocoService.getActiveLang();

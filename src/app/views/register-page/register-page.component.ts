@@ -22,8 +22,8 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RegisterBody } from '../../services/auth/auth.service';
-import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
-import {DateService} from '../../services/date/date.service';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { DateService } from '../../services/date/date.service';
 
 type RegisterForm = FormGroup<{
   username: FormControl<string>;
@@ -62,7 +62,7 @@ export class RegisterPageComponent {
   genderOptions: Array<{ label: string; value: number }> = [];
   protected passwordVisible: boolean | undefined;
   protected passwordRegVisible: boolean | undefined;
-  protected calendarDateFormat:string = 'yy-mm-dd';
+  protected calendarDateFormat: string = 'yy-mm-dd';
   form: RegisterForm = new FormGroup(
     {
       username: new FormControl<string>('', {
@@ -110,12 +110,11 @@ export class RegisterPageComponent {
     private authService: AuthService,
     private messageService: MessageService,
     private translocoService: TranslocoService,
-    private dateService:DateService
+    private dateService: DateService,
   ) {
     this.calendarDateFormat = this.dateService.getCalendarDateFormat();
     this.loadGenderOptions();
   }
-
 
   togglePasswordVisibility(val: string): void {
     if (val == 'regPassword') {
@@ -162,22 +161,24 @@ export class RegisterPageComponent {
         this.messageService.add({
           severity: 'error',
           summary: this.translocoService.translate(
-            'registerComponent.errorMessages.registerFailed'
+            'registerComponent.errorMessages.registerFailed',
           ),
           detail: this.translocoService.translate(
-            'registerComponent.errorMessages.registerFailedData'
+            'registerComponent.errorMessages.registerFailedData',
           ),
         });
     }
   }
 
   loadGenderOptions = () => {
-    this.translocoService.selectTranslateObject('registerComponent.genderOption').subscribe(genderOption => {
-      this.genderOptions = [
-        { label: genderOption.male, value: 1 },
-        { label: genderOption.female, value: 2 },
-        { label: genderOption.diverse, value: 3 },
-      ];
-    });
+    this.translocoService
+      .selectTranslateObject('registerComponent.genderOption')
+      .subscribe(genderOption => {
+        this.genderOptions = [
+          { label: genderOption.male, value: 1 },
+          { label: genderOption.female, value: 2 },
+          { label: genderOption.diverse, value: 3 },
+        ];
+      });
   };
 }
