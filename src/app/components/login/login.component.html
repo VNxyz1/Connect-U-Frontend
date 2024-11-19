@@ -4,6 +4,7 @@
     {{ 'loginComponent.title' | transloco }}
   </h2>
   <form
+    autocomplete="off"
     (ngSubmit)="submitLogin()"
     [formGroup]="form"
     class="w-full"
@@ -17,6 +18,8 @@
         type="email"
         pInputText
         formControlName="email"
+        autocomplete="new-text"
+        aria-autocomplete="none"
         class="w-full"
         [placeholder]="'loginComponent.eMailInput.placeholder' | transloco"
         aria-required="true"
@@ -47,6 +50,8 @@
         class="w-full"
         styleClass="w-full"
         inputStyleClass="w-full"
+        autocomplete="new-password"
+        aria-autocomplete="none"
         [toggleMask]="true"
         [feedback]="false"
         [placeholder]="'loginComponent.passwordInput.placeholder' | transloco"
