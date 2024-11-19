@@ -225,7 +225,7 @@
       <div class="field mb-4">
         <div>
           {{'registerComponent.agbCheckbox.text'| transloco}}
-          <a [routerLink]="['/agb']" class="text-primary no-underline">{{'registerComponent.agbCheckbox.agb'| transloco}}</a>
+          <a [routerLink]="['/agb']" class="text-color-secondary no-underline">{{'registerComponent.agbCheckbox.agb'| transloco}}</a>
           <p-checkbox
             formControlName="agb"
             class="ml-3"
@@ -241,12 +241,12 @@
           [raised]="true"
           type="submit"
           [label]="'registerComponent.submitButton.label'| transloco"
-          severity="secondary" />
+          severity="success" />
       </div>
     </form>
     <p class="text-center">
       {{'registerComponent.alreadyAccount'| transloco}}
-      <a [routerLink]="['/welcome']" class="text-primary no-underline"
+      <a [routerLink]="['/welcome']" class="text-color-secondary no-underline"
         >{{'registerComponent.loginLink'| transloco}}</a
       >
     </p>
