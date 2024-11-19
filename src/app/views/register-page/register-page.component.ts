@@ -23,6 +23,7 @@ import { ToastModule } from 'primeng/toast';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RegisterBody } from '../../services/auth/auth.service';
 import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
+import {DateService} from '../../services/date/date.service';
 
 type RegisterForm = FormGroup<{
   username: FormControl<string>;
@@ -54,14 +55,13 @@ type RegisterForm = FormGroup<{
     CheckboxModule,
     TranslocoPipe,
   ],
-  providers: [AuthService, MessageService],
+  providers: [AuthService, MessageService, TranslocoService],
   templateUrl: './register-page.component.html',
 })
 export class RegisterPageComponent {
   genderOptions: Array<{ label: string; value: number }> = [];
   protected passwordVisible: boolean | undefined;
   protected passwordRegVisible: boolean | undefined;
-  protected calendarLocale:any;
   protected calendarDateFormat:string = 'yy-mm-dd';
   form: RegisterForm = new FormGroup(
     {
@@ -109,18 +109,13 @@ export class RegisterPageComponent {
     private router: Router,
     private authService: AuthService,
     private messageService: MessageService,
-    private translocoService: TranslocoService
+    private translocoService: TranslocoService,
+    private dateService:DateService
   ) {
-    this.setCalendarLocale();
+    this.calendarDateFormat = this.dateService.getCalendarDateFormat();
     this.loadGenderOptions();
   }
-  loadGenderOptions(){
-    this.genderOptions = [
-      { label: this.translocoService.translate('registerComponent.genderOption.male'), value: 1 },
-      { label: this.translocoService.translate('registerComponent.genderOption.female'), value: 2 },
-      { label: this.translocoService.translate('registerComponent.genderOption.diverse'), value: 3 },
-    ];
-  }
+
 
   togglePasswordVisibility(val: string): void {
     if (val == 'regPassword') {
@@ -160,15 +155,9 @@ export class RegisterPageComponent {
     });
   }
 
-  showErrorMessage(code: number): void {
+  showErrorMessage(code: number) {
     switch (code) {
       case 404:
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Registrierung fehlgeschlagen',
-          detail: 'Es wurden nicht alle Felder ausgefüllt',
-        });
-        break;
       case 400:
         this.messageService.add({
           severity: 'error',
@@ -182,52 +171,13 @@ export class RegisterPageComponent {
     }
   }
 
-  setCalendarLocale(): void {
-    const activeLang = this.translocoService.getActiveLang();
-
-    const locales = {
-      de: {
-        firstDayOfWeek: 1,
-        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
-        dayNamesShort: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-        dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
-        monthNames: [
-          'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
-          'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember',
-        ],
-        monthNamesShort: [
-          'Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun',
-          'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez',
-        ],
-        today: 'Heute',
-        clear: 'Löschen',
-      },
-      en: {
-        firstDayOfWeek: 0,
-        dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        dayNamesMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-        monthNames: [
-          'January', 'February', 'March', 'April', 'May', 'June',
-          'July', 'August', 'September', 'October', 'November', 'December',
-        ],
-        monthNamesShort: [
-          'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-        ],
-        today: 'Today',
-        clear: 'Clear',
-      },
-    };
-
-    switch (activeLang) {
-    case 'de':
-      this.calendarLocale = locales.de;
-      this.calendarDateFormat = 'dd.mm.yy';
-      break;
-    default:
-      this.calendarLocale = locales.en;
-      this.calendarDateFormat = 'mm/dd/yy';
-    }
-  }
+  loadGenderOptions = () => {
+    this.translocoService.selectTranslateObject('registerComponent.genderOption').subscribe(genderOption => {
+      this.genderOptions = [
+        { label: genderOption.male, value: 1 },
+        { label: genderOption.female, value: 2 },
+        { label: genderOption.diverse, value: 3 },
+      ];
+    });
+  };
 }

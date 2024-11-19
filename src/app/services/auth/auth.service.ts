@@ -18,12 +18,10 @@ export type RegisterBody = {
   agb: boolean;
 };
 
-type LoginResponse = {
+type AuthResponse = {
   access_token: string;
 };
-type RegisterResponse = {
-  "message": string;
-}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -34,13 +32,14 @@ export class AuthService {
 
   /**
    * to be implemented
+   *
    */
   isLoggedIn(): boolean {
     return true;
   }
 
-  logIn(body: LoginBody): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>('auth/login', body).pipe(
+  logIn(body: LoginBody): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>('auth/login', body).pipe(
       map(response => {
         this._accessToken = response.access_token;
         return response;
@@ -48,8 +47,8 @@ export class AuthService {
     );
   }
 
-  register(body: RegisterBody): Observable<RegisterResponse> {
-    return this.http.post<RegisterResponse>('user', body);
+  register(body: RegisterBody): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>('user', body);
   }
 
   getAccessToken(): string | undefined {

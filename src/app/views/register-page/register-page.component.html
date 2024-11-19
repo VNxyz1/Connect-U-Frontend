@@ -8,6 +8,8 @@
           pInputText
           formControlName="username"
           type="text"
+          autocomplete="new-text"
+          aria-autocomplete="none"
           id="username"
           [placeholder]="'registerComponent.usernameInput.placeholder'| transloco"
           aria-required="true"
@@ -16,10 +18,10 @@
           " />
         @if (form.get('username')?.invalid && form.get('username')?.touched) {
           @if (form.get('username')?.errors?.['required']) {
-            <small class="text-red-500">{{'registerComponent.usernameInput.requiredWarning' | transloco}}</small>
+            <small class="p-error">{{'registerComponent.usernameInput.requiredWarning' | transloco}}</small>
           }
           @if (form.get('username')?.errors?.['minlength']) {
-            <small class="text-red-500"
+            <small class="p-error"
               >{{'registerComponent.usernameInput.lengthWarning' | transloco}}</small
             >
           }
@@ -34,6 +36,8 @@
           pInputText
           formControlName="email"
           class="w-full"
+          autocomplete="new-text"
+          aria-autocomplete="none"
           [placeholder]="'registerComponent.emailInput.placeholder' | transloco"
           aria-required="true"
           [attr.aria-invalid]="
@@ -41,10 +45,10 @@
           " />
         @if (form.get('email')?.invalid && form.get('email')?.touched) {
           @if (form.get('email')?.errors?.['required']) {
-            <small class="text-red-500">{{'registerComponent.emailInput.requiredWarning' | transloco}}</small>
+            <small class="p-error">{{'registerComponent.emailInput.requiredWarning' | transloco}}</small>
           }
           @if (form.get('email')?.errors?.['email']) {
-            <small class="text-red-500"
+            <small class="p-error"
               >{{'registerComponent.emailInput.validEmailWarning'}}</small
             >
           }
@@ -57,6 +61,8 @@
           id="firstName"
           type="text"
           pInputText
+          autocomplete="new-text"
+          aria-autocomplete="none"
           formControlName="firstName"
           class="w-full"
           [placeholder]="'registerComponent.firstnameInput.placeholder' | transloco"
@@ -66,10 +72,10 @@
           " />
         @if (form.get('firstName')?.invalid && form.get('firstName')?.touched) {
           @if (form.get('firstName')?.errors?.['required']) {
-            <small class="text-red-500">{{'registerComponent.firstnameInput.requiredWarning' | transloco}}</small>
+            <small class="p-error">{{'registerComponent.firstnameInput.requiredWarning' | transloco}}</small>
           }
           @if (form.get('firstName')?.errors?.['minlength']) {
-            <small class="text-red-500"
+            <small class="p-error"
               >{{ 'registerComponent.firstnameInput.lengthWarning' | transloco }}</small
             >
           }
@@ -82,6 +88,8 @@
           formControlName="lastName"
           type="text"
           id="lastName"
+          autocomplete="new-text"
+          aria-autocomplete="none"
           [placeholder]="'registerComponent.lastnameInput.placeholder'| transloco"
           class="w-full"
           aria-required="true"
@@ -90,7 +98,7 @@
           " />
         @if (form.get('lastName')?.invalid && form.get('lastName')?.touched) {
           @if (form.get('lastName')?.errors?.['required']) {
-            <small class="text-red-500">{{'registerComponent.lastnameInput.requiredWarning'| transloco}}</small>
+            <small class="p-error">{{'registerComponent.lastnameInput.requiredWarning'| transloco}}</small>
           }
         }
       </div>
@@ -102,9 +110,9 @@
           [placeholder]="'registerComponent.calendarInput.placeholder' | transloco"
           inputId="templatedisplay"
           class="w-full"
+          aria-autocomplete="none"
           formControlName="birthday"
           aria-required="true"
-          [locale]="calendarLocale"
           [dateFormat]="calendarDateFormat"
           [attr.aria-invalid]="
             form.get('birthday')?.invalid && form.get('birthday')?.touched
@@ -117,13 +125,13 @@
         </p-calendar>
         @if (form.get('birthday')?.invalid && form.get('birthday')?.touched) {
           @if (form.get('birthday')?.errors?.['required']) {
-            <small>{{'registerComponent.calendarInput.requiredWarning' | transloco}}</small>
+            <small class="p-error">{{'registerComponent.calendarInput.requiredWarning' | transloco}}</small>
           }
           @if (form.get('birthday')?.errors?.['invalidDay']) {
-            <small>{{'registerComponent.calendarInput.invalidDayWarning' | transloco}}</small>
+            <small class="p-error">{{'registerComponent.calendarInput.invalidDayWarning' | transloco}}</small>
           }
           @if (form.get('birthday')?.errors?.['minAge']) {
-            <small>{{'registerComponent.calendarInput.minAgeWarning'| transloco}}</small>
+            <small class="p-error">{{'registerComponent.calendarInput.minAgeWarning'| transloco}}</small>
           }
         }
       </div>
@@ -139,7 +147,7 @@
             form.get('gender')?.invalid && form.get('gender')?.touched
           " />
         @if (form.get('gender')?.errors?.['required']) {
-          <small class="text-red-500">{{'registerComponent.genderInput.requiredWarning'| transloco}}</small>
+          <small class="p-error">{{'registerComponent.genderInput.requiredWarning'| transloco}}</small>
         }
       </div>
 
@@ -159,15 +167,17 @@
             [type]="passwordRegVisible ? 'text' : 'password'"
             pInputText
             formControlName="password"
+            autocomplete="new-password"
+            aria-autocomplete="none"
             [placeholder]="'registerComponent.passwordInput.placeholder'| transloco"
             name="password" />
         </p-iconField>
         @if (form.get('password')?.invalid && form.get('password')?.touched) {
           @if (form.get('password')?.errors?.['required']) {
-            <small class="text-red-500">{{'registerComponent.passwordInput.requiredWarning'| transloco}}</small>
+            <small class="p-error">{{'registerComponent.passwordInput.requiredWarning'| transloco}}</small>
           }
           @if (form.get('password')?.errors?.['minlength']) {
-            <small class="text-red-500"
+            <small class="p-error"
               >{{'registerComponent.passwordInput.lengthWarning'| transloco}}</small
             >
           }
@@ -187,6 +197,8 @@
           <input
             [type]="passwordVisible ? 'text' : 'password'"
             pInputText
+            autocomplete="new-password"
+            aria-autocomplete="none"
             formControlName="passwordConfirm"
             id="passwordConfirm"
             [placeholder]="'registerComponent.confirmPasswordInput.placeholder'| transloco"
@@ -201,10 +213,10 @@
           form.get('passwordConfirm')?.touched
         ) {
           @if (form.get('passwordConfirm')?.errors?.['required']) {
-            <small class="text-red-500">{{'registerComponent.confirmPasswordInput.requiredWarning'| transloco}}</small>
+            <small class="p-error">{{'registerComponent.confirmPasswordInput.requiredWarning'| transloco}}</small>
           }
           @if (form.errors?.['passwordMissmatch']) {
-            <small class="text-red-500"
+            <small class="p-error"
               >{{'registerComponent.confirmPasswordInput.missMatchWarning'|transloco}}</small
             >
           }

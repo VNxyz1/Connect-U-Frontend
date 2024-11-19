@@ -92,6 +92,10 @@
       "requiredWarning": "Please repeat your password.",
       "mismatchWarning": "The passwords do not match.",
       "label": "Repeat password"
+    },
+    "errorMessages": {
+      "registerFailed": "register failed",
+      "registerFailedData" : "Something went wrong!"
     }
   }
 }
