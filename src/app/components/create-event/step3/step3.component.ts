@@ -164,7 +164,9 @@ export class Step3Component implements OnInit {
           summary: this.translocoService.translate(
             'createEventStep3Component.messages.eventCreatedError',
           ),
-          detail: error.message,
+          detail: this.translocoService.translate(
+            'createEventStep3Component.messages.eventCreatedErrorMessage',
+          ),
         });
 
         return;

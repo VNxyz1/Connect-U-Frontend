@@ -64,7 +64,8 @@
   "createEventStep2Component": {
     "dateAndTimeInput": {
       "label": "Datum und Uhrzeit",
-      "errorMessage": "Datum und Uhrzeit sind erforderlich."
+      "errorMessage": "Datum und Uhrzeit sind erforderlich.",
+      "firstDayofTheWeek": 1
     },
     "addressSection": {
       "title": "Adresse",
@@ -129,6 +130,7 @@
     "messages": {
       "eventCreatedSuccess": "Event \"{{title}}\" wurde erfolgreich erstellt!",
       "eventCreatedError": "Das Erstellen des Events ist fehlgeschlagen.",
+      "eventCreatedErrorMessage": "Bitte versuche es zu einem späteren Zeitpunkt erneut.",
       "noEventIdError": "Keine Event-ID gefunden. Bitte versuche es erneut."
     }
   }

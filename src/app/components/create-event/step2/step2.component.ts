@@ -49,6 +49,10 @@ export class Step2Component implements OnInit {
   zipCodeRegex: RegExp = /^\d{5}$/;
 
   minDate: Date;
+  firstDayOfWeek: number = 0;
+  dateFormat: string = 'yy/MM/dd';
+  dayNamesShort: string[] = [];
+
   submitted: boolean = false;
 
   constructor(
@@ -58,6 +62,7 @@ export class Step2Component implements OnInit {
     private route: ActivatedRoute,
     private translocoService: TranslocoService,
   ) {
+    this.setCalenderFormat();
     this.minDate = new Date();
     this.minDate.setMinutes(this.minDate.getMinutes() + 15); // Ensure a minimum 15-minute lead
   }
@@ -77,6 +82,20 @@ export class Step2Component implements OnInit {
     this.zipCode = step2Data.zipCode;
     this.city = step2Data.city;
     this.hideAddress = !step2Data.showAddress;
+  }
+
+  private setCalenderFormat(): void {
+    const activeLang = this.translocoService.getActiveLang();
+
+    if (activeLang === 'us') {
+      this.firstDayOfWeek = 0; // Sunday
+      this.dayNamesShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      this.dateFormat = 'mm/dd/yy';
+    } else {
+      this.firstDayOfWeek = 1; // Monday
+      this.dayNamesShort = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+      this.dateFormat = 'dd.mm.yy';
+    }
   }
 
   nextPage() {

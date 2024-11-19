@@ -129,6 +129,7 @@
     "messages": {
       "eventCreatedSuccess": "Event \"{{title}}\" created successfully!",
       "eventCreatedError": "Failed to create event.",
+      "eventCreatedErrorMessage": "Please try again later.",
       "noEventIdError": "No Event ID found. Please try again."
     }
   }
