@@ -97,7 +97,7 @@
             'ng-invalid ng-dirty':
               (eventTitleInput.invalid && submitted) ||
               (eventTitleInput.dirty && eventTitleInput.invalid) ||
-                eventTitle.trim() === '',
+              eventTitle.trim() === '',
           }" />
         <label for="event-title">{{
           'createEventStep1Component.eventTitleInput.label' | transloco
@@ -106,7 +106,7 @@
       @if (
         (eventTitleInput.invalid && submitted) ||
         (eventTitleInput.dirty && eventTitleInput.invalid) ||
-          eventTitle.trim() === ''
+        eventTitle.trim() === ''
       ) {
         <small class="p-error">
           {{
