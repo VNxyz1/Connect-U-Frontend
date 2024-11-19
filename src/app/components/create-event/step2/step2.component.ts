@@ -51,7 +51,6 @@ export class Step2Component implements OnInit {
   minDate: Date;
   firstDayOfWeek: number = 0;
   dateFormat: string = 'yy/MM/dd';
-  dayNamesShort: string[] = [];
 
   submitted: boolean = false;
 
@@ -89,11 +88,9 @@ export class Step2Component implements OnInit {
 
     if (activeLang === 'us') {
       this.firstDayOfWeek = 0; // Sunday
-      this.dayNamesShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
       this.dateFormat = 'mm/dd/yy';
     } else {
       this.firstDayOfWeek = 1; // Monday
-      this.dayNamesShort = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
       this.dateFormat = 'dd.mm.yy';
     }
   }
