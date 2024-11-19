@@ -30,5 +30,106 @@
   },
   "searchPageComponent": {
 
+  },
+  "createEventStep1Component": {
+    "eventType": {
+      "public": "Public",
+      "semiPublic": "Semi-Public",
+      "private": "Private",
+      "tooltip": {
+        "public": "Everyone can apply directly.",
+        "semiPublic": "Participants need to be approved by the event host.",
+        "private": "Only the event host can invite participants, and the event will not appear on the page."
+      }
+    },
+    "eventTitleInput": {
+      "label": "Title",
+      "errorMessage": "The event title is required."
+    },
+    "categoriesInput": {
+      "label": "Select Categories",
+      "errorMessage": "At least one category must be selected."
+    },
+    "descriptionInput": {
+      "label": "Description"
+    },
+    "continueButton": "Continue",
+    "messages": {
+      "categoryLimitTitle": "Selection Limit",
+      "categoryLimitDetail": "You can select up to 3 categories only.",
+      "validationFailedTitle": "Validation Failed",
+      "validationFailedDetail": "Ensure all required fields are filled in correctly."
+    }
+  },
+  "createEventStep2Component": {
+    "dateAndTimeInput": {
+      "label": "Date and Time",
+      "errorMessage": "Date and time are required."
+    },
+    "addressSection": {
+      "title": "Address",
+      "onlineEventCheckbox": "Online Event",
+      "streetInput": {
+        "label": "Street",
+        "errorMessage": "Street is required."
+      },
+      "streetNumberInput": {
+        "label": "Street Number",
+        "errorMessage": "Street number is required."
+      },
+      "zipCodeInput": {
+        "label": "ZIP Code",
+        "errorMessageRequired": "ZIP Code is required.",
+        "errorMessageInvalid": "Please enter a valid ZIP Code (5 digits)."
+      },
+      "cityInput": {
+        "label": "City",
+        "errorMessage": "City is required."
+      },
+      "hideAddressCheckbox": "Hide Address",
+      "hideAddressTooltip": {
+        "content": "Check to hide Street and Street-Number for non-participants. ZIP Code and City remain visible."
+      }
+    },
+    "navigationButtons": {
+      "back": "Back",
+      "continue": "Continue"
+    },
+    "messages": {
+      "dateConfirmationMessage": "Date and time are set to the minimum. Do you want to proceed?",
+      "dateConfirmationHeader": "Confirm Date Selection",
+      "dateConfirmationSubmit": "Yes",
+      "dateConfirmationCancel": "Return"
+    }
+  },
+  "createEventStep3Component": {
+    "participantsNumberInput": {
+      "label": "Participants Number",
+      "errorMessage": "Participants Number is required and must be at least 2."
+    },
+    "participantsInput": {
+      "label": "Selected Participants"
+    },
+    "preferredGendersInput": {
+      "label": "Preferred Genders"
+    },
+    "ageSection": {
+      "title": "Age",
+      "maxAgePlaceholder": "none"
+    },
+    "navigationButtons": {
+      "back": "Back",
+      "finish": "Finish"
+    },
+    "genders": {
+      "male": "Male",
+      "female": "Female",
+      "divers": "Divers"
+    },
+    "messages": {
+      "eventCreatedSuccess": "Event \"{{title}}\" created successfully!",
+      "eventCreatedError": "Failed to create event.",
+      "noEventIdError": "No Event ID found. Please try again."
+    }
   }
 }

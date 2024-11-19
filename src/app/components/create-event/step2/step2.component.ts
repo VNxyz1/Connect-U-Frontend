@@ -9,12 +9,12 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PrimeTemplate } from 'primeng/api';
-import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-step2',
@@ -27,13 +27,12 @@ import { TooltipModule } from 'primeng/tooltip';
     FormsModule,
     InputTextModule,
     PrimeTemplate,
-    RadioButtonModule,
     CheckboxModule,
     NgClass,
-    NgIf,
     ConfirmDialogModule,
     ToastModule,
     TooltipModule,
+    TranslocoPipe,
   ],
   providers: [ConfirmationService],
   templateUrl: './step2.component.html',
@@ -56,21 +55,20 @@ export class Step2Component implements OnInit {
     public eventService: EventService,
     private confirmationService: ConfirmationService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private translocoService: TranslocoService
   ) {
     this.minDate = new Date();
     this.minDate.setMinutes(this.minDate.getMinutes() + 15); // Ensure a minimum 15-minute lead
   }
 
   async ngOnInit() {
-    const step2Data = await this.eventService.getEventInformation(); // Await data retrieval
-    // Ensure `dateAndTime` is a valid Date object or leave undefined
+    const step2Data = await this.eventService.getEventInformation();
     this.dateAndTime = step2Data.dateAndTime
       ? new Date(step2Data.dateAndTime)
       : undefined;
 
     if (!this.dateAndTime || this.dateAndTime < this.minDate) {
-      // Default to `minDate` if no valid date exists
       this.dateAndTime = this.minDate;
     }
     this.online = step2Data.isOnline;
@@ -84,12 +82,10 @@ export class Step2Component implements OnInit {
   nextPage() {
     this.submitted = true;
 
-    // Validate Date & Time
     if (!this.dateAndTime || isNaN(this.dateAndTime.getTime())) {
-      return; // Block navigation if invalid
+      return;
     }
 
-    // Validate Address Fields if the event is not online
     if (!this.online) {
       if (
         !this.street.trim() ||
@@ -97,19 +93,22 @@ export class Step2Component implements OnInit {
         !this.zipCode.trim() ||
         !this.city.trim()
       ) {
-        return; // Block navigation if address fields are incomplete
+        return;
       }
 
       if (!this.zipCodeRegex.test(this.zipCode.trim())) {
-        return; // Block navigation if ZIP code is invalid
+        return;
       }
     }
 
-    // Check for minimum or earlier date
     if (this.dateAndTime.getTime() <= this.minDate.getTime()) {
       this.confirmationService.confirm({
-        message: 'Date and time are set to the minimum. Do you want to proceed?',
-        header: 'Confirm Date Selection',
+        message: this.translocoService.translate(
+          'createEventStep2Component.messages.dateConfirmationMessage'
+        ),
+        header: this.translocoService.translate(
+          'createEventStep2Component.messages.dateConfirmationHeader'
+        ),
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
           this.navigateNext();
@@ -125,33 +124,26 @@ export class Step2Component implements OnInit {
 
   private navigateNext() {
     this.sendEventInformation();
-    this.router.navigate(['../step3'], { relativeTo: this.route })
-      .then(() => {
-
-      })
-      .catch((err) => {
-        console.error('Navigation error:', err);
-      });
+    this.router.navigate(['../step3'], { relativeTo: this.route }).catch((err) => {
+      console.error('Navigation error:', err);
+    });
   }
 
   prevPage() {
     this.sendEventInformation();
-    this.router.navigate(['../step1'], { relativeTo: this.route })
-      .then(() => {
-      })
-      .catch(err => {
-        console.error('Navigation error:', err);
-      });
+    this.router.navigate(['../step1'], { relativeTo: this.route }).catch((err) => {
+      console.error('Navigation error:', err);
+    });
   }
 
   private async sendEventInformation() {
     await this.eventService.setEventInformation({
       dateAndTime: this.dateAndTime?.toISOString(),
       isOnline: this.online,
-      street: this.online ? "" : this.street,
-      streetNumber: this.online ? "" : this.streetNumber.trim(),
-      zipCode: this.online ? "" : this.zipCode.trim(),
-      city: this.online ? "" : this.city,
+      street: this.online ? '' : this.street,
+      streetNumber: this.online ? '' : this.streetNumber.trim(),
+      zipCode: this.online ? '' : this.zipCode.trim(),
+      city: this.online ? '' : this.city,
       showAddress: !this.hideAddress,
     });
   }

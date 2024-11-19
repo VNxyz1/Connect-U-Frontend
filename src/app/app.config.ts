@@ -43,7 +43,8 @@ import {
   RiArrowRightCircleLine,
   RiArrowLeftCircleLine,
   RiTimeLine,
-  RiInformation2Line
+  RiInformation2Line,
+  RiAlertLine, RiArrowGoBackLine, RiCheckboxLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
@@ -72,7 +73,10 @@ const icons = {
   RiArrowRightCircleLine,
   RiArrowLeftCircleLine,
   RiTimeLine,
-  RiInformation2Line
+  RiInformation2Line,
+  RiAlertLine,
+  RiArrowGoBackLine,
+  RiCheckboxLine,
 };
 
 export const translocoConfig = {

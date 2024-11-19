@@ -13,6 +13,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { Subject, takeUntil } from 'rxjs';
 import { NgClass, NgIf } from '@angular/common';
 import { EventData } from '../../../services/event/eventservice';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-step3',
@@ -28,7 +29,7 @@ import { EventData } from '../../../services/event/eventservice';
     SliderModule,
     MultiSelectModule,
     NgClass,
-    NgIf,
+    TranslocoPipe,
   ],
   templateUrl: './step3.component.html',
 })
@@ -47,7 +48,8 @@ export class Step3Component implements OnInit {
     private readonly eventService: EventService,
     private readonly messageService: MessageService,
     private readonly router: Router,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private translocoService: TranslocoService
   ) {}
 
   async ngOnInit() {
@@ -60,18 +62,18 @@ export class Step3Component implements OnInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (data) => {
-          // Transform the genders to include label and value
+          // Transform the genders to include translated label and value
           this.genders = data.map((gender) => {
             let label = '';
             switch (gender.gender) {
               case 1:
-                label = 'Male';
+                label = this.translocoService.translate('createEventStep3Component.genders.male');
                 break;
               case 2:
-                label = 'Female';
+                label = this.translocoService.translate('createEventStep3Component.genders.female');
                 break;
               case 3:
-                label = 'Divers';
+                label = this.translocoService.translate('createEventStep3Component.genders.divers');
                 break;
             }
             return { label, value: gender.id };
@@ -89,8 +91,12 @@ export class Step3Component implements OnInit {
     this.ageValues = [step3Data.startAge || 16, step3Data.endAge || 99];
   }
 
+  protected getMaxAgePlaceholder(): string {
+    return this.translocoService.translate('createEventStep3Component.ageSection.maxAgePlaceholder');
+  }
+
   protected onAgeChange(index: number, value: string | number) {
-    this.ageValues[index] = value === 'none' ? 99 : Number(value);
+    this.ageValues[index] = value === this.getMaxAgePlaceholder() ? 99 : Number(value);
   }
 
   protected complete() {
@@ -113,42 +119,43 @@ export class Step3Component implements OnInit {
     // Submit event data to the server
     this.eventService.postEvent().subscribe({
       next: (response: any) => {
+        const eventId = response?.eventId;
 
-        let eventId = response?.eventId;
         if (eventId) {
-          // Add success message
+          // Add success message with translation
           this.messageService.add({
             severity: 'success',
-            summary: `Event "${this.title}" created successfully!`,
+            summary: this.translocoService.translate(
+              'createEventStep3Component.messages.eventCreatedSuccess',
+              { title: this.title }
+            ),
           });
-          setTimeout(() => {
-            // Your code logic here
-            this.router.navigate([`../../event/:${eventId}`], { relativeTo: this.route }).then(() => {
 
-            })
+          setTimeout(() => {
+            // Navigate to the created event page
+            this.router.navigate([`../../event/${eventId}`], { relativeTo: this.route }).then(() => {});
           }, 2000);
         } else {
-          throw new Error ("No Event Id");
+          throw new Error(
+            this.translocoService.translate('createEventStep3Component.messages.noEventIdError')
+          );
         }
-
       },
       error: (error) => {
         console.error('Error posting event:', error);
 
-        // Add error message
+        // Add error message with translation
         this.messageService.add({
           severity: 'error',
-          summary: 'Failed to post event',
+          summary: this.translocoService.translate(
+            'createEventStep3Component.messages.eventCreatedError'
+          ),
           detail: error.message,
         });
 
         return;
       },
-      complete: () => {
-
-      },
     });
-
   }
 
   protected prevPage() {

@@ -30,5 +30,106 @@
   },
   "searchPageComponent": {
 
+  },
+  "createEventStep1Component": {
+    "eventType": {
+      "public": "Öffentlich",
+      "semiPublic": "Halb-Öffentlich",
+      "private": "Privat",
+      "tooltip": {
+        "public": "Jeder kann sich direkt bewerben.",
+        "semiPublic": "Teilnehmer müssen vom Event-Host bestätigt werden.",
+        "private": "Nur du kannst Teilnehmer einladen, und das Event wird nicht auf der Seite angezeigt."
+      }
+    },
+    "eventTitleInput": {
+      "label": "Titel",
+      "errorMessage": "Der Titel des Events ist erforderlich."
+    },
+    "categoriesInput": {
+      "label": "Kategorien auswählen",
+      "errorMessage": "Bitte wähle mindestens eine Kategorie aus."
+    },
+    "descriptionInput": {
+      "label": "Beschreibung"
+    },
+    "continueButton": "Weiter",
+    "messages": {
+      "categoryLimitTitle": "Kategorien Limitierung",
+      "categoryLimitDetail": "Du kannst nur bis zu 3 Kategorien auswählen.",
+      "validationFailedTitle": "Validierung fehlgeschlagen",
+      "validationFailedDetail": "Bitte stelle sicher, dass alle erforderlichen Felder korrekt ausgefüllt sind."
+    }
+  },
+  "createEventStep2Component": {
+    "dateAndTimeInput": {
+      "label": "Datum und Uhrzeit",
+      "errorMessage": "Datum und Uhrzeit sind erforderlich."
+    },
+    "addressSection": {
+      "title": "Adresse",
+      "onlineEventCheckbox": "Online-Event",
+      "streetInput": {
+        "label": "Straße",
+        "errorMessage": "Straße ist erforderlich."
+      },
+      "streetNumberInput": {
+        "label": "Hausnummer",
+        "errorMessage": "Hausnummer ist erforderlich."
+      },
+      "zipCodeInput": {
+        "label": "Postleitzahl",
+        "errorMessageRequired": "Postleitzahl ist erforderlich.",
+        "errorMessageInvalid": "Bitte gib eine gültige Postleitzahl ein (5 Ziffern)."
+      },
+      "cityInput": {
+        "label": "Stadt",
+        "errorMessage": "Stadt ist erforderlich."
+      },
+      "hideAddressCheckbox": "Adresse ausblenden",
+      "hideAddressTooltip": {
+        "content": "Markiere dieses Kästchen, um Straße und Hausnummer für Nicht-Teilnehmer auszublenden. Postleitzahl und Stadt bleiben sichtbar."
+      }
+    },
+    "navigationButtons": {
+      "back": "Zurück",
+      "continue": "Weiter"
+    },
+    "messages": {
+      "dateConfirmationMessage": "Datum und Uhrzeit sind auf das Minimum gesetzt. Möchtest du fortfahren?",
+      "dateConfirmationHeader": "Datum bestätigen",
+      "dateConfirmationSubmit": "Ja",
+      "dateConfirmationCancel": "Zurück"
+    }
+  },
+  "createEventStep3Component": {
+    "participantsNumberInput": {
+      "label": "Anzahl der Teilnehmer",
+      "errorMessage": "Die Anzahl der Teilnehmer ist erforderlich und muss mindestens 2 sein."
+    },
+    "participantsInput": {
+      "label": "Ausgewählte Teilnehmer"
+    },
+    "preferredGendersInput": {
+      "label": "Bevorzugte Geschlechter"
+    },
+    "ageSection": {
+      "title": "Alter",
+      "maxAgePlaceholder": "Keins"
+    },
+    "navigationButtons": {
+      "back": "Zurück",
+      "finish": "Fertig"
+    },
+    "genders": {
+      "male": "Männlich",
+      "female": "Weiblich",
+      "divers": "Divers"
+    },
+    "messages": {
+      "eventCreatedSuccess": "Event \"{{title}}\" wurde erfolgreich erstellt!",
+      "eventCreatedError": "Das Erstellen des Events ist fehlgeschlagen.",
+      "noEventIdError": "Keine Event-ID gefunden. Bitte versuche es erneut."
+    }
   }
 }

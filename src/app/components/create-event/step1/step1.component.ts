@@ -11,8 +11,9 @@ import { FormsModule } from '@angular/forms';
 import { Subject, filter, takeUntil } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-step1',
@@ -26,9 +27,9 @@ import { TooltipModule } from 'primeng/tooltip';
     MultiSelectModule,
     FormsModule,
     RadioButtonModule,
-    NgIf,
     NgClass,
     TooltipModule,
+    TranslocoPipe,
   ],
   templateUrl: './step1.component.html',
 })
@@ -46,9 +47,9 @@ export class Step1Component implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly messageService: MessageService,
-    private readonly cdr: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef,
+    private readonly translocoService: TranslocoService
   ) {
-    // Listen to router events to reapply form data on navigation
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),
@@ -80,8 +81,6 @@ export class Step1Component implements OnInit, OnDestroy {
       this.eventTitle = savedData.title || '';
       this.description = savedData.description || '';
       this.selectedCategories = savedData.categories || [];
-
-      // Manually trigger change detection
       this.cdr.detectChanges();
     } catch (error) {
       console.error('Error loading saved data:', error);
@@ -93,9 +92,13 @@ export class Step1Component implements OnInit, OnDestroy {
       this.selectedCategories.pop(); // Remove last category if limit exceeded
       this.messageService.add({
         severity: 'warn',
-        summary: 'Selection Limit',
-        detail: 'You can select up to 3 categories only.',
-        life: 3000
+        summary: this.translocoService.translate(
+          'createEventStep1Component.messages.categoryLimitTitle'
+        ),
+        detail: this.translocoService.translate(
+          'createEventStep1Component.messages.categoryLimitDetail'
+        ),
+        life: 3000,
       });
     }
   }
@@ -104,11 +107,19 @@ export class Step1Component implements OnInit, OnDestroy {
     this.submitted = true;
 
     if (!this.eventTitle.trim() || this.eventTitle.length > 50 || !this.selectedCategories?.length) {
+      this.messageService.add({
+        severity: 'error',
+        summary: this.translocoService.translate(
+          'createEventStep1Component.messages.validationFailedTitle'
+        ),
+        detail: this.translocoService.translate(
+          'createEventStep1Component.messages.validationFailedDetail'
+        ),
+      });
       return; // Prevent navigation if validation fails
     }
 
     try {
-      // Save data to the service before navigating
       await this.eventService.setEventInformation({
         type: this.eventType,
         title: this.eventTitle,
@@ -116,7 +127,6 @@ export class Step1Component implements OnInit, OnDestroy {
         description: this.description,
       });
 
-      // Navigate to the next step
       this.router.navigate(['../step2'], { relativeTo: this.route });
     } catch (error) {
       console.error('Error saving event information or navigating:', error);

@@ -1,5 +1,6 @@
 <div class="content pFocusTrap mt-5 h-100">
   <div class="p-grid p-fluid column-gap-3">
+    <!-- Event Type Selection -->
     <div class="p-col-12 p-md-6 field flex flex-wrap gap-3 lg:gap-8 align-items-center justify-content-center">
       <div class="flex align-items-center">
         <p-radioButton
@@ -9,7 +10,7 @@
           id="type-1"
           variant="filled" />
         <label for="type-1" class="ml-2">
-          Public
+          {{ 'createEventStep1Component.eventType.public' | transloco }}
         </label>
       </div>
       <div class="flex align-items-center">
@@ -20,7 +21,7 @@
           id="type-2"
           variant="filled" />
         <label for="type-2" class="ml-2">
-          Semi-Public
+          {{ 'createEventStep1Component.eventType.semiPublic' | transloco }}
         </label>
       </div>
       <div class="flex align-items-center">
@@ -31,7 +32,7 @@
           id="type-3"
           variant="filled" />
         <label for="type-3" class="ml-2">
-          Private
+          {{ 'createEventStep1Component.eventType.private' | transloco }}
         </label>
       </div>
       <p-button [rounded]="true"
@@ -49,13 +50,20 @@
       </p-button>
       <ng-template #tooltipContent>
         <div class="flex align-items-center">
-          <span> <strong>Public:</strong> Everyone can apply directly.<br><br><strong>Semi-public:</strong> Participants need to be approved by event host.<br><br><strong>Private:</strong> Only event host can invite participants and event is not seen on page.</span>
+          <span>
+            <strong>{{ 'createEventStep1Component.eventType.public' | transloco }}:</strong>
+            {{ 'createEventStep1Component.eventType.tooltip.public' | transloco }}<br><br>
+            <strong>{{ 'createEventStep1Component.eventType.semiPublic' | transloco }}:</strong>
+            {{ 'createEventStep1Component.eventType.tooltip.semiPublic' | transloco }}<br><br>
+            <strong>{{ 'createEventStep1Component.eventType.private' | transloco }}:</strong>
+            {{ 'createEventStep1Component.eventType.tooltip.private' | transloco }}
+          </span>
         </div>
       </ng-template>
     </div>
 
+    <!-- Event Title Input -->
     <div class="p-col-12 p-md-6 field">
-
       <p-floatLabel>
         <input
           #eventTitleInput="ngModel"
@@ -67,14 +75,16 @@
           [(ngModel)]="eventTitle"
           [ngClass]="{ 'ng-invalid ng-dirty': (eventTitleInput.invalid && submitted) || (eventTitleInput.dirty && eventTitleInput.invalid || eventTitle.trim() === '' ) }"
         />
-        <label for="event-title">Title</label>
+        <label for="event-title">{{ 'createEventStep1Component.eventTitleInput.label' | transloco }}</label>
       </p-floatLabel>
-      <small *ngIf="(eventTitleInput.invalid && submitted) || (eventTitleInput.dirty && eventTitleInput.invalid || eventTitle.trim() === '')" class="p-error">
-        Event title is required.
-      </small>
-
+      @if ((eventTitleInput.invalid && submitted) || (eventTitleInput.dirty && eventTitleInput.invalid || eventTitle.trim() === '')) {
+        <small class="p-error">
+          {{ 'createEventStep1Component.eventTitleInput.errorMessage' | transloco }}
+        </small>
+      }
     </div>
 
+    <!-- Categories Input -->
     <div class="p-col-12 p-md-6 field">
       <p-floatLabel>
         <p-multiSelect
@@ -88,15 +98,18 @@
           [showToggleAll]="false"
           (onChange)="onCategoryChange()"
           styleClass="capitalize"
-          [ngClass]="{ 'ng-invalid ng-dirty': ( submitted) }"
-        />
-        <label for="categories">Select Categories</label>
+          [ngClass]="{ 'ng-invalid ng-dirty': submitted && selectedCategories.length === 0 }"
+        ></p-multiSelect>
+        <label for="categories">{{ 'createEventStep1Component.categoriesInput.label' | transloco }}</label>
       </p-floatLabel>
-      <small *ngIf="selectedCategories?.length === 0 && submitted" class="p-error">
-        At least one category must be selected.
-      </small>
+      @if (selectedCategories.length === 0 && submitted) {
+        <small class="p-error">
+          {{ 'createEventStep1Component.categoriesInput.errorMessage' | transloco }}
+        </small>
+      }
     </div>
 
+    <!-- Description Input -->
     <div class="p-col-12 field">
       <p-floatLabel>
         <textarea
@@ -108,17 +121,18 @@
           class="vertical-resize-only"
         >
         </textarea>
-        <label for="description">Description</label>
+        <label for="description">{{ 'createEventStep1Component.descriptionInput.label' | transloco }}</label>
       </p-floatLabel>
     </div>
   </div>
 
+  <!-- Continue Button -->
   <div class="flex fixed-bottom-responsive-container justify-content-end">
     <div class="justify-content-end">
       <p-button
         [raised]="true"
         severity="secondary"
-        label="Continue"
+        [label]="'createEventStep1Component.continueButton' | transloco"
         (onClick)="nextPage()">
         <ng-template pTemplate="icon">
           <rmx-icon

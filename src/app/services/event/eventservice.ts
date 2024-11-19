@@ -42,6 +42,10 @@ export class EventService {
     private readonly storageService: StorageService // Injected storage service
   ) {}
 
+  /**
+   * Retrieves the current event information from storage or initializes it with default values.
+   * @returns {Promise<EventData>} A promise that resolves to the current event data.
+   */
   async getEventInformation(): Promise<EventData> {
     if (!this._eventInformation) {
       const savedData = await this.storageService.get<EventData>(this.STORAGE_KEY);
@@ -50,6 +54,11 @@ export class EventService {
     return this._eventInformation;
   }
 
+  /**
+   * Updates the current event information and saves it to storage.
+   * @param {Partial<EventData>} data - Partial event data to merge with the current event data.
+   * @returns {Promise<void>} A promise that resolves when the data is saved.
+   */
   async setEventInformation(data: Partial<EventData>): Promise<void> {
 
     this._eventInformation = {
@@ -60,14 +69,27 @@ export class EventService {
     await this.storageService.set(this.STORAGE_KEY, this._eventInformation);
   }
 
+  /**
+   * Fetches all available categories from the server.
+   * @returns {Observable<Category[]>} An observable that emits an array of categories.
+   */
   getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>('category/all');
   }
 
+  /**
+   * Fetches all available genders from the server.
+   * @returns {Observable<Gender[]>} An observable that emits an array of genders.
+   */
   getGenders(): Observable<Gender[]> {
     return this.http.get<Gender[]>('gender/all');
   }
 
+  /**
+   * Validates and posts the current event information to the server.
+   * If successful, resets the event data and clears storage.
+   * @returns {Observable<EventData>} An observable that emits the posted event data.
+   */
   postEvent(): Observable<EventData> {
     const url = 'event';
 
@@ -135,6 +157,10 @@ export class EventService {
     );
   }
 
+  /**
+   * Fetches all events from the server.
+   * @returns {Observable<EventCardItem[]>} An observable that emits an array of event card items.
+   */
   getAllEvents(): Observable<EventCardItem[]> {
     return this.http.get<EventCardItem[]>('event/allEvents');
   }

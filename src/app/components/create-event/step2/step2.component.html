@@ -29,22 +29,21 @@
             </rmx-icon>
           </ng-template>
         </p-calendar>
-        <label for="date">Date and Time</label>
+        <label for="date">{{ 'createEventStep2Component.dateAndTimeInput.label' | transloco }}</label>
       </p-floatLabel>
-      <small
-        *ngIf="(dateAndTimeInput.invalid && submitted) || (dateAndTimeInput.dirty && dateAndTimeInput.invalid)"
-        class="p-error"
-      >
-        Date and time are required.
-      </small>
+      @if ((dateAndTimeInput.invalid && submitted) || (dateAndTimeInput.dirty && dateAndTimeInput.invalid)) {
+        <small class="p-error">
+          {{ 'createEventStep2Component.dateAndTimeInput.errorMessage' | transloco }}
+        </small>
+      }
     </div>
 
     <!-- Address Section -->
-    <h2>Address</h2>
+    <h2>{{ 'createEventStep2Component.addressSection.title' | transloco }}</h2>
     <div class="field">
       <p-checkbox
         name="online"
-        label="Online-Event"
+        [label]="'createEventStep2Component.addressSection.onlineEventCheckbox' | transloco"
         [(ngModel)]="online"
         [binary]="true"
         id="online-true"
@@ -69,14 +68,13 @@
                 (streetInput.dirty && streetInput.invalid)
             }"
           />
-          <label for="street">Street</label>
+          <label for="street">{{ 'createEventStep2Component.addressSection.streetInput.label' | transloco }}</label>
         </p-floatLabel>
-        <small
-          *ngIf="(!online && streetInput.invalid && submitted) || (streetInput.dirty && streetInput.invalid)"
-          class="p-error"
-        >
-          Street is required.
-        </small>
+        @if ((!online && streetInput.invalid && submitted) || (streetInput.dirty && streetInput.invalid)) {
+          <small class="p-error">
+            {{ 'createEventStep2Component.addressSection.streetInput.errorMessage' | transloco }}
+          </small>
+        }
       </div>
       <div class="p-col-12 p-md-6 field">
         <p-floatLabel>
@@ -93,14 +91,13 @@
                 (streetNumberInput.dirty && streetNumberInput.invalid)
             }"
           />
-          <label for="streetNumber">Street Number</label>
+          <label for="streetNumber">{{ 'createEventStep2Component.addressSection.streetNumberInput.label' | transloco }}</label>
         </p-floatLabel>
-        <small
-          *ngIf="(!online && streetNumberInput.invalid && submitted) || (streetNumberInput.dirty && streetNumberInput.invalid)"
-          class="p-error"
-        >
-          Street number is required.
-        </small>
+        @if ((!online && streetNumberInput.invalid && submitted) || (streetNumberInput.dirty && streetNumberInput.invalid)) {
+          <small class="p-error">
+            {{ 'createEventStep2Component.addressSection.streetNumberInput.errorMessage' | transloco }}
+          </small>
+        }
       </div>
     </div>
 
@@ -115,33 +112,25 @@
             [(ngModel)]="zipCode"
             [disabled]="online"
             [required]="!online"
-            [pattern]="!online ? '^[A-Za-z0-9\\-\\s]{4,10}$' : ''"
+            [pattern]="!online ? zipCodeRegex.source : ''"
             [ngClass]="{
-            'ng-invalid ng-dirty':
-              (!online && (zipCodeInput.invalid || zipCodeInput.errors?.['pattern']) && submitted) ||
-              (zipCodeInput.dirty && zipCodeInput.invalid)
+              'ng-invalid ng-dirty':
+                (!online && zipCodeInput.invalid && submitted) ||
+                (zipCodeInput.dirty && zipCodeInput.invalid)
             }"
           />
-          <label for="zipCode">ZIP Code</label>
+          <label for="zipCode">{{ 'createEventStep2Component.addressSection.zipCodeInput.label' | transloco }}</label>
         </p-floatLabel>
-        <small
-          *ngIf="
-            (!online && zipCodeInput.errors?.['pattern'] && submitted) ||
-            (zipCodeInput.dirty && zipCodeInput.errors?.['pattern'])
-          "
-          class="p-error"
-        >
-          Please enter a valid ZIP Code (4–10 alphanumeric characters).
-        </small>
-        <small
-          *ngIf="
-            (!online && zipCodeInput.invalid && submitted && !zipCodeInput.errors?.['pattern']) ||
-            (zipCodeInput.dirty && zipCodeInput.invalid && !zipCodeInput.errors?.['pattern'])
-          "
-          class="p-error"
-        >
-          ZIP Code is required.
-        </small>
+        @if ((!online && zipCodeInput.invalid && submitted)) {
+          <small class="p-error">
+            {{ 'createEventStep2Component.addressSection.zipCodeInput.errorMessageRequired' | transloco }}
+          </small>
+        }
+        @if ((!online && zipCodeInput.errors?.['pattern'] && submitted)) {
+          <small class="p-error">
+            {{ 'createEventStep2Component.addressSection.zipCodeInput.errorMessageInvalid' | transloco }}
+          </small>
+        }
       </div>
       <div class="p-col-12 p-md-6 field">
         <p-floatLabel>
@@ -158,22 +147,21 @@
                 (cityInput.dirty && cityInput.invalid)
             }"
           />
-          <label for="city">City</label>
+          <label for="city">{{ 'createEventStep2Component.addressSection.cityInput.label' | transloco }}</label>
         </p-floatLabel>
-        <small
-          *ngIf="(!online && cityInput.invalid && submitted) || (cityInput.dirty && cityInput.invalid)"
-          class="p-error"
-        >
-          City is required.
-        </small>
+        @if ((!online && cityInput.invalid && submitted)) {
+          <small class="p-error">
+            {{ 'createEventStep2Component.addressSection.cityInput.errorMessage' | transloco }}
+          </small>
+        }
       </div>
     </div>
 
+    <!-- Hide Address Section -->
     <div class="field flex align-items-center">
-      <!-- Checkbox -->
       <p-checkbox
         name="hideAddress"
-        label="Hide Address"
+        [label]="'createEventStep2Component.addressSection.hideAddressCheckbox' | transloco"
         [(ngModel)]="hideAddress"
         [binary]="true"
         id="hideAddress"
@@ -181,8 +169,6 @@
         class="mr-2"
       >
       </p-checkbox>
-
-      <!-- Info Button -->
       <p-button
         [rounded]="true"
         [text]="true"
@@ -199,63 +185,86 @@
           </rmx-icon>
         </ng-template>
       </p-button>
-
-      <!-- Tooltip Content -->
       <ng-template #tooltipContent>
-        <div class="flex align-items-center">
-      <span>
-        <strong>Check:</strong> Only <strong>ZIP Code</strong> and <strong>City</strong> will be visible to non-participants.
-        <br>
-        <em>Street</em> and <em>Street-Number</em> will be shown only to participants.
-      </span>
-        </div>
+        <span>
+          {{ 'createEventStep2Component.addressSection.hideAddressTooltip.content' | transloco }}
+        </span>
       </ng-template>
     </div>
-
   </div>
 
   <!-- Navigation Buttons -->
   <div class="flex justify-content-between align-items-center fixed-bottom-responsive-container">
-    <div>
-      <p-button
-        [raised]="true"
-        label="Back"
-        (onClick)="prevPage()">
-        <ng-template pTemplate="icon">
-          <rmx-icon
-            class="mr-2"
-            style="width: 16px; height: 16px"
-            name="arrow-left-circle-line">
-          </rmx-icon>
-        </ng-template>
-      </p-button>
-    </div>
-
-    <div>
-      <p-button
-        [raised]="true"
-        severity="secondary"
-        label="Continue"
-        (onClick)="nextPage()">
-        <ng-template pTemplate="icon">
-          <rmx-icon
-            class="mr-2"
-            style="width: 16px; height: 16px"
-            name="arrow-right-circle-line">
-          </rmx-icon>
-        </ng-template>
-      </p-button>
-    </div>
-
+    <p-button
+      [raised]="true"
+      [label]="'createEventStep2Component.navigationButtons.back' | transloco"
+      (onClick)="prevPage()">
+      <ng-template pTemplate="icon">
+        <rmx-icon
+          class="mr-2"
+          style="width: 16px; height: 16px"
+          name="arrow-left-circle-line">
+        </rmx-icon>
+      </ng-template>
+    </p-button>
+    <p-button
+      [raised]="true"
+      severity="secondary"
+      [label]="'createEventStep2Component.navigationButtons.continue' | transloco"
+      (onClick)="nextPage()">
+      <ng-template pTemplate="icon">
+        <rmx-icon
+          class="mr-2"
+          style="width: 16px; height: 16px"
+          name="arrow-right-circle-line">
+        </rmx-icon>
+      </ng-template>
+    </p-button>
   </div>
+
+  <p-confirmDialog #cdDate>
+    <ng-template pTemplate="headless" let-message>
+      <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+        <div class="inline-flex justify-content-center align-items-center h-6rem w-6rem">
+          <rmx-icon
+            class="text-6xl"
+            style="height: 100px; width: 100px;"
+            name="alert-line">
+          </rmx-icon>
+        </div>
+        <span class="font-bold text-2xl block mb-2 mt-4">
+                {{ message.header }}
+            </span>
+        <p class="mb-0">{{ message.message }}</p>
+        <div class="flex align-items-center justify-content-between gap-3 mt-4">
+          <p-button
+            label="{{ 'createEventStep2Component.messages.dateConfirmationCancel' | transloco }}"
+            (click)="cdDate.reject()"
+            class="">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                class="mr-2"
+                style="width: 16px; height: 16px"
+                name="arrow-go-back-line">
+              </rmx-icon>
+            </ng-template>
+          </p-button>
+          <p-button
+            label="{{ 'createEventStep2Component.messages.dateConfirmationSubmit' | transloco }}"
+            (click)="cdDate.accept()"
+            severity="success"
+            class="">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                class="mr-2"
+                style="width: 18px; height: 18px"
+                name="check-line">
+              </rmx-icon>
+            </ng-template>
+          </p-button>
+        </div>
+      </div>
+    </ng-template>
+  </p-confirmDialog>
 </div>
 
-
-<p-confirmDialog>
-  <ng-template pTemplate="message" let-message>
-    <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border">
-      <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
-      <p>{{ message.message }}</p>
-    </div>
-  </ng-template>
-</p-confirmDialog>
