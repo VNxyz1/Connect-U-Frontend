@@ -1,80 +1,90 @@
-@if(eventDetails$ | async; as eventDetails) {
-<div class="xl:ml-8 p-0 m-0 grid">
-  <div class="xl:col-7">
-<div
-  class="flex justify-content-center p-0 sm:p-0 m-0">
-  <p-image
-    [alt]="'landingPage.headerImageAlt' | transloco"
-    src="./images/pexels-elevate-1267254.jpg"
-    class="w-full"
-    styleClass="w-full"
-    imageClass="w-full" />
-</div>
-
-<h1>{{eventDetails.title}}</h1>
-
-    @for (category of eventDetails.categories; track $index) {
-      <p-tag [value]="category.name" [rounded]="true" class="mr-1" />
-    }
-
-  <p-card styleClass="p-mb-3 mt-3">
-      <div class="grid">
-        <div class="col">
-          <div class="flex items-center">
-            <rmx-icon name="calendar-line" class="mr-2"></rmx-icon>
-            <p class="m-0">18.12.24</p>
-          </div>
-          <div class="flex items-center mt-3">
-          <rmx-icon name="time-line" class="mr-2"></rmx-icon>
-          <p class="m-0">15:30</p>
-          </div>
-        </div>
-      <div class="col">
-        <div class="flex items-center">
-        <rmx-icon name="map-pin-2-line" class="mr-2"></rmx-icon>
-        <p class="m-0">{{eventDetails.street}} {{eventDetails.streetNumber}}</p>
-        </div>
-        <p class="m-0 ml-5">{{eventDetails.zipCode}} {{eventDetails.city}}</p>
+@if (eventDetails$ | async; as eventDetails) {
+  <div class="xl:ml-8 p-0 m-0 grid">
+    <div class="xl:col-7">
+      <div
+        class="flex justify-content-center p-0 sm:p-0 m-0">
+        <p-image
+          [alt]="'landingPage.headerImageAlt' | transloco"
+          src="./images/pexels-elevate-1267254.jpg"
+          class="w-full"
+          styleClass="w-full"
+          imageClass="w-full" />
       </div>
     </div>
-    <h2>Eventdetails</h2>
-    <p>{{eventDetails.description}}
-    </p>
-    <div>
-      <p-tag severity="secondary" value="Secondary" [rounded]="true" class="mr-1"/>
-      <p-tag severity="secondary" value="Secondary" [rounded]="true" class="mr-1"/>
-      <p-tag severity="secondary" value="Secondary" [rounded]="true" class="mr-1"/>
+    <div class="xl:col-7">
+      <h2>{{ eventDetails.title }}</h2>
+
+      @for (category of eventDetails.categories; track $index) {
+        <p-tag [value]="category.name" [rounded]="true" class="mr-1" />
+      }
+
+      <p-card styleClass="p-mb-3 mt-3">
+        <div class="grid">
+          <div class="col">
+            <div class="flex items-center">
+              <rmx-icon name="calendar-line" class="mr-2"></rmx-icon>
+              <p class="m-0">18.12.24</p>
+            </div>
+            <div class="flex items-center mt-3">
+              <rmx-icon name="time-line" class="mr-2"></rmx-icon>
+              <p class="m-0">15:30</p>
+            </div>
+          </div>
+          <div class="col">
+            <div class="flex items-center">
+              <rmx-icon name="map-pin-2-line" class="mr-2"></rmx-icon>
+              @if (eventDetails.street || eventDetails.streetNumber) {
+                <p class="m-0">{{ eventDetails.street }} {{ eventDetails.streetNumber }}</p>
+              }
+            </div>
+            @if (eventDetails.city) {
+              <p class="m-0 ml-5">{{ eventDetails.zipCode }} {{ eventDetails.city }}</p>
+            } @else {
+              <p class="m-0 ml-5">Online-Event</p>
+            }
+          </div>
+        </div>
+        <h3>Eventdetails</h3>
+        <p>{{ eventDetails.description }}
+        </p>
+        <div>
+          <p-tag severity="secondary" value="Secondary" [rounded]="true" class="mr-1" />
+          <p-tag severity="secondary" value="Secondary" [rounded]="true" class="mr-1" />
+          <p-tag severity="secondary" value="Secondary" [rounded]="true" class="mr-1" />
+        </div>
+      </p-card>
+      <p class="p-1"></p>
+      <p-card styleClass="p-mb-3">
+        <h3>Zutrittsbeschränkungen</h3>
+        <div class="grid">
+          <div class="col">
+            <p class="pb-3" style="color: #EE8418">Geschlecht</p>
+            @if (eventDetails.startAge || eventDetails.endAge) {
+              <p style="color: #EE8418">Alter</p>
+            }
+          </div>
+          <div class="col">
+            <p class="pb-3">Jeder ist willkommen!</p>
+            <p>{{ eventDetails.startAge ? 'ab ' + eventDetails.startAge + ' Jahren' : '' }} </p>
+            <p> {{ eventDetails.endAge ? 'bis ' + eventDetails.endAge + ' Jahre' : '' }}</p>
+          </div>
+        </div>
+      </p-card>
     </div>
-    </p-card>
-    <p-card styleClass="p-mb-3">
-      <h2>Zutrittsbeschränkungen</h2>
-      <div class="grid">
-        <div class="col">
-          <p class="pb-3" style="color: #EE8418">Geschlecht</p>
-          @if (eventDetails.startAge || eventDetails.endAge) {
-          <p style="color: #EE8418">Alter</p>
-          }
-        </div>
-        <div class="col">
-          <p class="pb-3">Jeder ist willkommen!</p>
-          <p>{{ eventDetails.startAge ? 'ab ' + eventDetails.startAge + ' Jahre' : '' }} </p>
-           <p> {{ eventDetails.endAge ? 'bis ' + eventDetails.endAge + ' Jahre' : '' }}</p>
-        </div>
+    <div class="mt-3 xl:col-2">
+      <div class="xl:fixed xl:bottom-3 xl:right-3 xl:z-10">
+        <p-button [raised]="true" severity="info">
+          <ng-template pTemplate="icon">
+            <rmx-icon
+              style="width: 16px; height: 16px"
+              name="heart-3-line"></rmx-icon>
+          </ng-template>
+        </p-button>
+        <p-button class="ml-2" [raised]="true" label="anfragen" severity="success" />
       </div>
-    </p-card>
-  <div class="justify-content-end mt-3">
-  <p-button [raised]="true" severity="info">
-    <ng-template pTemplate="icon">
-      <rmx-icon
-        style="width: 16px; height: 16px"
-        name="heart-3-line"></rmx-icon>
-    </ng-template>
-  </p-button>
-  <p-button class="ml-2" [raised]="true" label="anfragen" severity="success" />
+    </div>
+    <div class="xl:col-5"></div>
   </div>
-  </div>
-  <div class="xl:col-5"></div>
-</div>
 }
 
 
