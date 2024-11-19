@@ -1,5 +1,5 @@
 <!-- Tab-bar for Mobile-View -->
-@if (currentUrl !== '/create-event') {
+@if (!currentUrl?.includes('/create-event')) {
   <div
     class="border-top-2 border-gray-50 bg-white-alpha-90 fixed z-4 bottom-0 w-full grid align-items-center justify-content-center p-2 md:hidden">
     <div class="col-12 sm:col-12">
@@ -61,38 +61,38 @@
       </div>
     </div>
   </div>
+  <!-- Sidebar für Desktop-Ansicht -->
+  <div
+    class="col-12 bg-black-alpha-20 hidden md:flex flex-column align-items-start h-full">
+    <p-button
+      label="Startseite"
+      [rounded]="false"
+      [text]="true"
+      class="w-full mb-2"
+      (click)="navigateTo('/')" />
+    <p-button
+      label="Event suchen"
+      [rounded]="false"
+      [text]="true"
+      class="w-full mb-2"
+      (click)="navigateTo('/search')" />
+    <p-button
+      label="Event erstellen"
+      [rounded]="false"
+      [text]="true"
+      class="w-full mb-2"
+      (click)="navigateTo('/create-event')" />
+    <p-button
+      label="Meine Events"
+      [rounded]="false"
+      [text]="true"
+      class="w-full mb-2"
+      (click)="navigateTo('/my-events')" />
+    <p-button
+      label="Mein Bereich"
+      [rounded]="false"
+      [text]="true"
+      class="w-full"
+      (click)="navigateTo('my-space')" />
+  </div>
 }
-<!-- Sidebar für Desktop-Ansicht -->
-<div
-  class="col-12 bg-black-alpha-20 hidden md:flex flex-column align-items-start h-full">
-  <p-button
-    label="Startseite"
-    [rounded]="false"
-    [text]="true"
-    class="w-full mb-2"
-    (click)="navigateTo('/')" />
-  <p-button
-    label="Event suchen"
-    [rounded]="false"
-    [text]="true"
-    class="w-full mb-2"
-    (click)="navigateTo('/search')" />
-  <p-button
-    label="Event erstellen"
-    [rounded]="false"
-    [text]="true"
-    class="w-full mb-2"
-    (click)="navigateTo('/create-event')" />
-  <p-button
-    label="Meine Events"
-    [rounded]="false"
-    [text]="true"
-    class="w-full mb-2"
-    (click)="navigateTo('/my-events')" />
-  <p-button
-    label="Mein Bereich"
-    [rounded]="false"
-    [text]="true"
-    class="w-full"
-    (click)="navigateTo('my-space')" />
-</div>

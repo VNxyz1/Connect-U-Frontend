@@ -11,6 +11,9 @@ import { LandingPageComponent } from './views/landing-page/landing-page.componen
 import { StylingShowcaseSecretPageComponent } from './views/styling-showcase-secret-page/styling-showcase-secret-page.component';
 import { isLoggedInGuard } from './utils/guards/is-logged-in.guard';
 import { RegisterPageComponent } from './views/register-page/register-page.component';
+import { Step1Component } from './components/create-event/step1/step1.component';
+import { Step2Component } from './components/create-event/step2/step2.component';
+import { Step3Component } from './components/create-event/step3/step3.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -38,6 +41,20 @@ export const routes: Routes = [
     title: 'New Event | Connect-U',
     component: CreateEventPageComponent,
     canActivate: [isLoggedInGuard],
+    children: [
+      {
+        path: 'step1',
+        component: Step1Component,
+      },
+      {
+        path: 'step2',
+        component: Step2Component,
+      },
+      {
+        path: 'step3',
+        component: Step3Component,
+      },
+    ],
   },
   {
     path: 'my-events',

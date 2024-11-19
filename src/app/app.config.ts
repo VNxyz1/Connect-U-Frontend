@@ -2,6 +2,8 @@ import {
   ApplicationConfig,
   provideZoneChangeDetection,
   isDevMode,
+  PLATFORM_ID,
+  importProvidersFrom,
 } from '@angular/core';
 import {
   provideRouter,
@@ -38,11 +40,19 @@ import {
   RiPriceTag3Line,
   RiSearchLine,
   RiUser3Fill,
-  RiUser3Line, RiTimeLine,
+  RiUser3Line,
+  RiArrowRightCircleLine,
+  RiArrowLeftCircleLine,
+  RiTimeLine,
+  RiInformation2Line,
+  RiAlertLine,
+  RiArrowGoBackLine,
+  RiCheckboxLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
 import { provideTranslocoLocale } from '@jsverse/transloco-locale';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 const icons = {
   RiHome2Line,
@@ -63,7 +73,13 @@ const icons = {
   RiGroupLine,
   RiCalendarLine,
   RiMapPin2Line,
-  RiTimeLine
+  RiArrowRightCircleLine,
+  RiArrowLeftCircleLine,
+  RiTimeLine,
+  RiInformation2Line,
+  RiAlertLine,
+  RiArrowGoBackLine,
+  RiCheckboxLine,
 };
 
 export const translocoConfig = {
@@ -94,6 +110,7 @@ export const appConfig: ApplicationConfig = {
     provideRemixIcon(icons),
     provideHttpClient(),
     provideTransloco(translocoConfig),
+    importProvidersFrom(IonicStorageModule.forRoot()),
     provideTranslocoLocale({
       langToLocaleMapping: {
         'en-US': 'en-US',
