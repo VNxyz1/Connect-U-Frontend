@@ -67,12 +67,10 @@
             }
           </div>
           <div class="col">
-            <p class="pb-3">@for(gender of eventDetails.preferredGenders; track gender.id) {
-              @if(gender.gender == 1) { nur Männer}
-              @if(gender.gender == 2) {nur Frauen}
-              @if(gender.gender == 3) {nur Diverse}
-            }
+            @if (eventDetails.preferredGenders.length > 0) {
+            <p class="pb-3"> {{ getPreferredGendersString() }}
             </p>
+            }
             <p>{{ eventDetails.startAge ? 'ab ' + eventDetails.startAge + ' Jahren' : '' }} </p>
             <p> {{ eventDetails.endAge ? 'bis ' + eventDetails.endAge + ' Jahre' : '' }}</p>
           </div>

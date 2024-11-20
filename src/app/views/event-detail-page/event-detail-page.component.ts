@@ -10,6 +10,7 @@ import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { EventService } from '../../services/event/eventservice';
 import { EventDetails } from '../../interfaces/EventDetails';
 import { AsyncPipe } from '@angular/common';
+import { Gender, GenderEnum } from '../../interfaces/Gender';
 
 @Component({
   selector: 'app-event-detail-page',
@@ -28,6 +29,7 @@ import { AsyncPipe } from '@angular/common';
 export class EventDetailPageComponent implements OnInit {
   eventId!: string;
   eventDetails$!: Observable<EventDetails>;
+  preferredGenders!: Gender[] | null;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -40,5 +42,30 @@ export class EventDetailPageComponent implements OnInit {
     if (this.eventId) {
       this.eventDetails$ = this.eventService.getEventDetails(this.eventId);
     }
+
+    this.eventDetails$.subscribe(eventDetails => {
+      this.preferredGenders = eventDetails.preferredGenders;
+    });
+  }
+
+  getPreferredGendersString(): string {
+    if (!this.preferredGenders || this.preferredGenders.length === 0) {
+      return '';
+    }
+
+    return this.preferredGenders
+      .map(gender => {
+        switch (gender.gender) {
+          case GenderEnum.Male:
+            return 'Male';
+          case GenderEnum.Female:
+            return 'Female';
+          case GenderEnum.Diverse:
+            return 'Diverse';
+          default:
+            return 'Unknown';
+        }
+      })
+      .join(', ');
   }
 }
