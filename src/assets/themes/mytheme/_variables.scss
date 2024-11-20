@@ -37,7 +37,9 @@ $text-color: $dark-grey;
 $font-weight-bold: bold;
 $font-weight-normal: normal;
 $font-weight-semi-bold: 600;
-$font-family: 'Proxima Nova', sans-serif;
+$font-family-regular: 'Proxima Nova Rg', sans-serif;
+$font-family-semi-bold: 'Proxima Nova Lt', sans-serif;
+$font-family-bold: 'Proxima Nova Bl', sans-serif;
 
 // Mandatory Designer Variables
 @import 'variables/general';
@@ -52,8 +54,8 @@ $font-family: 'Proxima Nova', sans-serif;
 @import 'variables/misc';
 
 :root {
-  font-family: #{$font-family};
-  --font-family: #{$font-family};
+  font-family: #{$font-family-regular};
+  --font-family: #{$font-family-regular};
 
   // Surface colors
   --surface-a: #{$light-grey} !important;
@@ -75,6 +77,8 @@ $font-family: 'Proxima Nova', sans-serif;
   --surface-900: #{$light-grey} !important;
   --gray-50: #{$normal-grey} !important;
 
+  --gray-50: #{$light-grey};
+
   // Text colors
   --text-color: #{$dark-grey} !important;
   --text-color-secondary: #{$orange} !important;
@@ -83,6 +87,7 @@ $font-family: 'Proxima Nova', sans-serif;
   --primary-color: #{$blue} !important;
   --primary-color-text: #{$light-grey} !important;
   --secondary-color: #{$orange} !important;
+  --white: #{$white};
 
   // Padding, spacing, and radius
   --content-padding: #{$panelContentPadding} !important;
@@ -127,21 +132,25 @@ h5,
 h6,
 p,
 body {
-  font-family: $font-family;
+  font-family: $font-family-regular;
   color: $text-color;
+  font-weight: $font-weight-normal;
 }
 
 h1 {
+  font-family: $font-family-bold;
   font-weight: $font-weight-bold;
   font-size: 24px;
 }
 
 h2 {
+  font-family: $font-family-bold;
   font-weight: $font-weight-semi-bold;
   font-size: 20px;
 }
 
 h3 {
+  font-family: $font-family-semi-bold;
   font-weight: $font-weight-semi-bold;
   font-size: 20px;
 }
@@ -159,6 +168,10 @@ h3 {
   border: none;
 }
 
+.p-calendar .p-datepicker-trigger {
+  background-color: $secondaryColor;
+}
+
 // Checked state
 .p-radiobutton .p-radiobutton-box.p-highlight {
   background-color: var(--secondary-color); // Background color for checked
@@ -174,6 +187,10 @@ h3 {
   }
 }
 
+.p-float-label {
+  margin-top: 2em;
+}
+
 /* tag */
 
 .p-tag-secondary {
@@ -183,8 +200,21 @@ h3 {
 /* menues */
 
 // steps
+
+.p-steps {
+  background: $white !important;
+}
+
+.p-steps .p-steps-item:before {
+  border-top: none;
+}
+
 .p-steps .p-steps-item.p-highlight .p-steps-number {
   background: $secondaryColor; //active item background
+}
+
+.p-steps .p-steps-item .p-steps-number {
+  background: $light-grey; //active item background
 }
 
 // tab
@@ -197,4 +227,8 @@ h3 {
 .p-tabmenu:hover {
   border-color: $normal-grey;
   color: $normal-grey;
+}
+
+.p-confirm-dialog-accept {
+  background-color: $successColor;
 }
