@@ -86,7 +86,6 @@ export const translocoConfig = {
   config: {
     availableLangs: ['en-US', 'de'],
     defaultLang: 'de',
-    // Remove this option if your application doesn't support changing language in runtime.
     reRenderOnLangChange: true,
     prodMode: !isDevMode(),
   },

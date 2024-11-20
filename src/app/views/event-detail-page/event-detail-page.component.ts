@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ImageModule } from 'primeng/image';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
 import { Button } from 'primeng/button';
@@ -30,10 +30,12 @@ export class EventDetailPageComponent implements OnInit {
   eventId!: string;
   eventDetails$!: Observable<EventDetails>;
   preferredGenders!: Gender[] | null;
+  dateAndTime!: string | null;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly eventService: EventService,
+    private translocoService: TranslocoService,
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +47,7 @@ export class EventDetailPageComponent implements OnInit {
 
     this.eventDetails$.subscribe(eventDetails => {
       this.preferredGenders = eventDetails.preferredGenders;
+      this.dateAndTime = eventDetails.dateAndTime;
     });
   }
 
@@ -57,15 +60,31 @@ export class EventDetailPageComponent implements OnInit {
       .map(gender => {
         switch (gender.gender) {
           case GenderEnum.Male:
-            return 'Male';
+            return this.translocoService.translate(
+              'eventDetailPageComponent.male',
+            );
           case GenderEnum.Female:
-            return 'Female';
+            return this.translocoService.translate(
+              'eventDetailPageComponent.female',
+            );
           case GenderEnum.Diverse:
-            return 'Diverse';
-          default:
-            return 'Unknown';
+            return this.translocoService.translate(
+              'eventDetailPageComponent.diverse',
+            );
         }
       })
       .join(', ');
+  }
+
+  getDate(dateAndTime: string): string {
+    if (!dateAndTime) return '';
+    const date = new Date(dateAndTime);
+    return date.toISOString().split('T')[0];
+  }
+
+  getTime(dateAndTime: string): string {
+    if (!dateAndTime) return '';
+    const date = new Date(dateAndTime);
+    return date.toISOString().split('T')[1].substring(0, 5);
   }
 }

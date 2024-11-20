@@ -133,5 +133,13 @@
       "eventCreatedErrorMessage": "Bitte versuche es zu einem späteren Zeitpunkt erneut.",
       "noEventIdError": "Keine Event-ID gefunden. Bitte versuche es erneut."
     }
+  },
+  "eventDetailPageComponent": {
+    "eventDetails": "Eventdetails",
+    "restrictions": "Zutrittsbeschränkungen",
+    "male": "Männer",
+    "female": "Frauen",
+    "diverse": "Diverse",
+    "gender": "Geschlecht"
   }
 }

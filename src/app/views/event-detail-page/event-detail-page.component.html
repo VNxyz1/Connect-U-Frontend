@@ -23,11 +23,11 @@
           <div class="col">
             <div class="flex items-center">
               <rmx-icon name="calendar-line" class="mr-2"></rmx-icon>
-              <p class="m-0">18.12.24</p>
+              <p class="m-0">{{getDate(eventDetails.dateAndTime) }}</p>
             </div>
             <div class="flex items-center mt-3">
               <rmx-icon name="time-line" class="mr-2"></rmx-icon>
-              <p class="m-0">15:30</p>
+              <p class="m-0">{{getTime(eventDetails.dateAndTime) }}</p>
             </div>
           </div>
           <div class="col">
@@ -45,7 +45,7 @@
             }
           </div>
         </div>
-        <h3>Eventdetails</h3>
+        <h3>  {{ 'eventDetailPageComponent.eventDetails' | transloco }}</h3>
         <p>{{ eventDetails.description }}
         </p>
         <div>
@@ -56,11 +56,11 @@
       </p-card>
       <p class="p-1"></p>
       <p-card styleClass="p-mb-3">
-        <h3>Zutrittsbeschränkungen</h3>
+        <h3> {{ 'eventDetailPageComponent.restrictions' | transloco }}</h3>
         <div class="grid">
           <div class="col">
             @if (eventDetails.preferredGenders.length > 0) {
-              <p class="pb-3" style="color: #EE8418">Geschlecht</p>
+              <p class="pb-3" style="color: #EE8418">{{ 'eventDetailPageComponent.gender' | transloco }}</p>
             }
             @if (eventDetails.startAge || eventDetails.endAge) {
               <p style="color: #EE8418">Alter</p>

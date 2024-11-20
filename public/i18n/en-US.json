@@ -132,5 +132,13 @@
       "eventCreatedErrorMessage": "Please try again later.",
       "noEventIdError": "No Event ID found. Please try again."
     }
+  },
+  "eventDetailPageComponent": {
+    "eventDetails": "Event Details",
+    "restrictions": "Access Restrictions",
+    "male": "men",
+    "female": "women",
+    "diverse": "diverse",
+    "gender": "gender"
   }
 }
