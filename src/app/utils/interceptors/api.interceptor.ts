@@ -7,7 +7,7 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
       url: (environment.apiConfig.urlPrefix || '') + req.url,
       withCredentials: environment.apiConfig.withCredentials || false,
     });
-    console.log(newReq)
+    console.log(newReq);
     return next(newReq);
   }
   return next(req);

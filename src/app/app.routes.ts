@@ -14,8 +14,7 @@ import { RegisterPageComponent } from './views/register-page/register-page.compo
 import { Step1Component } from './components/create-event/step1/step1.component';
 import { Step2Component } from './components/create-event/step2/step2.component';
 import { Step3Component } from './components/create-event/step3/step3.component';
-import {LoginComponent} from './components/login/login.component';
-import {isNotLoggedInGuard} from './utils/guards/is-not-logged-in.guard';
+import { isNotLoggedInGuard } from './utils/guards/is-not-logged-in.guard';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)

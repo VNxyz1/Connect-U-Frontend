@@ -8,8 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.html\" \"src/**/*.scss\"",
-    "check-format": "prettier --check \"src/**/*.ts\" \"src/**/*.html\" \"src/**/*.scss\"",
-    "serve:ssr:Connect-U-Frontend": "node dist/connect-u-frontend/server/server.mjs"
+    "check-format": "prettier --check \"src/**/*.ts\" \"src/**/*.html\" \"src/**/*.scss\""
   },
   "private": true,
   "dependencies": {

@@ -33,13 +33,13 @@ export class CreateEventPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-      // Navigate to step1 if logged in
-      this.router
-        .navigate(['step1'], { relativeTo: this.route })
-        .then(() => {})
-        .catch(err => {
-          console.error('Navigation error:', err);
-        });
+    // Navigate to step1 if logged in
+    this.router
+      .navigate(['step1'], { relativeTo: this.route })
+      .then(() => {})
+      .catch(err => {
+        console.error('Navigation error:', err);
+      });
   }
 
   ngOnDestroy() {

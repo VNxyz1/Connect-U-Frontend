@@ -19,17 +19,16 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-
   isLoggedIn(): Observable<boolean> {
-    return this.http.get<{loggedIn: boolean}>('auth/check-login').pipe(
+    return this.http.get<{ loggedIn: boolean }>('auth/check-login').pipe(
       map(res => {
-        console.log(res)
-        return res.loggedIn
-      })
-    )
+        console.log(res);
+        return res.loggedIn;
+      }),
+    );
   }
 
-  async isLoggedInAsync(): Promise<boolean|undefined> {
+  async isLoggedInAsync(): Promise<boolean | undefined> {
     return this.isLoggedIn().toPromise();
   }
 

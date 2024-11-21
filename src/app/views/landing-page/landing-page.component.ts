@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ImageModule } from 'primeng/image';
 import { LoginComponent } from '../../components/login/login.component';
 import { TranslocoPipe } from '@jsverse/transloco';
@@ -7,8 +7,7 @@ import { EventCardComponent } from '../../components/event-card/event-card.compo
 import { Observable } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventService } from '../../services/event/eventservice';
-import { AuthService } from '../../services/auth/auth.service';
-import {RouterOutlet} from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -26,9 +25,7 @@ import {RouterOutlet} from '@angular/router';
 export class LandingPageComponent implements OnInit {
   events$!: Observable<EventCardItem[]>;
 
-  constructor(
-    private eventService: EventService,
-  ) {}
+  constructor(private eventService: EventService) {}
 
   async ngOnInit(): Promise<void> {
     this.getEvents();
@@ -37,5 +34,4 @@ export class LandingPageComponent implements OnInit {
   getEvents() {
     this.events$ = this.eventService.getAllEvents();
   }
-
 }
