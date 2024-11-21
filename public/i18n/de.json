@@ -133,5 +133,21 @@
       "eventCreatedErrorMessage": "Bitte versuche es zu einem späteren Zeitpunkt erneut.",
       "noEventIdError": "Keine Event-ID gefunden. Bitte versuche es erneut."
     }
+  },
+  "myEventPageComponent": {
+    "hosted": {
+      "title": "Erstellt",
+      "text": "Du hast zur Zeit keine Events, die du erstellt hast.",
+      "todo": "Erstelle dein eigenes Event!"
+    },
+    "guest": {
+      "title": "Gast",
+      "text": "Du nimmst zur Zeit an keinem Event teil.",
+      "todo": "Erkunde dich nach deinen Interessen."
+    },
+    "favorite": {
+      "title": "Favorisiert",
+      "text": "Du hast zur Zeit keine favorisierten Events, füge doch welche hinzu!"
+    }
   }
 }

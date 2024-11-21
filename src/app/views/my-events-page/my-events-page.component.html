@@ -1,1 +1,112 @@
-<p>my-events-page works!</p>
+<div class="content">
+  <!-- Tab Navigation -->
+  <div class="grid justify-content-center bg-white ">
+    <div class="col-12 flex justify-content-between position-relative pb-0">
+      <!-- Button Gast -->
+      <button
+        pButton
+        [label]="'myEventPageComponent.guest.title' | transloco"
+        class="p-button-text text-md w-full text-center border-0 border-gray-50 pb-2 relative"
+        [ngClass]="{
+          'text-primary border-primary border-bottom-3': activeTab === 'gast',
+          'border-gray-300 border-bottom-1': activeTab !== 'gast'
+        }"
+        style="border-radius: 0"
+        (click)="setActiveTab('gast')"
+      ></button>
+
+      <!-- Button Erstellt -->
+      <button
+        pButton
+        [label]="'myEventPageComponent.hosted.title'| transloco"
+        class="p-button-text text-center text-md w-full border-0 border-gray-50 pb-2 relative"
+        [ngClass]="{
+          'text-primary border-primary border-bottom-3': activeTab === 'erstellt',
+          'border-gray-300 border-bottom-1': activeTab !== 'erstellt'
+        }"
+        style="border-radius: 0"
+        (click)="setActiveTab('erstellt')"
+      ></button>
+
+      <!-- Button Favorisiert -->
+      <button
+        pButton
+        [label]="'myEventPageComponent.favorite.title' | transloco"
+        class="p-button-text text-md w-full text-center border-gray-50 border-0 pb-2 relative"
+        [ngClass]="{
+          'text-primary border-primary border-bottom-3': activeTab === 'favorisiert',
+          'border-gray-300 border-bottom-1': activeTab !== 'favorisiert'
+        }"
+        style="border-radius: 0"
+        (click)="setActiveTab('favorisiert')"
+      ></button>
+    </div>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="grid justify-content-center mt-4">
+    <div class="col-12">
+      @if (activeTab === 'gast') {
+        <div>
+          @if(events$ | async; as events){
+            @for (event of events; track $index) {
+              <div
+                class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+                <app-event-card [event]="event"/>
+              </div>
+            }
+          } @else {
+            @for (event of [0, 1, 2, 3, 4]; track $index) {
+              <div
+                class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+                <app-event-card skeleton/>
+              </div>
+            }
+          }
+        </div>
+      }
+      @if (activeTab === 'erstellt') {
+        <div>
+           @if (events$ | async; as events) {
+            @for (event of events; track $index) {
+              <div
+                class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+                <app-event-card [event]="event"/>
+              </div>
+            }
+          } <!--@else
+           @if (false){
+             <div class="hidden md:hidden flex flex-column align-items-center text-center">
+               <h3 class="text-lg font-bold mb-2">
+                 Du hast zur Zeit keine Events, die du <span class="text-primary">erstellt</span> hast.
+               </h3>
+               <h4 class="text-base mb-2">Erstelle dein eigenes Event!</h4>
+               <rmx-icon
+                 class="text-primary"
+                 style="width: 30px; height: 30px"
+                 name="arrow-down-line"
+               ></rmx-icon>
+             </div>
+          }
+          @else {
+            @for (event of [0, 1, 2, 3, 4]; track $index) {
+              <div
+                class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+                <app-event-card skeleton/>
+              </div>
+            }
+          }-->
+        </div>
+      }
+      @if (activeTab === 'favorisiert') {
+        <p>Favoriten</p>
+        @for (event of [0, 1, 2, 3, 4]; track $index) {
+          <div
+            class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+            <app-event-card skeleton/>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</div>

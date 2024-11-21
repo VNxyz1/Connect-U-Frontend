@@ -173,6 +173,25 @@ export class EventService {
     return this.http.get<EventCardItem[]>('event/allEvents');
   }
 
+  /**
+   * Fetches the participating Events of an User
+   * @returns {Observable<EventCardItem[]>} An observable that emits an User specific array of event card items.
+   */
+  getParticipatingEvents(): Observable<EventCardItem[]> {
+    return this.http.get<EventCardItem[]>('event/participatingEvents', {withCredentials: true});
+  }
+
+  getHostingEvents(): Observable<EventCardItem[]> {
+    return this.http.get<EventCardItem[]>('event/hostingEvents', {withCredentials: true});
+  }
+  /*
+  //not implemented yet
+  getFavoriteEvents(): Observable<EventCardItem[]>{
+    return this.http.get<EventCardItem[]>('event/favorites', {withCredentials: true});
+  }
+   */
+
+
   private getDefaultEventData(): EventData {
     return {
       categories: [],

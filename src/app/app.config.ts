@@ -47,7 +47,7 @@ import {
   RiInformation2Line,
   RiAlertLine,
   RiArrowGoBackLine,
-  RiCheckboxLine,
+  RiCheckboxLine, RiArrowDownLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
@@ -80,12 +80,13 @@ const icons = {
   RiAlertLine,
   RiArrowGoBackLine,
   RiCheckboxLine,
+  RiArrowDownLine
 };
 
 export const translocoConfig = {
   config: {
     availableLangs: ['en-US', 'de'],
-    defaultLang: 'de',
+    defaultLang: 'en-US',
     // Remove this option if your application doesn't support changing language in runtime.
     reRenderOnLangChange: true,
     prodMode: !isDevMode(),

@@ -132,5 +132,21 @@
       "eventCreatedErrorMessage": "Please try again later.",
       "noEventIdError": "No Event ID found. Please try again."
     }
+  },
+  "myEventPageComponent": {
+    "hosted": {
+      "title": "Hosted",
+      "text": "You currently don't have any events that you have created.",
+      "todo": "Create your own event!"
+    },
+    "guest": {
+      "title": "Guest",
+      "text": "You are not currently participating in any events.",
+      "todo": "Explore events based on your interests."
+    },
+    "favorite": {
+      "title": "Favorites",
+      "text": "You currently don't have any favorite events, consider adding some!"
+    }
   }
 }
