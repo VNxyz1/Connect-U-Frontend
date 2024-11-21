@@ -23,11 +23,11 @@
           <div class="col">
             <div class="flex items-center">
               <rmx-icon name="calendar-line" class="mr-2"></rmx-icon>
-              <p class="m-0">{{getDate(eventDetails.dateAndTime) }}</p>
+              <p class="m-0">{{eventDetails.dateAndTime | translocoDate: {dateStyle: 'medium'} }}</p>
             </div>
             <div class="flex items-center mt-3">
               <rmx-icon name="time-line" class="mr-2"></rmx-icon>
-              <p class="m-0">{{getTime(eventDetails.dateAndTime) }}</p>
+              <p class="m-0">{{eventDetails.dateAndTime | translocoDate: {timeStyle: 'short'} }}</p>
             </div>
           </div>
           <div class="col">

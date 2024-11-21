@@ -11,6 +11,7 @@ import { EventService } from '../../services/event/eventservice';
 import { EventDetails } from '../../interfaces/EventDetails';
 import { AsyncPipe } from '@angular/common';
 import { Gender, GenderEnum } from '../../interfaces/Gender';
+import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 
 @Component({
   selector: 'app-event-detail-page',
@@ -23,6 +24,7 @@ import { Gender, GenderEnum } from '../../interfaces/Gender';
     Button,
     AngularRemixIconComponent,
     AsyncPipe,
+    TranslocoDatePipe,
   ],
   templateUrl: './event-detail-page.component.html',
 })
@@ -74,17 +76,5 @@ export class EventDetailPageComponent implements OnInit {
         }
       })
       .join(', ');
-  }
-
-  getDate(dateAndTime: string): string {
-    if (!dateAndTime) return '';
-    const date = new Date(dateAndTime);
-    return date.toISOString().split('T')[0];
-  }
-
-  getTime(dateAndTime: string): string {
-    if (!dateAndTime) return '';
-    const date = new Date(dateAndTime);
-    return date.toISOString().split('T')[1].substring(0, 5);
   }
 }
