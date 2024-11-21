@@ -19,11 +19,18 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * to be implemented with ionic storage
-   */
-  isLoggedIn(): boolean {
-    return !!this.getAccessToken();
+
+  isLoggedIn(): Observable<boolean> {
+    return this.http.get<{loggedIn: boolean}>('auth/check-login').pipe(
+      map(res => {
+        console.log(res)
+        return res.loggedIn
+      })
+    )
+  }
+
+  async isLoggedInAsync(): Promise<boolean|undefined> {
+    return this.isLoggedIn().toPromise();
   }
 
   logIn(body: LoginBody): Observable<LoginResponse> {

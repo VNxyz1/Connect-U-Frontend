@@ -105,7 +105,6 @@ export const appConfig: ApplicationConfig = {
       withComponentInputBinding(),
       withRouterConfig({ paramsInheritanceStrategy: 'always' }),
     ),
-    provideClientHydration(),
     provideHttpClient(
       withFetch(),
       withInterceptors([apiInterceptor, jwtInterceptor]),

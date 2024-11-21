@@ -19,14 +19,13 @@
       </h2>
     </div>
   </div>
-  @if (!auth.isLoggedIn()) {
-    <div class="grid justify-content-center">
-      <div
-        class="col-10 sm:col-8 md:col-5 xl:col-3 flex justify-content-center">
-        <app-login class="w-full" />
-      </div>
+  <div class="grid justify-content-center">
+    <div
+      class="col-10 sm:col-8 md:col-5 xl:col-3 flex justify-content-center">
+      <app-login class="w-full" />
     </div>
-  }
+  </div>
+    <router-outlet/>
   <div class="px-2">
     <h3>Featured Events</h3>
     <div class="grid justify-content-center xl:justify-content-start">
