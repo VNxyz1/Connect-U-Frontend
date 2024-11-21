@@ -140,6 +140,11 @@
     "male": "Männer",
     "female": "Frauen",
     "diverse": "Diverse",
-    "gender": "Geschlecht"
+    "age": "Alter",
+    "gender": "Geschlecht",
+    "from": "von",
+    "to": "bis",
+    "years1": "Jahren",
+    "years2": "Jahre"
   }
 }

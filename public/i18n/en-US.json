@@ -139,6 +139,11 @@
     "male": "men",
     "female": "women",
     "diverse": "diverse",
-    "gender": "gender"
+    "age": "Age",
+    "gender": "Gender",
+    "from": "from",
+    "to": "to",
+    "years1": "years",
+    "years2": "years"
   }
 }
