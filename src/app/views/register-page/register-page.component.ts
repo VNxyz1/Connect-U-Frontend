@@ -148,26 +148,17 @@ export class RegisterPageComponent {
 
     this.authService.register(requestBody).subscribe({
       next: () => this.router.navigateByUrl('/'),
-      error: err => {
-        this.showErrorMessage(err.status);
-      },
-    });
-  }
-
-  showErrorMessage(code: number) {
-    switch (code) {
-      case 404:
-      case 400:
+      error: (err: Error) => {
+        // Fehler vom Backend abfangen und anzeigen
         this.messageService.add({
           severity: 'error',
           summary: this.translocoService.translate(
             'registerComponent.errorMessages.registerFailed',
           ),
-          detail: this.translocoService.translate(
-            'registerComponent.errorMessages.registerFailedData',
-          ),
+          detail: err.message, // Die Fehlermeldung aus dem Backend
         });
-    }
+      },
+    });
   }
 
   loadGenderOptions = () => {
@@ -182,3 +173,20 @@ export class RegisterPageComponent {
       });
   };
 }
+/*
+showErrorMessage(code: number) {
+    switch (code) {
+      case 404:
+      case 400:
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translocoService.translate(
+            'registerComponent.errorMessages.registerFailed',
+          ),
+          detail: this.translocoService.translate(
+            'registerComponent.errorMessages.registerFailedData',
+          ),
+        });
+    }
+  }
+ */

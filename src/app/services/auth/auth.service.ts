@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { TranslocoService } from '@jsverse/transloco';
 
 type LoginBody = {
   email: string;
@@ -28,7 +30,10 @@ type AuthResponse = {
 export class AuthService {
   private _accessToken: string | undefined;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private translocoService: TranslocoService,
+  ) {}
 
   /**
    * to be implemented
@@ -48,7 +53,16 @@ export class AuthService {
   }
 
   register(body: RegisterBody): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>('user', body);
+    return this.http.post<AuthResponse>('user', body).pipe(
+      catchError(error => {
+        const backendMessage = error.error?.message || 'Unknown error';
+        const translatedMessage = this.translocoService.translate(
+          `registerComponentErrors.${backendMessage}`,
+          { defaultValue: backendMessage },
+        );
+        return throwError(() => new Error(translatedMessage));
+      }),
+    );
   }
 
   getAccessToken(): string | undefined {
