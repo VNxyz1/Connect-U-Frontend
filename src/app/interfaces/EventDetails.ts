@@ -1,7 +1,6 @@
 import { Category } from './Category';
 import { Gender } from './Gender';
 
-
 export interface EventDetails {
   id: string;
 

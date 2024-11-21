@@ -1,4 +1,3 @@
-
 export interface Gender {
   id: number;
 
@@ -10,4 +9,3 @@ export enum GenderEnum {
   Female = 2,
   Diverse = 3,
 }
-

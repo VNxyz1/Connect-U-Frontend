@@ -2,7 +2,6 @@ import {
   ApplicationConfig,
   provideZoneChangeDetection,
   isDevMode,
-  PLATFORM_ID,
   importProvidersFrom,
 } from '@angular/core';
 import {
