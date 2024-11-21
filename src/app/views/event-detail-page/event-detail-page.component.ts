@@ -53,6 +53,12 @@ export class EventDetailPageComponent implements OnInit {
     });
   }
 
+  /**
+   * Converts the list of preferred genders into a comma-separated string for display.
+   * Translates each gender into the current language using TranslocoService.
+   *
+   * @returns {string} - A comma-separated string of translated gender names.
+   */
   getPreferredGendersString(): string {
     if (!this.preferredGenders || this.preferredGenders.length === 0) {
       return '';
