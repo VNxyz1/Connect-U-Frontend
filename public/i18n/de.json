@@ -145,6 +145,8 @@
     "from": "von",
     "to": "bis",
     "years1": "Jahren",
-    "years2": "Jahre"
+    "years2": "Jahre",
+    "error": "Es ist ein Fehler aufgetreten.",
+    "notExist": " Das Event, nach dem du gesucht hast, scheint nicht zu existieren!"
   }
 }
