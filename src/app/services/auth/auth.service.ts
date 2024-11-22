@@ -22,7 +22,6 @@ export class AuthService {
   isLoggedIn(): Observable<boolean> {
     return this.http.get<{ loggedIn: boolean }>('auth/check-login').pipe(
       map(res => {
-        console.log(res);
         return res.loggedIn;
       }),
     );
