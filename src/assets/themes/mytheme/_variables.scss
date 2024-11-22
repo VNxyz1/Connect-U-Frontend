@@ -10,7 +10,7 @@ $dark-grey: #333333;
 $dark-grey-20: #535353;
 $dark-grey-40: #737373;
 $normal-grey: #d3d3d3;
-$light-grey: #f4f4f4;
+$light-grey: #fafafa;
 $white: #ffffff;
 $black: #000000;
 $red: #d34e43;
@@ -39,7 +39,8 @@ $font-weight-normal: normal;
 $font-weight-semi-bold: 600;
 $font-family-regular: 'Proxima Nova Rg', sans-serif;
 $font-family-semi-bold: 'Proxima Nova Lt', sans-serif;
-$font-family-bold: 'Proxima Nova Bl', sans-serif;
+$font-family-black: 'Proxima Nova Bl', sans-serif;
+$font-family-bold: 'Proxima Nova Th', sans-serif;
 
 // Mandatory Designer Variables
 @import 'variables/general';
@@ -134,27 +135,37 @@ p,
 body {
   font-family: $font-family-regular;
   color: $text-color;
-  font-weight: $font-weight-normal;
 }
 
 h1 {
-  font-family: $font-family-bold;
-  font-weight: $font-weight-bold;
-  font-size: 24px;
+  font-family: $font-family-black;
+  font-size: 26px;
 }
 
 h2 {
   font-family: $font-family-bold;
-  font-weight: $font-weight-semi-bold;
-  font-size: 20px;
+  font-size: 24px;
 }
 
 h3 {
   font-family: $font-family-semi-bold;
-  font-weight: $font-weight-semi-bold;
+  font-size: 24px;
+}
+
+h4 {
+  font-family: $font-family-semi-bold;
+  font-size: 22px;
+}
+
+h5 {
+  font-family: $font-family-semi-bold;
   font-size: 20px;
 }
 
+h6 {
+  font-family: $font-family-semi-bold;
+  font-size: 18px;
+}
 /* Buttons */
 
 .p-button {

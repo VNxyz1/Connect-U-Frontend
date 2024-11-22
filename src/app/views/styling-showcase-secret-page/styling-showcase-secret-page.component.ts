@@ -76,6 +76,8 @@ export class StylingShowcaseSecretPageComponent implements OnInit {
   values: string[] | undefined; //values for chips
   max = 4; //max for chips
 
+  rangeValues: number[] = [20, 80]; //range Slider
+
   togglePasswordVisibility(): void {
     this.passwordVisible = !this.passwordVisible;
   }
