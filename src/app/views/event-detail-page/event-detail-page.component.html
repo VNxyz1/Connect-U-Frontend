@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="xl:col-7">
-      <h2>{{ eventDetails.title }}</h2>
+      <h1>{{ eventDetails.title }}</h1>
 
       @for (category of eventDetails.categories; track $index) {
         <p-tag [value]="category.name" [rounded]="true" class="mr-1" />
