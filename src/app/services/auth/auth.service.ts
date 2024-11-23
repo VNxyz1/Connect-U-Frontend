@@ -19,17 +19,22 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * to be implemented
-   */
-  isLoggedIn(): boolean {
-    return true;
+  isLoggedIn(): Observable<boolean> {
+    return this.http.get<{ loggedIn: boolean }>('auth/check-login').pipe(
+      map(res => {
+        return res.loggedIn;
+      }),
+    );
+  }
+
+  async isLoggedInAsync(): Promise<boolean | undefined> {
+    return this.isLoggedIn().toPromise();
   }
 
   logIn(body: LoginBody): Observable<LoginResponse> {
     return this.http.post<LoginResponse>('auth/login', body).pipe(
       map(response => {
-        this._accessToken = response.access_token;
+        this.setAccessToken(response.access_token);
         return response;
       }),
     );
@@ -39,10 +44,14 @@ export class AuthService {
     return this._accessToken;
   }
 
+  setAccessToken(token: string | undefined): void {
+    this._accessToken = token;
+  }
+
   refreshToken(): Observable<{ access_token: string }> {
     return this.http.get<{ access_token: string }>('auth/refresh').pipe(
       map(response => {
-        this._accessToken = response.access_token;
+        this.setAccessToken(response.access_token);
         return response;
       }),
     );

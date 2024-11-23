@@ -10,6 +10,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SocketService } from './services/socket/socket.service';
 import { isPlatformBrowser } from '@angular/common';
+import { AuthService } from './services/auth/auth.service';
 import { Storage } from '@ionic/storage-angular';
 import { PrimeNGConfig } from 'primeng/api';
 
@@ -17,6 +18,7 @@ import { PrimeNGConfig } from 'primeng/api';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, NavbarComponent, HeaderComponent],
+  providers: [AuthService],
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit, OnDestroy {
