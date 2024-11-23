@@ -7,7 +7,7 @@ import { of, Subscription, timeout} from 'rxjs';
 import {EventCardItem} from '../../interfaces/EventCardItem';
 import {EventCardComponent} from '../../components/event-card/event-card.component';
 import {AngularRemixIconComponent} from 'angular-remix-icon';
-import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
+import {TranslocoPipe} from '@jsverse/transloco';
 import {catchError} from 'rxjs/operators';
 
 @Component({
