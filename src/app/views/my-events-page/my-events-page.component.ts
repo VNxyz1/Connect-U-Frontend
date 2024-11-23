@@ -1,13 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TabViewModule} from 'primeng/tabview';
 import {AsyncPipe, NgClass} from '@angular/common';
 import {ButtonDirective} from 'primeng/button';
 import {EventService} from '../../services/event/eventservice';
-import {Observable} from 'rxjs';
+import {Observable, of, Subscription, timeout} from 'rxjs';
 import {EventCardItem} from '../../interfaces/EventCardItem';
 import {EventCardComponent} from '../../components/event-card/event-card.component';
 import {AngularRemixIconComponent} from 'angular-remix-icon';
 import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
+import {catchError} from 'rxjs/operators';
 
 @Component({
   selector: 'app-my-events-page',
@@ -25,31 +26,62 @@ import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
 })
 export class MyEventsPageComponent implements OnInit {
   activeTab: string = 'gast';
-  events$!: Observable<EventCardItem[]>;
+  events: EventCardItem[] = [];
+  loading: boolean = false;
 
-  constructor(private eventService: EventService, private translocoService:TranslocoService) {}
+  private subscriptions: Subscription = new Subscription()
+
+  constructor(private eventService: EventService, private translocoService: TranslocoService) {
+  }
 
   ngOnInit() {
     this.fetchEvents();
   }
+
   setActiveTab(tab: string): void {
     this.activeTab = tab;
     this.fetchEvents();
   }
+
   fetchEvents(): void {
+    this.loading = true;
+    let fetchObservable;
+
     switch (this.activeTab) {
       case 'gast':
-        this.events$ = this.eventService.getParticipatingEvents();
+        fetchObservable = this.eventService.getParticipatingEvents().pipe(
+          timeout(5000),
+          catchError(() => of([]))
+        );
         break;
       case 'erstellt':
-        this.events$ = this.eventService.getHostingEvents();
+        fetchObservable = this.eventService.getHostingEvents().pipe(
+          timeout(5000),
+          catchError(() => of([]))
+        );
         break;
       case 'favorisiert':
-        //not implemented
-        //this.events$ = this.eventService.getFavoriteEvents();
+        // to do fetchObservable = this.eventService.getFavoriteEvents();
         break;
       default:
-        this.events$ = this.eventService.getParticipatingEvents();
+        fetchObservable = this.eventService.getParticipatingEvents();
+    }
+
+    if (fetchObservable) {
+      const subscription = fetchObservable.subscribe({
+        next: events => {
+          this.events = events;
+          this.loading = false;
+        },
+        error: () => {
+          this.events = [];
+          this.loading = false;
+        },
+      });
+      this.subscriptions.add(subscription);
+    } else {
+      this.events = [];
+      this.loading = false;
     }
   }
 
