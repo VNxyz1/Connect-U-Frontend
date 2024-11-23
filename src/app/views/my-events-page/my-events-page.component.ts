@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TabViewModule} from 'primeng/tabview';
 import {AsyncPipe, NgClass} from '@angular/common';
 import {ButtonDirective} from 'primeng/button';
 import {EventService} from '../../services/event/eventservice';
-import {Observable, of, Subscription, timeout} from 'rxjs';
+import { of, Subscription, timeout} from 'rxjs';
 import {EventCardItem} from '../../interfaces/EventCardItem';
 import {EventCardComponent} from '../../components/event-card/event-card.component';
 import {AngularRemixIconComponent} from 'angular-remix-icon';
@@ -31,7 +31,7 @@ export class MyEventsPageComponent implements OnInit {
 
   private subscriptions: Subscription = new Subscription()
 
-  constructor(private eventService: EventService, private translocoService: TranslocoService) {
+  constructor(private eventService: EventService) {
   }
 
   ngOnInit() {
