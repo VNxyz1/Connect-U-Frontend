@@ -1,5 +1,7 @@
 @if (!skeleton) {
-  <p-card class="custom-card">
+  <p-card
+    class="custom-card cursor-pointer"
+    [routerLink]="['/event', event.id]">
     <ng-template pTemplate="header">
       <div class="overflow-hidden" [style]="{ 'aspect-ratio': '2/1' }">
         <div

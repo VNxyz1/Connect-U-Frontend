@@ -12,6 +12,10 @@ import { AuthService } from '../../services/auth/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { Button } from 'primeng/button';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 type LoginForm = FormGroup<{
   email: FormControl<string>;
@@ -28,6 +32,10 @@ type LoginForm = FormGroup<{
     RouterLink,
     ToastModule,
     TranslocoPipe,
+    Button,
+    AngularRemixIconComponent,
+    IconFieldModule,
+    InputIconModule,
   ],
   providers: [MessageService],
   templateUrl: './login.component.html',
@@ -43,6 +51,8 @@ export class LoginComponent {
       validators: [Validators.required, Validators.minLength(8)],
     }),
   });
+
+  passwordVisible: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -79,5 +89,9 @@ export class LoginComponent {
           ),
         });
     }
+  }
+
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
   }
 }
