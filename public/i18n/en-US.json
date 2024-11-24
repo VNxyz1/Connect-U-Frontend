@@ -24,8 +24,78 @@
   "landingPage": {
     "headerImageAlt": "connect-u logo",
     "imageText": {
-      "title": "Event planning made easy - for private meetups or public events.",
+      "title": "Event planning made easy ‒ for private meetups or public events.",
       "subtitle": "Plan, Share, Connect."
+    }
+  },
+  "registerComponent": {
+    "title": "Register",
+    "alreadyAccount": "Already have an account?",
+    "loginLink": "Log in here!",
+    "genderInput": {
+      "placeholder": "Gender*",
+      "requiredWarning": "You have to choose a Gender",
+      "label": "Gender"
+    },
+    "genderOption": {
+      "male": "Male",
+      "female": "Female",
+      "diverse": "Diverse"
+    },
+    "agbCheckbox": {
+      "text": "Please confirm our",
+      "agb": "terms and conditions."
+    },
+    "submitButton": {
+      "label": "Register"
+    },
+    "usernameInput": {
+      "placeholder": "Username*",
+      "lengthWarning": "Your username must be at least 3 characters long.",
+      "requiredWarning": "A username is required!",
+      "label": "Username"
+    },
+    "emailInput": {
+      "placeholder": "Email*",
+      "validEmailWarning": "Please enter a valid email address.",
+      "requiredWarning": "An email address is required.",
+      "label": "Email"
+    },
+    "firstnameInput": {
+      "placeholder": "First name*",
+      "lengthWarning": "Your first name must be at least 2 characters long.",
+      "requiredWarning": "A first name is required.",
+      "label": "First name"
+    },
+    "lastnameInput": {
+      "placeholder": "Last name*",
+      "lengthWarning": "Your last name must be at least 2 characters long.",
+      "requiredWarning": "A last name is required.",
+      "label": "Last name"
+    },
+    "calendarInput": {
+      "placeholder": "Birthdate*",
+      "requiredWarning": "A birthdate is required.",
+      "invalidDayWarning": "The entered date is invalid.",
+      "minAgeWarning": "You must be at least 16 years old.",
+      "label": "Birthdate"
+    },
+    "passwordInput": {
+      "placeholder": "Password*",
+      "lengthWarning": "The password must be at least 8 characters long.",
+      "requiredWarning": "A password is required.",
+      "label": "Password",
+      "toggleVisibility": "Toggle password visibility"
+    },
+    "confirmPasswordInput": {
+      "placeholder": "Repeat password*",
+      "requiredWarning": "Please repeat your password.",
+      "mismatchWarning": "The passwords do not match.",
+      "label": "Repeat password"
+    },
+    "errorMessages": {
+      "registerFailed": "register failed",
+      "registerFailedData" : "Something went wrong!"
     }
   },
   "searchPageComponent": {
@@ -132,6 +202,23 @@
       "eventCreatedErrorMessage": "Please try again later.",
       "noEventIdError": "No Event ID found. Please try again."
     }
+  },
+  "registerComponentErrors": {
+    "You must accept the terms and conditions to register": "You must accept the terms and conditions to register",
+    "Passwords must match": "Passwords must match",
+    "You must be at least 16 years old to register.": "You must be at least 16 years old to register.",
+    "username is already taken": "The username is already taken.",
+    "e-mail address is already taken": "The e-mail address is already in use.",
+    "passwordConfirm must be longer than or equal to 8 characters": "The repeated password must be at least 8 characters long.",
+    "password must be longer than or equal to 8 characters": "The chosen password must be at least 8 characters long.",
+    "passwordConfirm should not be empty": "The password must be repeated correctly!",
+    "Username cannot contain only whitespace": "The username cannot consist of only whitespace.",
+    "username should not be empty": "The username must be filled in.",
+    "password should not be empty": "You must provide a password.",
+    "First name cannot contain only whitespace": "The first name cannot consist of only whitespace.",
+    "firstName should not be empty": "The first name cannot be empty.",
+    "Last name cannot contain only whitespace": "The last name cannot consist of only whitespace.",
+    "lastName should not be empty": "The last name cannot be empty."
   },
   "myEventPageComponent": {
     "hosted": {
