@@ -5,30 +5,34 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SocketService } from './services/socket/socket.service';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgClass } from '@angular/common';
 import { AuthService } from './services/auth/auth.service';
 import { Storage } from '@ionic/storage-angular';
 import { PrimeNGConfig } from 'primeng/api';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, HeaderComponent],
+  imports: [RouterOutlet, NavbarComponent, HeaderComponent, NgClass],
   providers: [AuthService],
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Connect-U-Frontend';
   private storageInitialized = false;
+  currentUrl: string | null = null;
 
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: Object,
     private readonly socket: SocketService,
     private readonly storage: Storage,
+    private readonly router: Router,
     private primengConfig: PrimeNGConfig,
   ) {}
 
@@ -37,6 +41,14 @@ export class AppComponent implements OnInit, OnDestroy {
       this.socket.init();
       this.initStorage(); // Initialize storage
     }
+
+    // Listen to route changes
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.currentUrl = event.url;
+      });
+
     this.primengConfig.setTranslation({
       accept: 'Ja',
       addRule: 'Regel hinzufügen',

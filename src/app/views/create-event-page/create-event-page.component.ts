@@ -6,14 +6,13 @@ import { ToastModule } from 'primeng/toast';
 import { StepsModule } from 'primeng/steps';
 import { AuthService } from '../../services/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-event-page',
   standalone: true,
   imports: [ToastModule, StepsModule],
   templateUrl: './create-event-page.component.html',
-  providers: [MessageService, EventService, AuthService, HttpClient],
+  providers: [MessageService, EventService, AuthService],
 })
 export class CreateEventPageComponent implements OnInit, OnDestroy {
   items: MenuItem[] | undefined;
@@ -33,16 +32,25 @@ export class CreateEventPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Navigate to step1 if logged in
-    this.router
-      .navigate(['step1'], { relativeTo: this.route })
-      .then(() => {})
-      .catch(err => {
-        console.error('Navigation error:', err);
-      });
+    // Check if the user is logged in
+    if (this.authService.isLoggedIn()) {
+      this.router
+        .navigate(['step1'], { relativeTo: this.route })
+        .then(() => {})
+        .catch(err => {
+          console.error('Navigation error:', err);
+        });
+    } else {
+      this.router
+        .navigate(['../welcome'])
+        .then(() => {})
+        .catch(err => {
+          console.error('Navigation error:', err);
+        });
+    }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     // Unsubscribe to prevent memory leaks
     if (this.subscription) {
       this.subscription.unsubscribe();
