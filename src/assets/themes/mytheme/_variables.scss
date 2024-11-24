@@ -10,7 +10,7 @@ $dark-grey: #333333;
 $dark-grey-20: #535353;
 $dark-grey-40: #737373;
 $normal-grey: #d3d3d3;
-$light-grey: #f4f4f4;
+$light-grey: #fafafa;
 $white: #ffffff;
 $black: #000000;
 $red: #d34e43;
@@ -39,7 +39,8 @@ $font-weight-normal: normal;
 $font-weight-semi-bold: 600;
 $font-family-regular: 'Proxima Nova Rg', sans-serif;
 $font-family-semi-bold: 'Proxima Nova Lt', sans-serif;
-$font-family-bold: 'Proxima Nova Bl', sans-serif;
+$font-family-black: 'Proxima Nova Bl', sans-serif;
+$font-family-bold: 'Proxima Nova Th', sans-serif;
 
 // Mandatory Designer Variables
 @import 'variables/general';
@@ -134,27 +135,37 @@ p,
 body {
   font-family: $font-family-regular;
   color: $text-color;
-  font-weight: $font-weight-normal;
 }
 
 h1 {
-  font-family: $font-family-bold;
-  font-weight: $font-weight-bold;
-  font-size: 24px;
+  font-family: $font-family-black;
+  font-size: 26px;
 }
 
 h2 {
   font-family: $font-family-bold;
-  font-weight: $font-weight-semi-bold;
-  font-size: 20px;
+  font-size: 24px;
 }
 
 h3 {
   font-family: $font-family-semi-bold;
-  font-weight: $font-weight-semi-bold;
+  font-size: 24px;
+}
+
+h4 {
+  font-family: $font-family-semi-bold;
+  font-size: 22px;
+}
+
+h5 {
+  font-family: $font-family-semi-bold;
   font-size: 20px;
 }
 
+h6 {
+  font-family: $font-family-semi-bold;
+  font-size: 18px;
+}
 /* Buttons */
 
 .p-button {
@@ -219,15 +230,45 @@ h3 {
 
 // tab
 
+/* Highlighted tab styling */
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
-  border-color: $secondaryColor;
+  border-color: $secondaryColor; /* Replace with your color variable or value */
   color: $secondaryColor;
 }
 
-.p-tabmenu:hover {
-  border-color: $normal-grey;
-  color: $normal-grey;
+/* Ensure no spacing around the parent UL */
+.p-tabmenu .p-tabmenu-nav {
+  display: flex; /* Use flexbox for equal distribution */
+  padding: 0;
+  margin: 0; /* Remove any margins */
+  list-style: none; /* Ensure no bullets or default list styling */
+  width: 100%;
+  justify-content: center;
 }
+
+/* Set each LI to take up equal width */
+.p-tabmenu .p-tabmenu-nav li {
+  flex: 1; /* Distribute space equally among all list items */
+  justify-content: center; /* Center the content inside each tab */
+  margin: 0; /* Remove gaps between tabs */
+  padding: 0; /* Ensure no extra padding */
+}
+
+.p-tabmenu .p-tabmenu-nav .p-menuitem-link {
+  width: 100%;
+}
+
+.p-tabmenu .p-tabmenu-nav li a {
+  justify-content: center;
+}
+
+/* Highlighted tab styling */
+.p-tabmenu .p-tabmenu-nav li.p-highlight .p-menuitem-link {
+  color: $secondaryColor; /* Active color */
+  border-bottom: 2px solid $secondaryColor; /* Add visual indication for active tab */
+}
+
+// confirm dialogue
 
 .p-confirm-dialog-accept {
   background-color: $successColor;

@@ -42,7 +42,6 @@ type RegisterForm = FormGroup<{
   selector: 'app-register-page',
   standalone: true,
   imports: [
-    ButtonDirective,
     InputTextModule,
     DropdownModule,
     RouterLink,

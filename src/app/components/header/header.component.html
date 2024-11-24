@@ -1,7 +1,9 @@
-<div class="mt-6 border-bottom-2 border-gray-50">
+<div class="mt-6 border-bottom-2 border-gray-50 z-4">
   <section class="flex flex-column gap-3 mb-4">
     <div class="flex align-items-center justify-content-between w-full">
-      <div class="flex align-items-center">
+      <div
+        [ngClass]="{ 'md:hidden': !currentUrl?.includes('/create-event') }"
+        class="align-items-center">
         @if (currentUrl !== '/') {
           <p-button
             [text]="true"
@@ -18,19 +20,19 @@
       </div>
 
       <div class="flex-grow-1 text-center">
-        @if (currentUrl == '/my-space') {
-          <h1 class="m-0">Mein Bereich</h1>
-        } @else if (currentUrl == '/my-events') {
-          <h1 class="m-0">Meine Events</h1>
-        } @else if (currentUrl == '/create-event') {
-          <h1 class="m-0">Event erstellen</h1>
-        } @else if (currentUrl == '/search') {
-          <h1 class="m-0">Event suchen</h1>
+        @if (currentUrl?.includes('/my-space')) {
+          <h1 class="m-0">{{ 'headerComponent.mySpace' | transloco }}</h1>
+        } @else if (currentUrl?.includes('/my-events')) {
+          <h1 class="m-0">{{ 'headerComponent.myEvents' | transloco }}</h1>
+        } @else if (currentUrl?.includes('/create-event')) {
+          <h1 class="m-0">{{ 'headerComponent.createEvent' | transloco }}</h1>
+        } @else if (currentUrl?.includes('/search')) {
+          <h1 class="m-0">{{ 'headerComponent.search' | transloco }}</h1>
         } @else if (
           currentUrl == '/' ||
           currentUrl?.includes('/gtc') ||
           currentUrl?.includes('legal-disclosure')
-        ) {
+          ) {
           <p-image
             src="images/logo_full_dark.svg"
             width="250"

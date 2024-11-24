@@ -95,11 +95,10 @@
     },
     "errorMessages": {
       "registerFailed": "register failed",
-      "registerFailedData" : "Something went wrong!"
+      "registerFailedData": "Something went wrong!"
     }
   },
   "searchPageComponent": {
-
   },
   "createEventStep1Component": {
     "eventType": {
@@ -203,6 +202,21 @@
       "noEventIdError": "No Event ID found. Please try again."
     }
   },
+  "eventDetailPageComponent": {
+    "eventDetails": "Event Details",
+    "restrictions": "Access Restrictions",
+    "male": "men",
+    "female": "women",
+    "diverse": "diverse",
+    "age": "Age",
+    "gender": "Gender",
+    "from": "from",
+    "to": "to",
+    "years1": "years",
+    "years2": "years",
+    "error": "An error occurred.",
+    "notExist": "It seems like the event you were looking for doesn't exist!"
+  },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "You must accept the terms and conditions to register",
     "Passwords must match": "Passwords must match",
@@ -219,6 +233,18 @@
     "firstName should not be empty": "The first name cannot be empty.",
     "Last name cannot contain only whitespace": "The last name cannot consist of only whitespace.",
     "lastName should not be empty": "The last name cannot be empty."
+  },
+  "headerComponent": {
+    "mySpace": "My Space",
+    "myEvents": "My Events",
+    "search": "Search Events",
+    "createEvent": "Create Event"
+  },
+  "navbarComponent": {
+    "mySpace": "My Space",
+    "myEvents": "My Events",
+    "search": "Search",
+    "createEvent": "Create Event"
   },
   "privacyPolicy": {
     "title": "Privacy Policy",

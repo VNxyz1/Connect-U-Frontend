@@ -2,7 +2,6 @@ import {
   ApplicationConfig,
   provideZoneChangeDetection,
   isDevMode,
-  PLATFORM_ID,
   importProvidersFrom,
 } from '@angular/core';
 import {
@@ -12,7 +11,6 @@ import {
 } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
 import {
   provideHttpClient,
   withFetch,
@@ -90,7 +88,6 @@ export const translocoConfig = {
   config: {
     availableLangs: ['en-US', 'de'],
     defaultLang: 'de',
-    // Remove this option if your application doesn't support changing language in runtime.
     reRenderOnLangChange: true,
     prodMode: !isDevMode(),
   },

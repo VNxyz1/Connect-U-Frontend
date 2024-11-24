@@ -95,11 +95,10 @@
     },
     "errorMessages": {
       "registerFailed": "Registrierung fehlgeschlagen",
-      "registerFailedData" : "Etwas scheint wohl schief gelaufen zu sein!"
+      "registerFailedData": "Etwas scheint wohl schief gelaufen zu sein!"
     }
   },
   "searchPageComponent": {
-
   },
   "createEventStep1Component": {
     "eventType": {
@@ -204,6 +203,21 @@
       "noEventIdError": "Keine Event-ID gefunden. Bitte versuche es erneut."
     }
   },
+  "eventDetailPageComponent": {
+    "eventDetails": "Eventdetails",
+    "restrictions": "Zutrittsbeschränkungen",
+    "male": "Männer",
+    "female": "Frauen",
+    "diverse": "Diverse",
+    "age": "Alter",
+    "gender": "Geschlecht",
+    "from": "ab",
+    "to": "bis",
+    "years1": "Jahren",
+    "years2": "Jahre",
+    "error": "Es ist ein Fehler aufgetreten.",
+    "notExist": " Das Event, nach dem du gesucht hast, scheint nicht zu existieren!"
+  },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "Du musst die AGBs bestätigen, um dich registrieren zu können",
     "Passwords must match": "Die Passwörter stimmen nicht überein",
@@ -220,6 +234,18 @@
     "firstName should not be empty": "Der Vorname darf nicht leer sein",
     "Last name cannot contain only whitespace": "Der Nachname darf nicht nur aus Leerzeichen bestehen",
     "lastName should not be empty": "Der Nachname darf nicht leer sein"
+  },
+  "headerComponent": {
+    "mySpace": "Mein Bereich",
+    "myEvents": "Meine Events",
+    "search": "Events suchen",
+    "createEvent": "Event erstellen"
+  },
+  "navbarComponent": {
+    "mySpace": "Mein Bereich",
+    "myEvents": "Meine Events",
+    "search": "Suchen",
+    "createEvent": "Event erstellen"
   },
   "privacyPolicy": {
     "title": "Datenschutzerklärung",
