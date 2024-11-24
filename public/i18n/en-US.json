@@ -220,6 +220,9 @@
     "Last name cannot contain only whitespace": "The last name cannot consist of only whitespace.",
     "lastName should not be empty": "The last name cannot be empty."
   },
+  "privacyPolicy": {
+
+  },
   "generalTermsAndConditions": {
     "privacy policy": "",
     "terms": {
