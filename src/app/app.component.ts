@@ -44,7 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     // Listen to route changes
     this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
+      .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.currentUrl = event.url;
       });

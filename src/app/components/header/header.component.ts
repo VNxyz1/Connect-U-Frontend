@@ -10,7 +10,14 @@ import { TranslocoPipe } from '@jsverse/transloco';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [NgOptimizedImage, ImageModule, AngularRemixIconComponent, Button, NgClass, TranslocoPipe],
+  imports: [
+    NgOptimizedImage,
+    ImageModule,
+    AngularRemixIconComponent,
+    Button,
+    NgClass,
+    TranslocoPipe,
+  ],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {

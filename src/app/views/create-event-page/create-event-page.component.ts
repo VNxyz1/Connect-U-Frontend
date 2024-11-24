@@ -21,7 +21,7 @@ export class CreateEventPageComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     // Step navigation items
     this.items = [
@@ -37,14 +37,14 @@ export class CreateEventPageComponent implements OnInit, OnDestroy {
       this.router
         .navigate(['step1'], { relativeTo: this.route })
         .then(() => {})
-        .catch((err) => {
+        .catch(err => {
           console.error('Navigation error:', err);
         });
     } else {
       this.router
         .navigate(['../welcome'])
         .then(() => {})
-        .catch((err) => {
+        .catch(err => {
           console.error('Navigation error:', err);
         });
     }

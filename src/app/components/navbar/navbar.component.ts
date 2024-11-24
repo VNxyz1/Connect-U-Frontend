@@ -35,7 +35,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private router: Router,
     private breakpointObserver: BreakpointObserver,
-    private translocoService: TranslocoService
+    private translocoService: TranslocoService,
   ) {
     setTimeout(() => {
       this.updateMenuItems();
@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit {
 
         // Listen to router events and update `currentUrl` and menu items
         this.router.events
-          .pipe(filter((event) => event instanceof NavigationEnd))
+          .pipe(filter(event => event instanceof NavigationEnd))
           .subscribe((event: NavigationEnd) => {
             this.currentUrl = event.url; // Update `currentUrl`
             this.updateMenuItems(); // Refresh menu items
@@ -64,7 +64,7 @@ export class NavbarComponent implements OnInit {
             Breakpoints.Handset, // For mobile devices
             '(max-width: 1085px)', // Custom breakpoint for medium devices
           ])
-          .subscribe((result) => {
+          .subscribe(result => {
             const breakpoints = result.breakpoints;
             this.isMobile = breakpoints[Breakpoints.Handset] || false; // Check if it's a handset
             this.isMd = breakpoints['(max-width: 1085px)'] || false; // Check if width is <= 1085px
@@ -73,7 +73,7 @@ export class NavbarComponent implements OnInit {
   }
 
   getSeverity(
-    path: string
+    path: string,
   ):
     | 'success'
     | 'info'
