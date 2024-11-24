@@ -8,6 +8,8 @@ import {TranslocoPipe} from '@jsverse/transloco';
 import {GuestEventsComponent} from '../../components/my-events/guest-events/guest-events.component';
 import {HostedEventsComponent} from '../../components/my-events/hosted-events/hosted-events.component';
 import {FavoriteEventsComponent} from '../../components/my-events/favorite-events/favorite-events.component';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-my-events-page',
@@ -22,12 +24,30 @@ import {FavoriteEventsComponent} from '../../components/my-events/favorite-event
     TranslocoPipe,
     GuestEventsComponent,
     HostedEventsComponent,
-    FavoriteEventsComponent
+    FavoriteEventsComponent,
+    MultiSelectModule,
+    FormsModule
   ],
   templateUrl: './my-events-page.component.html',
 })
 export class MyEventsPageComponent {
   activeTab: string = 'gast';
+
+  filterCategories = [
+    { name: 'outdoor' },
+    { name: 'indoor' },
+    { name: 'music' },
+    { name: 'sports' },
+    { name: 'gaming' },
+    { name: 'eating' },
+    { name: 'learning' },
+    { name: 'cooking' },
+    { name: 'movies' },
+    { name: 'adventure' },
+    { name: 'party' },
+    { name: 'other' },
+  ];
+  selectedCategories: { name: string }[] = [];
 
   setActiveTab(tab: string): void {
     this.activeTab = tab;

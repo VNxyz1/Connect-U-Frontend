@@ -43,17 +43,30 @@
     </div>
   </div>
 
+  <!-- Filter -->
+  <div class="flex my-3">
+    <p-multiSelect
+      [options]="filterCategories"
+      [(ngModel)]="selectedCategories"
+      optionLabel="name"
+      placeholder="Filter auswählen"
+      display="chip"
+      class="w-full md:w-6 lg:w-4"
+    ></p-multiSelect>
+  </div>
+
+
   <!-- Tab Content -->
   <div class="grid justify-content-center mt-4">
     <div class="col-12">
       @if (activeTab === 'gast') {
-        <app-guest-events/>
+        <app-guest-events />
       }
       @if (activeTab === 'erstellt') {
-        <app-hosted-events/>
+        <app-hosted-events [filters]="selectedCategories" />
       }
       @if (activeTab === 'favorisiert') {
-        <app-favorite-events/>
+        <app-favorite-events />
       }
     </div>
   </div>
