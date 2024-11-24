@@ -101,7 +101,7 @@
             </div>
             <div class="col">
               @if (eventDetails.preferredGenders.length > 0) {
-                <p class="pb-3">{{ getPreferredGendersString() }}</p>
+                <p class="pb-3">{{ getPreferredGendersString(eventDetails.preferredGenders) }}</p>
               }
               <p>
                 {{
