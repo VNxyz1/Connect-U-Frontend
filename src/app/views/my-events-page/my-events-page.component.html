@@ -44,17 +44,17 @@
   </div>
 
   <!-- Filter -->
-  <div class="flex my-3">
+  <div class="flex col-12 sm:col-6 md:col-5 lg:col-4">
     <p-multiSelect
       [options]="filterCategories"
       [(ngModel)]="selectedCategories"
       optionLabel="name"
       placeholder="Filter auswählen"
-      display="chip"
-      class="w-full md:w-6 lg:w-4"
+      display="comma"
+      [showClear]="true"
+      class="w-full"
     ></p-multiSelect>
   </div>
-
 
   <!-- Tab Content -->
   <div class="grid justify-content-center mt-4">

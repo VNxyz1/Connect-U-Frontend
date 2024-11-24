@@ -10,6 +10,7 @@ import {HostedEventsComponent} from '../../components/my-events/hosted-events/ho
 import {FavoriteEventsComponent} from '../../components/my-events/favorite-events/favorite-events.component';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {FormsModule} from '@angular/forms';
+import {FloatLabelModule} from 'primeng/floatlabel';
 
 @Component({
   selector: 'app-my-events-page',
@@ -26,7 +27,8 @@ import {FormsModule} from '@angular/forms';
     HostedEventsComponent,
     FavoriteEventsComponent,
     MultiSelectModule,
-    FormsModule
+    FormsModule,
+    FloatLabelModule
   ],
   templateUrl: './my-events-page.component.html',
 })
