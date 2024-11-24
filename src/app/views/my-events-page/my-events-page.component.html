@@ -47,75 +47,13 @@
   <div class="grid justify-content-center mt-4">
     <div class="col-12">
       @if (activeTab === 'gast') {
-        <div>
-          @if (!loading && events.length === 0) {
-            <div class="hidden md:hidden flex flex-column align-items-center text-center">
-              <h3 class="text-lg font-bold mb-2">
-                {{'myEventPageComponent.guest.text'| transloco}}
-              </h3>
-              <h4 class="text-base mb-2">{{'myEventPageComponent.guest.todo'| transloco}}</h4>
-            </div>
-          } @else if (loading) {
-            @for (event of [0, 1, 2, 3, 4]; track $index) {
-              <div
-                class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
-                <app-event-card skeleton/>
-              </div>
-            }
-          } @else if (!loading && events.length > 0) {
-            @for (event of events; track $index) {
-              <div
-                class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
-                <app-event-card [event]="event"/>
-              </div>
-            }
-          }
-        </div>
+        <app-guest-events/>
       }
       @if (activeTab === 'erstellt') {
-        <div>
-          @if (!loading && events.length !== 0) {
-            <div class="hidden md:hidden flex flex-column align-items-center text-center">
-              <h3 class="text-lg font-bold mb-4">
-                {{'myEventPageComponent.hosted.text'| transloco}}
-              </h3>
-              <h4 class="text-base mb-4">{{'myEventPageComponent.hosted.todo'| transloco}}</h4>
-              <rmx-icon
-                class="text-primary mt-2"
-                style="width: 30px; height: 30px"
-                name="arrow-down-line"
-              ></rmx-icon>
-            </div>
-          } @else if (loading) {
-            @for (event of [0, 1, 2, 3, 4]; track $index) {
-              <div
-                class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
-                <app-event-card skeleton/>
-              </div>
-            }
-          } @else if (!loading && events.length > 10) {
-            @for (event of events; track $index) {
-              <div
-                class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
-                <app-event-card [event]="event"/>
-              </div>
-            }
-          }
-        </div>
+        <app-hosted-events/>
       }
       @if (activeTab === 'favorisiert') {
-        @if (!loading && events.length === 0) {
-          <h3 class="m-3"> {{'myEventPageComponent.favorite.text'| transloco}} </h3>
-        } @else if (loading) {
-          @for (event of [0, 1, 2, 3, 4]; track $index) {
-            <div
-              class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
-              <app-event-card skeleton/>
-            </div>
-          }
-        } @else if (!loading && events.length > 0) {
-          <p>Favoriten</p>
-        }
+        <app-favorite-events/>
       }
     </div>
   </div>

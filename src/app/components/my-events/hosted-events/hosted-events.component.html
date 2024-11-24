@@ -1,0 +1,22 @@
+<div class="mb-5 grid">
+  @if (events$ | async; as events) {
+    @for (event of events; track $index) {
+      <div
+        class="col-12 sm:col-6 lg:col-4 flex justify-content-center mb-3">
+        <app-event-card [event]="event"/>
+      </div>
+    }
+  }@else  {
+    <div class=" flex flex-column align-items-center text-center">
+      <h3 class="text-lg font-bold mb-4">
+        {{'myEventPageComponent.hosted.text'| transloco}}
+      </h3>
+      <h4 class="text-base mb-4">{{'myEventPageComponent.hosted.todo'| transloco}}</h4>
+      <rmx-icon
+        class="hidden md:hidden text-primary mt-2 "
+        style="width: 30px; height: 30px"
+        name="arrow-down-line"
+      ></rmx-icon>
+    </div>
+  }
+</div>
