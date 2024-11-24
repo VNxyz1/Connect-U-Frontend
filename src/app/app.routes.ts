@@ -15,6 +15,7 @@ import { Step1Component } from './components/create-event/step1/step1.component'
 import { Step2Component } from './components/create-event/step2/step2.component';
 import { Step3Component } from './components/create-event/step3/step3.component';
 import { isNotLoggedInGuard } from './utils/guards/is-not-logged-in.guard';
+import {TermsAndConditionsPageComponent} from './views/terms-and-conditions-page/terms-and-conditions-page.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -85,10 +86,18 @@ export const routes: Routes = [
     title: 'Styling | Connect-U',
     component: StylingShowcaseSecretPageComponent,
   },
-
   {
-    path: '**',
+    path: 'gtc',
+    title: 'Terms & Conditions | Connect-U',
+    component: TermsAndConditionsPageComponent,
+  },
+  {
+    path: '404',
     title: 'Not Found | Connect-U',
     component: NotFoundPageComponent,
+  },
+  {
+    path: '**',
+    redirectTo: '404'
   },
 ];

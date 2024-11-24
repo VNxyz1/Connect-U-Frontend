@@ -219,5 +219,26 @@
     "firstName should not be empty": "The first name cannot be empty.",
     "Last name cannot contain only whitespace": "The last name cannot consist of only whitespace.",
     "lastName should not be empty": "The last name cannot be empty."
+  },
+  "generalTermsAndConditions": {
+    "privacy policy": "",
+    "terms": {
+      "title": "Legal Notice",
+      "contact": {
+        "title": "Contact"
+      },
+      "euDisputeResolution": {
+        "title": "EU Dispute Resolution",
+        "content": "The European Commission provides a platform for online dispute resolution (ODR)",
+        "note": "Our email address can be found above in the legal notice."
+      },
+      "consumerDisputeResolution": {
+        "title": "Consumer Dispute Resolution/Universal Arbitration Board",
+        "content": "We are not willing or obliged to participate in dispute resolution proceedings before a consumer arbitration board."
+      },
+      "source": {
+        "content": "Source"
+      }
+    }
   }
 }
