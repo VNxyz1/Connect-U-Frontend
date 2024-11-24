@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, throwError } from 'rxjs';
 import { ImageModule } from 'primeng/image';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { CardModule } from 'primeng/card';
@@ -12,6 +12,8 @@ import { EventDetails } from '../../interfaces/EventDetails';
 import { AsyncPipe } from '@angular/common';
 import { Gender, GenderEnum } from '../../interfaces/Gender';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
+import { catchError } from 'rxjs/operators';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-event-detail-page',
@@ -25,6 +27,7 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
     AngularRemixIconComponent,
     AsyncPipe,
     TranslocoDatePipe,
+    ProgressSpinnerModule,
   ],
   templateUrl: './event-detail-page.component.html',
 })
@@ -34,6 +37,7 @@ export class EventDetailPageComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly router: Router,
     private readonly eventService: EventService,
     private translocoService: TranslocoService,
   ) {}
@@ -42,7 +46,13 @@ export class EventDetailPageComponent implements OnInit {
     this.eventId = this.route.snapshot.paramMap.get('id')!;
 
     if (this.eventId) {
-      this.eventDetails$ = this.eventService.getEventDetails(this.eventId);
+      this.eventDetails$ = this.eventService.getEventDetails(this.eventId).pipe(
+        catchError(err => {
+          this.router.navigate(['/404']);
+          return throwError(() => err);
+        })
+      );
+
     }
   }
 

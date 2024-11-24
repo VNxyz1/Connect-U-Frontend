@@ -149,12 +149,12 @@
     <div class="xl:col-5"></div>
   </div>
 } @else {
-  <div class="ml-3">
-    <h2>
-      {{ 'eventDetailPageComponent.error' | transloco }}
-    </h2>
-    <p>
-      {{ 'eventDetailPageComponent.notExist' | transloco }}
-    </p>
-  </div>
+    <div class="flex justify-content-center align-items-center mt-8">
+      <p-progressSpinner
+        styleClass="w-4rem h-4rem"
+        strokeWidth="8"
+        fill="var(--surface-ground)"
+        animationDuration=".5s">
+      </p-progressSpinner>
+    </div>
 }
