@@ -147,6 +147,8 @@
     "years1": "Jahren",
     "years2": "Jahre",
     "error": "Es ist ein Fehler aufgetreten.",
-    "notExist": " Das Event, nach dem du gesucht hast, scheint nicht zu existieren!"
+    "notExist": " Das Event, nach dem du gesucht hast, scheint nicht zu existieren!",
+    "join": "Event beitreten",
+    "request": "Anfrage schicken"
   }
 }

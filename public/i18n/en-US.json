@@ -146,6 +146,8 @@
     "years1": "years",
     "years2": "years",
     "error": "An error occurred.",
-    "notExist": "It seems like the event you were looking for doesn't exist!"
+    "notExist": "It seems like the event you were looking for doesn't exist!",
+    "join": "join event",
+    "request": "send join request"
   }
 }

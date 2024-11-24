@@ -126,7 +126,7 @@
     </div>
     <div class="mt-3 xl:col-2">
       <div class="xl:fixed xl:bottom-3 xl:right-3 xl:z-10">
-        <p-button [raised]="true" severity="info">
+        <p-button class="mr-2" [raised]="true" severity="info">
           <ng-template pTemplate="icon">
             <rmx-icon
               style="width: 16px; height: 16px"
@@ -134,10 +134,18 @@
           </ng-template>
         </p-button>
         <p-button
-          class="ml-2"
           [raised]="true"
-          label="anfragen"
-          severity="success" />
+          [label]="
+    eventType === 1
+      ? ('eventDetailPageComponent.join' | transloco)
+      : eventType === 2
+      ? ('eventDetailPageComponent.request' | transloco)
+      : ('eventDetailPageComponent.privateEvent' | transloco)
+  "
+          [disabled]="eventType === 3"
+          severity="success"
+          (click)="handleButtonClick()">
+        </p-button>
       </div>
     </div>
     <div class="xl:col-5"></div>

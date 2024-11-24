@@ -12,6 +12,7 @@ import { EventDetails } from '../../interfaces/EventDetails';
 import { AsyncPipe } from '@angular/common';
 import { Gender, GenderEnum } from '../../interfaces/Gender';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
+import { EventtypeEnum } from '../../interfaces/EventtypeEnum';
 
 @Component({
   selector: 'app-event-detail-page',
@@ -31,6 +32,7 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 export class EventDetailPageComponent implements OnInit {
   eventId!: string;
   eventDetails$!: Observable<EventDetails>;
+  eventType!: EventtypeEnum | null;
   preferredGenders!: Gender[] | null;
   dateAndTime!: string | null;
 
@@ -50,6 +52,7 @@ export class EventDetailPageComponent implements OnInit {
     this.eventDetails$.subscribe(eventDetails => {
       this.preferredGenders = eventDetails.preferredGenders;
       this.dateAndTime = eventDetails.dateAndTime;
+      this.eventType = eventDetails.type;
     });
   }
 
@@ -82,5 +85,47 @@ export class EventDetailPageComponent implements OnInit {
         }
       })
       .join(', ');
+  }
+
+  handleButtonClick(): void {
+    if (this.eventType === EventtypeEnum.public) {
+      this.joinPublicEvent();
+    } else if (this.eventType === EventtypeEnum.halfPrivate) {
+      this.requestToJoinEvent();
+    } else if (this.eventType === EventtypeEnum.private) {
+      alert(this.translocoService.translate('eventDetailPageComponent.privateEvent'));
+    }
+  }
+
+  /**
+   * Joins a public event directly.
+   */
+  joinPublicEvent(): void {
+    this.eventService.addUserToEvent(this.eventId).subscribe({
+      next: response => {
+        console.log('Joined public event successfully:', response.message);
+        alert(this.translocoService.translate('eventDetailPageComponent.joined'));
+      },
+      error: err => {
+        console.error('Failed to join public event:', err);
+        alert(this.translocoService.translate('eventDetailPageComponent.joinError'));
+      },
+    });
+  }
+
+  /**
+   * Sends a join request for a half-private event.
+   */
+  requestToJoinEvent(): void {
+    this.eventService.createJoinRequest(this.eventId).subscribe({
+      next: response => {
+        console.log('Request sent successfully:', response.message);
+        alert(this.translocoService.translate('eventDetailPageComponent.requestSent'));
+      },
+      error: err => {
+        console.error('Failed to send join request:', err);
+        alert(this.translocoService.translate('eventDetailPageComponent.requestError'));
+      },
+    });
   }
 }
