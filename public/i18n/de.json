@@ -95,11 +95,10 @@
     },
     "errorMessages": {
       "registerFailed": "Registrierung fehlgeschlagen",
-      "registerFailedData" : "Etwas scheint wohl schief gelaufen zu sein!"
+      "registerFailedData": "Etwas scheint wohl schief gelaufen zu sein!"
     }
   },
   "searchPageComponent": {
-
   },
   "createEventStep1Component": {
     "eventType": {
@@ -204,21 +203,36 @@
       "noEventIdError": "Keine Event-ID gefunden. Bitte versuche es erneut."
     }
   },
-  "registerComponentErrors": {
-    "You must accept the terms and conditions to register": "Du musst die AGBs bestätigen, um dich registrieren zu können",
-    "Passwords must match": "Die Passwörter stimmen nicht überein",
-    "You must be at least 16 years old to register.": "Du musst mindestens 16 Jahre alt sein, um dich zu registrieren.",
-    "username is already taken": "Der Benutzername ist bereits vergeben.",
-    "e-mail address is already taken": "Die E-Mail-Adresse wird bereits verwendet.",
-    "passwordConfirm must be longer than or equal to 8 characters": "Das wiederholte Passwort muss mind. 8 Zeichen beinhalten",
-    "password must be longer than or equal to 8 characters": "Das gewählte Passwort muss mind. aus 8 Zeichen bestehen!",
-    "passwordConfirm should not be empty": "Das Passwort muss korrekt wiederholt werden!",
-    "Username cannot contain only whitespace": "Der Nutzername kann nicht nur aus Leerzeichen bestehen",
-    "username should not be empty": "Der Nutzername muss ausgefüllt werden",
-    "password should not be empty": "Du musst ein Passwort angeben",
-    "First name cannot contain only whitespace": "Der Vorname kann nicht nur aus Leerzeichen bestehen",
-    "firstName should not be empty": "Der Vorname darf nicht leer sein",
-    "Last name cannot contain only whitespace": "Der Nachname darf nicht nur aus Leerzeichen bestehen",
-    "lastName should not be empty": "Der Nachname darf nicht leer sein"
+    "eventDetailPageComponent": {
+      "eventDetails": "Eventdetails",
+      "restrictions": "Zutrittsbeschränkungen",
+      "male": "Männer",
+      "female": "Frauen",
+      "diverse": "Diverse",
+      "age": "Alter",
+      "gender": "Geschlecht",
+      "from": "ab",
+      "to": "bis",
+      "years1": "Jahren",
+      "years2": "Jahre",
+      "error": "Es ist ein Fehler aufgetreten.",
+      "notExist": " Das Event, nach dem du gesucht hast, scheint nicht zu existieren!"
+    },
+    "registerComponentErrors": {
+      "You must accept the terms and conditions to register": "Du musst die AGBs bestätigen, um dich registrieren zu können",
+      "Passwords must match": "Die Passwörter stimmen nicht überein",
+      "You must be at least 16 years old to register.": "Du musst mindestens 16 Jahre alt sein, um dich zu registrieren.",
+      "username is already taken": "Der Benutzername ist bereits vergeben.",
+      "e-mail address is already taken": "Die E-Mail-Adresse wird bereits verwendet.",
+      "passwordConfirm must be longer than or equal to 8 characters": "Das wiederholte Passwort muss mind. 8 Zeichen beinhalten",
+      "password must be longer than or equal to 8 characters": "Das gewählte Passwort muss mind. aus 8 Zeichen bestehen!",
+      "passwordConfirm should not be empty": "Das Passwort muss korrekt wiederholt werden!",
+      "Username cannot contain only whitespace": "Der Nutzername kann nicht nur aus Leerzeichen bestehen",
+      "username should not be empty": "Der Nutzername muss ausgefüllt werden",
+      "password should not be empty": "Du musst ein Passwort angeben",
+      "First name cannot contain only whitespace": "Der Vorname kann nicht nur aus Leerzeichen bestehen",
+      "firstName should not be empty": "Der Vorname darf nicht leer sein",
+      "Last name cannot contain only whitespace": "Der Nachname darf nicht nur aus Leerzeichen bestehen",
+      "lastName should not be empty": "Der Nachname darf nicht leer sein"
+    }
   }
-}

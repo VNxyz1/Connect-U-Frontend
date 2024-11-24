@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // PrimeNG Modules
@@ -57,7 +57,6 @@ import { AngularRemixIconComponent } from 'angular-remix-icon';
     ToastModule,
     TabMenuModule,
     ImageModule,
-    NgOptimizedImage,
     AngularRemixIconComponent,
   ],
   templateUrl: './styling-showcase-secret-page.component.html',

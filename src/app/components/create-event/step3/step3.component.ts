@@ -11,7 +11,7 @@ import { SliderModule } from 'primeng/slider';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { Subject, takeUntil } from 'rxjs';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { EventData } from '../../../services/event/eventservice';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 
