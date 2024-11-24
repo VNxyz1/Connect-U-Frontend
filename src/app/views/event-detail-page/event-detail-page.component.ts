@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, throwError } from 'rxjs';
 import { ImageModule } from 'primeng/image';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { CardModule } from 'primeng/card';
@@ -35,15 +35,14 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 export class EventDetailPageComponent implements OnInit {
   eventId!: string;
   eventDetails$!: Observable<EventDetails>;
-  preferredGenders!: Gender[] | null;
-  dateAndTime!: string | null;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly eventService: EventService,
     private translocoService: TranslocoService,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('id')!;
@@ -81,21 +80,19 @@ export class EventDetailPageComponent implements OnInit {
         }
       })
       .join(', ');
-  }
+  };
 
-  handleButtonClick(): void {
-    if (this.eventType === EventtypeEnum.public) {
+  handleButtonClick(eventType: EventtypeEnum): void {
+    if (eventType === EventtypeEnum.public) {
       this.joinPublicEvent();
-    } else if (this.eventType === EventtypeEnum.halfPrivate) {
+    } else if (eventType === EventtypeEnum.halfPrivate) {
       this.requestToJoinEvent();
-    } else if (this.eventType === EventtypeEnum.private) {
+    } else if (eventType === EventtypeEnum.private) {
       alert(this.translocoService.translate('eventDetailPageComponent.privateEvent'));
     }
   }
 
-  /**
-   * Joins a public event directly.
-   */
+
   joinPublicEvent(): void {
     this.eventService.addUserToEvent(this.eventId).subscribe({
       next: response => {
@@ -109,9 +106,7 @@ export class EventDetailPageComponent implements OnInit {
     });
   }
 
-  /**
-   * Sends a join request for a half-private event.
-   */
+
   requestToJoinEvent(): void {
     this.eventService.createJoinRequest(this.eventId).subscribe({
       next: response => {
