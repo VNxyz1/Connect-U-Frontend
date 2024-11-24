@@ -230,15 +230,46 @@ h6 {
 
 // tab
 
+/* Highlighted tab styling */
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
-  border-color: $secondaryColor;
+  border-color: $secondaryColor; /* Replace with your color variable or value */
   color: $secondaryColor;
 }
 
-.p-tabmenu:hover {
-  border-color: $normal-grey;
-  color: $normal-grey;
+/* Ensure no spacing around the parent UL */
+.p-tabmenu .p-tabmenu-nav {
+  display: flex; /* Use flexbox for equal distribution */
+  padding: 0;
+  margin: 0; /* Remove any margins */
+  list-style: none; /* Ensure no bullets or default list styling */
+  width: 100%;
+  justify-content: center;
 }
+
+/* Set each LI to take up equal width */
+.p-tabmenu .p-tabmenu-nav li {
+  flex: 1; /* Distribute space equally among all list items */
+  justify-content: center; /* Center the content inside each tab */
+  margin: 0; /* Remove gaps between tabs */
+  padding: 0; /* Ensure no extra padding */
+}
+
+.p-tabmenu .p-tabmenu-nav .p-menuitem-link {
+  width:  100%;
+}
+
+.p-tabmenu .p-tabmenu-nav li a {
+  justify-content: center;
+}
+
+/* Highlighted tab styling */
+.p-tabmenu .p-tabmenu-nav li.p-highlight .p-menuitem-link {
+  color: $secondaryColor; /* Active color */
+  border-bottom: 2px solid $secondaryColor; /* Add visual indication for active tab */
+
+}
+
+// confirm dialogue
 
 .p-confirm-dialog-accept {
   background-color: $successColor;

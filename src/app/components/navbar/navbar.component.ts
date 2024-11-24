@@ -10,7 +10,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { NgClass } from '@angular/common';
 import { ImageModule } from 'primeng/image';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-navbar',
@@ -23,7 +23,6 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
     SidebarModule,
     NgClass,
     ImageModule,
-    TranslocoPipe,
   ],
   templateUrl: './navbar.component.html',
 })
