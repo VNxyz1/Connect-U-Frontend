@@ -5,11 +5,12 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { Button } from 'primeng/button';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [NgOptimizedImage, ImageModule, AngularRemixIconComponent, Button, NgClass],
+  imports: [NgOptimizedImage, ImageModule, AngularRemixIconComponent, Button, NgClass, TranslocoPipe],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {

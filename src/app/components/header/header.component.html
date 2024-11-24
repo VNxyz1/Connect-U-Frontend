@@ -19,13 +19,13 @@
 
       <div class="flex-grow-1 text-center">
         @if (currentUrl?.includes('/my-space')) {
-          <h1 class="m-0">Mein Bereich</h1>
+          <h1 class="m-0">{{ 'headerComponent.mySpace' | transloco }}</h1>
         } @else if (currentUrl?.includes('/my-events')) {
-          <h1 class="m-0">Meine Events</h1>
+          <h1 class="m-0">{{ 'headerComponent.myEvents' | transloco }}</h1>
         } @else if (currentUrl?.includes('/create-event')) {
-          <h1 class="m-0">Event erstellen</h1>
+          <h1 class="m-0">{{ 'headerComponent.createEvent' | transloco }}</h1>
         } @else if (currentUrl?.includes('/search')) {
-          <h1 class="m-0">Event suchen</h1>
+          <h1 class="m-0">{{ 'headerComponent.search' | transloco }}</h1>
         } @else if (currentUrl == '/') {
           <p-image
             src="images/logo_full_dark.svg"

@@ -132,5 +132,17 @@
       "eventCreatedErrorMessage": "Please try again later.",
       "noEventIdError": "No Event ID found. Please try again."
     }
+  },
+  "headerComponent": {
+    "mySpace": "My Space",
+    "myEvents": "My Events",
+    "search": "Search Events",
+    "createEvent": "Create Event"
+  },
+  "navbarComponent": {
+    "mySpace": "My Space",
+    "myEvents": "My Events",
+    "search": "Search",
+    "createEvent": "Create Event"
   }
 }
