@@ -233,6 +233,18 @@
       "firstName should not be empty": "The first name cannot be empty.",
       "Last name cannot contain only whitespace": "The last name cannot consist of only whitespace.",
       "lastName should not be empty": "The last name cannot be empty."
-    }
+    },
+  "headerComponent": {
+    "mySpace": "My Space",
+    "myEvents": "My Events",
+    "search": "Search Events",
+    "createEvent": "Create Event"
+  },
+  "navbarComponent": {
+    "mySpace": "My Space",
+    "myEvents": "My Events",
+    "search": "Search",
+    "createEvent": "Create Event"
   }
+}
 

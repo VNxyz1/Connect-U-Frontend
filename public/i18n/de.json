@@ -234,5 +234,17 @@
       "firstName should not be empty": "Der Vorname darf nicht leer sein",
       "Last name cannot contain only whitespace": "Der Nachname darf nicht nur aus Leerzeichen bestehen",
       "lastName should not be empty": "Der Nachname darf nicht leer sein"
-    }
+    },
+  "headerComponent": {
+    "mySpace": "Mein Bereich",
+    "myEvents": "Meine Events",
+    "search": "Events suchen",
+    "createEvent": "Event erstellen"
+  },
+  "navbarComponent": {
+    "mySpace": "Mein Bereich",
+    "myEvents": "Meine Events",
+    "search": "Suchen",
+    "createEvent": "Event erstellen"
   }
+}
