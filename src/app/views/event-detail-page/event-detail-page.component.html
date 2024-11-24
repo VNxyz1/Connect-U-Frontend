@@ -1,3 +1,4 @@
+<p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />
 @if (eventDetails$ | async; as eventDetails) {
   <div class="xl:ml-8 p-0 m-0 grid">
     <div class="xl:col-7">
@@ -144,12 +145,12 @@
         <p-button
           [raised]="true"
           [label]="
-    eventDetails.type === 1
-      ? ('eventDetailPageComponent.join' | transloco)
-      : eventDetails.type === 2
-      ? ('eventDetailPageComponent.request' | transloco)
-      : ('eventDetailPageComponent.privateEvent' | transloco)
-  "
+            eventDetails.type === 1
+              ? ('eventDetailPageComponent.join' | transloco)
+              : eventDetails.type === 2
+                ? ('eventDetailPageComponent.request' | transloco)
+                : ('eventDetailPageComponent.privateEvent' | transloco)
+          "
           [disabled]="eventDetails.type === 3"
           severity="success"
           (click)="handleButtonClick(eventDetails.type)">

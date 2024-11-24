@@ -15,6 +15,21 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { EventtypeEnum } from '../../interfaces/EventtypeEnum';
 import { catchError } from 'rxjs/operators';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+
+const ERROR_MESSAGE_MAPPING: Record<string, string> = {
+  'Event not found': 'eventDetailPageComponent.eventNotFound',
+  'user is the host of this event': 'eventDetailPageComponent.userIsHost',
+  'Request already exists': 'eventDetailPageComponent.requestAlreadyExists',
+  'User is already a participant in this event':
+    'eventDetailPageComponent.alreadyParticipant',
+  'You do not meet the age requirements for this event.':
+    'eventDetailPageComponent.ageRequirementsNotMet',
+  'Your gender does not match the preferred genders for this event.':
+    'eventDetailPageComponent.genderMismatch',
+  'Event has to be public': 'eventDetailPageComponent.eventNotPublic',
+};
 
 @Component({
   selector: 'app-event-detail-page',
@@ -29,7 +44,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     AsyncPipe,
     TranslocoDatePipe,
     ProgressSpinnerModule,
+    ToastModule,
   ],
+  providers: [MessageService],
   templateUrl: './event-detail-page.component.html',
 })
 export class EventDetailPageComponent implements OnInit {
@@ -41,8 +58,8 @@ export class EventDetailPageComponent implements OnInit {
     private readonly router: Router,
     private readonly eventService: EventService,
     private translocoService: TranslocoService,
-  ) {
-  }
+    private messageService: MessageService,
+  ) {}
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('id')!;
@@ -102,7 +119,11 @@ export class EventDetailPageComponent implements OnInit {
     } else if (eventType === EventtypeEnum.halfPrivate) {
       this.requestToJoinEvent();
     } else if (eventType === EventtypeEnum.private) {
-      alert(this.translocoService.translate('eventDetailPageComponent.privateEvent'));
+      alert(
+        this.translocoService.translate(
+          'eventDetailPageComponent.privateEvent',
+        ),
+      );
     }
   }
 
@@ -115,18 +136,25 @@ export class EventDetailPageComponent implements OnInit {
    */
   joinPublicEvent(): void {
     this.eventService.addUserToEvent(this.eventId).subscribe({
-      next: response => {
-        console.log('Joined public event successfully:', response.message);
-        alert(this.translocoService.translate('eventDetailPageComponent.joined'));
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translocoService.translate(
+            'eventDetailPageComponent.joined',
+          ),
+        });
       },
       error: err => {
-        console.error('Failed to join public event:', err);
-
         const translationKey =
-          ERROR_MESSAGE_MAPPING[err.error?.message] || 'eventDetailPageComponent.genericError';
+          ERROR_MESSAGE_MAPPING[err.error?.message] ||
+          'eventDetailPageComponent.genericError';
 
-        const translatedErrorMessage = this.translocoService.translate(translationKey);
-        alert(translatedErrorMessage);
+        const translatedErrorMessage =
+          this.translocoService.translate(translationKey);
+        this.messageService.add({
+          severity: 'error',
+          summary: translatedErrorMessage,
+        });
       },
     });
   }
@@ -140,28 +168,26 @@ export class EventDetailPageComponent implements OnInit {
    */
   requestToJoinEvent(): void {
     this.eventService.createJoinRequest(this.eventId).subscribe({
-      next: response => {
-        console.log('Request sent successfully:', response.message);
-        alert(this.translocoService.translate('eventDetailPageComponent.requestSent'));
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translocoService.translate(
+            'eventDetailPageComponent.requestSent',
+          ),
+        });
       },
       error: err => {
-        console.error('Failed to send join request:', err);
         const translationKey =
-          ERROR_MESSAGE_MAPPING[err.error?.message] || 'eventDetailPageComponent.genericError';
+          ERROR_MESSAGE_MAPPING[err.error?.message] ||
+          'eventDetailPageComponent.genericError';
 
-        const translatedErrorMessage = this.translocoService.translate(translationKey);
-        alert(translatedErrorMessage);
+        const translatedErrorMessage =
+          this.translocoService.translate(translationKey);
+        this.messageService.add({
+          severity: 'error',
+          summary: translatedErrorMessage,
+        });
       },
     });
   }
 }
-
-const ERROR_MESSAGE_MAPPING: Record<string, string> = {
-  'Event not found': 'eventDetailPageComponent.eventNotFound',
-  'user is the host of this event': 'eventDetailPageComponent.userIsHost',
-  'Request already exists': 'eventDetailPageComponent.requestAlreadyExists',
-  'User is already a participant in this event': 'eventDetailPageComponent.alreadyParticipant',
-  'You do not meet the age requirements for this event.': 'eventDetailPageComponent.ageRequirementsNotMet',
-  'Your gender does not match the preferred genders for this event.': 'eventDetailPageComponent.genderMismatch',
-  'Event has to be public': 'eventDetailPageComponent.eventNotPublic'
-};

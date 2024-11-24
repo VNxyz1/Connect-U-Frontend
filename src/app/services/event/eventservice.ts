@@ -207,7 +207,9 @@ export class EventService {
    * @param eventId - The ID of the event to join.
    * @returns {Observable<{ success: boolean; message: string }>} An observable that emits the server response.
    */
-  createJoinRequest(eventId: string): Observable<{ success: boolean; message: string }> {
+  createJoinRequest(
+    eventId: string,
+  ): Observable<{ success: boolean; message: string }> {
     const url = `request/join/${eventId}`;
     return this.http.post<{ success: boolean; message: string }>(url, {}).pipe(
       map(response => {
@@ -217,7 +219,7 @@ export class EventService {
       catchError(error => {
         console.error('Error creating join request:', error);
         return throwError(() => error);
-      })
+      }),
     );
   }
 
@@ -226,18 +228,25 @@ export class EventService {
    * @param eventId - The ID of the event to join.
    * @returns {Observable<{ success: boolean; message: string }>} An observable that emits the server response.
    */
-  addUserToEvent(eventId: string): Observable<{ success: boolean; message: string }> {
+  addUserToEvent(
+    eventId: string,
+  ): Observable<{ success: boolean; message: string }> {
     const url = `request/join/${eventId}`;
     return this.http.post<{ success: boolean; message: string }>(url, {}).pipe(
       map(response => {
-        console.log('User successfully added to the event participants:', response);
+        console.log(
+          'User successfully added to the event participants:',
+          response,
+        );
         return response;
       }),
       catchError(error => {
-        console.error('Error adding user to the event participants list:', error);
+        console.error(
+          'Error adding user to the event participants list:',
+          error,
+        );
         return throwError(() => error);
-      })
+      }),
     );
   }
-
 }
