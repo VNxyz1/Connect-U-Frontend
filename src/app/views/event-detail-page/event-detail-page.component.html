@@ -101,7 +101,9 @@
             </div>
             <div class="col">
               @if (eventDetails.preferredGenders.length > 0) {
-                <p class="pb-3">{{ getPreferredGendersString(eventDetails.preferredGenders) }}</p>
+                <p class="pb-3">
+                  {{ getPreferredGendersString(eventDetails.preferredGenders) }}
+                </p>
               }
               <p>
                 {{
@@ -149,12 +151,12 @@
     <div class="xl:col-5"></div>
   </div>
 } @else {
-    <div class="flex justify-content-center align-items-center mt-8">
-      <p-progressSpinner
-        styleClass="w-4rem h-4rem"
-        strokeWidth="8"
-        fill="var(--surface-ground)"
-        animationDuration=".5s">
-      </p-progressSpinner>
-    </div>
+  <div class="flex justify-content-center align-items-center mt-8">
+    <p-progressSpinner
+      styleClass="w-4rem h-4rem"
+      strokeWidth="8"
+      fill="var(--surface-ground)"
+      animationDuration=".5s">
+    </p-progressSpinner>
+  </div>
 }

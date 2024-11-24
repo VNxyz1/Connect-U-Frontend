@@ -50,9 +50,8 @@ export class EventDetailPageComponent implements OnInit {
         catchError(err => {
           this.router.navigate(['/404']);
           return throwError(() => err);
-        })
+        }),
       );
-
     }
   }
 
@@ -79,5 +78,5 @@ export class EventDetailPageComponent implements OnInit {
         }
       })
       .join(', ');
-  }
+  };
 }
