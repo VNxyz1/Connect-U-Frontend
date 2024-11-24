@@ -1,13 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { TranslocoService } from '@jsverse/transloco';
 
 type LoginBody = {
   email: string;
   password: string;
 };
+export type RegisterBody = {
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  birthday: string;
+  gender: number;
+  password: string;
+  passwordConfirm: string;
+  agb: boolean;
+};
 
-type LoginResponse = {
+type AuthResponse = {
   access_token: string;
 };
 
@@ -17,7 +30,10 @@ type LoginResponse = {
 export class AuthService {
   private _accessToken: string | undefined;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private translocoService: TranslocoService,
+  ) {}
 
   isLoggedIn(): Observable<boolean> {
     return this.http.get<{ loggedIn: boolean }>('auth/check-login').pipe(
@@ -31,11 +47,24 @@ export class AuthService {
     return this.isLoggedIn().toPromise();
   }
 
-  logIn(body: LoginBody): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>('auth/login', body).pipe(
+  logIn(body: LoginBody): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>('auth/login', body).pipe(
       map(response => {
         this.setAccessToken(response.access_token);
         return response;
+      }),
+    );
+  }
+
+  register(body: RegisterBody): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>('user', body).pipe(
+      catchError(error => {
+        const backendMessage = error.error?.message || 'Unknown error';
+        const translatedMessage = this.translocoService.translate(
+          `registerComponentErrors.${backendMessage}`,
+          { defaultValue: backendMessage },
+        );
+        return throwError(() => new Error(translatedMessage));
       }),
     );
   }

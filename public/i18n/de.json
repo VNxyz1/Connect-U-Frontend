@@ -3,13 +3,13 @@
     "title": "ANMELDEN",
     "noAccountYet": "Noch kein Account?",
     "registerLink": "Hier registrieren!",
-    "passwordInput" : {
+    "passwordInput": {
       "lengthWarning": "Das Passwort muss mindestens 8 Zeichen lang sein.",
       "requiredWarning": "Passwort ist erforderlich.",
       "placeholder": "Passwort",
       "label": "Passwort"
     },
-    "eMailInput" : {
+    "eMailInput": {
       "validEmailWarning": "Bitte eine gültige E-Mail-Adresse eingeben.",
       "requiredWarning": "E-Mail ist erforderlich.",
       "placeholder": "E-Mail",
@@ -26,6 +26,76 @@
     "imageText": {
       "title": "Eventplanung leicht gemacht ‒ für private Treffen oder öffentliche Events.",
       "subtitle": "Plane, Teile, Verbinde."
+    }
+  },
+  "registerComponent": {
+    "title": "Registrieren",
+    "alreadyAccount": "Du hast schon einen Account?",
+    "loginLink": "Hier einloggen!",
+    "usernameInput": {
+      "placeholder": "Nutzername*",
+      "lengthWarning": "Dein Nutzername muss mindestens 3 Zeichen lang sein.",
+      "requiredWarning": "Ein Nutzername ist erforderlich!",
+      "label": "Nutzername"
+    },
+    "emailInput": {
+      "placeholder": "E-Mail*",
+      "validEmailWarning": "Bitte eine gültige E-Mail-Adresse eingeben.",
+      "requiredWarning": "Eine E-Mail-Adresse ist erforderlich.",
+      "label": "E-Mail"
+    },
+    "firstnameInput": {
+      "placeholder": "Vorname*",
+      "lengthWarning": "Dein Vorname muss mindestens 2 Zeichen lang sein.",
+      "requiredWarning": "Ein Vorname ist erforderlich.",
+      "label": "Vorname"
+    },
+    "lastnameInput": {
+      "placeholder": "Nachname*",
+      "lengthWarning": "Dein Nachname muss mindestens 2 Zeichen lang sein.",
+      "requiredWarning": "Ein Nachname ist erforderlich.",
+      "label": "Nachname"
+    },
+    "calendarInput": {
+      "placeholder": "Geburtsdatum*",
+      "requiredWarning": "Geburtsdatum ist erforderlich.",
+      "invalidDayWarning": "Das eingegebene Datum ist ungültig.",
+      "minAgeWarning": "Du musst mindestens 16 Jahre alt sein.",
+      "label": "Geburtsdatum"
+    },
+    "genderInput": {
+      "placeholder": "Geschlecht*",
+      "requiredWarning": "Ein Geschlecht ist erforderlich.",
+      "label": "Geschlecht"
+    },
+    "genderOption": {
+      "male": "Männlich",
+      "female": "Weiblich",
+      "diverse": "Divers"
+    },
+    "passwordInput": {
+      "placeholder": "Passwort*",
+      "lengthWarning": "Das Passwort muss mindestens 8 Zeichen lang sein.",
+      "requiredWarning": "Ein Passwort ist erforderlich.",
+      "label": "Passwort",
+      "toggleVisibility": "Passwort-Sichtbarkeit umschalten"
+    },
+    "confirmPasswordInput": {
+      "placeholder": "Passwort wiederholen*",
+      "requiredWarning": "Bitte wiederhole dein Passwort.",
+      "missMatchWarning": "Die Passwörter stimmen nicht überein.",
+      "label": "Passwort wiederholen"
+    },
+    "agbCheckbox": {
+      "text": "Bitte bestätige unsere ",
+      "agb": "AGBs"
+    },
+    "submitButton": {
+      "label": "Registrieren"
+    },
+    "errorMessages": {
+      "registerFailed": "Registrierung fehlgeschlagen",
+      "registerFailedData" : "Etwas scheint wohl schief gelaufen zu sein!"
     }
   },
   "searchPageComponent": {
@@ -132,8 +202,7 @@
       "eventCreatedError": "Das Erstellen des Events ist fehlgeschlagen.",
       "eventCreatedErrorMessage": "Bitte versuche es zu einem späteren Zeitpunkt erneut.",
       "noEventIdError": "Keine Event-ID gefunden. Bitte versuche es erneut."
-    }
-  },
+    },
   "eventDetailPageComponent": {
     "eventDetails": "Eventdetails",
     "restrictions": "Zutrittsbeschränkungen",
@@ -148,5 +217,22 @@
     "years2": "Jahre",
     "error": "Es ist ein Fehler aufgetreten.",
     "notExist": " Das Event, nach dem du gesucht hast, scheint nicht zu existieren!"
+    },
+  "registerComponentErrors": {
+    "You must accept the terms and conditions to register": "Du musst die AGBs bestätigen, um dich registrieren zu können",
+    "Passwords must match": "Die Passwörter stimmen nicht überein",
+    "You must be at least 16 years old to register.": "Du musst mindestens 16 Jahre alt sein, um dich zu registrieren.",
+    "username is already taken": "Der Benutzername ist bereits vergeben.",
+    "e-mail address is already taken": "Die E-Mail-Adresse wird bereits verwendet.",
+    "passwordConfirm must be longer than or equal to 8 characters": "Das wiederholte Passwort muss mind. 8 Zeichen beinhalten",
+    "password must be longer than or equal to 8 characters": "Das gewählte Passwort muss mind. aus 8 Zeichen bestehen!",
+    "passwordConfirm should not be empty": "Das Passwort muss korrekt wiederholt werden!",
+    "Username cannot contain only whitespace": "Der Nutzername kann nicht nur aus Leerzeichen bestehen",
+    "username should not be empty": "Der Nutzername muss ausgefüllt werden",
+    "password should not be empty": "Du musst ein Passwort angeben",
+    "First name cannot contain only whitespace": "Der Vorname kann nicht nur aus Leerzeichen bestehen",
+    "firstName should not be empty": "Der Vorname darf nicht leer sein",
+    "Last name cannot contain only whitespace": "Der Nachname darf nicht nur aus Leerzeichen bestehen",
+    "lastName should not be empty": "Der Nachname darf nicht leer sein"
+    }
   }
-}
