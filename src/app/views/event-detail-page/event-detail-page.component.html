@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="xl:col-7">
-      <h2>{{ eventDetails.title }}</h2>
+      <h1>{{ eventDetails.title }}</h1>
 
       @for (category of eventDetails.categories; track $index) {
         <p-tag [value]="category.name" [rounded]="true" class="mr-1" />
@@ -78,51 +78,59 @@
             class="mr-1" />
         </div>
       </p-card>
-      <p class="p-1"></p>
-      <p-card styleClass="p-mb-3">
-        <h3>{{ 'eventDetailPageComponent.restrictions' | transloco }}</h3>
-        <div class="grid">
-          <div class="col">
-            @if (eventDetails.preferredGenders.length > 0) {
-              <p class="pb-3" style="color: #ee8418">
-                {{ 'eventDetailPageComponent.gender' | transloco }}
+      @if (
+        eventDetails.startAge ||
+        eventDetails.endAge ||
+        eventDetails.preferredGenders.length > 0
+      ) {
+        <p class="p-1"></p>
+        <p-card styleClass="p-mb-3">
+          <h3>{{ 'eventDetailPageComponent.restrictions' | transloco }}</h3>
+          <div class="grid">
+            <div class="col">
+              @if (eventDetails.preferredGenders.length > 0) {
+                <p class="pb-3" style="color: #ee8418">
+                  {{ 'eventDetailPageComponent.gender' | transloco }}
+                </p>
+              }
+              @if (eventDetails.startAge || eventDetails.endAge) {
+                <p style="color: #ee8418">
+                  {{ 'eventDetailPageComponent.age' | transloco }}
+                </p>
+              }
+            </div>
+            <div class="col">
+              @if (eventDetails.preferredGenders.length > 0) {
+                <p class="pb-3">
+                  {{ getPreferredGendersString(eventDetails.preferredGenders) }}
+                </p>
+              }
+              <p>
+                {{
+                  eventDetails.startAge
+                    ? ('eventDetailPageComponent.from' | transloco) +
+                      ' ' +
+                      eventDetails.startAge +
+                      ' ' +
+                      ('eventDetailPageComponent.years1' | transloco)
+                    : ''
+                }}
               </p>
-            }
-            @if (eventDetails.startAge || eventDetails.endAge) {
-              <p style="color: #ee8418">
-                {{ 'eventDetailPageComponent.age' | transloco }}
+              <p>
+                {{
+                  eventDetails.endAge
+                    ? ('eventDetailPageComponent.to' | transloco) +
+                      ' ' +
+                      eventDetails.endAge +
+                      ' ' +
+                      ('eventDetailPageComponent.years2' | transloco)
+                    : ''
+                }}
               </p>
-            }
+            </div>
           </div>
-          <div class="col">
-            @if (eventDetails.preferredGenders.length > 0) {
-              <p class="pb-3">{{ getPreferredGendersString() }}</p>
-            }
-            <p>
-              {{
-                eventDetails.startAge
-                  ? ('eventDetailPageComponent.from' | transloco) +
-                    ' ' +
-                    eventDetails.startAge +
-                    ' ' +
-                    ('eventDetailPageComponent.years1' | transloco)
-                  : ''
-              }}
-            </p>
-            <p>
-              {{
-                eventDetails.endAge
-                  ? ('eventDetailPageComponent.to' | transloco) +
-                    ' ' +
-                    eventDetails.endAge +
-                    ' ' +
-                    ('eventDetailPageComponent.years2' | transloco)
-                  : ''
-              }}
-            </p>
-          </div>
-        </div>
-      </p-card>
+        </p-card>
+      }
     </div>
     <div class="mt-3 xl:col-2 sm:mb-8">
       <div class="xl:fixed xl:bottom-3 xl:right-3 xl:z-10">
@@ -151,12 +159,12 @@
     <div class="xl:col-5"></div>
   </div>
 } @else {
-  <div class="ml-3">
-    <h2>
-      {{ 'eventDetailPageComponent.error' | transloco }}
-    </h2>
-    <p>
-      {{ 'eventDetailPageComponent.notExist' | transloco }}
-    </p>
+  <div class="flex justify-content-center align-items-center mt-8">
+    <p-progressSpinner
+      styleClass="w-4rem h-4rem"
+      strokeWidth="8"
+      fill="var(--surface-ground)"
+      animationDuration=".5s">
+    </p-progressSpinner>
   </div>
 }

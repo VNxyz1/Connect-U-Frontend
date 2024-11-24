@@ -13,6 +13,8 @@ import { AsyncPipe } from '@angular/common';
 import { Gender, GenderEnum } from '../../interfaces/Gender';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { EventtypeEnum } from '../../interfaces/EventtypeEnum';
+import { catchError } from 'rxjs/operators';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-event-detail-page',
@@ -26,18 +28,19 @@ import { EventtypeEnum } from '../../interfaces/EventtypeEnum';
     AngularRemixIconComponent,
     AsyncPipe,
     TranslocoDatePipe,
+    ProgressSpinnerModule,
   ],
   templateUrl: './event-detail-page.component.html',
 })
 export class EventDetailPageComponent implements OnInit {
   eventId!: string;
   eventDetails$!: Observable<EventDetails>;
-  eventType!: EventtypeEnum | null;
   preferredGenders!: Gender[] | null;
   dateAndTime!: string | null;
 
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly router: Router,
     private readonly eventService: EventService,
     private translocoService: TranslocoService,
   ) {}
@@ -46,28 +49,21 @@ export class EventDetailPageComponent implements OnInit {
     this.eventId = this.route.snapshot.paramMap.get('id')!;
 
     if (this.eventId) {
-      this.eventDetails$ = this.eventService.getEventDetails(this.eventId);
+      this.eventDetails$ = this.eventService.getEventDetails(this.eventId).pipe(
+        catchError(err => {
+          this.router.navigate(['/404']);
+          return throwError(() => err);
+        }),
+      );
     }
-
-    this.eventDetails$.subscribe(eventDetails => {
-      this.preferredGenders = eventDetails.preferredGenders;
-      this.dateAndTime = eventDetails.dateAndTime;
-      this.eventType = eventDetails.type;
-    });
   }
 
-  /**
-   * Converts the list of preferred genders into a comma-separated string for display.
-   * Translates each gender into the current language using TranslocoService.
-   *
-   * @returns {string} - A comma-separated string of translated gender names.
-   */
-  getPreferredGendersString(): string {
-    if (!this.preferredGenders || this.preferredGenders.length === 0) {
+  getPreferredGendersString = (preferredGenders: Gender[]): string => {
+    if (!preferredGenders || preferredGenders.length === 0) {
       return '';
     }
 
-    return this.preferredGenders
+    return preferredGenders
       .map(gender => {
         switch (gender.gender) {
           case GenderEnum.Male:
