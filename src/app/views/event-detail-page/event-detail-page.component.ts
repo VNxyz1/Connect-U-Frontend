@@ -101,7 +101,12 @@ export class EventDetailPageComponent implements OnInit {
       },
       error: err => {
         console.error('Failed to join public event:', err);
-        alert(this.translocoService.translate('eventDetailPageComponent.joinError'));
+
+        const translationKey =
+          ERROR_MESSAGE_MAPPING[err.error?.message] || 'eventDetailPageComponent.genericError';
+
+        const translatedErrorMessage = this.translocoService.translate(translationKey);
+        alert(translatedErrorMessage);
       },
     });
   }
@@ -115,8 +120,22 @@ export class EventDetailPageComponent implements OnInit {
       },
       error: err => {
         console.error('Failed to send join request:', err);
-        alert(this.translocoService.translate('eventDetailPageComponent.requestError'));
+        const translationKey =
+          ERROR_MESSAGE_MAPPING[err.error?.message] || 'eventDetailPageComponent.genericError';
+
+        const translatedErrorMessage = this.translocoService.translate(translationKey);
+        alert(translatedErrorMessage);
       },
     });
   }
 }
+
+const ERROR_MESSAGE_MAPPING: Record<string, string> = {
+  'Event not found': 'eventDetailPageComponent.eventNotFound',
+  'user is the host of this event': 'eventDetailPageComponent.userIsHost',
+  'Request already exists': 'eventDetailPageComponent.requestAlreadyExists',
+  'User is already a participant in this event': 'eventDetailPageComponent.alreadyParticipant',
+  'You do not meet the age requirements for this event.': 'eventDetailPageComponent.ageRequirementsNotMet',
+  'Your gender does not match the preferred genders for this event.': 'eventDetailPageComponent.genderMismatch',
+  'Event has to be public': 'eventDetailPageComponent.eventNotPublic'
+};

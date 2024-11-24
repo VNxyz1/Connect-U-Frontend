@@ -218,7 +218,15 @@
     "error": "Es ist ein Fehler aufgetreten.",
     "notExist": " Das Event, nach dem du gesucht hast, scheint nicht zu existieren!",
     "join": "Event beitreten",
-    "request": "Anfrage schicken"
+    "request": "Anfrage schicken",
+    "eventNotFound": "Das gesuchte Event existiert nicht.",
+    "userIsHost": "Du bist der Gastgeber dieses Events und kannst nicht teilnehmen.",
+    "alreadyParticipant": "Du bist bereits Teilnehmer dieses Events.",
+    "ageRequirementsNotMet": "Du erfüllst nicht die Altersanforderungen für dieses Event.",
+    "genderMismatch": "Dein Geschlecht entspricht nicht den bevorzugten Geschlechtern für dieses Event.",
+    "eventNotPublic": "Dieses Event ist nicht öffentlich und kann nicht direkt beigetreten werden.",
+    "requestAlreadyExists": "Du hast bereits eine Anfrage an dieses Event verschickt.",
+    "genericError": "Bei deiner Anfrage ist etwas schief gelaufen!"
   },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "Du musst die AGBs bestätigen, um dich registrieren zu können",

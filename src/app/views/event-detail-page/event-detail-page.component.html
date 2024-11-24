@@ -144,15 +144,15 @@
         <p-button
           [raised]="true"
           [label]="
-    eventType === 1
+    eventDetails.type === 1
       ? ('eventDetailPageComponent.join' | transloco)
-      : eventType === 2
+      : eventDetails.type === 2
       ? ('eventDetailPageComponent.request' | transloco)
       : ('eventDetailPageComponent.privateEvent' | transloco)
   "
-          [disabled]="eventType === 3"
+          [disabled]="eventDetails.type === 3"
           severity="success"
-          (click)="handleButtonClick()">
+          (click)="handleButtonClick(eventDetails.type)">
         </p-button>
       </div>
     </div>
