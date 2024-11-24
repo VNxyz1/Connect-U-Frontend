@@ -19,8 +19,7 @@ import {TranslocoPipe} from '@jsverse/transloco';
 export class GuestEventsComponent implements OnInit{
   events$!: Observable<EventCardItem[]>;
 
-  constructor(private eventService: EventService) {
-  }
+  constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
     this.getGuestEvents();

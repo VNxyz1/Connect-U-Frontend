@@ -1,8 +1,8 @@
 <div class="content">
   <!-- Tab Navigation -->
-  <div class="grid justify-content-center bg-white ">
+  <div class="grid justify-content-center bg-white">
     <div class="col-12 flex justify-content-between position-relative pb-0">
-      <!-- Button Gast -->
+      <!-- Button guest -->
       <button
         pButton
         [label]="'myEventPageComponent.guest.title' | transloco"
@@ -15,7 +15,7 @@
         (click)="setActiveTab('gast')"
       ></button>
 
-      <!-- Button Erstellt -->
+      <!-- Button hosted -->
       <button
         pButton
         [label]="'myEventPageComponent.hosted.title'| transloco"
@@ -28,7 +28,7 @@
         (click)="setActiveTab('erstellt')"
       ></button>
 
-      <!-- Button Favorisiert -->
+      <!-- Button Favorites -->
       <button
         pButton
         [label]="'myEventPageComponent.favorite.title' | transloco"
