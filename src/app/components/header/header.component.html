@@ -1,7 +1,7 @@
 <div class="mt-6 border-bottom-2 border-gray-50 z-4">
   <section class="flex flex-column gap-3 mb-4">
     <div class="flex align-items-center justify-content-between w-full">
-      <div class="flex align-items-center">
+      <div [ngClass]="{ 'md:hidden': !currentUrl?.includes('/create-event') }" class="align-items-center">
         @if (currentUrl !== '/') {
           <p-button
             [text]="true"

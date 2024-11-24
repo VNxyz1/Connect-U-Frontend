@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { Button } from 'primeng/button';
 import { NavigationEnd, Router } from '@angular/router';
@@ -9,40 +9,58 @@ import { MenuItem } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
 import { NgClass } from '@angular/common';
 import { ImageModule } from 'primeng/image';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [TabMenuModule, Button, AngularRemixIconComponent, MenuModule, SidebarModule, NgClass, ImageModule],
+  imports: [
+    TabMenuModule,
+    Button,
+    AngularRemixIconComponent,
+    MenuModule,
+    SidebarModule,
+    NgClass,
+    ImageModule,
+  ],
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent implements OnInit {
-  currentUrl: string | undefined;
+  @Input() currentUrl: string | undefined;
   items: MenuItem[] = [];
   isMd: boolean = false;
+  isMobile: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private breakpointObserver: BreakpointObserver
+  ) {
+    this.updateMenuItems();
+  }
 
   ngOnInit() {
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        this.currentUrl = event.url;
-        console.log(this.currentUrl); // Log the current route
-        this.updateMenuItems(); // Update the desktop menu items based on current URL
+        this.currentUrl = event.url; // Update currentUrl first
+        this.updateMenuItems(); // Then update menu items
       });
 
+    this.breakpointObserver
+      .observe([
+        Breakpoints.Handset, // For mobile devices
+        '(max-width: 1085px)', // Custom breakpoint for medium devices
+      ])
+      .subscribe((result) => {
+        const breakpoints = result.breakpoints;
+        this.isMobile = breakpoints[Breakpoints.Handset] || false; // Check if it's a handset
+        this.isMd = breakpoints['(max-width: 1085px)'] || false; // Check if width is <= 1085px
+      });
     this.updateMenuItems(); // Initialize the desktop menu items
   }
 
-  @HostListener('window:resize', [])
-  checkScreenSize(): void {
-    this.isMd = window.innerWidth < 1085; // Adjust the breakpoint as necessary
-  }
-
-
   getSeverity(
-    path: string,
+    path: string
   ):
     | 'success'
     | 'info'
@@ -71,9 +89,8 @@ export class NavbarComponent implements OnInit {
     };
 
     const baseIcon = iconBaseMap[path];
-    const icon = this.currentUrl === path ? `${baseIcon}-fill` : `${baseIcon}-line`;
 
-    return icon;
+    return this.currentUrl === path ? `${baseIcon}-fill` : `${baseIcon}-line`;
   }
 
   private updateMenuItems() {

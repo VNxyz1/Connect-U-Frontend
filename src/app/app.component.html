@@ -1,6 +1,4 @@
-<div
-  class="grid nested-grid h-screen"
-  [ngClass]="{ 'with-navbar': !currentUrl?.includes('/create-event') }">
+<div class="h-screen flex flex-column">
   <!-- Header -->
   <div
     class="col-12"
@@ -9,18 +7,26 @@
   </div>
 
   <!-- Content -->
-  <div class="col-12 grid md:grid-nogutter h-full">
+  <div
+    class="col-12 flex-grow-1 flex"
+    [ngClass]="{
+      'grid md:grid-nogutter': !currentUrl?.includes('/create-event'),
+      'justify-content-center items-center': currentUrl?.includes('/create-event')
+    }">
     <!-- Sidebar / Navbar -->
     @if (!currentUrl?.includes('/create-event')) {
-      <div class="col-12 md:col-3 md:flex md:flex-column px-0 bg-light-grey">
-        <app-navbar></app-navbar>
+      <div class="col-12 md:col-3 md:flex md:flex-column bg-light-grey justify-content-center py-0 px-0">
+        <app-navbar [currentUrl]="currentUrl"></app-navbar>
       </div>
     }
 
     <!-- Main Content -->
     <div
-      class="col-12 px-0"
-      [ngClass]="{ 'md:col-9': !currentUrl?.includes('/create-event') }">
+      class="col-12 p-2"
+      [ngClass]="{
+        'md:col-9': !currentUrl?.includes('/create-event'),
+        'justify-content-center items-center h-full w-full': currentUrl?.includes('/create-event')
+      }">
       <router-outlet></router-outlet>
     </div>
   </div>
