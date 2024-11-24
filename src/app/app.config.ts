@@ -2,7 +2,6 @@ import {
   ApplicationConfig,
   provideZoneChangeDetection,
   isDevMode,
-  PLATFORM_ID,
   importProvidersFrom,
 } from '@angular/core';
 import {
@@ -12,7 +11,6 @@ import {
 } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
 import {
   provideHttpClient,
   withFetch,
@@ -48,6 +46,8 @@ import {
   RiAlertLine,
   RiArrowGoBackLine,
   RiCheckboxLine,
+  RiEyeLine,
+  RiEyeOffLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
@@ -80,13 +80,14 @@ const icons = {
   RiAlertLine,
   RiArrowGoBackLine,
   RiCheckboxLine,
+  RiEyeLine,
+  RiEyeOffLine,
 };
 
 export const translocoConfig = {
   config: {
     availableLangs: ['en-US', 'de'],
     defaultLang: 'de',
-    // Remove this option if your application doesn't support changing language in runtime.
     reRenderOnLangChange: true,
     prodMode: !isDevMode(),
   },
@@ -101,7 +102,6 @@ export const appConfig: ApplicationConfig = {
       withComponentInputBinding(),
       withRouterConfig({ paramsInheritanceStrategy: 'always' }),
     ),
-    provideClientHydration(),
     provideHttpClient(
       withFetch(),
       withInterceptors([apiInterceptor, jwtInterceptor]),

@@ -5,8 +5,8 @@ import { TagModule } from 'primeng/tag';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { SkeletonModule } from 'primeng/skeleton';
 import { EventCardItem } from '../../interfaces/EventCardItem';
-import { DatePipe } from '@angular/common';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-event-card',
@@ -17,8 +17,8 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
     TagModule,
     AngularRemixIconComponent,
     SkeletonModule,
-    DatePipe,
     TranslocoDatePipe,
+    RouterLink,
   ],
   templateUrl: './event-card.component.html',
 })
@@ -38,8 +38,8 @@ export class EventCardComponent {
 
   toImageUrl(url: string | undefined | null): string {
     if (url && url.trim().length > 0) {
-      return `url('images/${url}')`;
+      return `url('/images/${url}')`;
     }
-    return "url('images/empty.png')";
+    return "url('/images/empty.png')";
   }
 }
