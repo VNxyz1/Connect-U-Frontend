@@ -57,6 +57,13 @@ export class EventDetailPageComponent implements OnInit {
     }
   }
 
+  /**
+   * Converts the list of preferred genders for an event to a human-readable string.
+   * This method maps gender values (e.g., Male, Female, Diverse) to their localized string representation.
+   *
+   * @param {Gender[]} preferredGenders - The array of preferred genders for the event.
+   * @returns {string} A comma-separated string of the event's preferred genders.
+   */
   getPreferredGendersString = (preferredGenders: Gender[]): string => {
     if (!preferredGenders || preferredGenders.length === 0) {
       return '';
@@ -82,6 +89,13 @@ export class EventDetailPageComponent implements OnInit {
       .join(', ');
   };
 
+  /**
+   * Handles the event type-based logic for joining or requesting to join an event.
+   * Depending on the event type, it will either join a public event, send a request to join a half-private event,
+   * or alert the user that the event is private.
+   *
+   * @param {EventtypeEnum} eventType - The type of event (public, half-private, private).
+   */
   handleButtonClick(eventType: EventtypeEnum): void {
     if (eventType === EventtypeEnum.public) {
       this.joinPublicEvent();
@@ -92,7 +106,13 @@ export class EventDetailPageComponent implements OnInit {
     }
   }
 
-
+  /**
+   * Adds the current user to the event's participant list if the event is public.
+   * It makes a request to the event service to add the user to the event, and displays a success message if successful.
+   * In case of an error, it maps the error message to a user-friendly translation and displays it.
+   *
+   * @returns {Observable} The observable from the event service that handles the user join request.
+   */
   joinPublicEvent(): void {
     this.eventService.addUserToEvent(this.eventId).subscribe({
       next: response => {
@@ -111,7 +131,13 @@ export class EventDetailPageComponent implements OnInit {
     });
   }
 
-
+  /**
+   * Sends a join request for a half-private event.
+   * It makes a request to the event service to create the join request, and displays a success message if successful.
+   * In case of an error, it maps the error message to a user-friendly translation and displays it.
+   *
+   * @returns {Observable} The observable from the event service that handles the join request.
+   */
   requestToJoinEvent(): void {
     this.eventService.createJoinRequest(this.eventId).subscribe({
       next: response => {
