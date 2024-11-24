@@ -26,7 +26,7 @@
           <h1 class="m-0">Event erstellen</h1>
         } @else if (currentUrl == '/search') {
           <h1 class="m-0">Event suchen</h1>
-        } @else if (currentUrl == '/') {
+        } @else if (currentUrl == '/' || currentUrl?.includes('/gtc')) {
           <p-image
             src="images/logo_full_dark.svg"
             width="250"
