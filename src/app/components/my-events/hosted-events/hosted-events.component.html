@@ -1,4 +1,4 @@
-<div class="mb-5 grid">
+<div class="mb-5">
   @if (events$ | async; as events) {
     @for (event of events; track $index) {
       <div
@@ -11,7 +11,7 @@
       <h3 class="text-lg font-bold mb-4">
         {{'myEventPageComponent.hosted.text'| transloco}}
       </h3>
-      <h4 class="text-base mb-4">{{'myEventPageComponent.hosted.todo'| transloco}}</h4>
+      <h4 class="text-center mb-4">{{'myEventPageComponent.hosted.todo'| transloco}}</h4>
       <rmx-icon
         class="sm:hidden text-primary mt-2 "
         style="width: 30px; height: 30px"
