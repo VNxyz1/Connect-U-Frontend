@@ -7,4 +7,4 @@ import { TranslocoPipe } from '@jsverse/transloco';
   imports: [TranslocoPipe],
   templateUrl: './terms-and-conditions-page.component.html',
 })
-export class TermsAndConditionsPageComponent {}
+export class LegalDisclosurePageComponent {}
