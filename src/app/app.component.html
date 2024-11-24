@@ -1,11 +1,27 @@
-<div class="grid">
-  <div class="col-12">
+<div
+  class="grid nested-grid h-screen"
+  [ngClass]="{ 'with-navbar': !currentUrl?.includes('/create-event') }">
+  <!-- Header -->
+  <div
+    class="col-12"
+    [ngClass]="{ 'md:col-offset-2 md:col-10': !currentUrl?.includes('/create-event') }">
     <app-header></app-header>
   </div>
-  <div class="col-12 md:col-2 md:flex md:flex-column md:order-1">
-    <app-navbar></app-navbar>
-  </div>
-  <div class="col-12 md:col-10 md:order-2 px-0">
-    <router-outlet></router-outlet>
+
+  <!-- Content -->
+  <div class="col-12 grid md:grid-nogutter h-full">
+    <!-- Sidebar / Navbar -->
+    @if (!currentUrl?.includes('/create-event')) {
+      <div class="col-12 md:col-3 md:flex md:flex-column px-0 bg-light-grey">
+        <app-navbar></app-navbar>
+      </div>
+    }
+
+    <!-- Main Content -->
+    <div
+      class="col-12 px-0"
+      [ngClass]="{ 'md:col-9': !currentUrl?.includes('/create-event') }">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
-<!-- Tab-bar for Mobile-View -->
 @if (!currentUrl?.includes('/create-event')) {
+  <!-- Tab-bar for Mobile-View -->
   <div
     class="border-top-2 border-gray-50 bg-white-alpha-90 fixed z-4 bottom-0 w-full grid align-items-center justify-content-center p-2 md:hidden">
     <div class="col-12 sm:col-12">
@@ -61,38 +61,43 @@
       </div>
     </div>
   </div>
-  <!-- Sidebar für Desktop-Ansicht -->
-  <div
-    class="col-12 bg-black-alpha-20 hidden md:flex flex-column align-items-start h-full">
-    <p-button
-      label="Startseite"
-      [rounded]="false"
-      [text]="true"
-      class="w-full mb-2"
-      (click)="navigateTo('/')" />
-    <p-button
-      label="Event suchen"
-      [rounded]="false"
-      [text]="true"
-      class="w-full mb-2"
-      (click)="navigateTo('/search')" />
-    <p-button
-      label="Event erstellen"
-      [rounded]="false"
-      [text]="true"
-      class="w-full mb-2"
-      (click)="navigateTo('/create-event')" />
-    <p-button
-      label="Meine Events"
-      [rounded]="false"
-      [text]="true"
-      class="w-full mb-2"
-      (click)="navigateTo('/my-events')" />
-    <p-button
-      label="Mein Bereich"
-      [rounded]="false"
-      [text]="true"
-      class="w-full"
-      (click)="navigateTo('my-space')" />
+
+  <!-- Sidebar for Desktop-View -->
+  <div class="hidden md:flex md:flex-column align-items-start">
+    <p-sidebar
+      modal="false"
+      dismissible="false"
+      showCloseIcon="false"
+      closeOnEscape="false"
+      [visible]="true"
+      position="left"
+      styleClass="w-2 p-0 m-0 h-full flex flex-column justify-content-between">
+      <div class="flex flex-column align-items-center pt-3 pb-3">
+        <p-image
+          src="images/logo_full_dark.svg"
+          [width]="isMd ? '120' : '150'"
+          alt="Connect-U Logo"
+          class="logo-container" />
+      </div>
+      <p-menu [model]="items" styleClass="border-none w-full p-0 m-0">
+        <ng-template pTemplate="item" let-item>
+          @if (item.route) {
+            <a
+              [routerLink]="item.route"
+              class="p-menuitem-link flex align-items-center">
+              <rmx-icon
+                style="width: 18px; height: 18px"
+                class="hidden lg:block"
+                [name]="item.icon"
+                [ngClass]="{ 'color-secondary': currentUrl === item.route }">
+              </rmx-icon>
+              <span class="ml-0 lg:ml-3 p-0 m-0" [ngClass]="{ 'color-secondary': currentUrl === item.route }">
+            {{ item.label }}
+          </span>
+            </a>
+          }
+        </ng-template>
+      </p-menu>
+    </p-sidebar>
   </div>
 }
