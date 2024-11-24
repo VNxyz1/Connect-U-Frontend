@@ -8,7 +8,7 @@
         [label]="'myEventPageComponent.guest.title' | transloco"
         class="p-button-text text-md w-full text-center border-0 border-gray-50 pb-2 relative"
         [ngClass]="{
-          'text-primary border-primary border-bottom-3': activeTab === 'gast',
+          'color-secondary border-primary border-bottom-3': activeTab === 'gast',
           'border-gray-300 border-bottom-1': activeTab !== 'gast'
         }"
         style="border-radius: 0"
@@ -21,7 +21,7 @@
         [label]="'myEventPageComponent.hosted.title'| transloco"
         class="p-button-text text-center text-md w-full border-0 border-gray-50 pb-2 relative"
         [ngClass]="{
-          'text-primary border-primary border-bottom-3': activeTab === 'erstellt',
+          'color-secondary border-primary border-bottom-3': activeTab === 'erstellt',
           'border-gray-300 border-bottom-1': activeTab !== 'erstellt'
         }"
         style="border-radius: 0"
@@ -34,7 +34,7 @@
         [label]="'myEventPageComponent.favorite.title' | transloco"
         class="p-button-text text-md w-full text-center border-gray-50 border-0 pb-2 relative"
         [ngClass]="{
-          'text-primary border-primary border-bottom-3': activeTab === 'favorisiert',
+          'color-secondary border-primary border-bottom-3': activeTab === 'favorisiert',
           'border-gray-300 border-bottom-1': activeTab !== 'favorisiert'
         }"
         style="border-radius: 0"

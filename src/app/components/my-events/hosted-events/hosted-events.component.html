@@ -1,20 +1,25 @@
-<div class="mb-5">
+<div class="grid">
   @if (events$ | async; as events) {
     @for (event of events; track $index) {
+      <!-- Karte -->
       <div
-        class="col-12 sm:col-6 lg:col-4 flex justify-content-center mb-3">
-        <app-event-card [event]="event"/>
+        class="col-12 sm:col-6 lg:col-4 flex justify-content-center mb-3 fadein animation-duration-300 animation-iteration-1">
+        <app-event-card [event]="event" />
       </div>
     }
-  }@else  {
-    <div class=" flex flex-column align-items-center text-center">
+  } @else {
+    <!-- Nachricht, wenn keine Events vorhanden sind -->
+    <div class="col-12 flex flex-column align-items-center text-center">
       <h3 class="text-lg font-bold mb-4">
-        {{'myEventPageComponent.hosted.text'| transloco}}
+        {{ 'myEventPageComponent.hosted.text' | transloco }}
       </h3>
-      <h4 class="text-center mb-4">{{'myEventPageComponent.hosted.todo'| transloco}}</h4>
+      <h4 class="text-center mb-4">
+        {{ 'myEventPageComponent.hosted.todo' | transloco }}
+      </h4>
+      <!-- Pfeil -->
       <rmx-icon
-        class="sm:hidden text-primary mt-2 "
-        style="width: 30px; height: 30px"
+        class="sm:hidden color-secondary mt-2 zoomindown animation-duration-2000 animation-iteration-infinite"
+        style="width: 45px; height: 45px"
         name="arrow-down-line"
       ></rmx-icon>
     </div>
