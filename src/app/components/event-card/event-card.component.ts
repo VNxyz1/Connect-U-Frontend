@@ -7,6 +7,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { RouterLink } from '@angular/router';
+import { TranslocoDirective } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-event-card',
@@ -19,12 +20,25 @@ import { RouterLink } from '@angular/router';
     SkeletonModule,
     TranslocoDatePipe,
     RouterLink,
+    TranslocoDirective,
   ],
   templateUrl: './event-card.component.html',
 })
 export class EventCardComponent {
   @Input({ transform: booleanAttribute }) skeleton: boolean = false;
   @Input() event!: EventCardItem;
+
+  // placeholder
+  ahhArr: string[] = [
+    'Placeholder',
+    'cause_missing_in_Backend',
+    'sdadsaddasddsdasdasdasd',
+    'asdsadasd',
+    'asdsadasd',
+    'asdsadasd',
+    'asdsadasd',
+    'asdsadasd',
+  ].slice(0, Math.floor(Math.random() * (7 - 1 + 1) + 1));
 
   constructor() {}
 
