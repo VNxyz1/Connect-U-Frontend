@@ -15,6 +15,8 @@ import { Step1Component } from './components/create-event/step1/step1.component'
 import { Step2Component } from './components/create-event/step2/step2.component';
 import { Step3Component } from './components/create-event/step3/step3.component';
 import { isNotLoggedInGuard } from './utils/guards/is-not-logged-in.guard';
+import { LegalDisclosurePageComponent } from './views/legal-disclosure-page/legal-disclosure-page.component';
+import { PrivacyPolicyPageComponent } from './views/privacy-policy-page/privacy-policy-page.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -85,10 +87,23 @@ export const routes: Routes = [
     title: 'Styling | Connect-U',
     component: StylingShowcaseSecretPageComponent,
   },
-
   {
-    path: '**',
+    path: 'legal-disclosure',
+    title: 'Legal Disclosure | Connect-U',
+    component: LegalDisclosurePageComponent,
+  },
+  {
+    path: 'privacy-policy',
+    title: 'Privacy Policy | Connect-U',
+    component: PrivacyPolicyPageComponent,
+  },
+  {
+    path: '404',
     title: 'Not Found | Connect-U',
     component: NotFoundPageComponent,
+  },
+  {
+    path: '**',
+    redirectTo: '404',
   },
 ];

@@ -262,5 +262,349 @@
       "title": "Favorisiert",
       "text": "Du hast zur Zeit keine favorisierten Events, füge doch welche hinzu!"
     }
+  },
+  "privacyPolicy": {
+    "title": "Datenschutzerklärung",
+    "section1": {
+      "title": "1. Datenschutz auf einen Blick",
+      "generalNotes": {
+        "title": "Allgemeine Hinweise",
+        "content": "Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgeführten Datenschutzerklärung."
+      },
+      "dataCollection": {
+        "title": "Datenerfassung auf dieser Website",
+        "responsible": {
+          "title": "Wer ist verantwortlich für die Datenerfassung auf dieser Website?",
+          "content": "Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt „Hinweis zur Verantwortlichen Stelle“ in dieser Datenschutzerklärung entnehmen."
+        },
+        "how": {
+          "title": "Wie erfassen wir Ihre Daten?",
+          "content1": "Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in ein Kontaktformular eingeben.",
+          "content2": "Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z. B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Sie diese Website betreten."
+        }
+      },
+      "dataUsage": {
+        "title": "Wofür nutzen wir Ihre Daten?",
+        "content": "Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden. Sofern über die Website Verträge geschlossen oder angebahnt werden können, werden die übermittelten Daten auch für Vertragsangebote, Bestellungen oder sonstige Auftragsanfragen verarbeitet."
+      },
+      "rights": {
+        "title": "Welche Rechte haben Sie bezüglich Ihrer Daten?",
+        "content": "Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen. Wenn Sie eine Einwilligung zur Datenverarbeitung erteilt haben, können Sie diese Einwilligung jederzeit für die Zukunft widerrufen. Außerdem haben Sie das Recht, unter bestimmten Umständen die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Des Weiteren steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu.",
+        "additionalInfo": "Hierzu sowie zu weiteren Fragen zum Thema Datenschutz können Sie sich jederzeit an uns wenden."
+      },
+      "tools": {
+        "title": "Analyse-Tools und Tools von Drittanbietern",
+        "content1": "Beim Besuch dieser Website kann Ihr Surf-Verhalten statistisch ausgewertet werden. Das geschieht vor allem mit sogenannten Analyseprogrammen.",
+        "content2": "Detaillierte Informationen zu diesen Analyseprogrammen finden Sie in der folgenden Datenschutzerklärung."
+      }
+    },
+    "section2": {
+      "title": "2. Hosting",
+      "hosting": {
+        "intro": "Wir hosten die Inhalte unserer Website bei folgendem Anbieter:"
+      },
+      "externalHosting": {
+        "title": "Externes Hosting",
+        "content1": "Diese Website wird extern gehostet. Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des Hosters / der Hoster gespeichert. Hierbei kann es sich v. a. um IP-Adressen, Kontaktanfragen, Meta- und Kommunikationsdaten, Vertragsdaten, Kontaktdaten, Namen, Websitezugriffe und sonstige Daten, die über eine Website generiert werden, handeln.",
+        "content2": "Das externe Hosting erfolgt zum Zwecke der Vertragserfüllung gegenüber unseren potenziellen und bestehenden Kunden (Art. 6 Abs. 1 lit. b DSGVO) und im Interesse einer sicheren, schnellen und effizienten Bereitstellung unseres Online-Angebots durch einen professionellen Anbieter (Art. 6 Abs. 1 lit. f DSGVO). Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG, soweit die Einwilligung die Speicherung von Cookies oder den Zugriff auf Informationen im Endgerät des Nutzers (z. B. Device-Fingerprinting) im Sinne des TDDDG umfasst. Die Einwilligung ist jederzeit widerrufbar.",
+        "content3": "Unser(e) Hoster wird bzw. werden Ihre Daten nur insoweit verarbeiten, wie dies zur Erfüllung seiner Leistungspflichten erforderlich ist und unsere Weisungen in Bezug auf diese Daten befolgen.",
+        "host": "Wir setzen folgende(n) Hoster ein:\nKeinen"
+      },
+      "dataProcessing": {
+        "title": "Auftragsverarbeitung",
+        "content": "Wir haben einen Vertrag über Auftragsverarbeitung (AVV) zur Nutzung des oben genannten Dienstes geschlossen. Hierbei handelt es sich um einen datenschutzrechtlich vorgeschriebenen Vertrag, der gewährleistet, dass dieser die personenbezogenen Daten unserer Websitebesucher nur nach unseren Weisungen und unter Einhaltung der DSGVO verarbeitet."
+      }
+    },
+    "section3": {
+      "title": "3. Allgemeine Hinweise und Pflichtinformationen",
+      "dataProtection": {
+        "title": "Datenschutz",
+        "content1": "Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.",
+        "content2": "Wenn Sie diese Website benutzen, werden verschiedene personenbezogene Daten erhoben. Personenbezogene Daten sind Daten, mit denen Sie persönlich identifiziert werden können. Die vorliegende Datenschutzerklärung erläutert, welche Daten wir erheben und wofür wir sie nutzen. Sie erläutert auch, wie und zu welchem Zweck das geschieht.",
+        "content3": "Wir weisen darauf hin, dass die Datenübertragung im Internet (z. B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich."
+      },
+      "responsibleParty": {
+        "title": "Hinweis zur verantwortlichen Stelle",
+        "intro": "Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:",
+        "details": "THm Gießen\nTelefon: 123423414 124\nE-Mail: thm.giessen@web.com",
+        "definition": "Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z. B. Namen, E-Mail-Adressen o. Ä.) entscheidet."
+      },
+      "storageDuration": {
+        "title": "Speicherdauer",
+        "content": "Soweit innerhalb dieser Datenschutzerklärung keine speziellere Speicherdauer genannt wurde, verbleiben Ihre personenbezogenen Daten bei uns, bis der Zweck für die Datenverarbeitung entfällt. Wenn Sie ein berechtigtes Löschersuchen geltend machen oder eine Einwilligung zur Datenverarbeitung widerrufen, werden Ihre Daten gelöscht, sofern wir keine anderen rechtlich zulässigen Gründe für die Speicherung Ihrer personenbezogenen Daten haben (z. B. steuer- oder handelsrechtliche Aufbewahrungsfristen); im letztgenannten Fall erfolgt die Löschung nach Fortfall dieser Gründe."
+      },
+      "legalBasis": {
+        "title": "Allgemeine Hinweise zu den Rechtsgrundlagen der Datenverarbeitung auf dieser Website",
+        "content": "Sofern Sie in die Datenverarbeitung eingewilligt haben, verarbeiten wir Ihre personenbezogenen Daten auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO bzw. Art. 9 Abs. 2 lit. a DSGVO, sofern besondere Datenkategorien nach Art. 9 Abs. 1 DSGVO verarbeitet werden. Im Falle einer ausdrücklichen Einwilligung in die Übertragung personenbezogener Daten in Drittstaaten erfolgt die Datenverarbeitung außerdem auf Grundlage von Art. 49 Abs. 1 lit. a DSGVO. Sofern Sie in die Speicherung von Cookies oder in den Zugriff auf Informationen in Ihr Endgerät (z. B. via Device-Fingerprinting) eingewilligt haben, erfolgt die Datenverarbeitung zusätzlich auf Grundlage von § 25 Abs. 1 TDDDG. Die Einwilligung ist jederzeit widerrufbar. Sind Ihre Daten zur Vertragserfüllung oder zur Durchführung vorvertraglicher Maßnahmen erforderlich, verarbeiten wir Ihre Daten auf Grundlage des Art. 6 Abs. 1 lit. b DSGVO. Des Weiteren verarbeiten wir Ihre Daten, sofern diese zur Erfüllung einer rechtlichen Verpflichtung erforderlich sind, auf Grundlage von Art. 6 Abs. 1 lit. c DSGVO. Die Datenverarbeitung kann ferner auf Grundlage unseres berechtigten Interesses nach Art. 6 Abs. 1 lit. f DSGVO erfolgen. Über die jeweils im Einzelfall einschlägigen Rechtsgrundlagen wird in den folgenden Absätzen dieser Datenschutzerklärung informiert."
+      },
+      "recipients": {
+        "title": "Empfänger von personenbezogenen Daten",
+        "content": "Im Rahmen unserer Geschäftstätigkeit arbeiten wir mit verschiedenen externen Stellen zusammen. Dabei ist teilweise auch eine Übermittlung von personenbezogenen Daten an diese externen Stellen erforderlich. Wir geben personenbezogene Daten nur dann an externe Stellen weiter, wenn dies im Rahmen einer Vertragserfüllung erforderlich ist, wenn wir gesetzlich hierzu verpflichtet sind (z. B. Weitergabe von Daten an Steuerbehörden), wenn wir ein berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO an der Weitergabe haben oder wenn eine sonstige Rechtsgrundlage die Datenweitergabe erlaubt. Beim Einsatz von Auftragsverarbeitern geben wir personenbezogene Daten unserer Kunden nur auf Grundlage eines gültigen Vertrags über Auftragsverarbeitung weiter. Im Falle einer gemeinsamen Verarbeitung wird ein Vertrag über gemeinsame Verarbeitung geschlossen."
+      },
+      "withdrawal": {
+        "title": "Widerruf Ihrer Einwilligung zur Datenverarbeitung",
+        "content": "Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt."
+      },
+      "objection": {
+        "title": "Widerspruchsrecht gegen die Datenerhebung in besonderen Fällen sowie gegen Direktwerbung (Art. 21 DSGVO)",
+        "content1": "WENN DIE DATENVERARBEITUNG AUF GRUNDLAGE VON ART. 6 ABS. 1 LIT. E ODER F DSGVO ERFOLGT, HABEN SIE JEDERZEIT DAS RECHT, AUS GRÜNDEN, DIE SICH AUS IHRER BESONDEREN SITUATION ERGEBEN, GEGEN DIE VERARBEITUNG IHRER PERSONENBEZOGENEN DATEN WIDERSPRUCH EINZULEGEN; DIES GILT AUCH FÜR EIN AUF DIESE BESTIMMUNGEN GESTÜTZTES PROFILING. DIE JEWEILIGE RECHTSGRUNDLAGE, AUF DENEN EINE VERARBEITUNG BERUHT, ENTNEHMEN SIE DIESER DATENSCHUTZERKLÄRUNG. WENN SIE WIDERSPRUCH EINLEGEN, WERDEN WIR IHRE BETROFFENEN PERSONENBEZOGENEN DATEN NICHT MEHR VERARBEITEN, ES SEI DENN, WIR KÖNNEN ZWINGENDE SCHUTZWÜRDIGE GRÜNDE FÜR DIE VERARBEITUNG NACHWEISEN, DIE IHRE INTERESSEN, RECHTE UND FREIHEITEN ÜBERWIEGEN ODER DIE VERARBEITUNG DIENT DER GELTENDMACHUNG, AUSÜBUNG ODER VERTEIDIGUNG VON RECHTSANSPRÜCHEN (WIDERSPRUCH NACH ART. 21 ABS. 1 DSGVO).",
+        "content2": "WERDEN IHRE PERSONENBEZOGENEN DATEN VERARBEITET, UM DIREKTWERBUNG ZU BETREIBEN, SO HABEN SIE DAS RECHT, JEDERZEIT WIDERSPRUCH GEGEN DIE VERARBEITUNG SIE BETREFFENDER PERSONENBEZOGENER DATEN ZUM ZWECKE DERARTIGER WERBUNG EINZULEGEN; DIES GILT AUCH FÜR DAS PROFILING, SOWEIT ES MIT SOLCHER DIREKTWERBUNG IN VERBINDUNG STEHT. WENN SIE WIDERSPRECHEN, WERDEN IHRE PERSONENBEZOGENEN DATEN ANSCHLIESSEND NICHT MEHR ZUM ZWECKE DER DIREKTWERBUNG VERWENDET (WIDERSPRUCH NACH ART. 21 ABS. 2 DSGVO)."
+      },
+      "complaint": {
+        "title": "Beschwerderecht bei der zuständigen Aufsichtsbehörde",
+        "content": "Im Falle von Verstößen gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbehörde, insbesondere in dem Mitgliedstaat ihres gewöhnlichen Aufenthalts, ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes zu. Das Beschwerderecht besteht unbeschadet anderweitiger verwaltungsrechtlicher oder gerichtlicher Rechtsbehelfe."
+      },
+      "dataPortability": {
+        "title": "Recht auf Datenübertragbarkeit",
+        "content": "Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in Erfüllung eines Vertrags automatisiert verarbeiten, an sich oder an einen Dritten in einem gängigen, maschinenlesbaren Format aushändigen zu lassen. Sofern Sie die direkte Übertragung der Daten an einen anderen Verantwortlichen verlangen, erfolgt dies nur, soweit es technisch machbar ist."
+      },
+      "accessCorrectionDeletion": {
+        "title": "Auskunft, Berichtigung und Löschung",
+        "content": "Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung und ggf. ein Recht auf Berichtigung oder Löschung dieser Daten. Hierzu sowie zu weiteren Fragen zum Thema personenbezogene Daten können Sie sich jederzeit an uns wenden."
+      },
+      "processingRestriction": {
+        "title": "Recht auf Einschränkung der Verarbeitung",
+        "intro": "Sie haben das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen. Das Recht auf Einschränkung der Verarbeitung besteht in folgenden Fällen:",
+        "condition1": "Wenn Sie die Richtigkeit Ihrer bei uns gespeicherten personenbezogenen Daten bestreiten, benötigen wir in der Regel Zeit, um dies zu überprüfen. Für die Dauer der Überprüfung haben Sie das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.",
+        "condition2": "Wenn die Verarbeitung Ihrer personenbezogenen Daten unrechtmäßig geschah/geschieht, können Sie statt der Löschung die Einschränkung der Datenverarbeitung verlangen.",
+        "condition3": "Wenn wir Ihre personenbezogenen Daten nicht mehr benötigen, Sie sie jedoch zur Ausübung, Verteidigung oder Geltendmachung von Rechtsansprüchen benötigen, haben Sie das Recht, statt der Löschung die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.",
+        "condition4": "Wenn Sie einen Widerspruch nach Art. 21 Abs. 1 DSGVO eingelegt haben, muss eine Abwägung zwischen Ihren und unseren Interessen vorgenommen werden. Solange noch nicht feststeht, wessen Interessen überwiegen, haben Sie das Recht, die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.",
+        "conclusion": "Wenn Sie die Verarbeitung Ihrer personenbezogenen Daten eingeschränkt haben, dürfen diese Daten – von ihrer Speicherung abgesehen – nur mit Ihrer Einwilligung oder zur Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen oder zum Schutz der Rechte einer anderen natürlichen oder juristischen Person oder aus Gründen eines wichtigen öffentlichen Interesses der Europäischen Union oder eines Mitgliedstaats verarbeitet werden."
+      }
+    },
+    "section4": {
+      "title": "4. Datenerfassung auf dieser Website",
+      "cookies": {
+        "title": "Cookies",
+        "content1": "Unsere Internetseiten verwenden so genannte „Cookies“. Cookies sind kleine Datenpakete und richten auf Ihrem Endgerät keinen Schaden an. Sie werden entweder vorübergehend für die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endgerät gespeichert. Session-Cookies werden nach Ende Ihres Besuchs automatisch gelöscht. Permanente Cookies bleiben auf Ihrem Endgerät gespeichert, bis Sie diese selbst löschen oder eine automatische Löschung durch Ihren Webbrowser erfolgt.",
+        "content2": "Cookies können von uns (First-Party-Cookies) oder von Drittunternehmen stammen (sog. Third-Party-Cookies). Third-Party-Cookies ermöglichen die Einbindung bestimmter Dienstleistungen von Drittunternehmen innerhalb von Webseiten (z. B. Cookies zur Abwicklung von Zahlungsdienstleistungen).",
+        "content3": "Cookies haben verschiedene Funktionen. Zahlreiche Cookies sind technisch notwendig, da bestimmte Webseitenfunktionen ohne diese nicht funktionieren würden (z. B. die Warenkorbfunktion oder die Anzeige von Videos). Andere Cookies können zur Auswertung des Nutzerverhaltens oder zu Werbezwecken verwendet werden.",
+        "content4": "Cookies, die zur Durchführung des elektronischen Kommunikationsvorgangs, zur Bereitstellung bestimmter, von Ihnen erwünschter Funktionen (z. B. für die Warenkorbfunktion) oder zur Optimierung der Website (z. B. Cookies zur Messung des Webpublikums) erforderlich sind (notwendige Cookies), werden auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO gespeichert, sofern keine andere Rechtsgrundlage angegeben wird. Der Websitebetreiber hat ein berechtigtes Interesse an der Speicherung von notwendigen Cookies zur technisch fehlerfreien und optimierten Bereitstellung seiner Dienste. Sofern eine Einwilligung zur Speicherung von Cookies und vergleichbaren Wiedererkennungstechnologien abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage dieser Einwilligung (Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG); die Einwilligung ist jederzeit widerrufbar.",
+        "content5": "Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden und Cookies nur im Einzelfall erlauben, die Annahme von Cookies für bestimmte Fälle oder generell ausschließen sowie das automatische Löschen der Cookies beim Schließen des Browsers aktivieren. Bei der Deaktivierung von Cookies kann die Funktionalität dieser Website eingeschränkt sein.",
+        "content6": "Welche Cookies und Dienste auf dieser Website eingesetzt werden, können Sie dieser Datenschutzerklärung entnehmen."
+      }
+    },
+    "section5": {
+      "title": "5. Plugins und Tools",
+      "googleFonts": {
+        "title": "Google Fonts (lokales Hosting)",
+        "content1": "Diese Seite nutzt zur einheitlichen Darstellung von Schriftarten so genannte Google Fonts, die von Google bereitgestellt werden. Die Google Fonts sind lokal installiert. Eine Verbindung zu Servern von Google findet dabei nicht statt.",
+        "content2": "Weitere Informationen zu Google Fonts finden Sie unter",
+        "link1": "https://developers.google.com/fonts/faq",
+        "and": "und in der Datenschutzerklärung von Google:",
+        "link2": "https://policies.google.com/privacy?hl=de"
+      },
+      "fontAwesome": {
+        "title": "Font Awesome (lokales Hosting)",
+        "content1": "Diese Seite nutzt zur einheitlichen Darstellung von Schriftarten Font Awesome. Font Awesome ist lokal installiert. Eine Verbindung zu Servern von Fonticons, Inc. findet dabei nicht statt.",
+        "content2": "Weitere Informationen zu Font Awesome finden Sie in der Datenschutzerklärung für Font Awesome unter:",
+        "link": "https://fontawesome.com/privacy"
+      },
+      "myFonts": {
+        "title": "MyFonts",
+        "content1": "Diese Seite nutzt MyFonts. Hierbei handelt es sich um Schriftarten, die beim Aufrufen unserer Website in Ihren Browser geladen werden, um ein einheitliches Schriftbild bei der Webseitendarstellung zu gewährleisten. Anbieter ist die Monotype Imaging Holdings Inc., 600 Unicorn Park Drive, Woburn, Massachusetts 01801, USA.",
+        "content2": "Um die Einhaltung der Lizenzbedingungen und die Anzahl der monatlichen Seitenaufrufe zu überprüfen, überträgt MyFonts Ihre IP-Adresse zusammen mit der URL unserer Webseite und unseren Vertragsdaten auf seine Server in den USA. Ihre IP-Adresse wird laut Monotype unmittelbar nach der Übertragung anonymisiert, sodass kein Personenbezug mehr hergestellt werden kann (Anonymisierung).",
+        "content3": "Details entnehmen Sie der Datenschutzerklärung von Monotype unter",
+        "link1": "https://www.monotype.com/de/rechtshinweise/datenschutzrichtlinie/datenschutzrichtlinie-zum-tracking-von-webschriften",
+        "content4": "Das Unternehmen verfügt über eine Zertifizierung nach dem „EU-US Data Privacy Framework“ (DPF). Der DPF ist ein Übereinkommen zwischen der Europäischen Union und den USA, der die Einhaltung europäischer Datenschutzstandards bei Datenverarbeitungen in den USA gewährleisten soll. Jedes nach dem DPF zertifizierte Unternehmen verpflichtet sich, diese Datenschutzstandards einzuhalten. Weitere Informationen hierzu erhalten Sie vom Anbieter unter folgendem Link:",
+        "link2": "https://www.dataprivacyframework.gov/participant/6347"
+      },
+      "googleMaps": {
+        "title": "Google Maps",
+        "content1": "Diese Seite nutzt den Kartendienst Google Maps. Anbieter ist die Google Ireland Limited („Google“), Gordon House, Barrow Street, Dublin 4, Irland. Mit Hilfe dieses Dienstes können wir Kartenmaterial auf unserer Website einbinden.",
+        "content2": "Zur Nutzung der Funktionen von Google Maps ist es notwendig, Ihre IP-Adresse zu speichern. Diese Informationen werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Der Anbieter dieser Seite hat keinen Einfluss auf diese Datenübertragung. Wenn Google Maps aktiviert ist, kann Google zum Zwecke der einheitlichen Darstellung der Schriftarten Google Fonts verwenden. Beim Aufruf von Google Maps lädt Ihr Browser die benötigten Web Fonts in ihren Browsercache, um Texte und Schriftarten korrekt anzuzeigen.",
+        "content3": "Die Nutzung von Google Maps erfolgt im Interesse einer ansprechenden Darstellung unserer Online-Angebote und an einer leichten Auffindbarkeit der von uns auf der Website angegebenen Orte. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f DSGVO dar. Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG, soweit die Einwilligung die Speicherung von Cookies oder den Zugriff auf Informationen im Endgerät des Nutzers (z. B. Device-Fingerprinting) im Sinne des TDDDG umfasst. Die Einwilligung ist jederzeit widerrufbar.",
+        "link1": "https://privacy.google.com/businesses/gdprcontrollerterms/",
+        "and": "und",
+        "link2": "https://privacy.google.com/businesses/gdprcontrollerterms/sccs/",
+        "content4": "Mehr Informationen zum Umgang mit Nutzerdaten finden Sie in der Datenschutzerklärung von Google:",
+        "link3": "https://policies.google.com/privacy?hl=de",
+        "content5": "Das Unternehmen verfügt über eine Zertifizierung nach dem „EU-US Data Privacy Framework“ (DPF). Der DPF ist ein Übereinkommen zwischen der Europäischen Union und den USA, der die Einhaltung europäischer Datenschutzstandards bei Datenverarbeitungen in den USA gewährleisten soll. Jedes nach dem DPF zertifizierte Unternehmen verpflichtet sich, diese Datenschutzstandards einzuhalten. Weitere Informationen hierzu erhalten Sie vom Anbieter unter folgendem Link:",
+        "link4": "https://www.dataprivacyframework.gov/participant/5780"
+      },
+      "openStreetMap": {
+        "title": "OpenStreetMap",
+        "content1": "Wir nutzen den Kartendienst von OpenStreetMap (OSM).",
+        "content2": "Wir binden das Kartenmaterial von OpenStreetMap auf dem Server der OpenStreetMap Foundation, St John’s Innovation Centre, Cowley Road, Cambridge, CB4 0WS, Großbritannien, ein. Großbritannien gilt als datenschutzrechtlich sicherer Drittstaat. Das bedeutet, dass Großbritannien ein Datenschutzniveau aufweist, das dem Datenschutzniveau in der Europäischen Union entspricht. Bei der Nutzung der OpenStreetMap-Karten wird eine Verbindung zu den Servern der OpenStreetMap-Foundation hergestellt. Dabei können u. a. Ihre IP-Adresse und weitere Informationen über Ihr Verhalten auf dieser Website an die OSMF weitergeleitet werden. OpenStreetMap speichert hierzu unter Umständen Cookies in Ihrem Browser oder setzt vergleichbare Wiedererkennungstechnologien ein.",
+        "content3": "Die Nutzung von OpenStreetMap erfolgt im Interesse einer ansprechenden Darstellung unserer Online-Angebote und einer leichten Auffindbarkeit der von uns auf der Website angegebenen Orte. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f DSGVO dar. Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG, soweit die Einwilligung die Speicherung von Cookies oder den Zugriff auf Informationen im Endgerät des Nutzers (z. B. Device-Fingerprinting) im Sinne des TDDDG umfasst. Die Einwilligung ist jederzeit widerrufbar."
+      }
+    },
+    "source": "Quelle:",
+    "sourceLink": "https://www.e-recht24.de"
+  },
+  "generalTermsAndConditions": {
+    "terms": {
+      "title": "Impressum",
+      "contact": {
+        "title": "Kontakt",
+        "phoneLabel": "Telefon"
+      },
+      "euDisputeResolution": {
+        "title": "EU-Streitschlichtung",
+        "content": "Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit",
+        "note": "Unsere E-Mail-Adresse finden Sie oben im Impressum."
+      },
+      "consumerDisputeResolution": {
+        "title": "Verbraucherstreitbeilegung / Universalschlichtungsstelle",
+        "content": "Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
+      },
+      "source": {
+        "content": "Quelle"
+      }
+    }
+  },
+  "termsAndConditions": {
+    "section1": {
+      "title": "Allgemeine Geschäftsbedingungen",
+      "updated": "Zuletzt aktualisiert: {{date}}"
+    },
+    "section2": {
+      "generalTerms": {
+        "title": "Allgemeine Bestimmungen",
+        "content1": "Willkommen bei ConnectU! Diese Allgemeinen Geschäftsbedingungen legen die Regeln und Vorschriften für die Nutzung der Website von ConnectU fest.",
+        "content2": "Durch den Zugriff auf diese Website gehen wir davon aus, dass Sie diese Bedingungen akzeptieren. Setzen Sie die Nutzung von ConnectU nicht fort, wenn Sie nicht allen auf dieser Seite angegebenen Bedingungen zustimmen.",
+        "content3": "Die folgende Terminologie gilt für diese Allgemeinen Geschäftsbedingungen, die Datenschutzerklärung und den Haftungsausschluss sowie alle Vereinbarungen: 'Kunde', 'Sie' und 'Ihr' beziehen sich auf Sie, die Person, die sich auf dieser Website anmeldet und den Bedingungen der Firma zustimmt. 'Das Unternehmen', 'Wir', 'Unser' und 'Uns' bezieht sich auf unser Unternehmen. 'Partei', 'Parteien' oder 'Wir' bezieht sich sowohl auf den Kunden als auch auf uns. Alle Begriffe beziehen sich auf das Angebot, die Annahme und die Berücksichtigung der Zahlung, die erforderlich ist, um den Prozess unserer Unterstützung des Kunden in der am besten geeigneten Weise durchzuführen, mit dem ausdrücklichen Ziel, die Bedürfnisse des Kunden in Bezug auf die Bereitstellung der angegebenen Dienstleistungen des Unternehmens zu erfüllen, in Übereinstimmung mit und vorbehaltlich des geltenden Rechts der Niederlande. Jede Verwendung der oben genannten Terminologie oder anderer Wörter in der Singular-, Plural-, Groß- und Kleinschreibung und/oder er/sie oder sie wird als austauschbar angesehen und daher als gleichbedeutend interpretiert."
+      }
+    },
+    "section3": {
+      "license": {
+        "title": "Lizenz",
+        "content1": "Sofern nicht anders angegeben, besitzt ConnectU und/oder seine Lizenzgeber die geistigen Eigentumsrechte für alle Materialien auf ConnectU. Alle geistigen Eigentumsrechte sind vorbehalten. Sie dürfen auf ConnectU für Ihren persönlichen Gebrauch zugreifen, vorbehaltlich der in diesen Bedingungen festgelegten Einschränkungen.",
+        "content2": "Sie dürfen nicht: Material von ConnectU erneut veröffentlichen, Material von ConnectU verkaufen, vermieten oder unterlizenzieren, Material von ConnectU reproduzieren, duplizieren oder kopieren, Inhalte von ConnectU weiterverbreiten. Diese Vereinbarung beginnt mit dem Datum hierof."
+      }
+    },
+    "section4": {
+      "definitions": {
+        "title": "Definitionen",
+        "cookie": "Ein Cookie ist eine kleine Datei, die von einer Website auf Ihrem Computer oder Gerät abgelegt wird und Details über Ihre Browsing-Historie auf dieser Website enthält, unter vielen anderen Verwendungen.",
+        "company": "'Unternehmen' (bezieht sich entweder auf 'das Unternehmen', 'Wir', 'Uns' oder 'Unser' in dieser Vereinbarung) bedeutet ConnectU.",
+        "country": "'Land' bezieht sich auf ConnectU.",
+        "device": "'Gerät' bedeutet jedes Gerät, das auf den Dienst zugreifen kann, wie z. B. ein Computer, ein Mobiltelefon oder ein digitales Tablet.",
+        "service": "'Dienst' bezieht sich auf die Website.",
+        "thirdPartyService": "'Dienst von Dritten' bedeutet alle Dienste oder Inhalte (einschließlich Daten, Informationen, Anwendungen und anderer Produkte), die von einem Dritten bereitgestellt werden und vom Dienst angezeigt, einbezogen oder verfügbar gemacht werden können.",
+        "you": "'Sie' bedeutet die Person, die auf den Dienst zugreift oder diesen nutzt, oder die Firma oder andere juristische Person, in deren Auftrag eine solche Person auf den Dienst zugreift oder diesen nutzt, je nach Anwendbarkeit."
+      }
+    },
+    "section5": {
+      "restrictions": {
+        "title": "Einschränkungen",
+        "content1": "Sie dürfen insbesondere Folgendes nicht tun: Veröffentlichung von Website-Material in anderen Medien;",
+        "content2": "Verkauf, Unterlizenzierung und/oder kommerzielle Nutzung von Website-Material;",
+        "content3": "Diese Website auf eine Weise nutzen, die dieser Website Schaden zufügen könnte."
+      }
+    },
+    "section6": {
+      "returnPolicy": {
+        "title": "Rückgaberichtlinien",
+        "content1": "Rückgaben sind nur innerhalb von 30 Tagen nach dem Kauf möglich.",
+        "content2": "Rückerstattungen werden nur verarbeitet, wenn die Artikel sich im Originalzustand befinden."
+      }
+    },
+    "section7": {
+      "suggestions": {
+        "title": "Vorschläge",
+        "content": "Wir freuen uns über Ihr Feedback und Ihre Vorschläge zur Verbesserung unseres Dienstes."
+      }
+    },
+    "section8": {
+      "consent": {
+        "title": "Einwilligung",
+        "content": "Durch die Nutzung unserer Website stimmen Sie unseren Allgemeinen Geschäftsbedingungen zu."
+      }
+    },
+    "section9": {
+      "links": {
+        "title": "Links zu anderen Websites",
+        "content1": "Unser Dienst kann Links zu Websites oder Diensten Dritter enthalten, die nicht Eigentum des Unternehmens sind oder von diesem kontrolliert werden.",
+        "content2": "Das Unternehmen hat keine Kontrolle über und übernimmt keine Verantwortung für Inhalte, Datenschutzrichtlinien oder Praktiken von Websites oder Diensten Dritter."
+      }
+    },
+    "section10": {
+      "cookies": {
+        "title": "Cookies",
+        "content1": "Diese Website verwendet Cookies, um die Benutzererfahrung zu verbessern.",
+        "content2": "Durch die weitere Nutzung der Website stimmen Sie der Verwendung von Cookies zu.",
+        "content3": "Sie können Cookies in den Einstellungen Ihres Browsers deaktivieren."
+      }
+    },
+    "section11": {
+      "changes": {
+        "title": "Änderungen dieser Bedingungen",
+        "content": "Wir behalten uns das Recht vor, unsere Allgemeinen Geschäftsbedingungen jederzeit zu aktualisieren oder zu ändern."
+      }
+    },
+    "section12": {
+      "modifications": {
+        "title": "Änderungen",
+        "content": "Das Unternehmen behält sich das Recht vor, den Dienst jederzeit zu ändern, auszusetzen oder einzustellen."
+      }
+    },
+    "section13": {
+      "thirdParty": {
+        "title": "Drittanbieterdienste",
+        "content": "Das Unternehmen ist nicht verantwortlich für Dienste Dritter, die auf der Website verlinkt sind."
+      }
+    },
+    "section14": {
+      "termAndTermination": {
+        "title": "Laufzeit und Beendigung",
+        "content": "Die Vereinbarung bleibt so lange in Kraft, bis sie von einer der Parteien beendet wird."
+      }
+    },
+    "section15": {
+      "copyright": {
+        "title": "Urheberrecht",
+        "content": "Alle Inhalte und Materialien auf dieser Website gehören dem Unternehmen und sind durch Urheberrechtsgesetze geschützt."
+      }
+    },
+    "section16": {
+      "indemnification": {
+        "title": "Schadloshaltung",
+        "content": "Sie erklären sich damit einverstanden, das Unternehmen von allen Ansprüchen freizustellen, die sich aus Ihrer Nutzung der Website ergeben."
+      }
+    },
+    "section17": {
+      "noWarranties": {
+        "title": "Keine Garantien",
+        "content": "Diese Website wird 'wie besehen' mit allen Mängeln bereitgestellt, und das Unternehmen gibt keinerlei Zusicherungen oder Garantien ab."
+      }
+    },
+    "section18": {
+      "limitationOfLiability": {
+        "title": "Haftungsbeschränkung",
+        "content": "Das Unternehmen haftet nicht für Schäden, die sich aus der Nutzung dieser Website ergeben."
+      }
+    },
+    "section19": {
+      "severability": {
+        "title": "Salvatorische Klausel",
+        "content": "Sollte eine Bestimmung dieser Bedingungen nach geltendem Recht für ungültig befunden werden, bleiben die übrigen Bestimmungen unberührt."
+      }
+    },
+    "section20": {
+      "waiver": {
+        "title": "Verzicht",
+        "content": "Das Versäumnis, ein Recht oder eine Bestimmung dieser Bedingungen durchzusetzen, gilt nicht als Verzicht auf diese Rechte."
+      }
+    },
+    "section21": {
+      "amendments": {
+        "title": "Änderungen",
+        "content": "Wir behalten uns das Recht vor, diese Bedingungen jederzeit zu ändern."
+      }
+    },
+    "section22": {
+      "entireAgreement": {
+        "title": "Gesamte Vereinbarung",
+        "content": "Diese Bedingungen stellen die gesamte Vereinbarung zwischen Ihnen und dem Unternehmen dar."
+      }
+    },
+    "section23": {
+      "contact": {
+        "title": "Kontaktieren Sie uns",
+        "email": "E-Mail: connectu@business.com",
+        "phone": "Telefon: 01234 56789"
+      }
+    }
   }
 }
