@@ -1,0 +1,11 @@
+<!-- To implement-->
+@if (events$ | async; as events) {
+  @for (event of [0, 1, 2, 3, 4]; track $index) {
+    <div
+      class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3 fadein animation-duration-300 animation-iteration-1">
+      <app-event-card skeleton />
+    </div>
+  }
+} @else {
+  <h3 class="m-3">{{ 'myEventPageComponent.favorite.text' | transloco }}</h3>
+}

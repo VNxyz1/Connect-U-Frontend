@@ -45,6 +45,7 @@ import {
   RiInformation2Line,
   RiAlertLine,
   RiArrowGoBackLine,
+  RiArrowDownLine,
   RiCheckboxLine,
   RiEyeLine,
   RiEyeOffLine,
@@ -80,6 +81,7 @@ const icons = {
   RiAlertLine,
   RiArrowGoBackLine,
   RiCheckboxLine,
+  RiArrowDownLine,
   RiEyeLine,
   RiEyeOffLine,
 };
