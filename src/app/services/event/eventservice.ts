@@ -4,6 +4,7 @@ import { StorageService } from '../storage/storage.service';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { EventCardItem } from '../../interfaces/EventCardItem';
+import { EventDetails } from '../../interfaces/EventDetails';
 
 export type EventData = {
   categories: number[];
@@ -210,5 +211,9 @@ export class EventService {
       startAge: 16,
       endAge: 99,
     };
+  }
+
+  getEventDetails(id: string): Observable<EventDetails> {
+    return this.http.get<EventDetails>(`event/eventDetails/${id}`);
   }
 }

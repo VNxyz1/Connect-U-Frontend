@@ -5,7 +5,6 @@ import { TagModule } from 'primeng/tag';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { SkeletonModule } from 'primeng/skeleton';
 import { EventCardItem } from '../../interfaces/EventCardItem';
-import { DatePipe } from '@angular/common';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { RouterLink } from '@angular/router';
 
@@ -18,7 +17,6 @@ import { RouterLink } from '@angular/router';
     TagModule,
     AngularRemixIconComponent,
     SkeletonModule,
-    DatePipe,
     TranslocoDatePipe,
     RouterLink,
   ],
