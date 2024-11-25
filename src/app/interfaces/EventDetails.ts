@@ -1,5 +1,6 @@
 import { Category } from './Category';
 import { Gender } from './Gender';
+import { EventtypeEnum } from './EventtypeEnum';
 
 export interface EventDetails {
   id: string;
@@ -7,6 +8,8 @@ export interface EventDetails {
   categories: Category[];
 
   preferredGenders: Gender[];
+
+  type: EventtypeEnum;
 
   dateAndTime: string;
 
