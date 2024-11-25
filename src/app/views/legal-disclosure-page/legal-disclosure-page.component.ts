@@ -5,6 +5,6 @@ import { TranslocoPipe } from '@jsverse/transloco';
   selector: 'app-terms-and-conditions-page',
   standalone: true,
   imports: [TranslocoPipe],
-  templateUrl: './terms-and-conditions-page.component.html',
+  templateUrl: './legal-disclosure-page.component.html',
 })
 export class LegalDisclosurePageComponent {}
