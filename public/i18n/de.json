@@ -292,7 +292,7 @@
         "content1": "Diese Website wird extern gehostet. Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des Hosters / der Hoster gespeichert. Hierbei kann es sich v. a. um IP-Adressen, Kontaktanfragen, Meta- und Kommunikationsdaten, Vertragsdaten, Kontaktdaten, Namen, Websitezugriffe und sonstige Daten, die über eine Website generiert werden, handeln.",
         "content2": "Das externe Hosting erfolgt zum Zwecke der Vertragserfüllung gegenüber unseren potenziellen und bestehenden Kunden (Art. 6 Abs. 1 lit. b DSGVO) und im Interesse einer sicheren, schnellen und effizienten Bereitstellung unseres Online-Angebots durch einen professionellen Anbieter (Art. 6 Abs. 1 lit. f DSGVO). Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG, soweit die Einwilligung die Speicherung von Cookies oder den Zugriff auf Informationen im Endgerät des Nutzers (z. B. Device-Fingerprinting) im Sinne des TDDDG umfasst. Die Einwilligung ist jederzeit widerrufbar.",
         "content3": "Unser(e) Hoster wird bzw. werden Ihre Daten nur insoweit verarbeiten, wie dies zur Erfüllung seiner Leistungspflichten erforderlich ist und unsere Weisungen in Bezug auf diese Daten befolgen.",
-        "host": "Wir setzen folgende(n) Hoster ein:\n[Name und vollständige Anschrift des Hosters]"
+        "host": "Wir setzen folgende(n) Hoster ein:\nKeinen"
       },
       "dataProcessing": {
         "title": "Auftragsverarbeitung",
@@ -434,6 +434,160 @@
       },
       "source": {
         "content": "Quelle"
+      }
+    }
+  },
+  "termsAndConditions": {
+    "section1": {
+      "title": "Allgemeine Geschäftsbedingungen",
+      "updated": "Zuletzt aktualisiert: {{date}}"
+    },
+    "section2": {
+      "generalTerms": {
+        "title": "Allgemeine Bestimmungen",
+        "content1": "Willkommen bei ConnectU! Diese Allgemeinen Geschäftsbedingungen legen die Regeln und Vorschriften für die Nutzung der Website von ConnectU fest.",
+        "content2": "Durch den Zugriff auf diese Website gehen wir davon aus, dass Sie diese Bedingungen akzeptieren. Setzen Sie die Nutzung von ConnectU nicht fort, wenn Sie nicht allen auf dieser Seite angegebenen Bedingungen zustimmen.",
+        "content3": "Die folgende Terminologie gilt für diese Allgemeinen Geschäftsbedingungen, die Datenschutzerklärung und den Haftungsausschluss sowie alle Vereinbarungen: 'Kunde', 'Sie' und 'Ihr' beziehen sich auf Sie, die Person, die sich auf dieser Website anmeldet und den Bedingungen der Firma zustimmt. 'Das Unternehmen', 'Wir', 'Unser' und 'Uns' bezieht sich auf unser Unternehmen. 'Partei', 'Parteien' oder 'Wir' bezieht sich sowohl auf den Kunden als auch auf uns. Alle Begriffe beziehen sich auf das Angebot, die Annahme und die Berücksichtigung der Zahlung, die erforderlich ist, um den Prozess unserer Unterstützung des Kunden in der am besten geeigneten Weise durchzuführen, mit dem ausdrücklichen Ziel, die Bedürfnisse des Kunden in Bezug auf die Bereitstellung der angegebenen Dienstleistungen des Unternehmens zu erfüllen, in Übereinstimmung mit und vorbehaltlich des geltenden Rechts der Niederlande. Jede Verwendung der oben genannten Terminologie oder anderer Wörter in der Singular-, Plural-, Groß- und Kleinschreibung und/oder er/sie oder sie wird als austauschbar angesehen und daher als gleichbedeutend interpretiert."
+      }
+    },
+    "section3": {
+      "license": {
+        "title": "Lizenz",
+        "content1": "Sofern nicht anders angegeben, besitzt ConnectU und/oder seine Lizenzgeber die geistigen Eigentumsrechte für alle Materialien auf ConnectU. Alle geistigen Eigentumsrechte sind vorbehalten. Sie dürfen auf ConnectU für Ihren persönlichen Gebrauch zugreifen, vorbehaltlich der in diesen Bedingungen festgelegten Einschränkungen.",
+        "content2": "Sie dürfen nicht: Material von ConnectU erneut veröffentlichen, Material von ConnectU verkaufen, vermieten oder unterlizenzieren, Material von ConnectU reproduzieren, duplizieren oder kopieren, Inhalte von ConnectU weiterverbreiten. Diese Vereinbarung beginnt mit dem Datum hierof."
+      }
+    },
+    "section4": {
+      "definitions": {
+        "title": "Definitionen",
+        "cookie": "Ein Cookie ist eine kleine Datei, die von einer Website auf Ihrem Computer oder Gerät abgelegt wird und Details über Ihre Browsing-Historie auf dieser Website enthält, unter vielen anderen Verwendungen.",
+        "company": "'Unternehmen' (bezieht sich entweder auf 'das Unternehmen', 'Wir', 'Uns' oder 'Unser' in dieser Vereinbarung) bedeutet ConnectU.",
+        "country": "'Land' bezieht sich auf ConnectU.",
+        "device": "'Gerät' bedeutet jedes Gerät, das auf den Dienst zugreifen kann, wie z. B. ein Computer, ein Mobiltelefon oder ein digitales Tablet.",
+        "service": "'Dienst' bezieht sich auf die Website.",
+        "thirdPartyService": "'Dienst von Dritten' bedeutet alle Dienste oder Inhalte (einschließlich Daten, Informationen, Anwendungen und anderer Produkte), die von einem Dritten bereitgestellt werden und vom Dienst angezeigt, einbezogen oder verfügbar gemacht werden können.",
+        "you": "'Sie' bedeutet die Person, die auf den Dienst zugreift oder diesen nutzt, oder die Firma oder andere juristische Person, in deren Auftrag eine solche Person auf den Dienst zugreift oder diesen nutzt, je nach Anwendbarkeit."
+      }
+    },
+    "section5": {
+      "restrictions": {
+        "title": "Einschränkungen",
+        "content1": "Sie dürfen insbesondere Folgendes nicht tun: Veröffentlichung von Website-Material in anderen Medien;",
+        "content2": "Verkauf, Unterlizenzierung und/oder kommerzielle Nutzung von Website-Material;",
+        "content3": "Diese Website auf eine Weise nutzen, die dieser Website Schaden zufügen könnte."
+      }
+    },
+    "section6": {
+      "returnPolicy": {
+        "title": "Rückgaberichtlinien",
+        "content1": "Rückgaben sind nur innerhalb von 30 Tagen nach dem Kauf möglich.",
+        "content2": "Rückerstattungen werden nur verarbeitet, wenn die Artikel sich im Originalzustand befinden."
+      }
+    },
+    "section7": {
+      "suggestions": {
+        "title": "Vorschläge",
+        "content": "Wir freuen uns über Ihr Feedback und Ihre Vorschläge zur Verbesserung unseres Dienstes."
+      }
+    },
+    "section8": {
+      "consent": {
+        "title": "Einwilligung",
+        "content": "Durch die Nutzung unserer Website stimmen Sie unseren Allgemeinen Geschäftsbedingungen zu."
+      }
+    },
+    "section9": {
+      "links": {
+        "title": "Links zu anderen Websites",
+        "content1": "Unser Dienst kann Links zu Websites oder Diensten Dritter enthalten, die nicht Eigentum des Unternehmens sind oder von diesem kontrolliert werden.",
+        "content2": "Das Unternehmen hat keine Kontrolle über und übernimmt keine Verantwortung für Inhalte, Datenschutzrichtlinien oder Praktiken von Websites oder Diensten Dritter."
+      }
+    },
+    "section10": {
+      "cookies": {
+        "title": "Cookies",
+        "content1": "Diese Website verwendet Cookies, um die Benutzererfahrung zu verbessern.",
+        "content2": "Durch die weitere Nutzung der Website stimmen Sie der Verwendung von Cookies zu.",
+        "content3": "Sie können Cookies in den Einstellungen Ihres Browsers deaktivieren."
+      }
+    },
+    "section11": {
+      "changes": {
+        "title": "Änderungen dieser Bedingungen",
+        "content": "Wir behalten uns das Recht vor, unsere Allgemeinen Geschäftsbedingungen jederzeit zu aktualisieren oder zu ändern."
+      }
+    },
+    "section12": {
+      "modifications": {
+        "title": "Änderungen",
+        "content": "Das Unternehmen behält sich das Recht vor, den Dienst jederzeit zu ändern, auszusetzen oder einzustellen."
+      }
+    },
+    "section13": {
+      "thirdParty": {
+        "title": "Drittanbieterdienste",
+        "content": "Das Unternehmen ist nicht verantwortlich für Dienste Dritter, die auf der Website verlinkt sind."
+      }
+    },
+    "section14": {
+      "termAndTermination": {
+        "title": "Laufzeit und Beendigung",
+        "content": "Die Vereinbarung bleibt so lange in Kraft, bis sie von einer der Parteien beendet wird."
+      }
+    },
+    "section15": {
+      "copyright": {
+        "title": "Urheberrecht",
+        "content": "Alle Inhalte und Materialien auf dieser Website gehören dem Unternehmen und sind durch Urheberrechtsgesetze geschützt."
+      }
+    },
+    "section16": {
+      "indemnification": {
+        "title": "Schadloshaltung",
+        "content": "Sie erklären sich damit einverstanden, das Unternehmen von allen Ansprüchen freizustellen, die sich aus Ihrer Nutzung der Website ergeben."
+      }
+    },
+    "section17": {
+      "noWarranties": {
+        "title": "Keine Garantien",
+        "content": "Diese Website wird 'wie besehen' mit allen Mängeln bereitgestellt, und das Unternehmen gibt keinerlei Zusicherungen oder Garantien ab."
+      }
+    },
+    "section18": {
+      "limitationOfLiability": {
+        "title": "Haftungsbeschränkung",
+        "content": "Das Unternehmen haftet nicht für Schäden, die sich aus der Nutzung dieser Website ergeben."
+      }
+    },
+    "section19": {
+      "severability": {
+        "title": "Salvatorische Klausel",
+        "content": "Sollte eine Bestimmung dieser Bedingungen nach geltendem Recht für ungültig befunden werden, bleiben die übrigen Bestimmungen unberührt."
+      }
+    },
+    "section20": {
+      "waiver": {
+        "title": "Verzicht",
+        "content": "Das Versäumnis, ein Recht oder eine Bestimmung dieser Bedingungen durchzusetzen, gilt nicht als Verzicht auf diese Rechte."
+      }
+    },
+    "section21": {
+      "amendments": {
+        "title": "Änderungen",
+        "content": "Wir behalten uns das Recht vor, diese Bedingungen jederzeit zu ändern."
+      }
+    },
+    "section22": {
+      "entireAgreement": {
+        "title": "Gesamte Vereinbarung",
+        "content": "Diese Bedingungen stellen die gesamte Vereinbarung zwischen Ihnen und dem Unternehmen dar."
+      }
+    },
+    "section23": {
+      "contact": {
+        "title": "Kontaktieren Sie uns",
+        "email": "E-Mail: connectu@business.com",
+        "phone": "Telefon: 01234 56789"
       }
     }
   }

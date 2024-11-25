@@ -304,5 +304,149 @@
   [maximizable]="true"
   [style]="{ width: '50rem' }"
   [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
-  todo
+  <div>
+    <h2>{{ 'termsAndConditions.section1.title' | transloco }}</h2>
+    <p>
+      {{
+        'termsAndConditions.section1.updated'
+          | transloco
+            : { date: translocoLocaleService.localizeDate('11/17/2024') }
+      }}
+    </p>
+
+    <h3>{{ 'termsAndConditions.section2.generalTerms.title' | transloco }}</h3>
+    <p>{{ 'termsAndConditions.section2.generalTerms.content1' | transloco }}</p>
+    <p>{{ 'termsAndConditions.section2.generalTerms.content2' | transloco }}</p>
+    <p>{{ 'termsAndConditions.section2.generalTerms.content3' | transloco }}</p>
+
+    <h3>{{ 'termsAndConditions.section3.license.title' | transloco }}</h3>
+    <p>{{ 'termsAndConditions.section3.license.content1' | transloco }}</p>
+    <p>{{ 'termsAndConditions.section3.license.content2' | transloco }}</p>
+
+    <h3>{{ 'termsAndConditions.section4.definitions.title' | transloco }}</h3>
+    <ul>
+      <li>
+        {{ 'termsAndConditions.section4.definitions.cookie' | transloco }}
+      </li>
+      <li>
+        {{ 'termsAndConditions.section4.definitions.company' | transloco }}
+      </li>
+      <li>
+        {{ 'termsAndConditions.section4.definitions.country' | transloco }}
+      </li>
+      <li>
+        {{ 'termsAndConditions.section4.definitions.device' | transloco }}
+      </li>
+      <li>
+        {{ 'termsAndConditions.section4.definitions.service' | transloco }}
+      </li>
+      <li>
+        {{
+          'termsAndConditions.section4.definitions.thirdPartyService'
+            | transloco
+        }}
+      </li>
+      <li>{{ 'termsAndConditions.section4.definitions.you' | transloco }}</li>
+    </ul>
+
+    <h3>{{ 'termsAndConditions.section5.restrictions.title' | transloco }}</h3>
+    <ul>
+      <li>
+        {{ 'termsAndConditions.section5.restrictions.content1' | transloco }}
+      </li>
+      <li>
+        {{ 'termsAndConditions.section5.restrictions.content2' | transloco }}
+      </li>
+      <li>
+        {{ 'termsAndConditions.section5.restrictions.content3' | transloco }}
+      </li>
+    </ul>
+
+    <h3>{{ 'termsAndConditions.section6.returnPolicy.title' | transloco }}</h3>
+    <p>{{ 'termsAndConditions.section6.returnPolicy.content1' | transloco }}</p>
+    <p>{{ 'termsAndConditions.section6.returnPolicy.content2' | transloco }}</p>
+
+    <h3>{{ 'termsAndConditions.section7.suggestions.title' | transloco }}</h3>
+    <p>{{ 'termsAndConditions.section7.suggestions.content' | transloco }}</p>
+
+    <h3>{{ 'termsAndConditions.section8.consent.title' | transloco }}</h3>
+    <p>{{ 'termsAndConditions.section8.consent.content' | transloco }}</p>
+
+    <h3>{{ 'termsAndConditions.section9.links.title' | transloco }}</h3>
+    <p>{{ 'termsAndConditions.section9.links.content1' | transloco }}</p>
+    <p>{{ 'termsAndConditions.section9.links.content2' | transloco }}</p>
+
+    <h3>{{ 'termsAndConditions.section10.cookies.title' | transloco }}</h3>
+    <p>{{ 'termsAndConditions.section10.cookies.content1' | transloco }}</p>
+    <p>{{ 'termsAndConditions.section10.cookies.content2' | transloco }}</p>
+    <p>{{ 'termsAndConditions.section10.cookies.content3' | transloco }}</p>
+
+    <h3>{{ 'termsAndConditions.section11.changes.title' | transloco }}</h3>
+    <p>{{ 'termsAndConditions.section11.changes.content' | transloco }}</p>
+
+    <h3>
+      {{ 'termsAndConditions.section12.modifications.title' | transloco }}
+    </h3>
+    <p>
+      {{ 'termsAndConditions.section12.modifications.content' | transloco }}
+    </p>
+
+    <h3>{{ 'termsAndConditions.section13.thirdParty.title' | transloco }}</h3>
+    <p>{{ 'termsAndConditions.section13.thirdParty.content' | transloco }}</p>
+
+    <h3>
+      {{ 'termsAndConditions.section14.termAndTermination.title' | transloco }}
+    </h3>
+    <p>
+      {{
+        'termsAndConditions.section14.termAndTermination.content' | transloco
+      }}
+    </p>
+
+    <h3>{{ 'termsAndConditions.section15.copyright.title' | transloco }}</h3>
+    <p>{{ 'termsAndConditions.section15.copyright.content' | transloco }}</p>
+
+    <h3>
+      {{ 'termsAndConditions.section16.indemnification.title' | transloco }}
+    </h3>
+    <p>
+      {{ 'termsAndConditions.section16.indemnification.content' | transloco }}
+    </p>
+
+    <h3>{{ 'termsAndConditions.section17.noWarranties.title' | transloco }}</h3>
+    <p>{{ 'termsAndConditions.section17.noWarranties.content' | transloco }}</p>
+
+    <h3>
+      {{
+        'termsAndConditions.section18.limitationOfLiability.title' | transloco
+      }}
+    </h3>
+    <p>
+      {{
+        'termsAndConditions.section18.limitationOfLiability.content' | transloco
+      }}
+    </p>
+
+    <h3>{{ 'termsAndConditions.section19.severability.title' | transloco }}</h3>
+    <p>{{ 'termsAndConditions.section19.severability.content' | transloco }}</p>
+
+    <h3>{{ 'termsAndConditions.section20.waiver.title' | transloco }}</h3>
+    <p>{{ 'termsAndConditions.section20.waiver.content' | transloco }}</p>
+
+    <h3>{{ 'termsAndConditions.section21.amendments.title' | transloco }}</h3>
+    <p>{{ 'termsAndConditions.section21.amendments.content' | transloco }}</p>
+
+    <h3>
+      {{ 'termsAndConditions.section22.entireAgreement.title' | transloco }}
+    </h3>
+    <p>
+      {{ 'termsAndConditions.section22.entireAgreement.content' | transloco }}
+    </p>
+
+    <h3>{{ 'termsAndConditions.section23.contact.title' | transloco }}</h3>
+    <ul>
+      <li>{{ 'termsAndConditions.section23.contact.email' | transloco }}</li>
+      <li>{{ 'termsAndConditions.section23.contact.phone' | transloco }}</li>
+    </ul>
+  </div>
 </p-dialog>

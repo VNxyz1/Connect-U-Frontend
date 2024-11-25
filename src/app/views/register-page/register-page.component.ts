@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Button, ButtonDirective } from 'primeng/button';
+import { Button } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { Router, RouterLink } from '@angular/router';
@@ -25,6 +25,7 @@ import { RegisterBody } from '../../services/auth/auth.service';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { DateService } from '../../services/date/date.service';
 import { DialogModule } from 'primeng/dialog';
+import { TranslocoLocaleService } from '@jsverse/transloco-locale';
 
 type RegisterForm = FormGroup<{
   username: FormControl<string>;
@@ -112,6 +113,7 @@ export class RegisterPageComponent {
     private authService: AuthService,
     private messageService: MessageService,
     private translocoService: TranslocoService,
+    protected translocoLocaleService: TranslocoLocaleService,
     private dateService: DateService,
   ) {
     this.calendarDateFormat = this.dateService.getCalendarDateFormat();

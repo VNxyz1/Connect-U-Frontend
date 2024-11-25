@@ -291,7 +291,7 @@
         "content1": "This website is hosted externally. The personal data collected on this website is stored on the servers of the hosting provider(s). This may include, in particular, IP addresses, contact requests, meta and communication data, contract data, contact details, names, website accesses, and other data generated via a website.",
         "content2": "External hosting is carried out for the purpose of fulfilling contracts with our potential and existing customers (Art. 6 para. 1 lit. b GDPR) and in the interest of secure, fast, and efficient provision of our online offering by a professional provider (Art. 6 para. 1 lit. f GDPR). If consent has been requested, the processing is carried out exclusively based on Art. 6 para. 1 lit. a GDPR and § 25 para. 1 TDDPA, insofar as the consent includes the storage of cookies or access to information on the user’s end device (e.g., device fingerprinting) within the meaning of the TDDPA. The consent can be revoked at any time.",
         "content3": "Our hosting provider(s) will only process your data to the extent necessary to fulfill their performance obligations and follow our instructions regarding this data.",
-        "host": "We use the following hosting provider(s):\n[Name and full address of the hosting provider]"
+        "host": "We use the following hosting provider(s):\nnone"
       },
       "dataProcessing": {
         "title": "Data Processing Agreement",
@@ -434,6 +434,160 @@
       },
       "source": {
         "content": "Source"
+      }
+    }
+  },
+  "termsAndConditions": {
+    "section1": {
+      "title": "Terms and Conditions",
+      "updated": "Last updated: {{date}}"
+    },
+    "section2": {
+      "generalTerms": {
+        "title": "General Terms",
+        "content1": "Welcome to ConnectU! These terms and conditions outline the rules and regulations for the use of ConnectU's Website.",
+        "content2": "By accessing this website we assume you accept these terms and conditions. Do not continue to use ConnectU if you do not agree to all the terms and conditions stated on this page.",
+        "content3": "The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice and all Agreements: 'Client', 'You' and 'Your' refers to you, the person log on this website and compliant to the Company’s terms and conditions. 'The Company', 'Ourselves', 'We', 'Our' and 'Us', refers to our Company. 'Party', 'Parties', or 'Us', refers to both the Client and ourselves. All terms refer to the offer, acceptance and consideration of payment necessary to undertake the process of our assistance to the Client in the most appropriate manner for the express purpose of meeting the Client’s needs in respect of provision of the Company’s stated services, in accordance with and subject to, prevailing law of Netherlands. Any use of the above terminology or other words in the singular, plural, capitalization and/or he/she or they, are taken as interchangeable and therefore as referring to same."
+      }
+    },
+    "section3": {
+      "license": {
+        "title": "License",
+        "content1": "Unless otherwise stated, ConnectU and/or its licensors own the intellectual property rights for all material on ConnectU. All intellectual property rights are reserved. You may access this from ConnectU for your own personal use subjected to restrictions set in these terms and conditions.",
+        "content2": "You must not: Republish material from ConnectU, Sell, rent or sub-license material from ConnectU, Reproduce, duplicate or copy material from ConnectU, Redistribute content from ConnectU. This Agreement shall begin on the date hereof."
+      }
+    },
+    "section4": {
+      "definitions": {
+        "title": "Definitions",
+        "cookie": "A cookie is a small file placed on your computer or device by a website that contains details of your browsing history on that website among its many uses.",
+        "company": "'Company' (referred to as either 'the Company', 'We', 'Us' or 'Our' in this Agreement) refers to ConnectU.",
+        "country": "'Country' refers to ConnectU.",
+        "device": "'Device' means any device that can access the Service such as a computer, a cellphone, or a digital tablet.",
+        "service": "'Service' refers to the Website.",
+        "thirdPartyService": "'Third-party Service' means any services or content (including data, information, applications, and other products services) provided by a third party that may be displayed, included, or made available by the Service.",
+        "you": "'You' means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable."
+      }
+    },
+    "section5": {
+      "restrictions": {
+        "title": "Restrictions",
+        "content1": "You are specifically restricted from all of the following: Publishing any Website material in any other media;",
+        "content2": "Selling, sublicensing, and/or otherwise commercializing any Website material;",
+        "content3": "Using this Website in any way that is or may be damaging to this Website."
+      }
+    },
+    "section6": {
+      "returnPolicy": {
+        "title": "Return Policy",
+        "content1": "Returns are only applicable within 30 days of purchase.",
+        "content2": "Refunds will be processed only if the items are in original condition."
+      }
+    },
+    "section7": {
+      "suggestions": {
+        "title": "Suggestions",
+        "content": "We welcome your feedback and suggestions to improve our Service."
+      }
+    },
+    "section8": {
+      "consent": {
+        "title": "Consent",
+        "content": "By using our website, you hereby consent to our Terms and Conditions."
+      }
+    },
+    "section9": {
+      "links": {
+        "title": "Links to Other Websites",
+        "content1": "Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company.",
+        "content2": "The Company has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third-party web sites or services."
+      }
+    },
+    "section10": {
+      "cookies": {
+        "title": "Cookies",
+        "content1": "This Website uses cookies to improve the user experience.",
+        "content2": "By continuing to use the site, you agree to the use of cookies.",
+        "content3": "You may disable cookies in your browser settings."
+      }
+    },
+    "section11": {
+      "changes": {
+        "title": "Changes to These Terms",
+        "content": "We reserve the right to update or change our Terms and Conditions at any time."
+      }
+    },
+    "section12": {
+      "modifications": {
+        "title": "Modifications",
+        "content": "The Company reserves the right to modify, suspend, or discontinue the Service at any time."
+      }
+    },
+    "section13": {
+      "thirdParty": {
+        "title": "Third-Party Services",
+        "content": "The Company is not responsible for third-party services linked to the Website."
+      }
+    },
+    "section14": {
+      "termAndTermination": {
+        "title": "Term and Termination",
+        "content": "The Agreement shall remain in effect until terminated by either party."
+      }
+    },
+    "section15": {
+      "copyright": {
+        "title": "Copyright",
+        "content": "All content and materials on this Website are owned by the Company and protected under copyright laws."
+      }
+    },
+    "section16": {
+      "indemnification": {
+        "title": "Indemnification",
+        "content": "You agree to indemnify and hold harmless the Company from any claims arising out of your use of the Website."
+      }
+    },
+    "section17": {
+      "noWarranties": {
+        "title": "No Warranties",
+        "content": "This Website is provided 'as is,' with all faults, and the Company expresses no representations or warranties of any kind."
+      }
+    },
+    "section18": {
+      "limitationOfLiability": {
+        "title": "Limitation of Liability",
+        "content": "The Company shall not be held liable for any damages arising out of the use of this Website."
+      }
+    },
+    "section19": {
+      "severability": {
+        "title": "Severability",
+        "content": "If any provision of these Terms is found to be invalid under any applicable law, such provisions shall be deleted without affecting the remaining provisions."
+      }
+    },
+    "section20": {
+      "waiver": {
+        "title": "Waiver",
+        "content": "The failure to enforce any right or provision of these Terms shall not be considered a waiver of those rights."
+      }
+    },
+    "section21": {
+      "amendments": {
+        "title": "Amendments",
+        "content": "We reserve the right to amend these Terms at any time."
+      }
+    },
+    "section22": {
+      "entireAgreement": {
+        "title": "Entire Agreement",
+        "content": "These Terms constitute the entire agreement between you and the Company."
+      }
+    },
+    "section23": {
+      "contact": {
+        "title": "Contact Us",
+        "email": "Email: connectu@business.com",
+        "phone": "Phone: 01234 56789"
       }
     }
   }
