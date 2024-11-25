@@ -1,18 +1,18 @@
-import {Component} from '@angular/core';
-import {TabViewModule} from 'primeng/tabview';
-import {AsyncPipe, NgClass} from '@angular/common';
-import {ButtonDirective} from 'primeng/button';
-import {EventCardComponent} from '../../components/event-card/event-card.component';
-import {AngularRemixIconComponent} from 'angular-remix-icon';
-import {TranslocoPipe} from '@jsverse/transloco';
-import {GuestEventsComponent} from '../../components/my-events/guest-events/guest-events.component';
-import {HostedEventsComponent} from '../../components/my-events/hosted-events/hosted-events.component';
-import {FavoriteEventsComponent} from '../../components/my-events/favorite-events/favorite-events.component';
-import {MultiSelectModule} from 'primeng/multiselect';
-import {FormsModule} from '@angular/forms';
-import {FloatLabelModule} from 'primeng/floatlabel';
-import {MenuItem} from 'primeng/api';
-import {TabMenuModule} from 'primeng/tabmenu';
+import { Component } from '@angular/core';
+import { TabViewModule } from 'primeng/tabview';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { ButtonDirective } from 'primeng/button';
+import { EventCardComponent } from '../../components/event-card/event-card.component';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
+import { TranslocoPipe } from '@jsverse/transloco';
+import { GuestEventsComponent } from '../../components/my-events/guest-events/guest-events.component';
+import { HostedEventsComponent } from '../../components/my-events/hosted-events/hosted-events.component';
+import { FavoriteEventsComponent } from '../../components/my-events/favorite-events/favorite-events.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { FormsModule } from '@angular/forms';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { MenuItem } from 'primeng/api';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 @Component({
   selector: 'app-my-events-page',
@@ -31,7 +31,7 @@ import {TabMenuModule} from 'primeng/tabmenu';
     MultiSelectModule,
     FormsModule,
     FloatLabelModule,
-    TabMenuModule
+    TabMenuModule,
   ],
   templateUrl: './my-events-page.component.html',
 })
@@ -56,18 +56,18 @@ export class MyEventsPageComponent {
   ];
 
   filterCategories = [
-    {name: 'outdoor'},
-    {name: 'indoor'},
-    {name: 'music'},
-    {name: 'sports'},
-    {name: 'gaming'},
-    {name: 'eating'},
-    {name: 'learning'},
-    {name: 'cooking'},
-    {name: 'movies'},
-    {name: 'adventure'},
-    {name: 'party'},
-    {name: 'other'},
+    { name: 'outdoor' },
+    { name: 'indoor' },
+    { name: 'music' },
+    { name: 'sports' },
+    { name: 'gaming' },
+    { name: 'eating' },
+    { name: 'learning' },
+    { name: 'cooking' },
+    { name: 'movies' },
+    { name: 'adventure' },
+    { name: 'party' },
+    { name: 'other' },
   ];
   selectedCategories: { name: string }[] = [];
 

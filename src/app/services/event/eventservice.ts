@@ -192,7 +192,6 @@ export class EventService {
   }
    */
 
-
   private getDefaultEventData(): EventData {
     return {
       categories: [],

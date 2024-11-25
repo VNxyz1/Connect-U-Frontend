@@ -4,7 +4,7 @@
   </div>
 
   <!-- Filter -->
-  @if(hasEvents){
+  @if (hasEvents) {
     <div class="flex col-12 sm:col-6 md:col-5 lg:col-4">
       <p-multiSelect
         [options]="filterCategories"
@@ -13,8 +13,7 @@
         placeholder="Filter auswählen"
         display="comma"
         [showClear]="true"
-        class="w-full"
-      ></p-multiSelect>
+        class="w-full"></p-multiSelect>
     </div>
   }
 
@@ -22,10 +21,14 @@
   <div class="grid justify-content-center mt-4">
     <div class="col-12 mb-6">
       @if (activeTab === 'gast') {
-        <app-guest-events (hasEventsChange)="updateHasEvents($event)" [filters]="selectedCategories" />
+        <app-guest-events
+          (hasEventsChange)="updateHasEvents($event)"
+          [filters]="selectedCategories" />
       }
       @if (activeTab === 'erstellt') {
-        <app-hosted-events (hasEventsChange)="updateHasEvents($event)" [filters]="selectedCategories" />
+        <app-hosted-events
+          (hasEventsChange)="updateHasEvents($event)"
+          [filters]="selectedCategories" />
       }
       <!-- has to be implemented -->
       @if (activeTab === 'favorisiert') {
