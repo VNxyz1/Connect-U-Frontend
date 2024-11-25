@@ -1,6 +1,6 @@
 <p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />
 @if (eventDetails$ | async; as eventDetails) {
-  <div class="xl:ml-8 p-0 m-0 grid">
+  <div class="xl:ml-8 p-0 m-0 mb-8 grid">
     <div class="xl:col-7">
       <div class="flex justify-content-center p-0 sm:p-0 m-0">
         <p-image
@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="xl:col-7">
-      <h1>{{ eventDetails.title }}</h1>
+      <h2>{{ eventDetails.title }}</h2>
 
       @for (category of eventDetails.categories; track $index) {
         <p-tag [value]="category.name" [rounded]="true" class="mr-1" />

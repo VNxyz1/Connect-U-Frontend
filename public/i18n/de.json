@@ -226,7 +226,8 @@
     "genderMismatch": "Dein Geschlecht entspricht nicht den bevorzugten Geschlechtern für dieses Event.",
     "eventNotPublic": "Dieses Event ist nicht öffentlich und kann nicht direkt beigetreten werden.",
     "requestAlreadyExists": "Du hast bereits eine Anfrage an dieses Event verschickt.",
-    "genericError": "Bei deiner Anfrage ist etwas schief gelaufen!"
+    "genericError": "Bei deiner Anfrage ist etwas schief gelaufen!",
+    "requestSent": "Deine Anfrage wurde verschickt!"
   },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "Du musst die AGBs bestätigen, um dich registrieren zu können",
