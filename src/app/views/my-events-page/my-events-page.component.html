@@ -1,70 +1,33 @@
-<div class="content">
-  <!-- Tab Navigation -->
-  <div class="grid justify-content-center bg-white">
-    <div class="col-12 flex justify-content-between position-relative pb-0">
-      <!-- Button guest -->
-      <button
-        pButton
-        [label]="'myEventPageComponent.guest.title' | transloco"
-        class="p-button-text text-md w-full text-center border-0 border-gray-50 pb-2 relative"
-        [ngClass]="{
-          'color-secondary border-primary border-bottom-3': activeTab === 'gast',
-          'border-gray-300 border-bottom-1': activeTab !== 'gast'
-        }"
-        style="border-radius: 0"
-        (click)="setActiveTab('gast')"
-      ></button>
-
-      <!-- Button hosted -->
-      <button
-        pButton
-        [label]="'myEventPageComponent.hosted.title'| transloco"
-        class="p-button-text text-center text-md w-full border-0 border-gray-50 pb-2 relative"
-        [ngClass]="{
-          'color-secondary border-primary border-bottom-3': activeTab === 'erstellt',
-          'border-gray-300 border-bottom-1': activeTab !== 'erstellt'
-        }"
-        style="border-radius: 0"
-        (click)="setActiveTab('erstellt')"
-      ></button>
-
-      <!-- Button Favorites -->
-      <button
-        pButton
-        [label]="'myEventPageComponent.favorite.title' | transloco"
-        class="p-button-text text-md w-full text-center border-gray-50 border-0 pb-2 relative"
-        [ngClass]="{
-          'color-secondary border-primary border-bottom-3': activeTab === 'favorisiert',
-          'border-gray-300 border-bottom-1': activeTab !== 'favorisiert'
-        }"
-        style="border-radius: 0"
-        (click)="setActiveTab('favorisiert')"
-      ></button>
-    </div>
+<div class="">
+  <div class="card">
+    <p-tabMenu [model]="tabMenuItems" [activeItem]="tabMenuItems.at(0)" />
   </div>
 
   <!-- Filter -->
-  <div class="flex col-12 sm:col-6 md:col-5 lg:col-4">
-    <p-multiSelect
-      [options]="filterCategories"
-      [(ngModel)]="selectedCategories"
-      optionLabel="name"
-      placeholder="Filter auswählen"
-      display="comma"
-      [showClear]="true"
-      class="w-full"
-    ></p-multiSelect>
-  </div>
+  @if(hasEvents){
+    <div class="flex col-12 sm:col-6 md:col-5 lg:col-4">
+      <p-multiSelect
+        [options]="filterCategories"
+        [(ngModel)]="selectedCategories"
+        optionLabel="name"
+        placeholder="Filter auswählen"
+        display="comma"
+        [showClear]="true"
+        class="w-full"
+      ></p-multiSelect>
+    </div>
+  }
 
   <!-- Tab Content -->
   <div class="grid justify-content-center mt-4">
-    <div class="col-12">
+    <div class="col-12 mb-6">
       @if (activeTab === 'gast') {
-        <app-guest-events />
+        <app-guest-events (hasEventsChange)="updateHasEvents($event)" [filters]="selectedCategories" />
       }
       @if (activeTab === 'erstellt') {
-        <app-hosted-events [filters]="selectedCategories" />
+        <app-hosted-events (hasEventsChange)="updateHasEvents($event)" [filters]="selectedCategories" />
       }
+      <!-- has to be implemented -->
       @if (activeTab === 'favorisiert') {
         <app-favorite-events />
       }

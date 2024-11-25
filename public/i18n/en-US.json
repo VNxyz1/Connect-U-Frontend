@@ -202,49 +202,21 @@
       "noEventIdError": "No Event ID found. Please try again."
     }
   },
-    "eventDetailPageComponent": {
-      "eventDetails": "Event Details",
-      "restrictions": "Access Restrictions",
-      "male": "men",
-      "female": "women",
-      "diverse": "diverse",
-      "age": "Age",
-      "gender": "Gender",
-      "from": "from",
-      "to": "to",
-      "years1": "years",
-      "years2": "years",
-      "error": "An error occurred.",
-      "notExist": "It seems like the event you were looking for doesn't exist!"
-    },
-    "registerComponentErrors": {
-      "You must accept the terms and conditions to register": "You must accept the terms and conditions to register",
-      "Passwords must match": "Passwords must match",
-      "You must be at least 16 years old to register.": "You must be at least 16 years old to register.",
-      "username is already taken": "The username is already taken.",
-      "e-mail address is already taken": "The e-mail address is already in use.",
-      "passwordConfirm must be longer than or equal to 8 characters": "The repeated password must be at least 8 characters long.",
-      "password must be longer than or equal to 8 characters": "The chosen password must be at least 8 characters long.",
-      "passwordConfirm should not be empty": "The password must be repeated correctly!",
-      "Username cannot contain only whitespace": "The username cannot consist of only whitespace.",
-      "username should not be empty": "The username must be filled in.",
-      "password should not be empty": "You must provide a password.",
-      "First name cannot contain only whitespace": "The first name cannot consist of only whitespace.",
-      "firstName should not be empty": "The first name cannot be empty.",
-      "Last name cannot contain only whitespace": "The last name cannot consist of only whitespace.",
-      "lastName should not be empty": "The last name cannot be empty."
-    },
-  "headerComponent": {
-    "mySpace": "My Space",
-    "myEvents": "My Events",
-    "search": "Search Events",
-    "createEvent": "Create Event"
+  "eventDetailPageComponent": {
+    "eventDetails": "Event Details",
+    "restrictions": "Access Restrictions",
+    "male": "men",
+    "female": "women",
+    "diverse": "diverse",
+    "age": "Age",
+    "gender": "Gender",
+    "from": "from",
+    "to": "to",
+    "years1": "years",
+    "years2": "years",
+    "error": "An error occurred.",
+    "notExist": "It seems like the event you were looking for doesn't exist!"
   },
-  "navbarComponent": {
-    "mySpace": "My Space",
-    "myEvents": "My Events",
-    "search": "Search",
-    "createEvent": "Create Event",
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "You must accept the terms and conditions to register",
     "Passwords must match": "Passwords must match",
@@ -261,6 +233,18 @@
     "firstName should not be empty": "The first name cannot be empty.",
     "Last name cannot contain only whitespace": "The last name cannot consist of only whitespace.",
     "lastName should not be empty": "The last name cannot be empty."
+  },
+  "headerComponent": {
+    "mySpace": "My Space",
+    "myEvents": "My Events",
+    "search": "Search Events",
+    "createEvent": "Create Event"
+  },
+  "navbarComponent": {
+    "mySpace": "My Space",
+    "myEvents": "My Events",
+    "search": "Search",
+    "createEvent": "Create Event"
   },
   "myEventPageComponent": {
     "hosted": {

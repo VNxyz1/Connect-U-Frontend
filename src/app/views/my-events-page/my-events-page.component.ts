@@ -11,6 +11,8 @@ import {FavoriteEventsComponent} from '../../components/my-events/favorite-event
 import {MultiSelectModule} from 'primeng/multiselect';
 import {FormsModule} from '@angular/forms';
 import {FloatLabelModule} from 'primeng/floatlabel';
+import {MenuItem} from 'primeng/api';
+import {TabMenuModule} from 'primeng/tabmenu';
 
 @Component({
   selector: 'app-my-events-page',
@@ -28,31 +30,59 @@ import {FloatLabelModule} from 'primeng/floatlabel';
     FavoriteEventsComponent,
     MultiSelectModule,
     FormsModule,
-    FloatLabelModule
+    FloatLabelModule,
+    TabMenuModule
   ],
   templateUrl: './my-events-page.component.html',
 })
 export class MyEventsPageComponent {
   activeTab: string = 'gast';
+  tabMenuItems: MenuItem[] = [
+    {
+      label: 'Gast',
+      icon: 'pi pi-users',
+      command: () => this.setActiveTab('gast'),
+    },
+    {
+      label: 'Erstellt',
+      icon: 'pi pi-plus-circle',
+      command: () => this.setActiveTab('erstellt'),
+    },
+    {
+      label: 'Favorisiert',
+      icon: 'pi pi-star',
+      command: () => this.setActiveTab('favorisiert'),
+    },
+  ];
 
   filterCategories = [
-    { name: 'outdoor' },
-    { name: 'indoor' },
-    { name: 'music' },
-    { name: 'sports' },
-    { name: 'gaming' },
-    { name: 'eating' },
-    { name: 'learning' },
-    { name: 'cooking' },
-    { name: 'movies' },
-    { name: 'adventure' },
-    { name: 'party' },
-    { name: 'other' },
+    {name: 'outdoor'},
+    {name: 'indoor'},
+    {name: 'music'},
+    {name: 'sports'},
+    {name: 'gaming'},
+    {name: 'eating'},
+    {name: 'learning'},
+    {name: 'cooking'},
+    {name: 'movies'},
+    {name: 'adventure'},
+    {name: 'party'},
+    {name: 'other'},
   ];
   selectedCategories: { name: string }[] = [];
 
+  hasEvents: boolean = false;
+
   setActiveTab(tab: string): void {
     this.activeTab = tab;
+    this.resetHasEvents();
   }
 
+  updateHasEvents(status: boolean): void {
+    this.hasEvents = status;
+  }
+
+  resetHasEvents(): void {
+    this.hasEvents = false;
+  }
 }

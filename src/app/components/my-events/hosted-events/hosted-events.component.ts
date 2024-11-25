@@ -1,5 +1,5 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {BehaviorSubject, finalize, Observable, tap} from 'rxjs';
 import {EventCardItem} from '../../../interfaces/EventCardItem';
 import {EventService} from '../../../services/event/eventservice';
 import {AngularRemixIconComponent} from 'angular-remix-icon';
@@ -23,14 +23,25 @@ export class HostedEventsComponent implements OnInit,OnChanges{
   @Input() filters: {name: string}[] = [];
   events$!: Observable<EventCardItem[]>;
   filteredEvents$!: Observable<EventCardItem[]>;
-
+  @Output() hasEventsChange = new EventEmitter<boolean>();
+  protected isLoading = true;
   private filtersSubject = new BehaviorSubject<{ name: string }[]>([]);
 
   constructor(private eventService: EventService) {
   }
 
   ngOnInit(): void {
-    this.events$ = this.eventService.getHostingEvents();
+    this.events$ = this.eventService.getHostingEvents().pipe(
+      tap(()=>{
+        this.isLoading = true;
+      }),
+      tap((events) => {
+        this.hasEventsChange.emit(events.length > 0);
+      }),
+      finalize(()=>{
+        this.isLoading = false;
+      })
+    );
     this.filteredEvents$ = this.filtersSubject.pipe(
       switchMap(filters =>
         this.events$.pipe(
@@ -53,5 +64,4 @@ export class HostedEventsComponent implements OnInit,OnChanges{
       this.filtersSubject.next(this.filters);
     }
   }
-
 }
