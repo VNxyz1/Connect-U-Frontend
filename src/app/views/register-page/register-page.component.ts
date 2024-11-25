@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Button, ButtonDirective } from 'primeng/button';
+import { Button } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { Router, RouterLink } from '@angular/router';
@@ -24,6 +24,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RegisterBody } from '../../services/auth/auth.service';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { DateService } from '../../services/date/date.service';
+import { DialogModule } from 'primeng/dialog';
+import { TranslocoLocaleService } from '@jsverse/transloco-locale';
 
 type RegisterForm = FormGroup<{
   username: FormControl<string>;
@@ -53,6 +55,7 @@ type RegisterForm = FormGroup<{
     ToastModule,
     CheckboxModule,
     TranslocoPipe,
+    DialogModule,
   ],
   providers: [AuthService, MessageService, TranslocoService],
   templateUrl: './register-page.component.html',
@@ -103,12 +106,14 @@ export class RegisterPageComponent {
     },
     { validators: passwordMatchValidator('password', 'confirmPassword') },
   );
+  gtcDialogVisible: boolean = false;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private messageService: MessageService,
     private translocoService: TranslocoService,
+    protected translocoLocaleService: TranslocoLocaleService,
     private dateService: DateService,
   ) {
     this.calendarDateFormat = this.dateService.getCalendarDateFormat();
@@ -171,6 +176,10 @@ export class RegisterPageComponent {
         ];
       });
   };
+
+  openGTC() {
+    this.gtcDialogVisible = true;
+  }
 }
 /*
 showErrorMessage(code: number) {
