@@ -231,7 +231,7 @@ export class EventService {
   addUserToEvent(
     eventId: string,
   ): Observable<{ success: boolean; message: string }> {
-    const url = `request/join/${eventId}`;
+    const url = `event/join/${eventId}`;
     return this.http.post<{ success: boolean; message: string }>(url, {}).pipe(
       map(response => {
         console.log(
