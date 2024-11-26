@@ -27,9 +27,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 export class HeaderComponent implements OnInit {
   currentUrl: string | undefined;
 
-  constructor(private router: Router,
-              private confirmationService: ConfirmationService,
-              private translocoService: TranslocoService) {}
+  constructor(
+    private router: Router,
+    private confirmationService: ConfirmationService,
+    private translocoService: TranslocoService,
+  ) {}
 
   ngOnInit() {
     this.router.events

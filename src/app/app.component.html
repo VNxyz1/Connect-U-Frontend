@@ -1,11 +1,12 @@
-<div class="h-screen flex-column flex p-0 m-0">
+<div class="h-screen grid p-0 m-0">
   <div class="col-12 p-0">
-    <app-header/>
+    <app-header />
   </div>
   <div class="col-12 md:col-10 flex justify-content-center">
-    <router-outlet/>
+    <router-outlet />
   </div>
-  <div class="col-12 md:col-2 p-0 pt-7">
-    <app-navbar [currentUrl]="currentUrl"/>
+  <div
+    class="bg-light-grey col-12 md:col-2 p-0 pt-7 md:pt-0 md:flex md:flex-column">
+    <app-navbar [currentUrl]="currentUrl" />
   </div>
 </div>

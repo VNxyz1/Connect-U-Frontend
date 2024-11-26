@@ -1,4 +1,11 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { Button } from 'primeng/button';
 import { NavigationEnd, Router } from '@angular/router';
@@ -37,7 +44,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     private breakpointObserver: BreakpointObserver,
     private translocoService: TranslocoService,
     private renderer: Renderer2,
-    private elRef: ElementRef
+    private elRef: ElementRef,
   ) {
     setTimeout(() => {
       this.updateMenuItems();
@@ -156,5 +163,5 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
       this.renderer.setStyle(fixedFooter, 'padding-top', `${footerHeight}px`);
     }
-  }
+  };
 }
