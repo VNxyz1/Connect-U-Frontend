@@ -1,4 +1,7 @@
 {
+  "homepage": {
+    "title": "Events for You"
+  },
   "loginComponent": {
     "title": "LOGIN",
     "noAccountYet": "No account yet?",

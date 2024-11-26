@@ -1,4 +1,7 @@
 {
+  "homepage": {
+    "title": "Events für Dich"
+  },
   "loginComponent": {
     "title": "ANMELDEN",
     "noAccountYet": "Noch kein Account?",

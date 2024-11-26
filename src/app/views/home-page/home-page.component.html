@@ -1,4 +1,4 @@
-<h3>Featured Events</h3>
+<h3>{{ 'homepage.title' | transloco }}</h3>
 <div class="grid justify-content-center xl:justify-content-start md:w-full">
   @if (events$ | async; as events) {
     @for (event of events; track $index) {
