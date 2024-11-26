@@ -26,7 +26,7 @@ import { filter } from 'rxjs/operators';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Connect-U-Frontend';
   private storageInitialized = false;
-  currentUrl: string | null = null;
+  currentUrl: string | undefined = undefined;
 
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: Object,
