@@ -1,4 +1,7 @@
 {
+  "homepage": {
+    "title": "Events for You"
+  },
   "loginComponent": {
     "title": "LOGIN",
     "noAccountYet": "No account yet?",
@@ -215,6 +218,8 @@
     "years1": "years",
     "years2": "years",
     "error": "An error occurred.",
+    "join": "Join Event",
+    "request": "Request Event",
     "notExist": "It seems like the event you were looking for doesn't exist!",
       "eventNotFound": "The event you are looking for does not exist.",
       "userIsHost": "You are the host of this event and cannot join it.",
@@ -223,6 +228,8 @@
       "genderMismatch": "Your gender does not match the preferred genders for this event.",
       "eventNotPublic": "This event is not public and cannot be joined directly.",
     "requestAlreadyExists": "You have already sent a request for this event.",
+    "joined": "You've successfully joined the event!",
+    "requestSent": "Your request has been sent!",
     "genericError": "Something went wrong with sending your request!"
 
   },
@@ -248,6 +255,7 @@
     "myEvents": "My Events",
     "search": "Search Events",
     "createEvent": "Create Event",
+    "event": "Event Information",
     "closeConfirmationMessage": "Are you sure, that you want to discard you event? Your draft will not be saved.",
     "closeConfirmationHeader": "Discard Draft"
   },

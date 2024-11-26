@@ -30,23 +30,25 @@
       </div>
 
       <div class="flex-grow-1 text-center">
-        @if (currentUrl?.includes('/my-space')) {
-          <h1 class="m-0">{{ 'headerComponent.mySpace' | transloco }}</h1>
-        } @else if (currentUrl?.includes('/my-events')) {
-          <h1 class="m-0">{{ 'headerComponent.myEvents' | transloco }}</h1>
-        } @else if (currentUrl?.includes('/create-event')) {
-          <h1 class="m-0">{{ 'headerComponent.createEvent' | transloco }}</h1>
-        } @else if (currentUrl?.includes('/search')) {
-          <h1 class="m-0">{{ 'headerComponent.search' | transloco }}</h1>
-        } @else if (
-          currentUrl == '/' ||
-          currentUrl?.includes('/gtc') ||
-          currentUrl?.includes('legal-disclosure')
-        ) {
-          <p-image
-            src="images/logo_full_dark.svg"
-            width="250"
-            alt="Connect-U Logo" />
+        @switch (true) {
+          @case (currentUrl?.includes('/my-space')) {
+            <h1 class="m-0">{{ 'headerComponent.mySpace' | transloco }}</h1>
+          }
+          @case (currentUrl?.includes('/my-events')) {
+            <h1 class="m-0">{{ 'headerComponent.myEvents' | transloco }}</h1>
+          }
+          @case (currentUrl?.includes('/create-event')) {
+            <h1 class="m-0">{{ 'headerComponent.createEvent' | transloco }}</h1>
+          }
+          @case (currentUrl?.includes('/event')) {
+            <h1 class="m-0">{{ 'headerComponent.event' | transloco }}</h1>
+          }
+          @default {
+            <p-image
+              src="images/logo_full_dark.svg"
+              width="250"
+              alt="Connect-U Logo" />
+          }
         }
       </div>
       <div style="width: 24px"></div>
