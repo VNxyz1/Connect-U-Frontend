@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import {
   FormControl,
@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, UrlTree } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -16,6 +16,7 @@ import { Button } from 'primeng/button';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 type LoginForm = FormGroup<{
   email: FormControl<string>;
@@ -36,11 +37,18 @@ type LoginForm = FormGroup<{
     AngularRemixIconComponent,
     IconFieldModule,
     InputIconModule,
+    FloatLabelModule,
   ],
   providers: [MessageService],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
+  /**
+   * After the successful login the site is navigated to this url.
+   * @default '/' navigates to the home-page
+   */
+  @Input({ required: false }) redirectTo: string | UrlTree = '/';
+
   form: LoginForm = new FormGroup({
     email: new FormControl<string>('', {
       nonNullable: true,
@@ -68,7 +76,7 @@ export class LoginComponent {
         password: this.form.controls.password.value,
       })
       .subscribe({
-        next: () => this.router.navigateByUrl('/'),
+        next: () => this.router.navigateByUrl(this.redirectTo),
         error: err => {
           this.showError(err.status);
         },

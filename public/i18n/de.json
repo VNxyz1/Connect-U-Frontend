@@ -13,7 +13,7 @@
       "validEmailWarning": "Bitte eine gültige E-Mail-Adresse eingeben.",
       "requiredWarning": "E-Mail ist erforderlich.",
       "placeholder": "E-Mail",
-      "label": "Passwort"
+      "label": "E-Mail"
     },
     "loginButtonLabel": "Einloggen",
     "messages": {
