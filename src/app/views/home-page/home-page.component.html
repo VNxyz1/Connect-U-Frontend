@@ -1,5 +1,5 @@
 <h3>Featured Events</h3>
-<div class="grid justify-content-center xl:justify-content-start md:w-full">
+<div class="grid justify-content-center xl:justify-content-start md:w-full mb-6">
   @if (events$ | async; as events) {
     @for (event of events; track $index) {
       <div
