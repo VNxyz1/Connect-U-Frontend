@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, Input} from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import {
   FormControl,

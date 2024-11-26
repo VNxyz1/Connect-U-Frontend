@@ -1,28 +1,37 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {Button} from 'primeng/button';
-import {CalendarModule} from 'primeng/calendar';
-import {CheckboxModule} from 'primeng/checkbox';
-import {DialogModule} from 'primeng/dialog';
-import {DropdownModule} from 'primeng/dropdown';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {IconFieldModule} from 'primeng/iconfield';
-import {InputIconModule} from 'primeng/inputicon';
-import {InputTextModule} from 'primeng/inputtext';
-import {MessageService, PrimeTemplate} from 'primeng/api';
-import {ToastModule} from 'primeng/toast';
-import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
-import {Router, RouterLink} from '@angular/router';
-import {TranslocoLocaleService} from '@jsverse/transloco-locale';
-import {DateService} from '../../services/date/date.service';
-import {AuthService, RegisterBody} from '../../services/auth/auth.service';
-import {minAgeValidator, passwordMatchValidator} from '../../utils/validators/validators';
-import {AgbComponent} from './agb/agb.component';
-import {FloatLabelModule} from 'primeng/floatlabel';
-import {PasswordModule} from 'primeng/password';
-import {AngularRemixIconComponent} from 'angular-remix-icon';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { Button } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessageService, PrimeTemplate } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { Router, RouterLink } from '@angular/router';
+import { DateService } from '../../services/date/date.service';
+import { AuthService, RegisterBody } from '../../services/auth/auth.service';
+import {
+  minAgeValidator,
+  passwordMatchValidator,
+} from '../../utils/validators/validators';
+import { AgbComponent } from './agb/agb.component';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { PasswordModule } from 'primeng/password';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
+
 type RegisterForm = FormGroup<{
-username: FormControl<string>;
-email: FormControl<string>;
+  username: FormControl<string>;
+  email: FormControl<string>;
   firstName: FormControl<string>;
   lastName: FormControl<string>;
   birthday: FormControl<string>;
@@ -53,16 +62,14 @@ email: FormControl<string>;
     AgbComponent,
     FloatLabelModule,
     PasswordModule,
-    AngularRemixIconComponent
+    AngularRemixIconComponent,
   ],
   providers: [AuthService, MessageService, TranslocoService],
-  templateUrl: './register.component.html'
+  templateUrl: './register.component.html',
 })
 export class RegisterComponent {
   @Output() toggleView: EventEmitter<boolean> = new EventEmitter<boolean>();
   genderOptions: Array<{ label: string; value: number }> = [];
-  protected passwordVisible: boolean | undefined;
-  protected passwordRegVisible: boolean | undefined;
   protected calendarDateFormat: string = 'yy-mm-dd';
   form: RegisterForm = new FormGroup(
     {
@@ -112,20 +119,10 @@ export class RegisterComponent {
     private authService: AuthService,
     private messageService: MessageService,
     private translocoService: TranslocoService,
-    protected translocoLocaleService: TranslocoLocaleService,
     private dateService: DateService,
   ) {
     this.calendarDateFormat = this.dateService.getCalendarDateFormat();
     this.loadGenderOptions();
-  }
-
-  togglePasswordVisibility(val: string): void {
-    if (val == 'regPassword') {
-      this.passwordRegVisible = !this.passwordRegVisible;
-    }
-    if (val == 'proofPassword') {
-      this.passwordVisible = !this.passwordVisible;
-    }
   }
 
   submitRegister() {
@@ -179,8 +176,7 @@ export class RegisterComponent {
   openGTC() {
     this.gtcDialogVisible = true;
   }
-  toggleToLogin():void{
+  toggleToLogin(): void {
     this.toggleView.emit(true);
   }
-
 }
