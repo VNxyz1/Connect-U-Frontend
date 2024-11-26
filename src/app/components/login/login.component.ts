@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, EventEmitter, Output, Input} from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import {
   FormControl,
@@ -43,6 +43,8 @@ type LoginForm = FormGroup<{
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
+  @Output() toggleView = new EventEmitter<boolean>();
+
   /**
    * After the successful login the site is navigated to this url.
    * @default '/' navigates to the home-page
@@ -101,5 +103,8 @@ export class LoginComponent {
 
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
+  }
+  toggleToRegister(): void {
+    this.toggleView.emit(false); // Wechselt zur Register-Komponente
   }
 }

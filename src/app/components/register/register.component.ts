@@ -1,35 +1,28 @@
-import { Component } from '@angular/core';
-import { Button } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
-import { Router, RouterLink } from '@angular/router';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import {
-  minAgeValidator,
-  passwordMatchValidator,
-} from '../../utils/validators/validators';
-import { AuthService } from '../../services/auth/auth.service';
-import { CalendarModule } from 'primeng/calendar';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { CheckboxModule } from 'primeng/checkbox';
-import { RegisterBody } from '../../services/auth/auth.service';
-import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { DateService } from '../../services/date/date.service';
-import { DialogModule } from 'primeng/dialog';
-import { TranslocoLocaleService } from '@jsverse/transloco-locale';
-
+import {Component, EventEmitter, Output} from '@angular/core';
+import {Button} from 'primeng/button';
+import {CalendarModule} from 'primeng/calendar';
+import {CheckboxModule} from 'primeng/checkbox';
+import {DialogModule} from 'primeng/dialog';
+import {DropdownModule} from 'primeng/dropdown';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {IconFieldModule} from 'primeng/iconfield';
+import {InputIconModule} from 'primeng/inputicon';
+import {InputTextModule} from 'primeng/inputtext';
+import {MessageService, PrimeTemplate} from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
+import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
+import {Router, RouterLink} from '@angular/router';
+import {TranslocoLocaleService} from '@jsverse/transloco-locale';
+import {DateService} from '../../services/date/date.service';
+import {AuthService, RegisterBody} from '../../services/auth/auth.service';
+import {minAgeValidator, passwordMatchValidator} from '../../utils/validators/validators';
+import {AgbComponent} from './agb/agb.component';
+import {FloatLabelModule} from 'primeng/floatlabel';
+import {PasswordModule} from 'primeng/password';
+import {AngularRemixIconComponent} from 'angular-remix-icon';
 type RegisterForm = FormGroup<{
-  username: FormControl<string>;
-  email: FormControl<string>;
+username: FormControl<string>;
+email: FormControl<string>;
   firstName: FormControl<string>;
   lastName: FormControl<string>;
   birthday: FormControl<string>;
@@ -40,27 +33,33 @@ type RegisterForm = FormGroup<{
 }>;
 
 @Component({
-  selector: 'app-register-page',
+  selector: 'app-register',
   standalone: true,
   imports: [
-    InputTextModule,
+    Button,
+    CalendarModule,
+    CheckboxModule,
+    DialogModule,
     DropdownModule,
-    RouterLink,
     FormsModule,
     IconFieldModule,
     InputIconModule,
-    Button,
+    InputTextModule,
+    PrimeTemplate,
     ReactiveFormsModule,
-    CalendarModule,
     ToastModule,
-    CheckboxModule,
     TranslocoPipe,
-    DialogModule,
+    RouterLink,
+    AgbComponent,
+    FloatLabelModule,
+    PasswordModule,
+    AngularRemixIconComponent
   ],
   providers: [AuthService, MessageService, TranslocoService],
-  templateUrl: './register-page.component.html',
+  templateUrl: './register.component.html'
 })
-export class RegisterPageComponent {
+export class RegisterComponent {
+  @Output() toggleView: EventEmitter<boolean> = new EventEmitter<boolean>();
   genderOptions: Array<{ label: string; value: number }> = [];
   protected passwordVisible: boolean | undefined;
   protected passwordRegVisible: boolean | undefined;
@@ -180,21 +179,8 @@ export class RegisterPageComponent {
   openGTC() {
     this.gtcDialogVisible = true;
   }
-}
-/*
-showErrorMessage(code: number) {
-    switch (code) {
-      case 404:
-      case 400:
-        this.messageService.add({
-          severity: 'error',
-          summary: this.translocoService.translate(
-            'registerComponent.errorMessages.registerFailed',
-          ),
-          detail: this.translocoService.translate(
-            'registerComponent.errorMessages.registerFailedData',
-          ),
-        });
-    }
+  toggleToLogin():void{
+    this.toggleView.emit(true);
   }
- */
+
+}
