@@ -231,7 +231,7 @@
     "requestAlreadyExists": "Du hast bereits eine Anfrage an dieses Event verschickt.",
     "genericError": "Bei deiner Anfrage ist etwas schief gelaufen!",
     "requestSent": "Deine Anfrage wurde verschickt!",
-    "joined": ""
+    "joined": "Du hast dich für das Event angemeldet!"
   },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "Du musst die AGBs bestätigen, um dich registrieren zu können",
