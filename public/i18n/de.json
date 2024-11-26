@@ -1,4 +1,7 @@
 {
+  "homepage": {
+    "title": "Events für Dich"
+  },
   "loginComponent": {
     "title": "ANMELDEN",
     "noAccountYet": "Noch kein Account?",
@@ -216,7 +219,7 @@
     "years1": "Jahren",
     "years2": "Jahre",
     "error": "Es ist ein Fehler aufgetreten.",
-    "notExist": " Das Event, nach dem du gesucht hast, scheint nicht zu existieren!",
+    "notExist": "Das Event, nach dem du gesucht hast, scheint nicht zu existieren!",
     "join": "Event beitreten",
     "request": "Anfrage schicken",
     "eventNotFound": "Das gesuchte Event existiert nicht.",
@@ -227,7 +230,8 @@
     "eventNotPublic": "Dieses Event ist nicht öffentlich und kann nicht direkt beigetreten werden.",
     "requestAlreadyExists": "Du hast bereits eine Anfrage an dieses Event verschickt.",
     "genericError": "Bei deiner Anfrage ist etwas schief gelaufen!",
-    "requestSent": "Deine Anfrage wurde verschickt!"
+    "requestSent": "Deine Anfrage wurde verschickt!",
+    "joined": "Du hast dich für das Event angemeldet!"
   },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "Du musst die AGBs bestätigen, um dich registrieren zu können",
@@ -250,7 +254,8 @@
     "mySpace": "Mein Bereich",
     "myEvents": "Meine Events",
     "search": "Events suchen",
-    "createEvent": "Event erstellen"
+    "createEvent": "Event erstellen",
+    "event": "Eventinformationen"
   },
   "navbarComponent": {
     "mySpace": "Mein Bereich",

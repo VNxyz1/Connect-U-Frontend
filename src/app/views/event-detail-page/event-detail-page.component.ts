@@ -22,6 +22,7 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
   'Host cannot send a join request to their own event':
     'eventDetailPageComponent.userIsHost',
+  'user is the host of this event': 'eventDetailPageComponent.userIsHost',
   'Request already exists': 'eventDetailPageComponent.requestAlreadyExists',
   'User is already a participant in this event':
     'eventDetailPageComponent.alreadyParticipant',
