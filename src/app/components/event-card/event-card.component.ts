@@ -29,16 +29,7 @@ export class EventCardComponent {
   @Input() event!: EventCardItem;
 
   // placeholder
-  ahhArr: string[] = [
-    'Placeholder',
-    'cause_missing_in_Backend',
-    'sdadsaddasddsdasdasdasd',
-    'asdsadasd',
-    'asdsadasd',
-    'asdsadasd',
-    'asdsadasd',
-    'asdsadasd',
-  ].slice(0, Math.floor(Math.random() * (7 - 1 + 1) + 1));
+  ahhArr: string[] = ['Placeholder', 'cause_missing_in_Backend'];
 
   constructor() {}
 
