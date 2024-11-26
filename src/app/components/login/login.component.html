@@ -10,22 +10,23 @@
     class="w-full"
     aria-labelledby="loginFormTitle">
     <div class="field w-full">
-      <label for="email" class="sr-only">{{
-        'loginComponent.eMailInput.label' | transloco
-      }}</label>
-      <input
-        id="email"
-        type="email"
-        pInputText
-        formControlName="email"
-        autocomplete="new-text"
-        aria-autocomplete="none"
-        class="w-full"
-        [placeholder]="'loginComponent.eMailInput.placeholder' | transloco"
-        aria-required="true"
-        [attr.aria-invalid]="
-          form.get('email')?.invalid && form.get('email')?.touched
-        " />
+      <p-floatLabel>
+        <input
+          id="email"
+          type="email"
+          pInputText
+          formControlName="email"
+          autocomplete="new-text"
+          aria-autocomplete="none"
+          class="w-full"
+          aria-required="true"
+          [attr.aria-invalid]="
+            form.get('email')?.invalid && form.get('email')?.touched
+          " />
+        <label for="email">{{
+          'loginComponent.eMailInput.label' | transloco
+        }}</label>
+      </p-floatLabel>
       @if (form.get('email')?.invalid && form.get('email')?.touched) {
         @if (form.get('email')?.errors?.['required']) {
           <small class="p-error">{{
@@ -41,41 +42,38 @@
     </div>
 
     <div class="field w-full">
-      <label for="password" class="sr-only">{{
-        'loginComponent.passwordInput.label' | transloco
-      }}</label>
-      <p-iconField iconPosition="right">
-        <p-inputIcon
-          (click)="togglePasswordVisibility()"
-          (keydown.enter)="togglePasswordVisibility()"
-          (keydown.space)="togglePasswordVisibility()"
-          tabindex="0"
-          aria-label="Toggle password visibility">
-          @if (passwordVisible) {
-            <rmx-icon
-              name="eye-off-line"
-              style="width: 16px; height: 16px"></rmx-icon>
-          } @else {
-            <rmx-icon
-              name="eye-line"
-              style="width: 16px; height: 16px"></rmx-icon>
-          }
-        </p-inputIcon>
-
-        <input
-          pInputText
-          [type]="passwordVisible ? 'text' : 'password'"
+      <p-floatLabel>
+        <p-password
           id="password"
           formControlName="password"
+          toggleMask
+          [feedback]="false"
           class="w-full"
+          styleClass="w-full"
+          inputStyleClass="w-full"
           autocomplete="new-password"
           aria-autocomplete="none"
-          [placeholder]="'loginComponent.passwordInput.placeholder' | transloco"
           aria-required="true"
           [attr.aria-invalid]="
             form.get('password')?.invalid && form.get('password')?.touched
-          " />
-      </p-iconField>
+          ">
+          <span>
+            <ng-template pTemplate="showicon">
+              <rmx-icon
+                name="eye-line"
+                style="width: 16px; height: 16px"></rmx-icon>
+            </ng-template>
+            <ng-template pTemplate="hideicon">
+              <rmx-icon
+                name="eye-off-line"
+                style="width: 16px; height: 16px"></rmx-icon>
+            </ng-template>
+          </span>
+        </p-password>
+        <label for="password">{{
+          'loginComponent.passwordInput.label' | transloco
+        }}</label>
+      </p-floatLabel>
       @if (form.get('password')?.invalid && form.get('password')?.touched) {
         @if (form.get('password')?.errors?.['required']) {
           <small class="p-error">{{
