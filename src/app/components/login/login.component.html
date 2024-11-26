@@ -57,16 +57,18 @@
           [attr.aria-invalid]="
             form.get('password')?.invalid && form.get('password')?.touched
           ">
-          <ng-template pTemplate="showicon">
-            <rmx-icon
-              name="eye-line"
-              style="width: 16px; height: 16px"></rmx-icon>
-          </ng-template>
-          <ng-template pTemplate="hideicon">
-            <rmx-icon
-              name="eye-off-line"
-              style="width: 16px; height: 16px"></rmx-icon>
-          </ng-template>
+          <span>
+            <ng-template pTemplate="showicon">
+              <rmx-icon
+                name="eye-line"
+                style="width: 16px; height: 16px"></rmx-icon>
+            </ng-template>
+            <ng-template pTemplate="hideicon">
+              <rmx-icon
+                name="eye-off-line"
+                style="width: 16px; height: 16px"></rmx-icon>
+            </ng-template>
+          </span>
         </p-password>
         <label for="password">{{
           'loginComponent.passwordInput.label' | transloco
