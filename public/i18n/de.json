@@ -251,7 +251,8 @@
     "mySpace": "Mein Bereich",
     "myEvents": "Meine Events",
     "search": "Events suchen",
-    "createEvent": "Event erstellen"
+    "createEvent": "Event erstellen",
+    "event": "Eventinformationen"
   },
   "navbarComponent": {
     "mySpace": "Mein Bereich",

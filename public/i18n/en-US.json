@@ -251,7 +251,8 @@
     "mySpace": "My Space",
     "myEvents": "My Events",
     "search": "Search Events",
-    "createEvent": "Create Event"
+    "createEvent": "Create Event",
+    "event": "Event Information"
   },
   "navbarComponent": {
     "mySpace": "My Space",
