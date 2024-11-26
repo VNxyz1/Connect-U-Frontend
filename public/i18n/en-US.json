@@ -173,11 +173,11 @@
   },
   "createEventStep3Component": {
     "participantsNumberInput": {
-      "label": "Participants Number",
-      "errorMessage": "Participants Number is required and must be at least 2."
+      "label": "Guest Number",
+      "errorMessage": "Guests Number is required and must be at least 2."
     },
     "participantsInput": {
-      "label": "Selected Participants"
+      "label": "Selected Guests"
     },
     "preferredGendersInput": {
       "label": "Preferred Genders"
@@ -247,7 +247,9 @@
     "mySpace": "My Space",
     "myEvents": "My Events",
     "search": "Search Events",
-    "createEvent": "Create Event"
+    "createEvent": "Create Event",
+    "closeConfirmationMessage": "Are you sure, that you want to discard you event? Your draft will not be saved.",
+    "closeConfirmationHeader": "Discard Draft"
   },
   "navbarComponent": {
     "mySpace": "My Space",

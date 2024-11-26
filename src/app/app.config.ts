@@ -48,7 +48,7 @@ import {
   RiArrowDownLine,
   RiCheckboxLine,
   RiEyeLine,
-  RiEyeOffLine,
+  RiEyeOffLine, RiCloseLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
@@ -84,6 +84,7 @@ const icons = {
   RiArrowDownLine,
   RiEyeLine,
   RiEyeOffLine,
+  RiCloseLine,
 };
 
 export const translocoConfig = {

@@ -1,4 +1,4 @@
-<div class="h-screen flex flex-column">
+<div class="h-screen flex flex-column justify-content-center">
   <!-- Header -->
   <div
     class="col-12"
@@ -10,9 +10,8 @@
 
   <!-- Content -->
   <div
-    class="col-12 flex-grow-1 flex"
+    class="col-12 flex-grow-1 flex grid-nogutter md:grid"
     [ngClass]="{
-      'grid md:grid-nogutter': !currentUrl?.includes('/create-event'),
       'justify-content-center items-center':
         currentUrl?.includes('/create-event'),
     }">
@@ -26,7 +25,7 @@
 
     <!-- Main Content -->
     <div
-      class="col-12 p-2"
+      class="col-12 p-2 justify-content-center"
       [ngClass]="{
         'md:col-10': !currentUrl?.includes('/create-event'),
         'justify-content-center items-center h-full w-full':

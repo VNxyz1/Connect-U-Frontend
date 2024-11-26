@@ -5,7 +5,9 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { Button } from 'primeng/button';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-header',
@@ -17,12 +19,18 @@ import { TranslocoPipe } from '@jsverse/transloco';
     Button,
     NgClass,
     TranslocoPipe,
+    ConfirmDialogModule,
   ],
+  providers: [ConfirmationService],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
   currentUrl: string | undefined;
-  constructor(private router: Router) {}
+
+  constructor(private router: Router,
+              private confirmationService: ConfirmationService,
+              private translocoService: TranslocoService) {}
+
   ngOnInit() {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
@@ -30,8 +38,26 @@ export class HeaderComponent implements OnInit {
         this.currentUrl = event.url;
       });
   }
-  backToHome() {
-    let path = '/';
-    this.router.navigate([path]);
+
+  protected backToLast() {
+    window.history.back(); // Navigate to the previous page in the browser history
+  }
+
+  protected closeProcess() {
+    this.confirmationService.confirm({
+      message: this.translocoService.translate(
+        'headerComponent.closeConfirmationMessage',
+      ),
+      header: this.translocoService.translate(
+        'headerComponent.closeConfirmationHeader',
+      ),
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.router.navigate(['/']);
+      },
+      reject: () => {
+        return;
+      },
+    });
   }
 }
