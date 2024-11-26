@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2} from '@angular/core';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { Button } from 'primeng/button';
 import { NavigationEnd, Router } from '@angular/router';
@@ -26,7 +26,7 @@ import { TranslocoService } from '@jsverse/transloco';
   ],
   templateUrl: './navbar.component.html',
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, AfterViewInit {
   @Input() currentUrl: string | null = null;
   items: MenuItem[] = [];
   isMd: boolean = false;
@@ -36,6 +36,8 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private breakpointObserver: BreakpointObserver,
     private translocoService: TranslocoService,
+    private renderer: Renderer2,
+    private elRef: ElementRef
   ) {
     setTimeout(() => {
       this.updateMenuItems();
@@ -70,6 +72,10 @@ export class NavbarComponent implements OnInit {
             this.isMd = breakpoints['(max-width: 1085px)'] || false; // Check if width is <= 1085px
           });
       });
+  }
+
+  ngAfterViewInit() {
+    this.setPaddingForFixedFooter();
   }
 
   getSeverity(
@@ -141,5 +147,14 @@ export class NavbarComponent implements OnInit {
         },
       ];
     });
+  }
+
+  setPaddingForFixedFooter = (): void => {
+    const fixedFooter = this.elRef.nativeElement.querySelector('.fixed-footer');
+    if (fixedFooter) {
+      const footerHeight = fixedFooter.offsetHeight;
+
+      this.renderer.setStyle(fixedFooter, 'padding-top', `${footerHeight}px`);
+    }
   }
 }

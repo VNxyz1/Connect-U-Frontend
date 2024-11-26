@@ -1,8 +1,7 @@
 <!-- Tab-bar for Mobile-View -->
-<div
-  class="border-top-2 border-gray-50 surface-ground fixed z-4 bottom-0 w-full grid align-items-center justify-content-center p-2 md:hidden">
-  <div class="col-12">
-    <div class="flex justify-content-between">
+<div class="w-full border-top-2 border-gray-50 surface-ground px-4 z-4 bottom-0 fixed md:hidden">
+  <div class="w-full flex pt-3 pb-3 justify-content-between">
+    <div class="col-fixed w-min p-0">
       <p-button
         [text]="true"
         [severity]="getSeverity('/')"
@@ -13,7 +12,8 @@
             [name]="activeIcon('/')"></rmx-icon>
         </ng-template>
       </p-button>
-
+    </div>
+    <div class="col-fixed w-min p-0">
       <p-button
         [text]="true"
         [severity]="getSeverity('/search')"
@@ -24,7 +24,8 @@
             [name]="activeIcon('/search')"></rmx-icon>
         </ng-template>
       </p-button>
-
+    </div>
+    <div class="col-fixed w-min p-0">
       <p-button
         [raised]="true"
         severity="success"
@@ -35,7 +36,8 @@
             name="add-line"></rmx-icon>
         </ng-template>
       </p-button>
-
+    </div>
+    <div class="col-fixed w-min p-0">
       <p-button
         [text]="true"
         [severity]="getSeverity('/my-events')"
@@ -46,7 +48,8 @@
             [name]="activeIcon('/my-events')"></rmx-icon>
         </ng-template>
       </p-button>
-
+    </div>
+    <div class="col-fixed w-min p-0">
       <p-button
         [text]="true"
         [severity]="getSeverity('/my-space')"
