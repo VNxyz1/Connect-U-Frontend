@@ -8,6 +8,7 @@ import { Button } from 'primeng/button';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { EventService } from '../../services/event/eventservice';
 
 @Component({
   selector: 'app-header',
@@ -31,6 +32,7 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private confirmationService: ConfirmationService,
     private translocoService: TranslocoService,
+    private eventService: EventService,
   ) {}
 
   ngOnInit() {
@@ -55,7 +57,9 @@ export class HeaderComponent implements OnInit {
       ),
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.router.navigate(['/']);
+        this.eventService.removeEventInformation().then(() => {
+          this.router.navigate(['/']);
+        });
       },
       reject: () => {
         return;

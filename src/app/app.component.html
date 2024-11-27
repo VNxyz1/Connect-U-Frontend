@@ -1,19 +1,21 @@
 @if (currentUrl) {
-  <div class="h-screen grid p-0 m-0">
+  <div class="h-screen grid p-0 m-0 gap-0 align-content-start">
     <div
-      class="col-12 p-0"
+      class="col-12 p-0 max-h-min"
       [ngClass]="{
         'md:col-offset-2 md:col-10': !currentUrl.includes('/create-event'),
       }">
       <app-header />
     </div>
     <div
-      class="col-12"
+      class="col-12 p-0"
       [ngClass]="{
         'md:col-offset-2 md:col-10 md:pl-5':
           !currentUrl.includes('/create-event'),
       }">
-      <router-outlet />
+      <div>
+        <router-outlet />
+      </div>
     </div>
     @if (!currentUrl.includes('/create-event')) {
       <div
