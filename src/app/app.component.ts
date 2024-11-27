@@ -42,6 +42,8 @@ export class AppComponent implements OnInit, OnDestroy {
       this.initStorage(); // Initialize storage
     }
 
+    this.currentUrl = this.router.url;
+
     // Listen to route changes
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))

@@ -67,15 +67,15 @@
         </rmx-icon>
       </div>
       <span class="font-bold text-2xl block mb-2 mt-4">
-          {{ message.header }}
-        </span>
+        {{ message.header }}
+      </span>
       <p class="mb-0">{{ message.message }}</p>
       <div class="flex align-items-center justify-content-between gap-3 mt-4">
         <p-button
           label="{{
-              'createEventStep2Component.messages.dateConfirmationCancel'
-                | transloco
-            }}"
+            'createEventStep2Component.messages.dateConfirmationCancel'
+              | transloco
+          }}"
           (click)="cdDiscard.reject()"
           class="">
           <ng-template pTemplate="icon">
@@ -88,9 +88,9 @@
         </p-button>
         <p-button
           label="{{
-              'createEventStep2Component.messages.dateConfirmationSubmit'
-                | transloco
-            }}"
+            'createEventStep2Component.messages.dateConfirmationSubmit'
+              | transloco
+          }}"
           (click)="cdDiscard.accept()"
           severity="success"
           class="">
