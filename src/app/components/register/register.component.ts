@@ -75,7 +75,11 @@ export class RegisterComponent {
     {
       username: new FormControl<string>('', {
         nonNullable: true,
-        validators: [Validators.required, Validators.minLength(3)],
+        validators: [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+        ],
       }),
       email: new FormControl<string>('', {
         nonNullable: true,
@@ -83,11 +87,15 @@ export class RegisterComponent {
       }),
       firstName: new FormControl<string>('', {
         nonNullable: true,
-        validators: [Validators.required, Validators.minLength(2)],
+        validators: [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(20),
+        ],
       }),
       lastName: new FormControl<string>('', {
         nonNullable: true,
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(30)],
       }),
       birthday: new FormControl('', {
         nonNullable: true,
