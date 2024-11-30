@@ -109,7 +109,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     const iconBaseMap: { [key: string]: string } = {
       '/': 'home-2',
       '/search': 'search',
-      '/create-event': 'add',
+      '/create-event/step1': 'add',
       '/my-events': 'function',
       '/my-space': 'user-3',
     };
@@ -136,9 +136,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
         },
         {
           label: this.translocoService.translate('navbarComponent.createEvent'),
-          route: '/create-event',
+          route: '/create-event/step1',
           icon: 'add-line',
-          command: () => this.navigateTo('/create-event'),
+          command: () => this.navigateTo('/create-event/step1'),
         },
         {
           label: this.translocoService.translate('navbarComponent.myEvents'),
