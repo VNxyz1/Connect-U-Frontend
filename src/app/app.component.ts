@@ -31,6 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: Object,
     private readonly socket: SocketService,
+    private readonly auth: AuthService,
     private readonly storage: Storage,
     private readonly router: Router,
     private primengConfig: PrimeNGConfig,
@@ -213,5 +214,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.socket.disconnect();
+  }
+
+  logoutPlsRemoveMe() {
+    this.auth.logout().subscribe(res => console.log(res));
   }
 }

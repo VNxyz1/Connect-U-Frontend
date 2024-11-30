@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, throwError } from 'rxjs';
+import {map, Observable, tap, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { TranslocoService } from '@jsverse/transloco';
 
@@ -83,6 +83,15 @@ export class AuthService {
         this.setAccessToken(response.access_token);
         return response;
       }),
+    );
+  }
+
+  logout() {
+    return this.http.delete<{ ok: boolean, message: string }>('auth/logout').pipe(
+      tap(res => {
+        this.setAccessToken(undefined);
+        return res;
+      })
     );
   }
 }
