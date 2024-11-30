@@ -10,7 +10,6 @@ export const isLoggedInGuard: CanActivateFn = () => {
 
   return authService.isLoggedIn().pipe(
     map(loggedIn => {
-      console.error('ajjj:   ', loggedIn);
       if (!loggedIn) {
         const landingpage = router.parseUrl('/welcome');
         return new RedirectCommand(landingpage);
