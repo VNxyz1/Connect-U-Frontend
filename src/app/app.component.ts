@@ -10,16 +10,17 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SocketService } from './services/socket/socket.service';
-import { isPlatformBrowser, NgClass } from '@angular/common';
+import { AsyncPipe, isPlatformBrowser, NgClass } from '@angular/common';
 import { AuthService } from './services/auth/auth.service';
 import { Storage } from '@ionic/storage-angular';
 import { PrimeNGConfig } from 'primeng/api';
 import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, HeaderComponent, NgClass],
+  imports: [RouterOutlet, NavbarComponent, HeaderComponent, NgClass, AsyncPipe],
   providers: [AuthService],
   templateUrl: './app.component.html',
 })
@@ -27,10 +28,11 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'Connect-U-Frontend';
   private storageInitialized = false;
   currentUrl: string | null = null;
-
+  isLoggedIn!: Observable<boolean>;
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: Object,
     private readonly socket: SocketService,
+    private readonly auth: AuthService,
     private readonly storage: Storage,
     private readonly router: Router,
     private primengConfig: PrimeNGConfig,
@@ -41,6 +43,8 @@ export class AppComponent implements OnInit, OnDestroy {
       this.socket.init();
       this.initStorage(); // Initialize storage
     }
+
+    this.isLoggedIn = this.auth.isLoggedIn();
 
     // Listen to route changes
     this.router.events

@@ -23,7 +23,12 @@ import { PrivacyPolicyPageComponent } from './views/privacy-policy-page/privacy-
  * Documentation: [Angular.dev](https://angular.dev/guide/routing/common-router-tasks#preventing-unauthorized-access)
  */
 export const routes: Routes = [
-  { path: '', title: 'Home | Connect-U', component: HomePageComponent },
+  {
+    path: '',
+    title: 'Home | Connect-U',
+    component: HomePageComponent,
+    canActivate: [isLoggedInGuard],
+  },
   {
     path: 'welcome',
     title: 'Welcome | Connect-U',
