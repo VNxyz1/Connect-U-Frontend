@@ -24,6 +24,18 @@
       "loginDataUnknown": "A user with these login credentials is not known."
     }
   },
+  "logout": {
+    "messages": {
+      "error": {
+        "summary": "Logout Failed",
+        "detail": "You are currently not authorized to log out."
+      },
+      "success": {
+        "summary": "Logged Out",
+        "detail": "You have successfully logged out. Come back soon!"
+      }
+    }
+  },
   "landingPage": {
     "headerImageAlt": "connect-u logo",
     "imageText": {

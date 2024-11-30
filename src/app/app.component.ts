@@ -13,14 +13,22 @@ import { SocketService } from './services/socket/socket.service';
 import { isPlatformBrowser, NgClass } from '@angular/common';
 import { AuthService } from './services/auth/auth.service';
 import { Storage } from '@ionic/storage-angular';
-import { PrimeNGConfig } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { filter } from 'rxjs/operators';
+import { ToastModule } from 'primeng/toast';
+import { TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, HeaderComponent, NgClass],
-  providers: [AuthService],
+  imports: [
+    RouterOutlet,
+    NavbarComponent,
+    HeaderComponent,
+    NgClass,
+    ToastModule,
+  ],
+  providers: [AuthService, MessageService, TranslocoService],
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit, OnDestroy {
@@ -32,9 +40,11 @@ export class AppComponent implements OnInit, OnDestroy {
     @Inject(PLATFORM_ID) private readonly platformId: Object,
     private readonly socket: SocketService,
     private readonly auth: AuthService,
+    private messageService: MessageService,
     private readonly storage: Storage,
     private readonly router: Router,
     private primengConfig: PrimeNGConfig,
+    private translocoService: TranslocoService,
   ) {}
 
   ngOnInit(): void {
@@ -217,6 +227,31 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   logoutPlsRemoveMe() {
-    this.auth.logout().subscribe(res => console.log(res));
+    this.auth.logout().subscribe({
+      next: res => {
+        console.log(res);
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translocoService.translate(
+            'logout.messages.success.summary',
+          ),
+          detail: this.translocoService.translate(
+            'logout.messages.success.detail',
+          ),
+        });
+        this.router.navigate(['/']);
+      },
+      error: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translocoService.translate(
+            'logout.messages.error.summary',
+          ),
+          detail: this.translocoService.translate(
+            'logout.messages.error.detail',
+          ),
+        });
+      },
+    });
   }
 }
