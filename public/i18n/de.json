@@ -38,6 +38,7 @@
     "usernameInput": {
       "placeholder": "Nutzername*",
       "lengthWarning": "Dein Nutzername muss mindestens 3 Zeichen lang sein.",
+      "maxLengthWarning": "Der Nutzername darf nicht mehr als 20 Zeichen haben.",
       "requiredWarning": "Ein Nutzername ist erforderlich!",
       "label": "Nutzername"
     },
@@ -50,12 +51,14 @@
     "firstnameInput": {
       "placeholder": "Vorname*",
       "lengthWarning": "Dein Vorname muss mindestens 2 Zeichen lang sein.",
+      "maxLengthWarning": "Der Vorname sollte nicht mehr als 20 Zeichen beinhalten",
       "requiredWarning": "Ein Vorname ist erforderlich.",
       "label": "Vorname"
     },
     "lastnameInput": {
       "placeholder": "Nachname*",
       "lengthWarning": "Dein Nachname muss mindestens 2 Zeichen lang sein.",
+      "maxLengthWarning": "Der Nachname sollte aus nicht mehr als 30 Zeichen bestehen",
       "requiredWarning": "Ein Nachname ist erforderlich.",
       "label": "Nachname"
     },
