@@ -7,12 +7,12 @@ import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
 import { Button } from 'primeng/button';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
-import { EventService } from '../../services/event/eventservice';
-import { EventDetails } from '../../interfaces/EventDetails';
+import { EventService } from '../../../services/event/eventservice';
+import { EventDetails } from '../../../interfaces/EventDetails';
 import { AsyncPipe } from '@angular/common';
-import { Gender, GenderEnum } from '../../interfaces/Gender';
+import { Gender, GenderEnum } from '../../../interfaces/Gender';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { EventtypeEnum } from '../../interfaces/EventtypeEnum';
+import { EventtypeEnum } from '../../../interfaces/EventtypeEnum';
 import { catchError } from 'rxjs/operators';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
@@ -51,7 +51,7 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   providers: [MessageService],
   templateUrl: './event-info.component.html',
 })
-export class EventDetailComponent implements OnInit {
+export class EventInfoComponent implements OnInit {
   eventId!: string;
   eventDetails$!: Observable<EventDetails>;
 
