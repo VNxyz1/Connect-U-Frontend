@@ -1,7 +1,13 @@
 export interface ProfileData {
-  userId: number;
-  username: string;
+  id:string;
   firstName: string;
   lastName: string;
-  imageUrl: string;
+  username: string;
+  email:string;
+  city:string;
+  streetNumber:string;
+  birthday:string;
+  street:string;
+  zipCode:string;
+  //imageUrl: string; not impl. atm
 }
