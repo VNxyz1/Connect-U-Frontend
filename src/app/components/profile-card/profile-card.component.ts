@@ -1,9 +1,9 @@
-import {Component, Input} from '@angular/core';
-import {ProfileData} from '../../interfaces/ProfileData';
-import {CardModule} from 'primeng/card';
-import {NgOptimizedImage} from '@angular/common';
-import {RouterLink} from '@angular/router';
-import {AngularRemixIconComponent} from 'angular-remix-icon';
+import { Component, Input } from '@angular/core';
+import { ProfileData } from '../../interfaces/ProfileData';
+import { CardModule } from 'primeng/card';
+import { NgOptimizedImage } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
 
 @Component({
   selector: 'app-profile-card',
@@ -12,14 +12,10 @@ import {AngularRemixIconComponent} from 'angular-remix-icon';
     CardModule,
     NgOptimizedImage,
     RouterLink,
-    AngularRemixIconComponent
+    AngularRemixIconComponent,
   ],
-  templateUrl: './profile-card.component.html'
+  templateUrl: './profile-card.component.html',
 })
 export class ProfileCardComponent {
   @Input() userProfile!: ProfileData;
-  constructor(){
-
-  }
-
 }

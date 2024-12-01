@@ -1,8 +1,8 @@
 <div class="content">
   <!-- Bereich für Profile-Data -->
   <div class="m-3">
-    @if(profileData$ | async; as data){
-      <app-profile-card [userProfile]="data" ></app-profile-card>
+    @if (profileData$ | async; as data) {
+      <app-profile-card [userProfile]="data"></app-profile-card>
     }
   </div>
 
@@ -10,20 +10,19 @@
   <div class="m-3 mb-8">
     <p-card>
       <ul class="list-none p-0 m-0 w-full">
-
         <li
           class="p-3 w-full col-12 border-bottom-1 border-gray-50 flex justify-content-between align-items-center"
-          [routerLink]="['/settings']"
-        >
+          [routerLink]="['/settings']">
           <div>{{ 'mySpacePage.listing.settings' | transloco }}</div>
-          <rmx-icon name="arrow-right-s-line"/>
+          <rmx-icon name="arrow-right-s-line" />
         </li>
 
         <li
           class="p-3 w-full col-12 flex justify-content-between align-items-center"
-          [routerLink]="['/welcome']"
-        >
-          <div class="p-error">{{ 'mySpacePage.listing.logout' | transloco }}</div>
+          [routerLink]="['/welcome']">
+          <div class="p-error">
+            {{ 'mySpacePage.listing.logout' | transloco }}
+          </div>
         </li>
       </ul>
     </p-card>
