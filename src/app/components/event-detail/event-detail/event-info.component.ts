@@ -1,195 +1,116 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { EventDetails } from '../../../interfaces/EventDetails';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ImageModule } from 'primeng/image';
-import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoDatePipe } from '@jsverse/transloco-locale';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
-import { Button } from 'primeng/button';
-import { AngularRemixIconComponent } from 'angular-remix-icon';
-import { EventService } from '../../../services/event/eventservice';
-import { EventDetails } from '../../../interfaces/EventDetails';
-import { AsyncPipe } from '@angular/common';
-import { Gender, GenderEnum } from '../../../interfaces/Gender';
-import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { EventtypeEnum } from '../../../interfaces/EventtypeEnum';
-import { catchError } from 'rxjs/operators';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-
-const ERROR_MESSAGE_MAPPING: Record<string, string> = {
-  'Event not found': 'eventDetailPageComponent.eventNotFound',
-  'Host cannot send a join request to their own event':
-    'eventDetailPageComponent.userIsHost',
-  'user is the host of this event': 'eventDetailPageComponent.userIsHost',
-  'Request already exists': 'eventDetailPageComponent.requestAlreadyExists',
-  'User is already a participant in this event':
-    'eventDetailPageComponent.alreadyParticipant',
-  'You do not meet the age requirements for this event.':
-    'eventDetailPageComponent.ageRequirementsNotMet',
-  'Your gender does not match the preferred genders for this event.':
-    'eventDetailPageComponent.genderMismatch',
-  'Event has to be public': 'eventDetailPageComponent.eventNotPublic',
-};
 
 @Component({
-  selector: 'app-event-detail-page',
+  selector: 'app-event-info',
+  templateUrl: './event-info.component.html',
   standalone: true,
   imports: [
     ImageModule,
     TranslocoPipe,
+    TranslocoDatePipe,
+    AngularRemixIconComponent,
     CardModule,
     TagModule,
-    Button,
-    AngularRemixIconComponent,
-    AsyncPipe,
-    TranslocoDatePipe,
     ProgressSpinnerModule,
-    ToastModule,
   ],
-  providers: [MessageService],
-  templateUrl: './event-info.component.html',
 })
-export class EventInfoComponent implements OnInit {
-  eventId!: string;
-  eventDetails$!: Observable<EventDetails>;
+export class EventInfoComponent implements OnInit, OnDestroy {
+  private _eventDetailsSubscription: Subscription | null = null;
+
+  private _eventDetails!: EventDetails;
+  isLoading = true;
 
   constructor(
-    private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly eventService: EventService,
-    private translocoService: TranslocoService,
-    private messageService: MessageService,
+    private readonly route: ActivatedRoute
   ) {}
 
+  @Input()
+  set eventDetails(value: Observable<EventDetails> | EventDetails | null | undefined) {
+    this.handleEventDetailsInput(value);
+  }
+
+  @Input() getPreferredGendersString!: (preferredGenders: EventDetails['preferredGenders']) => string;
+
+  get eventDetails(): EventDetails {
+    if (!this._eventDetails) {
+      throw new Error('Event details are not yet loaded.');
+    }
+    return this._eventDetails;
+  }
+
   ngOnInit(): void {
-    this.eventId = this.route.snapshot.paramMap.get('id')!;
-
-    if (this.eventId) {
-      this.eventDetails$ = this.eventService.getEventDetails(this.eventId).pipe(
-        catchError(err => {
-          this.router.navigate(['/404']);
-          return throwError(() => err);
-        }),
-      );
+    // Check if eventDetails is passed via Router state
+    const navigationState = this.router.getCurrentNavigation()?.extras.state;
+    if (navigationState?.['eventDetails']) {
+      console.log("Event details from state:", navigationState['eventDetails']);
+      this.handleEventDetailsInput(navigationState['eventDetails']);
     }
   }
 
-  /**
-   * Converts the list of preferred genders for an event to a human-readable string.
-   * This method maps gender values (e.g., Male, Female, Diverse) to their localized string representation.
-   *
-   * @param {Gender[]} preferredGenders - The array of preferred genders for the event.
-   * @returns {string} A comma-separated string of the event's preferred genders.
-   */
-  getPreferredGendersString = (preferredGenders: Gender[]): string => {
-    if (!preferredGenders || preferredGenders.length === 0) {
-      return '';
+  ngOnDestroy(): void {
+    // Clean up subscriptions
+    this._eventDetailsSubscription?.unsubscribe();
+    this._eventDetailsSubscription = null;
+  }
+
+  private handleEventDetailsInput(value: Observable<EventDetails> | EventDetails | null | undefined): void {
+    if (!value) {
+      console.log("No event details provided.");
+      this.navigateTo404();
+      return;
     }
 
-    return preferredGenders
-      .map(gender => {
-        switch (gender.gender) {
-          case GenderEnum.Male:
-            return this.translocoService.translate(
-              'eventDetailPageComponent.male',
-            );
-          case GenderEnum.Female:
-            return this.translocoService.translate(
-              'eventDetailPageComponent.female',
-            );
-          case GenderEnum.Diverse:
-            return this.translocoService.translate(
-              'eventDetailPageComponent.diverse',
-            );
-        }
-      })
-      .join(', ');
-  };
+    // Unsubscribe any previous subscription
+    this._eventDetailsSubscription?.unsubscribe();
 
-  /**
-   * Handles the event type-based logic for joining or requesting to join an event.
-   * Depending on the event type, it will either join a public event, send a request to join a half-private event,
-   * or alert the user that the event is private.
-   *
-   * @param {EventtypeEnum} eventType - The type of event (public, half-private, private).
-   */
-  handleButtonClick(eventType: EventtypeEnum): void {
-    if (eventType === EventtypeEnum.public) {
-      this.joinPublicEvent();
-    } else if (eventType === EventtypeEnum.halfPrivate) {
-      this.requestToJoinEvent();
-    } else if (eventType === EventtypeEnum.private) {
-      alert(
-        this.translocoService.translate(
-          'eventDetailPageComponent.privateEvent',
-        ),
-      );
+    if (value instanceof Observable) {
+      console.log("Observable received"); // Observable received
+      this.isLoading = true; // Start loading
+      this._eventDetailsSubscription = value.subscribe({
+        next: (details) => {
+          if (!details) {
+            console.log("Details are null, navigating to 404");
+            this.navigateTo404();
+          } else {
+            console.log("Details loaded:", details);
+            this._eventDetails = this.transformEventDetails(details);
+            this.isLoading = false;
+          }
+        },
+        error: (err) => {
+          console.error("Failed to load event details:", err);
+          this.navigateTo404();
+        },
+      });
+    } else {
+      console.log("Static details received:", value);
+      this._eventDetails = this.transformEventDetails(value);
+      this.isLoading = false;
     }
   }
 
-  /**
-   * Adds the current user to the event's participant list if the event is public.
-   * It makes a request to the event service to add the user to the event, and displays a success message if successful.
-   * In case of an error, it maps the error message to a user-friendly translation and displays it.
-   *
-   * @returns {Observable} The observable from the event service that handles the user join request.
-   */
-  joinPublicEvent(): void {
-    this.eventService.addUserToEvent(this.eventId).subscribe({
-      next: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: this.translocoService.translate(
-            'eventDetailPageComponent.joined',
-          ),
-        });
-      },
-      error: err => {
-        const translationKey =
-          ERROR_MESSAGE_MAPPING[err.error?.message] ||
-          'eventDetailPageComponent.genericError';
-
-        const translatedErrorMessage =
-          this.translocoService.translate(translationKey);
-        this.messageService.add({
-          severity: 'error',
-          summary: translatedErrorMessage,
-        });
-      },
-    });
+  private navigateTo404(): void {
+    //this.router.navigate(['/404']);
   }
 
   /**
-   * Sends a join request for a half-private event.
-   * It makes a request to the event service to create the join request, and displays a success message if successful.
-   * In case of an error, it maps the error message to a user-friendly translation and displays it.
-   *
-   * @returns {Observable} The observable from the event service that handles the join request.
+   * Transform the EventDetails if needed.
+   * @param details The EventDetails to transform.
+   * @returns Transformed EventDetails.
    */
-  requestToJoinEvent(): void {
-    this.eventService.createJoinRequest(this.eventId).subscribe({
-      next: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: this.translocoService.translate(
-            'eventDetailPageComponent.requestSent',
-          ),
-        });
-      },
-      error: err => {
-        const translationKey =
-          ERROR_MESSAGE_MAPPING[err.error?.message] ||
-          'eventDetailPageComponent.genericError';
-
-        const translatedErrorMessage =
-          this.translocoService.translate(translationKey);
-        this.messageService.add({
-          severity: 'error',
-          summary: translatedErrorMessage,
-        });
-      },
-    });
+  private transformEventDetails(details: EventDetails): EventDetails {
+    // Perform any transformations on the details here
+    return details;
   }
 }

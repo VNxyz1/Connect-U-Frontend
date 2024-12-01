@@ -4,7 +4,7 @@ import { SearchPageComponent } from './views/search-page/search-page.component';
 import { CreateEventPageComponent } from './views/create-event-page/create-event-page.component';
 import { MyEventsPageComponent } from './views/my-events-page/my-events-page.component';
 import { MySpacePageComponent } from './views/my-space-page/my-space-page.component';
-import { EventDetailPageComponent } from './views/event-detail-page/event-detail-page.component';
+import { EventPageComponent } from './views/event-page/event-page.component';
 import { NotFoundPageComponent } from './views/not-found-page/not-found-page.component';
 import { ProfilePageComponent } from './views/profile-page/profile-page.component';
 import { LandingPageComponent } from './views/landing-page/landing-page.component';
@@ -17,6 +17,7 @@ import { Step3Component } from './components/create-event/step3/step3.component'
 import { isNotLoggedInGuard } from './utils/guards/is-not-logged-in.guard';
 import { LegalDisclosurePageComponent } from './views/legal-disclosure-page/legal-disclosure-page.component';
 import { PrivacyPolicyPageComponent } from './views/privacy-policy-page/privacy-policy-page.component';
+import { EventInfoComponent } from './components/event-detail/event-detail/event-info.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -75,7 +76,12 @@ export const routes: Routes = [
   {
     path: 'event/:id',
     title: 'Event | Connect-U',
-    component: EventDetailPageComponent,
+    component: EventPageComponent,
+    children: [
+      { path: '', component: EventInfoComponent }
+      //{ path: 'list', component: EventListComponent },
+      //{ path: 'survey', component: EventSurveyComponent },
+    ],
   },
   {
     path: 'profile/:id',
