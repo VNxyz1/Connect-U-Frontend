@@ -628,5 +628,11 @@
         "phone": "Phone: 01234 56789"
       }
     }
+  },
+  "mySpacePage": {
+    "listing": {
+      "settings": "Settings",
+      "logout": "Log Out"
+    }
   }
 }
