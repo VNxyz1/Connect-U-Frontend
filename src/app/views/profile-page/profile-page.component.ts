@@ -13,7 +13,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {DropdownModule} from 'primeng/dropdown';
 import {MessageService} from 'primeng/api';
-import {TranslocoService} from '@jsverse/transloco';
+import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
 
 type editProfileForm = FormGroup<{
   pronouns: FormControl<string>,
@@ -34,7 +34,8 @@ type editProfileForm = FormGroup<{
     InputTextModule,
     InputTextareaModule,
     Button,
-    DropdownModule
+    DropdownModule,
+    TranslocoPipe
   ],
   providers:[UserService,MessageService, TranslocoService],
   templateUrl: './profile-page.component.html',
@@ -43,13 +44,6 @@ export class ProfilePageComponent implements OnInit {
   protected userId!: string;
   protected profileData$!: Observable<ProfileData>;
   protected editMode: boolean = false;
-  pronounOptions = [
-    { label: 'Er/ihm', value: 'Er/ihm' },
-    { label: 'sie/ihr', value: 'sie/ihr' },
-    { label: 'die', value: 'die' },
-    { label: 'xier', value: 'xier' },
-    { label: 'sier', value: 'sier' },
-  ];
 
   constructor(private messageService:MessageService, private route: ActivatedRoute, private userService: UserService) {
   }

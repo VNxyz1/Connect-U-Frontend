@@ -628,5 +628,14 @@
       "settings": "Einstellungen",
       "logout": "Abmelden"
     }
+  },
+  "profilePage": {
+    "cardText": {
+      "aboutMe": "Über mich"
+    },
+    "updateText": {
+      "pronouns": "Pronomen...",
+      "desc": "Beschreibung..."
+    }
   }
 }

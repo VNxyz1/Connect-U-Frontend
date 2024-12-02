@@ -37,7 +37,7 @@
 
         <!-- Über mich -->
         <div class="w-full mt-4 text-left">
-          <h4 class="mb-2">Über mich</h4>
+          <h4 class="mb-2">{{'profilePage.cardText.aboutMe'| transloco}}</h4>
           <p class="mb-2">
             Live, Love, Laugh ❤️ <br />
             Ich liebe es, mit Freunden spazieren zu gehen und die Natur zu genießen 🌿
@@ -67,15 +67,13 @@
         <!-- Dropdown für Pronomen -->
         <div class="field w-full mb-4">
           <p-floatLabel>
-            <p-dropdown
+            <input
               id="pronom"
               formControlName="pronouns"
-              [options]="pronounOptions"
-              optionLabel="label"
-              optionValue="value"
               class="w-full"
-            ></p-dropdown>
-            <label for="pronom">Pronomen auswählen</label>
+              pInputText
+            >
+            <label for="pronom">{{'profilePage.updateText.pronouns'| transloco}}</label>
           </p-floatLabel>
         </div>
 
@@ -90,7 +88,7 @@
               id="profileText"
               class="w-full"
             ></textarea>
-            <label for="profileText">Beschreibung</label>
+            <label for="profileText">{{'profilePage.updateText.desc'| transloco}}</label>
           </p-floatLabel>
         </div>
 

@@ -629,5 +629,14 @@
       "settings": "Settings",
       "logout": "Log Out"
     }
+  },
+  "profilePage": {
+    "cardText": {
+      "aboutMe": "About Me"
+    },
+    "updateText": {
+      "pronouns": "Pronouns...",
+      "desc": "Description..."
+    }
   }
 }
