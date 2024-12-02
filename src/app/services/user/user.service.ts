@@ -3,11 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ProfileData } from '../../interfaces/ProfileData';
 
+export type UpdateProfileBody = {
+  pronouns:string,
+  profileText:string,
+}
+
 @Injectable({
   providedIn: 'root',
 })
+
 export class UserService {
-  constructor(private readonly http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   /**
    * fetches the current User-Data
@@ -18,5 +24,9 @@ export class UserService {
   }
   getSpecificUserData(userId:string): Observable<ProfileData> {
     return this.http.get<ProfileData>(`user/userProfile/${userId}`);
+  }
+
+  updateProfileInformation(updateData:UpdateProfileBody): Observable<any> {
+    return this.http.patch<any>('user/userProfile', updateData);
   }
 }

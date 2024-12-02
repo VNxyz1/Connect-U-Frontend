@@ -164,7 +164,6 @@ export class RegisterPageComponent {
       },
     });
   }
-
   loadGenderOptions = () => {
     this.translocoService
       .selectTranslateObject('registerComponent.genderOption')
