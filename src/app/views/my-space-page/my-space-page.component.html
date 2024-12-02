@@ -10,18 +10,26 @@
   <div class="m-3 mb-8">
     <p-card>
       <ul class="list-none p-0 m-0 w-full">
+        <!-- Einstellungen -->
         <li
           class="p-3 w-full col-12 border-bottom-1 border-gray-50 flex justify-content-between align-items-center"
           [routerLink]="['/settings']">
-          <div>{{ 'mySpacePage.listing.settings' | transloco }}</div>
+          <div class="flex align-items-center">
+            <rmx-icon name="settings-5-line" class="mr-2"></rmx-icon>
+            <span>{{ 'mySpacePage.listing.settings' | transloco }}</span>
+          </div>
           <rmx-icon name="arrow-right-s-line" />
         </li>
 
+        <!-- Logout -->
         <li
           class="p-3 w-full col-12 flex justify-content-between align-items-center"
           [routerLink]="['/welcome']">
-          <div class="p-error">
-            {{ 'mySpacePage.listing.logout' | transloco }}
+          <div class="flex align-items-center">
+            <rmx-icon name="logout-box-line" class="mr-2 p-error"></rmx-icon>
+            <span class="p-error">{{
+              'mySpacePage.listing.logout' | transloco
+            }}</span>
           </div>
         </li>
       </ul>
