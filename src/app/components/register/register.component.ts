@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Button } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -17,7 +17,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageService, PrimeTemplate } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { Router, RouterLink, UrlTree } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { DateService } from '../../services/date/date.service';
 import { AuthService, RegisterBody } from '../../services/auth/auth.service';
 import {
@@ -64,17 +64,11 @@ type RegisterForm = FormGroup<{
     PasswordModule,
     AngularRemixIconComponent,
   ],
-  providers: [AuthService, MessageService, TranslocoService],
+  providers: [AuthService, TranslocoService],
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {
   @Output() toggleView: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  /**
-   * After the successful login the site is navigated to this url.
-   * @default '/' navigates to the home-page
-   */
-  @Input({ required: false }) redirectTo: string | UrlTree = '/';
 
   genderOptions: Array<{ label: string; value: number }> = [];
   protected calendarDateFormat: string = 'yy-mm-dd';
@@ -130,7 +124,6 @@ export class RegisterComponent {
   gtcDialogVisible: boolean = false;
 
   constructor(
-    private router: Router,
     private authService: AuthService,
     private messageService: MessageService,
     private translocoService: TranslocoService,
@@ -162,15 +155,18 @@ export class RegisterComponent {
     };
 
     this.authService.register(requestBody).subscribe({
-      next: () => this.router.navigateByUrl(this.redirectTo),
-      error: (err: Error) => {
-        // Fehler vom Backend abfangen und anzeigen
+      next: () => {
+        window.location.reload();
+      },
+      error: () => {
         this.messageService.add({
           severity: 'error',
           summary: this.translocoService.translate(
             'registerComponent.errorMessages.registerFailed',
           ),
-          detail: err.message, // Die Fehlermeldung aus dem Backend
+          detail: this.translocoService.translate(
+            'registerComponent.errorMessages.registerFailed',
+          ),
         });
       },
     });
