@@ -10,7 +10,6 @@ import { ProfilePageComponent } from './views/profile-page/profile-page.componen
 import { LandingPageComponent } from './views/landing-page/landing-page.component';
 import { StylingShowcaseSecretPageComponent } from './views/styling-showcase-secret-page/styling-showcase-secret-page.component';
 import { isLoggedInGuard } from './utils/guards/is-logged-in.guard';
-import { RegisterPageComponent } from './views/register-page/register-page.component';
 import { Step1Component } from './components/create-event/step1/step1.component';
 import { Step2Component } from './components/create-event/step2/step2.component';
 import { Step3Component } from './components/create-event/step3/step3.component';
@@ -34,11 +33,6 @@ export const routes: Routes = [
     title: 'Welcome | Connect-U',
     component: LandingPageComponent,
     canActivate: [isNotLoggedInGuard],
-  },
-  {
-    path: 'register',
-    title: 'Register | Connect-U',
-    component: RegisterPageComponent,
   },
   {
     path: 'search',
