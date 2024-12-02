@@ -10,8 +10,7 @@
     <div
       class="col-12 p-0"
       [ngClass]="{
-        'md:col-offset-2 md:col-10 md:pl-5':
-          !currentUrl.includes('/create-event'),
+        'md:col-offset-2 md:col-10': !currentUrl.includes('/create-event'),
       }">
       <div>
         <router-outlet />
