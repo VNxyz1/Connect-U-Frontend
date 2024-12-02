@@ -1,5 +1,5 @@
 <p-card class="p-3" [routerLink]="['/profile/' + userProfile.id]">
-  <div class="flex align-items-center">
+  <div class="flex align-items-center pr-3">
     <img
       src="https://via.placeholder.com/100"
       alt=""
@@ -11,6 +11,9 @@
         <p class="text-secondary mt-0 mb-0">&#64;{{ userProfile.username }}</p>
       </div>
     </div>
-    <rmx-icon name="arrow-right-s-line" class=""></rmx-icon>
+    <rmx-icon
+      name="arrow-right-s-line"
+      style="height: 26px; width: 26px"
+      class=""></rmx-icon>
   </div>
 </p-card>
