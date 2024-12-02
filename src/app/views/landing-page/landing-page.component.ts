@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventService } from '../../services/event/eventservice';
 import { RouterOutlet } from '@angular/router';
+import { RegisterComponent } from '../../components/register/register.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -19,12 +20,13 @@ import { RouterOutlet } from '@angular/router';
     AsyncPipe,
     EventCardComponent,
     RouterOutlet,
+    RegisterComponent,
   ],
   templateUrl: './landing-page.component.html',
 })
 export class LandingPageComponent implements OnInit {
   events$!: Observable<EventCardItem[]>;
-
+  switch: boolean = false;
   constructor(private eventService: EventService) {}
 
   async ngOnInit(): Promise<void> {
@@ -33,5 +35,8 @@ export class LandingPageComponent implements OnInit {
 
   getEvents() {
     this.events$ = this.eventService.getAllEvents();
+  }
+  toggleSwitch(): void {
+    this.switch = !this.switch;
   }
 }
