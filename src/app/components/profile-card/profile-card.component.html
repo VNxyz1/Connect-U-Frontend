@@ -1,0 +1,19 @@
+<p-card class="p-3" [routerLink]="['/profile/' + userProfile.id]">
+  <div class="flex align-items-center pr-3">
+    <img
+      src="https://via.placeholder.com/100"
+      alt=""
+      class="border-circle"
+      style="width: 70px; height: 70px" />
+    <div class="flex flex-column ml-3 flex-grow-1">
+      <div>
+        <h3 class="mt-0 mb-0">{{ userProfile.firstName }}</h3>
+        <p class="text-secondary mt-0 mb-0">&#64;{{ userProfile.username }}</p>
+      </div>
+    </div>
+    <rmx-icon
+      name="arrow-right-s-line"
+      style="height: 26px; width: 26px"
+      class=""></rmx-icon>
+  </div>
+</p-card>

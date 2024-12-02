@@ -99,8 +99,8 @@
     <span>
       {{ 'loginComponent.noAccountYet' | transloco }}
       <a
-        [routerLink]="['/register']"
-        class="text-color-secondary no-underline"
+        (click)="toggleToRegister()"
+        class="text-color-secondary no-underline cursor-pointer"
         >{{ 'loginComponent.registerLink' | transloco }}</a
       ></span
     >

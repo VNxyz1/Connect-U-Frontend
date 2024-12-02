@@ -24,7 +24,7 @@
     <div class="col-12 xl:col-7">
       <h2>{{ eventDetails.title }}</h2>
 
-      @for (category of _eventDetails.categories; track $index) {
+      @for (category of eventDetails.categories; track $index) {
         <p-tag [value]="category.name" [rounded]="true" class="mr-1" />
       }
 
@@ -35,7 +35,7 @@
               <rmx-icon name="calendar-line" class="mr-2"></rmx-icon>
               <p class="m-0">
                 {{
-                  _eventDetails.dateAndTime
+                  eventDetails.dateAndTime
                     | translocoDate: { dateStyle: 'medium' }
                 }}
               </p>
@@ -44,7 +44,7 @@
               <rmx-icon name="time-line" class="mr-2"></rmx-icon>
               <p class="m-0">
                 {{
-                  _eventDetails.dateAndTime
+                  eventDetails.dateAndTime
                     | translocoDate: { timeStyle: 'short' }
                 }}
               </p>
@@ -53,24 +53,24 @@
           <div class="col">
             <div class="flex items-center">
               <rmx-icon name="map-pin-2-line" class="mr-2"></rmx-icon>
-              @if (_eventDetails.street || eventDetails.streetNumber) {
+              @if (eventDetails.street || eventDetails.streetNumber) {
                 <p class="m-0">
-                  {{ _eventDetails.street }} {{ eventDetails.streetNumber }}
+                  {{ eventDetails.street }} {{ eventDetails.streetNumber }}
                 </p>
               }
-              @if (!_eventDetails.city) {
+              @if (!eventDetails.city) {
                 <p class="m-0">Online-Event</p>
               }
             </div>
-            @if (_eventDetails.city) {
+            @if (eventDetails.city) {
               <p class="m-0 ml-5">
-                {{ _eventDetails.zipCode }} {{ _eventDetails.city }}
+                {{ eventDetails.zipCode }} {{ eventDetails.city }}
               </p>
             }
           </div>
         </div>
         <h3>{{ 'eventDetailPageComponent.eventDetails' | transloco }}</h3>
-        <p>{{ _eventDetails.description }}</p>
+        <p>{{ eventDetails.description }}</p>
         <div>
           <p-tag
             severity="secondary"
@@ -90,10 +90,10 @@
         </div>
       </p-card>
       @if (
-        _eventDetails.startAge ||
-        _eventDetails.endAge ||
+        eventDetails.startAge ||
+        eventDetails.endAge ||
         eventDetails.preferredGenders.length > 0
-        ) {
+      ) {
         <p class="p-1"></p>
         <p-card styleClass="p-mb-3">
           <h3>{{ 'eventDetailPageComponent.restrictions' | transloco }}</h3>
@@ -120,10 +120,10 @@
                 {{
                   eventDetails.startAge
                     ? ('eventDetailPageComponent.from' | transloco) +
-                    ' ' +
-                    eventDetails.startAge +
-                    ' ' +
-                    ('eventDetailPageComponent.years1' | transloco)
+                      ' ' +
+                      eventDetails.startAge +
+                      ' ' +
+                      ('eventDetailPageComponent.years1' | transloco)
                     : ''
                 }}
               </p>
@@ -131,10 +131,10 @@
                 {{
                   eventDetails.endAge
                     ? ('eventDetailPageComponent.to' | transloco) +
-                    ' ' +
-                    eventDetails.endAge +
-                    ' ' +
-                    ('eventDetailPageComponent.years2' | transloco)
+                      ' ' +
+                      eventDetails.endAge +
+                      ' ' +
+                      ('eventDetailPageComponent.years2' | transloco)
                     : ''
                 }}
               </p>

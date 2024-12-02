@@ -38,6 +38,7 @@
     "usernameInput": {
       "placeholder": "Nutzername*",
       "lengthWarning": "Dein Nutzername muss mindestens 3 Zeichen lang sein.",
+      "maxLengthWarning": "Der Nutzername darf nicht mehr als 20 Zeichen haben.",
       "requiredWarning": "Ein Nutzername ist erforderlich!",
       "label": "Nutzername"
     },
@@ -50,12 +51,14 @@
     "firstnameInput": {
       "placeholder": "Vorname*",
       "lengthWarning": "Dein Vorname muss mindestens 2 Zeichen lang sein.",
+      "maxLengthWarning": "Der Vorname sollte nicht mehr als 20 Zeichen beinhalten",
       "requiredWarning": "Ein Vorname ist erforderlich.",
       "label": "Vorname"
     },
     "lastnameInput": {
       "placeholder": "Nachname*",
       "lengthWarning": "Dein Nachname muss mindestens 2 Zeichen lang sein.",
+      "maxLengthWarning": "Der Nachname sollte aus nicht mehr als 30 Zeichen bestehen",
       "requiredWarning": "Ein Nachname ist erforderlich.",
       "label": "Nachname"
     },
@@ -177,11 +180,11 @@
   },
   "createEventStep3Component": {
     "participantsNumberInput": {
-      "label": "Anzahl der Teilnehmer",
-      "errorMessage": "Die Anzahl der Teilnehmer ist erforderlich und muss mindestens 2 sein."
+      "label": "Anzahl der Gäste",
+      "errorMessage": "Die Anzahl der Gäste ist erforderlich und muss mindestens 2 sein."
     },
     "participantsInput": {
-      "label": "Ausgewählte Teilnehmer"
+      "label": "Eingeladene Gäste"
     },
     "preferredGendersInput": {
       "label": "Bevorzugte Geschlechter"
@@ -260,7 +263,9 @@
     "myEvents": "Meine Events",
     "search": "Events suchen",
     "createEvent": "Event erstellen",
-    "event": "Eventinformationen"
+    "event": "Eventinformationen",
+    "closeConfirmationMessage": "Bist Du sicher, dass du dein Event verwerfen möchtest? Dein Entwurf wird nicht gespeichert.",
+    "closeConfirmationHeader": "Entwurf verwerfen"
   },
   "navbarComponent": {
     "mySpace": "Mein Bereich",
@@ -271,13 +276,13 @@
   "myEventPageComponent": {
     "hosted": {
       "title": "Erstellt",
-      "text": "Du hast zur Zeit keine Events, die du erstellt hast.",
-      "todo": "Erstelle dein eigenes Event!"
+      "text": "Du hast zur Zeit keine Events, die Du erstellt hast.",
+      "todo": "Erstelle Dein eigenes Event!"
     },
     "guest": {
       "title": "Gast",
       "text": "Du nimmst zur Zeit an keinem Event teil.",
-      "todo": "Erkundige dich nach deinen Interessen."
+      "todo": "Erkundige Dich nach deinen Interessen."
     },
     "favorite": {
       "title": "Favorisiert",
@@ -626,6 +631,12 @@
         "email": "E-Mail: connectu@business.com",
         "phone": "Telefon: 01234 56789"
       }
+    }
+  },
+  "mySpacePage": {
+    "listing": {
+      "settings": "Einstellungen",
+      "logout": "Abmelden"
     }
   }
 }
