@@ -1,39 +1,28 @@
-<div class="h-screen flex flex-column">
-  <!-- Header -->
-  <div
-    class="col-12"
-    [ngClass]="{
-      'md:col-offset-2 md:col-10': !currentUrl?.includes('/create-event'),
-    }">
-    <app-header></app-header>
-  </div>
-
-  <!-- Content -->
-  <div
-    class="col-12 flex-grow-1 flex"
-    [ngClass]="{
-      'grid md:grid-nogutter': !currentUrl?.includes('/create-event'),
-      'justify-content-center items-center':
-        currentUrl?.includes('/create-event'),
-    }">
-    <!-- Sidebar / Navbar  col-12 macht das shitty! :( -->
-    @if (!currentUrl?.includes('/create-event')) {
+@if (currentUrl) {
+  <div class="h-screen grid p-0 m-0 gap-0 align-content-start">
+    <div
+      class="col-12 p-0 max-h-min"
+      [ngClass]="{
+        'md:col-offset-2 md:col-10': !currentUrl.includes('/create-event'),
+      }">
+      <app-header />
+    </div>
+    <div
+      class="col-12 p-0"
+      [ngClass]="{
+        'md:col-offset-2 md:col-10': !currentUrl.includes('/create-event'),
+      }">
+      <div>
+        <router-outlet />
+      </div>
+    </div>
+    @if (!currentUrl.includes('/create-event')) {
       <div
-        class="md:col-2 md:flex md:flex-column bg-light-grey justify-content-center py-0 px-0">
-        <app-navbar [currentUrl]="currentUrl"></app-navbar>
+        class="bg-light-grey col-12 md:col-2 p-0 pt-7 md:pt-0 md:flex md:flex-column">
+        <app-navbar [currentUrl]="currentUrl" />
       </div>
     }
-
-    <!-- Main Content -->
-    <div
-      class="col-12 p-2"
-      [ngClass]="{
-        'md:col-10': !currentUrl?.includes('/create-event'),
-        'justify-content-center items-center h-full w-full':
-          currentUrl?.includes('/create-event'),
-      }">
-      <router-outlet></router-outlet>
-    </div>
   </div>
-</div>
+}
+
 <p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />

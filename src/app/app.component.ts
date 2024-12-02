@@ -34,7 +34,7 @@ import { TranslocoService } from '@jsverse/transloco';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Connect-U-Frontend';
   private storageInitialized = false;
-  currentUrl: string | null = null;
+  currentUrl: string | undefined = undefined;
 
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: Object,
@@ -49,6 +49,8 @@ export class AppComponent implements OnInit, OnDestroy {
       this.socket.init();
       this.initStorage(); // Initialize storage
     }
+
+    this.currentUrl = this.router.url;
 
     // Listen to route changes
     this.router.events

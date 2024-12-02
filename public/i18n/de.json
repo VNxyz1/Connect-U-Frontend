@@ -192,11 +192,11 @@
   },
   "createEventStep3Component": {
     "participantsNumberInput": {
-      "label": "Anzahl der Teilnehmer",
-      "errorMessage": "Die Anzahl der Teilnehmer ist erforderlich und muss mindestens 2 sein."
+      "label": "Anzahl der Gäste",
+      "errorMessage": "Die Anzahl der Gäste ist erforderlich und muss mindestens 2 sein."
     },
     "participantsInput": {
-      "label": "Ausgewählte Teilnehmer"
+      "label": "Eingeladene Gäste"
     },
     "preferredGendersInput": {
       "label": "Bevorzugte Geschlechter"
@@ -270,7 +270,9 @@
     "myEvents": "Meine Events",
     "search": "Events suchen",
     "createEvent": "Event erstellen",
-    "event": "Eventinformationen"
+    "event": "Eventinformationen",
+    "closeConfirmationMessage": "Bist Du sicher, dass du dein Event verwerfen möchtest? Dein Entwurf wird nicht gespeichert.",
+    "closeConfirmationHeader": "Entwurf verwerfen"
   },
   "navbarComponent": {
     "mySpace": "Mein Bereich",
@@ -281,13 +283,13 @@
   "myEventPageComponent": {
     "hosted": {
       "title": "Erstellt",
-      "text": "Du hast zur Zeit keine Events, die du erstellt hast.",
-      "todo": "Erstelle dein eigenes Event!"
+      "text": "Du hast zur Zeit keine Events, die Du erstellt hast.",
+      "todo": "Erstelle Dein eigenes Event!"
     },
     "guest": {
       "title": "Gast",
       "text": "Du nimmst zur Zeit an keinem Event teil.",
-      "todo": "Erkundige dich nach deinen Interessen."
+      "todo": "Erkundige Dich nach deinen Interessen."
     },
     "favorite": {
       "title": "Favorisiert",
