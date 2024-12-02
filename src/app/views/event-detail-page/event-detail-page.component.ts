@@ -17,6 +17,10 @@ import { catchError } from 'rxjs/operators';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { AuthService } from '../../services/auth/auth.service';
+import { DialogModule } from 'primeng/dialog';
+import { LoginComponent } from '../../components/login/login.component';
+import { RegisterComponent } from '../../components/register/register.component';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -47,6 +51,9 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     TranslocoDatePipe,
     ProgressSpinnerModule,
     ToastModule,
+    DialogModule,
+    LoginComponent,
+    RegisterComponent,
   ],
   providers: [MessageService],
   templateUrl: './event-detail-page.component.html',
@@ -54,17 +61,22 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
 export class EventDetailPageComponent implements OnInit {
   eventId!: string;
   eventDetails$!: Observable<EventDetails>;
+  notLoggedInDialogVisible: boolean = false;
+  loginRegisterSwitch: boolean = true;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly eventService: EventService,
+    private readonly auth: AuthService,
     private translocoService: TranslocoService,
     private messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('id')!;
+
+    this.checkLoginStatus();
 
     if (this.eventId) {
       this.eventDetails$ = this.eventService.getEventDetails(this.eventId).pipe(
@@ -191,5 +203,17 @@ export class EventDetailPageComponent implements OnInit {
         });
       },
     });
+  }
+
+  private checkLoginStatus(): void {
+    this.auth.isLoggedIn().subscribe({
+      next: loggedIn => {
+        this.notLoggedInDialogVisible = !loggedIn;
+      },
+    });
+  }
+
+  toggleLoginRegisterSwitch() {
+    this.loginRegisterSwitch = !this.loginRegisterSwitch;
   }
 }
