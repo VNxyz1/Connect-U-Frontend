@@ -113,7 +113,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     this._eventDetailsSubscription?.unsubscribe();
 
     if (value instanceof Observable) {
-      console.log('Observable received'); // Observable received
       this.isLoading = true; // Start loading
       this._eventDetailsSubscription = value.subscribe({
         next: details => {
