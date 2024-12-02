@@ -9,13 +9,11 @@
           <a
             [routerLink]="item.route"
             [state]="item.state"
-            class="p-menuitem-link"
-          >
+            class="p-menuitem-link">
             <!-- Add icon explicitly -->
             <rmx-icon
               style="width: 16px; height: 16px; margin-right: 8px"
-              [name]="item.icon"
-            ></rmx-icon>
+              [name]="item.icon"></rmx-icon>
             <span class="hidden md:block">{{ item.label }}</span>
           </a>
         </ng-container>
