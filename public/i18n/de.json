@@ -248,6 +248,11 @@
     "requestSent": "Deine Anfrage wurde verschickt!",
     "joined": "Du hast dich für das Event angemeldet!"
   },
+  "eventPageComponent": {
+    "infoTab": "Informationen",
+    "listTab": "Listen",
+    "surveyTab": "Umfragen"
+  },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "Du musst die AGBs bestätigen, um dich registrieren zu können",
     "Passwords must match": "Die Passwörter stimmen nicht überein",
