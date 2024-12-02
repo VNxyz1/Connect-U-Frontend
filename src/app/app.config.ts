@@ -91,7 +91,7 @@ const icons = {
 export const translocoConfig = {
   config: {
     availableLangs: ['en-US', 'de'],
-    defaultLang: 'en-US',
+    defaultLang: 'de',
     reRenderOnLangChange: true,
     prodMode: !isDevMode(),
   },
