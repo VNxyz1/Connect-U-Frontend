@@ -22,7 +22,14 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, ToastModule, HeaderComponent, NgClass, AsyncPipe],
+  imports: [
+    RouterOutlet,
+    NavbarComponent,
+    ToastModule,
+    HeaderComponent,
+    NgClass,
+    AsyncPipe,
+  ],
   providers: [AuthService, MessageService, TranslocoService],
   templateUrl: './app.component.html',
 })
