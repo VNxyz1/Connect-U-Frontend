@@ -1,18 +1,20 @@
-<h3>{{ 'homepage.title' | transloco }}</h3>
-<div class="grid justify-content-center xl:justify-content-start md:w-full">
-  @if (events$ | async; as events) {
-    @for (event of events; track $index) {
-      <div
-        class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
-        <app-event-card [event]="event" />
-      </div>
+<div class="px-2">
+  <h3>{{ 'homepage.title' | transloco }}</h3>
+  <div class="grid justify-content-center xl:justify-content-start md:w-full">
+    @if (events$ | async; as events) {
+      @for (event of events; track $index) {
+        <div
+          class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+          <app-event-card [event]="event" />
+        </div>
+      }
+    } @else {
+      @for (event of [0, 1, 2, 3, 4]; track $index) {
+        <div
+          class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+          <app-event-card skeleton />
+        </div>
+      }
     }
-  } @else {
-    @for (event of [0, 1, 2, 3, 4]; track $index) {
-      <div
-        class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
-        <app-event-card skeleton />
-      </div>
-    }
-  }
+  </div>
 </div>
