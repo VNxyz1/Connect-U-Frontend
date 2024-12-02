@@ -1,17 +1,46 @@
 @if (!skeleton) {
   <p-card
-    styleClass="h-full"
+    [styleClass]="
+      [
+        'h-full border-left-3 border-round',
+        getCardBorderColor(event.status),
+      ].join(' ')
+    "
     class="h-full custom-card cursor-pointer"
     [routerLink]="['/event', event.id]">
     <ng-template pTemplate="header">
-      <div class="overflow-hidden" [style]="{ 'aspect-ratio': '2/1' }">
+      <div
+        class="overflow-hidden"
+        [style]="{
+          'aspect-ratio': '2/1',
+          'border-top-right-radius': 'var(--border-radius) !important',
+        }">
         <div
-          class="bg-cover bg-center border-round h-full w-full"
+          class="bg-cover bg-center h-full w-full"
           [style]="{ 'background-image': toImageUrl(event.picture) }">
-          <div class="flex gap-2 p-3">
-            @for (category of event.categories; track $index) {
-              <p-tag [value]="category.name" [rounded]="true" />
-            }
+          <div
+            class="flex justify-content-between p-3 align-content-center align-items-center">
+            <span>
+              @switch (event.status) {
+                @case (StatusEnum.finished) {
+                  <rmx-icon name="history-line" class="text-gray-900" />
+                }
+                @case (StatusEnum.cancelled) {
+                  <rmx-icon name="calendar-close-line" class="text-gray-900" />
+                }
+                @case (StatusEnum.live) {
+                  <rmx-icon name="live-line" class="text-red-900" />
+                }
+                @case (StatusEnum.upcoming) {
+                  <rmx-icon name="hourglass-fill" class="text-orange-900" />
+                }
+              }
+            </span>
+            <div class="flex gap-2">
+              @for (category of event.categories; track $index) {
+                <p-tag [value]="category.name" [rounded]="true" />
+              }
+            </div>
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import { EventCardItem } from '../../interfaces/EventCardItem';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { RouterLink } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
+import { StatusEnum } from '../../interfaces/StatusEnum';
 
 @Component({
   selector: 'app-event-card',
@@ -56,4 +57,18 @@ export class EventCardComponent {
     }
     return "url('/images/empty.png')";
   }
+
+  getCardBorderColor(eventStatus: StatusEnum): string {
+    switch (eventStatus) {
+      case StatusEnum.live:
+        return 'border-red-900';
+      case StatusEnum.cancelled:
+      case StatusEnum.finished:
+        return 'border-gray-900';
+      case StatusEnum.upcoming:
+        return 'border-orange-900';
+    }
+  }
+
+  protected readonly StatusEnum = StatusEnum;
 }
