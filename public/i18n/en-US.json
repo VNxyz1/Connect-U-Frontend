@@ -179,11 +179,11 @@
   },
   "createEventStep3Component": {
     "participantsNumberInput": {
-      "label": "Participants Number",
-      "errorMessage": "Participants Number is required and must be at least 2."
+      "label": "Guest Number",
+      "errorMessage": "Guests Number is required and must be at least 2."
     },
     "participantsInput": {
-      "label": "Selected Participants"
+      "label": "Selected Guests"
     },
     "preferredGendersInput": {
       "label": "Preferred Genders"
@@ -258,7 +258,9 @@
     "myEvents": "My Events",
     "search": "Search Events",
     "createEvent": "Create Event",
-    "event": "Event Information"
+    "event": "Event Information",
+    "closeConfirmationMessage": "Are you sure, that you want to discard you event? Your draft will not be saved.",
+    "closeConfirmationHeader": "Discard Draft"
   },
   "navbarComponent": {
     "mySpace": "My Space",
@@ -625,6 +627,12 @@
         "email": "Email: connectu@business.com",
         "phone": "Phone: 01234 56789"
       }
+    }
+  },
+  "mySpacePage": {
+    "listing": {
+      "settings": "Settings",
+      "logout": "Log Out"
     }
   }
 }

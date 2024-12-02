@@ -2,6 +2,10 @@
 @import 'remixicon/fonts/remixicon.css';
 @import 'assets/themes/mytheme/theme.scss';
 
+body {
+  margin: 0;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

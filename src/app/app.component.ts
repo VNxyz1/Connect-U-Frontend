@@ -27,8 +27,9 @@ import { Observable } from 'rxjs';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Connect-U-Frontend';
   private storageInitialized = false;
-  currentUrl: string | null = null;
   isLoggedIn!: Observable<boolean>;
+  currentUrl: string | undefined = undefined;
+
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: Object,
     private readonly socket: SocketService,
@@ -45,6 +46,8 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     this.isLoggedIn = this.auth.isLoggedIn();
+
+    this.currentUrl = this.router.url;
 
     // Listen to route changes
     this.router.events
