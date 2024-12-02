@@ -49,7 +49,7 @@ import {
   RiCheckboxLine,
   RiEyeLine,
   RiEyeOffLine,
-  RiArrowRightSLine,
+  RiArrowRightSLine, RiEditLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
@@ -86,6 +86,7 @@ const icons = {
   RiEyeLine,
   RiEyeOffLine,
   RiArrowRightSLine,
+  RiEditLine
 };
 
 export const translocoConfig = {

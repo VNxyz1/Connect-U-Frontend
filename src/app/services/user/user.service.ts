@@ -16,4 +16,7 @@ export class UserService {
   getUserData(): Observable<ProfileData> {
     return this.http.get<ProfileData>('user/userData');
   }
+  getSpecificUserData(userId:string): Observable<ProfileData> {
+    return this.http.get<ProfileData>(`user/userProfile/${userId}`);
+  }
 }

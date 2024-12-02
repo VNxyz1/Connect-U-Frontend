@@ -9,5 +9,8 @@ export interface ProfileData {
   birthday: string;
   street: string;
   zipCode: string;
+  age:string;
+  pronouns:string;
+  profileText:string;
   //imageUrl: string; not impl. atm
 }
