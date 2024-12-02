@@ -233,6 +233,11 @@
     "genericError": "Something went wrong with sending your request!"
 
   },
+  "eventPageComponent": {
+    "infoTab": "Information",
+    "listTab": "Lists",
+    "surveyTab": "Surveys"
+  },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "You must accept the terms and conditions to register",
     "Passwords must match": "Passwords must match",

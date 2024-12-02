@@ -3,12 +3,31 @@ import { Observable, Subscription } from 'rxjs';
 import { EventDetails } from '../../../interfaces/EventDetails';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ImageModule } from 'primeng/image';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { CardModule } from 'primeng/card';
 import { TagModule } from 'primeng/tag';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { Button } from 'primeng/button';
+import { EventtypeEnum } from '../../../interfaces/EventtypeEnum';
+import { MessageService } from 'primeng/api';
+import { EventService } from '../../../services/event/eventservice';
+
+const ERROR_MESSAGE_MAPPING: Record<string, string> = {
+  'Event not found': 'eventDetailPageComponent.eventNotFound',
+  'Host cannot send a join request to their own event':
+    'eventDetailPageComponent.userIsHost',
+  'user is the host of this event': 'eventDetailPageComponent.userIsHost',
+  'Request already exists': 'eventDetailPageComponent.requestAlreadyExists',
+  'User is already a participant in this event':
+    'eventDetailPageComponent.alreadyParticipant',
+  'You do not meet the age requirements for this event.':
+    'eventDetailPageComponent.ageRequirementsNotMet',
+  'Your gender does not match the preferred genders for this event.':
+    'eventDetailPageComponent.genderMismatch',
+  'Event has to be public': 'eventDetailPageComponent.eventNotPublic',
+};
 
 @Component({
   selector: 'app-event-info',
@@ -22,21 +41,25 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     CardModule,
     TagModule,
     ProgressSpinnerModule,
+    Button,
   ],
 })
 export class EventInfoComponent implements OnInit, OnDestroy {
-  private _eventDetailsSubscription: Subscription | null = null;
+  private _eventDetailsSubscription: Subscription | undefined ;
 
-  private _eventDetails!: EventDetails;
+  protected _eventDetails!: EventDetails;
   isLoading = true;
 
   constructor(
     private readonly router: Router,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly messageService: MessageService,
+    private readonly translocoService: TranslocoService,
+    private readonly eventService: EventService,
   ) {}
 
   @Input()
-  set eventDetails(value: Observable<EventDetails> | EventDetails | null | undefined) {
+  set eventDetails(value: Observable<EventDetails> | EventDetails) {
     this.handleEventDetailsInput(value);
   }
 
@@ -61,7 +84,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // Clean up subscriptions
     this._eventDetailsSubscription?.unsubscribe();
-    this._eventDetailsSubscription = null;
   }
 
   private handleEventDetailsInput(value: Observable<EventDetails> | EventDetails | null | undefined): void {
@@ -112,5 +134,61 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   private transformEventDetails(details: EventDetails): EventDetails {
     // Perform any transformations on the details here
     return details;
+  }
+
+  handleButtonClick(eventType: EventtypeEnum): void {
+    if (eventType === EventtypeEnum.public) {
+      this.joinPublicEvent();
+    } else if (eventType === EventtypeEnum.halfPrivate) {
+      this.requestToJoinEvent();
+    } else if (eventType === EventtypeEnum.private) {
+      this.messageService.add({
+        severity: 'info',
+        summary: this.translocoService.translate(
+          'eventDetailPageComponent.privateEvent'
+        ),
+      });
+    }
+  }
+
+  private joinPublicEvent(): void {
+    this.eventService.addUserToEvent(this.eventDetails.id).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translocoService.translate(
+            'eventDetailPageComponent.joined'
+          ),
+        });
+      },
+      error: (err) => this.handleError(err),
+    });
+  }
+
+  private requestToJoinEvent(): void {
+    this.eventService.createJoinRequest(this.eventDetails.id).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translocoService.translate(
+            'eventDetailPageComponent.requestSent'
+          ),
+        });
+      },
+      error: (err) => this.handleError(err),
+    });
+  }
+
+  private handleError(err: any): void {
+    const translationKey =
+      ERROR_MESSAGE_MAPPING[err.error?.message] ||
+      'eventDetailPageComponent.genericError';
+
+    const translatedMessage = this.translocoService.translate(translationKey);
+
+    this.messageService.add({
+      severity: 'error',
+      summary: translatedMessage,
+    });
   }
 }

@@ -10,35 +10,24 @@ import { EventtypeEnum } from '../../interfaces/EventtypeEnum';
 import { ToastModule } from 'primeng/toast';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { Gender, GenderEnum } from '../../interfaces/Gender';
-import { EventInfoComponent } from '../../components/event-detail/event-detail/event-info.component';
+import { EventInfoComponent } from '../../components/event-detail/event-info/event-info.component';
 import { AsyncPipe } from '@angular/common';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
 
-const ERROR_MESSAGE_MAPPING: Record<string, string> = {
-  'Event not found': 'eventDetailPageComponent.eventNotFound',
-  'Host cannot send a join request to their own event':
-    'eventDetailPageComponent.userIsHost',
-  'user is the host of this event': 'eventDetailPageComponent.userIsHost',
-  'Request already exists': 'eventDetailPageComponent.requestAlreadyExists',
-  'User is already a participant in this event':
-    'eventDetailPageComponent.alreadyParticipant',
-  'You do not meet the age requirements for this event.':
-    'eventDetailPageComponent.ageRequirementsNotMet',
-  'Your gender does not match the preferred genders for this event.':
-    'eventDetailPageComponent.genderMismatch',
-  'Event has to be public': 'eventDetailPageComponent.eventNotPublic',
-};
 
 @Component({
   selector: 'app-event-page',
   standalone: true,
   templateUrl: './event-page.component.html',
-  providers: [MessageService],
-  imports: [ToastModule, RouterOutlet, TabMenuModule, EventInfoComponent, AsyncPipe],
+  providers: [MessageService, EventService],
+  imports: [ToastModule, RouterOutlet, TabMenuModule, EventInfoComponent, AsyncPipe, AngularRemixIconComponent],
 })
 export class EventPageComponent implements OnInit {
   eventId!: string;
+  eventDetails!: EventDetails; // Resolved event details
   eventDetails$!: Observable<EventDetails>;
   eventTabMenuItems: MenuItem[] = [];
+  activeTabItem: MenuItem | undefined;
   isLoggedIn = false;
   isHost = false;
   isGuest = false;
@@ -47,8 +36,8 @@ export class EventPageComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly eventService: EventService,
-    private readonly translocoService: TranslocoService,
-    private readonly messageService: MessageService
+    protected readonly translocoService: TranslocoService,
+    protected readonly messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -63,9 +52,13 @@ export class EventPageComponent implements OnInit {
         })
       );
 
+      console.log('details Observable created:', this.eventDetails$);
+
+      // Subscribe to resolve details
       this.eventDetails$.subscribe((details) => {
-        this.isHost = true;
-        this.isGuest = false;
+        this.eventDetails = details; // Store resolved details
+        this.isHost = true; // Replace with actual data from details when available
+        this.isGuest = false; // Replace with actual data from details when available
         this.isLoggedIn = true;
 
         if (this.isHost || this.isGuest) {
@@ -80,81 +73,34 @@ export class EventPageComponent implements OnInit {
       {
         label: this.translocoService.translate('eventPageComponent.infoTab'),
         route: `/event/${this.eventId}`,
-        icon: 'pi pi-info-circle',
-        state: { eventDetails: this.eventDetails$ }, // Pass Observable or raw details
+        icon: 'folder-info-line',
+        state: { eventDetails: this.eventDetails }, // Pass resolved details
+        id: 'infoTab',
+        command: () => { this.activeTabItem = this.eventTabMenuItems[0]}
       },
       {
         label: this.translocoService.translate('eventPageComponent.listTab'),
-        route: `/event/${this.eventId}/list`,
-        icon: 'pi pi-list',
-        state: { eventDetails: this.eventDetails$ },
+        route: `/event/${this.eventId}/lists`,
+        icon: 'list-check',
+        state: { eventDetails: this.eventDetails },
+        id: 'listTab',
+        command: () => { this.activeTabItem = this.eventTabMenuItems[1]}
       },
       {
         label: this.translocoService.translate('eventPageComponent.surveyTab'),
-        route: `/event/${this.eventId}/survey`,
-        icon: 'pi pi-chart-pie',
-        state: { eventDetails: this.eventDetails$ },
+        route: `/event/${this.eventId}/surveys`,
+        icon: 'chat-poll-line',
+        state: { eventDetails: this.eventDetails },
+        id: 'surveyTab',
+        command: () => { this.activeTabItem = this.eventTabMenuItems[2]}
       },
     ];
+
+    // Set the initial active tab
+    this.activeTabItem = this.eventTabMenuItems[0];
   }
 
-  handleEventAction(eventType: EventtypeEnum): void {
-    if (eventType === EventtypeEnum.public) {
-      this.joinPublicEvent();
-    } else if (eventType === EventtypeEnum.halfPrivate) {
-      this.requestToJoinEvent();
-    } else if (eventType === EventtypeEnum.private) {
-      this.messageService.add({
-        severity: 'info',
-        summary: this.translocoService.translate(
-          'eventDetailPageComponent.privateEvent'
-        ),
-      });
-    }
-  }
-
-  private joinPublicEvent(): void {
-    this.eventService.addUserToEvent(this.eventId).subscribe({
-      next: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: this.translocoService.translate(
-            'eventDetailPageComponent.joined'
-          ),
-        });
-      },
-      error: (err) => this.handleError(err),
-    });
-  }
-
-  private requestToJoinEvent(): void {
-    this.eventService.createJoinRequest(this.eventId).subscribe({
-      next: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: this.translocoService.translate(
-            'eventDetailPageComponent.requestSent'
-          ),
-        });
-      },
-      error: (err) => this.handleError(err),
-    });
-  }
-
-  private handleError(err: any): void {
-    const translationKey =
-      ERROR_MESSAGE_MAPPING[err.error?.message] ||
-      'eventDetailPageComponent.genericError';
-
-    const translatedMessage = this.translocoService.translate(translationKey);
-
-    this.messageService.add({
-      severity: 'error',
-      summary: translatedMessage,
-    });
-  }
-
-  getPreferredGendersString(preferredGenders: Gender[]): string {
+  getPreferredGendersString = (preferredGenders: Gender[]): string => {
     if (!preferredGenders || preferredGenders.length === 0) {
       return this.translocoService.translate(
         'eventDetailPageComponent.noPreferredGenders'
@@ -182,7 +128,5 @@ export class EventPageComponent implements OnInit {
       })
       .filter(Boolean)
       .join(', ');
-  }
-
-  protected readonly async = async;
+  };
 }

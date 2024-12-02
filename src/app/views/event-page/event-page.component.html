@@ -3,7 +3,7 @@
 <!-- Display tabs if logged in and user is host or guest -->
 @if (isLoggedIn && (isHost || isGuest)) {
   <div class="card">
-    <p-tabMenu [model]="eventTabMenuItems">
+    <p-tabMenu [model]="eventTabMenuItems" [activeItem]="activeTabItem">
       <ng-template pTemplate="item" let-item>
         <ng-container>
           <a
@@ -11,8 +11,12 @@
             [state]="item.state"
             class="p-menuitem-link"
           >
-            <span [class]="item.icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
+            <!-- Add icon explicitly -->
+            <rmx-icon
+              style="width: 16px; height: 16px; margin-right: 8px"
+              [name]="item.icon"
+            ></rmx-icon>
+            <span class="hidden md:block">{{ item.label }}</span>
           </a>
         </ng-container>
       </ng-template>
@@ -21,9 +25,11 @@
 }
 
 <!-- Display the event info if not logged in or not a participant -->
-@if ((!isLoggedIn || (!isHost && !isGuest)) && (eventDetails$)) {
+@if (eventDetails$ && activeTabItem?.id == 'infoTab') {
   <app-event-info
     [eventDetails]="eventDetails$"
     [getPreferredGendersString]="getPreferredGendersString">
   </app-event-info>
 }
+
+<router-outlet></router-outlet>

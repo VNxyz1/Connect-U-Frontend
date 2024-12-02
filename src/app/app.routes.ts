@@ -17,7 +17,9 @@ import { Step3Component } from './components/create-event/step3/step3.component'
 import { isNotLoggedInGuard } from './utils/guards/is-not-logged-in.guard';
 import { LegalDisclosurePageComponent } from './views/legal-disclosure-page/legal-disclosure-page.component';
 import { PrivacyPolicyPageComponent } from './views/privacy-policy-page/privacy-policy-page.component';
-import { EventInfoComponent } from './components/event-detail/event-detail/event-info.component';
+import { EventInfoComponent } from './components/event-detail/event-info/event-info.component';
+import { EventListsComponent } from './components/event-detail/event-lists/event-lists.component';
+import { EventSurveysComponent } from './components/event-detail/event-surveys/event-surveys.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -78,9 +80,8 @@ export const routes: Routes = [
     title: 'Event | Connect-U',
     component: EventPageComponent,
     children: [
-      { path: '', component: EventInfoComponent }
-      //{ path: 'list', component: EventListComponent },
-      //{ path: 'survey', component: EventSurveyComponent },
+      { path: 'lists', component: EventListsComponent },
+      { path: 'surveys', component: EventSurveysComponent },
     ],
   },
   {
