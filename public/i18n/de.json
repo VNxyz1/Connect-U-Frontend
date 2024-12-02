@@ -24,6 +24,18 @@
       "loginDataUnknown": "Ein Nutzer mit diesen Anmeldedaten ist nicht bekannt."
     }
   },
+  "logout": {
+    "messages": {
+      "error": {
+        "summary": "Abmelden fehlgeschlagen",
+        "detail": "Du bist gerade nicht dazu berechtigt dich abzumelden."
+      },
+      "success": {
+        "summary": "Abgemeldet",
+        "detail": "Du bist erfolgreich abgemeldet. Komm bald zurück!"
+      }
+    }
+  },
   "landingPage": {
     "headerImageAlt": "connect-u logo",
     "imageText": {

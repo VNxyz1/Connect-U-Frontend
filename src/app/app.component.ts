@@ -13,15 +13,24 @@ import { SocketService } from './services/socket/socket.service';
 import { AsyncPipe, isPlatformBrowser, NgClass } from '@angular/common';
 import { AuthService } from './services/auth/auth.service';
 import { Storage } from '@ionic/storage-angular';
-import { PrimeNGConfig } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { filter } from 'rxjs/operators';
+import { ToastModule } from 'primeng/toast';
+import { TranslocoService } from '@jsverse/transloco';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, HeaderComponent, NgClass, AsyncPipe],
-  providers: [AuthService],
+  imports: [
+    RouterOutlet,
+    NavbarComponent,
+    ToastModule,
+    HeaderComponent,
+    NgClass,
+    AsyncPipe,
+  ],
+  providers: [AuthService, MessageService, TranslocoService],
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit, OnDestroy {
