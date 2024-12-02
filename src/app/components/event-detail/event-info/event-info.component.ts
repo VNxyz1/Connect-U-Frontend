@@ -13,6 +13,10 @@ import { Button } from 'primeng/button';
 import { EventtypeEnum } from '../../../interfaces/EventtypeEnum';
 import { MessageService } from 'primeng/api';
 import { EventService } from '../../../services/event/eventservice';
+import { DialogModule } from 'primeng/dialog';
+import { LoginComponent } from '../../login/login.component';
+import { RegisterComponent } from '../../register/register.component';
+import { AuthService } from '../../../services/auth/auth.service';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -42,10 +46,16 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     TagModule,
     ProgressSpinnerModule,
     Button,
+    DialogModule,
+    LoginComponent,
+    RegisterComponent,
   ],
 })
 export class EventInfoComponent implements OnInit, OnDestroy {
+  eventId!: string;
   private _eventDetailsSubscription: Subscription | undefined ;
+  notLoggedInDialogVisible: boolean = false;
+  loginRegisterSwitch: boolean = true;
 
   protected _eventDetails!: EventDetails;
   isLoading = true;
@@ -56,6 +66,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     private readonly messageService: MessageService,
     private readonly translocoService: TranslocoService,
     private readonly eventService: EventService,
+    private readonly auth: AuthService,
   ) {}
 
   @Input()
@@ -73,6 +84,9 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.eventId = this.route.snapshot.paramMap.get('id')!;
+
+    this.checkLoginStatus();
     // Check if eventDetails is passed via Router state
     const navigationState = this.router.getCurrentNavigation()?.extras.state;
     if (navigationState?.['eventDetails']) {
@@ -190,5 +204,17 @@ export class EventInfoComponent implements OnInit, OnDestroy {
       severity: 'error',
       summary: translatedMessage,
     });
+  }
+
+  private checkLoginStatus(): void {
+    this.auth.isLoggedIn().subscribe({
+      next: loggedIn => {
+        this.notLoggedInDialogVisible = !loggedIn;
+      },
+    });
+  }
+
+  toggleLoginRegisterSwitch() {
+    this.loginRegisterSwitch = !this.loginRegisterSwitch;
   }
 }

@@ -36,9 +36,13 @@ export class EventPageComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly eventService: EventService,
-    protected readonly translocoService: TranslocoService,
+    private readonly translocoService: TranslocoService,
     protected readonly messageService: MessageService
-  ) {}
+  ) {
+    if (this.eventDetails && this.isHost || this.isGuest) {
+      this.setupTabs();
+    }
+  }
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('id')!;
@@ -55,49 +59,57 @@ export class EventPageComponent implements OnInit {
       console.log('details Observable created:', this.eventDetails$);
 
       // Subscribe to resolve details
-      this.eventDetails$.subscribe((details) => {
+      this.eventDetails$.subscribe(async (details) => {
         this.eventDetails = details; // Store resolved details
         this.isHost = true; // Replace with actual data from details when available
         this.isGuest = false; // Replace with actual data from details when available
         this.isLoggedIn = true;
 
         if (this.isHost || this.isGuest) {
-          this.setupTabs();
+          await this.setupTabs();
         }
       });
     }
   }
 
   private setupTabs(): void {
-    this.eventTabMenuItems = [
-      {
-        label: this.translocoService.translate('eventPageComponent.infoTab'),
-        route: `/event/${this.eventId}`,
-        icon: 'folder-info-line',
-        state: { eventDetails: this.eventDetails }, // Pass resolved details
-        id: 'infoTab',
-        command: () => { this.activeTabItem = this.eventTabMenuItems[0]}
-      },
-      {
-        label: this.translocoService.translate('eventPageComponent.listTab'),
-        route: `/event/${this.eventId}/lists`,
-        icon: 'list-check',
-        state: { eventDetails: this.eventDetails },
-        id: 'listTab',
-        command: () => { this.activeTabItem = this.eventTabMenuItems[1]}
-      },
-      {
-        label: this.translocoService.translate('eventPageComponent.surveyTab'),
-        route: `/event/${this.eventId}/surveys`,
-        icon: 'chat-poll-line',
-        state: { eventDetails: this.eventDetails },
-        id: 'surveyTab',
-        command: () => { this.activeTabItem = this.eventTabMenuItems[2]}
-      },
-    ];
+    this.translocoService.selectTranslation().subscribe((translations: Record<string, string>) => {
+      this.eventTabMenuItems = [
+        {
+          label: translations['eventPageComponent.infoTab'],
+          route: `/event/${this.eventId}`,
+          icon: 'folder-info-line',
+          state: { eventDetails: this.eventDetails },
+          id: 'infoTab',
+          command: () => {
+            this.activeTabItem = this.eventTabMenuItems[0];
+          },
+        },
+        {
+          label: translations['eventPageComponent.listTab'],
+          route: `/event/${this.eventId}/lists`,
+          icon: 'list-check',
+          state: { eventDetails: this.eventDetails },
+          id: 'listTab',
+          command: () => {
+            this.activeTabItem = this.eventTabMenuItems[1];
+          },
+        },
+        {
+          label: translations['eventPageComponent.surveyTab'],
+          route: `/event/${this.eventId}/surveys`,
+          icon: 'chat-poll-line',
+          state: { eventDetails: this.eventDetails },
+          id: 'surveyTab',
+          command: () => {
+            this.activeTabItem = this.eventTabMenuItems[2];
+          },
+        },
+      ];
 
-    // Set the initial active tab
-    this.activeTabItem = this.eventTabMenuItems[0];
+      // Set the initial active tab
+      this.activeTabItem = this.eventTabMenuItems[0];
+    });
   }
 
   getPreferredGendersString = (preferredGenders: Gender[]): string => {

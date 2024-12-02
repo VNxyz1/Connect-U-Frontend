@@ -120,7 +120,14 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   private updateMenuItems() {
-    this.translocoService.langChanges$.subscribe(() => {
+    const translationKeys = [
+      'navbarComponent.search',
+      'navbarComponent.createEvent',
+      'navbarComponent.myEvents',
+      'navbarComponent.mySpace',
+    ];
+
+    this.translocoService.selectTranslation().subscribe((translations: Record<string, string>) => {
       this.items = [
         {
           label: 'Home',
@@ -129,25 +136,25 @@ export class NavbarComponent implements OnInit, AfterViewInit {
           command: () => this.navigateTo('/'),
         },
         {
-          label: this.translocoService.translate('navbarComponent.search'),
+          label: translations['navbarComponent.search'],
           route: '/search',
           icon: this.activeIcon('/search'),
           command: () => this.navigateTo('/search'),
         },
         {
-          label: this.translocoService.translate('navbarComponent.createEvent'),
+          label: translations['navbarComponent.createEvent'],
           route: '/create-event/step1',
           icon: 'add-line',
           command: () => this.navigateTo('/create-event/step1'),
         },
         {
-          label: this.translocoService.translate('navbarComponent.myEvents'),
+          label: translations['navbarComponent.myEvents'],
           route: '/my-events',
           icon: this.activeIcon('/my-events'),
           command: () => this.navigateTo('/my-events'),
         },
         {
-          label: this.translocoService.translate('navbarComponent.mySpace'),
+          label: translations['navbarComponent.mySpace'],
           route: '/my-space',
           icon: this.activeIcon('/my-space'),
           command: () => this.navigateTo('/my-space'),
