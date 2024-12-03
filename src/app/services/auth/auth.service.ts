@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { BehaviorSubject, from, map, Observable, throwError } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 import { TranslocoService } from '@jsverse/transloco';
 
 type LoginBody = {
@@ -29,28 +29,38 @@ type AuthResponse = {
 })
 export class AuthService {
   private _accessToken: string | undefined;
-
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   constructor(
     private http: HttpClient,
     private translocoService: TranslocoService,
   ) {}
 
   isLoggedIn(): Observable<boolean> {
-    return this.http.get<{ loggedIn: boolean }>('auth/check-login').pipe(
-      map(res => {
-        return res.loggedIn;
-      }),
+    return from(this.refreshLoginStatus()).pipe(
+      switchMap(() => this.isLoggedInSubject.asObservable()),
     );
   }
 
-  async isLoggedInAsync(): Promise<boolean | undefined> {
-    return this.isLoggedIn().toPromise();
+  private refreshLoginStatus(): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      this.http.get<{ loggedIn: boolean }>('auth/check-login').subscribe({
+        next: res => {
+          this.isLoggedInSubject.next(res.loggedIn);
+          resolve();
+        },
+        error: err => {
+          this.isLoggedInSubject.next(false);
+          reject(err);
+        },
+      });
+    });
   }
 
   logIn(body: LoginBody): Observable<AuthResponse> {
     return this.http.post<AuthResponse>('auth/login', body).pipe(
       map(response => {
         this.setAccessToken(response.access_token);
+        this.refreshLoginStatus();
         return response;
       }),
     );
@@ -58,6 +68,10 @@ export class AuthService {
 
   register(body: RegisterBody): Observable<AuthResponse> {
     return this.http.post<AuthResponse>('user', body).pipe(
+      switchMap(res => {
+        this.setAccessToken(res.access_token);
+        return from(this.refreshLoginStatus()).pipe(map(() => res));
+      }),
       catchError(error => {
         const backendMessage = error.error?.message || 'Unknown error';
         const translatedMessage = this.translocoService.translate(
@@ -84,5 +98,17 @@ export class AuthService {
         return response;
       }),
     );
+  }
+
+  logout() {
+    return this.http
+      .delete<{ ok: boolean; message: string }>('auth/logout')
+      .pipe(
+        map(res => {
+          this.setAccessToken(undefined);
+          this.refreshLoginStatus();
+          return res;
+        }),
+      );
   }
 }

@@ -24,6 +24,18 @@
       "loginDataUnknown": "A user with these login credentials is not known."
     }
   },
+  "logout": {
+    "messages": {
+      "error": {
+        "summary": "Logout Failed",
+        "detail": "You are currently not authorized to log out."
+      },
+      "success": {
+        "summary": "Logged Out",
+        "detail": "You have successfully logged out. Come back soon!"
+      }
+    }
+  },
   "landingPage": {
     "headerImageAlt": "connect-u logo",
     "imageText": {
@@ -235,6 +247,11 @@
     "requestSent": "Your request has been sent!",
     "genericError": "Something went wrong with sending your request!"
 
+  },
+  "eventPageComponent": {
+    "infoTab": "Information",
+    "listTab": "Lists",
+    "surveyTab": "Surveys"
   },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "You must accept the terms and conditions to register",

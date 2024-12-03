@@ -3,7 +3,6 @@
     <h2 class="w-full text-center">
       {{ 'registerComponent.title' | transloco }}
     </h2>
-    <p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />
     <form (ngSubmit)="submitRegister()" [formGroup]="form">
       <div class="field mb-4">
         <p-floatLabel>
