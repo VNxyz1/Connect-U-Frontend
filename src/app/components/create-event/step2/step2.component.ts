@@ -34,7 +34,6 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
     TooltipModule,
     TranslocoPipe,
   ],
-  providers: [ConfirmationService],
   templateUrl: './step2.component.html',
 })
 export class Step2Component implements OnInit {

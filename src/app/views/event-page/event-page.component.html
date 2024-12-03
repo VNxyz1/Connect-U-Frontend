@@ -1,7 +1,6 @@
-<p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />
 
-<!-- Display tabs if logged in and user is host or guest -->
-@if (isLoggedIn && (isHost || isGuest)) {
+<!-- Display tabs if user is host or guest -->
+@if (isHost || isGuest) {
   <div class="card">
     <p-tabMenu [model]="eventTabMenuItems" [activeItem]="activeTabItem">
       <ng-template pTemplate="item" let-item>

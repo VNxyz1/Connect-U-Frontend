@@ -22,7 +22,6 @@ import { EventService } from '../../services/event/eventservice';
     TranslocoPipe,
     ConfirmDialogModule,
   ],
-  providers: [ConfirmationService],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {

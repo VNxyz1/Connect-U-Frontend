@@ -13,12 +13,12 @@ import { Gender, GenderEnum } from '../../interfaces/Gender';
 import { EventInfoComponent } from '../../components/event-detail/event-info/event-info.component';
 import { AsyncPipe } from '@angular/common';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
+import { EventRequestService } from '../../services/event/event-request/event-request.service';
 
 @Component({
   selector: 'app-event-page',
   standalone: true,
   templateUrl: './event-page.component.html',
-  providers: [MessageService, EventService],
   imports: [
     ToastModule,
     RouterOutlet,
@@ -34,7 +34,6 @@ export class EventPageComponent implements OnInit {
   eventDetails$!: Observable<EventDetails>;
   eventTabMenuItems: MenuItem[] = [];
   activeTabItem: MenuItem | undefined;
-  isLoggedIn = false;
   isHost = false;
   isGuest = false;
 
@@ -44,6 +43,7 @@ export class EventPageComponent implements OnInit {
     private readonly eventService: EventService,
     private readonly translocoService: TranslocoService,
     protected readonly messageService: MessageService,
+    protected readonly eventRequestService: EventRequestService
   ) {
     if ((this.eventDetails && this.isHost) || this.isGuest) {
       this.setupTabs();
@@ -64,9 +64,9 @@ export class EventPageComponent implements OnInit {
       // Subscribe to resolve details
       this.eventDetails$.subscribe(async details => {
         this.eventDetails = details; // Store resolved details
-        this.isHost = true; // Replace with actual data from details when available
-        this.isGuest = false; // Replace with actual data from details when available
-        this.isLoggedIn = true;
+        this.isHost = true; //TODO eventdetails.isHost
+        this.isGuest = false; //TODO eventDetails.isGuest
+        this.hasRequest = false; //TODO requestDB.hasRequest
 
         if (this.isHost || this.isGuest) {
           await this.setupTabs();
