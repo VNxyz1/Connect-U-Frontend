@@ -3,6 +3,8 @@ import { map, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../../storage/storage.service';
+import { EventDetails } from '../../../interfaces/EventDetails';
+import { EventUserRequest } from '../../../interfaces/EventUserRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -53,16 +55,19 @@ export class EventRequestService {
    * @param eventId
    * @returns {Observable<{ success: boolean; message: string }>}
    */
-  getEventRequests(eventId: string): Observable<{ success: boolean; message: string }> {
-    const url = `request/getRequestsForEvent`;
-    return this.http.get<{ success: boolean; message: string }>(url, {}).pipe(
-      map(res => {
-        return res;
-      }),
+  /**
+   * Gets all user requests for a given event
+   * @param eventId The ID of the event
+   * @returns {Observable<EventUserRequest[]>} An observable of event user requests
+   */
+  getEventRequests(eventId: string): Observable<EventUserRequest[]> {
+    const url = `request/join/event/${eventId}`;
+    return this.http.get<EventUserRequest[]>(url).pipe(
       catchError(err => {
+        console.error('Error fetching event requests:', err);
         return throwError(() => err);
       })
-    )
+    );
   }
 
 

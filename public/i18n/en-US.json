@@ -235,6 +235,7 @@
     "error": "An error occurred.",
     "join": "Join Event",
     "request": "Request Event",
+    "requests": "Requests",
     "notExist": "It seems like the event you were looking for doesn't exist!",
       "eventNotFound": "The event you are looking for does not exist.",
       "userIsHost": "You are the host of this event and cannot join it.",

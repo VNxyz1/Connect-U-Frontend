@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { EventDetails } from '../../../interfaces/EventDetails';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { ImageModule } from 'primeng/image';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
@@ -18,6 +18,7 @@ import { LoginComponent } from '../../login/login.component';
 import { RegisterComponent } from '../../register/register.component';
 import { AuthService } from '../../../services/auth/auth.service';
 import { EventRequestService } from '../../../services/event/event-request/event-request.service';
+import { EventUserRequest } from '../../../interfaces/EventUserRequest';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -50,20 +51,24 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     DialogModule,
     LoginComponent,
     RegisterComponent,
+    RouterLink,
   ],
 })
 export class EventInfoComponent implements OnInit, OnDestroy {
   eventId!: string;
   private _eventDetailsSubscription: Subscription | undefined;
+  private isHost = true; //TODO later check from details
+  private isGuest = false; //TODO later check from details
   notLoggedInDialogVisible: boolean = false;
   loginRegisterSwitch: boolean = true;
 
   protected _eventDetails!: EventDetails;
   isLoading = true;
+  eventRequests: EventUserRequest[] = [];
 
   constructor(
     private readonly router: Router,
-    private readonly route: ActivatedRoute,
+    protected readonly route: ActivatedRoute,
     private readonly messageService: MessageService,
     private readonly translocoService: TranslocoService,
     private readonly eventService: EventService,
@@ -90,7 +95,21 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('id')!;
 
-    this.checkLoginStatus();
+    // Subscribe to login status changes
+    this.auth.isLoggedIn().subscribe({
+      next: (loggedIn) => {
+        this.notLoggedInDialogVisible = !loggedIn;
+
+        // Fetch event requests dynamically after login
+        if (loggedIn && this.isHost) {
+          this.getEventRequests();
+        }
+      },
+      error: (err) => {
+        console.error('Error checking login status:', err);
+      },
+    });
+
     // Check if eventDetails is passed via Router state
     const navigationState = this.router.getCurrentNavigation()?.extras.state;
     if (navigationState?.['eventDetails']) {
@@ -179,17 +198,19 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   }
 
   private requestToJoinEvent(): void {
-    this.eventRequestService.createJoinRequest(this.eventDetails.id).subscribe({
-      next: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: this.translocoService.translate(
-            'eventDetailPageComponent.requestSent',
-          ),
-        });
-      },
-      error: err => this.handleError(err),
-    });
+    if (this.eventId) {
+      this.eventRequestService.createJoinRequest(this.eventId).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: this.translocoService.translate(
+              'eventDetailPageComponent.requestSent',
+            ),
+          });
+        },
+        error: err => this.handleError(err),
+      });
+    }
   }
 
   private handleError(err: any): void {
@@ -205,15 +226,23 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     });
   }
 
-  private checkLoginStatus(): void {
-    this.auth.isLoggedIn().subscribe({
-      next: loggedIn => {
-        this.notLoggedInDialogVisible = !loggedIn;
-      },
-    });
-  }
-
   toggleLoginRegisterSwitch() {
     this.loginRegisterSwitch = !this.loginRegisterSwitch;
+  }
+
+  private getEventRequests(): void {
+    if (!this.eventId || !this.isHost) {
+      console.error('Event ID is required to fetch requests.');
+      return;
+    }
+
+    this.eventRequestService.getEventRequests(this.eventId).subscribe({
+      next: (requests: EventUserRequest[]) => {
+        this.eventRequests = requests;
+      },
+      error: (err) => {
+        throw err;
+      },
+    });
   }
 }

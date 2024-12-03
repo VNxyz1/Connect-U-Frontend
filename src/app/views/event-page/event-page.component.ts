@@ -147,4 +147,5 @@ export class EventPageComponent implements OnInit {
       .filter(Boolean)
       .join(', ');
   };
+
 }

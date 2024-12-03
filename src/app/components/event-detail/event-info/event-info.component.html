@@ -112,13 +112,61 @@
             class="mr-1" />
         </div>
       </p-card>
+
+      <div class="">
+        @if (this.eventRequests.length > 0) {
+          <p-card class="p-3 cursor-pointer" [routerLink]="['/link']" [relativeTo]="this.route">
+            <div class="flex flex-column justify-content-between h-full">
+              <!-- Top Section: Header and Count -->
+              <div class="flex justify-content-between align-items-center mb-2">
+                <!-- Header Section (Left Top) -->
+                <h3 class="mt-0 mb-0">{{ 'eventDetailPageComponent.requests' | transloco }}</h3>
+                <!-- Request Count (Right Top, Aligned with Header) -->
+                <span class="color-secondary text-center w-2rem">{{ this.eventRequests.length }}</span>
+              </div>
+
+              <!-- Bottom Section -->
+              <div class="flex justify-content-between align-items-center">
+                <!-- Profile Pictures (Left Bottom) -->
+                <div class="flex">
+                  @for (r of this.eventRequests; track r) {
+                    @if (r.user.imageUrl) {
+                      <img
+                        [src]="'/path/to/profile/pictures/' + r.user.imageUrl"
+                        alt="{{ r.user.username }}"
+                        class="profile-picture"
+                        style="width: 3em; height: 3em; border-radius: 50%; margin-right: -5px; border: 2px solid white;"
+                      />
+                    } @else {
+                      <img
+                        src="https://via.placeholder.com/100"
+                        alt="{{ r.user.username }}"
+                        class="profile-picture"
+                        style="width: 3em; height: 3em; border-radius: 50%; margin-right: -5px; border: 2px solid white;"
+                      />
+                    }
+                  }
+                </div>
+                <!-- Icon (Bottom Right) -->
+                <div class="flex align-items-right">
+                  <rmx-icon
+                    name="arrow-right-s-line"
+                    style="height: 26px; width: 26px"
+                    class="ml-2">
+                  </rmx-icon>
+                </div>
+              </div>
+            </div>
+          </p-card>
+        }
+      </div>
+
       @if (
         eventDetails.startAge ||
         eventDetails.endAge ||
         eventDetails.preferredGenders.length > 0
       ) {
-        <p class="p-1"></p>
-        <p-card styleClass="p-mb-3">
+        <p-card styleClass="mb-3">
           <h3>{{ 'eventDetailPageComponent.restrictions' | transloco }}</h3>
           <div class="grid">
             <div class="col">

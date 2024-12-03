@@ -237,6 +237,7 @@
     "notExist": "Das Event, nach dem du gesucht hast, scheint nicht zu existieren!",
     "join": "Event beitreten",
     "request": "Anfrage schicken",
+    "requests": "Anfragen",
     "eventNotFound": "Das gesuchte Event existiert nicht.",
     "userIsHost": "Du bist der Gastgeber dieses Events und kannst nicht teilnehmen.",
     "alreadyParticipant": "Du bist bereits Teilnehmer dieses Events.",
