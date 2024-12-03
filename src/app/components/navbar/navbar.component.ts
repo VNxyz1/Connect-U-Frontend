@@ -120,40 +120,49 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   private updateMenuItems() {
-    this.translocoService.langChanges$.subscribe(() => {
-      this.items = [
-        {
-          label: 'Home',
-          route: '/',
-          icon: this.activeIcon('/'),
-          command: () => this.navigateTo('/'),
-        },
-        {
-          label: this.translocoService.translate('navbarComponent.search'),
-          route: '/search',
-          icon: this.activeIcon('/search'),
-          command: () => this.navigateTo('/search'),
-        },
-        {
-          label: this.translocoService.translate('navbarComponent.createEvent'),
-          route: '/create-event/step1',
-          icon: 'add-line',
-          command: () => this.navigateTo('/create-event/step1'),
-        },
-        {
-          label: this.translocoService.translate('navbarComponent.myEvents'),
-          route: '/my-events',
-          icon: this.activeIcon('/my-events'),
-          command: () => this.navigateTo('/my-events'),
-        },
-        {
-          label: this.translocoService.translate('navbarComponent.mySpace'),
-          route: '/my-space',
-          icon: this.activeIcon('/my-space'),
-          command: () => this.navigateTo('/my-space'),
-        },
-      ];
-    });
+    const translationKeys = [
+      'navbarComponent.search',
+      'navbarComponent.createEvent',
+      'navbarComponent.myEvents',
+      'navbarComponent.mySpace',
+    ];
+
+    this.translocoService
+      .selectTranslation()
+      .subscribe((translations: Record<string, string>) => {
+        this.items = [
+          {
+            label: 'Home',
+            route: '/',
+            icon: this.activeIcon('/'),
+            command: () => this.navigateTo('/'),
+          },
+          {
+            label: translations['navbarComponent.search'],
+            route: '/search',
+            icon: this.activeIcon('/search'),
+            command: () => this.navigateTo('/search'),
+          },
+          {
+            label: translations['navbarComponent.createEvent'],
+            route: '/create-event/step1',
+            icon: 'add-line',
+            command: () => this.navigateTo('/create-event/step1'),
+          },
+          {
+            label: translations['navbarComponent.myEvents'],
+            route: '/my-events',
+            icon: this.activeIcon('/my-events'),
+            command: () => this.navigateTo('/my-events'),
+          },
+          {
+            label: translations['navbarComponent.mySpace'],
+            route: '/my-space',
+            icon: this.activeIcon('/my-space'),
+            command: () => this.navigateTo('/my-space'),
+          },
+        ];
+      });
   }
 
   setPaddingForFixedFooter = (): void => {

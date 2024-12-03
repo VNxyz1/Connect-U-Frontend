@@ -1,5 +1,3 @@
-<p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />
-
 <p-dialog
   [(visible)]="notLoggedInDialogVisible"
   contentStyleClass="border-round"
@@ -22,7 +20,16 @@
   </div>
 </p-dialog>
 
-@if (eventDetails$ | async; as eventDetails) {
+@if (isLoading) {
+  <div class="flex justify-content-center align-items-center mt-8">
+    <p-progressSpinner
+      styleClass="w-4rem h-4rem"
+      strokeWidth="8"
+      fill="var(--surface-ground)"
+      animationDuration=".5s">
+    </p-progressSpinner>
+  </div>
+} @else {
   <div class="xl:mr-8 p-0 m-0 mb-8 grid justify-content-center">
     <div class="col-12 xl:col-7">
       <div class="flex justify-content-center p-0 sm:p-0 m-0">
@@ -113,12 +120,12 @@
           <div class="grid">
             <div class="col">
               @if (eventDetails.preferredGenders.length > 0) {
-                <p class="pb-3" style="color: #ee8418">
+                <p class="pb-3 color-secondary">
                   {{ 'eventDetailPageComponent.gender' | transloco }}
                 </p>
               }
               @if (eventDetails.startAge || eventDetails.endAge) {
-                <p style="color: #ee8418">
+                <p class="color-secondary">
                   {{ 'eventDetailPageComponent.age' | transloco }}
                 </p>
               }
@@ -181,14 +188,5 @@
       </div>
     </div>
     <div class="xl:col-5"></div>
-  </div>
-} @else {
-  <div class="flex justify-content-center align-items-center mt-8">
-    <p-progressSpinner
-      styleClass="w-4rem h-4rem"
-      strokeWidth="8"
-      fill="var(--surface-ground)"
-      animationDuration=".5s">
-    </p-progressSpinner>
   </div>
 }
