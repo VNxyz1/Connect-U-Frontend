@@ -17,6 +17,7 @@ import { DialogModule } from 'primeng/dialog';
 import { LoginComponent } from '../../login/login.component';
 import { RegisterComponent } from '../../register/register.component';
 import { AuthService } from '../../../services/auth/auth.service';
+import { EventRequestService } from '../../../services/event/event-request/event-request.service';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -67,6 +68,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     private readonly translocoService: TranslocoService,
     private readonly eventService: EventService,
     private readonly auth: AuthService,
+    private readonly eventRequestService: EventRequestService,
   ) {}
 
   @Input()
@@ -177,7 +179,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   }
 
   private requestToJoinEvent(): void {
-    this.eventService.createJoinRequest(this.eventDetails.id).subscribe({
+    this.eventRequestService.createJoinRequest(this.eventDetails.id).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'success',

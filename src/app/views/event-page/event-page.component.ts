@@ -34,8 +34,9 @@ export class EventPageComponent implements OnInit {
   eventDetails$!: Observable<EventDetails>;
   eventTabMenuItems: MenuItem[] = [];
   activeTabItem: MenuItem | undefined;
-  isHost = false;
-  isGuest = false;
+  protected isHost = false;
+  protected isGuest = false;
+  protected hasRequest = false;
 
   constructor(
     private readonly route: ActivatedRoute,
