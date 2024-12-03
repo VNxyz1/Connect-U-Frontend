@@ -24,6 +24,18 @@
       "loginDataUnknown": "A user with these login credentials is not known."
     }
   },
+  "logout": {
+    "messages": {
+      "error": {
+        "summary": "Logout Failed",
+        "detail": "You are currently not authorized to log out."
+      },
+      "success": {
+        "summary": "Logged Out",
+        "detail": "You have successfully logged out. Come back soon!"
+      }
+    }
+  },
   "landingPage": {
     "headerImageAlt": "connect-u logo",
     "imageText": {
@@ -179,11 +191,11 @@
   },
   "createEventStep3Component": {
     "participantsNumberInput": {
-      "label": "Participants Number",
-      "errorMessage": "Participants Number is required and must be at least 2."
+      "label": "Guest Number",
+      "errorMessage": "Guests Number is required and must be at least 2."
     },
     "participantsInput": {
-      "label": "Selected Participants"
+      "label": "Selected Guests"
     },
     "preferredGendersInput": {
       "label": "Preferred Genders"
@@ -236,6 +248,11 @@
     "genericError": "Something went wrong with sending your request!"
 
   },
+  "eventPageComponent": {
+    "infoTab": "Information",
+    "listTab": "Lists",
+    "surveyTab": "Surveys"
+  },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "You must accept the terms and conditions to register",
     "Passwords must match": "Passwords must match",
@@ -258,7 +275,9 @@
     "myEvents": "My Events",
     "search": "Search Events",
     "createEvent": "Create Event",
-    "event": "Event Information"
+    "event": "Event Information",
+    "closeConfirmationMessage": "Are you sure, that you want to discard you event? Your draft will not be saved.",
+    "closeConfirmationHeader": "Discard Draft"
   },
   "navbarComponent": {
     "mySpace": "My Space",

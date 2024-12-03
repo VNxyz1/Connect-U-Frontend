@@ -1,4 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { Button } from 'primeng/button';
 import { NavigationEnd, Router } from '@angular/router';
@@ -26,7 +33,7 @@ import { TranslocoService } from '@jsverse/transloco';
   ],
   templateUrl: './navbar.component.html',
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, AfterViewInit {
   @Input() currentUrl: string | null = null;
   items: MenuItem[] = [];
   isMd: boolean = false;
@@ -36,6 +43,8 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private breakpointObserver: BreakpointObserver,
     private translocoService: TranslocoService,
+    private renderer: Renderer2,
+    private elRef: ElementRef,
   ) {
     setTimeout(() => {
       this.updateMenuItems();
@@ -72,6 +81,10 @@ export class NavbarComponent implements OnInit {
       });
   }
 
+  ngAfterViewInit() {
+    this.setPaddingForFixedFooter();
+  }
+
   getSeverity(
     path: string,
   ):
@@ -96,7 +109,7 @@ export class NavbarComponent implements OnInit {
     const iconBaseMap: { [key: string]: string } = {
       '/': 'home-2',
       '/search': 'search',
-      '/create-event': 'add',
+      '/create-event/step1': 'add',
       '/my-events': 'function',
       '/my-space': 'user-3',
     };
@@ -107,39 +120,57 @@ export class NavbarComponent implements OnInit {
   }
 
   private updateMenuItems() {
-    this.translocoService.langChanges$.subscribe(() => {
-      this.items = [
-        {
-          label: 'Home',
-          route: '/',
-          icon: this.activeIcon('/'),
-          command: () => this.navigateTo('/'),
-        },
-        {
-          label: this.translocoService.translate('navbarComponent.search'),
-          route: '/search',
-          icon: this.activeIcon('/search'),
-          command: () => this.navigateTo('/search'),
-        },
-        {
-          label: this.translocoService.translate('navbarComponent.createEvent'),
-          route: '/create-event',
-          icon: 'add-line',
-          command: () => this.navigateTo('/create-event'),
-        },
-        {
-          label: this.translocoService.translate('navbarComponent.myEvents'),
-          route: '/my-events',
-          icon: this.activeIcon('/my-events'),
-          command: () => this.navigateTo('/my-events'),
-        },
-        {
-          label: this.translocoService.translate('navbarComponent.mySpace'),
-          route: '/my-space',
-          icon: this.activeIcon('/my-space'),
-          command: () => this.navigateTo('/my-space'),
-        },
-      ];
-    });
+    const translationKeys = [
+      'navbarComponent.search',
+      'navbarComponent.createEvent',
+      'navbarComponent.myEvents',
+      'navbarComponent.mySpace',
+    ];
+
+    this.translocoService
+      .selectTranslation()
+      .subscribe((translations: Record<string, string>) => {
+        this.items = [
+          {
+            label: 'Home',
+            route: '/',
+            icon: this.activeIcon('/'),
+            command: () => this.navigateTo('/'),
+          },
+          {
+            label: translations['navbarComponent.search'],
+            route: '/search',
+            icon: this.activeIcon('/search'),
+            command: () => this.navigateTo('/search'),
+          },
+          {
+            label: translations['navbarComponent.createEvent'],
+            route: '/create-event/step1',
+            icon: 'add-line',
+            command: () => this.navigateTo('/create-event/step1'),
+          },
+          {
+            label: translations['navbarComponent.myEvents'],
+            route: '/my-events',
+            icon: this.activeIcon('/my-events'),
+            command: () => this.navigateTo('/my-events'),
+          },
+          {
+            label: translations['navbarComponent.mySpace'],
+            route: '/my-space',
+            icon: this.activeIcon('/my-space'),
+            command: () => this.navigateTo('/my-space'),
+          },
+        ];
+      });
   }
+
+  setPaddingForFixedFooter = (): void => {
+    const fixedFooter = this.elRef.nativeElement.querySelector('.fixed-footer');
+    if (fixedFooter) {
+      const footerHeight = fixedFooter.offsetHeight;
+
+      this.renderer.setStyle(fixedFooter, 'padding-top', `${footerHeight}px`);
+    }
+  };
 }

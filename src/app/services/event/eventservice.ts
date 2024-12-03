@@ -70,6 +70,10 @@ export class EventService {
     await this.storageService.set(this.STORAGE_KEY, this._eventInformation);
   }
 
+  async removeEventInformation(): Promise<void> {
+    return await this.storageService.remove(this.STORAGE_KEY);
+  }
+
   /**
    * Fetches all available categories from the server.
    * @returns {Observable<Category[]>} An observable that emits an array of categories.
@@ -155,7 +159,7 @@ export class EventService {
 
         // Reset _eventInformation and delete the storage key upon successful creation
         this._eventInformation = this.getDefaultEventData();
-        this.storageService.remove(this.STORAGE_KEY);
+        this.removeEventInformation();
 
         return response;
       }),

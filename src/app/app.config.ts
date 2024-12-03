@@ -50,6 +50,12 @@ import {
   RiEyeLine,
   RiEyeOffLine,
   RiArrowRightSLine, RiEditLine,
+  RiChatPollLine,
+  RiFolderInfoLine,
+  RiListCheck,
+  RiCloseLine,
+  RiSettings5Line,
+  RiLogoutBoxLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
@@ -85,14 +91,20 @@ const icons = {
   RiArrowDownLine,
   RiEyeLine,
   RiEyeOffLine,
+  RiChatPollLine,
+  RiFolderInfoLine,
+  RiListCheck,
+  RiCloseLine,
   RiArrowRightSLine,
+  RiSettings5Line,
+  RiLogoutBoxLine,
   RiEditLine
 };
 
 export const translocoConfig = {
   config: {
     availableLangs: ['en-US', 'de'],
-    defaultLang: 'en-US',
+    defaultLang: 'de',
     reRenderOnLangChange: true,
     prodMode: !isDevMode(),
   },
