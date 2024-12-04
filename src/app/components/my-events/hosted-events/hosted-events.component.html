@@ -4,7 +4,7 @@
       @for (event of events; track $index) {
         <div
           class="col-12 sm:col-6 lg:col-4 flex justify-content-center mb-3 fadein animation-duration-300 animation-iteration-1">
-          <app-event-card [event]="event" />
+          <app-event-card [event]="event" showEventStatus />
         </div>
       }
     } @else if (isLoading) {
