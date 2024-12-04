@@ -44,8 +44,7 @@ export class MySpacePageComponent implements OnInit {
 
   handleLogout() {
     this.auth.logout().subscribe({
-      next: res => {
-        console.log(res);
+      next: () => {
         this.messageService.add({
           severity: 'success',
           summary: this.translocoService.translate(
