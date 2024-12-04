@@ -75,6 +75,7 @@
             type="password"
             pInputText
             formControlName="oldPassword"
+            placeholder=" "
           />
           <label for="oldPassword">Altes Passwort</label>
         </p-floatLabel>
@@ -86,6 +87,7 @@
             type="password"
             pInputText
             formControlName="newPassword"
+            placeholder=" "
           />
           <label for="newPassword">Neues Passwort</label>
         </p-floatLabel>
@@ -93,12 +95,13 @@
       <div class="field">
         <p-floatLabel>
           <input
-            id="confirmPassword"
+            id="newPasswordConfirm"
             type="password"
             pInputText
-            formControlName="confirmPassword"
+            formControlName="newPasswordConfirm"
+            placeholder=" "
           />
-          <label for="confirmPassword">Passwort wiederholen</label>
+          <label for="newPasswordConfirm">Passwort wiederholen</label>
         </p-floatLabel>
       </div>
       <div class="flex justify-content-end mb-3">
@@ -116,7 +119,7 @@
   <div class="grid mt-1 mb-6">
     <div class="col-12 lg:col-6 md:col-8 sm:col-12 mx-auto">
       <h3 class="text-left">Adresse</h3>
-      <form (ngSubmit)="submitLocationUpdate()" [formGroup]="locationForm">
+      <form (ngSubmit)="submitAccountUpdate()" [formGroup]="accountForm">
         <div class="grid">
           <div class="col-12 lg:col-6">
             <p-floatLabel>
@@ -144,7 +147,7 @@
           </div>
         </div>
         <div class="field flex justify-content-end mt-3">
-          <p-button label="Speichern" severity="success" type="submit" [disabled]="!locationForm.valid"></p-button>
+          <p-button label="Speichern" severity="success" type="submit"></p-button>
         </div>
       </form>
     </div>
