@@ -4,7 +4,7 @@
       [
         'h-full',
         showEventStatus ? 'border-left-3 border-round' : '',
-        showEventStatus ? getCardBorderColor(event.status) : '',
+        showEventStatus ? 'border-' + getStatusColor(event.status) : '',
       ].join(' ')
     "
     class="h-full custom-card cursor-pointer"
@@ -24,22 +24,24 @@
           [style]="{ 'background-image': toImageUrl(event.picture) }">
           <div
             class="flex justify-content-between p-3 align-content-center align-items-center">
-            <span>
+            <span
+              class="border-round-3xl p-1 border-transparent"
+              [class]="
+                showEventStatus ? 'bg-' + getStatusColor(event.status) : ''
+              ">
               @if (showEventStatus) {
                 @switch (event.status) {
                   @case (StatusEnum.finished) {
-                    <rmx-icon name="history-line" class="text-gray-900" />
+                    <rmx-icon name="history-line" class="text-white" />
                   }
                   @case (StatusEnum.cancelled) {
-                    <rmx-icon
-                      name="calendar-close-line"
-                      class="text-gray-900" />
+                    <rmx-icon name="calendar-close-line" class="text-white" />
                   }
                   @case (StatusEnum.live) {
-                    <rmx-icon name="live-line" class="text-red-900" />
+                    <rmx-icon name="live-line" class="text-white" />
                   }
                   @case (StatusEnum.upcoming) {
-                    <rmx-icon name="hourglass-fill" class="text-orange-900" />
+                    <rmx-icon name="hourglass-fill" class="text-white" />
                   }
                 }
               }
