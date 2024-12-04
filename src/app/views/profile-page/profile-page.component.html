@@ -3,9 +3,9 @@
   <div class="relative flex align-items-center">
     <!-- Profilbild -->
     <img
-      src="https://via.placeholder.com/150"
+      src="images/userImg.png"
       alt="Profilbild"
-      class="border-circle shadow-2 ml-5 -mb-5"
+      class="border-circle shadow-2 ml-5 -mb-6"
       style="width: 150px; height: 150px; border: 4px solid white;"
     />
 
@@ -19,7 +19,12 @@
       ></rmx-icon>
     </div>
   </div>
-
+  <!-- Maybe das Img mit in die Animation nehmen -->
+  <div
+    class="mb-6"
+    [ngClass]="editMode ? 'flipright' : 'flipleft'"
+    style="animation-duration: 0.5s;"
+  >
   <!-- User-Details !editmode -->
   @if (profileData$ | async; as data) {
     @if (!editMode) {
@@ -58,7 +63,6 @@
 
   <!-- Edit Mode -->
   @if (editMode) {
-    <div class="col-12 lg:col-6">
       <form
         (ngSubmit)="submitEdit()"
         [formGroup]="form"
@@ -102,6 +106,6 @@
           ></p-button>
         </div>
       </form>
-    </div>
   }
+  </div>
 </div>

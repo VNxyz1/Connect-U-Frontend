@@ -12,5 +12,6 @@ export interface ProfileData {
   age:string;
   pronouns:string;
   profileText:string;
+  gender:number;
   //imageUrl: string; not impl. atm
 }

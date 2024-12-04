@@ -6,7 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ProfileData} from '../../interfaces/ProfileData';
 import {UpdateProfileBody, UserService} from '../../services/user/user.service';
 import {Observable} from 'rxjs';
-import {AsyncPipe} from '@angular/common';
+import {AsyncPipe, NgClass} from '@angular/common';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {FloatLabelModule} from 'primeng/floatlabel';
 import {InputTextModule} from 'primeng/inputtext';
@@ -35,7 +35,8 @@ type editProfileForm = FormGroup<{
     InputTextareaModule,
     Button,
     DropdownModule,
-    TranslocoPipe
+    TranslocoPipe,
+    NgClass
   ],
   providers:[UserService,MessageService, TranslocoService],
   templateUrl: './profile-page.component.html',

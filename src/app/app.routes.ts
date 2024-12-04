@@ -19,6 +19,8 @@ import { PrivacyPolicyPageComponent } from './views/privacy-policy-page/privacy-
 import { EventInfoComponent } from './components/event-detail/event-info/event-info.component';
 import { EventListsComponent } from './components/event-detail/event-lists/event-lists.component';
 import { EventSurveysComponent } from './components/event-detail/event-surveys/event-surveys.component';
+import {SettingsPageComponent} from './views/settings-page/settings-page.component';
+import {AccountManagePageComponent} from './views/account-manage-page/account-manage-page.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -107,6 +109,16 @@ export const routes: Routes = [
     path: '404',
     title: 'Not Found | Connect-U',
     component: NotFoundPageComponent,
+  },
+  {
+    path: 'settings',
+    title: 'Settings | Connect-U',
+    component: SettingsPageComponent,
+  },
+  {
+    path: 'account',
+    title:'Account | Connect-U',
+    component: AccountManagePageComponent
   },
   {
     path: '**',

@@ -7,6 +7,11 @@ export type UpdateProfileBody = {
   pronouns:string,
   profileText:string,
 }
+export type UpdatePasswordBody = {
+  oldPassword:string
+  newPassword:string
+  confirmPassword:string
+}
 
 @Injectable({
   providedIn: 'root',
@@ -28,5 +33,11 @@ export class UserService {
 
   updateProfileInformation(updateData:UpdateProfileBody): Observable<any> {
     return this.http.patch<any>('user/userProfile', updateData);
+  }
+  updateAccountInformation(updateData:any): Observable<any> {
+    return this.http.patch<any>('user/userData', updateData);
+  }
+  updatePassword(updateData:UpdatePasswordBody): Observable<any> {
+    return this.http.patch<any>('user/userPassword',updateData );
   }
 }
