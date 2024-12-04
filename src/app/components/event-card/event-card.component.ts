@@ -29,6 +29,8 @@ export class EventCardComponent {
   @Input({ transform: booleanAttribute }) skeleton: boolean = false;
   @Input() event!: EventCardItem;
 
+  @Input({transform: booleanAttribute}) showEventStatus: boolean = false;
+
   // placeholder
   ahhArr: string[] = [
     'Placeholder',

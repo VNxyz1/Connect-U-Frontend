@@ -2,8 +2,8 @@
   <p-card
     [styleClass]="
       [
-        'h-full border-left-3 border-round',
-        getCardBorderColor(event.status),
+        'h-full', showEventStatus? 'border-left-3 border-round': '',
+        showEventStatus? getCardBorderColor(event.status): '',
       ].join(' ')
     "
     class="h-full custom-card cursor-pointer"
@@ -14,6 +14,7 @@
         [style]="{
           'aspect-ratio': '2/1',
           'border-top-right-radius': 'var(--border-radius) !important',
+          'border-top-left-radius': !showEventStatus ? 'var(--border-radius) !important' : '',
         }">
         <div
           class="bg-cover bg-center h-full w-full"
@@ -21,18 +22,20 @@
           <div
             class="flex justify-content-between p-3 align-content-center align-items-center">
             <span>
-              @switch (event.status) {
-                @case (StatusEnum.finished) {
-                  <rmx-icon name="history-line" class="text-gray-900" />
-                }
-                @case (StatusEnum.cancelled) {
-                  <rmx-icon name="calendar-close-line" class="text-gray-900" />
-                }
-                @case (StatusEnum.live) {
-                  <rmx-icon name="live-line" class="text-red-900" />
-                }
-                @case (StatusEnum.upcoming) {
-                  <rmx-icon name="hourglass-fill" class="text-orange-900" />
+              @if (showEventStatus) {
+                @switch (event.status) {
+                  @case (StatusEnum.finished) {
+                    <rmx-icon name="history-line" class="text-gray-900" />
+                  }
+                  @case (StatusEnum.cancelled) {
+                    <rmx-icon name="calendar-close-line" class="text-gray-900" />
+                  }
+                  @case (StatusEnum.live) {
+                    <rmx-icon name="live-line" class="text-red-900" />
+                  }
+                  @case (StatusEnum.upcoming) {
+                    <rmx-icon name="hourglass-fill" class="text-orange-900" />
+                  }
                 }
               }
             </span>
