@@ -24,8 +24,8 @@
             <p class="text-secondary mt-0 mb-0">&#64;{{ r.user.username }}, {{ r.user.age }}</p>
           </div>
         </div>
-        <!-- Icon (Bottom Right) -->
-        <div class="flex align-items-right gap-2 z-5">
+
+        <div class="flex align-items-center gap-2">
           <p-button [raised]="true" (onClick)="denyRequest(r.id, $event)">
             <ng-template pTemplate="icon">
               <rmx-icon
@@ -40,6 +40,11 @@
                 name="check-line"></rmx-icon>
             </ng-template>
           </p-button>
+          <rmx-icon
+            name="arrow-right-s-line"
+            style="height: 26px; width: 26px"
+            class="">
+          </rmx-icon>
         </div>
       </div>
     </p-card>
