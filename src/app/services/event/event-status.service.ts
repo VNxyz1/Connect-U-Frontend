@@ -13,7 +13,7 @@ export class EventStatusService {
         return 'red-900';
       case StatusEnum.cancelled:
       case StatusEnum.finished:
-        return 'gray-600';
+        return 'gray-700';
       case StatusEnum.upcoming:
         return 'orange-900';
     }

@@ -253,6 +253,20 @@
     "listTab": "Lists",
     "surveyTab": "Surveys"
   },
+  "eventStatusIndicator": {
+    "finished": {
+      "text": "past"
+    },
+    "cancelled": {
+      "text": "cancelled"
+    },
+    "live": {
+      "text": "LIVE"
+    },
+    "upcoming": {
+      "text": "upcoming"
+    }
+  },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "You must accept the terms and conditions to register",
     "Passwords must match": "Passwords must match",

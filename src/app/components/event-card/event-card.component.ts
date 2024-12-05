@@ -9,7 +9,10 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { RouterLink } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { StatusEnum } from '../../interfaces/StatusEnum';
-import { EventStatusIndicatorComponent } from '../event-status-indicator/event-status-indicator.component';
+import {
+  DockPosition,
+  EventStatusIndicatorComponent,
+} from '../event-status-indicator/event-status-indicator.component';
 import { EventStatusService } from '../../services/event/event-status.service';
 
 @Component({
@@ -68,4 +71,5 @@ export class EventCardComponent {
   }
 
   protected readonly StatusEnum = StatusEnum;
+  protected readonly DockPosition = DockPosition;
 }

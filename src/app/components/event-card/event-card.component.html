@@ -23,10 +23,13 @@
           class="bg-cover bg-center h-full w-full"
           [style]="{ 'background-image': toImageUrl(event.picture) }">
           <div
-            class="flex justify-content-between p-3 align-content-center align-items-center">
+            class="flex justify-content-between p-3 pl-0 align-content-center align-items-center">
             <span>
               @if (showEventStatus) {
-                <app-event-status-indicator [status]="event.status" />
+                <app-event-status-indicator
+                  [status]="event.status"
+                  dockingMode
+                  [dockPosition]="DockPosition.Left" />
               }
             </span>
             <div class="flex gap-2">

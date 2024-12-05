@@ -45,7 +45,12 @@
       <h2>{{ eventDetails.title }}</h2>
 
       <div class="flex w-full justify-content-between">
-        <span> </span>
+        <span>
+          <app-event-status-indicator
+            [status]="eventDetails.status"
+            showText
+            invertedColor />
+        </span>
         <span>
           @for (category of eventDetails.categories; track $index) {
             <p-tag [value]="category.name" [rounded]="true" class="mr-1" />
