@@ -29,7 +29,7 @@ export class EventCardComponent {
   @Input({ transform: booleanAttribute }) skeleton: boolean = false;
   @Input() event!: EventCardItem;
 
-  @Input({ transform: booleanAttribute }) showEventStatus: boolean = false;
+  @Input({ transform: booleanAttribute }) showEventStatus: boolean = true;
 
   // placeholder
   ahhArr: string[] = [
@@ -66,7 +66,7 @@ export class EventCardComponent {
         return 'red-900';
       case StatusEnum.cancelled:
       case StatusEnum.finished:
-        return 'gray-900';
+        return 'gray-600';
       case StatusEnum.upcoming:
         return 'orange-900';
     }
