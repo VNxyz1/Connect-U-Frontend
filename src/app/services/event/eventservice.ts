@@ -31,8 +31,9 @@ type Gender = { id: number; gender: number };
   providedIn: 'root',
 })
 export class EventService {
-  private readonly STORAGE_KEY = 'eventInformation'; // Key for stored data
-  private _eventInformation: EventData | null = null;
+  private readonly storageKeyCreate = 'eventCreateInformation'; // Key for stored data
+  private _eventCreateInformation: EventData | null = null;
+
 
   private readonly eventComplete = new Subject<EventData>();
   eventComplete$ = this.eventComplete.asObservable();
@@ -46,14 +47,14 @@ export class EventService {
    * Retrieves the current event information from storage or initializes it with default values.
    * @returns {Promise<EventData>} A promise that resolves to the current event data.
    */
-  async getEventInformation(): Promise<EventData> {
-    if (!this._eventInformation) {
+  async getEventCreateInformation(): Promise<EventData> {
+    if (!this._eventCreateInformation) {
       const savedData = await this.storageService.get<EventData>(
-        this.STORAGE_KEY,
+        this.storageKeyCreate,
       );
-      this._eventInformation = savedData || this.getDefaultEventData();
+      this._eventCreateInformation = savedData || this.getDefaultEventData();
     }
-    return this._eventInformation;
+    return this._eventCreateInformation;
   }
 
   /**
@@ -62,16 +63,16 @@ export class EventService {
    * @returns {Promise<void>} A promise that resolves when the data is saved.
    */
   async setEventInformation(data: Partial<EventData>): Promise<void> {
-    this._eventInformation = {
-      ...(this._eventInformation || this.getDefaultEventData()),
+    this._eventCreateInformation = {
+      ...(this._eventCreateInformation || this.getDefaultEventData()),
       ...data,
     };
 
-    await this.storageService.set(this.STORAGE_KEY, this._eventInformation);
+    await this.storageService.set(this.storageKeyCreate, this._eventCreateInformation);
   }
 
   async removeEventInformation(): Promise<void> {
-    return await this.storageService.remove(this.STORAGE_KEY);
+    return await this.storageService.remove(this.storageKeyCreate);
   }
 
   /**
@@ -100,16 +101,16 @@ export class EventService {
 
     // Validate required fields before posting
     if (
-      !this._eventInformation?.title?.trim() || // Title should not be empty or whitespace
-      this._eventInformation.categories.length === 0 || // At least one category
-      !this._eventInformation.dateAndTime || // Date must be filled
-      isNaN(Date.parse(this._eventInformation.dateAndTime)) || // Date must be valid ISO format
-      (!this._eventInformation.isOnline && // If not online, address must be valid
-        (!this._eventInformation.street.trim() ||
-          !this._eventInformation.streetNumber.trim() ||
-          !this._eventInformation.zipCode.trim() ||
-          !this._eventInformation.city.trim())) ||
-      this._eventInformation.participantsNumber < 2 // Participants number >= 2
+      !this._eventCreateInformation?.title?.trim() || // Title should not be empty or whitespace
+      this._eventCreateInformation.categories.length === 0 || // At least one category
+      !this._eventCreateInformation.dateAndTime || // Date must be filled
+      isNaN(Date.parse(this._eventCreateInformation.dateAndTime)) || // Date must be valid ISO format
+      (!this._eventCreateInformation.isOnline && // If not online, address must be valid
+        (!this._eventCreateInformation.street.trim() ||
+          !this._eventCreateInformation.streetNumber.trim() ||
+          !this._eventCreateInformation.zipCode.trim() ||
+          !this._eventCreateInformation.city.trim())) ||
+      this._eventCreateInformation.participantsNumber < 2 // Participants number >= 2
     ) {
       console.error(
         'Validation failed. Required fields are missing or invalid.',
@@ -118,31 +119,31 @@ export class EventService {
         () => new Error('Validation failed. Check your inputs.'),
       );
     }
-    if (this._eventInformation.startAge == 16) {
-      this._eventInformation.startAge = null;
+    if (this._eventCreateInformation.startAge == 16) {
+      this._eventCreateInformation.startAge = null;
     }
-    if (this._eventInformation.endAge == 99) {
-      this._eventInformation.endAge = null;
+    if (this._eventCreateInformation.endAge == 99) {
+      this._eventCreateInformation.endAge = null;
     }
 
     // Ensure the date is in ISO format
     const isoDateAndTime = new Date(
-      this._eventInformation.dateAndTime,
+      this._eventCreateInformation.dateAndTime,
     ).toISOString();
 
     // Transform _eventInformation to include only the category and gender IDs
     const payload: EventData = {
-      ...(this._eventInformation || this.getDefaultEventData()),
+      ...(this._eventCreateInformation || this.getDefaultEventData()),
       dateAndTime: isoDateAndTime, // Use ISO-formatted date
       categories:
-        this._eventInformation?.categories.map((category: any) =>
+        this._eventCreateInformation?.categories.map((category: any) =>
           typeof category === 'object' && 'id' in category
             ? category.id
             : category,
         ) || [],
-      ...(this._eventInformation?.preferredGenders?.length
+      ...(this._eventCreateInformation?.preferredGenders?.length
         ? {
-            preferredGenders: this._eventInformation.preferredGenders.map(
+            preferredGenders: this._eventCreateInformation.preferredGenders.map(
               (gender: any) =>
                 typeof gender === 'object' && 'id' in gender
                   ? gender.id
@@ -158,7 +159,7 @@ export class EventService {
         this.eventComplete.next(response);
 
         // Reset _eventInformation and delete the storage key upon successful creation
-        this._eventInformation = this.getDefaultEventData();
+        this._eventCreateInformation = this.getDefaultEventData();
         this.removeEventInformation();
 
         return response;

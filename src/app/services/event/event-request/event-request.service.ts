@@ -60,7 +60,7 @@ export class EventRequestService {
    * @param eventId The ID of the event
    * @returns {Observable<EventUserRequest[]>} An observable of event user requests
    */
-  getEventRequests(eventId: string): Observable<EventUserRequest[]> {
+  getEventHostRequests(eventId: string): Observable<EventUserRequest[]> {
     const url = `request/join/event/${eventId}`;
     return this.http.get<EventUserRequest[]>(url).pipe(
       catchError(err => {
@@ -70,6 +70,15 @@ export class EventRequestService {
     );
   }
 
+  acceptUserRequest(requestId: number): Observable<{ success: boolean; message: string }> {
+    const url = `request/accept/${requestId}`;
+    return this.http.patch<{ success: boolean; message: string }>(url, {}).pipe()
+  }
+
+  denyUserRequest(requestId: number): Observable<{ success: boolean; message: string }> {
+    const url = `request/deny/${requestId}`;
+    return this.http.patch<{ success: boolean; message: string }>(url, {}).pipe()
+  }
 
 }
 

@@ -55,16 +55,22 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   ],
 })
 export class EventInfoComponent implements OnInit, OnDestroy {
+  @Input() eventRequestsHost: EventUserRequest[] = [];
+  @Input()
+  set eventDetails(value: Observable<EventDetails> | EventDetails) {
+    this.handleEventDetailsInput(value);
+  }
+
+  @Input() getPreferredGendersString!: (
+    preferredGenders: EventDetails['preferredGenders'],
+  ) => string;
   eventId!: string;
   private _eventDetailsSubscription: Subscription | undefined;
-  private isHost = true; //TODO later check from details
-  private isGuest = false; //TODO later check from details
   notLoggedInDialogVisible: boolean = false;
   loginRegisterSwitch: boolean = true;
 
   protected _eventDetails!: EventDetails;
   isLoading = true;
-  eventRequests: EventUserRequest[] = [];
 
   constructor(
     private readonly router: Router,
@@ -76,19 +82,11 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     private readonly eventRequestService: EventRequestService,
   ) {}
 
-  @Input()
-  set eventDetails(value: Observable<EventDetails> | EventDetails) {
-    this.handleEventDetailsInput(value);
-  }
-
-  @Input() getPreferredGendersString!: (
-    preferredGenders: EventDetails['preferredGenders'],
-  ) => string;
-
   get eventDetails(): EventDetails {
     if (!this._eventDetails) {
       throw new Error('Event details are not yet loaded.');
     }
+    console.log('isHost: ' + this._eventDetails.isHost);
     return this._eventDetails;
   }
 
@@ -99,11 +97,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     this.auth.isLoggedIn().subscribe({
       next: (loggedIn) => {
         this.notLoggedInDialogVisible = !loggedIn;
-
-        // Fetch event requests dynamically after login
-        if (loggedIn && this.isHost) {
-          this.getEventRequests();
-        }
       },
       error: (err) => {
         console.error('Error checking login status:', err);
@@ -228,21 +221,5 @@ export class EventInfoComponent implements OnInit, OnDestroy {
 
   toggleLoginRegisterSwitch() {
     this.loginRegisterSwitch = !this.loginRegisterSwitch;
-  }
-
-  private getEventRequests(): void {
-    if (!this.eventId || !this.isHost) {
-      console.error('Event ID is required to fetch requests.');
-      return;
-    }
-
-    this.eventRequestService.getEventRequests(this.eventId).subscribe({
-      next: (requests: EventUserRequest[]) => {
-        this.eventRequests = requests;
-      },
-      error: (err) => {
-        throw err;
-      },
-    });
   }
 }

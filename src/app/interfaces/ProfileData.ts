@@ -10,4 +10,5 @@ export interface ProfileData {
   street: string;
   zipCode: string;
   imageUrl: string; //not impl. atm
+  age: number;
 }

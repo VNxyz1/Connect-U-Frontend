@@ -19,6 +19,7 @@ import { PrivacyPolicyPageComponent } from './views/privacy-policy-page/privacy-
 import { EventInfoComponent } from './components/event-detail/event-info/event-info.component';
 import { EventListsComponent } from './components/event-detail/event-lists/event-lists.component';
 import { EventSurveysComponent } from './components/event-detail/event-surveys/event-surveys.component';
+import { EventRequestsComponent } from './components/event-detail/event-requests/event-requests.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -81,6 +82,7 @@ export const routes: Routes = [
     children: [
       { path: 'lists', component: EventListsComponent },
       { path: 'surveys', component: EventSurveysComponent },
+      { path: 'requests', component: EventRequestsComponent}
     ],
   },
   {

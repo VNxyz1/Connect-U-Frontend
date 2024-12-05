@@ -114,22 +114,24 @@
       </p-card>
 
       <div class="">
-        @if (this.eventRequests.length > 0) {
-          <p-card class="p-3 cursor-pointer" [routerLink]="['/link']" [relativeTo]="this.route">
+        @if (eventRequestsHost.length > 0 && eventDetails.isHost) {
+          <p-card class="p-3 cursor-pointer"
+                  [routerLink]="['requests']"
+                  [relativeTo]="route">
             <div class="flex flex-column justify-content-between h-full">
               <!-- Top Section: Header and Count -->
               <div class="flex justify-content-between align-items-center mb-2">
                 <!-- Header Section (Left Top) -->
                 <h3 class="mt-0 mb-0">{{ 'eventDetailPageComponent.requests' | transloco }}</h3>
                 <!-- Request Count (Right Top, Aligned with Header) -->
-                <span class="color-secondary text-center w-2rem">{{ this.eventRequests.length }}</span>
+                <span class="color-secondary text-center w-2rem">{{ this.eventRequestsHost.length }}</span>
               </div>
 
               <!-- Bottom Section -->
               <div class="flex justify-content-between align-items-center">
                 <!-- Profile Pictures (Left Bottom) -->
                 <div class="flex">
-                  @for (r of this.eventRequests; track r) {
+                  @for (r of this.eventRequestsHost; track r) {
                     @if (r.user.imageUrl) {
                       <img
                         [src]="'/path/to/profile/pictures/' + r.user.imageUrl"
@@ -166,6 +168,7 @@
         eventDetails.endAge ||
         eventDetails.preferredGenders.length > 0
       ) {
+        <div class="mt-3">
         <p-card styleClass="mb-3">
           <h3>{{ 'eventDetailPageComponent.restrictions' | transloco }}</h3>
           <div class="grid">
@@ -212,6 +215,7 @@
             </div>
           </div>
         </p-card>
+        </div>
       }
     </div>
     <div class="mt-3 col-12 lg:col-fixed lg:w-max">

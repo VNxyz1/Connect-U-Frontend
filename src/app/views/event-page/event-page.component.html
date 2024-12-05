@@ -1,6 +1,6 @@
 
 <!-- Display tabs if user is host or guest -->
-@if (isHost || isGuest) {
+@if ((eventDetails && (eventDetails.isHost || eventDetails.isParticipant)) && !url.includes('/requests') && !url.includes('/guests')) {
   <div class="card">
     <p-tabMenu [model]="eventTabMenuItems" [activeItem]="activeTabItem">
       <ng-template pTemplate="item" let-item>
@@ -22,10 +22,11 @@
 }
 
 <!-- Display the event info if not logged in or not a participant -->
-@if (eventDetails$ && activeTabItem?.id == 'infoTab') {
+@if (eventDetails$ && (activeTabItem?.id == 'infoTab' || !eventDetails.isHost || !eventDetails.isParticipant) && !url.includes('/requests') && !url.includes('/guests')) {
   <app-event-info
     [eventDetails]="eventDetails$"
-    [getPreferredGendersString]="getPreferredGendersString">
+    [getPreferredGendersString]="getPreferredGendersString"
+    [eventRequestsHost]="eventRequestsHost">
   </app-event-info>
 }
 

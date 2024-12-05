@@ -36,4 +36,8 @@ export interface EventDetails {
   startAge?: number;
 
   endAge?: number;
+
+  isHost?: boolean;
+
+  isParticipant?: boolean;
 }
