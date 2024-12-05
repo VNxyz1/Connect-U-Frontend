@@ -40,16 +40,36 @@ export class UserService {
   getUserData(): Observable<ProfileData> {
     return this.http.get<ProfileData>('user/userData');
   }
+
+  /**
+   * fetches a specific User
+   * @param userId (id from a specific User)
+   * @returns {Observable<ProfileData>} an Observable that emits the data of a user
+   */
   getSpecificUserData(userId:string): Observable<ProfileData> {
     return this.http.get<ProfileData>(`user/userProfile/${userId}`);
   }
 
-  updateProfileInformation(updateData:UpdateProfileBody): Observable<any> {
-    return this.http.patch<any>('user/userProfile', updateData);
+  /**
+   *
+   * @param updateData
+   */
+  updateProfileInformation(updateData:Partial<UpdateProfileBody>): Observable<ok> {
+    return this.http.patch<ok>('user/userProfile', updateData);
   }
+
+  /**
+   *
+   * @param updateData
+   */
   updateAccountInformation(updateData:any): Observable<any> {
     return this.http.patch<any>('user/userData', updateData);
   }
+
+  /**
+   *
+   * @param updateData
+   */
   updatePassword(updateData:UpdatePasswordBody): Observable<ok> {
     return this.http.patch<ok>('user/password',updateData );
   }

@@ -125,7 +125,7 @@ export class AccountManagePageComponent implements OnInit {
       const updatePassword: UpdatePasswordBody = {
         oldPassword,
         newPassword,
-        newPasswordConfirm,
+        newPasswordConfirm
       };
 
       this.userService.updatePassword(updatePassword).subscribe({

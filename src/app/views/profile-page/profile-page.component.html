@@ -1,111 +1,91 @@
 <div class="flex flex-column align-items-center p-4 relative">
-  <!-- Profilbild mit Icons -->
-  <div class="relative flex align-items-center">
-    <!-- Profilbild -->
-    <img
-      src="images/userImg.png"
-      alt="Profilbild"
-      class="border-circle shadow-2 ml-5 -mb-6"
-      style="width: 150px; height: 150px; border: 4px solid white;"
-    />
-
-    <!-- Icon rechts -->
-    <div class="ml-2 -mb-4">
-      <rmx-icon
-        name="edit-line"
-        class="text-primary cursor-pointer"
-        style="font-size: 24px;"
-        (click)="toggleEditMode()"
-      ></rmx-icon>
-    </div>
-  </div>
-  <!-- Maybe das Img mit in die Animation nehmen -->
   <div
-    class="mb-6"
+    class="mb-6 col-12 lg:col-6"
     [ngClass]="editMode ? 'flipright' : 'flipleft'"
     style="animation-duration: 0.5s;"
   >
-  <!-- User-Details !editmode -->
-  @if (profileData$ | async; as data) {
-    @if (!editMode) {
-      <p-card class="mt-0 col-12 lg:col-6">
-        <!-- Benutzer-Details -->
-        <div class="w-full text-left mt-4">
-          <h3 class="mb-0">{{ data.firstName }}, {{ data.age }}</h3>
-          <p class="text-secondary mt-0 mb-0">&#64;{{ data.username }}</p>
-          <p class="text-secondary mb-2">{{ data.pronouns || '' }}</p>
-          <div class="flex align-items-center">
-            <rmx-icon name="map-pin-2-line" class="mr-1"></rmx-icon>
-            <p>{{ data.city || "no city" }}</p>
+    <!-- Profilbild mit Icons -->
+    <div class="flex align-items-center justify-content-center">
+      <img
+        src="images/userImg.png"
+        alt="Profilbild"
+        class="border-circle shadow-2 -mb-5"
+        style="width: 150px; height: 150px; border: 4px solid white;"
+      />
+      <div class="ml-2">
+        <rmx-icon
+          name="edit-line"
+          class="text-primary cursor-pointer"
+          style="font-size: 24px;"
+          (click)="toggleEditMode()"
+        ></rmx-icon>
+      </div>
+    </div>
+
+    <!-- User-Details !editmode -->
+    @if (profileData$ | async; as data) {
+      @if (!editMode) {
+        <p-card class="mt-0 col-12 lg:col-6">
+          <div class="w-full text-left mt-4">
+            <h3 class="mb-0">{{ data.firstName }}, {{ data.age }}</h3>
+            <p class="text-secondary mt-0 mb-0">&#64;{{ data.username }}</p>
+            <p class="text-secondary mb-2">{{ data.pronouns || 'Keine Pronomen' }}</p>
+            <div class="flex align-items-center">
+              <rmx-icon name="map-pin-2-line" class="mr-1"></rmx-icon>
+              <p>{{ data.city || "no city" }}</p>
+            </div>
           </div>
-        </div>
+          <div class="w-full mt-4 text-left">
+            <h4 class="mb-0">{{'profilePage.cardText.aboutMe'| transloco}}</h4>
+            <p class="mb-2 mt-0 pt-0" style="word-wrap: break-word; white-space: pre-wrap">
+              {{ data.profileText || 'Keine Beschreibung' }}
+            </p>
+          </div>
+        </p-card>
+      }
+    }
 
-        <!-- Über mich -->
-        <div class="w-full mt-4 text-left">
-          <h4 class="mb-2">{{'profilePage.cardText.aboutMe'| transloco}}</h4>
-          <p class="mb-2">
-            Live, Love, Laugh ❤️ <br />
-            Ich liebe es, mit Freunden spazieren zu gehen und die Natur zu genießen 🌿
-          </p>
-        </div>
-
-        <!-- Tags -->
-        <div class="flex flex-wrap justify-content-start mt-4">
-          <span class="p-tag p-tag-rounded p-tag-info m-1">abenteuerlustig</span>
-          <span class="p-tag p-tag-rounded p-tag-info m-1">verträumt</span>
-          <span class="p-tag p-tag-rounded p-tag-info m-1">naturverliebt</span>
-          <span class="p-tag p-tag-rounded p-tag-info m-1">vegan</span>
-          <span class="p-tag p-tag-rounded p-tag-info m-1">Brettspielliebhaberin</span>
-        </div>
+    <!-- Edit Mode -->
+    @if (editMode) {
+      <p-card class="w-full col-12 lg:col-6 p-fluid">
+        <form
+          (ngSubmit)="submitEdit()"
+          [formGroup]="form"
+        >
+          <div class="field w-full mb-4">
+            <p-floatLabel>
+              <input
+                id="pronom"
+                formControlName="pronouns"
+                class="w-full"
+                pInputText
+              >
+              <label for="pronom">{{'profilePage.updateText.pronouns'| transloco}}</label>
+            </p-floatLabel>
+          </div>
+          <div class="field w-full mb-4">
+            <p-floatLabel>
+              <textarea
+                rows="5"
+                cols="20"
+                pInputTextarea
+                formControlName="profileText"
+                id="profileText"
+                class="w-full"
+              ></textarea>
+              <label for="profileText">{{'profilePage.updateText.desc'| transloco}}</label>
+            </p-floatLabel>
+          </div>
+          <div class="flex justify-content-end mt-3">
+            <p-button
+              label="Speichern"
+              type="submit"
+              severity="success"
+              class="p-button-raised"
+            ></p-button>
+          </div>
+        </form>
       </p-card>
     }
-  }
-
-  <!-- Edit Mode -->
-  @if (editMode) {
-      <form
-        (ngSubmit)="submitEdit()"
-        [formGroup]="form"
-        class="p-4"
-      >
-        <!-- Dropdown für Pronomen -->
-        <div class="field w-full mb-4">
-          <p-floatLabel>
-            <input
-              id="pronom"
-              formControlName="pronouns"
-              class="w-full"
-              pInputText
-            >
-            <label for="pronom">{{'profilePage.updateText.pronouns'| transloco}}</label>
-          </p-floatLabel>
-        </div>
-
-        <!-- Textarea für Beschreibung -->
-        <div class="field w-full mb-4">
-          <p-floatLabel>
-            <textarea
-              rows="5"
-              cols="20"
-              pInputTextarea
-              formControlName="profileText"
-              id="profileText"
-              class="w-full"
-            ></textarea>
-            <label for="profileText">{{'profilePage.updateText.desc'| transloco}}</label>
-          </p-floatLabel>
-        </div>
-
-        <!-- Speichern-Button -->
-        <div class="flex justify-content-end mt-3">
-          <p-button
-            label="Speichern"
-            type="submit"
-            severity="success"
-            class="p-button-raised"
-          ></p-button>
-        </div>
-      </form>
-  }
   </div>
 </div>

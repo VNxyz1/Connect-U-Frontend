@@ -67,41 +67,35 @@ export class ProfilePageComponent implements OnInit {
 
   fetchData(): void {
     this.profileData$ = this.userService.getSpecificUserData(this.userId);
-
-    // Log the data from the Observable
-    this.profileData$.subscribe({
-      next: (data) => {
-        console.log('Fetched Profile Data:', data);
-      },
-      error: (error) => {
-        console.error('Error fetching profile data:', error);
-      },
-    });
+    this.profileData$.subscribe();
   }
 
   submitEdit() {
-    if(this.form.valid){
-      const updateData: UpdateProfileBody  = {
-        pronouns: this.form.controls.pronouns.value !== undefined ? this.form.controls.pronouns.value : '',
-        profileText: this.form.controls.profileText.value !== undefined ? this.form.controls.profileText.value : '',
-      }
-      console.log(updateData);
-      this.userService.updateProfileInformation(updateData).subscribe({
-        next: () => {
-          this.fetchData();
-          this.toggleEditMode();
-          console.log('update ging durch')
-        },
-        error: (err: Error)=>{
-          this.messageService.add({
-            severity: 'error',
-            detail: err.message,
-          })
-          console.error(err);
-        }
-      })
+    const updateData: Partial<UpdateProfileBody> = {};
+
+    if (this.form.controls.pronouns.value !== undefined) {
+      updateData.pronouns = this.form.controls.pronouns.value.trim() || undefined;
     }
 
+    if (this.form.controls.profileText.value !== undefined) {
+      updateData.profileText = this.form.controls.profileText.value.trim() || undefined;
+    }
+
+    this.userService.updateProfileInformation(updateData).subscribe({
+      next: () => {
+        this.fetchData();
+        this.toggleEditMode();
+        this.form.reset();
+      },
+      error: (err: Error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Update Fehler',
+          detail: err.message || 'Ein Fehler ist aufgetreten.',
+        });
+        console.error('Update Fehler:', err);
+      },
+    });
   }
 
   toggleEditMode(): void {
