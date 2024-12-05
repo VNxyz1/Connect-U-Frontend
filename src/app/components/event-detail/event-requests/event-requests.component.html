@@ -15,13 +15,13 @@
       <div class="flex align-items-center pr-3">
         <img
           src="https://via.placeholder.com/100"
-          alt=""
+          alt="{{ r.user.username }}-profile-picture"
           class="border-circle"
           style="width: 70px; height: 70px" />
         <div class="flex flex-column ml-3 flex-grow-1">
           <div>
-            <h3 class="mt-0 mb-0">{{ r.user.firstName }}</h3>
-            <p class="text-secondary mt-0 mb-0">&#64;{{ r.user.username }}, {{ r.user.age }}</p>
+            <h3 class="mt-0 mb-0">{{ r.user.firstName }}, {{ r.user.age }}</h3>
+            <p class="text-secondary mt-0 mb-0">&#64;{{ r.user.username }}</p>
           </div>
         </div>
 
