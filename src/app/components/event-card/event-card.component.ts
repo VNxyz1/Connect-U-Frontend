@@ -9,6 +9,8 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { RouterLink } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { StatusEnum } from '../../interfaces/StatusEnum';
+import { EventStatusIndicatorComponent } from '../event-status-indicator/event-status-indicator.component';
+import { EventStatusService } from '../../services/event/event-status.service';
 
 @Component({
   selector: 'app-event-card',
@@ -22,6 +24,7 @@ import { StatusEnum } from '../../interfaces/StatusEnum';
     TranslocoDatePipe,
     RouterLink,
     TranslocoDirective,
+    EventStatusIndicatorComponent,
   ],
   templateUrl: './event-card.component.html',
 })
@@ -43,7 +46,7 @@ export class EventCardComponent {
     'asdsadasd',
   ].slice(0, Math.floor(Math.random() * (7 - 1 + 1) + 1));
 
-  constructor() {}
+  constructor(private eventStatus: EventStatusService) {}
 
   /**
    * Accepts an ISO-Date-String
@@ -61,15 +64,7 @@ export class EventCardComponent {
   }
 
   getStatusColor(eventStatus: StatusEnum): string {
-    switch (eventStatus) {
-      case StatusEnum.live:
-        return 'red-900';
-      case StatusEnum.cancelled:
-      case StatusEnum.finished:
-        return 'gray-600';
-      case StatusEnum.upcoming:
-        return 'orange-900';
-    }
+    return this.eventStatus.getStatusColor(eventStatus);
   }
 
   protected readonly StatusEnum = StatusEnum;

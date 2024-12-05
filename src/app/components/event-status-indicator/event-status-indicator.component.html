@@ -1,0 +1,18 @@
+<div
+  class="border-round-3xl p-1 border-transparent"
+  [class]="'bg-' + getStatusColor(status)">
+  @switch (status) {
+    @case (StatusEnum.finished) {
+      <rmx-icon name="history-line" class="text-white" />
+    }
+    @case (StatusEnum.cancelled) {
+      <rmx-icon name="calendar-close-line" class="text-white" />
+    }
+    @case (StatusEnum.live) {
+      <rmx-icon name="live-line" class="text-white" />
+    }
+    @case (StatusEnum.upcoming) {
+      <rmx-icon name="hourglass-fill" class="text-white" />
+    }
+  }
+</div>
