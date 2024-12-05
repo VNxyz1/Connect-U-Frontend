@@ -1,0 +1,48 @@
+
+@if(eventRequests.length) {
+<div class="container content">
+
+  <div class="flex justify-content-between align-items-center">
+    <h2 class="">{{ 'eventDetailPageComponent.requests' | transloco }}</h2>
+    <span class="color-secondary">
+      {{ eventRequests.length }}
+    </span>
+  </div>
+  @for (r of this.eventRequests; track r) {
+    <p-card
+      class="p-3 cursor-pointer"
+      [routerLink]="['/profile/' + r.user.id]">
+      <div class="flex align-items-center pr-3">
+        <img
+          src="https://via.placeholder.com/100"
+          alt=""
+          class="border-circle"
+          style="width: 70px; height: 70px" />
+        <div class="flex flex-column ml-3 flex-grow-1">
+          <div>
+            <h3 class="mt-0 mb-0">{{ r.user.firstName }}</h3>
+            <p class="text-secondary mt-0 mb-0">&#64;{{ r.user.username }}, {{ r.user.age }}</p>
+          </div>
+        </div>
+        <!-- Icon (Bottom Right) -->
+        <div class="flex align-items-right gap-2 z-5">
+          <p-button [raised]="true" (onClick)="denyRequest(r.id, $event)">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                style="width: 16px; height: 16px"
+                name="close-line"></rmx-icon>
+            </ng-template>
+          </p-button>
+          <p-button [raised]="true" severity="success" (onClick)="acceptRequest(r.id, $event)">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                style="width: 16px; height: 16px"
+                name="check-line"></rmx-icon>
+            </ng-template>
+          </p-button>
+        </div>
+      </div>
+    </p-card>
+  }
+</div>
+}
