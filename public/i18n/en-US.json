@@ -1,6 +1,9 @@
 {
   "homepage": {
-    "title": "Events for You"
+    "title": "Events for You",
+    "upcomingEvents": {
+      "title": "Upcoming Events"
+    }
   },
   "loginComponent": {
     "title": "LOGIN",

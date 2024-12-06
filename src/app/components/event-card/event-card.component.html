@@ -9,7 +9,8 @@
             showEventStatus ? 'border-left-3 border-round' : '',
             showEventStatus ? 'border-' + getStatusColor(event.status) : '',
           ].join(' ')
-        ">
+        "
+        [routerLink]="['/event', event.id]">
         <div class="grid justify-content-between">
           <div class="col-8 flex flex-wrap pl-3 pr-2 align-content-between">
             <div class="col-12">
@@ -46,9 +47,9 @@
               </div>
             </div>
           </div>
-          <div class="col-4 p-0">
+          <div class="col p-0">
             <div
-              class="overflow-hidden border-round-right"
+              class="overflow-hidden border-round-right h-full w-full"
               [style]="{
                 'aspect-ratio': '1/1',
               }">
@@ -92,13 +93,9 @@
           </div>
           <div class="col-4 p-0">
             <div
-              class="overflow-hidden border-round-right"
-              [style]="{
-                'aspect-ratio': '1/1',
-              }">
-              <div class="overflow-hidden" [style]="{ 'aspect-ratio': '1/1' }">
-                <p-skeleton width="100%" height="100%" />
-              </div>
+              class="overflow-hidden border-round-right h-full w-full"
+              [style]="{ 'aspect-ratio': '1/1' }">
+              <p-skeleton width="100%" height="100%" />
             </div>
           </div>
         </div>

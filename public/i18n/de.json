@@ -1,6 +1,9 @@
 {
   "homepage": {
-    "title": "Events für Dich"
+    "title": "Events für Dich",
+    "upcomingEvents": {
+      "title": "Bevorstehende Events"
+    }
   },
   "loginComponent": {
     "title": "ANMELDEN",
