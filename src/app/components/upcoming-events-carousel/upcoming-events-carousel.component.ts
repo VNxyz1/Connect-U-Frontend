@@ -1,12 +1,14 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { CarouselModule } from 'primeng/carousel';
 import { EventService } from '../../services/event/eventservice';
 import { Button } from 'primeng/button';
 import { EventCardComponent } from '../event-card/event-card.component';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { catchError } from 'rxjs/operators';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-upcomming-events-carousel',
@@ -17,6 +19,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
     Button,
     EventCardComponent,
     TranslocoPipe,
+    SkeletonModule,
   ],
   templateUrl: './upcoming-events-carousel.component.html',
 })
@@ -28,7 +31,9 @@ export class UpcomingEventsCarouselComponent implements OnInit {
   constructor(private eventService: EventService) {}
 
   ngOnInit() {
-    this.events$ = this.eventService.getParticipatingEvents();
+    this.events$ = this.eventService
+      .getUpcomingEvents()
+      .pipe(catchError((error: Error) => of([])));
 
     this.innerWidth = window.innerWidth;
 

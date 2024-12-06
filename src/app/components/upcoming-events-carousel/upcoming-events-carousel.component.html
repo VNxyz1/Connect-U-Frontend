@@ -1,23 +1,30 @@
-<span class="font-bold text-2xl block md:px-2 mb-2 mt-4">{{
-  'homepage.upcomingEvents.title' | transloco
-}}</span>
 @if (events$ | async; as events) {
-  <p-carousel
-    [value]="events"
-    [numScroll]="1"
-    [numVisible]="3"
-    [circular]="true"
-    [showIndicators]="events.length > 3"
-    [showNavigators]="innerWidth > 767"
-    [autoplayInterval]="innerWidth > 767 ? 0 : 3700"
-    [responsiveOptions]="responsiveOptions">
-    <ng-template let-event pTemplate="item">
-      <div class="m-3">
-        <app-event-card [event]="event" compact showEventStatus />
-      </div>
-    </ng-template>
-  </p-carousel>
+  @if (events.length <= 0) {
+  } @else {
+    <span class="font-bold text-2xl block md:px-2 mb-2 mt-4">{{
+      'homepage.upcomingEvents.title' | transloco
+    }}</span>
+    <p-carousel
+      [value]="events"
+      [numScroll]="1"
+      [numVisible]="3"
+      [circular]="true"
+      [showIndicators]="events.length > 3"
+      [showNavigators]="innerWidth > 767"
+      [autoplayInterval]="innerWidth > 767 || events.length == 1 ? 0 : 3700"
+      [responsiveOptions]="responsiveOptions">
+      <ng-template let-event pTemplate="item">
+        <div class="m-3">
+          <app-event-card [event]="event" compact showEventStatus />
+        </div>
+      </ng-template>
+    </p-carousel>
+  }
 } @else {
+  <p-skeleton
+    class="font-bold text-2xl block md:px-2 mb-2 mt-4"
+    width="60%"
+    height="2rem" />
   <p-carousel
     [value]="[1, 2, 3]"
     [numScroll]="1"
