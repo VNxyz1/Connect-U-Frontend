@@ -123,6 +123,19 @@ $font-family-bold: 'Proxima Nova Th', sans-serif;
   //menu
 
   color-scheme: light;
+
+  //card
+  --card-shadow: $cardShadow;
+  --card-color: $panelContentTextColor;
+  --card-background: $panelContentBg;
+  --card-border-radius: $borderRadius;
+}
+
+.custom-card-container {
+  background: $panelContentBg;
+  color: $panelContentTextColor;
+  box-shadow: $cardShadow;
+  border-radius: $borderRadius;
 }
 
 body {

@@ -4,7 +4,7 @@
     @if (events$ | async; as events) {
       @for (event of events; track $index) {
         <div
-          class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+          class="col-12 md:col-9 xl:col-4 justify-content-center mb-3 md:px-3">
           <app-event-card [event]="event" />
         </div>
       }
