@@ -295,7 +295,8 @@
     "guest": {
       "title": "Guest",
       "text": "You are not currently participating in any events.",
-      "todo": "Explore events based on your interests."
+      "todo": "Explore events based on your interests.",
+      "your-event-requests": "Your Event-Requests"
     },
     "favorite": {
       "title": "Favorites",

@@ -14,11 +14,15 @@ import { AsyncPipe } from '@angular/common';
 import { EventCardComponent } from '../../event-card/event-card.component';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { map, switchMap } from 'rxjs/operators';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
+import { CardModule } from 'primeng/card';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { EventRequestService } from '../../../services/event/event-request/event-request.service';
 
 @Component({
   selector: 'app-guest-events',
   standalone: true,
-  imports: [AsyncPipe, EventCardComponent, TranslocoPipe],
+  imports: [AsyncPipe, EventCardComponent, TranslocoPipe, AngularRemixIconComponent, CardModule, RouterLink],
   templateUrl: './guest-events.component.html',
 })
 export class GuestEventsComponent implements OnInit, OnChanges {
@@ -27,12 +31,23 @@ export class GuestEventsComponent implements OnInit, OnChanges {
   filteredEvents$!: Observable<EventCardItem[]>;
   protected isLoading = true;
   @Output() hasEventsChange = new EventEmitter<boolean>();
+  @Input() hasRequests!: boolean;
+  currentUrl: string = '';
 
   private filtersSubject = new BehaviorSubject<{ name: string }[]>([]);
 
-  constructor(private eventService: EventService) {}
+  constructor(private readonly eventService: EventService,
+              private router: Router,
+              protected readonly route: ActivatedRoute) {
+    this.router.events.subscribe(() => {
+      this.currentUrl = this.router.url;
+    });
+  }
 
   ngOnInit(): void {
+    this.router.events.subscribe(() => {
+      this.currentUrl = this.router.url;
+    });
     this.events$ = this.eventService.getParticipatingEvents().pipe(
       tap(() => {
         this.isLoading = true;

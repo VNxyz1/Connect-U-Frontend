@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../../storage/storage.service';
 import { EventDetails } from '../../../interfaces/EventDetails';
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
+import { UsersEventRequest} from '../../../interfaces/UsersEventRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -38,9 +39,9 @@ export class EventRequestService {
    * gets all Event Requests for the current logged in user
    * @returns {Observable<{ success: boolean; message: string }>}
    */
-  getUsersRequests(): Observable<{ success: boolean; message: string }> {
-    const url = `request/getRequestsByUser`;
-    return this.http.get<{ success: boolean; message: string }>(url, {}).pipe(
+  getUsersRequests(): Observable<UsersEventRequest[]> {
+    const url = `request/join/user`;
+    return this.http.get<UsersEventRequest[]>(url).pipe(
       map(res => {
         return res;
       }),

@@ -22,9 +22,15 @@
   <div class="flex justify-content-center mt-4 px-2">
     <div class="col-12 mb-6">
       @if (activeTab === 'gast') {
-        <app-guest-events
-          (hasEventsChange)="updateHasEvents($event)"
-          [filters]="selectedCategories" />
+        @if (doesNotInclude('requests')) {
+          <app-guest-events
+            (hasEventsChange)="updateHasEvents($event)"
+            [filters]="selectedCategories"
+            [hasRequests]="eventRequests.length > 0"/>
+        } @else if (eventRequests.length > 0) {
+          <app-users-event-requests
+            [eventRequests]="eventRequests"/>
+        }
       }
       @if (activeTab === 'erstellt') {
         <app-hosted-events

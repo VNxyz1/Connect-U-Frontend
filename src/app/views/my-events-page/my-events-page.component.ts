@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TabViewModule } from 'primeng/tabview';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { ButtonDirective } from 'primeng/button';
@@ -13,6 +13,13 @@ import { FormsModule } from '@angular/forms';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { MenuItem } from 'primeng/api';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import {
+  UsersEventRequestsComponent
+} from '../../components/my-events/users-event-requests/users-event-requests.component';
+import { EventRequestService } from '../../services/event/event-request/event-request.service';
+import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 
 @Component({
   selector: 'app-my-events-page',
@@ -32,11 +39,13 @@ import { TabMenuModule } from 'primeng/tabmenu';
     FormsModule,
     FloatLabelModule,
     TabMenuModule,
+    UsersEventRequestsComponent,
   ],
   templateUrl: './my-events-page.component.html',
 })
-export class MyEventsPageComponent {
+export class MyEventsPageComponent implements OnInit {
   activeTab: string = 'gast';
+  currentUrl: string = '';
   tabMenuItems: MenuItem[] = [
     {
       label: 'Gast',
@@ -72,6 +81,35 @@ export class MyEventsPageComponent {
   selectedCategories: { name: string }[] = [];
 
   hasEvents: boolean = false;
+  eventRequests: UsersEventRequest[] = [];
+
+  constructor(private router: Router,
+              private readonly eventRequestService: EventRequestService) {}
+
+  ngOnInit() {
+    this.router.events.subscribe(() => {
+      this.currentUrl = this.router.url;
+    });
+
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.currentUrl = event.urlAfterRedirects;
+      });
+
+    this.eventRequestService.getUsersRequests().subscribe({
+      next: (requests) => {
+        this.eventRequests = requests;
+      },
+      error: (err) => {
+        console.error('Failed to fetch user requests:', err);
+      }
+    });
+  }
+
+  doesNotInclude(segment: string): boolean {
+    return !this.currentUrl.includes(segment);
+  }
 
   setActiveTab(tab: string): void {
     this.activeTab = tab;
