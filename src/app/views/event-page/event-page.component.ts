@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { async, Observable, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { EventService } from '../../services/event/eventservice';
 import { EventDetails } from '../../interfaces/EventDetails';
 import { MenuItem, MessageService } from 'primeng/api';
 import { TranslocoService } from '@jsverse/transloco';
-import { EventtypeEnum } from '../../interfaces/EventtypeEnum';
 import { ToastModule } from 'primeng/toast';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { Gender, GenderEnum } from '../../interfaces/Gender';
