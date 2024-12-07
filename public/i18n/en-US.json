@@ -253,6 +253,28 @@
     "listTab": "Lists",
     "surveyTab": "Surveys"
   },
+  "eventListPage": {
+    "createListButton": {
+      "label": "Liste Erstellen"
+    },
+    "createListModal": {
+      "header": "Liste Erstellen",
+      "titleInput": {
+        "requiredError": "Der titel ist erforderlich!",
+        "label": "Titel"
+      },
+      "descriptionInput": {
+        "requiredError": "Die Beschreibung ist erforderlich!",
+        "label": "Beschreibung"
+      },
+      "cancelButton": {
+        "label": "Abbrechen"
+      },
+      "submitButton": {
+        "label": "Erstellen"
+      }
+    }
+  },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "You must accept the terms and conditions to register",
     "Passwords must match": "Passwords must match",

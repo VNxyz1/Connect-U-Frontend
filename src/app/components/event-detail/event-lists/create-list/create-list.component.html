@@ -1,0 +1,75 @@
+<p-button
+  (onClick)="showDialog()"
+  [label]="'eventListPage.createListButton.label' | transloco"
+  raised
+  severity="success" />
+
+<p-dialog
+  [header]="'eventListPage.createListModal.header' | transloco"
+  [modal]="true"
+  closable
+  [(visible)]="visible"
+  [style]="{ width: '25rem' }">
+  <form
+    class="py-3"
+    autocomplete="off"
+    (ngSubmit)="submit()"
+    [formGroup]="form">
+    <div class="field w-full">
+      <p-floatLabel>
+        <input
+          id="new-list-title"
+          type="text"
+          class="w-full"
+          pInputText
+          formControlName="title"
+          [class]="showNgInvalid('title') ? 'ng-invalid ng-dirty' : ''"
+          [attr.aria-invalid]="showNgInvalid('title')" />
+        <label for="new-list-title">{{
+          'eventListPage.createListModal.titleInput.label' | transloco
+        }}</label>
+      </p-floatLabel>
+      @if (showError('title')) {
+        @if (form.get('title')?.errors?.['required']) {
+          <small class="p-error">{{
+            'eventListPage.createListModal.titleInput.requiredError' | transloco
+          }}</small>
+        }
+      }
+    </div>
+    <div class="field w-full mb-5">
+      <p-floatLabel>
+        <textarea
+          id="new-list-description"
+          type="text"
+          class="w-full h-8rem max-h-12rem overflow-y-scroll"
+          rows="8"
+          pInputTextarea
+          [autoResize]="true"
+          formControlName="description"
+          [class]="showNgInvalid('title') ? 'ng-invalid ng-dirty' : ''"
+          [attr.aria-invalid]="showNgInvalid('description')"></textarea>
+        <label for="new-list-description">{{
+          'eventListPage.createListModal.descriptionInput.label' | transloco
+        }}</label>
+      </p-floatLabel>
+      @if (showError('description')) {
+        @if (form.get('description')?.errors?.['required']) {
+          <small class="p-error">{{
+            'eventListPage.createListModal.descriptionInput.requiredError'
+              | transloco
+          }}</small>
+        }
+      }
+    </div>
+    <div class="flex justify-content-end gap-2">
+      <p-button
+        [label]="'eventListPage.createListModal.cancelButton.label' | transloco"
+        severity="secondary"
+        (onClick)="visible = false" />
+      <p-button
+        [label]="'eventListPage.createListModal.submitButton.label' | transloco"
+        type="submit" />
+    </div>
+  </form>
+</p-dialog>
