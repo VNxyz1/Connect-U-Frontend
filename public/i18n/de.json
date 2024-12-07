@@ -685,7 +685,14 @@
       "title": "Passwort ändern",
       "oldPassword" : "Aktuelles Passwort",
       "newPassword": "Neues Passwort",
-      "confirmPassword": "Neues Passwort wiederholen"
+      "confirmPassword": "Neues Passwort wiederholen",
+      "warnings": {
+        "oldPasswordRequired": "Du musst dein aktuelles Passwort angeben!",
+        "newPasswordMinLength": "Dein neues Passwort benötigt mind. 8 Zeichen",
+        "newPasswordRequired": "Du musst ein neues Passwort angeben!",
+        "confirmPasswordMinLength": "Du musst dein neues Passwort korrekt wiederholen",
+        "confirmPasswordRequired": "Du musst dein neues Passwort korrekt wiederholen"
+      }
     },
     "adressForm": {
       "warnings": {

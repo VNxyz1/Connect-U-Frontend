@@ -178,6 +178,11 @@
                 </p-password>
                 <label for="oldPassword">{{'accountPage.passwordForm.oldPassword'| transloco}}</label>
               </p-floatLabel>
+                @if (passwordForm.get('oldPassword')?.invalid && passwordForm.get('oldPassword')?.touched) {
+                    @if (passwordForm.get('oldPassword')?.errors?.['required']) {
+                        <small class="p-error">{{'accountPage.passwordForm.warnings.oldPasswordRequired'| transloco}}</small>
+                    }
+                }
             </div>
             <div class="field">
               <p-floatLabel>
@@ -203,6 +208,14 @@
                 </p-password>
                 <label for="newPassword">{{'accountPage.passwordForm.newPassword'| transloco}}</label>
               </p-floatLabel>
+                @if (passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched) {
+                    @if (passwordForm.get('newPassword')?.errors?.['required']) {
+                        <small class="p-error">{{'accountPage.passwordForm.warnings.newPasswordRequired'| transloco}}</small>
+                    }
+                    @if (passwordForm.get('newPassword')?.errors?.['minlength']) {
+                        <small class="p-error">{{'accountPage.passwordForm.warnings.newPasswordMinLength'| transloco}}</small>
+                    }
+                }
             </div>
             <div class="field">
               <p-floatLabel>
@@ -228,6 +241,14 @@
                 </p-password>
                 <label for="newPasswordConfirm">{{'accountPage.passwordForm.confirmPassword'| transloco}}</label>
               </p-floatLabel>
+                @if (passwordForm.get('newPasswordConfirm')?.invalid && passwordForm.get('newPasswordConfirm')?.touched) {
+                    @if (passwordForm.get('newPasswordConfirm')?.errors?.['required']) {
+                        <small class="p-error">{{'accountPage.passwordForm.warnings.confirmPasswordRequired'| transloco}}</small>
+                    }
+                    @if (passwordForm.get('newPasswordConfirm')?.errors?.['minlength']) {
+                        <small class="p-error">{{'accountPage.passwordForm.warnings.confirmPasswordMinLength'| transloco}}</small>
+                    }
+                }
             </div>
             <div class="flex justify-content-end mb-3">
               <p-button

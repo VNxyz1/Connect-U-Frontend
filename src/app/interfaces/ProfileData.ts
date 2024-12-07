@@ -13,5 +13,6 @@ export interface ProfileData {
   pronouns:string;
   profileText:string;
   gender:number;
+  isUser?:boolean
   //imageUrl: string; not impl. atm
 }

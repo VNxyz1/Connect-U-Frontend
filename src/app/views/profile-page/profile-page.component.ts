@@ -14,6 +14,7 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {DropdownModule} from 'primeng/dropdown';
 import {MessageService} from 'primeng/api';
 import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
+import {map} from 'rxjs/operators';
 
 type editProfileForm = FormGroup<{
   pronouns: FormControl<string>,
@@ -45,6 +46,7 @@ export class ProfilePageComponent implements OnInit {
   protected userId!: string;
   protected profileData$!: Observable<ProfileData>;
   protected editMode: boolean = false;
+  protected isUser!: boolean | undefined;
 
   constructor(private messageService:MessageService, private route: ActivatedRoute, private userService: UserService) {
   }
@@ -65,8 +67,12 @@ export class ProfilePageComponent implements OnInit {
   }
 
   fetchData(): void {
-    this.profileData$ = this.userService.getSpecificUserData(this.userId);
-    this.profileData$.subscribe();
+    this.profileData$ = this.userService.getSpecificUserData(this.userId).pipe(
+      map((data) => {
+        this.isUser = data.isUser ; // Setzt den `isUser`-Wert
+        return data;
+      })
+    );
   }
 
   submitEdit() {
