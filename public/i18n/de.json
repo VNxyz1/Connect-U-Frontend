@@ -276,6 +276,9 @@
     "search": "Events suchen",
     "createEvent": "Event erstellen",
     "event": "Eventinformationen",
+    "settings": "Einstellungen",
+    "profile": "Profil",
+    "account": "Konto",
     "closeConfirmationMessage": "Bist Du sicher, dass du dein Event verwerfen möchtest? Dein Entwurf wird nicht gespeichert.",
     "closeConfirmationHeader": "Entwurf verwerfen"
   },
@@ -708,7 +711,9 @@
       "detailProfile": "Profil Daten wurden erfolgreich aktualisiert",
       "detailPassword": "Passwort wurde erfolgreich geändert",
       "error": "Fehlerhaft",
-      "detailError": "Möglicherweise existiert bereits ein Nutzer mit der Email oder dem Nutzernamen"
+      "detailError": "Möglicherweise existiert bereits ein Nutzer mit der Email oder dem Nutzernamen",
+      "usernameTaken": "Der Nutzername wird bereits verwendet",
+      "emailTaken": "Diese Email wird bereits verwendet"
     },
     "genderOptions": {
       "man": "Männlich",

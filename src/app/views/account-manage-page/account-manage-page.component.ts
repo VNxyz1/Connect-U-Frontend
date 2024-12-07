@@ -124,14 +124,21 @@ export class AccountManagePageComponent implements OnInit {
           })
         },
         error: (err) => {
+          let detailMessage = this.translocoService.translate('');
+          if (err.status === 400) {
+            if (err.error.message === 'username is already taken') {
+              detailMessage = this.translocoService.translate('accountPage.messages.usernameTaken');
+            } else if (err.error.message === 'e-mail address is already taken') {
+              detailMessage = this.translocoService.translate('accountPage.messages.emailTaken');
+            }
+          }
           this.messageService.add({
             severity: 'error',
             summary: this.translocoService.translate('accountPage.messages.error'),
-            detail: err.message || this.translocoService.translate('accountPage.messages.detailError'),
+            detail: detailMessage,
           });
-          console.log(err);
+          console.error('Backend error:', err);
         },
-
       });
     }
   }

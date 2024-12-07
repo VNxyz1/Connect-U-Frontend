@@ -276,6 +276,9 @@
     "search": "Search Events",
     "createEvent": "Create Event",
     "event": "Event Information",
+    "settings": "Settings",
+    "profile": "Profile",
+    "account": "Account",
     "closeConfirmationMessage": "Are you sure, that you want to discard you event? Your draft will not be saved.",
     "closeConfirmationHeader": "Discard Draft"
   },
@@ -654,11 +657,69 @@
   },
   "profilePage": {
     "cardText": {
-      "aboutMe": "About Me"
+      "aboutMe": "About Me",
+      "city": "No city specified"
     },
     "updateText": {
       "pronouns": "Pronouns...",
       "desc": "Description..."
+    }
+  },
+  "accountPage": {
+    "headlines": {
+      "location": "Address",
+      "userData": "User Data"
+    },
+    "placeholder": {
+      "username": "Username",
+      "email": "Email Address",
+      "firstname": "First Name",
+      "lastname": "Last Name",
+      "gender": "Gender",
+      "street": "Street",
+      "houseNr": "House Number",
+      "zipCode": "ZIP Code",
+      "city": "City"
+    },
+    "button": {
+      "password": "Change Password",
+      "save": "Save"
+    },
+    "passwordForm": {
+      "title": "Change Password",
+      "oldPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Repeat New Password",
+      "warnings": {
+        "oldPasswordRequired": "You must enter your current password!",
+        "newPasswordMinLength": "Your new password must have at least 8 characters",
+        "newPasswordRequired": "You must enter a new password!",
+        "confirmPasswordMinLength": "You must correctly repeat your new password",
+        "confirmPasswordRequired": "You must correctly repeat your new password"
+      }
+    },
+    "adressForm": {
+      "warnings": {
+        "house": "House number is required",
+        "street": "Street is required",
+        "zipCode": "ZIP Code is required",
+        "city": "City is required",
+        "requirements": "Please provide either all address fields or leave them all empty."
+      }
+    },
+    "messages": {
+      "success": "Success",
+      "detailProfile": "Profile data has been successfully updated",
+      "detailPassword": "Password has been successfully changed",
+      "error": "Error",
+      "detailError": "A user with the given email or username may already exist",
+      "usernameTaken": "username is already taken",
+      "emailTaken": "e-mail address is already taken"
+    },
+    "genderOptions": {
+      "man": "Male",
+      "female": "Female",
+      "diverse": "Diverse"
     }
   }
 }
