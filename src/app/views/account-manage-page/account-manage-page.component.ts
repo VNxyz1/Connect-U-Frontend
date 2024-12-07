@@ -8,6 +8,9 @@ import {DialogModule} from 'primeng/dialog';
 import {DropdownModule} from 'primeng/dropdown';
 import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
 import {MessageService} from 'primeng/api';
+import {PasswordModule} from "primeng/password";
+import {AngularRemixIconComponent} from "angular-remix-icon";
+import {ToastModule} from "primeng/toast";
 
 @Component({
   selector: 'app-account-manage-page',
@@ -20,7 +23,10 @@ import {MessageService} from 'primeng/api';
     Button,
     DialogModule,
     DropdownModule,
-    TranslocoPipe
+    TranslocoPipe,
+    PasswordModule,
+    AngularRemixIconComponent,
+    ToastModule
   ]
 })
 export class AccountManagePageComponent implements OnInit {
@@ -72,9 +78,9 @@ export class AccountManagePageComponent implements OnInit {
   loadUserData(): void {
     this.userService.getUserData().subscribe((data) => {
       const genderMap: { [key: number]: string } = {
-        1: 'Männlich',
-        2: 'Weiblich',
-        3: 'Divers',
+        1: this.translocoService.translate('accountPage.genderOptions.man'),
+        2: this.translocoService.translate('accountPage.genderOptions.female'),
+        3: this.translocoService.translate('accountPage.genderOptions.diverse'),
       };
 
       const genderLabel = genderMap[data.gender] || '';
@@ -110,8 +116,20 @@ export class AccountManagePageComponent implements OnInit {
 
       this.userService.updateAccountInformation(updateData).subscribe({
         next: ()=>{
-          console.log('update account update');
           this.loadUserData()
+          this.messageService.add({
+            severity: 'success',
+            summary: this.translocoService.translate('accountPage.messages.success'),
+            detail: this.translocoService.translate('accountPage.messages.detailProfile')
+          })
+        },
+        error: (err) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: this.translocoService.translate('accountPage.messages.error'),
+            detail: err.message || this.translocoService.translate('accountPage.messages.detailError'),
+          });
+          console.log(err);
         },
 
       });
@@ -145,8 +163,8 @@ export class AccountManagePageComponent implements OnInit {
         next: () => {
           this.messageService.add({
             severity: 'success',
-            summary: this.translocoService.translate('passwordChange.successTitle'),
-            detail: this.translocoService.translate('passwordChange.successMessage'),
+            summary: this.translocoService.translate('accountPage.messages.success'),
+            detail: this.translocoService.translate('accountPage.messages.detailPassword'),
           });
           this.passwordModalVisible = false;
           this.passwordForm.reset();

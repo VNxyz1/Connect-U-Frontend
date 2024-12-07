@@ -653,7 +653,8 @@
   },
   "profilePage": {
     "cardText": {
-      "aboutMe": "Über mich"
+      "aboutMe": "Über mich",
+      "city": "Kein Wohnort angegeben"
     },
     "updateText": {
       "pronouns": "Pronomen...",
@@ -663,7 +664,7 @@
   "accountPage": {
     "headlines": {
       "location": "Adresse",
-      "accountAdm": "Account Verwaltung"
+      "userData": "Nutzerdaten"
     },
     "placeholder": {
       "username": "Benutzername",
@@ -680,11 +681,32 @@
       "password": "Passwort ändern",
       "save": "Speichern"
     },
-    "formErrors": {
-
+    "passwordForm": {
+      "title": "Passwort ändern",
+      "oldPassword" : "Aktuelles Passwort",
+      "newPassword": "Neues Passwort",
+      "confirmPassword": "Neues Passwort wiederholen"
     },
-    "backendErrors": {
-
+    "adressForm": {
+      "warnings": {
+        "house": "Hausnummer ist erforderlich",
+        "street": "Straße ist erforderlich",
+        "zipCode": "PLZ ist erforderlich",
+        "city": "Ort ist erforderlich",
+        "requirements": "Bitte gib entweder deine vollständigen Adressinformationen an oder lasse alle Felder leer."
+      }
+    },
+    "messages": {
+      "success": "Erfolgreich",
+      "detailProfile": "Profil Daten wurden erfolgreich aktualisiert",
+      "detailPassword": "Passwort wurde erfolgreich geändert",
+      "error": "Fehlerhaft",
+      "detailError": "Möglicherweise existiert bereits ein Nutzer mit der Email oder dem Nutzernamen"
+    },
+    "genderOptions": {
+      "man": "Männlich",
+      "female": "Weiblich",
+      "diverse": "Divers"
     }
   }
 }

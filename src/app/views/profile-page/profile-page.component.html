@@ -27,12 +27,11 @@
       @if (!editMode) {
         <p-card class="mt-0 col-12 lg:col-6">
           <div class="w-full text-left mt-4">
-            <h3 class="mb-0">{{ data.firstName }}, {{ data.age }}</h3>
+            <h3 class="mb-0">{{ data.firstName }}, {{ data.age }} <span class="text-sm ml-2 text-gray-50">{{ data.pronouns }}</span></h3>
             <p class="text-secondary mt-0 mb-0">&#64;{{ data.username }}</p>
-            <p class="text-secondary mb-2">{{ data.pronouns || 'Keine Pronomen' }}</p>
-            <div class="flex align-items-center">
+            <div class="flex align-items-center mt-4">
               <rmx-icon name="map-pin-2-line" class="mr-1"></rmx-icon>
-              <p>{{ data.city || "no city" }}</p>
+              <p>{{ data.city || 'profilePage.cardText.city'|transloco }}</p>
             </div>
           </div>
           <div class="w-full mt-4 text-left">
