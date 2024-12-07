@@ -21,6 +21,7 @@
           id="new-list-title"
           type="text"
           class="w-full"
+          maxlength="100"
           pInputText
           formControlName="title"
           [class]="showNgInvalid('title') ? 'ng-invalid ng-dirty' : ''"
@@ -35,6 +36,12 @@
             'eventListPage.createListModal.titleInput.requiredError' | transloco
           }}</small>
         }
+        @if (form.get('title')?.errors?.['maxlength']) {
+          <small class="p-error">{{
+            'eventListPage.createListModal.titleInput.maxlengthError'
+              | transloco
+          }}</small>
+        }
       }
     </div>
     <div class="field w-full mb-5">
@@ -47,7 +54,7 @@
           pInputTextarea
           [autoResize]="true"
           formControlName="description"
-          [class]="showNgInvalid('title') ? 'ng-invalid ng-dirty' : ''"
+          [class]="showNgInvalid('description') ? 'ng-invalid ng-dirty' : ''"
           [attr.aria-invalid]="showNgInvalid('description')"></textarea>
         <label for="new-list-description">{{
           'eventListPage.createListModal.descriptionInput.label' | transloco
@@ -64,11 +71,8 @@
     </div>
     <div class="flex justify-content-end gap-2">
       <p-button
-        [label]="'eventListPage.createListModal.cancelButton.label' | transloco"
-        severity="secondary"
-        (onClick)="visible = false" />
-      <p-button
         [label]="'eventListPage.createListModal.submitButton.label' | transloco"
+        severity="success"
         type="submit" />
     </div>
   </form>

@@ -255,23 +255,34 @@
   },
   "eventListPage": {
     "createListButton": {
-      "label": "Liste Erstellen"
+      "label": "Create List"
     },
     "createListModal": {
-      "header": "Liste Erstellen",
+      "header": "Create List",
       "titleInput": {
-        "requiredError": "Der titel ist erforderlich!",
-        "label": "Titel"
+        "requiredError": "The title is required!",
+        "maxlengthError": "The titel can not exceed 100 characters.",
+        "label": "Title"
       },
       "descriptionInput": {
-        "requiredError": "Die Beschreibung ist erforderlich!",
-        "label": "Beschreibung"
+        "requiredError": "The description is required!",
+        "label": "Description"
       },
       "cancelButton": {
-        "label": "Abbrechen"
+        "label": "Cancel"
       },
       "submitButton": {
-        "label": "Erstellen"
+        "label": "Create"
+      },
+      "messages": {
+        "error": {
+          "summary": "Error",
+          "detail": "The list could not be created. Please try again later."
+        },
+        "success": {
+          "summary": "Created",
+          "detail": "The list \"{{name}}\" was created successfully."
+        }
       }
     }
   },

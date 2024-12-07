@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Button } from 'primeng/button';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { DialogModule } from 'primeng/dialog';
 import {
   FormControl,
@@ -12,6 +12,12 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { PaginatorModule } from 'primeng/paginator';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import {
+  CreateListBody,
+  ListService,
+} from '../../../../services/lists/list.service';
+import { MessageService } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router';
 
 type CreateListForm = FormGroup<{
   title: FormControl<string>;
@@ -33,7 +39,9 @@ type CreateListForm = FormGroup<{
   ],
   templateUrl: './create-list.component.html',
 })
-export class CreateListComponent {
+export class CreateListComponent implements OnInit {
+  eventId!: string;
+
   private _visible: boolean = false;
   submitted: boolean = false;
 
@@ -52,21 +60,64 @@ export class CreateListComponent {
   form: CreateListForm = new FormGroup({
     title: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.maxLength(100)],
     }),
     description: new FormControl<string>('', {
       nonNullable: true,
-      validators: [Validators.required],
     }),
   });
+
+  constructor(
+    private listService: ListService,
+    private messageService: MessageService,
+    private translocoService: TranslocoService,
+    private readonly route: ActivatedRoute,
+  ) {}
+
+  ngOnInit(): void {
+    this.eventId = this.route.snapshot.paramMap.get('id')!;
+  }
 
   showDialog() {
     this.visible = true;
   }
 
   submit() {
-    console.log(this.form.value);
     this.submitted = true;
+
+    if (this.form.valid) {
+      const body: CreateListBody = {
+        title: this.form.value.title || '',
+        description: this.form.value.description,
+      };
+
+      this.listService.postNewList(this.eventId, body).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: this.translocoService.translate(
+              'eventListPage.createListModal.messages.success.summary',
+            ),
+            detail: this.translocoService.translate(
+              'eventListPage.createListModal.messages.success.detail',
+              { name: body.title },
+            ),
+          });
+          this.visible = false;
+        },
+        error: () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: this.translocoService.translate(
+              'eventListPage.createListModal.messages.error.summary',
+            ),
+            detail: this.translocoService.translate(
+              'eventListPage.createListModal.messages.error.detail',
+            ),
+          });
+        },
+      });
+    }
   }
 
   showError(formControl: string): boolean | undefined {

@@ -261,6 +261,7 @@
       "header": "Liste Erstellen",
       "titleInput": {
         "requiredError": "Der titel ist erforderlich!",
+        "maxlengthError": "Der titel darf maximal 100 Zeichen lang sein.",
         "label": "Titel"
       },
       "descriptionInput": {
@@ -272,6 +273,16 @@
       },
       "submitButton": {
         "label": "Erstellen"
+      },
+      "messages": {
+        "error": {
+          "summary": "Fehler",
+          "detail": "Die Liste konnte nicht erstellt werden. Versuche es später nochmal."
+        },
+        "success": {
+          "summary": "Erstellt",
+          "detail": "Die Liste \"{{name}}\" wurde erfolgreich angelegt."
+        }
       }
     }
   },
