@@ -659,5 +659,32 @@
       "pronouns": "Pronomen...",
       "desc": "Beschreibung..."
     }
+  },
+  "accountPage": {
+    "headlines": {
+      "location": "Adresse",
+      "accountAdm": "Account Verwaltung"
+    },
+    "placeholder": {
+      "username": "Benutzername",
+      "email": "E-Mail-Adresse",
+      "firstname": "Vorname",
+      "lastname": "Nachname",
+      "gender": "Geschlecht",
+      "street": "Straße",
+      "houseNr": "Hausnummer",
+      "zipCode": "PLZ",
+      "city": "Ort"
+    },
+    "button":{
+      "password": "Passwort ändern",
+      "save": "Speichern"
+    },
+    "formErrors": {
+
+    },
+    "backendErrors": {
+
+    }
   }
 }

@@ -62,7 +62,6 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get('id') || '';
     this.fetchData();
-    console.log(this.profileData$);
   }
 
   fetchData(): void {

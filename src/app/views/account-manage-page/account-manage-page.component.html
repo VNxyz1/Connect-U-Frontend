@@ -2,30 +2,126 @@
   <!-- Benutzerinformationen -->
   <div class="grid">
     <div class="col-12 lg:col-6 md:col-8 sm:col-12 mx-auto">
+      <h3 class="mb-4">Nutzerdaten</h3>
       <form (ngSubmit)="submitAccountUpdate()" [formGroup]="accountForm">
+        <!-- Benutzerinformationen -->
         <div class="field">
           <p-floatLabel>
-            <input id="username" type="text" pInputText formControlName="username" />
+            <input
+              id="username"
+              type="text"
+              pInputText
+              formControlName="username"
+              aria-required="true"
+              [attr.aria-invalid]="
+              accountForm.get('username')?.invalid &&
+               accountForm.get('username')?.touched"
+            />
             <label for="username">Benutzername</label>
           </p-floatLabel>
+          @if (accountForm.get('username')?.invalid && accountForm.get('username')?.touched) {
+            @if (accountForm.get('username')?.errors?.['required']) {
+              <small class="p-error">{{
+                  'registerComponent.usernameInput.requiredWarning' | transloco
+                }}</small>
+            }
+            @if (accountForm.get('username')?.errors?.['minlength']) {
+              <small class="p-error">{{
+                  'registerComponent.usernameInput.lengthWarning' | transloco
+                }}</small>
+            }
+            @if (accountForm.get('username')?.errors?.['maxlength']) {
+              <small class="p-error">{{
+                  'registerComponent.usernameInput.maxLengthWarning' | transloco
+                }}</small>
+            }
+          }
         </div>
         <div class="field">
           <p-floatLabel>
-            <input id="email" type="email" pInputText formControlName="email" />
+            <input
+              id="email"
+              type="email"
+              pInputText
+              formControlName="email"
+              aria-required="true"
+              [attr.aria-invalid]="
+              accountForm.get('email')?.invalid &&
+              accountForm.get('email')?.touched"
+            />
             <label for="email">E-Mail-Adresse</label>
           </p-floatLabel>
+          @if (accountForm.get('email')?.invalid && accountForm.get('email')?.touched) {
+            @if (accountForm.get('email')?.errors?.['required']) {
+              <small class="p-error">{{
+                  'registerComponent.emailInput.requiredWarning' | transloco
+                }}</small>
+            }
+            @if (accountForm.get('email')?.errors?.['email']) {
+              <small class="p-error">{{
+                  'registerComponent.emailInput.validEmailWarning' | transloco
+                }}</small>
+            }
+          }
         </div>
         <div class="field">
           <p-floatLabel>
-            <input id="firstName" type="text" pInputText formControlName="firstName" />
+            <input
+              id="firstName"
+              type="text"
+              pInputText
+              formControlName="firstName"
+              aria-required="true"
+              [attr.aria-invalid]="
+              accountForm.get('firstName')?.invalid &&
+              accountForm.get('firstName')?.touched"
+            />
             <label for="firstName">Vorname</label>
           </p-floatLabel>
+          @if (accountForm.get('firstName')?.invalid && accountForm.get('firstName')?.touched) {
+            @if (accountForm.get('firstName')?.errors?.['required']) {
+              <small class="p-error">{{
+                  'registerComponent.firstnameInput.requiredWarning' | transloco
+                }}</small>
+            }
+            @if (accountForm.get('firstName')?.errors?.['minlength']) {
+              <small class="p-error">{{
+                  'registerComponent.firstnameInput.lengthWarning' | transloco
+                }}</small>
+            }
+            @if (accountForm.get('firstName')?.errors?.['maxlength']) {
+              <small class="p-error">{{
+                  'registerComponent.firstnameInput.maxLengthWarning' | transloco
+                }}</small>
+            }
+          }
         </div>
         <div class="field">
           <p-floatLabel>
-            <input id="lastName" type="text" pInputText formControlName="lastName" />
+            <input
+              id="lastName"
+              type="text"
+              pInputText
+              formControlName="lastName"
+              aria-required="true"
+              [attr.aria-invalid]="
+              accountForm.get('lastName')?.invalid && accountForm.get('lastName')?.touched
+            "
+            />
             <label for="lastName">Nachname</label>
           </p-floatLabel>
+          @if (accountForm.get('lastName')?.invalid && accountForm.get('lastName')?.touched) {
+            @if (accountForm.get('lastName')?.errors?.['required']) {
+              <small class="p-error">{{
+                  'registerComponent.lastnameInput.requiredWarning' | transloco
+                }}</small>
+            }
+            @if (accountForm.get('lastName')?.errors?.['maxlength']) {
+              <small class="p-error">{{
+                  'registerComponent.lastnameInput.maxLengthWarning' | transloco
+                }}</small>
+            }
+          }
         </div>
         <div class="field">
           <p-floatLabel>
@@ -39,87 +135,74 @@
             <label for="gender">Geschlecht</label>
           </p-floatLabel>
         </div>
-        <div class="field flex justify-content-end">
+
+        <!-- Passwort ändern Button -->
+        <div class="field flex justify-content-end mt-4">
           <p-button
-            label="Speichern"
-            severity="success"
-            type="submit"
+            label="Passwort ändern"
+            severity="secondary"
+            (click)="showPasswordModal()"
           ></p-button>
         </div>
-      </form>
-    </div>
-  </div>
 
-  <!-- Passwort ändern Button -->
-  <div class="field flex sm:justify-content-end lg:justify-content-center mt-4">
-    <p-button
-      label="Passwort ändern"
-      severity="secondary"
-      (click)="showPasswordModal()"
-    ></p-button>
-  </div>
+        <!-- Passwort ändern Modal -->
+        <p-dialog
+          header="Passwort ändern"
+          [(visible)]="passwordModalVisible"
+          [modal]="true"
+          [style]="{ width: '400px' }"
+          [breakpoints]="{ '960px': '90vw', '640px': '95vw' }"
+        >
+          <form (ngSubmit)="submitPasswordChange()" [formGroup]="passwordForm">
+            <div class="field">
+              <p-floatLabel>
+                <input
+                  id="oldPassword"
+                  type="password"
+                  pInputText
+                  formControlName="oldPassword"
+                  placeholder=" "
+                />
+                <label for="oldPassword">Altes Passwort</label>
+              </p-floatLabel>
+            </div>
+            <div class="field">
+              <p-floatLabel>
+                <input
+                  id="newPassword"
+                  type="password"
+                  pInputText
+                  formControlName="newPassword"
+                  placeholder=" "
+                />
+                <label for="newPassword">Neues Passwort</label>
+              </p-floatLabel>
+            </div>
+            <div class="field">
+              <p-floatLabel>
+                <input
+                  id="newPasswordConfirm"
+                  type="password"
+                  pInputText
+                  formControlName="newPasswordConfirm"
+                  placeholder=" "
+                />
+                <label for="newPasswordConfirm">Passwort wiederholen</label>
+              </p-floatLabel>
+            </div>
+            <div class="flex justify-content-end mb-3">
+              <p-button
+                label="Speichern"
+                type="submit"
+                severity="success"
+                [disabled]="passwordForm.invalid"
+              ></p-button>
+            </div>
+          </form>
+        </p-dialog>
 
-  <!-- Passwort ändern Modal -->
-  <p-dialog
-    header="Passwort ändern"
-    [(visible)]="passwordModalVisible"
-    [modal]="true"
-    [style]="{ width: '400px' }"
-    [breakpoints]="{ '960px': '90vw', '640px': '95vw' }"
-  >
-    <form (ngSubmit)="submitPasswordChange()" [formGroup]="passwordForm">
-      <div class="field">
-        <p-floatLabel>
-          <input
-            id="oldPassword"
-            type="password"
-            pInputText
-            formControlName="oldPassword"
-            placeholder=" "
-          />
-          <label for="oldPassword">Altes Passwort</label>
-        </p-floatLabel>
-      </div>
-      <div class="field">
-        <p-floatLabel>
-          <input
-            id="newPassword"
-            type="password"
-            pInputText
-            formControlName="newPassword"
-            placeholder=" "
-          />
-          <label for="newPassword">Neues Passwort</label>
-        </p-floatLabel>
-      </div>
-      <div class="field">
-        <p-floatLabel>
-          <input
-            id="newPasswordConfirm"
-            type="password"
-            pInputText
-            formControlName="newPasswordConfirm"
-            placeholder=" "
-          />
-          <label for="newPasswordConfirm">Passwort wiederholen</label>
-        </p-floatLabel>
-      </div>
-      <div class="flex justify-content-end mb-3">
-        <p-button
-          label="Speichern"
-          type="submit"
-          severity="success"
-          [disabled]="passwordForm.invalid"
-        ></p-button>
-      </div>
-    </form>
-  </p-dialog>
-
-  <!-- Adressinformationen -->
-  <div class="grid mt-1 mb-6">
-    <div class="col-12 lg:col-6 md:col-8 sm:col-12 mx-auto">
-      <h3 class="text-left">Adresse</h3>
-      <form (ngSubmit)="submitAccountUpdate()" [formGroup]="accountForm">
+        <!-- Adressinformationen -->
+        <h3 class="text-left mt-4">Adresse</h3>
         <div class="grid">
           <div class="col-12 lg:col-6">
             <p-floatLabel>
@@ -146,8 +229,10 @@
             </p-floatLabel>
           </div>
         </div>
-        <div class="field flex justify-content-end mt-3">
-          <p-button label="Speichern" severity="success" type="submit"></p-button>
+
+        <!-- Gesamtspeicher-Button -->
+        <div class="field flex justify-content-end mt-4">
+          <p-button label="speichern" severity="success" type="submit"></p-button>
         </div>
       </form>
     </div>

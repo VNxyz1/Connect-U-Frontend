@@ -6,7 +6,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {Button} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import {DropdownModule} from 'primeng/dropdown';
-import {TranslocoService} from '@jsverse/transloco';
+import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
 import {MessageService} from 'primeng/api';
 
 @Component({
@@ -19,12 +19,12 @@ import {MessageService} from 'primeng/api';
     InputTextModule,
     Button,
     DialogModule,
-    DropdownModule
+    DropdownModule,
+    TranslocoPipe
   ]
 })
 export class AccountManagePageComponent implements OnInit {
   accountForm!: FormGroup;
-  locationForm!: FormGroup;
   passwordForm!: FormGroup;
 
   passwordModalVisible: boolean = false;
@@ -38,16 +38,29 @@ export class AccountManagePageComponent implements OnInit {
 
   initForms(): void {
     this.accountForm = new FormGroup({
-      username: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      username: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(20),
+      ]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
-      gender: new FormControl('', [Validators.required]),
-      street: new FormControl('', [Validators.minLength(5)]),
-      streetNumber: new FormControl('', [Validators.required]),
-      zipCode: new FormControl('', [Validators.required]),
-      city: new FormControl('', [Validators.minLength(2)]),
+      firstName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(20),
+      ]),
+      lastName: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(30),
+      ]),
+      gender: new FormControl(''),
+      street: new FormControl('', []),
+      streetNumber: new FormControl('', []),
+      zipCode: new FormControl('', []),
+      city: new FormControl('', []),
     });
+
+    this.accountForm.setValidators(this.addressValidation());
 
     this.passwordForm = new FormGroup({
       oldPassword: new FormControl('', [Validators.required]),
@@ -70,7 +83,7 @@ export class AccountManagePageComponent implements OnInit {
         ...data,
         gender: genderLabel,
       });
-      this.locationForm.patchValue({
+      this.accountForm.patchValue({
         street: data.street,
         streetNumber: data.streetNumber,
         zipCode: data.zipCode,
@@ -152,5 +165,29 @@ export class AccountManagePageComponent implements OnInit {
 
   showPasswordModal(): void {
     this.passwordModalVisible = true;
+  }
+
+  addressValidation(): any {
+    return (formGroup: FormGroup) => {
+      const street = formGroup.get('street')?.value;
+      const streetNumber = formGroup.get('streetNumber')?.value;
+      const zipCode = formGroup.get('zipCode')?.value;
+      const city = formGroup.get('city')?.value;
+
+      const anyFilled = street || streetNumber || zipCode || city;
+
+      if (anyFilled) {
+        if (!street) formGroup.get('street')?.setErrors({ required: true });
+        if (!streetNumber)
+          formGroup.get('streetNumber')?.setErrors({ required: true });
+        if (!zipCode) formGroup.get('zipCode')?.setErrors({ required: true });
+        if (!city) formGroup.get('city')?.setErrors({ required: true });
+      } else {
+        ['street', 'streetNumber', 'zipCode', 'city'].forEach((field) =>
+          formGroup.get(field)?.setErrors(null)
+        );
+      }
+      return null;
+    };
   }
 }
