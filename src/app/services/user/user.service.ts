@@ -4,32 +4,31 @@ import { Observable } from 'rxjs';
 import { ProfileData } from '../../interfaces/ProfileData';
 
 export type UpdateProfileBody = {
-  pronouns:string,
-  profileText:string,
-}
+  pronouns: string;
+  profileText: string;
+};
 export type UpdatePasswordBody = {
-  oldPassword:string
-  newPassword:string
-  newPasswordConfirm:string
-}
+  oldPassword: string;
+  newPassword: string;
+  newPasswordConfirm: string;
+};
 export type UpdateAccountBody = {
-  "firstName":string,
-  "lastName":string,
-  "username":string,
-  "email":string,
-  "city":string,
-  "streetNumber":string,
-  "street":string,
-  "zipCode":string,
-}
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  city: string;
+  streetNumber: string;
+  street: string;
+  zipCode: string;
+};
 type ok = {
-  ok:boolean;
-  message:string
-}
+  ok: boolean;
+  message: string;
+};
 @Injectable({
   providedIn: 'root',
 })
-
 export class UserService {
   constructor(private http: HttpClient) {}
 
@@ -46,7 +45,7 @@ export class UserService {
    * @param userId (id from a specific User)
    * @returns {Observable<ProfileData>} an Observable that emits the data of a user
    */
-  getSpecificUserData(userId:string): Observable<ProfileData> {
+  getSpecificUserData(userId: string): Observable<ProfileData> {
     return this.http.get<ProfileData>(`user/userProfile/${userId}`);
   }
 
@@ -54,7 +53,9 @@ export class UserService {
    *
    * @param updateData
    */
-  updateProfileInformation(updateData:Partial<UpdateProfileBody>): Observable<ok> {
+  updateProfileInformation(
+    updateData: Partial<UpdateProfileBody>,
+  ): Observable<ok> {
     return this.http.patch<ok>('user/userProfile', updateData);
   }
 
@@ -62,15 +63,17 @@ export class UserService {
    *
    * @param updateData
    */
-  updateAccountInformation(updateData:any): Observable<any> {
-    return this.http.patch<any>('user/userData', updateData);
+  updateAccountInformation(
+    updateData: UpdateAccountBody,
+  ): Observable<ProfileData> {
+    return this.http.patch<ProfileData>('user/userData', updateData);
   }
 
   /**
    *
    * @param updateData
    */
-  updatePassword(updateData:UpdatePasswordBody): Observable<ok> {
-    return this.http.patch<ok>('user/password',updateData );
+  updatePassword(updateData: UpdatePasswordBody): Observable<ok> {
+    return this.http.patch<ok>('user/password', updateData);
   }
 }

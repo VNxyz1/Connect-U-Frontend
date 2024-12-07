@@ -16,11 +16,10 @@ import { Step3Component } from './components/create-event/step3/step3.component'
 import { isNotLoggedInGuard } from './utils/guards/is-not-logged-in.guard';
 import { LegalDisclosurePageComponent } from './views/legal-disclosure-page/legal-disclosure-page.component';
 import { PrivacyPolicyPageComponent } from './views/privacy-policy-page/privacy-policy-page.component';
-import { EventInfoComponent } from './components/event-detail/event-info/event-info.component';
 import { EventListsComponent } from './components/event-detail/event-lists/event-lists.component';
 import { EventSurveysComponent } from './components/event-detail/event-surveys/event-surveys.component';
-import {SettingsPageComponent} from './views/settings-page/settings-page.component';
-import {AccountManagePageComponent} from './views/account-manage-page/account-manage-page.component';
+import { SettingsPageComponent } from './views/settings-page/settings-page.component';
+import { AccountManagePageComponent } from './views/account-manage-page/account-manage-page.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -117,8 +116,8 @@ export const routes: Routes = [
   },
   {
     path: 'account',
-    title:'Account | Connect-U',
-    component: AccountManagePageComponent
+    title: 'Account | Connect-U',
+    component: AccountManagePageComponent,
   },
   {
     path: '**',

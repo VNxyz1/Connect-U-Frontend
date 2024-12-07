@@ -1,9 +1,9 @@
 <div class="p-fluid p-3">
-    <p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />
+  <p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />
   <!-- Benutzerinformationen -->
   <div class="grid">
     <div class="col-12 lg:col-6 md:col-8 sm:col-12 mx-auto">
-      <h3 class="mb-4">{{'accountPage.headlines.userData'| transloco}}</h3>
+      <h3 class="mb-4">{{ 'accountPage.headlines.userData' | transloco }}</h3>
       <form (ngSubmit)="submitAccountUpdate()" [formGroup]="accountForm">
         <!-- Benutzerinformationen -->
         <div class="field">
@@ -15,26 +15,31 @@
               formControlName="username"
               aria-required="true"
               [attr.aria-invalid]="
-              accountForm.get('username')?.invalid &&
-               accountForm.get('username')?.touched"
-            />
-            <label for="username">{{'accountPage.placeholder.username'|transloco}}</label>
+                accountForm.get('username')?.invalid &&
+                accountForm.get('username')?.touched
+              " />
+            <label for="username">{{
+              'accountPage.placeholder.username' | transloco
+            }}</label>
           </p-floatLabel>
-          @if (accountForm.get('username')?.invalid && accountForm.get('username')?.touched) {
+          @if (
+            accountForm.get('username')?.invalid &&
+            accountForm.get('username')?.touched
+          ) {
             @if (accountForm.get('username')?.errors?.['required']) {
               <small class="p-error">{{
-                  'registerComponent.usernameInput.requiredWarning' | transloco
-                }}</small>
+                'registerComponent.usernameInput.requiredWarning' | transloco
+              }}</small>
             }
             @if (accountForm.get('username')?.errors?.['minlength']) {
               <small class="p-error">{{
-                  'registerComponent.usernameInput.lengthWarning' | transloco
-                }}</small>
+                'registerComponent.usernameInput.lengthWarning' | transloco
+              }}</small>
             }
             @if (accountForm.get('username')?.errors?.['maxlength']) {
               <small class="p-error">{{
-                  'registerComponent.usernameInput.maxLengthWarning' | transloco
-                }}</small>
+                'registerComponent.usernameInput.maxLengthWarning' | transloco
+              }}</small>
             }
           }
         </div>
@@ -47,21 +52,26 @@
               formControlName="email"
               aria-required="true"
               [attr.aria-invalid]="
-              accountForm.get('email')?.invalid &&
-              accountForm.get('email')?.touched"
-            />
-            <label for="email">{{'accountPage.placeholder.email'| transloco}}</label>
+                accountForm.get('email')?.invalid &&
+                accountForm.get('email')?.touched
+              " />
+            <label for="email">{{
+              'accountPage.placeholder.email' | transloco
+            }}</label>
           </p-floatLabel>
-          @if (accountForm.get('email')?.invalid && accountForm.get('email')?.touched) {
+          @if (
+            accountForm.get('email')?.invalid &&
+            accountForm.get('email')?.touched
+          ) {
             @if (accountForm.get('email')?.errors?.['required']) {
               <small class="p-error">{{
-                  'registerComponent.emailInput.requiredWarning' | transloco
-                }}</small>
+                'registerComponent.emailInput.requiredWarning' | transloco
+              }}</small>
             }
             @if (accountForm.get('email')?.errors?.['email']) {
               <small class="p-error">{{
-                  'registerComponent.emailInput.validEmailWarning' | transloco
-                }}</small>
+                'registerComponent.emailInput.validEmailWarning' | transloco
+              }}</small>
             }
           }
         </div>
@@ -74,26 +84,31 @@
               formControlName="firstName"
               aria-required="true"
               [attr.aria-invalid]="
-              accountForm.get('firstName')?.invalid &&
-              accountForm.get('firstName')?.touched"
-            />
-            <label for="firstName">{{'accountPage.placeholder.firstname'| transloco}}</label>
+                accountForm.get('firstName')?.invalid &&
+                accountForm.get('firstName')?.touched
+              " />
+            <label for="firstName">{{
+              'accountPage.placeholder.firstname' | transloco
+            }}</label>
           </p-floatLabel>
-          @if (accountForm.get('firstName')?.invalid && accountForm.get('firstName')?.touched) {
+          @if (
+            accountForm.get('firstName')?.invalid &&
+            accountForm.get('firstName')?.touched
+          ) {
             @if (accountForm.get('firstName')?.errors?.['required']) {
               <small class="p-error">{{
-                  'registerComponent.firstnameInput.requiredWarning' | transloco
-                }}</small>
+                'registerComponent.firstnameInput.requiredWarning' | transloco
+              }}</small>
             }
             @if (accountForm.get('firstName')?.errors?.['minlength']) {
               <small class="p-error">{{
-                  'registerComponent.firstnameInput.lengthWarning' | transloco
-                }}</small>
+                'registerComponent.firstnameInput.lengthWarning' | transloco
+              }}</small>
             }
             @if (accountForm.get('firstName')?.errors?.['maxlength']) {
               <small class="p-error">{{
-                  'registerComponent.firstnameInput.maxLengthWarning' | transloco
-                }}</small>
+                'registerComponent.firstnameInput.maxLengthWarning' | transloco
+              }}</small>
             }
           }
         </div>
@@ -106,21 +121,26 @@
               formControlName="lastName"
               aria-required="true"
               [attr.aria-invalid]="
-              accountForm.get('lastName')?.invalid && accountForm.get('lastName')?.touched
-            "
-            />
-            <label for="lastName">{{'accountPage.placeholder.lastname'| transloco}}</label>
+                accountForm.get('lastName')?.invalid &&
+                accountForm.get('lastName')?.touched
+              " />
+            <label for="lastName">{{
+              'accountPage.placeholder.lastname' | transloco
+            }}</label>
           </p-floatLabel>
-          @if (accountForm.get('lastName')?.invalid && accountForm.get('lastName')?.touched) {
+          @if (
+            accountForm.get('lastName')?.invalid &&
+            accountForm.get('lastName')?.touched
+          ) {
             @if (accountForm.get('lastName')?.errors?.['required']) {
               <small class="p-error">{{
-                  'registerComponent.lastnameInput.requiredWarning' | transloco
-                }}</small>
+                'registerComponent.lastnameInput.requiredWarning' | transloco
+              }}</small>
             }
             @if (accountForm.get('lastName')?.errors?.['maxlength']) {
               <small class="p-error">{{
-                  'registerComponent.lastnameInput.maxLengthWarning' | transloco
-                }}</small>
+                'registerComponent.lastnameInput.maxLengthWarning' | transloco
+              }}</small>
             }
           }
         </div>
@@ -131,9 +151,10 @@
               id="gender"
               formControlName="gender"
               class="p-disabled"
-              placeholder="Geschlecht"
-            >
-            <label for="gender">{{'accountPage.placeholder.gender'| transloco}}</label>
+              placeholder="Geschlecht" />
+            <label for="gender">{{
+              'accountPage.placeholder.gender' | transloco
+            }}</label>
           </p-floatLabel>
         </div>
 
@@ -142,18 +163,16 @@
           <p-button
             label="Passwort ändern"
             severity="secondary"
-            (click)="showPasswordModal()"
-          ></p-button>
+            (click)="showPasswordModal()"></p-button>
         </div>
 
         <!-- Passwort ändern Modal -->
         <p-dialog
-          header="{{'accountPage.passwordForm.title'| transloco}}"
+          header="{{ 'accountPage.passwordForm.title' | transloco }}"
           [(visible)]="passwordModalVisible"
           [modal]="true"
           [style]="{ width: '400px' }"
-          [breakpoints]="{ '960px': '90vw', '640px': '95vw' }"
-        >
+          [breakpoints]="{ '960px': '90vw', '640px': '95vw' }">
           <form (ngSubmit)="submitPasswordChange()" [formGroup]="passwordForm">
             <div class="field">
               <p-floatLabel>
@@ -161,28 +180,35 @@
                   id="oldPassword"
                   toggleMask
                   [feedback]="false"
-                  formControlName="oldPassword"
-                >
-                    <span>
-            <ng-template pTemplate="showicon">
-              <rmx-icon
-                      name="eye-line"
-                      style="width: 16px; height: 16px"></rmx-icon>
-            </ng-template>
-            <ng-template pTemplate="hideicon">
-              <rmx-icon
-                      name="eye-off-line"
-                      style="width: 16px; height: 16px"></rmx-icon>
-            </ng-template>
-          </span>
+                  formControlName="oldPassword">
+                  <span>
+                    <ng-template pTemplate="showicon">
+                      <rmx-icon
+                        name="eye-line"
+                        style="width: 16px; height: 16px"></rmx-icon>
+                    </ng-template>
+                    <ng-template pTemplate="hideicon">
+                      <rmx-icon
+                        name="eye-off-line"
+                        style="width: 16px; height: 16px"></rmx-icon>
+                    </ng-template>
+                  </span>
                 </p-password>
-                <label for="oldPassword">{{'accountPage.passwordForm.oldPassword'| transloco}}</label>
+                <label for="oldPassword">{{
+                  'accountPage.passwordForm.oldPassword' | transloco
+                }}</label>
               </p-floatLabel>
-                @if (passwordForm.get('oldPassword')?.invalid && passwordForm.get('oldPassword')?.touched) {
-                    @if (passwordForm.get('oldPassword')?.errors?.['required']) {
-                        <small class="p-error">{{'accountPage.passwordForm.warnings.oldPasswordRequired'| transloco}}</small>
-                    }
+              @if (
+                passwordForm.get('oldPassword')?.invalid &&
+                passwordForm.get('oldPassword')?.touched
+              ) {
+                @if (passwordForm.get('oldPassword')?.errors?.['required']) {
+                  <small class="p-error">{{
+                    'accountPage.passwordForm.warnings.oldPasswordRequired'
+                      | transloco
+                  }}</small>
                 }
+              }
             </div>
             <div class="field">
               <p-floatLabel>
@@ -191,31 +217,41 @@
                   type="password"
                   toggleMask
                   [feedback]="false"
-                  formControlName="newPassword"
-                >
-                    <span>
-            <ng-template pTemplate="showicon">
-              <rmx-icon
-                      name="eye-line"
-                      style="width: 16px; height: 16px"></rmx-icon>
-            </ng-template>
-            <ng-template pTemplate="hideicon">
-              <rmx-icon
-                      name="eye-off-line"
-                      style="width: 16px; height: 16px"></rmx-icon>
-            </ng-template>
-          </span>
+                  formControlName="newPassword">
+                  <span>
+                    <ng-template pTemplate="showicon">
+                      <rmx-icon
+                        name="eye-line"
+                        style="width: 16px; height: 16px"></rmx-icon>
+                    </ng-template>
+                    <ng-template pTemplate="hideicon">
+                      <rmx-icon
+                        name="eye-off-line"
+                        style="width: 16px; height: 16px"></rmx-icon>
+                    </ng-template>
+                  </span>
                 </p-password>
-                <label for="newPassword">{{'accountPage.passwordForm.newPassword'| transloco}}</label>
+                <label for="newPassword">{{
+                  'accountPage.passwordForm.newPassword' | transloco
+                }}</label>
               </p-floatLabel>
-                @if (passwordForm.get('newPassword')?.invalid && passwordForm.get('newPassword')?.touched) {
-                    @if (passwordForm.get('newPassword')?.errors?.['required']) {
-                        <small class="p-error">{{'accountPage.passwordForm.warnings.newPasswordRequired'| transloco}}</small>
-                    }
-                    @if (passwordForm.get('newPassword')?.errors?.['minlength']) {
-                        <small class="p-error">{{'accountPage.passwordForm.warnings.newPasswordMinLength'| transloco}}</small>
-                    }
+              @if (
+                passwordForm.get('newPassword')?.invalid &&
+                passwordForm.get('newPassword')?.touched
+              ) {
+                @if (passwordForm.get('newPassword')?.errors?.['required']) {
+                  <small class="p-error">{{
+                    'accountPage.passwordForm.warnings.newPasswordRequired'
+                      | transloco
+                  }}</small>
                 }
+                @if (passwordForm.get('newPassword')?.errors?.['minlength']) {
+                  <small class="p-error">{{
+                    'accountPage.passwordForm.warnings.newPasswordMinLength'
+                      | transloco
+                  }}</small>
+                }
+              }
             </div>
             <div class="field">
               <p-floatLabel>
@@ -224,102 +260,145 @@
                   type="password"
                   toggleMask
                   [feedback]="false"
-                  formControlName="newPasswordConfirm"
-                >
-                    <span>
-            <ng-template pTemplate="showicon">
-              <rmx-icon
-                      name="eye-line"
-                      style="width: 16px; height: 16px"></rmx-icon>
-            </ng-template>
-            <ng-template pTemplate="hideicon">
-              <rmx-icon
-                      name="eye-off-line"
-                      style="width: 16px; height: 16px"></rmx-icon>
-            </ng-template>
-          </span>
+                  formControlName="newPasswordConfirm">
+                  <span>
+                    <ng-template pTemplate="showicon">
+                      <rmx-icon
+                        name="eye-line"
+                        style="width: 16px; height: 16px"></rmx-icon>
+                    </ng-template>
+                    <ng-template pTemplate="hideicon">
+                      <rmx-icon
+                        name="eye-off-line"
+                        style="width: 16px; height: 16px"></rmx-icon>
+                    </ng-template>
+                  </span>
                 </p-password>
-                <label for="newPasswordConfirm">{{'accountPage.passwordForm.confirmPassword'| transloco}}</label>
+                <label for="newPasswordConfirm">{{
+                  'accountPage.passwordForm.confirmPassword' | transloco
+                }}</label>
               </p-floatLabel>
-                @if (passwordForm.get('newPasswordConfirm')?.invalid && passwordForm.get('newPasswordConfirm')?.touched) {
-                    @if (passwordForm.get('newPasswordConfirm')?.errors?.['required']) {
-                        <small class="p-error">{{'accountPage.passwordForm.warnings.confirmPasswordRequired'| transloco}}</small>
-                    }
-                    @if (passwordForm.get('newPasswordConfirm')?.errors?.['minlength']) {
-                        <small class="p-error">{{'accountPage.passwordForm.warnings.confirmPasswordMinLength'| transloco}}</small>
-                    }
+              @if (
+                passwordForm.get('newPasswordConfirm')?.invalid &&
+                passwordForm.get('newPasswordConfirm')?.touched
+              ) {
+                @if (
+                  passwordForm.get('newPasswordConfirm')?.errors?.['required']
+                ) {
+                  <small class="p-error">{{
+                    'accountPage.passwordForm.warnings.confirmPasswordRequired'
+                      | transloco
+                  }}</small>
                 }
+                @if (
+                  passwordForm.get('newPasswordConfirm')?.errors?.['minlength']
+                ) {
+                  <small class="p-error">{{
+                    'accountPage.passwordForm.warnings.confirmPasswordMinLength'
+                      | transloco
+                  }}</small>
+                }
+              }
             </div>
             <div class="flex justify-content-end mb-3">
               <p-button
-                label="{{'accountPage.button.save'| transloco}}"
+                label="{{ 'accountPage.button.save' | transloco }}"
                 type="submit"
                 severity="success"
-                [disabled]="passwordForm.invalid"
-              ></p-button>
+                [disabled]="passwordForm.invalid"></p-button>
             </div>
           </form>
         </p-dialog>
 
-          <!-- Adressinformationen -->
-          <h3 class="text-left mt-4">{{'accountPage.headlines.location'| transloco}}</h3>
-          <div class="grid">
-              <div class="col-12 lg:col-6">
-                  <p-floatLabel>
-                      <input id="street" type="text" pInputText formControlName="street" />
-                      <label for="street">{{'accountPage.placeholder.street'| transloco}}</label>
-                  </p-floatLabel>
-                  @if (accountForm.get('street')?.errors?.['required']) {
-                      <small class="p-error">{{'accountPage.adressForm.warnings.house'| transloco}}</small>
-                  }
-              </div>
-              <div class="col-12 lg:col-6">
-                  <p-floatLabel>
-                      <input id="streetNumber" type="text" pInputText formControlName="streetNumber" />
-                      <label for="streetNumber">{{'accountPage.placeholder.houseNr'| transloco}}</label>
-                  </p-floatLabel>
-                  @if (accountForm.get('streetNumber')?.errors?.['required']) {
-                      <small class="p-error">{{'accountPage.adressForm.warnings.house'| transloco}}</small>
-                  }
-              </div>
-              <div class="col-12 lg:col-6">
-                  <p-floatLabel>
-                      <input id="zipCode" type="text" pInputText formControlName="zipCode" />
-                      <label for="zipCode">{{'accountPage.placeholder.zipCode'| transloco}}</label>
-                  </p-floatLabel>
-                  @if (accountForm.get('zipCode')?.errors?.['required']) {
-                      <small class="p-error">{{'accountPage.adressForm.warnings.zipCode'| transloco}}</small>
-                  }
-              </div>
-              <div class="col-12 lg:col-6">
-                  <p-floatLabel>
-                      <input id="city" type="text" pInputText formControlName="city" />
-                      <label for="city">{{'accountPage.placeholder.city'| transloco}}</label>
-                  </p-floatLabel>
-                  @if (accountForm.get('city')?.errors?.['required']) {
-                      <small class="p-error">{{'accountPage.adressForm.warnings.city'| transloco}}</small>
-                  }
-              </div>
+        <!-- Adressinformationen -->
+        <h3 class="text-left mt-4">
+          {{ 'accountPage.headlines.location' | transloco }}
+        </h3>
+        <div class="grid">
+          <div class="col-12 lg:col-6">
+            <p-floatLabel>
+              <input
+                id="street"
+                type="text"
+                pInputText
+                formControlName="street" />
+              <label for="street">{{
+                'accountPage.placeholder.street' | transloco
+              }}</label>
+            </p-floatLabel>
+            @if (accountForm.get('street')?.errors?.['required']) {
+              <small class="p-error">{{
+                'accountPage.adressForm.warnings.house' | transloco
+              }}</small>
+            }
           </div>
+          <div class="col-12 lg:col-6">
+            <p-floatLabel>
+              <input
+                id="streetNumber"
+                type="text"
+                pInputText
+                formControlName="streetNumber" />
+              <label for="streetNumber">{{
+                'accountPage.placeholder.houseNr' | transloco
+              }}</label>
+            </p-floatLabel>
+            @if (accountForm.get('streetNumber')?.errors?.['required']) {
+              <small class="p-error">{{
+                'accountPage.adressForm.warnings.house' | transloco
+              }}</small>
+            }
+          </div>
+          <div class="col-12 lg:col-6">
+            <p-floatLabel>
+              <input
+                id="zipCode"
+                type="text"
+                pInputText
+                formControlName="zipCode" />
+              <label for="zipCode">{{
+                'accountPage.placeholder.zipCode' | transloco
+              }}</label>
+            </p-floatLabel>
+            @if (accountForm.get('zipCode')?.errors?.['required']) {
+              <small class="p-error">{{
+                'accountPage.adressForm.warnings.zipCode' | transloco
+              }}</small>
+            }
+          </div>
+          <div class="col-12 lg:col-6">
+            <p-floatLabel>
+              <input id="city" type="text" pInputText formControlName="city" />
+              <label for="city">{{
+                'accountPage.placeholder.city' | transloco
+              }}</label>
+            </p-floatLabel>
+            @if (accountForm.get('city')?.errors?.['required']) {
+              <small class="p-error">{{
+                'accountPage.adressForm.warnings.city' | transloco
+              }}</small>
+            }
+          </div>
+        </div>
 
-          <!-- Fehlermeldung für Adresse -->
-          @if (
-              accountForm.get('street')?.errors?.['required'] ||
-              accountForm.get('streetNumber')?.errors?.['required'] ||
-              accountForm.get('zipCode')?.errors?.['required'] ||
-              accountForm.get('city')?.errors?.['required']
-                  ) {
-              <div class="p-error mt-2">
-                  {{'accountPage.adressForm.warnings.requirements'|transloco}}
-              </div>
-          }
-
+        <!-- Fehlermeldung für Adresse -->
+        @if (
+          accountForm.get('street')?.errors?.['required'] ||
+          accountForm.get('streetNumber')?.errors?.['required'] ||
+          accountForm.get('zipCode')?.errors?.['required'] ||
+          accountForm.get('city')?.errors?.['required']
+        ) {
+          <div class="p-error mt-2">
+            {{ 'accountPage.adressForm.warnings.requirements' | transloco }}
+          </div>
+        }
 
         <div class="field flex justify-content-end mt-4">
-          <p-button label="{{ 'accountPage.button.save' | transloco }}"
-                    severity="success"
-                    type="submit"
-                    [disabled]="accountForm.invalid"/>
+          <p-button
+            label="{{ 'accountPage.button.save' | transloco }}"
+            severity="success"
+            type="submit"
+            [disabled]="accountForm.invalid" />
         </div>
       </form>
     </div>

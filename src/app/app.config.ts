@@ -49,7 +49,8 @@ import {
   RiCheckboxLine,
   RiEyeLine,
   RiEyeOffLine,
-  RiArrowRightSLine, RiEditLine,
+  RiArrowRightSLine,
+  RiEditLine,
   RiChatPollLine,
   RiFolderInfoLine,
   RiListCheck,
@@ -98,7 +99,7 @@ const icons = {
   RiArrowRightSLine,
   RiSettings5Line,
   RiLogoutBoxLine,
-  RiEditLine
+  RiEditLine,
 };
 
 export const translocoConfig = {
