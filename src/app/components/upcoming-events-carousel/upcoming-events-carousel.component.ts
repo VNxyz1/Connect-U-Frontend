@@ -66,6 +66,15 @@ export class UpcomingEventsCarouselComponent implements OnInit {
     ];
   }
 
+  calculateAutoplayInterval(windowWidth: number, eventCount: number) {
+    const moreThanOneEvent = eventCount > 1;
+    const smallScreen = windowWidth <= 767;
+    if (moreThanOneEvent || smallScreen) {
+      return 3700;
+    }
+    return 0;
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.innerWidth = window.innerWidth;
