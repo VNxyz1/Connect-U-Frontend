@@ -54,7 +54,7 @@ export class MySpacePageComponent implements OnInit {
             'logout.messages.success.detail',
           ),
         });
-        this.router.navigate(['/']);
+        this.router.navigate(['/']).then(() => window.location.reload());
       },
       error: () => {
         this.messageService.add({
