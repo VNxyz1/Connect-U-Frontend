@@ -1,6 +1,9 @@
 {
   "homepage": {
-    "title": "Events for You"
+    "title": "Events for You",
+    "upcomingEvents": {
+      "title": "Upcoming Events"
+    }
   },
   "loginComponent": {
     "title": "LOGIN",
@@ -252,6 +255,20 @@
     "infoTab": "Information",
     "listTab": "Lists",
     "surveyTab": "Surveys"
+  },
+  "eventStatusIndicator": {
+    "finished": {
+      "text": "past"
+    },
+    "cancelled": {
+      "text": "cancelled"
+    },
+    "live": {
+      "text": "LIVE"
+    },
+    "upcoming": {
+      "text": "upcoming"
+    }
   },
   "eventListPage": {
     "createListButton": {

@@ -17,6 +17,7 @@ import { DialogModule } from 'primeng/dialog';
 import { LoginComponent } from '../../login/login.component';
 import { RegisterComponent } from '../../register/register.component';
 import { AuthService } from '../../../services/auth/auth.service';
+import { EventStatusIndicatorComponent } from '../../event-status-indicator/event-status-indicator.component';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -49,6 +50,7 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     DialogModule,
     LoginComponent,
     RegisterComponent,
+    EventStatusIndicatorComponent,
   ],
 })
 export class EventInfoComponent implements OnInit, OnDestroy {

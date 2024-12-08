@@ -44,9 +44,19 @@
     <div class="col-12 xl:col-7">
       <h2>{{ eventDetails.title }}</h2>
 
-      @for (category of eventDetails.categories; track $index) {
-        <p-tag [value]="category.name" [rounded]="true" class="mr-1" />
-      }
+      <div class="flex w-full justify-content-between">
+        <span>
+          <app-event-status-indicator
+            [status]="eventDetails.status"
+            showText
+            invertedColor />
+        </span>
+        <span>
+          @for (category of eventDetails.categories; track $index) {
+            <p-tag [value]="category.name" [rounded]="true" class="mr-1" />
+          }
+        </span>
+      </div>
 
       <p-card styleClass="p-mb-3 mt-3">
         <div class="grid">
