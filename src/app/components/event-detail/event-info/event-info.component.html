@@ -15,10 +15,7 @@
         (toggleView)="toggleLoginRegisterSwitch()"
         class="w-full" />
     } @else {
-      <app-register
-        [redirectTo]="'/event/' + eventId"
-        (toggleView)="toggleLoginRegisterSwitch()"
-        class="w-full" />
+      <app-register (toggleView)="toggleLoginRegisterSwitch()" class="w-full" />
     }
   </div>
 </p-dialog>

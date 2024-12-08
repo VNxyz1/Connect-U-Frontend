@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, from, tap, map, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, from, map, Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { TranslocoService } from '@jsverse/transloco';
 
@@ -68,6 +68,10 @@ export class AuthService {
 
   register(body: RegisterBody): Observable<AuthResponse> {
     return this.http.post<AuthResponse>('user', body).pipe(
+      switchMap(res => {
+        this.setAccessToken(res.access_token);
+        return from(this.refreshLoginStatus()).pipe(map(() => res));
+      }),
       catchError(error => {
         const backendMessage = error.error?.message || 'Unknown error';
         const translatedMessage = this.translocoService.translate(
@@ -100,8 +104,9 @@ export class AuthService {
     return this.http
       .delete<{ ok: boolean; message: string }>('auth/logout')
       .pipe(
-        tap(res => {
+        map(res => {
           this.setAccessToken(undefined);
+          this.refreshLoginStatus();
           return res;
         }),
       );
