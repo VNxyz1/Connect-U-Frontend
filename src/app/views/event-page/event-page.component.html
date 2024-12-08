@@ -6,8 +6,10 @@
   !url.includes('/guests')
 ) {
   <div class="card">
-    <p-tabMenu [model]="eventTabMenuItems" [(activeItem)]="activeTabItem"
-               (activeItemChange)="onActiveItemChange($event)">
+    <p-tabMenu
+      [model]="eventTabMenuItems"
+      [(activeItem)]="activeTabItem"
+      (activeItemChange)="onActiveItemChange($event)">
       <ng-template pTemplate="item" let-item>
         <ng-container>
           <a
@@ -32,7 +34,9 @@
   (activeTabItem?.id == 'infoTab' ||
     (!eventDetails.isHost && !eventDetails.isParticipant)) &&
   !url.includes('/requests') &&
-  !url.includes('/guests') && !url.includes('/lists') && !url.includes('/surveys')
+  !url.includes('/guests') &&
+  !url.includes('/lists') &&
+  !url.includes('/surveys')
 ) {
   <app-event-info
     [eventDetails]="eventDetails$"

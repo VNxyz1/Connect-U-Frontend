@@ -73,16 +73,8 @@ export class EventPageComponent implements OnInit {
     this.eventId = this.route.snapshot.paramMap.get('id')!;
     if (this.eventId) {
       // Monitor login state
-      this.auth.isLoggedIn().subscribe({
-        next: loggedIn => {
-          if (loggedIn) {
-            this.fetchEventDetails();
-          } else {
-            this.clearEventState();
-          }
-        },
-        error: err => console.error('Error checking login status:', err),
-      });
+
+      this.fetchEventDetails();
     }
   }
 
@@ -179,7 +171,6 @@ export class EventPageComponent implements OnInit {
 
   protected onActiveItemChange(newActiveItem: MenuItem): void {
     this.activeTabItem = newActiveItem;
-
   }
 
   getPreferredGendersString = (preferredGenders: Gender[]): string => {
@@ -211,5 +202,4 @@ export class EventPageComponent implements OnInit {
       .filter(Boolean)
       .join(', ');
   };
-
 }

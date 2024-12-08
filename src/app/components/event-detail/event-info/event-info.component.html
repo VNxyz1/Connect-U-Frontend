@@ -248,22 +248,25 @@
       <div class="flex gap-1 justify-content-end md:flex-none xl:fixed">
         <p-button class="" [raised]="true" severity="info">
           <ng-template pTemplate="icon">
-            <rmx-icon style="width: 16px; height: 16px" name="heart-3-line"></rmx-icon>
+            <rmx-icon
+              style="width: 16px; height: 16px"
+              name="heart-3-line"></rmx-icon>
           </ng-template>
         </p-button>
         @if (
           eventDetails && (eventDetails.isHost || eventDetails.isParticipant)
-          ) {
+        ) {
           <!-- TODO Event absagen / Teilnahme löschen-->
         } @else if (userRequest) {
           <!-- Responsive Container -->
           <div
-            class="flex flex-wrap lg:flex-column gap-2 align-items-center justify-content-center"
-          >
+            class="flex flex-wrap lg:flex-column gap-2 align-items-center justify-content-center">
             <!-- Delete Request Button -->
             <p-button
               [raised]="true"
-              label="{{ 'myEventPageComponent.requests.delete-request' | transloco }}"
+              label="{{
+                'myEventPageComponent.requests.delete-request' | transloco
+              }}"
               (onClick)="deleteEventRequest(userRequest.id, $event)">
               <ng-template pTemplate="icon">
                 <rmx-icon
@@ -275,10 +278,10 @@
             <p-button
               [raised]="true"
               [label]="
-            userRequest.denied
-              ? ('myEventPageComponent.requests.try-again' | transloco)
-              : ('eventDetailPageComponent.request-pending' | transloco)
-          "
+                userRequest.denied
+                  ? ('myEventPageComponent.requests.try-again' | transloco)
+                  : ('eventDetailPageComponent.request-pending' | transloco)
+              "
               severity="success"
               [disabled]="!userRequest.denied"
               (click)="handleButtonClick(eventDetails.type)">
@@ -295,14 +298,14 @@
           <p-button
             [raised]="true"
             [label]="
-          eventDetails.type === 1 && !eventDetails.isParticipant
-            ? ('eventDetailPageComponent.join' | transloco)
-            : eventDetails.type === 2
-              ? ('eventDetailPageComponent.request' | transloco)
-              : eventDetails.type === 3
-                ? ('eventDetailPageComponent.privateEvent' | transloco)
-                : ''
-        "
+              eventDetails.type === 1 && !eventDetails.isParticipant
+                ? ('eventDetailPageComponent.join' | transloco)
+                : eventDetails.type === 2
+                  ? ('eventDetailPageComponent.request' | transloco)
+                  : eventDetails.type === 3
+                    ? ('eventDetailPageComponent.privateEvent' | transloco)
+                    : ''
+            "
             [disabled]="eventDetails.type === 3"
             severity="success"
             (click)="handleButtonClick(eventDetails.type)">

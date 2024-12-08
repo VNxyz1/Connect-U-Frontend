@@ -44,7 +44,9 @@
           <div class="flex align-items-center gap-2 w-full">
             <p-button
               [raised]="true"
-              label="{{ 'myEventPageComponent.requests.delete-request' | transloco}}"
+              label="{{
+                'myEventPageComponent.requests.delete-request' | transloco
+              }}"
               (onClick)="deleteEventRequest(r.event.title, r.id, $event)">
               <ng-template pTemplate="icon">
                 <rmx-icon
