@@ -271,4 +271,8 @@ export class EventService {
       }),
     );
   }
+
+  getUpcomingEvents(): Observable<EventCardItem[]> {
+    return this.http.get<EventCardItem[]>('event/upcoming');
+  }
 }

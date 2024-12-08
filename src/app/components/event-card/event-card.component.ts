@@ -8,6 +8,12 @@ import { EventCardItem } from '../../interfaces/EventCardItem';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { RouterLink } from '@angular/router';
 import { TranslocoDirective } from '@jsverse/transloco';
+import { StatusEnum } from '../../interfaces/StatusEnum';
+import {
+  DockPosition,
+  EventStatusIndicatorComponent,
+} from '../event-status-indicator/event-status-indicator.component';
+import { EventStatusService } from '../../services/event/event-status.service';
 
 @Component({
   selector: 'app-event-card',
@@ -21,12 +27,16 @@ import { TranslocoDirective } from '@jsverse/transloco';
     TranslocoDatePipe,
     RouterLink,
     TranslocoDirective,
+    EventStatusIndicatorComponent,
   ],
   templateUrl: './event-card.component.html',
 })
 export class EventCardComponent {
   @Input({ transform: booleanAttribute }) skeleton: boolean = false;
   @Input() event!: EventCardItem;
+
+  @Input({ transform: booleanAttribute }) showEventStatus: boolean = false;
+  @Input({ transform: booleanAttribute }) compact: boolean = false;
 
   // placeholder
   ahhArr: string[] = [
@@ -40,7 +50,7 @@ export class EventCardComponent {
     'asdsadasd',
   ].slice(0, Math.floor(Math.random() * (7 - 1 + 1) + 1));
 
-  constructor() {}
+  constructor(private eventStatus: EventStatusService) {}
 
   /**
    * Accepts an ISO-Date-String
@@ -56,4 +66,11 @@ export class EventCardComponent {
     }
     return "url('/images/empty.png')";
   }
+
+  getStatusColor(eventStatus: StatusEnum): string {
+    return this.eventStatus.getStatusColor(eventStatus);
+  }
+
+  protected readonly StatusEnum = StatusEnum;
+  protected readonly DockPosition = DockPosition;
 }

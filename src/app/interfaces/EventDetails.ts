@@ -1,6 +1,7 @@
 import { Category } from './Category';
 import { Gender } from './Gender';
 import { EventtypeEnum } from './EventtypeEnum';
+import { StatusEnum } from './StatusEnum';
 
 export interface EventDetails {
   id: string;
@@ -28,6 +29,8 @@ export interface EventDetails {
   zipCode?: string;
 
   city?: string;
+
+  status: StatusEnum;
 
   participantsNumber: number;
 

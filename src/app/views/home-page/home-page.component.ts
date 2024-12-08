@@ -5,11 +5,17 @@ import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventService } from '../../services/event/eventservice';
 import { EventCardComponent } from '../../components/event-card/event-card.component';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { UpcomingEventsCarouselComponent } from '../../components/upcoming-events-carousel/upcoming-events-carousel.component';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [AsyncPipe, EventCardComponent, TranslocoPipe],
+  imports: [
+    AsyncPipe,
+    EventCardComponent,
+    TranslocoPipe,
+    UpcomingEventsCarouselComponent,
+  ],
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent implements OnInit {
