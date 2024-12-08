@@ -22,7 +22,14 @@ import { EventRequestService } from '../../../services/event/event-request/event
 @Component({
   selector: 'app-guest-events',
   standalone: true,
-  imports: [AsyncPipe, EventCardComponent, TranslocoPipe, AngularRemixIconComponent, CardModule, RouterLink],
+  imports: [
+    AsyncPipe,
+    EventCardComponent,
+    TranslocoPipe,
+    AngularRemixIconComponent,
+    CardModule,
+    RouterLink,
+  ],
   templateUrl: './guest-events.component.html',
 })
 export class GuestEventsComponent implements OnInit, OnChanges {
@@ -36,9 +43,11 @@ export class GuestEventsComponent implements OnInit, OnChanges {
 
   private filtersSubject = new BehaviorSubject<{ name: string }[]>([]);
 
-  constructor(private readonly eventService: EventService,
-              private router: Router,
-              protected readonly route: ActivatedRoute) {
+  constructor(
+    private readonly eventService: EventService,
+    private router: Router,
+    protected readonly route: ActivatedRoute,
+  ) {
     this.router.events.subscribe(() => {
       this.currentUrl = this.router.url;
     });

@@ -1,4 +1,3 @@
-
 import { ProfileData } from './ProfileData';
 
 export interface EventUserRequest {

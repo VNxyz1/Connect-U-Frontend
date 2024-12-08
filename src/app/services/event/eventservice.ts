@@ -34,7 +34,6 @@ export class EventService {
   private readonly storageKeyCreate = 'eventCreateInformation'; // Key for stored data
   private _eventCreateInformation: EventData | null = null;
 
-
   private readonly eventComplete = new Subject<EventData>();
   eventComplete$ = this.eventComplete.asObservable();
 
@@ -68,7 +67,10 @@ export class EventService {
       ...data,
     };
 
-    await this.storageService.set(this.storageKeyCreate, this._eventCreateInformation);
+    await this.storageService.set(
+      this.storageKeyCreate,
+      this._eventCreateInformation,
+    );
   }
 
   async removeEventInformation(): Promise<void> {

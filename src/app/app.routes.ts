@@ -20,9 +20,7 @@ import { EventInfoComponent } from './components/event-detail/event-info/event-i
 import { EventListsComponent } from './components/event-detail/event-lists/event-lists.component';
 import { EventSurveysComponent } from './components/event-detail/event-surveys/event-surveys.component';
 import { EventRequestsComponent } from './components/event-detail/event-requests/event-requests.component';
-import {
-  UsersEventRequestsComponent
-} from './components/my-events/users-event-requests/users-event-requests.component';
+import { UsersEventRequestsComponent } from './components/my-events/users-event-requests/users-event-requests.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -71,9 +69,7 @@ export const routes: Routes = [
     title: 'My Events | Connect-U',
     component: MyEventsPageComponent,
     canActivate: [isLoggedInGuard],
-    children: [
-      { path: 'my-requests', component: UsersEventRequestsComponent }
-    ]
+    children: [{ path: 'my-requests', component: UsersEventRequestsComponent }],
   },
   {
     path: 'my-space',
@@ -88,7 +84,7 @@ export const routes: Routes = [
     children: [
       { path: 'lists', component: EventListsComponent },
       { path: 'surveys', component: EventSurveysComponent },
-      { path: 'requests', component: EventRequestsComponent}
+      { path: 'requests', component: EventRequestsComponent },
     ],
   },
   {

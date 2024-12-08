@@ -55,7 +55,9 @@ import {
   RiCloseLine,
   RiArrowRightSLine,
   RiSettings5Line,
-  RiLogoutBoxLine, RiMailSendLine, RiHourglassFill,
+  RiLogoutBoxLine,
+  RiMailSendLine,
+  RiHourglassFill,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
@@ -99,7 +101,7 @@ const icons = {
   RiSettings5Line,
   RiLogoutBoxLine,
   RiMailSendLine,
-  RiHourglassFill
+  RiHourglassFill,
 };
 
 export const translocoConfig = {

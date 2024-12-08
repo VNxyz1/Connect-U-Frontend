@@ -24,13 +24,13 @@ export class EventRequestsComponent {
   eventId!: string;
   protected eventRequests: EventUserRequest[] = [];
 
-
   constructor(
     private eventRequestService: EventRequestService,
-    private route : ActivatedRoute,
-    private router : Router,
+    private route: ActivatedRoute,
+    private router: Router,
     private messageService: MessageService,
-    private translocoService: TranslocoService,) {
+    private translocoService: TranslocoService,
+  ) {
     if (this.route.snapshot.paramMap.get('id')!) {
       this.eventId = this.route.snapshot.paramMap.get('id')!;
     } else {
@@ -52,48 +52,55 @@ export class EventRequestsComponent {
     });
   }
 
-  protected denyRequest(username: string, requestId: number, e: MouseEvent): void {
+  protected denyRequest(
+    username: string,
+    requestId: number,
+    e: MouseEvent,
+  ): void {
     e.stopPropagation();
     this.eventRequestService.denyUserRequest(requestId).subscribe({
       next: () => {
         // Remove the denied request from the array
         this.eventRequests = this.eventRequests.filter(
-          (request) => request.id !== requestId
+          request => request.id !== requestId,
         );
         this.messageService.add({
           severity: 'success',
           summary: this.translocoService.translate(
             'eventDetailPageComponent.requests.denied-request',
-            { name: username }
+            { name: username },
           ),
         });
       },
-      error: (err) => {
+      error: err => {
         console.error('Error denying request:', err);
       },
     });
   }
 
-  protected acceptRequest(username: string, requestId: number, e: MouseEvent): void {
+  protected acceptRequest(
+    username: string,
+    requestId: number,
+    e: MouseEvent,
+  ): void {
     e.stopPropagation();
     this.eventRequestService.acceptUserRequest(requestId).subscribe({
       next: () => {
         // Remove the denied request from the array
         this.eventRequests = this.eventRequests.filter(
-          (request) => request.id !== requestId
+          request => request.id !== requestId,
         );
         this.messageService.add({
           severity: 'success',
           summary: this.translocoService.translate(
             'eventDetailPageComponent.requests.accepted-request',
-            { name: username }
+            { name: username },
           ),
         });
       },
-      error: (err) => {
+      error: err => {
         console.error('Error accepting request:', err);
       },
-    })
-
+    });
   }
 }

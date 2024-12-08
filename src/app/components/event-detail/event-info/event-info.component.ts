@@ -58,7 +58,6 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   ],
 })
 export class EventInfoComponent implements OnInit, OnDestroy {
-
   userRequest: UsersEventRequest | null = null;
   private userRequestSubscription!: Subscription;
   @Input() eventRequestsHost: EventUserRequest[] = [];
@@ -100,10 +99,10 @@ export class EventInfoComponent implements OnInit, OnDestroy {
 
     // Subscribe to login status changes
     this.auth.isLoggedIn().subscribe({
-      next: (loggedIn) => {
+      next: loggedIn => {
         this.notLoggedInDialogVisible = !loggedIn;
       },
-      error: (err) => {
+      error: err => {
         console.error('Error checking login status:', err);
       },
     });
@@ -123,10 +122,10 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     this.userRequestSubscription = this.eventRequestService
       .getUserRequestForEvent(this.eventId)
       .subscribe({
-        next: (request) => {
+        next: request => {
           this.userRequest = request;
         },
-        error: (err) => {
+        error: err => {
           console.error('Error fetching user request:', err);
           this.userRequest = null; // Reset in case of error
         },
@@ -185,7 +184,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
    */
   private transformEventDetails(details: EventDetails): EventDetails {
     // Perform any transformations on the details here
-    console.log("details", details);
+    console.log('details', details);
     return details;
   }
 
@@ -266,7 +265,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
         });
         this.fetchUserRequest();
       },
-      error: (err) => {
+      error: err => {
         console.error('Error deleting request:', err);
       },
     });

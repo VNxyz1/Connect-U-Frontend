@@ -1,6 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { BehaviorSubject, Observable, of, Subscription, throwError } from 'rxjs';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterOutlet,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  Observable,
+  of,
+  Subscription,
+  throwError,
+} from 'rxjs';
 import { catchError, filter } from 'rxjs/operators';
 import { EventService } from '../../services/event/eventservice';
 import { EventDetails } from '../../interfaces/EventDetails';
@@ -40,7 +51,6 @@ export class EventPageComponent implements OnInit, OnDestroy {
   eventTabMenuItems: MenuItem[] = [];
   activeTabItem: MenuItem | undefined;
 
-
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
@@ -52,30 +62,31 @@ export class EventPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
-      this.url = event.urlAfterRedirects;
-    });
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.url = event.urlAfterRedirects;
+      });
 
     this.eventId = this.route.snapshot.paramMap.get('id')!;
     if (this.eventId) {
       // Monitor login state
       this.auth.isLoggedIn().subscribe({
-        next: (loggedIn) => {
+        next: loggedIn => {
           if (loggedIn) {
             this.fetchEventDetails();
           } else {
             this.clearEventState();
           }
         },
-        error: (err) => console.error('Error checking login status:', err),
+        error: err => console.error('Error checking login status:', err),
       });
     }
-
   }
 
   private fetchEventDetails(): void {
     this.eventDetails$ = this.eventService.getEventDetails(this.eventId).pipe(
-      catchError((err) => {
+      catchError(err => {
         this.router.navigate(['/404']);
         return throwError(() => err);
       }),
@@ -83,14 +94,14 @@ export class EventPageComponent implements OnInit, OnDestroy {
 
     // Subscribe to the event details observable
     this.eventDetails$.subscribe({
-      next: (details) => {
+      next: details => {
         this.eventDetails = details;
         if (this.eventDetails.isHost || this.eventDetails.isParticipant) {
           this.setupTabs();
           this.fetchEventRequestsHost();
         }
       },
-      error: (err) => {
+      error: err => {
         console.error('Error fetching event details:', err);
         this.router.navigate(['/404']);
       },
@@ -103,10 +114,10 @@ export class EventPageComponent implements OnInit, OnDestroy {
     }
 
     this.eventRequestService.getEventHostRequests(this.eventId).subscribe({
-      next: (requests) => {
+      next: requests => {
         this.eventRequestsHost = requests;
       },
-      error: (err) => {
+      error: err => {
         console.error('Error fetching event requests:', err);
       },
     });
@@ -119,41 +130,43 @@ export class EventPageComponent implements OnInit, OnDestroy {
   }
 
   private setupTabs(): void {
-    this.translocoService.selectTranslation().subscribe((translations: Record<string, string>) => {
-      this.eventTabMenuItems = [
-        {
-          label: translations['eventPageComponent.infoTab'],
-          route: `/event/${this.eventId}`,
-          icon: 'folder-info-line',
-          state: { eventDetails: this.eventDetails },
-          id: 'infoTab',
-          command: () => {
-            this.activeTabItem = this.eventTabMenuItems[0];
+    this.translocoService
+      .selectTranslation()
+      .subscribe((translations: Record<string, string>) => {
+        this.eventTabMenuItems = [
+          {
+            label: translations['eventPageComponent.infoTab'],
+            route: `/event/${this.eventId}`,
+            icon: 'folder-info-line',
+            state: { eventDetails: this.eventDetails },
+            id: 'infoTab',
+            command: () => {
+              this.activeTabItem = this.eventTabMenuItems[0];
+            },
           },
-        },
-        {
-          label: translations['eventPageComponent.listTab'],
-          route: `/event/${this.eventId}/lists`,
-          icon: 'list-check',
-          state: { eventDetails: this.eventDetails },
-          id: 'listTab',
-          command: () => {
-            this.activeTabItem = this.eventTabMenuItems[1];
+          {
+            label: translations['eventPageComponent.listTab'],
+            route: `/event/${this.eventId}/lists`,
+            icon: 'list-check',
+            state: { eventDetails: this.eventDetails },
+            id: 'listTab',
+            command: () => {
+              this.activeTabItem = this.eventTabMenuItems[1];
+            },
           },
-        },
-        {
-          label: translations['eventPageComponent.surveyTab'],
-          route: `/event/${this.eventId}/surveys`,
-          icon: 'chat-poll-line',
-          state: { eventDetails: this.eventDetails },
-          id: 'surveyTab',
-          command: () => {
-            this.activeTabItem = this.eventTabMenuItems[2];
+          {
+            label: translations['eventPageComponent.surveyTab'],
+            route: `/event/${this.eventId}/surveys`,
+            icon: 'chat-poll-line',
+            state: { eventDetails: this.eventDetails },
+            id: 'surveyTab',
+            command: () => {
+              this.activeTabItem = this.eventTabMenuItems[2];
+            },
           },
-        },
-      ];
-      this.activeTabItem = this.eventTabMenuItems[0];
-    });
+        ];
+        this.activeTabItem = this.eventTabMenuItems[0];
+      });
   }
 
   getPreferredGendersString = (preferredGenders: Gender[]): string => {
@@ -164,14 +177,20 @@ export class EventPageComponent implements OnInit, OnDestroy {
     }
 
     return preferredGenders
-      .map((gender) => {
+      .map(gender => {
         switch (gender.gender) {
           case GenderEnum.Male:
-            return this.translocoService.translate('eventDetailPageComponent.male');
+            return this.translocoService.translate(
+              'eventDetailPageComponent.male',
+            );
           case GenderEnum.Female:
-            return this.translocoService.translate('eventDetailPageComponent.female');
+            return this.translocoService.translate(
+              'eventDetailPageComponent.female',
+            );
           case GenderEnum.Diverse:
-            return this.translocoService.translate('eventDetailPageComponent.diverse');
+            return this.translocoService.translate(
+              'eventDetailPageComponent.diverse',
+            );
           default:
             return '';
         }
@@ -180,7 +199,5 @@ export class EventPageComponent implements OnInit, OnDestroy {
       .join(', ');
   };
 
-  ngOnDestroy(): void {
-
-  }
+  ngOnDestroy(): void {}
 }

@@ -5,16 +5,13 @@ import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../../storage/storage.service';
 import { EventDetails } from '../../../interfaces/EventDetails';
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
-import { UsersEventRequest} from '../../../interfaces/UsersEventRequest';
+import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EventRequestService {
-
-  constructor(
-    private readonly http: HttpClient,
-  ) { }
+  constructor(private readonly http: HttpClient) {}
 
   /**
    * Creates a join request for the given event ID.
@@ -47,17 +44,23 @@ export class EventRequestService {
       }),
       catchError(err => {
         return throwError(() => err);
-      })
-    )
+      }),
+    );
   }
 
-  private userRequestSubject = new BehaviorSubject<UsersEventRequest | null>(null);
+  private userRequestSubject = new BehaviorSubject<UsersEventRequest | null>(
+    null,
+  );
 
-  getUserRequestForEvent(eventId: string): Observable<UsersEventRequest | null> {
+  getUserRequestForEvent(
+    eventId: string,
+  ): Observable<UsersEventRequest | null> {
     const url = `request/join/user`;
     return this.http.get<UsersEventRequest[]>(url).pipe(
       map((requests: UsersEventRequest[]) => {
-        const matchingRequest = requests.find(request => request.event.id === eventId);
+        const matchingRequest = requests.find(
+          request => request.event.id === eventId,
+        );
         this.userRequestSubject.next(matchingRequest || null); // Update the subject
         return matchingRequest || null;
       }),
@@ -65,7 +68,7 @@ export class EventRequestService {
         console.error('Error fetching user requests:', err);
         this.userRequestSubject.next(null);
         return throwError(() => err);
-      })
+      }),
     );
   }
 
@@ -89,18 +92,26 @@ export class EventRequestService {
       catchError(err => {
         console.error('Error fetching event requests:', err);
         return throwError(() => err);
-      })
+      }),
     );
   }
 
-  acceptUserRequest(requestId: number): Observable<{ success: boolean; message: string }> {
+  acceptUserRequest(
+    requestId: number,
+  ): Observable<{ success: boolean; message: string }> {
     const url = `request/accept/${requestId}`;
-    return this.http.patch<{ success: boolean; message: string }>(url, {}).pipe()
+    return this.http
+      .patch<{ success: boolean; message: string }>(url, {})
+      .pipe();
   }
 
-  denyUserRequest(requestId: number): Observable<{ success: boolean; message: string }> {
+  denyUserRequest(
+    requestId: number,
+  ): Observable<{ success: boolean; message: string }> {
     const url = `request/deny/${requestId}`;
-    return this.http.patch<{ success: boolean; message: string }>(url, {}).pipe()
+    return this.http
+      .patch<{ success: boolean; message: string }>(url, {})
+      .pipe();
   }
 
   /**
@@ -108,11 +119,12 @@ export class EventRequestService {
    * @param requestId - The ID of the event to join.
    * @returns {Observable<{ success: boolean; message: string }>} An observable that emits the server response.
    */
-  deleteUserRequest(requestId: number): Observable<{ success: boolean; message: string }> {
+  deleteUserRequest(
+    requestId: number,
+  ): Observable<{ success: boolean; message: string }> {
     const url = `request/delete/${requestId}`;
-    return this.http.delete<{ success: boolean; message: string }>(url, {}).pipe()
+    return this.http
+      .delete<{ success: boolean; message: string }>(url, {})
+      .pipe();
   }
-
 }
-
-

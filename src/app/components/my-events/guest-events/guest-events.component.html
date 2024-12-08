@@ -1,16 +1,20 @@
 <div class="">
-  @if(hasRequests) { <!--TODO or has past events -->
+  @if (hasRequests) {
+    <!--TODO or has past events -->
     <div class="m-3 mb-8">
       <p-card>
         <ul class="list-none p-0 m-0 w-full">
           <!-- Event Requests -->
-          @if(hasRequests) {
+          @if (hasRequests) {
             <li
               class="p-3 pt-0 w-full col-12 border-bottom-1 border-gray-50 flex justify-content-between align-items-center cursor-pointer"
-              [routerLink]="['my-requests']" [relativeTo]="route">
+              [routerLink]="['my-requests']"
+              [relativeTo]="route">
               <div class="flex align-items-center">
                 <rmx-icon name="mail-send-line" class="mr-2"></rmx-icon>
-                <span>{{ 'myEventPageComponent.guest.your-event-requests' | transloco }}</span>
+                <span>{{
+                  'myEventPageComponent.guest.your-event-requests' | transloco
+                }}</span>
               </div>
               <rmx-icon
                 name="arrow-right-s-line"
