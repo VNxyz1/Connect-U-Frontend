@@ -11,7 +11,7 @@
       [circular]="true"
       [showIndicators]="events.length > 3"
       [showNavigators]="innerWidth > 767"
-      [autoplayInterval]="innerWidth > 767 || events.length == 1 ? 0 : 3700"
+      [autoplayInterval]="calculateAutoplayInterval(innerWidth, events.length)"
       [responsiveOptions]="responsiveOptions">
       <ng-template let-event pTemplate="item">
         <div class="m-3">
