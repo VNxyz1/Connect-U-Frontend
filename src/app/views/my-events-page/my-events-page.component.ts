@@ -15,7 +15,9 @@ import { MenuItem } from 'primeng/api';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { UsersEventRequestsComponent } from '../../components/my-events/users-event-requests/users-event-requests.component';
+import {
+  UsersEventRequestsComponent
+} from '../../components/my-events/users-event-requests/users-event-requests.component';
 import { EventRequestService } from '../../services/event/event-request/event-request.service';
 import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 
@@ -65,16 +67,14 @@ export class MyEventsPageComponent implements OnInit {
   hasEvents: boolean = false;
   eventRequests: UsersEventRequest[] = [];
 
-  constructor(
-    private router: Router,
-    private readonly eventRequestService: EventRequestService,
-    private readonly translocoService: TranslocoService,
-  ) {
+  constructor(private router: Router,
+              private readonly eventRequestService: EventRequestService,
+              private readonly translocoService: TranslocoService) {
     this.setupTabItems();
-    this.currentUrl = this.router.url;
   }
 
   ngOnInit() {
+
     this.setupTabItems();
     this.router.events.subscribe(() => {
       this.currentUrl = this.router.url;
@@ -87,37 +87,35 @@ export class MyEventsPageComponent implements OnInit {
       });
 
     this.eventRequestService.getUsersRequests().subscribe({
-      next: requests => {
+      next: (requests) => {
         this.eventRequests = requests;
       },
-      error: err => {
+      error: (err) => {
         console.error('Failed to fetch user requests:', err);
-      },
+      }
     });
   }
 
   private setupTabItems() {
-    this.translocoService
-      .selectTranslation()
-      .subscribe((translations: Record<string, string>) => {
-        this.tabMenuItems = [
-          {
-            label: translations['myEventPageComponent.guest.title'],
-            icon: 'pi pi-users',
-            command: () => this.setActiveTab('guest'),
-          },
-          {
-            label: translations['myEventPageComponent.hosted.title'],
-            icon: 'pi pi-plus-circle',
-            command: () => this.setActiveTab('hosted'),
-          },
-          {
-            label: translations['myEventPageComponent.favorite.title'],
-            icon: 'pi pi-star',
-            command: () => this.setActiveTab('favorite'),
-          },
-        ];
-      });
+    this.translocoService.selectTranslation().subscribe((translations: Record<string, string>) => {
+      this.tabMenuItems = [
+        {
+          label: translations['myEventPageComponent.guest.title'],
+          icon: 'pi pi-users',
+          command: () => this.setActiveTab('guest'),
+        },
+        {
+          label: translations['myEventPageComponent.hosted.title'],
+          icon: 'pi pi-plus-circle',
+          command: () => this.setActiveTab('hosted'),
+        },
+        {
+          label: translations['myEventPageComponent.favorite.title'],
+          icon: 'pi pi-star',
+          command: () => this.setActiveTab('favorite'),
+        },
+      ];
+    });
   }
 
   doesNotInclude(segment: string): boolean {

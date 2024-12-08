@@ -137,7 +137,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // Clean up subscriptions
     this._eventDetailsSubscription?.unsubscribe();
-    this.userRequestSubscription.unsubscribe();
+    this.userRequestSubscription?.unsubscribe();
   }
 
   private handleEventDetailsInput(

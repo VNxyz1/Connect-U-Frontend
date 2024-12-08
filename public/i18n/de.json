@@ -245,7 +245,8 @@
     "requests": {
       "title": "Anfragen",
       "accepted-request": "Die Anfrage von \"{{name}}\" wurde akzeptiert!",
-      "denied-request": "Die Anfrage von \"{{name}}\" wurde abgelehnt."
+      "denied-request": "Die Anfrage von \"{{name}}\" wurde abgelehnt.",
+      "delete-request": "Anfrage löschen"
     },
     "eventNotFound": "Das gesuchte Event existiert nicht.",
     "userIsHost": "Du bist der Gastgeber dieses Events und kannst nicht teilnehmen.",
@@ -328,6 +329,7 @@
     "requests": {
       "pending": "ausstehend",
       "your-request-denied": "Deine Abfrage wurde abgelehnt.",
+      "delete-request": "Anfrage löschen",
       "try-again": "Erneut Anfragen",
       "new-request": "Es wurde eine neue Anfrage für das Event \"{{title}}\" verschickt!",
       "deleted-request": "Die Anfrage für das Event \"{{title}}\" wurde gelöscht."

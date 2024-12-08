@@ -243,7 +243,8 @@
     "requests": {
       "title": "Requests",
       "accepted-request": "The request from \"{{name}}\" was accepted!",
-      "denied-request": "The request from \"{{name}}\" was denied."
+      "denied-request": "The request from \"{{name}}\" was denied.",
+      "delete-request": "Delete Request"
     },
     "notExist": "It seems like the event you were looking for doesn't exist!",
       "eventNotFound": "The event you are looking for does not exist.",
@@ -330,7 +331,8 @@
       "your-request-denied": "Your request was denied.",
       "try-again": "Request again",
       "new-request": "New request for event \"{{title}}\" sent!",
-      "deleted-request": "Request for event \"{{title}}\" deleted."
+      "deleted-request": "Request for event \"{{title}}\" deleted.",
+      "delete-request": "Delete Request"
     }
   },
   "privacyPolicy": {

@@ -42,14 +42,14 @@ import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
     AngularRemixIconComponent,
   ],
 })
-export class EventPageComponent implements OnInit, OnDestroy {
-  url: string = '';
+export class EventPageComponent implements OnInit {
+  url: string;
   eventId!: string;
   eventDetails!: EventDetails; // Resolved event details
   eventDetails$!: Observable<EventDetails>;
   eventRequestsHost: EventUserRequest[] = [];
   eventTabMenuItems: MenuItem[] = [];
-  activeTabItem!: MenuItem | undefined;
+  activeTabItem!: MenuItem;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -59,7 +59,9 @@ export class EventPageComponent implements OnInit, OnDestroy {
     protected readonly messageService: MessageService,
     protected readonly eventRequestService: EventRequestService,
     private auth: AuthService,
-  ) {}
+  ) {
+    this.url = this.router.url;
+  }
 
   ngOnInit(): void {
     this.router.events
@@ -141,7 +143,7 @@ export class EventPageComponent implements OnInit, OnDestroy {
             state: { eventDetails: this.eventDetails },
             id: 'infoTab',
             command: () => {
-              this.activeTabItem = this.eventTabMenuItems[0];
+              this.onActiveItemChange(this.eventTabMenuItems[0]);
             },
           },
           {
@@ -151,7 +153,7 @@ export class EventPageComponent implements OnInit, OnDestroy {
             state: { eventDetails: this.eventDetails },
             id: 'listTab',
             command: () => {
-              this.activeTabItem = this.eventTabMenuItems[1];
+              this.onActiveItemChange(this.eventTabMenuItems[1]);
             },
           },
           {
@@ -161,12 +163,23 @@ export class EventPageComponent implements OnInit, OnDestroy {
             state: { eventDetails: this.eventDetails },
             id: 'surveyTab',
             command: () => {
-              this.activeTabItem = this.eventTabMenuItems[2];
+              this.onActiveItemChange(this.eventTabMenuItems[2]);
             },
           },
         ];
-        this.activeTabItem = this.eventTabMenuItems[0];
+        if (this.router.url.includes('/lists')) {
+          this.activeTabItem = this.eventTabMenuItems[1];
+        } else if (this.router.url.includes('/surveys')) {
+          this.activeTabItem = this.eventTabMenuItems[2];
+        } else {
+          this.activeTabItem = this.eventTabMenuItems[0];
+        }
       });
+  }
+
+  protected onActiveItemChange(newActiveItem: MenuItem): void {
+    this.activeTabItem = newActiveItem;
+
   }
 
   getPreferredGendersString = (preferredGenders: Gender[]): string => {
@@ -199,5 +212,4 @@ export class EventPageComponent implements OnInit, OnDestroy {
       .join(', ');
   };
 
-  ngOnDestroy(): void {}
 }
