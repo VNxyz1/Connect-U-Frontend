@@ -77,6 +77,11 @@ $font-family-bold: 'Proxima Nova Th', sans-serif;
   --surface-800: #{$light-grey} !important;
   --surface-900: #{$light-grey} !important;
   --gray-50: #{$normal-grey} !important;
+  --gray-600: #{$normal-grey} !important;
+  --gray-700: #{$primaryDarkerColor} !important;
+  --gray-900: #{$primaryColor} !important;
+  --red-900: #{$red} !important;
+  --orange-900: #{$orange} !important;
 
   --gray-50: #{$light-grey};
 
@@ -118,6 +123,19 @@ $font-family-bold: 'Proxima Nova Th', sans-serif;
   //menu
 
   color-scheme: light;
+
+  //card
+  --card-shadow: $cardShadow;
+  --card-color: $panelContentTextColor;
+  --card-background: $panelContentBg;
+  --card-border-radius: $borderRadius;
+}
+
+.custom-card-container {
+  background: $panelContentBg;
+  color: $panelContentTextColor;
+  box-shadow: $cardShadow;
+  border-radius: $borderRadius;
 }
 
 body {

@@ -21,6 +21,7 @@ import { EventRequestService } from '../../../services/event/event-request/event
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
 import { AsyncPipe } from '@angular/common';
+import { EventStatusIndicatorComponent } from '../../event-status-indicator/event-status-indicator.component';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -55,6 +56,7 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     RegisterComponent,
     RouterLink,
     AsyncPipe,
+    EventStatusIndicatorComponent,
   ],
 })
 export class EventInfoComponent implements OnInit, OnDestroy {
@@ -184,7 +186,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
    */
   private transformEventDetails(details: EventDetails): EventDetails {
     // Perform any transformations on the details here
-    console.log('details', details);
     return details;
   }
 

@@ -1,0 +1,41 @@
+<div
+  class="flex gap-1 py-1 px-2 border-transparent text-center align-items-center align-content-center"
+  [class]="
+    [
+      invertedColor
+        ? 'text-' + getStatusColor(status)
+        : 'text-white bg-' + getStatusColor(status),
+      dockMode(),
+    ].join(' ')
+  ">
+  @switch (status) {
+    @case (StatusEnum.finished) {
+      <rmx-icon name="history-line" />
+    }
+    @case (StatusEnum.cancelled) {
+      <rmx-icon name="calendar-close-line" />
+    }
+    @case (StatusEnum.live) {
+      <rmx-icon name="live-line" />
+    }
+    @case (StatusEnum.upcoming) {
+      <rmx-icon name="hourglass-fill" />
+    }
+  }
+  @if (showText) {
+    @switch (status) {
+      @case (StatusEnum.finished) {
+        <span>{{ 'eventStatusIndicator.finished.text' | transloco }}</span>
+      }
+      @case (StatusEnum.cancelled) {
+        <span>{{ 'eventStatusIndicator.cancelled.text' | transloco }}</span>
+      }
+      @case (StatusEnum.live) {
+        <span>{{ 'eventStatusIndicator.live.text' | transloco }}</span>
+      }
+      @case (StatusEnum.upcoming) {
+        <span>{{ 'eventStatusIndicator.upcoming.text' | transloco }}</span>
+      }
+    }
+  }
+</div>
