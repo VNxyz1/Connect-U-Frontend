@@ -70,6 +70,7 @@ export class MyEventsPageComponent implements OnInit {
     private readonly eventRequestService: EventRequestService,
     private readonly translocoService: TranslocoService,
   ) {
+    this.currentUrl = this.router.url;
     this.setupTabItems();
   }
 
