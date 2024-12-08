@@ -1,6 +1,9 @@
 {
   "homepage": {
-    "title": "Events für Dich"
+    "title": "Events für Dich",
+    "upcomingEvents": {
+      "title": "Bevorstehende Events"
+    }
   },
   "loginComponent": {
     "title": "ANMELDEN",
@@ -252,6 +255,20 @@
     "infoTab": "Informationen",
     "listTab": "Listen",
     "surveyTab": "Umfragen"
+  },
+  "eventStatusIndicator": {
+    "finished": {
+      "text": "vergangen"
+    },
+    "cancelled": {
+      "text": "abgesagt"
+    },
+    "live": {
+      "text": "LIVE"
+    },
+    "upcoming": {
+      "text": "anstehend"
+    }
   },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "Du musst die AGBs bestätigen, um dich registrieren zu können",
