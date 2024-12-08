@@ -7,6 +7,8 @@ import { PrimeTemplate } from 'primeng/api';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { RouterLink } from '@angular/router';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
+import { HttpClient } from '@angular/common/http';
+import { EventRequestService } from '../../../services/event/event-request/event-request.service';
 
 @Component({
   selector: 'app-users-event-requests',
@@ -25,13 +27,36 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 export class UsersEventRequestsComponent {
   @Input() eventRequests!: UsersEventRequest[];
 
+  constructor(private http: HttpClient, private readonly requestService: EventRequestService) { }
 
-  protected deleteEventRequest(requestId: number, $e: MouseEvent) {
+
+  protected deleteEventRequest(requestId: number, $e: MouseEvent): void {
     $e.stopPropagation();
+    this.requestService.deleteUserRequest(requestId).subscribe({
+      next: () => {
+        // Filter out the deleted request
+        this.eventRequests = this.eventRequests.filter(request => request.id !== requestId);
+      },
+      error: (err) => {
+        console.error('Error deleting request:', err);
+      },
+    });
   }
 
-  protected createNewEventRequest(eventId: string, $e: MouseEvent) {
+  protected createNewEventRequest(eventId: string, $e: MouseEvent): void {
     $e.stopPropagation();
+    this.requestService.createJoinRequest(eventId).subscribe({
+      next: () => {
+        // Finde die Anfrage mit der entsprechenden Event-ID und aktualisiere sie
+        const request = this.eventRequests.find(req => req.event.id === eventId);
+        if (request) {
+          request.denied = false;
+        }
+      },
+      error: (err) => {
+        console.error('Error creating new request:', err);
+      },
+    });
   }
 
   protected toDate(date: string): Date {

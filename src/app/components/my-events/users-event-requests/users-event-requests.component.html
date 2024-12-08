@@ -1,5 +1,5 @@
 
-@if(eventRequests.length) {
+
   <div class="container content">
 
     <div class="flex justify-content-between align-items-center">
@@ -27,37 +27,44 @@
               </div>
             </div>
           </div>
-
-          <div class="flex align-items-center gap-2">
-            <p-button [raised]="true" (onClick)="deleteEventRequest(r.id, $event)">
-              <ng-template pTemplate="icon">
-                <rmx-icon
-                  style="width: 16px; height: 16px"
-                  name="close-line"></rmx-icon>
-              </ng-template>
-            </p-button>
+          <div class="flex flex-column align-items-center gap-2">
+            <!-- Add "denied" message above the buttons -->
             @if (r.denied) {
-              <p-button [raised]="true" severity="success" (onClick)="createNewEventRequest(r.event.id, $event)">
-                <span>{{ 'myEventPageComponent.requests.dismissed-try-again' }}?</span>
+              <span class="text-danger text-center mb-2">
+          {{ 'myEventPageComponent.requests.your-request-denied' | transloco }}
+        </span>
+            }
+            <div class="flex align-items-center gap-2 w-full">
+              <p-button [raised]="true" (onClick)="deleteEventRequest(r.id, $event)">
                 <ng-template pTemplate="icon">
                   <rmx-icon
                     style="width: 16px; height: 16px"
                     name="close-line"></rmx-icon>
                 </ng-template>
               </p-button>
-            } @else {
-              <p-button [raised]="true" disabled severity="success">
-                <span>{{ 'myEventPageComponent.requests.pending' }}</span>
-              </p-button>
-            }
-            <rmx-icon
-              name="arrow-right-s-line"
-              style="height: 26px; width: 26px"
-              class="">
-            </rmx-icon>
+              @if (r.denied) {
+                <p-button
+                  [raised]="true"
+                  label="{{ 'myEventPageComponent.requests.try-again' | transloco }}"
+                  severity="success" (onClick)="createNewEventRequest(r.event.id, $event)" />
+              } @else {
+                <p-button [raised]="true" label="{{ 'myEventPageComponent.requests.pending' | transloco }}" disabled severity="success" class="z-5">
+                  <ng-template pTemplate="icon">
+                    <rmx-icon
+                      style="width: 16px; height: 16px"
+                      name="hourglass-line"></rmx-icon>
+                  </ng-template>
+                </p-button>
+              }
+              <rmx-icon
+                name="arrow-right-s-line"
+                style="height: 26px; width: 26px"
+                class="cursor-pointer">
+              </rmx-icon>
+            </div>
           </div>
         </div>
       </p-card>
     }
   </div>
-}
+

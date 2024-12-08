@@ -21,7 +21,7 @@
   <!-- Tab Content -->
   <div class="flex justify-content-center mt-4 px-2">
     <div class="col-12 mb-6">
-      @if (activeTab === 'gast') {
+      @if (activeTab === 'guest') {
         @if (doesNotInclude('requests')) {
           <app-guest-events
             (hasEventsChange)="updateHasEvents($event)"
@@ -32,13 +32,13 @@
             [eventRequests]="eventRequests"/>
         }
       }
-      @if (activeTab === 'erstellt') {
+      @if (activeTab === 'hosted') {
         <app-hosted-events
           (hasEventsChange)="updateHasEvents($event)"
           [filters]="selectedCategories" />
       }
       <!-- has to be implemented -->
-      @if (activeTab === 'favorisiert') {
+      @if (activeTab === 'favorite') {
         <app-favorite-events />
       }
     </div>

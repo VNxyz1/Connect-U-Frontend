@@ -81,6 +81,16 @@ export class EventRequestService {
     return this.http.patch<{ success: boolean; message: string }>(url, {}).pipe()
   }
 
+  /**
+   * Creates a join request for the given event ID.
+   * @param requestId - The ID of the event to join.
+   * @returns {Observable<{ success: boolean; message: string }>} An observable that emits the server response.
+   */
+  deleteUserRequest(requestId: number): Observable<{ success: boolean; message: string }> {
+    const url = `request/delete/${requestId}`;
+    return this.http.delete<{ success: boolean; message: string }>(url, {}).pipe()
+  }
+
 }
 
 

@@ -301,6 +301,11 @@
     "favorite": {
       "title": "Favorites",
       "text": "You currently don't have any favorite events, consider adding some!"
+    },
+    "requests": {
+      "pending": "pending",
+      "your-request-denied": "Your request was denied.",
+      "try-again": "Request again"
     }
   },
   "privacyPolicy": {

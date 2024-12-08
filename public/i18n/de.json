@@ -301,6 +301,11 @@
     "favorite": {
       "title": "Favorisiert",
       "text": "Du hast zur Zeit keine favorisierten Events, füge doch welche hinzu!"
+    },
+    "requests": {
+      "pending": "ausstehend",
+      "your-request-denied": "Deine Abfrage wurde abgelehnt.",
+      "try-again": "Erneut Anfragen"
     }
   },
   "privacyPolicy": {
