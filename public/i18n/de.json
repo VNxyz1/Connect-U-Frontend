@@ -270,6 +270,39 @@
       "text": "anstehend"
     }
   },
+  "eventListPage": {
+    "createListButton": {
+      "label": "Liste Erstellen"
+    },
+    "createListModal": {
+      "header": "Liste Erstellen",
+      "titleInput": {
+        "requiredError": "Der titel ist erforderlich!",
+        "maxlengthError": "Der titel darf maximal 100 Zeichen lang sein.",
+        "label": "Titel"
+      },
+      "descriptionInput": {
+        "requiredError": "Die Beschreibung ist erforderlich!",
+        "label": "Beschreibung"
+      },
+      "cancelButton": {
+        "label": "Abbrechen"
+      },
+      "submitButton": {
+        "label": "Erstellen"
+      },
+      "messages": {
+        "error": {
+          "summary": "Fehler",
+          "detail": "Die Liste konnte nicht erstellt werden. Versuche es später nochmal."
+        },
+        "success": {
+          "summary": "Erstellt",
+          "detail": "Die Liste \"{{name}}\" wurde erfolgreich angelegt."
+        }
+      }
+    }
+  },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "Du musst die AGBs bestätigen, um dich registrieren zu können",
     "Passwords must match": "Die Passwörter stimmen nicht überein",
