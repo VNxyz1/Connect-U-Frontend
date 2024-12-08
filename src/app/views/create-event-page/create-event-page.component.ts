@@ -12,7 +12,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   standalone: true,
   imports: [ToastModule, StepsModule],
   templateUrl: './create-event-page.component.html',
-  providers: [MessageService, EventService, AuthService],
 })
 export class CreateEventPageComponent implements OnInit, OnDestroy {
   items: MenuItem[] | undefined;

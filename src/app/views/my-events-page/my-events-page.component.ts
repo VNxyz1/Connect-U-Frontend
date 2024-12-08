@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TabViewModule } from 'primeng/tabview';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { ButtonDirective } from 'primeng/button';
 import { EventCardComponent } from '../../components/event-card/event-card.component';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GuestEventsComponent } from '../../components/my-events/guest-events/guest-events.component';
 import { HostedEventsComponent } from '../../components/my-events/hosted-events/hosted-events.component';
 import { FavoriteEventsComponent } from '../../components/my-events/favorite-events/favorite-events.component';
@@ -13,6 +13,11 @@ import { FormsModule } from '@angular/forms';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { MenuItem } from 'primeng/api';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { UsersEventRequestsComponent } from '../../components/my-events/users-event-requests/users-event-requests.component';
+import { EventRequestService } from '../../services/event/event-request/event-request.service';
+import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 
 @Component({
   selector: 'app-my-events-page',
@@ -32,28 +37,14 @@ import { TabMenuModule } from 'primeng/tabmenu';
     FormsModule,
     FloatLabelModule,
     TabMenuModule,
+    UsersEventRequestsComponent,
   ],
   templateUrl: './my-events-page.component.html',
 })
-export class MyEventsPageComponent {
-  activeTab: string = 'gast';
-  tabMenuItems: MenuItem[] = [
-    {
-      label: 'Gast',
-      icon: 'pi pi-users',
-      command: () => this.setActiveTab('gast'),
-    },
-    {
-      label: 'Erstellt',
-      icon: 'pi pi-plus-circle',
-      command: () => this.setActiveTab('erstellt'),
-    },
-    {
-      label: 'Favorisiert',
-      icon: 'pi pi-star',
-      command: () => this.setActiveTab('favorisiert'),
-    },
-  ];
+export class MyEventsPageComponent implements OnInit {
+  activeTab: string = 'guest';
+  currentUrl: string = '';
+  tabMenuItems: MenuItem[] = [];
 
   filterCategories = [
     { name: 'outdoor' },
@@ -72,6 +63,66 @@ export class MyEventsPageComponent {
   selectedCategories: { name: string }[] = [];
 
   hasEvents: boolean = false;
+  eventRequests: UsersEventRequest[] = [];
+
+  constructor(
+    private router: Router,
+    private readonly eventRequestService: EventRequestService,
+    private readonly translocoService: TranslocoService,
+  ) {
+    this.currentUrl = this.router.url;
+    this.setupTabItems();
+  }
+
+  ngOnInit() {
+    this.setupTabItems();
+    this.router.events.subscribe(() => {
+      this.currentUrl = this.router.url;
+    });
+
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.currentUrl = event.urlAfterRedirects;
+      });
+
+    this.eventRequestService.getUsersRequests().subscribe({
+      next: requests => {
+        this.eventRequests = requests;
+      },
+      error: err => {
+        console.error('Failed to fetch user requests:', err);
+      },
+    });
+  }
+
+  private setupTabItems() {
+    this.translocoService
+      .selectTranslation()
+      .subscribe((translations: Record<string, string>) => {
+        this.tabMenuItems = [
+          {
+            label: translations['myEventPageComponent.guest.title'],
+            icon: 'pi pi-users',
+            command: () => this.setActiveTab('guest'),
+          },
+          {
+            label: translations['myEventPageComponent.hosted.title'],
+            icon: 'pi pi-plus-circle',
+            command: () => this.setActiveTab('hosted'),
+          },
+          {
+            label: translations['myEventPageComponent.favorite.title'],
+            icon: 'pi pi-star',
+            command: () => this.setActiveTab('favorite'),
+          },
+        ];
+      });
+  }
+
+  doesNotInclude(segment: string): boolean {
+    return !this.currentUrl.includes(segment);
+  }
 
   setActiveTab(tab: string): void {
     this.activeTab = tab;

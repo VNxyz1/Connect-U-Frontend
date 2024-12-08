@@ -60,7 +60,6 @@ import { AngularRemixIconComponent } from 'angular-remix-icon';
     AngularRemixIconComponent,
   ],
   templateUrl: './styling-showcase-secret-page.component.html',
-  providers: [MessageService],
 })
 export class StylingShowcaseSecretPageComponent implements OnInit {
   constructor(public messageService: MessageService) {}

@@ -1,7 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { async, Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterOutlet,
+} from '@angular/router';
+import {
+  BehaviorSubject,
+  Observable,
+  of,
+  Subscription,
+  throwError,
+} from 'rxjs';
+import { catchError, filter } from 'rxjs/operators';
 import { EventService } from '../../services/event/eventservice';
 import { EventDetails } from '../../interfaces/EventDetails';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -13,12 +24,15 @@ import { Gender, GenderEnum } from '../../interfaces/Gender';
 import { EventInfoComponent } from '../../components/event-detail/event-info/event-info.component';
 import { AsyncPipe } from '@angular/common';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
+import { EventRequestService } from '../../services/event/event-request/event-request.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { EventUserRequest } from '../../interfaces/EventUserRequest';
+import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 
 @Component({
   selector: 'app-event-page',
   standalone: true,
   templateUrl: './event-page.component.html',
-  providers: [MessageService, EventService],
   imports: [
     ToastModule,
     RouterOutlet,
@@ -29,14 +43,13 @@ import { AngularRemixIconComponent } from 'angular-remix-icon';
   ],
 })
 export class EventPageComponent implements OnInit {
+  url: string;
   eventId!: string;
   eventDetails!: EventDetails; // Resolved event details
   eventDetails$!: Observable<EventDetails>;
+  eventRequestsHost: EventUserRequest[] = [];
   eventTabMenuItems: MenuItem[] = [];
-  activeTabItem: MenuItem | undefined;
-  isLoggedIn = false;
-  isHost = false;
-  isGuest = false;
+  activeTabItem!: MenuItem;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -44,35 +57,70 @@ export class EventPageComponent implements OnInit {
     private readonly eventService: EventService,
     private readonly translocoService: TranslocoService,
     protected readonly messageService: MessageService,
+    protected readonly eventRequestService: EventRequestService,
+    private auth: AuthService,
   ) {
-    if ((this.eventDetails && this.isHost) || this.isGuest) {
-      this.setupTabs();
-    }
+    this.url = this.router.url;
   }
 
   ngOnInit(): void {
-    this.eventId = this.route.snapshot.paramMap.get('id')!;
-
-    if (this.eventId) {
-      this.eventDetails$ = this.eventService.getEventDetails(this.eventId).pipe(
-        catchError(err => {
-          this.router.navigate(['/404']);
-          return throwError(() => err);
-        }),
-      );
-
-      // Subscribe to resolve details
-      this.eventDetails$.subscribe(async details => {
-        this.eventDetails = details; // Store resolved details
-        this.isHost = true; // Replace with actual data from details when available
-        this.isGuest = false; // Replace with actual data from details when available
-        this.isLoggedIn = true;
-
-        if (this.isHost || this.isGuest) {
-          await this.setupTabs();
-        }
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.url = event.urlAfterRedirects;
       });
+
+    this.eventId = this.route.snapshot.paramMap.get('id')!;
+    if (this.eventId) {
+      // Monitor login state
+
+      this.fetchEventDetails();
     }
+  }
+
+  private fetchEventDetails(): void {
+    this.eventDetails$ = this.eventService.getEventDetails(this.eventId).pipe(
+      catchError(err => {
+        this.router.navigate(['/404']);
+        return throwError(() => err);
+      }),
+    );
+
+    // Subscribe to the event details observable
+    this.eventDetails$.subscribe({
+      next: details => {
+        this.eventDetails = details;
+        if (this.eventDetails.isHost || this.eventDetails.isParticipant) {
+          this.setupTabs();
+          this.fetchEventRequestsHost();
+        }
+      },
+      error: err => {
+        console.error('Error fetching event details:', err);
+        this.router.navigate(['/404']);
+      },
+    });
+  }
+
+  private fetchEventRequestsHost(): void {
+    if (!this.eventId || !this.eventDetails.isHost) {
+      return;
+    }
+
+    this.eventRequestService.getEventHostRequests(this.eventId).subscribe({
+      next: requests => {
+        this.eventRequestsHost = requests;
+      },
+      error: err => {
+        console.error('Error fetching event requests:', err);
+      },
+    });
+  }
+
+  private clearEventState(): void {
+    this.eventDetails = undefined!;
+    this.eventTabMenuItems = [];
+    this.eventRequestsHost = [];
   }
 
   private setupTabs(): void {
@@ -87,7 +135,7 @@ export class EventPageComponent implements OnInit {
             state: { eventDetails: this.eventDetails },
             id: 'infoTab',
             command: () => {
-              this.activeTabItem = this.eventTabMenuItems[0];
+              this.onActiveItemChange(this.eventTabMenuItems[0]);
             },
           },
           {
@@ -97,7 +145,7 @@ export class EventPageComponent implements OnInit {
             state: { eventDetails: this.eventDetails },
             id: 'listTab',
             command: () => {
-              this.activeTabItem = this.eventTabMenuItems[1];
+              this.onActiveItemChange(this.eventTabMenuItems[1]);
             },
           },
           {
@@ -107,14 +155,22 @@ export class EventPageComponent implements OnInit {
             state: { eventDetails: this.eventDetails },
             id: 'surveyTab',
             command: () => {
-              this.activeTabItem = this.eventTabMenuItems[2];
+              this.onActiveItemChange(this.eventTabMenuItems[2]);
             },
           },
         ];
-
-        // Set the initial active tab
-        this.activeTabItem = this.eventTabMenuItems[0];
+        if (this.router.url.includes('/lists')) {
+          this.activeTabItem = this.eventTabMenuItems[1];
+        } else if (this.router.url.includes('/surveys')) {
+          this.activeTabItem = this.eventTabMenuItems[2];
+        } else {
+          this.activeTabItem = this.eventTabMenuItems[0];
+        }
       });
+  }
+
+  protected onActiveItemChange(newActiveItem: MenuItem): void {
+    this.activeTabItem = newActiveItem;
   }
 
   getPreferredGendersString = (preferredGenders: Gender[]): string => {

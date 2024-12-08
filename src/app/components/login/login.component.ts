@@ -39,7 +39,6 @@ type LoginForm = FormGroup<{
     InputIconModule,
     FloatLabelModule,
   ],
-  providers: [MessageService],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {

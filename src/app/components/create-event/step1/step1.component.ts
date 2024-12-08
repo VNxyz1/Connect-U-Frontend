@@ -77,7 +77,7 @@ export class Step1Component implements OnInit, OnDestroy {
 
   private async insertValuesAgain() {
     try {
-      const savedData = await this.eventService.getEventInformation();
+      const savedData = await this.eventService.getEventCreateInformation();
       this.eventType = savedData.type || 1;
       this.eventTitle = savedData.title || '';
       this.description = savedData.description || '';

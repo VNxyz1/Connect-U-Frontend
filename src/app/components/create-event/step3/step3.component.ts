@@ -91,7 +91,7 @@ export class Step3Component implements OnInit {
   }
 
   private async insertValuesAgain() {
-    const step3Data = await this.eventService.getEventInformation();
+    const step3Data = await this.eventService.getEventCreateInformation();
     this.title = step3Data.title || '';
     this.participantsNumber = step3Data.participantsNumber || 2;
     this.preferredGenders = step3Data.preferredGenders || [];

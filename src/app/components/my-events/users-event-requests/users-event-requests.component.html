@@ -1,0 +1,106 @@
+<div class="px-2 container content">
+  <div class="flex justify-content-between align-items-center">
+    <h2 class="">
+      {{ 'myEventPageComponent.guest.your-event-requests' | transloco }}
+    </h2>
+    <span class="color-secondary">
+      {{ eventRequests.length }}
+    </span>
+  </div>
+  @for (r of this.eventRequests; track r) {
+    <p-card class="p-3 cursor-pointer" [routerLink]="['/event/' + r.event.id]">
+      <div
+        class="flex flex-column md:flex-row align-items-start md:align-items-center pr-3">
+        <!-- Image -->
+        <img
+          src="https://via.placeholder.com/100"
+          alt="{{ r.event.title }}-picture"
+          class="mb-3 md:mb-0"
+          style="width: 70px; height: 70px" />
+
+        <!-- Title and Details -->
+        <div class="flex flex-column flex-grow-1 ml-3">
+          <!-- Title and Date -->
+          <div
+            class="justify-content-start align-items-start md:align-items-center">
+            <h3 class="mt-0 mb-0">{{ r.event.title }}</h3>
+            <div class="text-secondary mt-2 md:mt-0">
+              <div class="flex align-items-center gap-1">
+                <rmx-icon
+                  name="calendar-line"
+                  style="width: 16px; height: 16px"
+                  class="mr-1"></rmx-icon>
+                <p class="mt-0 mb-0">
+                  {{
+                    toDate(r.event.dateAndTime)
+                      | translocoDate: { dateStyle: 'short' }
+                  }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Buttons and Arrow -->
+        <div
+          class="flex flex-column md:flex-row gap-2 align-items-center ml-auto mt-3 md:mt-0">
+          <!-- Denied Message -->
+          @if (r.denied) {
+            <span class="text-danger text-center md:text-right mb-2 md:mb-0">
+              {{
+                'myEventPageComponent.requests.your-request-denied' | transloco
+              }}
+            </span>
+          }
+
+          <!-- Delete Request Button -->
+          <p-button
+            [raised]="true"
+            label="{{
+              'myEventPageComponent.requests.delete-request' | transloco
+            }}"
+            (onClick)="deleteEventRequest(r.event.title, r.id, $event)">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                style="width: 16px; height: 16px"
+                name="close-line"></rmx-icon>
+            </ng-template>
+          </p-button>
+
+          <!-- Try Again or Pending Button -->
+          @if (r.denied) {
+            <p-button
+              [raised]="true"
+              label="{{
+                'myEventPageComponent.requests.try-again' | transloco
+              }}"
+              severity="success"
+              (onClick)="
+                createNewEventRequest(r.event.title, r.event.id, $event)
+              ">
+            </p-button>
+          } @else {
+            <p-button
+              [raised]="true"
+              label="{{ 'myEventPageComponent.requests.pending' | transloco }}"
+              disabled
+              severity="success">
+              <ng-template pTemplate="icon">
+                <rmx-icon
+                  style="width: 16px; height: 16px"
+                  name="hourglass-fill"></rmx-icon>
+              </ng-template>
+            </p-button>
+          }
+
+          <!-- Arrow Icon -->
+          <rmx-icon
+            name="arrow-right-s-line"
+            style="height: 26px; width: 26px"
+            class="cursor-pointer">
+          </rmx-icon>
+        </div>
+      </div>
+    </p-card>
+  }
+</div>

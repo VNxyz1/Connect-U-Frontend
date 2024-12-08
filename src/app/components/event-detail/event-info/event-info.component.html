@@ -119,82 +119,198 @@
             class="mr-1" />
         </div>
       </p-card>
+
+      <div class="">
+        @if (
+          eventDetails && eventRequestsHost.length > 0 && eventDetails.isHost
+        ) {
+          <p-card
+            class="p-3 cursor-pointer"
+            [routerLink]="['requests']"
+            [relativeTo]="route">
+            <div class="flex flex-column justify-content-between h-full">
+              <!-- Top Section: Header and Count -->
+              <div class="flex justify-content-between align-items-center mb-2">
+                <!-- Header Section (Left Top) -->
+                <h3 class="mt-0 mb-0">
+                  {{ 'eventDetailPageComponent.requests.title' | transloco }}
+                </h3>
+                <!-- Request Count (Right Top, Aligned with Header) -->
+                <span class="color-secondary text-center w-2rem">{{
+                  this.eventRequestsHost.length
+                }}</span>
+              </div>
+
+              <!-- Bottom Section -->
+              <div class="flex justify-content-between align-items-center">
+                <!-- Profile Pictures (Left Bottom) -->
+                <div class="flex">
+                  @for (r of this.eventRequestsHost; track r) {
+                    @if (r.user.imageUrl) {
+                      <img
+                        [src]="'/path/to/profile/pictures/' + r.user.imageUrl"
+                        alt="{{ r.user.username }}"
+                        class="profile-picture"
+                        style="
+                          width: 3em;
+                          height: 3em;
+                          border-radius: 50%;
+                          margin-right: -5px;
+                          border: 2px solid white;
+                        " />
+                    } @else {
+                      <img
+                        src="https://via.placeholder.com/100"
+                        alt="{{ r.user.username }}"
+                        class="profile-picture"
+                        style="
+                          width: 3em;
+                          height: 3em;
+                          border-radius: 50%;
+                          margin-right: -5px;
+                          border: 2px solid white;
+                        " />
+                    }
+                  }
+                </div>
+                <!-- Icon (Bottom Right) -->
+                <div class="flex align-items-right">
+                  <rmx-icon
+                    name="arrow-right-s-line"
+                    style="height: 26px; width: 26px"
+                    class="ml-2">
+                  </rmx-icon>
+                </div>
+              </div>
+            </div>
+          </p-card>
+        }
+      </div>
+
       @if (
         eventDetails.startAge ||
         eventDetails.endAge ||
         eventDetails.preferredGenders.length > 0
       ) {
-        <p class="p-1"></p>
-        <p-card styleClass="p-mb-3">
-          <h3>{{ 'eventDetailPageComponent.restrictions' | transloco }}</h3>
-          <div class="grid">
-            <div class="col">
-              @if (eventDetails.preferredGenders.length > 0) {
-                <p class="pb-3 color-secondary">
-                  {{ 'eventDetailPageComponent.gender' | transloco }}
+        <div class="mt-3">
+          <p-card styleClass="mb-3">
+            <h3>{{ 'eventDetailPageComponent.restrictions' | transloco }}</h3>
+            <div class="grid">
+              <div class="col">
+                @if (eventDetails.preferredGenders.length > 0) {
+                  <p class="pb-3 color-secondary">
+                    {{ 'eventDetailPageComponent.gender' | transloco }}
+                  </p>
+                }
+                @if (eventDetails.startAge || eventDetails.endAge) {
+                  <p class="color-secondary">
+                    {{ 'eventDetailPageComponent.age' | transloco }}
+                  </p>
+                }
+              </div>
+              <div class="col">
+                @if (eventDetails.preferredGenders.length > 0) {
+                  <p class="pb-3">
+                    {{
+                      getPreferredGendersString(eventDetails.preferredGenders)
+                    }}
+                  </p>
+                }
+                <p>
+                  {{
+                    eventDetails.startAge
+                      ? ('eventDetailPageComponent.from' | transloco) +
+                        ' ' +
+                        eventDetails.startAge +
+                        ' ' +
+                        ('eventDetailPageComponent.years1' | transloco)
+                      : ''
+                  }}
                 </p>
-              }
-              @if (eventDetails.startAge || eventDetails.endAge) {
-                <p class="color-secondary">
-                  {{ 'eventDetailPageComponent.age' | transloco }}
+                <p>
+                  {{
+                    eventDetails.endAge
+                      ? ('eventDetailPageComponent.to' | transloco) +
+                        ' ' +
+                        eventDetails.endAge +
+                        ' ' +
+                        ('eventDetailPageComponent.years2' | transloco)
+                      : ''
+                  }}
                 </p>
-              }
+              </div>
             </div>
-            <div class="col">
-              @if (eventDetails.preferredGenders.length > 0) {
-                <p class="pb-3">
-                  {{ getPreferredGendersString(eventDetails.preferredGenders) }}
-                </p>
-              }
-              <p>
-                {{
-                  eventDetails.startAge
-                    ? ('eventDetailPageComponent.from' | transloco) +
-                      ' ' +
-                      eventDetails.startAge +
-                      ' ' +
-                      ('eventDetailPageComponent.years1' | transloco)
-                    : ''
-                }}
-              </p>
-              <p>
-                {{
-                  eventDetails.endAge
-                    ? ('eventDetailPageComponent.to' | transloco) +
-                      ' ' +
-                      eventDetails.endAge +
-                      ' ' +
-                      ('eventDetailPageComponent.years2' | transloco)
-                    : ''
-                }}
-              </p>
-            </div>
-          </div>
-        </p-card>
+          </p-card>
+        </div>
       }
     </div>
     <div class="mt-3 col-12 lg:col-fixed lg:w-max">
-      <div class="flex justify-content-end md:flex-none xl:fixed">
-        <p-button class="mr-2" [raised]="true" severity="info">
+      <div class="flex gap-1 justify-content-end md:flex-none xl:fixed">
+        <p-button class="" [raised]="true" severity="info">
           <ng-template pTemplate="icon">
             <rmx-icon
               style="width: 16px; height: 16px"
               name="heart-3-line"></rmx-icon>
           </ng-template>
         </p-button>
-        <p-button
-          [raised]="true"
-          [label]="
-            eventDetails.type === 1
-              ? ('eventDetailPageComponent.join' | transloco)
-              : eventDetails.type === 2
-                ? ('eventDetailPageComponent.request' | transloco)
-                : ('eventDetailPageComponent.privateEvent' | transloco)
-          "
-          [disabled]="eventDetails.type === 3"
-          severity="success"
-          (click)="handleButtonClick(eventDetails.type)">
-        </p-button>
+        @if (
+          eventDetails && (eventDetails.isHost || eventDetails.isParticipant)
+        ) {
+          <!-- TODO Event absagen / Teilnahme löschen-->
+        } @else if (userRequest) {
+          <!-- Responsive Container -->
+          <div
+            class="flex flex-wrap lg:flex-column gap-2 align-items-center justify-content-center">
+            <!-- Delete Request Button -->
+            <p-button
+              [raised]="true"
+              label="{{
+                'myEventPageComponent.requests.delete-request' | transloco
+              }}"
+              (onClick)="deleteEventRequest(userRequest.id, $event)">
+              <ng-template pTemplate="icon">
+                <rmx-icon
+                  style="width: 16px; height: 16px"
+                  name="close-line"></rmx-icon>
+              </ng-template>
+            </p-button>
+            <!-- Try Again / Pending Request Button -->
+            <p-button
+              [raised]="true"
+              [label]="
+                userRequest.denied
+                  ? ('myEventPageComponent.requests.try-again' | transloco)
+                  : ('eventDetailPageComponent.request-pending' | transloco)
+              "
+              severity="success"
+              [disabled]="!userRequest.denied"
+              (click)="handleButtonClick(eventDetails.type)">
+              @if (!userRequest.denied) {
+                <ng-template pTemplate="icon">
+                  <rmx-icon
+                    style="width: 16px; height: 16px"
+                    name="hourglass-fill"></rmx-icon>
+                </ng-template>
+              }
+            </p-button>
+          </div>
+        } @else {
+          <p-button
+            [raised]="true"
+            [label]="
+              eventDetails.type === 1 && !eventDetails.isParticipant
+                ? ('eventDetailPageComponent.join' | transloco)
+                : eventDetails.type === 2
+                  ? ('eventDetailPageComponent.request' | transloco)
+                  : eventDetails.type === 3
+                    ? ('eventDetailPageComponent.privateEvent' | transloco)
+                    : ''
+            "
+            [disabled]="eventDetails.type === 3"
+            severity="success"
+            (click)="handleButtonClick(eventDetails.type)">
+          </p-button>
+        }
       </div>
     </div>
     <div class="xl:col-5"></div>
