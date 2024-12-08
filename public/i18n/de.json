@@ -669,6 +669,11 @@
       "location": "Adresse",
       "userData": "Nutzerdaten"
     },
+    "information": {
+      "title": "Geschlecht ändern?",
+      "text": "Falls du dein Geschlecht geändert hast, dann schreibe uns eine Nachricht über unseren Support. Wir werden uns um die Änderung so schnell wie möglich kümmern.",
+      "team": "Dein Connect-U Team"
+    },
     "placeholder": {
       "username": "Benutzername",
       "email": "E-Mail-Adresse",

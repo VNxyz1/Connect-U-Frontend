@@ -670,6 +670,11 @@
       "location": "Address",
       "userData": "User Data"
     },
+    "information": {
+      "title": "Change Gender?",
+      "text": "If you have changed your gender, please send us a message through our support. We will handle the change as quickly as possible.",
+      "team": "Your Connect-U Team"
+    },
     "placeholder": {
       "username": "Username",
       "email": "Email Address",

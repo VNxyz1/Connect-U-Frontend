@@ -20,6 +20,7 @@ import { MessageService } from 'primeng/api';
 import { PasswordModule } from 'primeng/password';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { ToastModule } from 'primeng/toast';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-account-manage-page',
@@ -36,6 +37,7 @@ import { ToastModule } from 'primeng/toast';
     PasswordModule,
     AngularRemixIconComponent,
     ToastModule,
+    TooltipModule,
   ],
 })
 export class AccountManagePageComponent implements OnInit {

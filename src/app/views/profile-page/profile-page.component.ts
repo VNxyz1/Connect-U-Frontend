@@ -81,7 +81,11 @@ export class ProfilePageComponent implements OnInit {
   fetchData(): void {
     this.profileData$ = this.userService.getSpecificUserData(this.userId).pipe(
       map(data => {
-        this.isUser = data.isUser; // Setzt den `isUser`-Wert
+        this.isUser = data.isUser;
+        this.form.patchValue({
+          pronouns: data.pronouns || '',
+          profileText: data.profileText || '',
+        });
         return data;
       }),
     );

@@ -156,12 +156,39 @@
               'accountPage.placeholder.gender' | transloco
             }}</label>
           </p-floatLabel>
+          <p-button
+            [rounded]="true"
+            [text]="true"
+            [pTooltip]="tooltipContent"
+            tooltipPosition="bottom"
+            severity="secondary">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                class="mr-2"
+                style="width: 22px; height: 22px"
+                name="information-2-line">
+              </rmx-icon>
+            </ng-template>
+          </p-button>
+          <ng-template #tooltipContent>
+            <div class="flex align-items-center">
+              <span>
+                <strong
+                  >{{ 'accountPage.information.title' | transloco }}:</strong
+                >
+                {{ 'accountPage.information.text' | transloco }}
+                <strong>
+                  {{ 'accountPage.information.team' | transloco }}
+                </strong>
+              </span>
+            </div>
+          </ng-template>
         </div>
 
         <!-- Passwort ändern Button -->
         <div class="field flex justify-content-end mt-4">
           <p-button
-            label="Passwort ändern"
+            label="{{ 'accountPage.button.password' | transloco }}"
             severity="secondary"
             (click)="showPasswordModal()"></p-button>
         </div>
