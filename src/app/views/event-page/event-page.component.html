@@ -29,8 +29,7 @@
 @if (
   eventDetails &&
   (activeTabItem?.id == 'infoTab' ||
-    !eventDetails.isHost ||
-    !eventDetails.isParticipant) &&
+    (!eventDetails.isHost && !eventDetails.isParticipant)) &&
   !url.includes('/requests') &&
   !url.includes('/guests')
 ) {

@@ -49,7 +49,7 @@ export class EventPageComponent implements OnInit, OnDestroy {
   eventDetails$!: Observable<EventDetails>;
   eventRequestsHost: EventUserRequest[] = [];
   eventTabMenuItems: MenuItem[] = [];
-  activeTabItem: MenuItem | undefined;
+  activeTabItem!: MenuItem | undefined;
 
   constructor(
     private readonly route: ActivatedRoute,
