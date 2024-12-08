@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription, throwError } from 'rxjs';
 import { catchError, filter } from 'rxjs/operators';
 import { EventService } from '../../services/event/eventservice';
 import { EventDetails } from '../../interfaces/EventDetails';
@@ -16,6 +16,7 @@ import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { EventRequestService } from '../../services/event/event-request/event-request.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { EventUserRequest } from '../../interfaces/EventUserRequest';
+import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 
 @Component({
   selector: 'app-event-page',
@@ -30,7 +31,7 @@ import { EventUserRequest } from '../../interfaces/EventUserRequest';
     AngularRemixIconComponent,
   ],
 })
-export class EventPageComponent implements OnInit {
+export class EventPageComponent implements OnInit, OnDestroy {
   url: string = '';
   eventId!: string;
   eventDetails!: EventDetails; // Resolved event details
@@ -38,7 +39,7 @@ export class EventPageComponent implements OnInit {
   eventRequestsHost: EventUserRequest[] = [];
   eventTabMenuItems: MenuItem[] = [];
   activeTabItem: MenuItem | undefined;
-  protected hasRequest = false;
+
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -48,26 +49,18 @@ export class EventPageComponent implements OnInit {
     protected readonly messageService: MessageService,
     protected readonly eventRequestService: EventRequestService,
     private auth: AuthService,
-  ) {
-    if (this.eventId) {
-      this.fetchEventDetails();
-    }
-  }
+  ) {}
 
   ngOnInit(): void {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
       this.url = event.urlAfterRedirects;
     });
 
-    // Initial URL setting
-    this.url = this.router.url;
     this.eventId = this.route.snapshot.paramMap.get('id')!;
-
     if (this.eventId) {
       // Monitor login state
       this.auth.isLoggedIn().subscribe({
         next: (loggedIn) => {
-          console.log('Login status changed:', loggedIn);
           if (loggedIn) {
             this.fetchEventDetails();
           } else {
@@ -76,13 +69,11 @@ export class EventPageComponent implements OnInit {
         },
         error: (err) => console.error('Error checking login status:', err),
       });
-
-      // Initial fetch if logged in
     }
+
   }
 
   private fetchEventDetails(): void {
-    console.log('Fetching event details...');
     this.eventDetails$ = this.eventService.getEventDetails(this.eventId).pipe(
       catchError((err) => {
         this.router.navigate(['/404']);
@@ -90,39 +81,41 @@ export class EventPageComponent implements OnInit {
       }),
     );
 
-    this.eventDetails$.subscribe(async (details) => {
-      console.log('Event details loaded:', details);
-
-      this.eventDetails = details; // Store resolved details
-
-      if (this.eventDetails.isHost || this.eventDetails.isParticipant) {
-        this.setupTabs();
-        this.fetchEventRequestsHost();
-      }
+    // Subscribe to the event details observable
+    this.eventDetails$.subscribe({
+      next: (details) => {
+        this.eventDetails = details;
+        if (this.eventDetails.isHost || this.eventDetails.isParticipant) {
+          this.setupTabs();
+          this.fetchEventRequestsHost();
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching event details:', err);
+        this.router.navigate(['/404']);
+      },
     });
   }
 
   private fetchEventRequestsHost(): void {
     if (!this.eventId || !this.eventDetails.isHost) {
-      console.error('Event ID is required to fetch requests.');
       return;
     }
 
     this.eventRequestService.getEventHostRequests(this.eventId).subscribe({
-      next: requests => {
+      next: (requests) => {
         this.eventRequestsHost = requests;
       },
-      error: err => {
+      error: (err) => {
         console.error('Error fetching event requests:', err);
       },
     });
   }
 
   private clearEventState(): void {
-    // Clear event state on logout or user change
     this.eventDetails = undefined!;
-    this.hasRequest = false;
     this.eventTabMenuItems = [];
+    this.eventRequestsHost = [];
   }
 
   private setupTabs(): void {
@@ -159,8 +152,6 @@ export class EventPageComponent implements OnInit {
           },
         },
       ];
-
-      // Set the initial active tab
       this.activeTabItem = this.eventTabMenuItems[0];
     });
   }
@@ -188,4 +179,8 @@ export class EventPageComponent implements OnInit {
       .filter(Boolean)
       .join(', ');
   };
+
+  ngOnDestroy(): void {
+
+  }
 }

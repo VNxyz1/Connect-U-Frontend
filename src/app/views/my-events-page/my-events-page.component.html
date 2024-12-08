@@ -27,7 +27,7 @@
             (hasEventsChange)="updateHasEvents($event)"
             [filters]="selectedCategories"
             [hasRequests]="eventRequests.length > 0"/>
-        } @else if (eventRequests.length > 0) {
+        } @else  {
           <app-users-event-requests
             [eventRequests]="eventRequests"/>
         }

@@ -22,7 +22,7 @@
 }
 
 <!-- Display the event info if not logged in or not a participant -->
-@if (eventDetails$ && (activeTabItem?.id == 'infoTab' || !eventDetails.isHost || !eventDetails.isParticipant) && !url.includes('/requests') && !url.includes('/guests')) {
+@if (eventDetails && (activeTabItem?.id == 'infoTab' || !eventDetails.isHost || !eventDetails.isParticipant) && !url.includes('/requests') && !url.includes('/guests')) {
   <app-event-info
     [eventDetails]="eventDetails$"
     [getPreferredGendersString]="getPreferredGendersString"

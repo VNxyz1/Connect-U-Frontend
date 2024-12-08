@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, map, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../../storage/storage.service';
@@ -49,6 +49,28 @@ export class EventRequestService {
         return throwError(() => err);
       })
     )
+  }
+
+  private userRequestSubject = new BehaviorSubject<UsersEventRequest | null>(null);
+
+  getUserRequestForEvent(eventId: string): Observable<UsersEventRequest | null> {
+    const url = `request/join/user`;
+    return this.http.get<UsersEventRequest[]>(url).pipe(
+      map((requests: UsersEventRequest[]) => {
+        const matchingRequest = requests.find(request => request.event.id === eventId);
+        this.userRequestSubject.next(matchingRequest || null); // Update the subject
+        return matchingRequest || null;
+      }),
+      catchError(err => {
+        console.error('Error fetching user requests:', err);
+        this.userRequestSubject.next(null);
+        return throwError(() => err);
+      })
+    );
+  }
+
+  observeUserRequest(): Observable<UsersEventRequest | null> {
+    return this.userRequestSubject.asObservable();
   }
 
   /**

@@ -19,6 +19,8 @@ import { RegisterComponent } from '../../register/register.component';
 import { AuthService } from '../../../services/auth/auth.service';
 import { EventRequestService } from '../../../services/event/event-request/event-request.service';
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
+import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
+import { AsyncPipe } from '@angular/common';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -52,9 +54,13 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     LoginComponent,
     RegisterComponent,
     RouterLink,
+    AsyncPipe,
   ],
 })
 export class EventInfoComponent implements OnInit, OnDestroy {
+
+  userRequest: UsersEventRequest | null = null;
+  private userRequestSubscription!: Subscription;
   @Input() eventRequestsHost: EventUserRequest[] = [];
   @Input()
   set eventDetails(value: Observable<EventDetails> | EventDetails) {
@@ -86,7 +92,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     if (!this._eventDetails) {
       throw new Error('Event details are not yet loaded.');
     }
-    console.log('isHost: ' + this._eventDetails.isHost);
     return this._eventDetails;
   }
 
@@ -110,9 +115,28 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     }
   }
 
+  private fetchUserRequest(): void {
+    if (!this.eventId) {
+      return;
+    }
+
+    this.userRequestSubscription = this.eventRequestService
+      .getUserRequestForEvent(this.eventId)
+      .subscribe({
+        next: (request) => {
+          this.userRequest = request;
+        },
+        error: (err) => {
+          console.error('Error fetching user request:', err);
+          this.userRequest = null; // Reset in case of error
+        },
+      });
+  }
+
   ngOnDestroy(): void {
     // Clean up subscriptions
     this._eventDetailsSubscription?.unsubscribe();
+    this.userRequestSubscription.unsubscribe();
   }
 
   private handleEventDetailsInput(
@@ -135,6 +159,9 @@ export class EventInfoComponent implements OnInit, OnDestroy {
           } else {
             this._eventDetails = this.transformEventDetails(details);
             this.isLoading = false;
+            if (!this.eventDetails.isHost) {
+              this.fetchUserRequest();
+            }
           }
         },
         error: err => {
@@ -158,6 +185,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
    */
   private transformEventDetails(details: EventDetails): EventDetails {
     // Perform any transformations on the details here
+    console.log("details", details);
     return details;
   }
 
@@ -185,6 +213,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
             'eventDetailPageComponent.joined',
           ),
         });
+        this.fetchUserRequest();
       },
       error: err => this.handleError(err),
     });
@@ -200,6 +229,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
               'eventDetailPageComponent.requestSent',
             ),
           });
+          this.fetchUserRequest();
         },
         error: err => this.handleError(err),
       });
@@ -221,5 +251,24 @@ export class EventInfoComponent implements OnInit, OnDestroy {
 
   toggleLoginRegisterSwitch() {
     this.loginRegisterSwitch = !this.loginRegisterSwitch;
+  }
+
+  deleteEventRequest(id: number, $e: MouseEvent) {
+    $e.stopPropagation();
+    this.eventRequestService.deleteUserRequest(id).subscribe({
+      next: () => {
+        // Filter out the deleted request
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translocoService.translate(
+            'eventDetailPageComponent.request-deleted',
+          ),
+        });
+        this.fetchUserRequest();
+      },
+      error: (err) => {
+        console.error('Error deleting request:', err);
+      },
+    });
   }
 }

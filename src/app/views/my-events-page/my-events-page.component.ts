@@ -71,6 +71,7 @@ export class MyEventsPageComponent implements OnInit {
               private readonly eventRequestService: EventRequestService,
               private readonly translocoService: TranslocoService) {
     this.setupTabItems();
+    this.currentUrl = this.router.url;
   }
 
   ngOnInit() {

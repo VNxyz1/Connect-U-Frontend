@@ -235,7 +235,13 @@
     "error": "An error occurred.",
     "join": "Join Event",
     "request": "Request Event",
-    "requests": "Requests",
+    "request-pending": "Request pending",
+    "request-deleted": "Your request was deleted.",
+    "requests": {
+      "title": "Requests",
+      "accepted-request": "The request from \"{{name}}\" was accepted!",
+      "denied-request": "The request from \"{{name}}\" was denied."
+    },
     "notExist": "It seems like the event you were looking for doesn't exist!",
       "eventNotFound": "The event you are looking for does not exist.",
       "userIsHost": "You are the host of this event and cannot join it.",
@@ -305,7 +311,9 @@
     "requests": {
       "pending": "pending",
       "your-request-denied": "Your request was denied.",
-      "try-again": "Request again"
+      "try-again": "Request again",
+      "new-request": "New request for event \"{{title}}\" sent!",
+      "deleted-request": "Request for event \"{{title}}\" deleted."
     }
   },
   "privacyPolicy": {

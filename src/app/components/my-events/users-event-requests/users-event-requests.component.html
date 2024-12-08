@@ -35,7 +35,7 @@
         </span>
             }
             <div class="flex align-items-center gap-2 w-full">
-              <p-button [raised]="true" (onClick)="deleteEventRequest(r.id, $event)">
+              <p-button [raised]="true" (onClick)="deleteEventRequest(r.event.title, r.id, $event)">
                 <ng-template pTemplate="icon">
                   <rmx-icon
                     style="width: 16px; height: 16px"
@@ -46,13 +46,13 @@
                 <p-button
                   [raised]="true"
                   label="{{ 'myEventPageComponent.requests.try-again' | transloco }}"
-                  severity="success" (onClick)="createNewEventRequest(r.event.id, $event)" />
+                  severity="success" (onClick)="createNewEventRequest(r.event.title, r.event.id, $event)" />
               } @else {
                 <p-button [raised]="true" label="{{ 'myEventPageComponent.requests.pending' | transloco }}" disabled severity="success" class="z-5">
                   <ng-template pTemplate="icon">
                     <rmx-icon
                       style="width: 16px; height: 16px"
-                      name="hourglass-line"></rmx-icon>
+                      name="hourglass-fill"></rmx-icon>
                   </ng-template>
                 </p-button>
               }

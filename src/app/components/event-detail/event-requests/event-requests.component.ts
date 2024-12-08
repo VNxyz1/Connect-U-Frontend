@@ -2,10 +2,11 @@ import { Component, Input } from '@angular/core';
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { CardModule } from 'primeng/card';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { EventRequestService } from '../../../services/event/event-request/event-request.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-event-requests',
@@ -27,7 +28,9 @@ export class EventRequestsComponent {
   constructor(
     private eventRequestService: EventRequestService,
     private route : ActivatedRoute,
-    private router : Router) {
+    private router : Router,
+    private messageService: MessageService,
+    private translocoService: TranslocoService,) {
     if (this.route.snapshot.paramMap.get('id')!) {
       this.eventId = this.route.snapshot.paramMap.get('id')!;
     } else {
@@ -49,7 +52,7 @@ export class EventRequestsComponent {
     });
   }
 
-  protected denyRequest(requestId: number, e: MouseEvent): void {
+  protected denyRequest(username: string, requestId: number, e: MouseEvent): void {
     e.stopPropagation();
     this.eventRequestService.denyUserRequest(requestId).subscribe({
       next: () => {
@@ -57,6 +60,13 @@ export class EventRequestsComponent {
         this.eventRequests = this.eventRequests.filter(
           (request) => request.id !== requestId
         );
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translocoService.translate(
+            'eventDetailPageComponent.requests.denied-request',
+            { name: username }
+          ),
+        });
       },
       error: (err) => {
         console.error('Error denying request:', err);
@@ -64,7 +74,7 @@ export class EventRequestsComponent {
     });
   }
 
-  protected acceptRequest(requestId: number, e: MouseEvent): void {
+  protected acceptRequest(username: string, requestId: number, e: MouseEvent): void {
     e.stopPropagation();
     this.eventRequestService.acceptUserRequest(requestId).subscribe({
       next: () => {
@@ -72,6 +82,13 @@ export class EventRequestsComponent {
         this.eventRequests = this.eventRequests.filter(
           (request) => request.id !== requestId
         );
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translocoService.translate(
+            'eventDetailPageComponent.requests.accepted-request',
+            { name: username }
+          ),
+        });
       },
       error: (err) => {
         console.error('Error accepting request:', err);
