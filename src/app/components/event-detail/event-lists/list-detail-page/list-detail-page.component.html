@@ -1,1 +1,4 @@
 <p>list-detail-page works!</p>
+@if (listDetail$ | async; as listDetail) {
+  {{ listDetail.id }}
+}
