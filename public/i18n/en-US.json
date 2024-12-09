@@ -745,6 +745,9 @@
       "oldPassword": "Current Password",
       "newPassword": "New Password",
       "confirmPassword": "Repeat New Password",
+      "errorTitle": "Change Password went wrong",
+      "missMatchError": "your new passwords does not match",
+      "wrongPassword": "Your old password is incorrect",
       "warnings": {
         "oldPasswordRequired": "You must enter your current password!",
         "newPasswordMinLength": "Your new password must have at least 8 characters",

@@ -187,13 +187,12 @@ export class AccountManagePageComponent implements OnInit {
         formValue.newPasswordConfirm !== undefined
           ? formValue.newPasswordConfirm
           : '';
-
       if (newPassword !== newPasswordConfirm) {
         this.messageService.add({
           severity: 'error',
-          summary: this.translocoService.translate('passwordChange.errorTitle'),
+          summary: this.translocoService.translate('accountPage.passwordForm.errorTitle'),
           detail: this.translocoService.translate(
-            'passwordChange.mismatchError',
+            'accountPage.passwordForm.missMatchError',
           ),
         });
         return;
@@ -220,14 +219,20 @@ export class AccountManagePageComponent implements OnInit {
           this.passwordForm.reset();
         },
         error: err => {
+          let detailMessage = this.translocoService.translate('');
+          if (err.status === 404) {
+            if (err.error.message === 'Old password does not match') {
+              detailMessage = this.translocoService.translate(
+                'accountPage.passwordForm.wrongPassword',
+              );
+            }
+          }
           this.messageService.add({
             severity: 'error',
             summary: this.translocoService.translate(
-              'passwordChange.errorTitle',
+              'accountPage.passwordForm.errorTitle',
             ),
-            detail:
-              err.message ||
-              this.translocoService.translate('passwordChange.genericError'),
+            detail: detailMessage,
           });
           console.error('Error updating password:', err);
         },

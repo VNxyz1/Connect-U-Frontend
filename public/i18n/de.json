@@ -744,6 +744,9 @@
       "oldPassword" : "Aktuelles Passwort",
       "newPassword": "Neues Passwort",
       "confirmPassword": "Neues Passwort wiederholen",
+      "errorTitle": "Passwort ändern Fehlgeschlagen",
+      "missMatchError": "Die Passwörter stimmen nicht über ein",
+      "wrongPassword": "Dein eingegebenes Passwort ist falsch",
       "warnings": {
         "oldPasswordRequired": "Du musst dein aktuelles Passwort angeben!",
         "newPasswordMinLength": "Dein neues Passwort benötigt mind. 8 Zeichen",
