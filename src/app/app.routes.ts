@@ -18,6 +18,8 @@ import { LegalDisclosurePageComponent } from './views/legal-disclosure-page/lega
 import { PrivacyPolicyPageComponent } from './views/privacy-policy-page/privacy-policy-page.component';
 import { EventListsComponent } from './components/event-detail/event-lists/event-lists.component';
 import { EventSurveysComponent } from './components/event-detail/event-surveys/event-surveys.component';
+import { EventRequestsComponent } from './components/event-detail/event-requests/event-requests.component';
+import { UsersEventRequestsComponent } from './components/my-events/users-event-requests/users-event-requests.component';
 import { SettingsPageComponent } from './views/settings-page/settings-page.component';
 import { AccountManagePageComponent } from './views/account-manage-page/account-manage-page.component';
 
@@ -68,6 +70,7 @@ export const routes: Routes = [
     title: 'My Events | Connect-U',
     component: MyEventsPageComponent,
     canActivate: [isLoggedInGuard],
+    children: [{ path: 'my-requests', component: UsersEventRequestsComponent }],
   },
   {
     path: 'my-space',
@@ -82,6 +85,7 @@ export const routes: Routes = [
     children: [
       { path: 'lists', component: EventListsComponent },
       { path: 'surveys', component: EventSurveysComponent },
+      { path: 'requests', component: EventRequestsComponent },
     ],
   },
   {

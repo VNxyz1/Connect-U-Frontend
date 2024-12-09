@@ -39,7 +39,6 @@ type LoginForm = FormGroup<{
     InputIconModule,
     FloatLabelModule,
   ],
-  providers: [MessageService],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
@@ -78,7 +77,11 @@ export class LoginComponent {
         password: this.form.controls.password.value,
       })
       .subscribe({
-        next: () => this.router.navigateByUrl(this.redirectTo),
+        next: () => {
+          this.router
+            .navigateByUrl(this.redirectTo)
+            .then(() => window.location.reload());
+        },
         error: err => {
           this.showError(err.status);
         },
