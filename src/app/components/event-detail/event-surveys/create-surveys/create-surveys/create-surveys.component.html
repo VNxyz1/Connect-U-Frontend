@@ -1,30 +1,128 @@
-<p-button
-  (onClick)="showDialog()"
-  [label]="'eventSurveysPage.createSurvey.button' | transloco"
-  raised
-  severity="success"
-/>
-<p-dialog
-  [header]="'eventSurveysPage.createSurvey.'|transloco"
-  [modal]="true"
-  closable
-  [(visible)]="visible"
-  [style]="{width: '25rem'}">
-  <form
-    autocomplete="off"
-    class="py-3"
-  >
-    <div class="field w-full">
-      <p-floatLabel>
-        <input
-          type="text"
-          id="title"
-          pInputText
-          formControlName="title"
-          maxlength="100"
-        ><label for="title">title</label>
-      </p-floatLabel>
-    </div>
-  </form>
+<div class="p-fluid">
+    <!-- Umfrage erstellen Button -->
+    <p-button
+            label="Umfrage erstellen"
+            severity="success"
+            (click)="openDialog()"
+            class="p-button-raised p-button-primary"
+    ></p-button>
 
-</p-dialog>
+    <!-- Dialog -->
+    <p-dialog
+            header="Umfrage erstellen"
+            [(visible)]="displayDialog"
+            [modal]="true"
+            [style]="{ width: '400px', height: '600px' }"
+            [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
+            [closable]="true"
+            (onHide)="closeDialog()"
+    >
+        <form [formGroup]="surveyForm" (ngSubmit)="submitSurvey()">
+            <!-- Titel -->
+            <div class="field">
+                <p-floatLabel>
+                    <input
+                            id="title"
+                            type="text"
+                            pInputText
+                            formControlName="title"
+                            class="w-full"
+                    />
+                    <label for="title">Titel</label>
+                </p-floatLabel>
+            </div>
+
+            <!-- Beschreibung -->
+            <div class="field">
+                <p-floatLabel>
+          <textarea
+                  id="description"
+                  rows="3"
+                  cols="30"
+                  pInputTextarea
+                  formControlName="description"
+                  class="w-full"
+          ></textarea>
+                    <label for="description">Beschreibung</label>
+                </p-floatLabel>
+            </div>
+
+            <!-- Items -->
+            <div class="field">
+                <h4>Items</h4>
+                <div class="flex align-items-start">
+                    <!-- Scrollbarer Bereich -->
+                    <div
+                            class="overflow-auto col-10"
+                            style="max-height: 150px; border: 1px solid #ddd; border-radius: 5px; padding: 10px;"
+                    >
+                        @for (item of items.controls; track $index) {
+                            <div class="flex align-items-center mb-2">
+                                <p-button
+                                        type="button"
+                                        severity="danger"
+                                        class="mr-2"
+                                        (click)="removeItem($index)"
+                                >
+                                    <ng-template pTemplate="icon">
+                                        <rmx-icon name="delete-bin-line"></rmx-icon>
+                                    </ng-template>
+                                </p-button>
+                                <span>{{ item.value }}</span>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- "+" Button -->
+                    @if (!showItemInput) {
+                        <div class="ml-2">
+                            <p-button
+                                    type="button"
+                                    class="border-circle border-round"
+                                    severity="success"
+                                    (click)="toggleItemInput()"
+                            >
+                                <ng-template pTemplate="icon">
+                                    <rmx-icon name="add-line"></rmx-icon>
+                                </ng-template>
+                            </p-button>
+                        </div>
+                    }
+                </div>
+
+                <!-- Neues Item Hinzufügen -->
+                @if (showItemInput) {
+                    <div class="flex align-items-center mt-3">
+                        <input
+                                type="text"
+                                pInputText
+                                maxlength="60"
+                                [formControl]="newItem"
+                                placeholder="Neues Item"
+                                class="flex-grow-1"
+                        />
+                        <p-button
+                                type="button"
+                                severity="success"
+                                class="p-button-rounded ml-2"
+                                (click)="addItem()"
+                        >
+                            <ng-template pTemplate="icon">
+                                <rmx-icon name="check-line"></rmx-icon>
+                            </ng-template>
+                        </p-button>
+                    </div>
+                }
+            </div>
+
+            <!-- Speichern -->
+            <div class="flex justify-content-end mt-3">
+                <p-button
+                        label="Erstellen"
+                        type="submit"
+                        class="p-button-raised p-button-primary"
+                ></p-button>
+            </div>
+        </form>
+    </p-dialog>
+</div>
