@@ -1,0 +1,30 @@
+<p-button
+  (onClick)="showDialog()"
+  [label]="'eventSurveysPage.createSurvey.button' | transloco"
+  raised
+  severity="success"
+/>
+<p-dialog
+  [header]="'eventSurveysPage.createSurvey.'|transloco"
+  [modal]="true"
+  closable
+  [(visible)]="visible"
+  [style]="{width: '25rem'}">
+  <form
+    autocomplete="off"
+    class="py-3"
+  >
+    <div class="field w-full">
+      <p-floatLabel>
+        <input
+          type="text"
+          id="title"
+          pInputText
+          formControlName="title"
+          maxlength="100"
+        ><label for="title">title</label>
+      </p-floatLabel>
+    </div>
+  </form>
+
+</p-dialog>
