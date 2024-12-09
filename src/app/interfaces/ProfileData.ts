@@ -14,5 +14,5 @@ export interface ProfileData {
   profileText: string;
   gender: number;
   isUser?: boolean;
-  //imageUrl: string; not impl. atm
+  imageUrl: string;
 }
