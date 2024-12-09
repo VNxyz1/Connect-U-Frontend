@@ -1,23 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   ActivatedRoute,
   NavigationEnd,
   Router,
   RouterOutlet,
 } from '@angular/router';
-import {
-  BehaviorSubject,
-  Observable,
-  of,
-  Subscription,
-  throwError,
-} from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, filter } from 'rxjs/operators';
 import { EventService } from '../../services/event/eventservice';
 import { EventDetails } from '../../interfaces/EventDetails';
 import { MenuItem, MessageService } from 'primeng/api';
 import { TranslocoService } from '@jsverse/transloco';
-import { EventtypeEnum } from '../../interfaces/EventtypeEnum';
 import { ToastModule } from 'primeng/toast';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { Gender, GenderEnum } from '../../interfaces/Gender';
@@ -27,7 +20,6 @@ import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { EventRequestService } from '../../services/event/event-request/event-request.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { EventUserRequest } from '../../interfaces/EventUserRequest';
-import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 
 @Component({
   selector: 'app-event-page',
@@ -43,6 +35,9 @@ import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
   ],
 })
 export class EventPageComponent implements OnInit {
+  @Input()
+  set id(id: string) {}
+
   url: string;
   eventId!: string;
   eventDetails!: EventDetails; // Resolved event details

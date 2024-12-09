@@ -16,11 +16,12 @@ import { Step3Component } from './components/create-event/step3/step3.component'
 import { isNotLoggedInGuard } from './utils/guards/is-not-logged-in.guard';
 import { LegalDisclosurePageComponent } from './views/legal-disclosure-page/legal-disclosure-page.component';
 import { PrivacyPolicyPageComponent } from './views/privacy-policy-page/privacy-policy-page.component';
-import { EventInfoComponent } from './components/event-detail/event-info/event-info.component';
 import { EventListsComponent } from './components/event-detail/event-lists/event-lists.component';
 import { EventSurveysComponent } from './components/event-detail/event-surveys/event-surveys.component';
 import { EventRequestsComponent } from './components/event-detail/event-requests/event-requests.component';
 import { UsersEventRequestsComponent } from './components/my-events/users-event-requests/users-event-requests.component';
+import { ListOverviewPageComponent } from './components/event-detail/event-lists/list-overview-page/list-overview-page.component';
+import { ListDetailPageComponent } from './components/event-detail/event-lists/list-detail-page/list-detail-page.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -82,7 +83,14 @@ export const routes: Routes = [
     title: 'Event | Connect-U',
     component: EventPageComponent,
     children: [
-      { path: 'lists', component: EventListsComponent },
+      {
+        path: 'lists',
+        component: EventListsComponent,
+        children: [
+          { path: '', component: ListOverviewPageComponent },
+          { path: 'detail/:listId', component: ListDetailPageComponent },
+        ],
+      },
       { path: 'surveys', component: EventSurveysComponent },
       { path: 'requests', component: EventRequestsComponent },
     ],
