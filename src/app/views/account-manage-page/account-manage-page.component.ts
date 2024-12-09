@@ -190,7 +190,9 @@ export class AccountManagePageComponent implements OnInit {
       if (newPassword !== newPasswordConfirm) {
         this.messageService.add({
           severity: 'error',
-          summary: this.translocoService.translate('accountPage.passwordForm.errorTitle'),
+          summary: this.translocoService.translate(
+            'accountPage.passwordForm.errorTitle',
+          ),
           detail: this.translocoService.translate(
             'accountPage.passwordForm.missMatchError',
           ),
