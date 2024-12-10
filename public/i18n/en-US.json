@@ -801,5 +801,25 @@
       "female": "Female",
       "diverse": "Diverse"
     }
+  },
+  "createSurveyPage": {
+    "headline": "Create Survey",
+    "choice": "Choices",
+    "info": "Start your survey by adding new choices",
+    "placeholder": {
+      "title": "Title",
+      "description": "Description",
+      "newItem": "New Choice"
+    },
+    "button": {
+      "create": "Create"
+    },
+    "warning": "Warning!",
+    "errorTitle": "Error!",
+    "errorMessages": {
+      "requirementErr": "Please fill in all required fields",
+      "surveyError": "Please provide a valid choice",
+      "notEnoughSurveys": "You must provide at least 2 entries for the survey"
+    }
   }
 }

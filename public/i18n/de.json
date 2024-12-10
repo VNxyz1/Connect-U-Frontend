@@ -800,5 +800,25 @@
       "female": "Weiblich",
       "diverse": "Divers"
     }
+  },
+  "createSurveyPage": {
+    "headline": "Umfrage erstellen",
+    "choice": "Auswahlmöglichkeiten",
+    "info": "Starte deine Umfrage indem du neue Auswahlmöglichkeiten hinzufügst",
+    "placeholder": {
+      "title": "Titel",
+      "description": "Beschreibung",
+      "newItem": "Neue Auswahl"
+    },
+    "button": {
+      "create": "Erstellen"
+    },
+    "warning": "Warnung!",
+    "errorTitle": "Fehler!",
+    "errorMessages":{
+      "requirementErr": "Bitte fülle alle Pflichtfelder aus",
+      "surveyError": "Bitte gib eine gültige Auswahl an",
+      "notEnoughSurveys": "Du musst mind. 2 Einträge zur Auswahl stellen"
+    }
   }
 }

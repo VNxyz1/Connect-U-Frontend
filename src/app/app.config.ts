@@ -62,6 +62,7 @@ import {
   RiHourglassFill,
   RiLiveLine,
   RiCalendarCloseLine,
+  RiDeleteBinLine,
   RiEdit2Line,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
@@ -110,6 +111,7 @@ const icons = {
   RiHistoryLine,
   RiLiveLine,
   RiCalendarCloseLine,
+  RiDeleteBinLine,
   RiEditLine,
   RiEdit2Line,
 };
