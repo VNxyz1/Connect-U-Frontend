@@ -3,6 +3,8 @@
   <div class="m-3">
     @if (profileData$ | async; as data) {
       <app-profile-card [userProfile]="data"></app-profile-card>
+    } @else {
+      <app-profile-card skeleton></app-profile-card>
     }
   </div>
 

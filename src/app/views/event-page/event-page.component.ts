@@ -17,7 +17,6 @@ import { EventService } from '../../services/event/eventservice';
 import { EventDetails } from '../../interfaces/EventDetails';
 import { MenuItem, MessageService } from 'primeng/api';
 import { TranslocoService } from '@jsverse/transloco';
-import { EventtypeEnum } from '../../interfaces/EventtypeEnum';
 import { ToastModule } from 'primeng/toast';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { Gender, GenderEnum } from '../../interfaces/Gender';
