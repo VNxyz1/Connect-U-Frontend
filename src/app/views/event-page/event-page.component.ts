@@ -27,6 +27,9 @@ import { EventRequestService } from '../../services/event/event-request/event-re
 import { AuthService } from '../../services/auth/auth.service';
 import { EventUserRequest } from '../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
+import { DialogModule } from 'primeng/dialog';
+import { LoginComponent } from '../../components/login/login.component';
+import { RegisterComponent } from '../../components/register/register.component';
 
 @Component({
   selector: 'app-event-page',
@@ -39,6 +42,9 @@ import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
     EventInfoComponent,
     AsyncPipe,
     AngularRemixIconComponent,
+    DialogModule,
+    LoginComponent,
+    RegisterComponent,
   ],
 })
 export class EventPageComponent implements OnInit {
@@ -49,6 +55,9 @@ export class EventPageComponent implements OnInit {
   eventRequestsHost: EventUserRequest[] = [];
   eventTabMenuItems: MenuItem[] = [];
   activeTabItem!: MenuItem;
+
+  notLoggedInDialogVisible: boolean = false;
+  loginRegisterSwitch: boolean = true;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -70,6 +79,15 @@ export class EventPageComponent implements OnInit {
       });
 
     this.eventId = this.route.snapshot.paramMap.get('id')!;
+
+    this.auth.isLoggedIn().subscribe({
+      next: loggedIn => {
+        this.notLoggedInDialogVisible = !loggedIn;
+      },
+      error: err => {
+        console.error('Error checking login status:', err);
+      },
+    });
     if (this.eventId) {
       // Monitor login state
 
@@ -172,7 +190,9 @@ export class EventPageComponent implements OnInit {
     this.activeTabItem = newActiveItem;
   }
 
-  getPreferredGendersString = (preferredGenders: Gender[]): string => {
+  protected getPreferredGendersString = (
+    preferredGenders: Gender[],
+  ): string => {
     if (!preferredGenders || preferredGenders.length === 0) {
       return this.translocoService.translate(
         'eventDetailPageComponent.noPreferredGenders',
@@ -201,4 +221,8 @@ export class EventPageComponent implements OnInit {
       .filter(Boolean)
       .join(', ');
   };
+
+  protected toggleLoginRegisterSwitch() {
+    this.loginRegisterSwitch = !this.loginRegisterSwitch;
+  }
 }

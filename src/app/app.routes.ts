@@ -84,10 +84,26 @@ export const routes: Routes = [
     title: 'Event | Connect-U',
     component: EventPageComponent,
     children: [
-      { path: 'lists', component: EventListsComponent },
-      { path: 'surveys', component: EventSurveysComponent },
-      { path: 'requests', component: EventRequestsComponent },
-      { path: 'guests', component: EventGuestsComponent },
+      {
+        path: 'lists',
+        component: EventListsComponent,
+        canActivate: [isLoggedInGuard],
+      },
+      {
+        path: 'surveys',
+        component: EventSurveysComponent,
+        canActivate: [isLoggedInGuard],
+      },
+      {
+        path: 'requests',
+        component: EventRequestsComponent,
+        canActivate: [isLoggedInGuard],
+      },
+      {
+        path: 'guests',
+        component: EventGuestsComponent,
+        canActivate: [isLoggedInGuard],
+      },
     ],
   },
   {
