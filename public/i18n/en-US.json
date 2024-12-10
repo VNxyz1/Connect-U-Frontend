@@ -240,6 +240,10 @@
     "request": "Request Event",
     "request-pending": "Request pending",
     "request-deleted": "Your request was deleted.",
+    "guests": {
+      "title": "Guests"
+    },
+    "host": "Host",
     "requests": {
       "title": "Requests",
       "accepted-request": "The request from \"{{name}}\" was accepted!",

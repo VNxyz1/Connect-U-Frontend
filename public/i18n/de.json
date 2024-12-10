@@ -242,6 +242,10 @@
     "request": "Anfrage schicken",
     "request-pending": "Anfrage ausstehend",
     "request-deleted": "Deine Anfrage wurde gelöscht.",
+    "guests": {
+      "title": "Gäste"
+    },
+    "host": "Veranstalter",
     "requests": {
       "title": "Anfragen",
       "accepted-request": "Die Anfrage von \"{{name}}\" wurde akzeptiert!",
