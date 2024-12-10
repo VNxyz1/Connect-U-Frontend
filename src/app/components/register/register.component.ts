@@ -64,7 +64,6 @@ type RegisterForm = FormGroup<{
     PasswordModule,
     AngularRemixIconComponent,
   ],
-  providers: [AuthService, TranslocoService],
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {

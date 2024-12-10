@@ -238,6 +238,14 @@
     "error": "An error occurred.",
     "join": "Join Event",
     "request": "Request Event",
+    "request-pending": "Request pending",
+    "request-deleted": "Your request was deleted.",
+    "requests": {
+      "title": "Requests",
+      "accepted-request": "The request from \"{{name}}\" was accepted!",
+      "denied-request": "The request from \"{{name}}\" was denied.",
+      "delete-request": "Delete Request"
+    },
     "notExist": "It seems like the event you were looking for doesn't exist!",
       "eventNotFound": "The event you are looking for does not exist.",
       "userIsHost": "You are the host of this event and cannot join it.",
@@ -344,11 +352,20 @@
     "guest": {
       "title": "Guest",
       "text": "You are not currently participating in any events.",
-      "todo": "Explore events based on your interests."
+      "todo": "Explore events based on your interests.",
+      "your-event-requests": "Your Event-Requests"
     },
     "favorite": {
       "title": "Favorites",
       "text": "You currently don't have any favorite events, consider adding some!"
+    },
+    "requests": {
+      "pending": "pending",
+      "your-request-denied": "Your request was denied.",
+      "try-again": "Request again",
+      "new-request": "New request for event \"{{title}}\" sent!",
+      "deleted-request": "Request for event \"{{title}}\" deleted.",
+      "delete-request": "Delete Request"
     }
   },
   "privacyPolicy": {

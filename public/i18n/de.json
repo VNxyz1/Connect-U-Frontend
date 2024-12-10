@@ -240,6 +240,14 @@
     "notExist": "Das Event, nach dem du gesucht hast, scheint nicht zu existieren!",
     "join": "Event beitreten",
     "request": "Anfrage schicken",
+    "request-pending": "Anfrage ausstehend",
+    "request-deleted": "Deine Anfrage wurde gelöscht.",
+    "requests": {
+      "title": "Anfragen",
+      "accepted-request": "Die Anfrage von \"{{name}}\" wurde akzeptiert!",
+      "denied-request": "Die Anfrage von \"{{name}}\" wurde abgelehnt.",
+      "delete-request": "Anfrage löschen"
+    },
     "eventNotFound": "Das gesuchte Event existiert nicht.",
     "userIsHost": "Du bist der Gastgeber dieses Events und kannst nicht teilnehmen.",
     "alreadyParticipant": "Du bist bereits Teilnehmer dieses Events.",
@@ -344,11 +352,20 @@
     "guest": {
       "title": "Gast",
       "text": "Du nimmst zur Zeit an keinem Event teil.",
-      "todo": "Erkundige Dich nach deinen Interessen."
+      "todo": "Erkundige Dich nach deinen Interessen.",
+      "your-event-requests": "Deine Eventanfragen"
     },
     "favorite": {
       "title": "Favorisiert",
       "text": "Du hast zur Zeit keine favorisierten Events, füge doch welche hinzu!"
+    },
+    "requests": {
+      "pending": "ausstehend",
+      "your-request-denied": "Deine Abfrage wurde abgelehnt.",
+      "delete-request": "Anfrage löschen",
+      "try-again": "Erneut Anfragen",
+      "new-request": "Es wurde eine neue Anfrage für das Event \"{{title}}\" verschickt!",
+      "deleted-request": "Die Anfrage für das Event \"{{title}}\" wurde gelöscht."
     }
   },
   "privacyPolicy": {

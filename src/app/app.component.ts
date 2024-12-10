@@ -13,11 +13,18 @@ import { SocketService } from './services/socket/socket.service';
 import { AsyncPipe, isPlatformBrowser, NgClass } from '@angular/common';
 import { AuthService } from './services/auth/auth.service';
 import { Storage } from '@ionic/storage-angular';
-import { MessageService, PrimeNGConfig } from 'primeng/api';
+import {
+  ConfirmationService,
+  MessageService,
+  PrimeNGConfig,
+} from 'primeng/api';
 import { filter } from 'rxjs/operators';
 import { ToastModule } from 'primeng/toast';
 import { TranslocoService } from '@jsverse/transloco';
 import { Observable } from 'rxjs';
+import { EventService } from './services/event/eventservice';
+import { EventRequestService } from './services/event/event-request/event-request.service';
+import { UserService } from './services/user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -30,7 +37,15 @@ import { Observable } from 'rxjs';
     NgClass,
     AsyncPipe,
   ],
-  providers: [AuthService, MessageService, TranslocoService],
+  providers: [
+    AuthService,
+    MessageService,
+    TranslocoService,
+    EventService,
+    EventRequestService,
+    UserService,
+    ConfirmationService,
+  ],
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit, OnDestroy {

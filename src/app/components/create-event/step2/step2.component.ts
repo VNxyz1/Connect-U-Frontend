@@ -34,7 +34,6 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
     TooltipModule,
     TranslocoPipe,
   ],
-  providers: [ConfirmationService],
   templateUrl: './step2.component.html',
 })
 export class Step2Component implements OnInit {
@@ -67,7 +66,7 @@ export class Step2Component implements OnInit {
   }
 
   async ngOnInit() {
-    const step2Data = await this.eventService.getEventInformation();
+    const step2Data = await this.eventService.getEventCreateInformation();
     this.dateAndTime = step2Data.dateAndTime
       ? new Date(step2Data.dateAndTime)
       : undefined;

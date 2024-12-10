@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { EventDetails } from '../../../interfaces/EventDetails';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { ImageModule } from 'primeng/image';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
@@ -17,6 +17,10 @@ import { DialogModule } from 'primeng/dialog';
 import { LoginComponent } from '../../login/login.component';
 import { RegisterComponent } from '../../register/register.component';
 import { AuthService } from '../../../services/auth/auth.service';
+import { EventRequestService } from '../../../services/event/event-request/event-request.service';
+import { EventUserRequest } from '../../../interfaces/EventUserRequest';
+import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
+import { AsyncPipe } from '@angular/common';
 import { EventStatusIndicatorComponent } from '../../event-status-indicator/event-status-indicator.component';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
@@ -50,10 +54,23 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     DialogModule,
     LoginComponent,
     RegisterComponent,
+    RouterLink,
+    AsyncPipe,
     EventStatusIndicatorComponent,
   ],
 })
 export class EventInfoComponent implements OnInit, OnDestroy {
+  userRequest: UsersEventRequest | null = null;
+  private userRequestSubscription!: Subscription;
+  @Input() eventRequestsHost: EventUserRequest[] = [];
+  @Input()
+  set eventDetails(value: Observable<EventDetails> | EventDetails) {
+    this.handleEventDetailsInput(value);
+  }
+
+  @Input() getPreferredGendersString!: (
+    preferredGenders: EventDetails['preferredGenders'],
+  ) => string;
   eventId!: string;
   private _eventDetailsSubscription: Subscription | undefined;
   notLoggedInDialogVisible: boolean = false;
@@ -64,21 +81,13 @@ export class EventInfoComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly router: Router,
-    private readonly route: ActivatedRoute,
+    protected readonly route: ActivatedRoute,
     private readonly messageService: MessageService,
     private readonly translocoService: TranslocoService,
     private readonly eventService: EventService,
     private readonly auth: AuthService,
+    private readonly eventRequestService: EventRequestService,
   ) {}
-
-  @Input()
-  set eventDetails(value: Observable<EventDetails> | EventDetails) {
-    this.handleEventDetailsInput(value);
-  }
-
-  @Input() getPreferredGendersString!: (
-    preferredGenders: EventDetails['preferredGenders'],
-  ) => string;
 
   get eventDetails(): EventDetails {
     if (!this._eventDetails) {
@@ -90,7 +99,16 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('id')!;
 
-    this.checkLoginStatus();
+    // Subscribe to login status changes
+    this.auth.isLoggedIn().subscribe({
+      next: loggedIn => {
+        this.notLoggedInDialogVisible = !loggedIn;
+      },
+      error: err => {
+        console.error('Error checking login status:', err);
+      },
+    });
+
     // Check if eventDetails is passed via Router state
     const navigationState = this.router.getCurrentNavigation()?.extras.state;
     if (navigationState?.['eventDetails']) {
@@ -98,9 +116,28 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     }
   }
 
+  private fetchUserRequest(): void {
+    if (!this.eventId) {
+      return;
+    }
+
+    this.userRequestSubscription = this.eventRequestService
+      .getUserRequestForEvent(this.eventId)
+      .subscribe({
+        next: request => {
+          this.userRequest = request;
+        },
+        error: err => {
+          console.error('Error fetching user request:', err);
+          this.userRequest = null; // Reset in case of error
+        },
+      });
+  }
+
   ngOnDestroy(): void {
     // Clean up subscriptions
     this._eventDetailsSubscription?.unsubscribe();
+    this.userRequestSubscription?.unsubscribe();
   }
 
   private handleEventDetailsInput(
@@ -123,6 +160,9 @@ export class EventInfoComponent implements OnInit, OnDestroy {
           } else {
             this._eventDetails = this.transformEventDetails(details);
             this.isLoading = false;
+            if (!this.eventDetails.isHost) {
+              this.fetchUserRequest();
+            }
           }
         },
         error: err => {
@@ -173,23 +213,27 @@ export class EventInfoComponent implements OnInit, OnDestroy {
             'eventDetailPageComponent.joined',
           ),
         });
+        this.fetchUserRequest();
       },
       error: err => this.handleError(err),
     });
   }
 
   private requestToJoinEvent(): void {
-    this.eventService.createJoinRequest(this.eventDetails.id).subscribe({
-      next: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: this.translocoService.translate(
-            'eventDetailPageComponent.requestSent',
-          ),
-        });
-      },
-      error: err => this.handleError(err),
-    });
+    if (this.eventId) {
+      this.eventRequestService.createJoinRequest(this.eventId).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: this.translocoService.translate(
+              'eventDetailPageComponent.requestSent',
+            ),
+          });
+          this.fetchUserRequest();
+        },
+        error: err => this.handleError(err),
+      });
+    }
   }
 
   private handleError(err: any): void {
@@ -205,15 +249,26 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     });
   }
 
-  private checkLoginStatus(): void {
-    this.auth.isLoggedIn().subscribe({
-      next: loggedIn => {
-        this.notLoggedInDialogVisible = !loggedIn;
-      },
-    });
-  }
-
   toggleLoginRegisterSwitch() {
     this.loginRegisterSwitch = !this.loginRegisterSwitch;
+  }
+
+  deleteEventRequest(id: number, $e: MouseEvent) {
+    $e.stopPropagation();
+    this.eventRequestService.deleteUserRequest(id).subscribe({
+      next: () => {
+        // Filter out the deleted request
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translocoService.translate(
+            'eventDetailPageComponent.request-deleted',
+          ),
+        });
+        this.fetchUserRequest();
+      },
+      error: err => {
+        console.error('Error deleting request:', err);
+      },
+    });
   }
 }

@@ -1,7 +1,7 @@
 @if (compact) {
   @if (!skeleton) {
     <div
-      class="custom-card-container cursor-pointer justify-content-between grid nested-grid h-7rem md:h-10rem lg:h-12rem"
+      class="custom-card-container cursor-pointer justify-content-between grid nested-grid h-7rem md:h-10rem lg:h-12rem overflow-hidden"
       [class]="
         [
           showEventStatus ? 'border-left-3 border-round' : '',
@@ -12,8 +12,8 @@
       <div class="col-8 pb-0">
         <div class="grid h-full align-content-between">
           <div class="col-12">
-            <h3
-              class="m-0 px-2"
+            <span
+              class="m-0 px-2 font-bold text-xl block"
               style="
                 overflow: hidden;
                 display: -webkit-box;
@@ -22,7 +22,7 @@
                 -webkit-box-orient: vertical;
               ">
               {{ event.title }}
-            </h3>
+            </span>
           </div>
           <div class="col-12 py-0 flex">
             <div

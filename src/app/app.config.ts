@@ -56,6 +56,7 @@ import {
   RiArrowRightSLine,
   RiSettings5Line,
   RiLogoutBoxLine,
+  RiMailSendLine,
   RiHistoryLine,
   RiHourglassFill,
   RiLiveLine,
@@ -102,8 +103,9 @@ const icons = {
   RiArrowRightSLine,
   RiSettings5Line,
   RiLogoutBoxLine,
-  RiHistoryLine,
+  RiMailSendLine,
   RiHourglassFill,
+  RiHistoryLine,
   RiLiveLine,
   RiCalendarCloseLine,
   RiDeleteBinLine
