@@ -729,7 +729,8 @@
     },
     "updateText": {
       "pronouns": "Pronouns...",
-      "desc": "Description..."
+      "desc": "Description...",
+      "saveButton": "Save"
     }
   },
   "accountPage": {

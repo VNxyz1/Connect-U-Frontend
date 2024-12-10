@@ -1,21 +1,41 @@
-<p-card
-  class="p-3 cursor-pointer"
-  [routerLink]="['/profile/' + userProfile.id]">
-  <div class="flex align-items-center pr-3">
-    <img
-      src="images/userImg.png"
-      alt="profilbild"
-      class="border-circle"
-      style="width: 70px; height: 70px" />
-    <div class="flex flex-column ml-3 flex-grow-1">
-      <div>
-        <h3 class="mt-0 mb-0">{{ userProfile.firstName }}</h3>
-        <p class="text-secondary mt-0 mb-0">&#64;{{ userProfile.username }}</p>
+@if (!skeleton) {
+  <p-card
+    class="p-3 cursor-pointer"
+    [routerLink]="['/profile/' + userProfile.id]">
+    <div class="flex align-items-center pr-3">
+      <img
+        src="images/userImg.png"
+        alt="profilbild"
+        class="border-circle"
+        style="width: 70px; height: 70px" />
+      <div class="flex flex-column ml-3 flex-grow-1">
+        <div>
+          <h3 class="mt-0 mb-0">{{ userProfile.firstName }}</h3>
+          <p class="text-secondary mt-0 mb-0">
+            &#64;{{ userProfile.username }}
+          </p>
+        </div>
       </div>
+      <rmx-icon
+        name="arrow-right-s-line"
+        style="height: 26px; width: 26px"
+        class=""></rmx-icon>
     </div>
-    <rmx-icon
-      name="arrow-right-s-line"
-      style="height: 26px; width: 26px"
-      class=""></rmx-icon>
-  </div>
-</p-card>
+  </p-card>
+} @else {
+  <p-card class="p-3">
+    <div class="flex align-items-center pr-3">
+      <p-skeleton shape="circle" size="4rem" />
+      <div class="flex flex-column ml-3 flex-grow-1">
+        <div>
+          <p-skeleton width="9rem" height="2rem" styleClass="mb-2" />
+          <p-skeleton width="5rem" styleClass="mb-2" />
+        </div>
+      </div>
+      <rmx-icon
+        name="arrow-right-s-line"
+        style="height: 26px; width: 26px"
+        class=""></rmx-icon>
+    </div>
+  </p-card>
+}
