@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Button, ButtonDirective} from 'primeng/button';
-import {TranslocoPipe} from '@jsverse/transloco';
+import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
 import {DialogModule} from 'primeng/dialog';
 import {FloatLabelModule} from 'primeng/floatlabel';
 import {InputTextModule} from 'primeng/inputtext';
@@ -8,6 +8,8 @@ import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from
 import {MessageService} from "primeng/api";
 import {InputTextareaModule} from "primeng/inputtextarea";
 import {AngularRemixIconComponent} from "angular-remix-icon";
+import {SurveyCreateBody, SurveysService} from '../../../../../services/surveys/surveys.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-create-surveys',
@@ -25,13 +27,20 @@ import {AngularRemixIconComponent} from "angular-remix-icon";
   ],
   templateUrl: './create-surveys.component.html'
 })
-export class CreateSurveysComponent {
+export class CreateSurveysComponent implements OnInit{
   displayDialog: boolean = false;
   showItemInput: boolean = false;
+  eventId!: string;
   surveyForm: FormGroup;
   newItem: FormControl;
 
-  constructor(private messageService: MessageService) {
+  constructor(
+    private messageService: MessageService,
+    private surveyService: SurveysService,
+    private readonly route: ActivatedRoute,
+    private translocoService:TranslocoService
+  ) {
+
     this.surveyForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
@@ -39,6 +48,9 @@ export class CreateSurveysComponent {
     });
 
     this.newItem = new FormControl('', Validators.required);
+  }
+  ngOnInit(): void {
+    this.eventId = this.route.snapshot.paramMap.get('id')!;
   }
 
   get items() {
@@ -54,10 +66,6 @@ export class CreateSurveysComponent {
     this.showItemInput = false;
   }
 
-  toggleItemInput() {
-    this.showItemInput = !this.showItemInput;
-  }
-
   addItem() {
     if (this.newItem.valid) {
       this.items.push(new FormControl(this.newItem.value, Validators.required));
@@ -66,8 +74,8 @@ export class CreateSurveysComponent {
     } else {
       this.messageService.add({
         severity: 'warn',
-        summary: 'Warnung',
-        detail: 'Bitte geben Sie einen gültigen Item-Namen ein.',
+        summary: this.translocoService.translate('createSurveyPage.warning'),
+        detail: this.translocoService.translate('createSurveyPage.errorMessages.surveyError'),
       });
     }
   }
@@ -78,23 +86,52 @@ export class CreateSurveysComponent {
 
   submitSurvey() {
     if (this.surveyForm.valid) {
-      console.log('Survey Data:', this.surveyForm.value);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Erfolg',
-        detail: 'Umfrage erfolgreich erstellt!',
+      // Bereite das Anfrage-Body für das Backend vor
+      const entries = this.items.controls.map((control) => control.value?.trim()).filter(value => !!value);
+      const surveyData: SurveyCreateBody = {
+        title: this.surveyForm.value.title,
+        description: this.surveyForm.value.description || '',
+        entries: entries,
+      };
+      console.log('umfrage daten', surveyData);
+      if(entries.length < 2){
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translocoService.translate('createSurveyPage.errorTitle'),
+          detail: this.translocoService.translate('createSurveyPage.errorMessages.notEnoughSurveys'),
+        });
+        return
+      }
+
+      this.surveyService.createNewSurvey(this.eventId, surveyData).subscribe({
+        next: (response) => {
+          if (response.ok) {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Erfolg',
+              detail: 'Umfrage erfolgreich erstellt!',
+            });
+
+            this.surveyForm.reset();
+            this.items.clear();
+            this.closeDialog();
+          }
+        },
+        error: (err) => {
+          console.error('Fehler beim Erstellen der Umfrage:', err);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Fehler',
+            detail: err.error?.message || this.translocoService.translate('createSurveyPage.errorMessages.requirementErr'),
+          });
+        },
       });
-      this.surveyForm.reset();
-      this.items.clear();
-      this.closeDialog();
     } else {
       this.messageService.add({
         severity: 'error',
-        summary: 'Fehler',
-        detail: 'Bitte füllen Sie alle Pflichtfelder aus!',
+        summary: this.translocoService.translate('createSurveyPage.errorTitle'),
+        detail: this.translocoService.translate('createSurveyPage.errorMessages.requirementErr'),
       });
     }
   }
-
-  protected readonly FormControl = FormControl;
 }
