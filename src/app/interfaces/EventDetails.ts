@@ -46,4 +46,6 @@ export interface EventDetails {
   isParticipant?: boolean;
 
   participants: ProfileData[];
+
+  host: ProfileData;
 }

@@ -1,6 +1,10 @@
 <p-card
   class="p-3 cursor-pointer"
+  [ngClass]="{ 'p-0': title }"
   [routerLink]="['/profile/' + userProfile.id]">
+  @if (title) {
+    <h3 class="mt-0">{{ title }}</h3>
+  }
   <div class="flex align-items-center pr-3">
     <img
       src="https://via.placeholder.com/100"
@@ -10,9 +14,9 @@
     <div class="flex flex-column ml-3 flex-grow-1">
       <div>
         <h3 class="mt-0 mb-0">
-          {{ userProfile.firstName }}
+          <span>{{ userProfile.firstName }}</span>
           @if (showAge) {
-            , {{ userProfile.age }}
+            <span>, {{ userProfile.age }}</span>
           }
         </h3>
         <p class="text-secondary mt-0 mb-0">&#64;{{ userProfile.username }}</p>

@@ -243,6 +243,7 @@
     "guests": {
       "title": "Guests"
     },
+    "host": "Host",
     "requests": {
       "title": "Requests",
       "accepted-request": "The request from \"{{name}}\" was accepted!",

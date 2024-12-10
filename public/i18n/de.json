@@ -245,6 +245,7 @@
     "guests": {
       "title": "Gäste"
     },
+    "host": "Veranstalter",
     "requests": {
       "title": "Anfragen",
       "accepted-request": "Die Anfrage von \"{{name}}\" wurde akzeptiert!",
