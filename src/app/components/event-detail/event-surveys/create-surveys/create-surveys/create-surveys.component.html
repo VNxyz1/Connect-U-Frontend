@@ -4,8 +4,7 @@
     label="{{ 'createSurveyPage.headline' | transloco }}"
     severity="success"
     (click)="openDialog()"
-    class="p-button-raised p-button-primary"
-  ></p-button>
+    class="p-button-raised p-button-primary"></p-button>
 
   <!-- Dialog -->
   <p-dialog
@@ -15,8 +14,7 @@
     [style]="{ width: '400px', height: '600px' }"
     [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
     [closable]="true"
-    (onHide)="closeDialog()"
-  >
+    (onHide)="closeDialog()">
     <form [formGroup]="surveyForm" (ngSubmit)="submitSurvey()">
       <!-- Titel -->
       <div class="field">
@@ -26,9 +24,10 @@
             type="text"
             pInputText
             formControlName="title"
-            class="w-full"
-          />
-          <label for="title">{{ 'createSurveyPage.placeholder.title' | transloco }}</label>
+            class="w-full" />
+          <label for="title">{{
+            'createSurveyPage.placeholder.title' | transloco
+          }}</label>
         </p-floatLabel>
       </div>
 
@@ -41,9 +40,10 @@
             cols="30"
             pInputTextarea
             formControlName="description"
-            class="w-full"
-          ></textarea>
-          <label for="description">{{ 'createSurveyPage.placeholder.description' | transloco }}</label>
+            class="w-full"></textarea>
+          <label for="description">{{
+            'createSurveyPage.placeholder.description' | transloco
+          }}</label>
         </p-floatLabel>
       </div>
 
@@ -55,15 +55,15 @@
             pInputText
             maxlength="60"
             [formControl]="newItem"
-            placeholder="{{ 'createSurveyPage.placeholder.newItem' | transloco }}"
-            class="flex-grow-1"
-          />
+            placeholder="{{
+              'createSurveyPage.placeholder.newItem' | transloco
+            }}"
+            class="flex-grow-1" />
           <p-button
             type="button"
             severity="success"
             class="p-button-rounded ml-2"
-            (click)="addItem()"
-          >
+            (click)="addItem()">
             <ng-template pTemplate="icon">
               <rmx-icon name="check-line"></rmx-icon>
             </ng-template>
@@ -76,9 +76,9 @@
         <h4>{{ 'createSurveyPage.choice' | transloco }}</h4>
         <div class="flex align-items-start">
           <!-- Scrollbarer Bereich für Items -->
-          <div class="overflow-auto col-10" style="max-height: 100px;">
-            @if(items.length <= 0){
-              <p class="mt-0">{{'createSurveyPage.info'| transloco}}</p>
+          <div class="overflow-auto col-10" style="max-height: 100px">
+            @if (items.length <= 0) {
+              <p class="mt-0">{{ 'createSurveyPage.info' | transloco }}</p>
             }
             @for (item of items.controls; track $index) {
               <div class="flex align-items-center mb-1">
@@ -86,8 +86,7 @@
                   type="button"
                   severity="danger"
                   class="mr-2"
-                  (click)="removeItem($index)"
-                >
+                  (click)="removeItem($index)">
                   <ng-template pTemplate="icon">
                     <rmx-icon name="delete-bin-line"></rmx-icon>
                   </ng-template>
@@ -105,8 +104,7 @@
           label="{{ 'createSurveyPage.button.create' | transloco }}"
           severity="success"
           type="submit"
-          class="p-button-raised p-button-primary"
-        ></p-button>
+          class="p-button-raised p-button-primary"></p-button>
       </div>
     </form>
   </p-dialog>

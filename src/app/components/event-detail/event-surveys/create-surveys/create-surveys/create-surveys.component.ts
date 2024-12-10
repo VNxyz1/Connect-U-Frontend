@@ -1,15 +1,24 @@
-import {Component, OnInit} from '@angular/core';
-import {Button, ButtonDirective} from 'primeng/button';
-import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
-import {DialogModule} from 'primeng/dialog';
-import {FloatLabelModule} from 'primeng/floatlabel';
-import {InputTextModule} from 'primeng/inputtext';
-import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MessageService} from "primeng/api";
-import {InputTextareaModule} from "primeng/inputtextarea";
-import {AngularRemixIconComponent} from "angular-remix-icon";
-import {SurveyCreateBody, SurveysService} from '../../../../../services/surveys/surveys.service';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Button, ButtonDirective } from 'primeng/button';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { DialogModule } from 'primeng/dialog';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
+import {
+  SurveyCreateBody,
+  SurveysService,
+} from '../../../../../services/surveys/surveys.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-surveys',
@@ -23,11 +32,11 @@ import {ActivatedRoute} from '@angular/router';
     ReactiveFormsModule,
     InputTextareaModule,
     ButtonDirective,
-    AngularRemixIconComponent
+    AngularRemixIconComponent,
   ],
-  templateUrl: './create-surveys.component.html'
+  templateUrl: './create-surveys.component.html',
 })
-export class CreateSurveysComponent implements OnInit{
+export class CreateSurveysComponent implements OnInit {
   displayDialog: boolean = false;
   showItemInput: boolean = false;
   eventId!: string;
@@ -38,9 +47,8 @@ export class CreateSurveysComponent implements OnInit{
     private messageService: MessageService,
     private surveyService: SurveysService,
     private readonly route: ActivatedRoute,
-    private translocoService:TranslocoService
+    private translocoService: TranslocoService,
   ) {
-
     this.surveyForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
@@ -75,7 +83,9 @@ export class CreateSurveysComponent implements OnInit{
       this.messageService.add({
         severity: 'warn',
         summary: this.translocoService.translate('createSurveyPage.warning'),
-        detail: this.translocoService.translate('createSurveyPage.errorMessages.surveyError'),
+        detail: this.translocoService.translate(
+          'createSurveyPage.errorMessages.surveyError',
+        ),
       });
     }
   }
@@ -87,24 +97,30 @@ export class CreateSurveysComponent implements OnInit{
   submitSurvey() {
     if (this.surveyForm.valid) {
       // Bereite das Anfrage-Body für das Backend vor
-      const entries = this.items.controls.map((control) => control.value?.trim()).filter(value => !!value);
+      const entries = this.items.controls
+        .map(control => control.value?.trim())
+        .filter(value => !!value);
       const surveyData: SurveyCreateBody = {
         title: this.surveyForm.value.title,
         description: this.surveyForm.value.description || '',
         entries: entries,
       };
       console.log('umfrage daten', surveyData);
-      if(entries.length < 2){
+      if (entries.length < 2) {
         this.messageService.add({
           severity: 'error',
-          summary: this.translocoService.translate('createSurveyPage.errorTitle'),
-          detail: this.translocoService.translate('createSurveyPage.errorMessages.notEnoughSurveys'),
+          summary: this.translocoService.translate(
+            'createSurveyPage.errorTitle',
+          ),
+          detail: this.translocoService.translate(
+            'createSurveyPage.errorMessages.notEnoughSurveys',
+          ),
         });
-        return
+        return;
       }
 
       this.surveyService.createNewSurvey(this.eventId, surveyData).subscribe({
-        next: (response) => {
+        next: response => {
           if (response.ok) {
             this.messageService.add({
               severity: 'success',
@@ -117,12 +133,16 @@ export class CreateSurveysComponent implements OnInit{
             this.closeDialog();
           }
         },
-        error: (err) => {
+        error: err => {
           console.error('Fehler beim Erstellen der Umfrage:', err);
           this.messageService.add({
             severity: 'error',
             summary: 'Fehler',
-            detail: err.error?.message || this.translocoService.translate('createSurveyPage.errorMessages.requirementErr'),
+            detail:
+              err.error?.message ||
+              this.translocoService.translate(
+                'createSurveyPage.errorMessages.requirementErr',
+              ),
           });
         },
       });
@@ -130,7 +150,9 @@ export class CreateSurveysComponent implements OnInit{
       this.messageService.add({
         severity: 'error',
         summary: this.translocoService.translate('createSurveyPage.errorTitle'),
-        detail: this.translocoService.translate('createSurveyPage.errorMessages.requirementErr'),
+        detail: this.translocoService.translate(
+          'createSurveyPage.errorMessages.requirementErr',
+        ),
       });
     }
   }
