@@ -31,7 +31,7 @@
 <!-- Display the event info if not logged in or not a participant -->
 @if (
   eventDetails &&
-  (activeTabItem.id == 'infoTab' ||
+  ((activeTabItem && activeTabItem.id == 'infoTab') ||
     (!eventDetails.isHost && !eventDetails.isParticipant)) &&
   !url.includes('/requests') &&
   !url.includes('/guests') &&
