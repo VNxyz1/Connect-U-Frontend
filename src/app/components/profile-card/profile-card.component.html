@@ -1,34 +1,36 @@
 @if (!skeleton) {
   <p-card
-  class="p-3 cursor-pointer"
-  [ngClass]="{ 'p-0': title }"
-  [routerLink]="['/profile/' + userProfile.id]">
-  @if (title) {
-    <h3 class="mt-0">{{ title }}</h3>
-  }
-  <div class="flex align-items-center pr-3">
-    <img
-      src="images/userImg.png"
-      alt="profilbild"
-      class="border-circle"
-      style="width: 70px; height: 70px" />
-    <div class="flex flex-column ml-3 flex-grow-1">
-      <div>
-        <h3 class="mt-0 mb-0">
-          <span>{{ userProfile.firstName }}</span>
-          @if (showAge) {
-            <span>, {{ userProfile.age }}</span>
-          }
-        </h3>
-        <p class="text-secondary mt-0 mb-0">&#64;{{ userProfile.username }}</p>
+    class="p-3 cursor-pointer"
+    [ngClass]="{ 'p-0': title }"
+    [routerLink]="['/profile/' + userProfile.id]">
+    @if (title) {
+      <h3 class="mt-0">{{ title }}</h3>
+    }
+    <div class="flex align-items-center pr-3">
+      <img
+        src="images/userImg.png"
+        alt="profilbild"
+        class="border-circle"
+        style="width: 70px; height: 70px" />
+      <div class="flex flex-column ml-3 flex-grow-1">
+        <div>
+          <h3 class="mt-0 mb-0">
+            <span>{{ userProfile.firstName }}</span>
+            @if (showAge) {
+              <span>, {{ userProfile.age }}</span>
+            }
+          </h3>
+          <p class="text-secondary mt-0 mb-0">
+            &#64;{{ userProfile.username }}
+          </p>
+        </div>
       </div>
+      <rmx-icon
+        name="arrow-right-s-line"
+        style="height: 26px; width: 26px"
+        class=""></rmx-icon>
     </div>
-    <rmx-icon
-      name="arrow-right-s-line"
-      style="height: 26px; width: 26px"
-      class=""></rmx-icon>
-  </div>
-</p-card>
+  </p-card>
 } @else {
   <p-card class="p-3">
     <div class="flex align-items-center pr-3">
