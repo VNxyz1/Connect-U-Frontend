@@ -18,4 +18,5 @@ import { AngularRemixIconComponent } from 'angular-remix-icon';
 })
 export class ProfileCardComponent {
   @Input() userProfile!: ProfileData;
+  @Input() showAge: boolean = false;
 }

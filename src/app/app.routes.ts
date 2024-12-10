@@ -21,6 +21,7 @@ import { EventListsComponent } from './components/event-detail/event-lists/event
 import { EventSurveysComponent } from './components/event-detail/event-surveys/event-surveys.component';
 import { EventRequestsComponent } from './components/event-detail/event-requests/event-requests.component';
 import { UsersEventRequestsComponent } from './components/my-events/users-event-requests/users-event-requests.component';
+import { EventGuestsComponent } from './components/event-detail/event-guests/event-guests.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -85,6 +86,7 @@ export const routes: Routes = [
       { path: 'lists', component: EventListsComponent },
       { path: 'surveys', component: EventSurveysComponent },
       { path: 'requests', component: EventRequestsComponent },
+      { path: 'guests', component: EventGuestsComponent },
     ],
   },
   {

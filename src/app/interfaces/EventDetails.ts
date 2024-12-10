@@ -2,6 +2,7 @@ import { Category } from './Category';
 import { Gender } from './Gender';
 import { EventtypeEnum } from './EventtypeEnum';
 import { StatusEnum } from './StatusEnum';
+import { ProfileData } from './ProfileData';
 
 export interface EventDetails {
   id: string;
@@ -43,4 +44,6 @@ export interface EventDetails {
   isHost?: boolean;
 
   isParticipant?: boolean;
+
+  participants: ProfileData[];
 }

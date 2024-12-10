@@ -9,7 +9,12 @@
       style="width: 70px; height: 70px" />
     <div class="flex flex-column ml-3 flex-grow-1">
       <div>
-        <h3 class="mt-0 mb-0">{{ userProfile.firstName }}</h3>
+        <h3 class="mt-0 mb-0">
+          {{ userProfile.firstName }}
+          @if (showAge) {
+            , {{ userProfile.age }}
+          }
+        </h3>
         <p class="text-secondary mt-0 mb-0">&#64;{{ userProfile.username }}</p>
       </div>
     </div>
