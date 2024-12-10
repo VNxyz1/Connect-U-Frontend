@@ -1,4 +1,52 @@
-<p>list-detail-page works!</p>
-@if (listDetail$ | async; as listDetail) {
-  {{ listDetail.id }}
-}
+<div class="pt-2 flex justify-content-center">
+  <div class="grid gap-2 w-12 sm:w-10 md:w-8 md:w-7 xl:w-6">
+    @if (listDetail$ | async; as listDetail) {
+      @for (listEntry of listDetail.listEntries; track listEntry.id) {
+        <div class="col-12">
+          <div class="custom-card-container grid">
+            <div
+              class="col-fixed w-min flex justify-content-center align-content-center">
+              <p-checkbox disabled binary variant="filled" />
+            </div>
+            <div class="col flex align-items-center">
+              <span>{{ listEntry.content }}</span>
+            </div>
+            <div class="col-fixed w-min flex align-items-center">
+              <img
+                src="images/userImg.png"
+                alt="profile picture"
+                class="border-circle h-2rem w-2rem" />
+            </div>
+            <div class="col-fixed w-min flex align-items-center">
+              <p-button disabled text severity="danger">
+                <ng-template pTemplate="icon">
+                  <rmx-icon name="delete-bin-line" />
+                </ng-template>
+              </p-button>
+            </div>
+          </div>
+        </div>
+      }
+    } @else {
+      @for (listEntry of [0, 1, 2, 3]; track $index) {
+        <div class="col-12">
+          <div class="custom-card-container grid">
+            <div
+              class="col-fixed w-min flex justify-content-center align-items-center">
+              <p-skeleton size="1.5rem" />
+            </div>
+            <div class="col flex align-items-center">
+              <p-skeleton width="5rem" />
+            </div>
+            <div class="col-fixed w-min flex align-items-center">
+              <p-skeleton shape="circle" size="2rem" />
+            </div>
+            <div class="col-fixed w-min flex align-items-center">
+              <p-skeleton size="2rem" styleClass="mr-2" />
+            </div>
+          </div>
+        </div>
+      }
+    }
+  </div>
+</div>

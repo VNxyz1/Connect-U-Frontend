@@ -5,11 +5,21 @@ import {
   ListService,
 } from '../../../../services/lists/list.service';
 import { AsyncPipe } from '@angular/common';
+import { CheckboxModule } from 'primeng/checkbox';
+import { Button } from 'primeng/button';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-list-detail-page',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [
+    AsyncPipe,
+    CheckboxModule,
+    Button,
+    AngularRemixIconComponent,
+    SkeletonModule,
+  ],
   templateUrl: './list-detail-page.component.html',
 })
 export class ListDetailPageComponent implements OnInit {
