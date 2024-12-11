@@ -42,25 +42,25 @@
       </div>
     </div>
     <div class="col-12 xl:col-7">
-      <h2>{{ eventDetails.title }}</h2>
+      <h2>{{ _eventDetails.title }}</h2>
 
       <div class="flex w-full justify-content-between">
         <span>
           <app-event-status-indicator
-            [status]="eventDetails.status"
+            [status]="_eventDetails.status"
             showText
             invertedColor />
         </span>
         <span>
-          @for (category of eventDetails.categories; track $index) {
+          @for (category of _eventDetails.categories; track $index) {
             <p-tag [value]="category.name" [rounded]="true" class="mr-1" />
           }
         </span>
       </div>
 
-      @if (eventDetails.host) {
+      @if (_eventDetails.host) {
         <app-profile-card
-          [userProfile]="eventDetails.host"
+          [userProfile]="_eventDetails.host"
           [showAge]="true"
           [title]="'eventDetailPageComponent.host' | transloco" />
       }
@@ -72,7 +72,7 @@
               <rmx-icon name="calendar-line" class="mr-2"></rmx-icon>
               <p class="m-0">
                 {{
-                  eventDetails.dateAndTime
+                  _eventDetails.dateAndTime
                     | translocoDate: { dateStyle: 'medium' }
                 }}
               </p>
@@ -81,7 +81,7 @@
               <rmx-icon name="time-line" class="mr-2"></rmx-icon>
               <p class="m-0">
                 {{
-                  eventDetails.dateAndTime
+                  _eventDetails.dateAndTime
                     | translocoDate: { timeStyle: 'short' }
                 }}
               </p>
@@ -331,18 +331,18 @@
           eventDetails && (eventDetails.isHost || eventDetails.isParticipant)
         ) {
           @if (eventDetails.isParticipant) {
-          <p-button
-            [raised]="true"
-            label="{{
-                'myEventPageComponent.cancel-participation' | transloco
+            <p-button
+              [raised]="true"
+              label="{{
+                'eventDetailPageComponent.cancel-participation' | transloco
               }}"
-            (onClick)="cancelEventParticipation($event)">
-            <ng-template pTemplate="icon">
-              <rmx-icon
-                style="width: 16px; height: 16px"
-                name="close-line"></rmx-icon>
-            </ng-template>
-          </p-button>
+              (onClick)="cancelEventParticipation($event)">
+              <ng-template pTemplate="icon">
+                <rmx-icon
+                  style="width: 16px; height: 16px"
+                  name="logout-circle-line"></rmx-icon>
+              </ng-template>
+            </p-button>
           } @else if (eventDetails.isHost) {
             <!-- TODO cancel event -->
           }
@@ -354,7 +354,7 @@
             <p-button
               [raised]="true"
               label="{{
-                'myEventPageComponent.requests.delete-request' | transloco
+                'eventDetailPageComponent.requests.delete-request' | transloco
               }}"
               (onClick)="deleteEventRequest(userRequest.id, $event)">
               <ng-template pTemplate="icon">
@@ -368,7 +368,7 @@
               [raised]="true"
               [label]="
                 userRequest.denied
-                  ? ('myEventPageComponent.requests.try-again' | transloco)
+                  ? ('eventDetailPageComponent.requests.try-again' | transloco)
                   : ('eventDetailPageComponent.request-pending' | transloco)
               "
               severity="success"
@@ -383,7 +383,8 @@
               }
             </p-button>
           </div>
-        } @else { <!-- TODO if event outdated no button -->
+        } @else {
+          <!-- TODO if event outdated no button -->
           <p-button
             [raised]="true"
             [label]="
@@ -406,7 +407,7 @@
   </div>
 }
 
-<p-confirmDialog #cdDiscard>
+<p-confirmDialog #cdLeave>
   <ng-template pTemplate="headless" let-message>
     <div
       class="flex flex-column align-items-center p-5 surface-overlay border-round">
@@ -425,10 +426,9 @@
       <div class="flex align-items-center justify-content-between gap-3 mt-4">
         <p-button
           label="{{
-            'eventDetailPageComponent.messages.cancelConfirm'
-              | transloco
+            'eventDetailPageComponent.messages.cancelConfirm' | transloco
           }}"
-          (click)="cdDiscard.reject()"
+          (click)="cdLeave.reject()"
           class="">
           <ng-template pTemplate="icon">
             <rmx-icon
@@ -440,10 +440,9 @@
         </p-button>
         <p-button
           label="{{
-            'eventDetailPageComponent.messages.sumitConfirm'
-              | transloco
+            'eventDetailPageComponent.messages.submitConfirm' | transloco
           }}"
-          (click)="cdDiscard.accept()"
+          (click)="cdLeave.accept()"
           severity="success"
           class="">
           <ng-template pTemplate="icon">

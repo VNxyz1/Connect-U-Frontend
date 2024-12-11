@@ -258,10 +258,21 @@ export class EventService {
     return this.http.get<EventCardItem[]>('event/upcoming');
   }
 
-  deleteEventParticipation(eventId: string): Observable<{ success: boolean; message: string }> {
-    return new Observable((observer) => {
-      // Placeholder implementation
-      observer.error({ success: true, message: "Not implemented yet" });
-    });
+  removeEventParticipation(
+    eventId: string,
+  ): Observable<{ success: boolean; message: string }> {
+    const url = `event/leave/${eventId}`;
+    return this.http.post<{ success: boolean; message: string }>(url, {}).pipe(
+      map(response => {
+        return response;
+      }),
+      catchError(error => {
+        console.error(
+          'Error removing user to the event participants list:',
+          error,
+        );
+        return throwError(() => error);
+      }),
+    );
   }
 }

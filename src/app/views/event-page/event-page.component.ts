@@ -201,4 +201,8 @@ export class EventPageComponent implements OnInit {
       .filter(Boolean)
       .join(', ');
   };
+
+  protected onEventDetailsUpdated() {
+    this.fetchEventDetails();
+  }
 }
