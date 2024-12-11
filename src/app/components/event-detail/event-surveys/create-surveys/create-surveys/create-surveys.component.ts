@@ -96,7 +96,6 @@ export class CreateSurveysComponent implements OnInit {
 
   submitSurvey() {
     if (this.surveyForm.valid) {
-      // Bereite das Anfrage-Body für das Backend vor
       const entries = this.items.controls
         .map(control => control.value?.trim())
         .filter(value => !!value);
