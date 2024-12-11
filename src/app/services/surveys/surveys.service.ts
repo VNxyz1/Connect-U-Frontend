@@ -31,4 +31,11 @@ export class SurveysService {
   ): Observable<SurveyCreateRes> {
     return this.http.post<SurveyCreateRes>('survey/' + eventId, body);
   }
+  getSurveyEvent(eventId: string): Observable<any> {
+    return this.http.get<any>('survey/event/' + eventId);
+  }
+  getSurveyDetail(surveyId: string): Observable<any> {
+    return this.http.get<any>('/survey/details/' + surveyId);
+  }
+
 }
