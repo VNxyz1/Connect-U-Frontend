@@ -330,7 +330,22 @@
         @if (
           eventDetails && (eventDetails.isHost || eventDetails.isParticipant)
         ) {
-          <!-- TODO Event absagen / Teilnahme löschen-->
+          @if (eventDetails.isParticipant) {
+          <p-button
+            [raised]="true"
+            label="{{
+                'myEventPageComponent.cancel-participation' | transloco
+              }}"
+            (onClick)="cancelEventParticipation($event)">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                style="width: 16px; height: 16px"
+                name="close-line"></rmx-icon>
+            </ng-template>
+          </p-button>
+          } @else if (eventDetails.isHost) {
+            <!-- TODO cancel event -->
+          }
         } @else if (userRequest) {
           <!-- Responsive Container -->
           <div
@@ -368,7 +383,7 @@
               }
             </p-button>
           </div>
-        } @else {
+        } @else { <!-- TODO if event outdated no button -->
           <p-button
             [raised]="true"
             [label]="
@@ -390,3 +405,56 @@
     <div class="xl:col-5"></div>
   </div>
 }
+
+<p-confirmDialog #cdDiscard>
+  <ng-template pTemplate="headless" let-message>
+    <div
+      class="flex flex-column align-items-center p-5 surface-overlay border-round">
+      <div
+        class="inline-flex justify-content-center align-items-center h-6rem w-6rem">
+        <rmx-icon
+          class="text-6xl"
+          style="height: 100px; width: 100px"
+          name="alert-line">
+        </rmx-icon>
+      </div>
+      <span class="font-bold text-2xl block mb-2 mt-4">
+        {{ message.header }}
+      </span>
+      <p class="mb-0">{{ message.message }}</p>
+      <div class="flex align-items-center justify-content-between gap-3 mt-4">
+        <p-button
+          label="{{
+            'eventDetailPageComponent.messages.cancelConfirm'
+              | transloco
+          }}"
+          (click)="cdDiscard.reject()"
+          class="">
+          <ng-template pTemplate="icon">
+            <rmx-icon
+              class="mr-2"
+              style="width: 16px; height: 16px"
+              name="arrow-go-back-line">
+            </rmx-icon>
+          </ng-template>
+        </p-button>
+        <p-button
+          label="{{
+            'eventDetailPageComponent.messages.sumitConfirm'
+              | transloco
+          }}"
+          (click)="cdDiscard.accept()"
+          severity="success"
+          class="">
+          <ng-template pTemplate="icon">
+            <rmx-icon
+              class="mr-2"
+              style="width: 18px; height: 18px"
+              name="check-line">
+            </rmx-icon>
+          </ng-template>
+        </p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-confirmDialog>

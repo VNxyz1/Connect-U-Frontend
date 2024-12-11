@@ -257,4 +257,11 @@ export class EventService {
   getUpcomingEvents(): Observable<EventCardItem[]> {
     return this.http.get<EventCardItem[]>('event/upcoming');
   }
+
+  deleteEventParticipation(eventId: string): Observable<{ success: boolean; message: string }> {
+    return new Observable((observer) => {
+      // Placeholder implementation
+      observer.error({ success: true, message: "Not implemented yet" });
+    });
+  }
 }

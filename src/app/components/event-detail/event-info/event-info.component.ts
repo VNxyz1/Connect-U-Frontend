@@ -11,7 +11,7 @@ import { TagModule } from 'primeng/tag';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { Button } from 'primeng/button';
 import { EventtypeEnum } from '../../../interfaces/EventtypeEnum';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { EventService } from '../../../services/event/eventservice';
 import { DialogModule } from 'primeng/dialog';
 import { LoginComponent } from '../../login/login.component';
@@ -23,6 +23,7 @@ import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
 import { AsyncPipe } from '@angular/common';
 import { EventStatusIndicatorComponent } from '../../event-status-indicator/event-status-indicator.component';
 import { ProfileCardComponent } from '../../profile-card/profile-card.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -59,6 +60,7 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     AsyncPipe,
     EventStatusIndicatorComponent,
     ProfileCardComponent,
+    ConfirmDialogModule,
   ],
 })
 export class EventInfoComponent implements OnInit, OnDestroy {
@@ -89,6 +91,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     private readonly eventService: EventService,
     private readonly auth: AuthService,
     private readonly eventRequestService: EventRequestService,
+    private readonly confirmationService: ConfirmationService,
   ) {}
 
   get eventDetails(): EventDetails {
@@ -270,6 +273,38 @@ export class EventInfoComponent implements OnInit, OnDestroy {
       },
       error: err => {
         console.error('Error deleting request:', err);
+      },
+    });
+  }
+
+  protected cancelEventParticipation($e: MouseEvent) {
+    $e.stopPropagation();
+    this.confirmationService.confirm({
+      message: this.translocoService.translate(
+        'eventDetailPageComponent.messages.cancelParticipation',
+      ),
+      header: this.translocoService.translate(
+        'headerComponent.messages.cancelParticipationHeader',
+      ),
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.eventService.deleteEventParticipation(this.eventId).subscribe({
+          next: () => {
+            // Filter out the deleted request
+            this.messageService.add({
+              severity: 'success',
+              summary: this.translocoService.translate(
+                'eventDetailPageComponent.participationCanceled',
+              ),
+            });
+          },
+          error: err => {
+            console.error('Error deleting request:', err);
+          },
+        });
+      },
+      reject: () => {
+        return;
       },
     });
   }
