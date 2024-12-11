@@ -20,6 +20,8 @@ import { EventListsComponent } from './components/event-detail/event-lists/event
 import { EventSurveysComponent } from './components/event-detail/event-surveys/event-surveys.component';
 import { EventRequestsComponent } from './components/event-detail/event-requests/event-requests.component';
 import { UsersEventRequestsComponent } from './components/my-events/users-event-requests/users-event-requests.component';
+import { ListOverviewPageComponent } from './components/event-detail/event-lists/list-overview-page/list-overview-page.component';
+import { ListDetailPageComponent } from './components/event-detail/event-lists/list-detail-page/list-detail-page.component';
 import { SettingsPageComponent } from './views/settings-page/settings-page.component';
 import { AccountManagePageComponent } from './views/account-manage-page/account-manage-page.component';
 import { EventGuestsComponent } from './components/event-detail/event-guests/event-guests.component';
@@ -84,7 +86,14 @@ export const routes: Routes = [
     title: 'Event | Connect-U',
     component: EventPageComponent,
     children: [
-      { path: 'lists', component: EventListsComponent },
+      {
+        path: 'lists',
+        component: EventListsComponent,
+        children: [
+          { path: '', component: ListOverviewPageComponent },
+          { path: 'detail/:listId', component: ListDetailPageComponent },
+        ],
+      },
       { path: 'surveys', component: EventSurveysComponent },
       { path: 'requests', component: EventRequestsComponent },
       { path: 'guests', component: EventGuestsComponent },

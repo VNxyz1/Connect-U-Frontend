@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Button } from 'primeng/button';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { DialogModule } from 'primeng/dialog';
@@ -15,9 +15,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import {
   CreateListBody,
   ListService,
-} from '../../../../services/lists/list.service';
+} from '../../../../../services/lists/list.service';
 import { MessageService } from 'primeng/api';
-import { ActivatedRoute } from '@angular/router';
 
 type CreateListForm = FormGroup<{
   title: FormControl<string>;
@@ -40,7 +39,8 @@ type CreateListForm = FormGroup<{
   templateUrl: './create-list.component.html',
 })
 export class CreateListComponent implements OnInit {
-  eventId!: string;
+  @Input({ required: true }) eventId!: string;
+  @Output() created = new EventEmitter();
 
   private _visible: boolean = false;
   submitted: boolean = false;
@@ -71,12 +71,9 @@ export class CreateListComponent implements OnInit {
     private listService: ListService,
     private messageService: MessageService,
     private translocoService: TranslocoService,
-    private readonly route: ActivatedRoute,
   ) {}
 
-  ngOnInit(): void {
-    this.eventId = this.route.snapshot.paramMap.get('id')!;
-  }
+  ngOnInit(): void {}
 
   showDialog() {
     this.visible = true;
@@ -103,6 +100,7 @@ export class CreateListComponent implements OnInit {
               { name: body.title },
             ),
           });
+          this.created.emit();
           this.visible = false;
         },
         error: () => {
