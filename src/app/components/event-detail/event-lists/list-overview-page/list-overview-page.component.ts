@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { List, ListService } from '../../../../services/lists/list.service';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
@@ -17,7 +17,7 @@ import { RouterLink } from '@angular/router';
   ],
   templateUrl: './list-overview-page.component.html',
 })
-export class ListOverviewPageComponent {
+export class ListOverviewPageComponent implements OnInit {
   @Input()
   set id(id: string) {
     this.eventId = id;
@@ -29,6 +29,10 @@ export class ListOverviewPageComponent {
   constructor(private listService: ListService) {}
 
   ngOnInit(): void {
+    this.getAndSetLists();
+  }
+
+  getAndSetLists() {
     this.lists$ = this.listService.getLists(this.eventId);
   }
 }

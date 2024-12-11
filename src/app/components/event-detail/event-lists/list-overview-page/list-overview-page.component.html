@@ -1,8 +1,8 @@
 <div class="grid justify-content-center">
   <div class="col-12 mb-4 flex justify-content-center">
-    <app-create-list [eventId]="eventId" />
+    <app-create-list [eventId]="eventId" (created)="getAndSetLists()" />
   </div>
-  <div class="col-12 flex justify-content-center">
+  <div class="col-12 px-3 flex justify-content-center">
     <div class="grid w-full md:w-9 lg:w-7 gap-3">
       @if (lists$ | async; as lists) {
         @for (list of lists; track list.id) {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Button } from 'primeng/button';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { DialogModule } from 'primeng/dialog';
@@ -40,6 +40,7 @@ type CreateListForm = FormGroup<{
 })
 export class CreateListComponent implements OnInit {
   @Input({ required: true }) eventId!: string;
+  @Output() created = new EventEmitter();
 
   private _visible: boolean = false;
   submitted: boolean = false;
@@ -99,6 +100,7 @@ export class CreateListComponent implements OnInit {
               { name: body.title },
             ),
           });
+          this.created.emit();
           this.visible = false;
         },
         error: () => {
