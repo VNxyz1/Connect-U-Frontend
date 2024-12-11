@@ -1,17 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   ActivatedRoute,
   NavigationEnd,
   Router,
   RouterOutlet,
 } from '@angular/router';
-import {
-  BehaviorSubject,
-  Observable,
-  of,
-  Subscription,
-  throwError,
-} from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, filter } from 'rxjs/operators';
 import { EventService } from '../../services/event/eventservice';
 import { EventDetails } from '../../interfaces/EventDetails';
@@ -48,6 +42,9 @@ import { RegisterComponent } from '../../components/register/register.component'
   ],
 })
 export class EventPageComponent implements OnInit {
+  @Input()
+  set id(id: string) {}
+
   url: string;
   eventId!: string;
   eventDetails!: EventDetails; // Resolved event details

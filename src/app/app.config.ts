@@ -64,6 +64,7 @@ import {
   RiCalendarCloseLine,
   RiDeleteBinLine,
   RiEdit2Line,
+  RiAddCircleLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
@@ -114,6 +115,7 @@ const icons = {
   RiDeleteBinLine,
   RiEditLine,
   RiEdit2Line,
+  RiAddCircleLine,
 };
 
 export const translocoConfig = {
