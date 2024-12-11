@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CreateSurveysComponent } from './create-surveys/create-surveys/create-surveys.component';
-import { CreateListComponent } from '../event-lists/create-list/create-list.component';
+import { CreateListComponent } from '../event-lists/list-overview-page/create-list/create-list.component';
 
 @Component({
   selector: 'app-event-surveys',
