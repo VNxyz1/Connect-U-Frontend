@@ -4,7 +4,7 @@ import {
   ListDetail,
   ListService,
 } from '../../../../services/lists/list.service';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { CheckboxModule } from 'primeng/checkbox';
 import { Button } from 'primeng/button';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
@@ -19,6 +19,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     Button,
     AngularRemixIconComponent,
     SkeletonModule,
+    NgOptimizedImage,
   ],
   templateUrl: './list-detail-page.component.html',
 })
