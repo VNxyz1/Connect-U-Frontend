@@ -109,8 +109,8 @@ export const routes: Routes = [
         path: 'guests',
         component: EventGuestsComponent,
         canActivate: [isLoggedInGuard],
-      }
-      ]
+      },
+    ],
   },
   {
     path: 'profile/:id',
