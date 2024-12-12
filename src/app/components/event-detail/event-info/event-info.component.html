@@ -1,33 +1,51 @@
-<p-dialog
-  [(visible)]="notLoggedInDialogVisible"
-  contentStyleClass="border-round"
-  [showHeader]="false"
-  [draggable]="false"
-  [focusOnShow]="false"
-  modal
-  [closeOnEscape]="false"
-  [closable]="false"
-  [style]="{ width: '25rem' }">
-  <div class="py-4">
-    @if (loginRegisterSwitch) {
-      <app-login
-        [redirectTo]="'/event/' + eventId"
-        (toggleView)="toggleLoginRegisterSwitch()"
-        class="w-full" />
-    } @else {
-      <app-register (toggleView)="toggleLoginRegisterSwitch()" class="w-full" />
-    }
-  </div>
-</p-dialog>
-
 @if (isLoading) {
-  <div class="flex justify-content-center align-items-center mt-8">
-    <p-progressSpinner
-      styleClass="w-4rem h-4rem"
-      strokeWidth="8"
-      fill="var(--surface-ground)"
-      animationDuration=".5s">
-    </p-progressSpinner>
+  <div class="xl:mr-8 p-0 m-0 mb-8 grid justify-content-center">
+    <!-- Skeleton for Image -->
+    <div class="col-12 xl:col-7">
+      <div class="flex justify-content-center p-0 sm:p-0 m-0">
+        <p-skeleton class="w-full mb-3" height="25rem"></p-skeleton>
+      </div>
+    </div>
+
+    <!-- Skeleton for Title and Tags -->
+    <div class="col-12 xl:col-7">
+      <p-skeleton width="50%" height="2rem" styleClass="mb-2"></p-skeleton>
+      <div class="flex w-full justify-content-between mb-3">
+        <p-skeleton width="30%" height="1.5rem"></p-skeleton>
+        <div class="flex gap-2">
+          <p-skeleton width="4rem" height="1.5rem"></p-skeleton>
+          <p-skeleton width="4rem" height="1.5rem"></p-skeleton>
+          <p-skeleton width="4rem" height="1.5rem"></p-skeleton>
+        </div>
+      </div>
+
+      <!-- Skeleton for Event Details Card -->
+      <div class="p-card p-mb-3 mt-6">
+        <div class="grid">
+          <div class="col">
+            <p-skeleton
+              width="60%"
+              height="1.5rem"
+              styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="40%" height="1.5rem"></p-skeleton>
+          </div>
+          <div class="col">
+            <p-skeleton
+              width="50%"
+              height="1.5rem"
+              styleClass="mb-2"></p-skeleton>
+            <p-skeleton width="40%" height="1.5rem"></p-skeleton>
+          </div>
+        </div>
+        <p-skeleton width="30%" height="1.5rem" styleClass="mt-3"></p-skeleton>
+        <p-skeleton width="100%" height="3rem" styleClass="mt-2"></p-skeleton>
+        <div class="flex gap-2 mt-3">
+          <p-skeleton width="4rem" height="1.5rem"></p-skeleton>
+          <p-skeleton width="4rem" height="1.5rem"></p-skeleton>
+          <p-skeleton width="4rem" height="1.5rem"></p-skeleton>
+        </div>
+      </div>
+    </div>
   </div>
 } @else {
   <div class="xl:mr-8 p-0 m-0 mb-8 grid justify-content-center">

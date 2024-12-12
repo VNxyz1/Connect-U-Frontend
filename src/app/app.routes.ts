@@ -89,14 +89,27 @@ export const routes: Routes = [
       {
         path: 'lists',
         component: EventListsComponent,
+        canActivate: [isLoggedInGuard],
         children: [
           { path: '', component: ListOverviewPageComponent },
           { path: 'detail/:listId', component: ListDetailPageComponent },
         ],
       },
-      { path: 'surveys', component: EventSurveysComponent },
-      { path: 'requests', component: EventRequestsComponent },
-      { path: 'guests', component: EventGuestsComponent },
+      {
+        path: 'surveys',
+        component: EventSurveysComponent,
+        canActivate: [isLoggedInGuard],
+      },
+      {
+        path: 'requests',
+        component: EventRequestsComponent,
+        canActivate: [isLoggedInGuard],
+      },
+      {
+        path: 'guests',
+        component: EventGuestsComponent,
+        canActivate: [isLoggedInGuard],
+      },
     ],
   },
   {

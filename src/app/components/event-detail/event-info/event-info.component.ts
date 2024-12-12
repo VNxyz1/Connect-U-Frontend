@@ -23,6 +23,7 @@ import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
 import { AsyncPipe } from '@angular/common';
 import { EventStatusIndicatorComponent } from '../../event-status-indicator/event-status-indicator.component';
 import { ProfileCardComponent } from '../../profile-card/profile-card.component';
+import { SkeletonModule } from 'primeng/skeleton';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -59,6 +60,7 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     AsyncPipe,
     EventStatusIndicatorComponent,
     ProfileCardComponent,
+    SkeletonModule,
   ],
 })
 export class EventInfoComponent implements OnInit, OnDestroy {
@@ -75,9 +77,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   ) => string;
   eventId!: string;
   private _eventDetailsSubscription: Subscription | undefined;
-  notLoggedInDialogVisible: boolean = false;
-  loginRegisterSwitch: boolean = true;
-
   protected _eventDetails!: EventDetails;
   isLoading = true;
 
@@ -102,14 +101,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     this.eventId = this.route.snapshot.paramMap.get('id')!;
 
     // Subscribe to login status changes
-    this.auth.isLoggedIn().subscribe({
-      next: loggedIn => {
-        this.notLoggedInDialogVisible = !loggedIn;
-      },
-      error: err => {
-        console.error('Error checking login status:', err);
-      },
-    });
 
     // Check if eventDetails is passed via Router state
     const navigationState = this.router.getCurrentNavigation()?.extras.state;
@@ -249,10 +240,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
       severity: 'error',
       summary: translatedMessage,
     });
-  }
-
-  toggleLoginRegisterSwitch() {
-    this.loginRegisterSwitch = !this.loginRegisterSwitch;
   }
 
   deleteEventRequest(id: number, $e: MouseEvent) {
