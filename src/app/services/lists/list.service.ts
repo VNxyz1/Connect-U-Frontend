@@ -56,4 +56,13 @@ export class ListService {
   getListDetail(listId: number): Observable<ListDetail> {
     return this.http.get<ListDetail>('list/listDetails/' + listId);
   }
+
+  postListEntry(listId: number, content: string) {
+    return this.http.post<{ ok: boolean; message: string }>(
+      'list-entry/' + listId,
+      {
+        content: content,
+      },
+    );
+  }
 }

@@ -9,12 +9,32 @@
                 listDetail.title
               }}</span>
             </div>
-            <div class="col-fixed w-min">
-              <p-button disabled raised severity="success">
-                <ng-template pTemplate="icon">
-                  <rmx-icon name="add-circle-line" />
-                </ng-template>
-              </p-button>
+            <div class="col-fixed w-max hidden md:block">
+              <form [formGroup]="form" (submit)="handleSubmit($event)">
+                <p-inputGroup styleClass="w-full flex justify-content-end">
+                  <input
+                    class="w-full"
+                    #createListEntryInputA
+                    formControlName="content"
+                    (blur)="hideCreateInput()"
+                    [maxLength]="255"
+                    type="text"
+                    pInputText
+                    [class]="createInputVisible ? '' : 'hidden'" />
+                  <p-button
+                    (onClick)="handleClickCreateButton()"
+                    raised
+                    severity="success"
+                    [type]="createInputVisible ? 'submit' : 'button'"
+                    [styleClass]="
+                      createInputVisible ? 'border-noround-left' : ''
+                    ">
+                    <ng-template pTemplate="icon">
+                      <rmx-icon name="add-circle-line" />
+                    </ng-template>
+                  </p-button>
+                </p-inputGroup>
+              </form>
             </div>
             <div class="col-fixed w-min">
               <p-button disabled raised text severity="danger">
@@ -34,12 +54,18 @@
             <div class="col flex align-items-center">
               <p-skeleton width="7rem" height="2rem" styleClass="mb-2" />
             </div>
-            <div class="col-fixed w-min">
-              <p-button disabled raised severity="success">
-                <ng-template pTemplate="icon">
-                  <rmx-icon name="add-circle-line" />
-                </ng-template>
-              </p-button>
+            <div class="col-fixed w-max hidden md:block">
+              <form>
+                <p-button
+                  disabled
+                  raised
+                  severity="success"
+                  [type]="createInputVisible ? 'submit' : 'button'">
+                  <ng-template pTemplate="icon">
+                    <rmx-icon name="add-circle-line" />
+                  </ng-template>
+                </p-button>
+              </form>
             </div>
             <div class="col-fixed w-min">
               <p-button disabled text raised severity="danger">
@@ -56,7 +82,7 @@
       }
     </div>
   </div>
-  <div class="col-12 flex justify-content-center">
+  <div class="col-12 flex justify-content-center mb-6">
     <div class="w-12 sm:w-10 md:w-8 md:w-7 xl:w-6 grid gap-2">
       @if (listDetail$ | async; as listDetail) {
         @for (listEntry of listDetail.listEntries; track listEntry.id) {
@@ -108,6 +134,46 @@
           </div>
         }
       }
+    </div>
+  </div>
+  <div class="col-12 flex justify-content-center md:hidden">
+    <div class="w-12 sm:w-10 md:w-8 md:w-7 xl:w-6 grid">
+      <div class="col-12">
+        <div class="grid justify-content-end">
+          <div
+            class="col-12 sm:col-10 md:col-5 pl-4 sm:pl-3 fixed"
+            style="bottom: 85px">
+            <form [formGroup]="form" (submit)="handleSubmit($event)">
+              <p-inputGroup styleClass="w-full flex justify-content-end">
+                <input
+                  class="w-full"
+                  #createListEntryInputB
+                  formControlName="content"
+                  (blur)="hideCreateInput()"
+                  [maxLength]="255"
+                  type="text"
+                  pInputText
+                  [class]="createInputVisible ? '' : 'hidden'" />
+                <p-button
+                  (onClick)="handleClickCreateButton()"
+                  raised
+                  severity="success"
+                  [style]="{ height: '45px', width: '45px' }"
+                  [type]="createInputVisible ? 'submit' : 'button'"
+                  [styleClass]="
+                    createInputVisible ? 'border-noround-left' : ''
+                  ">
+                  <ng-template pTemplate="icon">
+                    <rmx-icon
+                      name="add-circle-line"
+                      style="height: 40px; width: 40px" />
+                  </ng-template>
+                </p-button>
+              </p-inputGroup>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
