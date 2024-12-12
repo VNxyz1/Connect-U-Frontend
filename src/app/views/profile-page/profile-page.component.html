@@ -39,10 +39,27 @@
             {{ 'profilePage.cardText.aboutMe' | transloco }}
           </h4>
           <p
-            class="mb-2 mt-0 pt-0"
+            class="mb-2 mt-2 pt-0"
             style="word-wrap: break-word; white-space: pre-wrap">
             {{ data.profileText || 'Keine Beschreibung' }}
           </p>
+        </div>
+        <div class="pt-3">
+          <span>
+            @for (tag of data.tags; track $index) {
+              <p-tag
+                [value]="tag"
+                severity="secondary"
+                [rounded]="true"
+                class="mr-1">
+                <ng-template pTemplate="icon">
+                  <rmx-icon
+                    name="price-tag-3-line"
+                    style="width: 16px; height: 16px" />
+                </ng-template>
+              </p-tag>
+            }
+          </span>
         </div>
       </p-card>
     }

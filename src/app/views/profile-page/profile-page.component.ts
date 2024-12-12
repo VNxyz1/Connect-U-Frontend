@@ -24,6 +24,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MessageService } from 'primeng/api';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { map } from 'rxjs/operators';
+import { TagModule } from 'primeng/tag';
 
 type editProfileForm = FormGroup<{
   pronouns: FormControl<string>;
@@ -47,6 +48,7 @@ type editProfileForm = FormGroup<{
     DropdownModule,
     TranslocoPipe,
     NgClass,
+    TagModule,
   ],
   providers: [UserService, MessageService, TranslocoService],
   templateUrl: './profile-page.component.html',
