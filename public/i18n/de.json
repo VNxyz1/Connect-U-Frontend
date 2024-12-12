@@ -47,7 +47,7 @@
     }
   },
   "registerComponent": {
-    "title": "Registrieren",
+    "title": "REGISTRIEREN",
     "alreadyAccount": "Du hast schon einen Account?",
     "loginLink": "Hier einloggen!",
     "usernameInput": {

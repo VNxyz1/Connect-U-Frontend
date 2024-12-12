@@ -147,11 +147,9 @@
       <div class="field mb-4">
         <p-floatLabel>
           <p-calendar
-            [iconDisplay]="'input'"
             [showIcon]="true"
             inputId="templatedisplay"
             id="calender"
-            class="w-full"
             aria-autocomplete="none"
             formControlName="birthday"
             aria-required="true"
@@ -162,9 +160,11 @@
             <ng-template
               pTemplate="inputicon"
               let-clickCallBack="clickCallBack">
-              <i
-                class="pi pi-user pointer-events-none"
-                (click)="clickCallBack($event)"></i>
+              <rmx-icon
+                style="width: 16px; height: 16px"
+                name="calendar-line"
+                (click)="clickCallBack($event)">
+              </rmx-icon>
             </ng-template>
           </p-calendar>
           <label for="calender">{{
@@ -196,6 +196,7 @@
             id="gender"
             formControlName="gender"
             [options]="genderOptions"
+            optionLabel="label"
             aria-required="true"
             [attr.aria-invalid]="
               form.get('gender')?.invalid && form.get('gender')?.touched
