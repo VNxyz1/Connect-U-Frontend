@@ -31,6 +31,7 @@ import { AsyncPipe } from '@angular/common';
 import { EventStatusIndicatorComponent } from '../../event-status-indicator/event-status-indicator.component';
 import { ProfileCardComponent } from '../../profile-card/profile-card.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { SkeletonModule } from 'primeng/skeleton';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -67,6 +68,7 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     EventStatusIndicatorComponent,
     ProfileCardComponent,
     ConfirmDialogModule,
+    SkeletonModule,
   ],
   providers: [ConfirmationService],
 })
@@ -80,9 +82,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     preferredGenders: EventDetails['preferredGenders'],
   ) => string;
   eventId!: string;
-  notLoggedInDialogVisible: boolean = false;
-  loginRegisterSwitch: boolean = true;
-
   protected _eventDetails!: EventDetails;
   isLoading = true;
 
@@ -106,16 +105,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('id')!;
-
-    // Subscribe to login status changes
-    this.auth.isLoggedIn().subscribe({
-      next: loggedIn => {
-        this.notLoggedInDialogVisible = !loggedIn;
-      },
-      error: err => {
-        console.error('Error checking login status:', err);
-      },
-    });
 
     this.getEventDetails();
   }
@@ -233,10 +222,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
       severity: 'error',
       summary: translatedMessage,
     });
-  }
-
-  toggleLoginRegisterSwitch() {
-    this.loginRegisterSwitch = !this.loginRegisterSwitch;
   }
 
   deleteEventRequest(id: number, $e: MouseEvent) {

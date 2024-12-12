@@ -1,3 +1,25 @@
+<p-dialog
+  [(visible)]="notLoggedInDialogVisible"
+  contentStyleClass="border-round"
+  [showHeader]="false"
+  [draggable]="false"
+  [focusOnShow]="false"
+  modal
+  [closeOnEscape]="false"
+  [closable]="false"
+  [style]="{ width: '25rem' }">
+  <div class="py-4">
+    @if (loginRegisterSwitch) {
+      <app-login
+        [redirectTo]="'/event/' + eventId"
+        (toggleView)="toggleLoginRegisterSwitch()"
+        class="w-full" />
+    } @else {
+      <app-register (toggleView)="toggleLoginRegisterSwitch()" class="w-full" />
+    }
+  </div>
+</p-dialog>
+
 <!-- Display tabs if user is host or guest -->
 @if (
   eventDetails &&
