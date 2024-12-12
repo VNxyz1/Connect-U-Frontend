@@ -42,6 +42,16 @@
         @case (currentUrl?.includes('/event')) {
           <h1 class="m-0">{{ 'headerComponent.event' | transloco }}</h1>
         }
+        @case (currentUrl?.includes('/settings')) {
+          <h1 class="m-0">{{ 'headerComponent.settings' | transloco }}</h1>
+        }
+        @case (currentUrl?.includes('/profile')) {
+          <h1 class="m-0">{{ 'headerComponent.profile' | transloco }}</h1>
+        }
+        @case (currentUrl?.includes('/account')) {
+          <h1 class="m-0">{{ 'headerComponent.account' | transloco }}</h1>
+        }
+
         @default {
           <p-image
             src="images/logo_full_dark.svg"

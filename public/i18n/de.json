@@ -338,6 +338,9 @@
     "search": "Events suchen",
     "createEvent": "Event erstellen",
     "event": "Eventinformationen",
+    "settings": "Einstellungen",
+    "profile": "Profil",
+    "account": "Konto",
     "closeConfirmationMessage": "Bist Du sicher, dass du dein Event verwerfen möchtest? Dein Entwurf wird nicht gespeichert.",
     "closeConfirmationHeader": "Entwurf verwerfen"
   },
@@ -720,6 +723,82 @@
     "listing": {
       "settings": "Einstellungen",
       "logout": "Abmelden"
+    }
+  },
+  "profilePage": {
+    "cardText": {
+      "aboutMe": "Über mich",
+      "city": "Kein Wohnort angegeben"
+    },
+    "updateText": {
+      "pronouns": "Pronomen...",
+      "desc": "Beschreibung...",
+      "saveButton": "Speichern"
+    }
+  },
+  "accountPage": {
+    "headlines": {
+      "location": "Adresse",
+      "userData": "Nutzerdaten"
+    },
+    "information": {
+      "title": "Geschlecht ändern?",
+      "text": "Falls du dein Geschlecht geändert hast, dann schreibe uns eine Nachricht über unseren Support. Wir werden uns um die Änderung so schnell wie möglich kümmern.",
+      "team": "Dein Connect-U Team"
+    },
+    "placeholder": {
+      "username": "Benutzername",
+      "email": "E-Mail-Adresse",
+      "firstname": "Vorname",
+      "lastname": "Nachname",
+      "gender": "Geschlecht",
+      "street": "Straße",
+      "houseNr": "Hausnummer",
+      "zipCode": "PLZ",
+      "city": "Ort"
+    },
+    "button":{
+      "password": "Passwort ändern",
+      "save": "Speichern"
+    },
+    "passwordForm": {
+      "title": "Passwort ändern",
+      "oldPassword" : "Aktuelles Passwort",
+      "newPassword": "Neues Passwort",
+      "confirmPassword": "Neues Passwort wiederholen",
+      "errorTitle": "Passwort ändern Fehlgeschlagen",
+      "missMatchError": "Die Passwörter stimmen nicht über ein",
+      "wrongPassword": "Dein eingegebenes Passwort ist falsch",
+      "warnings": {
+        "oldPasswordRequired": "Du musst dein aktuelles Passwort angeben!",
+        "newPasswordMinLength": "Dein neues Passwort benötigt mind. 8 Zeichen",
+        "newPasswordRequired": "Du musst ein neues Passwort angeben!",
+        "confirmPasswordMinLength": "Du musst dein neues Passwort korrekt wiederholen",
+        "confirmPasswordRequired": "Du musst dein neues Passwort korrekt wiederholen"
+      }
+    },
+    "adressForm": {
+      "warnings": {
+        "house": "Hausnummer ist erforderlich",
+        "street": "Straße ist erforderlich",
+        "zipCode": "PLZ ist erforderlich",
+        "city": "Ort ist erforderlich",
+        "requirements": "Bitte gib entweder deine vollständigen Adressinformationen an oder lasse alle Felder leer."
+      }
+    },
+    "messages": {
+      "success": "Erfolgreich",
+      "detailProfile": "Profil Daten wurden erfolgreich aktualisiert",
+      "detailPassword": "Passwort wurde erfolgreich geändert",
+      "error": "Fehlerhaft",
+      "detailError": "Möglicherweise existiert bereits ein Nutzer mit der Email oder dem Nutzernamen",
+      "usernameTaken": "Der Nutzername wird bereits verwendet",
+      "emailTaken": "Diese Email wird bereits verwendet"
+    },
+    "genderOptions": {
+      "man": "Männlich",
+      "female": "Weiblich",
+      "diverse": "Divers"
     }
   },
   "createSurveyPage": {

@@ -16,11 +16,14 @@ import { Step3Component } from './components/create-event/step3/step3.component'
 import { isNotLoggedInGuard } from './utils/guards/is-not-logged-in.guard';
 import { LegalDisclosurePageComponent } from './views/legal-disclosure-page/legal-disclosure-page.component';
 import { PrivacyPolicyPageComponent } from './views/privacy-policy-page/privacy-policy-page.component';
-import { EventInfoComponent } from './components/event-detail/event-info/event-info.component';
 import { EventListsComponent } from './components/event-detail/event-lists/event-lists.component';
 import { EventSurveysComponent } from './components/event-detail/event-surveys/event-surveys.component';
 import { EventRequestsComponent } from './components/event-detail/event-requests/event-requests.component';
 import { UsersEventRequestsComponent } from './components/my-events/users-event-requests/users-event-requests.component';
+import { ListOverviewPageComponent } from './components/event-detail/event-lists/list-overview-page/list-overview-page.component';
+import { ListDetailPageComponent } from './components/event-detail/event-lists/list-detail-page/list-detail-page.component';
+import { SettingsPageComponent } from './views/settings-page/settings-page.component';
+import { AccountManagePageComponent } from './views/account-manage-page/account-manage-page.component';
 import { EventGuestsComponent } from './components/event-detail/event-guests/event-guests.component';
 
 /**
@@ -83,10 +86,30 @@ export const routes: Routes = [
     title: 'Event | Connect-U',
     component: EventPageComponent,
     children: [
-      { path: 'lists', component: EventListsComponent },
-      { path: 'surveys', component: EventSurveysComponent },
-      { path: 'requests', component: EventRequestsComponent },
-      { path: 'guests', component: EventGuestsComponent },
+      {
+        path: 'lists',
+        component: EventListsComponent,
+        canActivate: [isLoggedInGuard],
+        children: [
+          { path: '', component: ListOverviewPageComponent },
+          { path: 'detail/:listId', component: ListDetailPageComponent },
+        ],
+      },
+      {
+        path: 'surveys',
+        component: EventSurveysComponent,
+        canActivate: [isLoggedInGuard],
+      },
+      {
+        path: 'requests',
+        component: EventRequestsComponent,
+        canActivate: [isLoggedInGuard],
+      },
+      {
+        path: 'guests',
+        component: EventGuestsComponent,
+        canActivate: [isLoggedInGuard],
+      },
     ],
   },
   {
@@ -113,6 +136,16 @@ export const routes: Routes = [
     path: '404',
     title: 'Not Found | Connect-U',
     component: NotFoundPageComponent,
+  },
+  {
+    path: 'settings',
+    title: 'Settings | Connect-U',
+    component: SettingsPageComponent,
+  },
+  {
+    path: 'account',
+    title: 'Account | Connect-U',
+    component: AccountManagePageComponent,
   },
   {
     path: '**',

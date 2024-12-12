@@ -74,7 +74,8 @@ export class CreateSurveysComponent implements OnInit {
     this.showItemInput = false;
   }
 
-  addItem() {
+  addItem(event: SubmitEvent) {
+    event.preventDefault();
     if (this.newItem.valid) {
       this.items.push(new FormControl(this.newItem.value, Validators.required));
       this.newItem.reset();
