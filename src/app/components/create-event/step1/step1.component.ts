@@ -14,6 +14,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { NgClass } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { ChipsModule } from 'primeng/chips';
 
 @Component({
   selector: 'app-step1',
@@ -30,10 +31,13 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
     NgClass,
     TooltipModule,
     TranslocoPipe,
+    ChipsModule,
   ],
   templateUrl: './step1.component.html',
 })
 export class Step1Component implements OnInit, OnDestroy {
+  values: string[] | undefined;
+  max = 50;
   eventType: number | undefined = 1;
   eventTitle: string = '';
   description: string = '';

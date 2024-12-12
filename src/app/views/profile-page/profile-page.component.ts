@@ -25,6 +25,7 @@ import { MessageService } from 'primeng/api';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { map } from 'rxjs/operators';
 import { TagModule } from 'primeng/tag';
+import { ChipsModule } from 'primeng/chips';
 
 type editProfileForm = FormGroup<{
   pronouns: FormControl<string>;
@@ -49,6 +50,7 @@ type editProfileForm = FormGroup<{
     TranslocoPipe,
     NgClass,
     TagModule,
+    ChipsModule,
   ],
   providers: [UserService, MessageService, TranslocoService],
   templateUrl: './profile-page.component.html',
@@ -58,6 +60,8 @@ export class ProfilePageComponent implements OnInit {
   protected profileData$!: Observable<ProfileData>;
   protected editMode: boolean = false;
   protected isUser!: boolean | undefined;
+  values: string[] | undefined;
+  max = 50;
 
   constructor(
     private messageService: MessageService,
