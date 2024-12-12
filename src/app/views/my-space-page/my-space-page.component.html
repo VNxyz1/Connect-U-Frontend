@@ -14,7 +14,7 @@
       <ul class="list-none p-0 m-0 w-full">
         <!-- Einstellungen -->
         <li
-          class="p-3 pt-0 w-full col-12 border-bottom-1 border-gray-50 flex justify-content-between align-items-center cursor-pointer"
+          class="p-3 pt-0 pb-4 w-full col-12 border-bottom-1 border-gray-50 flex justify-content-between align-items-center cursor-pointer"
           [routerLink]="['/settings']">
           <div class="flex align-items-center">
             <rmx-icon name="settings-5-line" class="mr-2"></rmx-icon>
@@ -24,12 +24,21 @@
             name="arrow-right-s-line"
             style="height: 26px; width: 26px" />
         </li>
-
-
+        <li
+          class="p-3 py-4 w-full col-12 border-bottom-1 border-gray-50 flex justify-content-between align-items-center cursor-pointer"
+          [routerLink]="['/information']">
+          <div class="flex align-items-center">
+            <rmx-icon name="information-2-line" class="mr-2"></rmx-icon>
+            <span>{{ 'mySpacePage.listing.information' | transloco }}</span>
+          </div>
+          <rmx-icon
+            name="arrow-right-s-line"
+            style="height: 26px; width: 26px" />
+        </li>
         <!-- Logout -->
         <li
           (click)="handleLogout()"
-          class="p-3 pb-0 w-full col-12 flex justify-content-between align-items-center cursor-pointer">
+          class="p-3 pb-0 pt-4 w-full col-12 flex justify-content-between align-items-center cursor-pointer">
           <div class="flex align-items-center">
             <rmx-icon name="logout-box-line" class="mr-2 p-error"></rmx-icon>
             <span class="p-error">{{
