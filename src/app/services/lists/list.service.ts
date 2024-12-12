@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ProfileData } from '../../interfaces/ProfileData';
 
 type CreateListRes = {
   ok: boolean;
@@ -17,7 +18,7 @@ export type List = {
   id: number;
   title: string;
   description: string;
-  creator: {};
+  creator: ProfileData;
   listEntriesNumber: number;
 };
 
@@ -25,7 +26,7 @@ export type ListDetail = {
   id: number;
   title: string;
   description: string;
-  creator: {};
+  creator: ProfileData;
   listEntries: ListEntry[];
 };
 
@@ -33,7 +34,7 @@ export type ListEntry = {
   id: number;
   timestamp: string;
   content: string;
-  user: {} | null;
+  user: ProfileData | null;
 };
 
 @Injectable({
@@ -63,6 +64,13 @@ export class ListService {
       {
         content: content,
       },
+    );
+  }
+
+  assignToListEntry(entryId: number) {
+    return this.http.patch<{ ok: boolean; message: string }>(
+      'list-entry/' + entryId,
+      {},
     );
   }
 }

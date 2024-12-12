@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   ListDetail,
+  ListEntry,
   ListService,
 } from '../../../../services/lists/list.service';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
@@ -14,6 +15,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import {
   FormControl,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -34,6 +36,7 @@ import { TranslocoService } from '@jsverse/transloco';
     InputTextModule,
     ButtonDirective,
     ReactiveFormsModule,
+    FormsModule,
   ],
   templateUrl: './list-detail-page.component.html',
 })
@@ -109,10 +112,30 @@ export class ListDetailPageComponent implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: this.translocoService.translate(
-            'eventListPage.createListModal.messages.error.summary',
+            'eventListPage.createListEntry.messages.error.summary',
           ),
           detail: this.translocoService.translate(
-            'eventListPage.createListModal.messages.error.detail',
+            'eventListPage.createListEntry.messages.error.detail',
+          ),
+        });
+      },
+    });
+  }
+
+  handleCheckboxChange(entry: ListEntry) {
+    this.listService.assignToListEntry(entry.id).subscribe({
+      next: () => {
+        this.getAndSetListDetails();
+      },
+      error: () => {
+        this.getAndSetListDetails();
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translocoService.translate(
+            'eventListPage.listEntry.assignUser.messages.error.summary',
+          ),
+          detail: this.translocoService.translate(
+            'eventListPage.listEntry.assignUser.messages.error.detail',
           ),
         });
       },

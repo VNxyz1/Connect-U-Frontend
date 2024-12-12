@@ -90,12 +90,18 @@
             <div class="custom-card-container grid">
               <div
                 class="col-fixed w-min flex justify-content-center align-content-center">
-                <p-checkbox disabled binary variant="filled" />
+                <p-checkbox
+                  binary
+                  variant="filled"
+                  [ngModel]="!!listEntry.user"
+                  (click)="handleCheckboxChange(listEntry)" />
               </div>
               <div class="col flex align-items-center">
                 <span>{{ listEntry.content }}</span>
               </div>
-              <div class="col-fixed w-min flex align-items-center">
+              <div
+                class="col-fixed w-min flex align-items-center align-content-center">
+                <span class="mr-2">{{ listEntry.user?.username }}</span>
                 <img
                   ngSrc="/images/userImg.png"
                   alt="profile picture"
