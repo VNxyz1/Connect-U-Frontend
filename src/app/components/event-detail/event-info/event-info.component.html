@@ -129,16 +129,20 @@
         <div>
         <span>
           @for (tag of eventDetails.tags; track $index) {
-            <p-tag [value]="'#' + tag" severity="secondary" [rounded]="true" class="mr-1" />
+            <p-tag [value]="tag" severity="secondary" [rounded]="true" class="mr-1">
+            <ng-template pTemplate="icon">
+                    <rmx-icon
+                      name="price-tag-3-line"
+                      style="width: 16px; height: 16px" />
+                  </ng-template>
+</p-tag>
           }
         </span>
         </div>
       </p-card>
 
       <div class="">
-        @if (
-          eventDetails && eventRequestsHost.length > 0 && eventDetails.isHost
-        ) {
+        @if (eventDetails && eventRequestsHost.length > 0 && eventDetails.isHost) {
           <p-card
             class="p-3 cursor-pointer"
             [routerLink]="['requests']"
@@ -152,8 +156,8 @@
                 </h3>
                 <!-- Request Count (Right Top, Aligned with Header) -->
                 <span class="color-secondary text-center w-2rem">{{
-                  this.eventRequestsHost.length
-                }}</span>
+                    this.eventRequestsHost.length
+                  }}</span>
               </div>
 
               <!-- Bottom Section -->
@@ -217,7 +221,7 @@
                 </h3>
                 <!-- Request Count (Right Top, Aligned with Header) -->
                 <span class="color-secondary text-center w-2rem"
-                  >{{ this.eventDetails.participantsNumber }}/{{
+                >{{ this.eventDetails.participantsNumber }}/{{
                     this.eventDetails.maxParticipantsNumber
                   }}</span
                 >
@@ -269,11 +273,9 @@
         }
       </div>
 
-      @if (
-        eventDetails.startAge ||
-        eventDetails.endAge ||
-        eventDetails.preferredGenders.length > 0
-      ) {
+      @if (eventDetails.startAge ||
+      eventDetails.endAge ||
+      eventDetails.preferredGenders.length > 0) {
         <div class="mt-3">
           <p-card styleClass="mb-3">
             <h3>{{ 'eventDetailPageComponent.restrictions' | transloco }}</h3>
@@ -302,10 +304,10 @@
                   {{
                     eventDetails.startAge
                       ? ('eventDetailPageComponent.from' | transloco) +
-                        ' ' +
-                        eventDetails.startAge +
-                        ' ' +
-                        ('eventDetailPageComponent.years1' | transloco)
+                      ' ' +
+                      eventDetails.startAge +
+                      ' ' +
+                      ('eventDetailPageComponent.years1' | transloco)
                       : ''
                   }}
                 </p>
@@ -313,10 +315,10 @@
                   {{
                     eventDetails.endAge
                       ? ('eventDetailPageComponent.to' | transloco) +
-                        ' ' +
-                        eventDetails.endAge +
-                        ' ' +
-                        ('eventDetailPageComponent.years2' | transloco)
+                      ' ' +
+                      eventDetails.endAge +
+                      ' ' +
+                      ('eventDetailPageComponent.years2' | transloco)
                       : ''
                   }}
                 </p>
@@ -335,9 +337,7 @@
               name="heart-3-line"></rmx-icon>
           </ng-template>
         </p-button>
-        @if (
-          eventDetails && (eventDetails.isHost || eventDetails.isParticipant)
-        ) {
+        @if (eventDetails && (eventDetails.isHost || eventDetails.isParticipant)) {
           <!-- TODO Event absagen / Teilnahme löschen-->
         } @else if (userRequest) {
           <!-- Responsive Container -->

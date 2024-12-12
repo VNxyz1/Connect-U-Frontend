@@ -143,7 +143,7 @@
       <ng-template pTemplate="content">
         <div class="grid min-h-full align-content-around">
           <div class="col-12 grid p-2">
-            @for (tag of ahhArr.slice(0, 3); track $index) {
+            @for (tag of event.tags; track $index) {
               <div class="col-fixed w-min p-1">
                 <p-tag [value]="tag" [rounded]="true" severity="secondary">
                   <ng-template pTemplate="icon">
