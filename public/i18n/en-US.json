@@ -260,8 +260,15 @@
     "requestAlreadyExists": "You have already sent a request for this event.",
     "joined": "You've successfully joined the event!",
     "requestSent": "Your request has been sent!",
-    "genericError": "Something went wrong with sending your request!"
-
+    "genericError": "Something went wrong with sending your request!",
+    "cancel-participation": "cancel participation",
+    "messages": {
+      "cancelParticipation": "Are you sure you want to cancel your participation in this event? If it is a non-public event, you will need to send a new request!",
+      "cancelParticipationHeader": "Event Participation Cancellation",
+      "participationCanceled": "Event participation cancellation successful!",
+      "cancelConfirm": "Return",
+      "submitConfirm": "Yes, I'm sure"
+    }
   },
   "eventPageComponent": {
     "infoTab": "Information",

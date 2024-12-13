@@ -261,7 +261,15 @@
     "requestAlreadyExists": "Du hast bereits eine Anfrage an dieses Event verschickt.",
     "genericError": "Bei deiner Anfrage ist etwas schief gelaufen!",
     "requestSent": "Deine Anfrage wurde verschickt!",
-    "joined": "Du hast dich für das Event angemeldet!"
+    "joined": "Du hast dich für das Event angemeldet!",
+    "cancel-participation": "abmelden",
+    "messages": {
+      "cancelParticipation": "Bist du sicher, dass du dich von diesem Event abmelden möchtest? Sollte es sich um ein nicht-öffentliches Event handeln, musst du eine neue Anfrage stellen!",
+      "cancelParticipationHeader": "Event-Abmeldung",
+      "participationCanceled": "Event-Abmeldung erfolgreich!",
+      "cancelConfirm": "Zurück",
+      "submitConfirm": "Ja, ich bin sicher"
+    }
   },
   "eventPageComponent": {
     "infoTab": "Informationen",
