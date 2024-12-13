@@ -106,7 +106,8 @@
             </div>
           </div>
           <div class="col">
-            <div class="flex items-center">
+            <div
+              class="flex align-items-center align-content-center items-center">
               <rmx-icon name="map-pin-2-line" class="mr-2"></rmx-icon>
               @if (eventDetails.street || eventDetails.streetNumber) {
                 <p class="m-0">
@@ -116,12 +117,12 @@
               @if (!eventDetails.city) {
                 <p class="m-0">Online-Event</p>
               }
+              @if (eventDetails.city) {
+                <p class="m-0">
+                  {{ eventDetails.zipCode }} {{ eventDetails.city }}
+                </p>
+              }
             </div>
-            @if (eventDetails.city) {
-              <p class="m-0 ml-5">
-                {{ eventDetails.zipCode }} {{ eventDetails.city }}
-              </p>
-            }
           </div>
         </div>
         <h3>{{ 'eventDetailPageComponent.eventDetails' | transloco }}</h3>
@@ -357,6 +358,7 @@
               (onClick)="cancelEventParticipation($event)">
               <ng-template pTemplate="icon">
                 <rmx-icon
+                  class="mr-1"
                   style="width: 16px; height: 16px"
                   name="logout-circle-line"></rmx-icon>
               </ng-template>
