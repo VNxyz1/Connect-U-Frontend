@@ -341,6 +341,7 @@
     "settings": "Einstellungen",
     "profile": "Profil",
     "account": "Konto",
+    "information": "Informationen",
     "closeConfirmationMessage": "Bist Du sicher, dass du dein Event verwerfen möchtest? Dein Entwurf wird nicht gespeichert.",
     "closeConfirmationHeader": "Entwurf verwerfen"
   },
@@ -722,8 +723,15 @@
   "mySpacePage": {
     "listing": {
       "settings": "Einstellungen",
-      "logout": "Abmelden"
+      "logout": "Abmelden",
+      "information": "Informationen"
     }
+  },
+  "informationPage": {
+    "legal-disclosure": "Impressum",
+    "privacy-policy": "Datenschutzerklärung",
+    "terms": "Allgemeine Geschäftsbedingungen"
+
   },
   "profilePage": {
     "cardText": {
