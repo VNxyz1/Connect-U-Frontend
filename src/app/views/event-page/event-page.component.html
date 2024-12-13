@@ -62,9 +62,9 @@
   !url.includes('/surveys')
 ) {
   <app-event-info
-    [eventDetails]="eventDetails$"
     [getPreferredGendersString]="getPreferredGendersString"
-    [eventRequestsHost]="eventRequestsHost">
+    [eventRequestsHost]="eventRequestsHost"
+    (eventDetailsUpdated)="onEventDetailsUpdated()">
   </app-event-info>
 }
 

@@ -222,4 +222,8 @@ export class EventPageComponent implements OnInit {
   protected toggleLoginRegisterSwitch() {
     this.loginRegisterSwitch = !this.loginRegisterSwitch;
   }
+
+  protected onEventDetailsUpdated() {
+    this.fetchEventDetails();
+  }
 }

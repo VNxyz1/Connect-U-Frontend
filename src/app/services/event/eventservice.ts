@@ -257,4 +257,22 @@ export class EventService {
   getUpcomingEvents(): Observable<EventCardItem[]> {
     return this.http.get<EventCardItem[]>('event/upcoming');
   }
+
+  removeEventParticipation(
+    eventId: string,
+  ): Observable<{ success: boolean; message: string }> {
+    const url = `event/leave/${eventId}`;
+    return this.http.post<{ success: boolean; message: string }>(url, {}).pipe(
+      map(response => {
+        return response;
+      }),
+      catchError(error => {
+        console.error(
+          'Error removing user to the event participants list:',
+          error,
+        );
+        return throwError(() => error);
+      }),
+    );
+  }
 }

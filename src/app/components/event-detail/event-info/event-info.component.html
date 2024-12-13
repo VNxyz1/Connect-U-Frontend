@@ -60,25 +60,25 @@
       </div>
     </div>
     <div class="col-12 xl:col-7">
-      <h2>{{ eventDetails.title }}</h2>
+      <h2>{{ _eventDetails.title }}</h2>
 
       <div class="flex w-full justify-content-between">
         <span>
           <app-event-status-indicator
-            [status]="eventDetails.status"
+            [status]="_eventDetails.status"
             showText
             invertedColor />
         </span>
         <span>
-          @for (category of eventDetails.categories; track $index) {
+          @for (category of _eventDetails.categories; track $index) {
             <p-tag [value]="category.name" [rounded]="true" class="mr-1" />
           }
         </span>
       </div>
 
-      @if (eventDetails.host) {
+      @if (_eventDetails.host) {
         <app-profile-card
-          [userProfile]="eventDetails.host"
+          [userProfile]="_eventDetails.host"
           [showAge]="true"
           [title]="'eventDetailPageComponent.host' | transloco" />
       }
@@ -90,7 +90,7 @@
               <rmx-icon name="calendar-line" class="mr-2"></rmx-icon>
               <p class="m-0">
                 {{
-                  eventDetails.dateAndTime
+                  _eventDetails.dateAndTime
                     | translocoDate: { dateStyle: 'medium' }
                 }}
               </p>
@@ -99,14 +99,15 @@
               <rmx-icon name="time-line" class="mr-2"></rmx-icon>
               <p class="m-0">
                 {{
-                  eventDetails.dateAndTime
+                  _eventDetails.dateAndTime
                     | translocoDate: { timeStyle: 'short' }
                 }}
               </p>
             </div>
           </div>
           <div class="col">
-            <div class="flex items-center">
+            <div
+              class="flex align-items-center align-content-center items-center">
               <rmx-icon name="map-pin-2-line" class="mr-2"></rmx-icon>
               @if (eventDetails.street || eventDetails.streetNumber) {
                 <p class="m-0">
@@ -116,12 +117,12 @@
               @if (!eventDetails.city) {
                 <p class="m-0">Online-Event</p>
               }
+              @if (eventDetails.city) {
+                <p class="m-0">
+                  {{ eventDetails.zipCode }} {{ eventDetails.city }}
+                </p>
+              }
             </div>
-            @if (eventDetails.city) {
-              <p class="m-0 ml-5">
-                {{ eventDetails.zipCode }} {{ eventDetails.city }}
-              </p>
-            }
           </div>
         </div>
         <h3>{{ 'eventDetailPageComponent.eventDetails' | transloco }}</h3>
@@ -348,7 +349,23 @@
         @if (
           eventDetails && (eventDetails.isHost || eventDetails.isParticipant)
         ) {
-          <!-- TODO Event absagen / Teilnahme löschen-->
+          @if (eventDetails.isParticipant) {
+            <p-button
+              [raised]="true"
+              label="{{
+                'eventDetailPageComponent.cancel-participation' | transloco
+              }}"
+              (onClick)="cancelEventParticipation($event)">
+              <ng-template pTemplate="icon">
+                <rmx-icon
+                  class="mr-1"
+                  style="width: 16px; height: 16px"
+                  name="logout-circle-line"></rmx-icon>
+              </ng-template>
+            </p-button>
+          } @else if (eventDetails.isHost) {
+            <!-- TODO cancel event -->
+          }
         } @else if (userRequest) {
           <!-- Responsive Container -->
           <div
@@ -357,7 +374,7 @@
             <p-button
               [raised]="true"
               label="{{
-                'myEventPageComponent.requests.delete-request' | transloco
+                'eventDetailPageComponent.requests.delete-request' | transloco
               }}"
               (onClick)="deleteEventRequest(userRequest.id, $event)">
               <ng-template pTemplate="icon">
@@ -371,7 +388,7 @@
               [raised]="true"
               [label]="
                 userRequest.denied
-                  ? ('myEventPageComponent.requests.try-again' | transloco)
+                  ? ('eventDetailPageComponent.requests.try-again' | transloco)
                   : ('eventDetailPageComponent.request-pending' | transloco)
               "
               severity="success"
@@ -387,6 +404,7 @@
             </p-button>
           </div>
         } @else {
+          <!-- TODO if event outdated no button -->
           <p-button
             [raised]="true"
             [label]="
@@ -408,3 +426,54 @@
     <div class="xl:col-5"></div>
   </div>
 }
+
+<p-confirmDialog #cdLeave>
+  <ng-template pTemplate="headless" let-message>
+    <div
+      class="flex flex-column align-items-center p-5 surface-overlay border-round">
+      <div
+        class="inline-flex justify-content-center align-items-center h-6rem w-6rem">
+        <rmx-icon
+          class="text-6xl"
+          style="height: 100px; width: 100px"
+          name="alert-line">
+        </rmx-icon>
+      </div>
+      <span class="font-bold text-2xl block mb-2 mt-4">
+        {{ message.header }}
+      </span>
+      <p class="mb-0">{{ message.message }}</p>
+      <div class="flex align-items-center justify-content-between gap-3 mt-4">
+        <p-button
+          label="{{
+            'eventDetailPageComponent.messages.cancelConfirm' | transloco
+          }}"
+          (click)="cdLeave.reject()"
+          class="">
+          <ng-template pTemplate="icon">
+            <rmx-icon
+              class="mr-2"
+              style="width: 16px; height: 16px"
+              name="arrow-go-back-line">
+            </rmx-icon>
+          </ng-template>
+        </p-button>
+        <p-button
+          label="{{
+            'eventDetailPageComponent.messages.submitConfirm' | transloco
+          }}"
+          (click)="cdLeave.accept()"
+          severity="success"
+          class="">
+          <ng-template pTemplate="icon">
+            <rmx-icon
+              class="mr-2"
+              style="width: 18px; height: 18px"
+              name="check-line">
+            </rmx-icon>
+          </ng-template>
+        </p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-confirmDialog>

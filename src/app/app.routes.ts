@@ -25,6 +25,8 @@ import { ListDetailPageComponent } from './components/event-detail/event-lists/l
 import { SettingsPageComponent } from './views/settings-page/settings-page.component';
 import { AccountManagePageComponent } from './views/account-manage-page/account-manage-page.component';
 import { EventGuestsComponent } from './components/event-detail/event-guests/event-guests.component';
+import { InformationPageComponent } from './views/information-page/information-page.component';
+import { TermsPageComponent } from './views/terms-page/terms-page.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -132,6 +134,12 @@ export const routes: Routes = [
     title: 'Privacy Policy | Connect-U',
     component: PrivacyPolicyPageComponent,
   },
+
+  {
+    path: 'terms-and-conditions',
+    title: 'Terms and Conditions | Connect-U',
+    component: TermsPageComponent,
+  },
   {
     path: '404',
     title: 'Not Found | Connect-U',
@@ -141,6 +149,11 @@ export const routes: Routes = [
     path: 'settings',
     title: 'Settings | Connect-U',
     component: SettingsPageComponent,
+  },
+  {
+    path: 'information',
+    title: 'Information | Connect-U',
+    component: InformationPageComponent,
   },
   {
     path: 'account',
