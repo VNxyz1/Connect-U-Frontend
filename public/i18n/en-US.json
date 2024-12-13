@@ -348,8 +348,9 @@
     "settings": "Settings",
     "profile": "Profile",
     "account": "Account",
-    "closeConfirmationMessage": "Are you sure, that you want to discard you event? Your draft will not be saved.",
-    "closeConfirmationHeader": "Discard Draft"
+    "closeConfirmationMessage": "Are you sure that you want to discard the event? Your draft will not be saved.",
+    "closeConfirmationHeader": "Discard Draft",
+    "information": "Information"
   },
   "navbarComponent": {
     "mySpace": "My Space",
@@ -730,8 +731,14 @@
   "mySpacePage": {
     "listing": {
       "settings": "Settings",
-      "logout": "Log Out"
+      "logout": "Log Out",
+      "information": "Information"
     }
+  },
+  "informationPage": {
+      "legal-disclosure": "Legal Disclosure",
+      "privacy-policy": "Privacy Policy",
+    "terms": "Terms and Conditions"
   },
   "profilePage": {
     "cardText": {
