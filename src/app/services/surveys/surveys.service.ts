@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {SurveyDetail, SurveyEvent} from '../../interfaces/Surveys';
+import { SurveyDetail, SurveyEvent } from '../../interfaces/Surveys';
 
 type SurveyCreateRes = {
   ok: boolean;
@@ -38,5 +38,4 @@ export class SurveysService {
   getSurveyDetail(surveyId: number): Observable<SurveyDetail> {
     return this.http.get<SurveyDetail>('survey/details/' + surveyId);
   }
-
 }

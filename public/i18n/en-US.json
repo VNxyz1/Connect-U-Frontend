@@ -835,5 +835,11 @@
       "surveyError": "Please provide a valid choice",
       "notEnoughSurveys": "You must provide at least 2 entries for the survey"
     }
+  },
+  "surveyCardPage": {
+    "votes": "Votes: ",
+    "noVotes": "No one has voted for this option yet",
+    "sidebarTitle": "Vote Overview",
+    "sidebarLink": "View Votes"
   }
 }

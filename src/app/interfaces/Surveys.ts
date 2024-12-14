@@ -42,5 +42,3 @@ export interface SurveyUser {
   age: number;
   profileText: string;
 }
-
-

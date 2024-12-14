@@ -836,5 +836,11 @@
       "surveyError": "Bitte gib eine gültige Auswahl an",
       "notEnoughSurveys": "Du musst mind. 2 Einträge zur Auswahl stellen"
     }
+  },
+  "surveyCardPage": {
+    "votes": "Abstimmungen: ",
+    "noVotes": "Es hat noch niemand für diese Option abgestimmt",
+    "sidebarTitle": "Stimmenübersicht",
+    "sidebarLink": "Stimmen Ansehen"
   }
 }
