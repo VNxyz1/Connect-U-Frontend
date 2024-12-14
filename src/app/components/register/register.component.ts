@@ -58,7 +58,6 @@ type RegisterForm = FormGroup<{
     ReactiveFormsModule,
     ToastModule,
     TranslocoPipe,
-    RouterLink,
     AgbComponent,
     FloatLabelModule,
     PasswordModule,

@@ -1,5 +1,6 @@
 <p-dialog
   [(visible)]="notLoggedInDialogVisible"
+  [contentStyle]="{ overflow: 'visible' }"
   contentStyleClass="border-round"
   [showHeader]="false"
   [draggable]="false"
@@ -7,7 +8,7 @@
   modal
   [closeOnEscape]="false"
   [closable]="false"
-  [style]="{ width: '25rem' }">
+  [style]="{ width: '45rem' }">
   <div class="py-4">
     @if (loginRegisterSwitch) {
       <app-login
@@ -61,9 +62,9 @@
   !url.includes('/surveys')
 ) {
   <app-event-info
-    [eventDetails]="eventDetails$"
     [getPreferredGendersString]="getPreferredGendersString"
-    [eventRequestsHost]="eventRequestsHost">
+    [eventRequestsHost]="eventRequestsHost"
+    (eventDetailsUpdated)="onEventDetailsUpdated()">
   </app-event-info>
 }
 
