@@ -841,7 +841,7 @@
   "createSurveyPage": {
     "headline": "Create Survey",
     "choice": "Choices",
-    "info": "Start your survey by adding new choices",
+    "info": "Start your survey by adding new choices!",
     "placeholder": {
       "title": "Title",
       "description": "Description",
@@ -862,6 +862,13 @@
     "votes": "Votes: ",
     "noVotes": "No one has voted for this option yet",
     "sidebarTitle": "Vote Overview",
-    "sidebarLink": "View Votes"
+    "sidebarLink": "View Details",
+    "deleteSurvey": "delete survey",
+    "deleteConfirmationMessage": "Are you sure you want to delete this survey?",
+    "deleteConfirmationHeader": "Warning",
+    "errorTitle": "Error during deletion!",
+    "deleteErrorMessage": "Something seems to have gone wrong. Please ensure you have a stable internet connection.",
+    "successTitle": "Deletion Successful!",
+    "deleteSuccessMessage": "Your survey has been successfully removed."
   }
 }

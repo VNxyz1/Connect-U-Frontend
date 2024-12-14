@@ -842,7 +842,7 @@
   "createSurveyPage": {
     "headline": "Umfrage erstellen",
     "choice": "Auswahlmöglichkeiten",
-    "info": "Starte deine Umfrage indem du neue Auswahlmöglichkeiten hinzufügst",
+    "info": "Starte deine Umfrage, indem du neue Auswahlmöglichkeiten hinzufügst!",
     "placeholder": {
       "title": "Titel",
       "description": "Beschreibung",
@@ -863,6 +863,13 @@
     "votes": "Abstimmungen: ",
     "noVotes": "Es hat noch niemand für diese Option abgestimmt",
     "sidebarTitle": "Stimmenübersicht",
-    "sidebarLink": "Stimmen Ansehen"
+    "sidebarLink": "Details Ansehen",
+    "deleteSurvey": "Umfrage löschen",
+    "deleteConfirmationMessage": "Möchtest du die Umfrage wirklich löschen?",
+    "deleteConfirmationHeader":"Achtung",
+    "errorTitle": "Fehler beim löschen!",
+    "deleteErrorMessage": "Es scheint etwas schiefgelaufen zu sein. Bitte vergewissere dich, das du eine stabile Internetverbindung hast.",
+    "successTitle": "Löschen Erfolgreich!",
+    "deleteSuccessMessage": "Deine Umfrage wurde erfolgreich entfernt."
   }
 }

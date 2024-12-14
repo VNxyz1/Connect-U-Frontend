@@ -103,9 +103,9 @@
   position="right"
   [modal]="true"
   [style]="{ width: '300px' }">
-  <h4 class="text-color-secondary">
+  <h3 class="text-color-secondary">
     {{ 'surveyCardPage.sidebarTitle' | transloco }}
-  </h4>
+  </h3>
   <ul class="list-none p-0">
     @if (selectedSurveyEntries) {
       @for (entry of getSortedEntries(selectedSurveyEntries); track $index) {
@@ -159,4 +159,14 @@
       }
     }
   </ul>
+  @if (survey.creator) {
+    <div class="absolute right-0 bottom-0 mr-3">
+      <h6 class="cursor-pointer" (click)="deleteSurvey(survey.id)">
+        <!-- (click)="deleteSurvey() -->
+        <span class="p-error">{{
+          'surveyCardPage.deleteSurvey' | transloco
+        }}</span>
+      </h6>
+    </div>
+  }
 </p-sidebar>
