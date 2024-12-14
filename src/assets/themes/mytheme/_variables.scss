@@ -248,6 +248,11 @@ h6 {
 
 // tab
 
+.p-tabmenu {
+  position: sticky !important;
+  top: 0 !important;
+}
+
 /* Highlighted tab styling */
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
   border-color: $secondaryColor; /* Replace with your color variable or value */
