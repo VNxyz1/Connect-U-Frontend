@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Observable, of, Subscription } from 'rxjs';
+import { interval, Observable, of, Subscription } from 'rxjs';
 import { EventDetails } from '../../../interfaces/EventDetails';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { ImageModule } from 'primeng/image';
@@ -62,8 +62,6 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     ProgressSpinnerModule,
     Button,
     DialogModule,
-    LoginComponent,
-    RegisterComponent,
     RouterLink,
     EventStatusIndicatorComponent,
     ProfileCardComponent,
@@ -178,23 +176,34 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   }
 
   private joinPublicEvent(): void {
-    this.eventService.addUserToEvent(this.eventDetails.id).subscribe({
-      next: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: this.translocoService.translate(
-            'eventDetailPageComponent.joined',
-          ),
-        });
-        this.fetchUserRequest();
-        this.getEventDetails();
-      },
-      error: err => this.handleError(err),
-    });
+    if (
+      this.eventDetails &&
+      this.eventDetails &&
+      this.eventDetails.status != 3 &&
+      this.eventDetails.status != 4
+    )
+      this.eventService.addUserToEvent(this.eventDetails.id).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: this.translocoService.translate(
+              'eventDetailPageComponent.joined',
+            ),
+          });
+          this.fetchUserRequest();
+          this.getEventDetails();
+        },
+        error: err => this.handleError(err),
+      });
   }
 
   private requestToJoinEvent(): void {
-    if (this.eventId) {
+    if (
+      this.eventId &&
+      this.eventDetails &&
+      this.eventDetails.status != 3 &&
+      this.eventDetails.status != 4
+    ) {
       this.eventRequestService.createJoinRequest(this.eventId).subscribe({
         next: () => {
           this.messageService.add({
