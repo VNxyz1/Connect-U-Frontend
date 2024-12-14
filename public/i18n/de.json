@@ -321,6 +321,28 @@
           "detail": "Die Liste \"{{name}}\" wurde erfolgreich angelegt."
         }
       }
+    },
+    "createListEntry": {
+      "messages": {
+        "error": {
+          "detail": "Versuche es später erneut",
+          "summary": "Erstellung fehlgeschlagen"
+        },
+        "similarEntry": {
+          "detail": "Es gibt diesen Eintrag bereits",
+          "summary": "Erstellung fehlgeschlagen"
+        }
+      }
+    },
+    "listEntry": {
+      "assignUser": {
+        "messages": {
+          "error": {
+            "detail": "Ein anderer Nutzer ist bereits zugewiesen",
+            "summary": "Fehlgeschlagen"
+          }
+        }
+      }
     }
   },
   "registerComponentErrors": {
@@ -773,13 +795,13 @@
       "zipCode": "PLZ",
       "city": "Ort"
     },
-    "button":{
+    "button": {
       "password": "Passwort ändern",
       "save": "Speichern"
     },
     "passwordForm": {
       "title": "Passwort ändern",
-      "oldPassword" : "Aktuelles Passwort",
+      "oldPassword": "Aktuelles Passwort",
       "newPassword": "Neues Passwort",
       "confirmPassword": "Neues Passwort wiederholen",
       "errorTitle": "Passwort ändern Fehlgeschlagen",
@@ -831,7 +853,7 @@
     },
     "warning": "Warnung!",
     "errorTitle": "Fehler!",
-    "errorMessages":{
+    "errorMessages": {
       "requirementErr": "Bitte fülle alle Pflichtfelder aus",
       "surveyError": "Bitte gib eine gültige Auswahl an",
       "notEnoughSurveys": "Du musst mind. 2 Einträge zur Auswahl stellen"

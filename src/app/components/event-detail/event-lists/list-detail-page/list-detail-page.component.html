@@ -1,22 +1,15 @@
 <div class="pt-2 grid justify-content-center">
   <div class="col-12 flex justify-content-center">
-    <div class="w-12 sm:w-10 md:w-8 md:w-7 xl:w-6 grid">
+    <div class="w-12 md:w-10 md:w-7 xl:w-6 grid">
       @if (listDetail$ | async; as listDetail) {
         <div class="col-12">
-          <div class="grid">
-            <div class="col flex align-items-center">
+          <div class="grid justify-content-between">
+            <div class="col sm:col-5 flex align-items-center">
               <span class="font-bold text-xl block">{{
                 listDetail.title
               }}</span>
             </div>
-            <div class="col-fixed w-min">
-              <p-button disabled raised severity="success">
-                <ng-template pTemplate="icon">
-                  <rmx-icon name="add-circle-line" />
-                </ng-template>
-              </p-button>
-            </div>
-            <div class="col-fixed w-min">
+            <div class="col-fixed flex gap-2 w-max">
               <p-button disabled raised text severity="danger">
                 <ng-template pTemplate="icon">
                   <rmx-icon name="delete-bin-line" />
@@ -35,13 +28,6 @@
               <p-skeleton width="7rem" height="2rem" styleClass="mb-2" />
             </div>
             <div class="col-fixed w-min">
-              <p-button disabled raised severity="success">
-                <ng-template pTemplate="icon">
-                  <rmx-icon name="add-circle-line" />
-                </ng-template>
-              </p-button>
-            </div>
-            <div class="col-fixed w-min">
               <p-button disabled text raised severity="danger">
                 <ng-template pTemplate="icon">
                   <rmx-icon name="delete-bin-line" />
@@ -54,22 +40,54 @@
           <p-skeleton width="9rem" />
         </div>
       }
+      <div class="col-12 my-3">
+        <form
+          [formGroup]="form"
+          (submit)="handleSubmit($event)"
+          class="hidden md:block">
+          <p-inputGroup>
+            <input
+              #createListEntryInputA
+              formControlName="content"
+              [maxLength]="255"
+              type="text"
+              pInputText
+              [class]="createInputVisible ? '' : 'hidden'" />
+            <p-button
+              (onClick)="handleClickCreateButton()"
+              raised
+              severity="success"
+              [type]="createInputVisible ? 'submit' : 'button'"
+              [styleClass]="createInputVisible ? 'border-noround-left' : ''">
+              <ng-template pTemplate="icon">
+                <rmx-icon name="add-circle-line" />
+              </ng-template>
+            </p-button>
+          </p-inputGroup>
+        </form>
+      </div>
     </div>
   </div>
-  <div class="col-12 flex justify-content-center">
-    <div class="w-12 sm:w-10 md:w-8 md:w-7 xl:w-6 grid gap-2">
+  <div class="col-12 flex justify-content-center mb-8">
+    <div class="w-12 md:w-10 md:w-7 xl:w-6 grid">
       @if (listDetail$ | async; as listDetail) {
         @for (listEntry of listDetail.listEntries; track listEntry.id) {
           <div class="col-12 px-3">
             <div class="custom-card-container grid">
               <div
                 class="col-fixed w-min flex justify-content-center align-content-center">
-                <p-checkbox disabled binary variant="filled" />
+                <p-checkbox
+                  binary
+                  variant="filled"
+                  [ngModel]="!!listEntry.user"
+                  (click)="handleCheckboxChange(listEntry)" />
               </div>
               <div class="col flex align-items-center">
                 <span>{{ listEntry.content }}</span>
               </div>
-              <div class="col-fixed w-min flex align-items-center">
+              <div
+                class="col-fixed w-min flex align-items-center align-content-center">
+                <span class="mr-2">{{ listEntry.user?.username }}</span>
                 <img
                   ngSrc="/images/userImg.png"
                   alt="profile picture"
@@ -108,6 +126,45 @@
           </div>
         }
       }
+    </div>
+  </div>
+  <div
+    class="col-12 flex justify-content-center md:hidden fixed bg-white"
+    style="bottom: 70px">
+    <div class="w-12 md:w-10 md:w-7 xl:w-6 grid">
+      <div class="col-12 pb-0">
+        <div class="grid justify-content-end">
+          <div class="col-12 mt-2">
+            <form [formGroup]="form" (submit)="handleSubmit($event)">
+              <p-inputGroup styleClass="w-full flex justify-content-end">
+                <input
+                  class="w-full"
+                  #createListEntryInputB
+                  formControlName="content"
+                  [maxLength]="255"
+                  type="text"
+                  pInputText
+                  [class]="createInputVisible ? '' : 'hidden'" />
+                <p-button
+                  (onClick)="handleClickCreateButton()"
+                  raised
+                  severity="success"
+                  [style]="{ height: '45px', width: '45px' }"
+                  [type]="createInputVisible ? 'submit' : 'button'"
+                  [styleClass]="
+                    createInputVisible ? 'border-noround-left' : ''
+                  ">
+                  <ng-template pTemplate="icon">
+                    <rmx-icon
+                      name="add-circle-line"
+                      style="height: 30px; width: 30px" />
+                  </ng-template>
+                </p-button>
+              </p-inputGroup>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
