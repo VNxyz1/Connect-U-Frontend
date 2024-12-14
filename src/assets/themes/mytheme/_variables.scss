@@ -255,7 +255,7 @@ h6 {
 
 /* Highlighted tab styling */
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
-  border-color: $secondaryColor; /* Replace with your color variable or value */
+  border-color: $secondaryColor;
   color: $secondaryColor;
 }
 
@@ -272,13 +272,14 @@ h6 {
 /* Set each LI to take up equal width */
 .p-tabmenu .p-tabmenu-nav li {
   flex: 1; /* Distribute space equally among all list items */
-  justify-content: center; /* Center the content inside each tab */
-  margin: 0; /* Remove gaps between tabs */
-  padding: 0; /* Ensure no extra padding */
+  justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
 .p-tabmenu .p-tabmenu-nav .p-menuitem-link {
   width: 100%;
+  color: $primaryColor;
 }
 
 .p-tabmenu .p-tabmenu-nav li a {
