@@ -23,6 +23,11 @@ import { MessageService } from 'primeng/api';
 import { TranslocoService } from '@jsverse/transloco';
 import { SocketService } from '../../../../services/socket/socket.service';
 
+const BadRequestMessages: Record<string, string> = {
+  'A list entry with the same description already exists.':
+    'eventListPage.createListEntry.messages.similarEntry',
+};
+
 @Component({
   selector: 'app-list-detail-page',
   standalone: true,
@@ -54,7 +59,7 @@ export class ListDetailPageComponent implements OnInit {
 
   _listId!: number;
 
-  createInputVisible: boolean = false;
+  createInputVisible: boolean = true;
 
   form: FormGroup<{ content: FormControl }> = new FormGroup({
     content: new FormControl<string>('', {
@@ -89,6 +94,9 @@ export class ListDetailPageComponent implements OnInit {
     }, 20);
   }
 
+  /**
+   * Can be called during the blur event of the create-input. createInputVisible should be set to false
+   */
   hideCreateInput() {
     this.createInputVisible = false;
     this.form.reset();
@@ -113,17 +121,21 @@ export class ListDetailPageComponent implements OnInit {
         this.getAndSetListDetails();
         this.form.reset();
       },
-      error: () => {
-        this.messageService.add({
-          severity: 'error',
-          summary: this.translocoService.translate(
-            'eventListPage.createListEntry.messages.error.summary',
-          ),
-          detail: this.translocoService.translate(
-            'eventListPage.createListEntry.messages.error.detail',
-          ),
-        });
+      error: err => {
+        this.handleError(err);
       },
+    });
+  }
+
+  handleError(err: any) {
+    const translationKey =
+      BadRequestMessages[err.error?.message] ||
+      'eventListPage.createListEntry.messages.error';
+
+    this.messageService.add({
+      severity: 'error',
+      summary: this.translocoService.translate(translationKey + '.summary'),
+      detail: this.translocoService.translate(translationKey + '.detail'),
     });
   }
 

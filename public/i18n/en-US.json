@@ -326,6 +326,10 @@
         "error": {
           "detail": "Try again another time",
           "summary": "Failed to add list entry"
+        },
+        "similarEntry": {
+          "detail": "A list entry with the same description already exists.",
+          "summary": "Failed to add list entry"
         }
       }
     },

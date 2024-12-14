@@ -327,6 +327,10 @@
         "error": {
           "detail": "Versuche es später erneut",
           "summary": "Erstellung fehlgeschlagen"
+        },
+        "similarEntry": {
+          "detail": "Es gibt diesen Eintrag bereits",
+          "summary": "Erstellung fehlgeschlagen"
         }
       }
     },
