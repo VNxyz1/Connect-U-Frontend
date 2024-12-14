@@ -51,7 +51,9 @@
         @case (currentUrl?.includes('/account')) {
           <h1 class="m-0">{{ 'headerComponent.account' | transloco }}</h1>
         }
-
+        @case (currentUrl?.includes('/information')) {
+          <h1 class="m-0">{{ 'headerComponent.information' | transloco }}</h1>
+        }
         @default {
           <p-image
             src="images/logo_full_dark.svg"

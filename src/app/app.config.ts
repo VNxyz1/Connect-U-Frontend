@@ -63,7 +63,12 @@ import {
   RiLiveLine,
   RiCalendarCloseLine,
   RiEdit2Line,
+  RiLogoutCircleLine,
   RiAddCircleLine,
+  RiShieldCheckLine,
+  RiFlagLine,
+  RiScales3Line,
+  RiIdCardLine,
   RiDeleteBinLine, RiArrowDownSLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
@@ -116,7 +121,12 @@ const icons = {
   RiArrowDownSLine,
   RiEditLine,
   RiEdit2Line,
+  RiLogoutCircleLine,
   RiAddCircleLine,
+  RiShieldCheckLine,
+  RiFlagLine,
+  RiScales3Line,
+  RiIdCardLine,
 };
 
 export const translocoConfig = {
