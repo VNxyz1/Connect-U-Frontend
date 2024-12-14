@@ -45,6 +45,7 @@ import { UserService } from './services/user/user.service';
     EventRequestService,
     UserService,
     ConfirmationService,
+    SocketService,
   ],
   templateUrl: './app.component.html',
 })
@@ -58,6 +59,7 @@ export class AppComponent implements OnInit, OnDestroy {
     @Inject(PLATFORM_ID) private readonly platformId: Object,
     private readonly socket: SocketService,
     private readonly auth: AuthService,
+    private readonly userService: UserService,
     private readonly storage: Storage,
     private readonly router: Router,
     private primengConfig: PrimeNGConfig,
@@ -65,7 +67,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.socket.init();
+      this.userService.getUserData().subscribe({
+        next: data => this.socket.connectUser(data.id),
+      });
       this.initStorage(); // Initialize storage
     }
 

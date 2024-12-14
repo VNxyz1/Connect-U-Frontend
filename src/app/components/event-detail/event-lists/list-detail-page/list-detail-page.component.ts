@@ -21,6 +21,7 @@ import {
 } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { TranslocoService } from '@jsverse/transloco';
+import { SocketService } from '../../../../services/socket/socket.service';
 
 @Component({
   selector: 'app-list-detail-page',
@@ -66,10 +67,14 @@ export class ListDetailPageComponent implements OnInit {
     private listService: ListService,
     private messageService: MessageService,
     private translocoService: TranslocoService,
+    private sockets: SocketService,
   ) {}
 
   ngOnInit(): void {
     this.getAndSetListDetails();
+    this.sockets.on('updateListDetail').subscribe({
+      next: () => this.getAndSetListDetails(),
+    });
   }
 
   getAndSetListDetails() {
