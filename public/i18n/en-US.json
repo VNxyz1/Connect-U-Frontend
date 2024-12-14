@@ -819,7 +819,7 @@
   "createSurveyPage": {
     "headline": "Create Survey",
     "choice": "Choices",
-    "info": "Start your survey by adding new choices",
+    "info": "Start your survey by adding new choices!",
     "placeholder": {
       "title": "Title",
       "description": "Description",
@@ -840,7 +840,7 @@
     "votes": "Votes: ",
     "noVotes": "No one has voted for this option yet",
     "sidebarTitle": "Vote Overview",
-    "sidebarLink": "View Votes",
+    "sidebarLink": "View Details",
     "deleteSurvey": "delete survey",
     "deleteConfirmationMessage": "Are you sure you want to delete this survey?",
     "deleteConfirmationHeader": "Warning",
