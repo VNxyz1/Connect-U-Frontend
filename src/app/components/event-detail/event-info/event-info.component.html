@@ -152,9 +152,7 @@
           eventRequestsHost.length > 0 &&
           eventDetails.isHost &&
           eventDetails.status != 3 &&
-          eventDetails.status != 4 &&
-          eventDate &&
-          curDate < eventDate
+          eventDetails.status != 4
         ) {
           <p-card
             class="p-3 cursor-pointer"
@@ -343,12 +341,7 @@
         </div>
       }
     </div>
-    @if (
-      eventDetails.status != 3 &&
-      eventDetails.status != 4 &&
-      eventDate &&
-      curDate < eventDate
-    ) {
+    @if (eventDetails.status != 3 && eventDetails.status != 4) {
       <div class="mt-3 col-12 lg:col-fixed lg:w-max">
         <div class="flex gap-1 justify-content-end md:flex-none xl:fixed">
           <!-- Add to Favorites Button

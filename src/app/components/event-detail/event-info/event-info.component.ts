@@ -72,9 +72,6 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
 })
 export class EventInfoComponent implements OnInit, OnDestroy {
   userRequest: UsersEventRequest | null = null;
-  curDate: Date = new Date();
-  private dateSubscription!: Subscription;
-  eventDate!: Date;
   private userRequestSubscription!: Subscription;
   @Input() eventRequestsHost: EventUserRequest[] = [];
   @Output() eventDetailsUpdated = new EventEmitter<void>(); // Notify parent
@@ -107,11 +104,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('id')!;
 
-    //update curDate every 30 secs
-    this.dateSubscription = interval(30000).subscribe(() => {
-      this.curDate = new Date();
-    });
-
     this.getEventDetails();
   }
 
@@ -136,7 +128,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // Clean up subscriptions
     this.userRequestSubscription?.unsubscribe();
-    this.dateSubscription?.unsubscribe();
   }
 
   private getEventDetails(): void {
@@ -149,7 +140,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
         this._eventDetails = details;
         this.fetchUserRequest();
         this.isLoading = false;
-        this.eventDate = new Date(details.dateAndTime);
         this.eventDetailsUpdated.emit();
       },
       error: err => this.handleError(err),
@@ -212,10 +202,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
       this.eventId &&
       this.eventDetails &&
       this.eventDetails.status != 3 &&
-      this.eventDetails.status != 4 &&
-      this.curDate &&
-      this.eventDate &&
-      this.curDate < this.eventDate
+      this.eventDetails.status != 4
     ) {
       this.eventRequestService.createJoinRequest(this.eventId).subscribe({
         next: () => {
