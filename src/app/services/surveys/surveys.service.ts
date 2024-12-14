@@ -8,6 +8,10 @@ type SurveyCreateRes = {
   message: string;
   surveyId: number;
 };
+type OkResponse = {
+  ok: boolean;
+  message: string;
+};
 
 export type SurveyCreateBody = {
   title: string;
@@ -37,5 +41,8 @@ export class SurveysService {
   }
   getSurveyDetail(surveyId: number): Observable<SurveyDetail> {
     return this.http.get<SurveyDetail>('survey/details/' + surveyId);
+  }
+  deleteSurvey(surveyId: number): Observable<OkResponse> {
+    return this.http.delete<OkResponse>('survey/' + surveyId);
   }
 }

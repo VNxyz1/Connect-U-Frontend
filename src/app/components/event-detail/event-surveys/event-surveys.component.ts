@@ -43,4 +43,7 @@ export class EventSurveysComponent implements OnInit {
       this.eventSurveys$ = this.surveysService.getSurveyEvent(this.eventId);
     }
   }
+  handleSurveyChange(): void {
+    this.fetchSurveys();
+  }
 }
