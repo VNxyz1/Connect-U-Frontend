@@ -320,6 +320,28 @@
           "detail": "The list \"{{name}}\" was created successfully."
         }
       }
+    },
+    "createListEntry": {
+      "messages": {
+        "error": {
+          "detail": "Try again another time",
+          "summary": "Failed to add list entry"
+        },
+        "similarEntry": {
+          "detail": "A list entry with the same description already exists.",
+          "summary": "Failed to add list entry"
+        }
+      }
+    },
+    "listEntry": {
+      "assignUser": {
+        "messages": {
+          "error": {
+            "detail": "Another user is already assigned",
+            "summary": "Forbidden"
+          }
+        }
+      }
     }
   },
   "registerComponentErrors": {
@@ -344,7 +366,7 @@
     "myEvents": "My Events",
     "search": "Search Events",
     "createEvent": "Create Event",
-    "event": "Event Information",
+    "event": "Event View",
     "settings": "Settings",
     "profile": "Profile",
     "account": "Account",
@@ -819,7 +841,7 @@
   "createSurveyPage": {
     "headline": "Create Survey",
     "choice": "Choices",
-    "info": "Start your survey by adding new choices",
+    "info": "Start your survey by adding new choices!",
     "placeholder": {
       "title": "Title",
       "description": "Description",
@@ -835,5 +857,18 @@
       "surveyError": "Please provide a valid choice",
       "notEnoughSurveys": "You must provide at least 2 entries for the survey"
     }
+  },
+  "surveyCardPage": {
+    "votes": "Votes: ",
+    "noVotes": "No one has voted for this option yet",
+    "sidebarTitle": "Vote Overview",
+    "sidebarLink": "View Details",
+    "deleteSurvey": "delete survey",
+    "deleteConfirmationMessage": "Are you sure you want to delete this survey?",
+    "deleteConfirmationHeader": "Warning",
+    "errorTitle": "Error during deletion!",
+    "deleteErrorMessage": "Something seems to have gone wrong. Please ensure you have a stable internet connection.",
+    "successTitle": "Deletion Successful!",
+    "deleteSuccessMessage": "Your survey has been successfully removed."
   }
 }

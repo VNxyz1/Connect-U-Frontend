@@ -27,7 +27,7 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { EventRequestService } from '../../../services/event/event-request/event-request.service';
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { EventStatusIndicatorComponent } from '../../event-status-indicator/event-status-indicator.component';
 import { ProfileCardComponent } from '../../profile-card/profile-card.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -67,6 +67,7 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     ProfileCardComponent,
     ConfirmDialogModule,
     SkeletonModule,
+    NgClass,
   ],
   providers: [ConfirmationService],
 })

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Button, ButtonDirective } from 'primeng/button';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { DialogModule } from 'primeng/dialog';
@@ -37,6 +37,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './create-surveys.component.html',
 })
 export class CreateSurveysComponent implements OnInit {
+  @Output() surveyCreated: EventEmitter<void> = new EventEmitter();
   displayDialog: boolean = false;
   showItemInput: boolean = false;
   eventId!: string;
@@ -97,7 +98,6 @@ export class CreateSurveysComponent implements OnInit {
 
   submitSurvey() {
     if (this.surveyForm.valid) {
-      // Bereite das Anfrage-Body für das Backend vor
       const entries = this.items.controls
         .map(control => control.value?.trim())
         .filter(value => !!value);
@@ -123,6 +123,7 @@ export class CreateSurveysComponent implements OnInit {
       this.surveyService.createNewSurvey(this.eventId, surveyData).subscribe({
         next: response => {
           if (response.ok) {
+            this.surveyCreated.emit();
             this.messageService.add({
               severity: 'success',
               summary: 'Erfolg',
