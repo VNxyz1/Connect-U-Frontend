@@ -870,5 +870,19 @@
     "deleteErrorMessage": "Something seems to have gone wrong. Please ensure you have a stable internet connection.",
     "successTitle": "Deletion Successful!",
     "deleteSuccessMessage": "Your survey has been successfully removed."
+  },
+  "listPage": {
+    "deleteListConfirmationMessage": "Are you sure you want to delete this list?",
+    "deleteListConfirmationHeader": "Delete List",
+    "deleteListSuccessTitle": "Deletion Successful!",
+    "deleteListSuccessMessage": "The list has been successfully removed.",
+    "deleteListErrorTitle": "Error Deleting List!",
+    "deleteListErrorMessage": "The list could not be deleted. Please try again.",
+    "deleteEntryConfirmationMessage": "Are you sure you want to delete this list entry?",
+    "deleteEntryConfirmationHeader": "Delete List Entry",
+    "deleteEntrySuccessTitle": "Deletion Successful!",
+    "deleteEntrySuccessMessage": "The list entry has been successfully removed.",
+    "deleteEntryErrorTitle": "Error Deleting Entry!",
+    "deleteEntryErrorMessage": "The list entry could not be deleted. Please try again."
   }
 }

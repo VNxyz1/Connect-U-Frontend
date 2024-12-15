@@ -10,19 +10,22 @@
               }}</span>
             </div>
             <div class="col-fixed flex gap-2 w-max">
-
-              @if(listDetail.creator.isUser){
-                <p-button raised text severity="success" (click)="deleteList(listDetail.id)">
+              @if (listDetail.creator.isUser) {
+                <p-button
+                  raised
+                  text
+                  severity="danger"
+                  (click)="deleteList(listDetail.id)">
                   <ng-template pTemplate="icon">
                     <rmx-icon name="delete-bin-line" />
                   </ng-template>
                 </p-button>
-              }@else{
-              <p-button disabled raised text severity="danger">
-                <ng-template pTemplate="icon">
-                  <rmx-icon name="delete-bin-line" />
-                </ng-template>
-              </p-button>
+              } @else {
+                <p-button disabled raised text severity="danger">
+                  <ng-template pTemplate="icon">
+                    <rmx-icon name="delete-bin-line" />
+                  </ng-template>
+                </p-button>
               }
             </div>
           </div>
@@ -105,11 +108,14 @@
                   height="35" />
               </div>
               <div class="col-fixed w-min flex align-items-center">
-                  <p-button text severity="danger" (click)="deleteListEntry(listEntry.id)">
-                    <ng-template pTemplate="icon">
-                      <rmx-icon name="delete-bin-line" />
-                    </ng-template>
-                  </p-button>
+                <p-button
+                  text
+                  severity="danger"
+                  (click)="deleteListEntry(listEntry.id)">
+                  <ng-template pTemplate="icon">
+                    <rmx-icon name="delete-bin-line" />
+                  </ng-template>
+                </p-button>
               </div>
             </div>
           </div>

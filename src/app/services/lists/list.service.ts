@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {ProfileData} from '../../interfaces/ProfileData';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ProfileData } from '../../interfaces/ProfileData';
 
 type CreateListRes = {
   ok: boolean;
@@ -37,13 +37,11 @@ export type ListEntry = {
   user: ProfileData | null;
 };
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class ListService {
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   postNewList(
     eventId: string,
@@ -69,12 +67,16 @@ export class ListService {
     );
   }
 
-  deleteList(listId: number): Observable<{ ok: boolean, message: string }> {
-    return this.http.delete<{ ok: boolean, message: string }>('list/' + listId)
+  deleteList(listId: number): Observable<{ ok: boolean; message: string }> {
+    return this.http.delete<{ ok: boolean; message: string }>('list/' + listId);
   }
 
-  deleteListEntry(entryId: number): Observable<{ok: boolean, message: string }> {
-    return this.http.delete<{ ok: boolean, message: string }>('list-entry/' + entryId)
+  deleteListEntry(
+    entryId: number,
+  ): Observable<{ ok: boolean; message: string }> {
+    return this.http.delete<{ ok: boolean; message: string }>(
+      'list-entry/' + entryId,
+    );
   }
 
   assignToListEntry(entryId: number) {
@@ -83,5 +85,4 @@ export class ListService {
       {},
     );
   }
-
 }
