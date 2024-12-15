@@ -16,6 +16,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ChipsModule } from 'primeng/chips';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { TagService } from '../../../services/tags/tag.service';
 
 @Component({
   selector: 'app-step1',
@@ -49,7 +50,7 @@ export class Step1Component implements OnInit, OnDestroy {
   selectedCategories: number[] = [];
   submitted: boolean = false;
   private readonly unsubscribe$ = new Subject<void>();
-  protected results: string[] = [];
+  results: string[] = [];
 
   constructor(
     public eventService: EventService,
@@ -58,6 +59,7 @@ export class Step1Component implements OnInit, OnDestroy {
     private readonly messageService: MessageService,
     private readonly cdr: ChangeDetectorRef,
     private readonly translocoService: TranslocoService,
+    private readonly tagService: TagService
   ) {
     this.router.events
       .pipe(
@@ -131,7 +133,7 @@ export class Step1Component implements OnInit, OnDestroy {
           'createEventStep1Component.messages.validationFailedDetail',
         ),
       });
-      return; // Prevent navigation if validation fails
+      return;
     }
 
     try {
@@ -151,9 +153,10 @@ export class Step1Component implements OnInit, OnDestroy {
 
   search(event: any): void {
     const query = event.query.toLowerCase();
-    this.results = ['Option 1', 'Option 2', 'Option 3'].filter(item =>
-      item.toLowerCase().includes(query),
-    );
+    this.tagService.getAllTags(query).subscribe({
+      next: (tags) => (this.results = tags),
+      error: (error) => console.error('Error fetching tags:', error),
+    });
   }
 
   onKeyUp(event: KeyboardEvent) {
