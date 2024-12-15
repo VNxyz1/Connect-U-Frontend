@@ -9,6 +9,9 @@ import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventService } from '../../services/event/eventservice';
 import { RouterOutlet } from '@angular/router';
 import { RegisterComponent } from '../../components/register/register.component';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
+import { MenuModule } from 'primeng/menu';
+import { SidebarModule } from 'primeng/sidebar';
 
 @Component({
   selector: 'app-landing-page',
@@ -21,6 +24,9 @@ import { RegisterComponent } from '../../components/register/register.component'
     EventCardComponent,
     RouterOutlet,
     RegisterComponent,
+    AngularRemixIconComponent,
+    MenuModule,
+    SidebarModule,
   ],
   templateUrl: './landing-page.component.html',
 })
