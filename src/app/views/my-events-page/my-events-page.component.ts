@@ -24,12 +24,6 @@ import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
   standalone: true,
   imports: [
     TabViewModule,
-    NgClass,
-    ButtonDirective,
-    EventCardComponent,
-    AsyncPipe,
-    AngularRemixIconComponent,
-    TranslocoPipe,
     GuestEventsComponent,
     HostedEventsComponent,
     FavoriteEventsComponent,
@@ -111,11 +105,14 @@ export class MyEventsPageComponent implements OnInit {
             icon: 'pi pi-plus-circle',
             command: () => this.setActiveTab('hosted'),
           },
+          // Commented out the favorite tab item
+          /*
           {
             label: translations['myEventPageComponent.favorite.title'],
             icon: 'pi pi-star',
             command: () => this.setActiveTab('favorite'),
           },
+          */
         ];
       });
   }

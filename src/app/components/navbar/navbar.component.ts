@@ -52,31 +52,27 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    // Ensure translations are fully loaded before setting menu items
     this.translocoService
       .load(this.translocoService.getActiveLang())
       .subscribe(() => {
-        // Once translations are ready, initialize menu items
         this.updateMenuItems();
 
-        // Listen to router events and update `currentUrl` and menu items
         this.router.events
           .pipe(filter(event => event instanceof NavigationEnd))
           .subscribe((event: NavigationEnd) => {
-            this.currentUrl = event.url; // Update `currentUrl`
-            this.updateMenuItems(); // Refresh menu items
+            this.currentUrl = event.url;
+            this.updateMenuItems();
           });
 
-        // Subscribe to breakpoint observer for mobile and medium device logic
         this.breakpointObserver
           .observe([
-            Breakpoints.Handset, // For mobile devices
-            '(max-width: 1085px)', // Custom breakpoint for medium devices
+            Breakpoints.Handset,
+            '(max-width: 1085px)',
           ])
           .subscribe(result => {
             const breakpoints = result.breakpoints;
-            this.isMobile = breakpoints[Breakpoints.Handset] || false; // Check if it's a handset
-            this.isMd = breakpoints['(max-width: 1085px)'] || false; // Check if width is <= 1085px
+            this.isMobile = breakpoints[Breakpoints.Handset] || false;
+            this.isMd = breakpoints['(max-width: 1085px)'] || false;
           });
       });
   }
@@ -137,12 +133,15 @@ export class NavbarComponent implements OnInit, AfterViewInit {
             icon: this.activeIcon('/'),
             command: () => this.navigateTo('/'),
           },
+          // Commented out the search item
+          /*
           {
             label: translations['navbarComponent.search'],
             route: '/search',
             icon: this.activeIcon('/search'),
             command: () => this.navigateTo('/search'),
           },
+          */
           {
             label: translations['navbarComponent.createEvent'],
             route: '/create-event/step1',
