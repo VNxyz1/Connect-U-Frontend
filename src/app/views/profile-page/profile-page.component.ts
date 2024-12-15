@@ -59,7 +59,6 @@ type editProfileForm = FormGroup<{
 })
 export class ProfilePageComponent implements OnInit {
   protected userId!: string;
-  protected tags: string[] = [];
   protected profileData$!: Observable<ProfileData>;
   protected editMode: boolean = false;
   protected isUser!: boolean | undefined;
@@ -78,7 +77,7 @@ export class ProfilePageComponent implements OnInit {
       nonNullable: true,
       validators: [Validators.required],
     }),
-    tags: new FormControl<string[]>(this.tags, { nonNullable: true }),
+    tags: new FormControl<string[]>([], { nonNullable: true }),
     profileText: new FormControl<string>('', {
       nonNullable: true,
       validators: [Validators.required],
@@ -117,7 +116,7 @@ export class ProfilePageComponent implements OnInit {
         this.form.controls.profileText.value.trim() || undefined;
     }
 
-    updateData.tags = this.tags;
+    updateData.tags = this.form.controls.tags.value;
 
     this.userService.updateProfileInformation(updateData).subscribe({
       next: () => {
@@ -157,13 +156,13 @@ export class ProfilePageComponent implements OnInit {
     const triggerKeys = ['Enter', ' ', ','];
 
     if (triggerKeys.includes(event.key)) {
-      event.preventDefault();
-
       const tagValue = input.value.trim().replace(/,$/, '');
 
-      if (tagValue && !this.tags.includes(tagValue)) {
-        this.tags = [...this.tags, tagValue];
-        this.form.controls.tags.setValue(this.tags);
+      if (tagValue && !this.form.controls.tags.value.includes(tagValue)) {
+        const updatedTags = [...this.form.controls.tags.value, tagValue];
+
+        this.form.controls.tags.setValue(updatedTags);
+
         input.value = '';
       }
     }
