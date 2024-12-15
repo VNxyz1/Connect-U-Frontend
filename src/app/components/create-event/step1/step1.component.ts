@@ -160,14 +160,18 @@ export class Step1Component implements OnInit, OnDestroy {
   }
 
   onKeyUp(event: KeyboardEvent) {
-    if (event.key == 'Enter') {
+    const triggerKeys = ['Enter', ' ', ','];
+    if (triggerKeys.includes(event.key)) {
       let tokenInput = event.target as any;
       if (tokenInput.value) {
-        this.tags.push(tokenInput.value);
+        const tagValue = tokenInput.value.trim().replace(/,$/, '');
+        this.tags.push(tagValue);
         tokenInput.value = '';
       }
     }
   }
+
+
 
   ngOnDestroy() {
     this.unsubscribe$.next();

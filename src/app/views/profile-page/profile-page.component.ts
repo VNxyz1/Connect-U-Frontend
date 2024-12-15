@@ -152,16 +152,19 @@ export class ProfilePageComponent implements OnInit {
       },
     });
   }
-
   onKeyUp(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
+    const input = event.target as HTMLInputElement;
+    const triggerKeys = ['Enter', ' ', ','];
+
+    if (triggerKeys.includes(event.key)) {
       event.preventDefault();
 
-      let tokenInput = event.target as HTMLInputElement;
-      if (tokenInput.value) {
-        this.tags.push(tokenInput.value);
-        tokenInput.value = '';
+      const tagValue = input.value.trim().replace(/,$/, '');
+
+      if (tagValue && !this.tags.includes(tagValue)) {
+        this.tags = [...this.tags, tagValue];
         this.form.controls.tags.setValue(this.tags);
+        input.value = '';
       }
     }
   }
