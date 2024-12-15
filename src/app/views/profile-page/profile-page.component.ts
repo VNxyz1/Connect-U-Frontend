@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Button, ButtonDirective } from 'primeng/button';
+import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +9,7 @@ import {
   UserService,
 } from '../../services/user/user.service';
 import { Observable } from 'rxjs';
-import { AsyncPipe, NgClass } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   FormControl,
   FormGroup,
