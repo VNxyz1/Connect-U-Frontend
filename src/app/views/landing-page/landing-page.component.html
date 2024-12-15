@@ -1,33 +1,31 @@
 <div class="lg:px-5">
-  <div class="grid justify-content-center">
-    <div class="col-10 sm:col-8 md:col-5 xl:col-3 flex justify-content-center">
-      <p-image
-        [alt]="'landingPage.headerImageAlt' | transloco"
-        src="./images/logo_full_dark.svg"
-        class="w-full"
-        styleClass="w-full"
-        imageClass="w-full" />
-    </div>
-  </div>
-  <div class="grid justify-content-center">
-    <div class="col-10 sm:col-8 md:col-5 xl:col-3 flex justify-content-center">
-      <h2 class="text-center mt-2">
-        {{ 'landingPage.imageText.title' | transloco }} <br />
-        <span class="text-color-secondary">{{
-          'landingPage.imageText.subtitle' | transloco
-        }}</span>
-      </h2>
-    </div>
-  </div>
-  <div class="grid justify-content-center">
-    <div class="col-10 sm:col-8 md:col-5 xl:col-3 flex justify-content-center">
-      @if (switch) {
-        <app-login (toggleView)="toggleSwitch()" class="w-full" />
-      } @else {
-        <app-register (toggleView)="toggleSwitch()" class="w-full" />
-      }
-    </div>
-  </div>
+      <div class="grid justify-content-center">
+        <div class="col-10 sm:col-8 md:col-5 xl:col-3 flex justify-content-center pt-5">
+          <p-image
+            [alt]="'landingPage.headerImageAlt' | transloco"
+            src="./images/logo_full_dark.svg"
+            class="w-full"
+            styleClass="w-full"
+            imageClass="w-full" />
+        </div>
+      </div>
+      <div class="grid justify-content-center">
+        <div class="col-10 sm:col-8 md:col-5 xl:col-3 flex justify-content-center">
+          <h2 class="text-center mt-2">
+            {{ 'landingPage.imageText.title' | transloco }} <br />
+            <span class="text-color-secondary">{{ 'landingPage.imageText.subtitle' | transloco }}</span>
+          </h2>
+        </div>
+      </div>
+      <div class="grid justify-content-center">
+        <div class="col-10 sm:col-8 md:col-5 xl:col-3 flex justify-content-center">
+          @if (switch) {
+            <app-register (toggleView)="toggleSwitch()" class="w-full" />
+          } @else {
+            <app-login (toggleView)="toggleSwitch()" class="w-full" />
+          }
+        </div>
+      </div>
   <router-outlet />
   <div class="px-2">
     <h3>Featured Events</h3>
