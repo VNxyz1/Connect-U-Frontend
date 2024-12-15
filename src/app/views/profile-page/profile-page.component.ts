@@ -27,6 +27,7 @@ import { map } from 'rxjs/operators';
 import { TagModule } from 'primeng/tag';
 import { ChipsModule } from 'primeng/chips';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { TagService } from '../../services/tags/tag.service';
 
 type editProfileForm = FormGroup<{
   pronouns: FormControl<string>;
@@ -53,7 +54,7 @@ type editProfileForm = FormGroup<{
     ChipsModule,
     AutoCompleteModule,
   ],
-  providers: [UserService, MessageService, TranslocoService],
+  providers: [UserService, MessageService, TranslocoService, TagService],
   templateUrl: './profile-page.component.html',
 })
 export class ProfilePageComponent implements OnInit {
@@ -69,6 +70,7 @@ export class ProfilePageComponent implements OnInit {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private userService: UserService,
+    private tagService: TagService
   ) {}
 
   form: editProfileForm = new FormGroup({
@@ -139,10 +141,16 @@ export class ProfilePageComponent implements OnInit {
   }
 
   search(event: any): void {
-    const query = event.query.toLowerCase();
-    this.results = ['Option 1', 'Option 2', 'Option 3'].filter(item =>
-      item.toLowerCase().includes(query),
-    );
+    const query = event.query;
+    this.tagService.getAllTags(query).subscribe({
+      next: tags => {
+        this.results = tags;
+      },
+      error: err => {
+        console.error('Error fetching tags:', err);
+        this.results = [];
+      },
+    });
   }
 
   onKeyUp(event: KeyboardEvent) {
