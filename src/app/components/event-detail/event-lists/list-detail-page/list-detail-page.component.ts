@@ -22,6 +22,7 @@ import {
 import { MessageService } from 'primeng/api';
 import { TranslocoService } from '@jsverse/transloco';
 import { SocketService } from '../../../../services/socket/socket.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 const BadRequestMessages: Record<string, string> = {
   'A list entry with the same description already exists.':
@@ -54,9 +55,8 @@ export class ListDetailPageComponent implements OnInit {
   set listId(listId: number) {
     this._listId = listId;
   }
-
   listDetail$!: Observable<ListDetail>;
-
+  eventId!:string;
   _listId!: number;
 
   createInputVisible: boolean = true;
@@ -73,12 +73,17 @@ export class ListDetailPageComponent implements OnInit {
     private messageService: MessageService,
     private translocoService: TranslocoService,
     private sockets: SocketService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.getAndSetListDetails();
     this.sockets.on('updateListDetail').subscribe({
       next: () => this.getAndSetListDetails(),
+    });
+    this.route.paramMap.subscribe((params) => {
+      this.eventId = params.get('id')!;
     });
   }
 
@@ -157,5 +162,29 @@ export class ListDetailPageComponent implements OnInit {
         });
       },
     });
+  }
+  deleteList(listId:number){
+
+    this.listService.deleteList(listId).subscribe({
+      next: ()=>{
+        if(this.eventId){
+          this.router.navigate(['/event/'+ this.eventId + '/lists'])
+        }
+      },
+      error: err => {
+
+      }
+    })
+  }
+  deleteListEntry(entryId:number){
+    if (entryId) {
+      this.listService.deleteListEntry(entryId).subscribe({
+        next: () =>{
+          this.getAndSetListDetails();
+        }
+      })
+    }else{
+      console.log("invalid entry id")
+    }
   }
 }
