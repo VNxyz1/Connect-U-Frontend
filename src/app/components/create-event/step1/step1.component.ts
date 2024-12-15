@@ -162,16 +162,22 @@ export class Step1Component implements OnInit, OnDestroy {
   onKeyUp(event: KeyboardEvent) {
     const triggerKeys = ['Enter', ' ', ','];
     if (triggerKeys.includes(event.key)) {
-      let tokenInput = event.target as any;
+      let tokenInput = event.target as HTMLInputElement;
       if (tokenInput.value) {
-        const tagValue = tokenInput.value.trim().replace(/,$/, '');
-        this.tags.push(tagValue);
+        let tagValue = tokenInput.value.trim().replace(/,$/, '');
+
+        const tagsToAdd: string[] = tagValue.split(/[\s,]+/).map(tag => tag.trim()).filter(tag => tag.length > 0);
+
+        tagsToAdd.forEach(tag => {
+          if (!this.tags.includes(tag)) {
+            this.tags.push(tag);
+          }
+        });
+
         tokenInput.value = '';
       }
     }
   }
-
-
 
   ngOnDestroy() {
     this.unsubscribe$.next();

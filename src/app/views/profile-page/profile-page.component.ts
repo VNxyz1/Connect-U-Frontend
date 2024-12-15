@@ -158,8 +158,14 @@ export class ProfilePageComponent implements OnInit {
     if (triggerKeys.includes(event.key)) {
       const tagValue = input.value.trim().replace(/,$/, '');
 
-      if (tagValue && !this.form.controls.tags.value.includes(tagValue)) {
-        const updatedTags = [...this.form.controls.tags.value, tagValue];
+      if (tagValue) {
+        const tagsToAdd = tagValue.split(' ').map(tag => tag.trim()).filter(tag => tag.length > 0);
+
+        const currentTags = this.form.controls.tags.value;
+
+        const updatedTags = [
+          ...new Set([...currentTags, ...tagsToAdd])
+        ];
 
         this.form.controls.tags.setValue(updatedTags);
 
@@ -167,4 +173,5 @@ export class ProfilePageComponent implements OnInit {
       }
     }
   }
+
 }
