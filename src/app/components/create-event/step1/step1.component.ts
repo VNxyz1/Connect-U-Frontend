@@ -15,6 +15,7 @@ import { NgClass } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ChipsModule } from 'primeng/chips';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @Component({
   selector: 'app-step1',
@@ -33,6 +34,7 @@ import { ChipsModule } from 'primeng/chips';
     TranslocoPipe,
     ChipsModule,
     ReactiveFormsModule,
+    AutoCompleteModule,
   ],
   templateUrl: './step1.component.html',
 })
@@ -47,6 +49,7 @@ export class Step1Component implements OnInit, OnDestroy {
   selectedCategories: number[] = [];
   submitted: boolean = false;
   private readonly unsubscribe$ = new Subject<void>();
+  protected results: string[] = [];
 
   constructor(
     public eventService: EventService,
@@ -143,6 +146,23 @@ export class Step1Component implements OnInit, OnDestroy {
       this.router.navigate(['../step2'], { relativeTo: this.route });
     } catch (error) {
       console.error('Error saving event information or navigating:', error);
+    }
+  }
+
+  search(event: any): void {
+    const query = event.query.toLowerCase();
+    this.results = ['Option 1', 'Option 2', 'Option 3'].filter(item =>
+      item.toLowerCase().includes(query),
+    );
+  }
+
+  onKeyUp(event: KeyboardEvent) {
+    if (event.key == 'Enter') {
+      let tokenInput = event.target as any;
+      if (tokenInput.value) {
+        this.tags.push(tokenInput.value);
+        tokenInput.value = '';
+      }
     }
   }
 

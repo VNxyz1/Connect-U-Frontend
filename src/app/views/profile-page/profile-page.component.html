@@ -78,8 +78,8 @@
               class="w-full"
               pInputText />
             <label for="pronom">{{
-                'profilePage.updateText.pronouns' | transloco
-              }}</label>
+              'profilePage.updateText.pronouns' | transloco
+            }}</label>
           </p-floatLabel>
         </div>
         <div class="field w-full mb-4">
@@ -93,9 +93,25 @@
               id="profileText"
               class="w-full"></textarea>
             <label for="profileText">{{
-                'profilePage.updateText.desc' | transloco
-              }}</label>
+              'profilePage.updateText.desc' | transloco
+            }}</label>
           </p-floatLabel>
+        </div>
+        <div class="justify-content-center mb-4">
+          <span class="p-fluid">
+            <p-floatLabel>
+              <p-autoComplete
+                id="tags"
+                formControlName="tags"
+                [suggestions]="results"
+                (completeMethod)="search($event)"
+                (onKeyUp)="onKeyUp($event)"
+                [multiple]="true" />
+              <label for="tags">{{
+                'createEventStep1Component.tagsInput.label' | transloco
+              }}</label>
+            </p-floatLabel>
+          </span>
         </div>
         <div class="flex justify-content-end mt-3">
           <p-button

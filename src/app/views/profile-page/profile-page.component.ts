@@ -31,6 +31,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 type editProfileForm = FormGroup<{
   pronouns: FormControl<string>;
   profileText: FormControl<string>;
+  tags: FormControl<string[]>;
 }>;
 
 @Component({
@@ -57,22 +58,25 @@ type editProfileForm = FormGroup<{
 })
 export class ProfilePageComponent implements OnInit {
   protected userId!: string;
+  protected tags: string[] = [];
   protected profileData$!: Observable<ProfileData>;
   protected editMode: boolean = false;
   protected isUser!: boolean | undefined;
-  values: string[] | undefined;
   max = 50;
+  results: string[] = [];
 
   constructor(
     private messageService: MessageService,
     private route: ActivatedRoute,
     private userService: UserService,
   ) {}
+
   form: editProfileForm = new FormGroup({
     pronouns: new FormControl<string>('', {
       nonNullable: true,
       validators: [Validators.required],
     }),
+    tags: new FormControl<string[]>(this.tags, { nonNullable: true }),
     profileText: new FormControl<string>('', {
       nonNullable: true,
       validators: [Validators.required],
@@ -91,6 +95,7 @@ export class ProfilePageComponent implements OnInit {
         this.form.patchValue({
           pronouns: data.pronouns || '',
           profileText: data.profileText || '',
+          tags: data.tags || [],
         });
         return data;
       }),
@@ -109,6 +114,8 @@ export class ProfilePageComponent implements OnInit {
       updateData.profileText =
         this.form.controls.profileText.value.trim() || undefined;
     }
+
+    updateData.tags = this.tags;
 
     this.userService.updateProfileInformation(updateData).subscribe({
       next: () => {
@@ -129,5 +136,25 @@ export class ProfilePageComponent implements OnInit {
 
   toggleEditMode(): void {
     this.editMode = !this.editMode;
+  }
+
+  search(event: any): void {
+    const query = event.query.toLowerCase();
+    this.results = ['Option 1', 'Option 2', 'Option 3'].filter(item =>
+      item.toLowerCase().includes(query),
+    );
+  }
+
+  onKeyUp(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+
+      let tokenInput = event.target as HTMLInputElement;
+      if (tokenInput.value) {
+        this.tags.push(tokenInput.value);
+        tokenInput.value = '';
+        this.form.controls.tags.setValue(this.tags);
+      }
+    }
   }
 }

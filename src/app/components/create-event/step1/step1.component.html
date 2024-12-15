@@ -147,14 +147,20 @@
     </div>
 
     <div class="justify-content-center mb-4">
-  <span class="p-fluid">
-    <p-floatLabel>
-    <p-chips id="tags" [(ngModel)]="tags"/>
-    <label for="tags">{{
-        'createEventStep1Component.tagsInput.label' | transloco
-      }}</label>
-</p-floatLabel>
-  </span>
+      <span class="p-fluid">
+        <p-floatLabel>
+          <p-autoComplete
+            id="tags"
+            [(ngModel)]="tags"
+            [suggestions]="results"
+            (completeMethod)="search($event)"
+            (onKeyUp)="onKeyUp($event)"
+            [multiple]="true" />
+          <label for="tags">{{
+            'createEventStep1Component.tagsInput.label' | transloco
+          }}</label>
+        </p-floatLabel>
+      </span>
     </div>
 
     <!-- Description Input -->
