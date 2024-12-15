@@ -7,7 +7,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { EventService } from '../../../services/event/eventservice';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subject, filter, takeUntil } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -32,12 +32,14 @@ import { ChipsModule } from 'primeng/chips';
     TooltipModule,
     TranslocoPipe,
     ChipsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './step1.component.html',
 })
 export class Step1Component implements OnInit, OnDestroy {
   values: string[] | undefined;
   max = 50;
+  tags: string[] = [];
   eventType: number | undefined = 1;
   eventTitle: string = '';
   description: string = '';
@@ -86,6 +88,7 @@ export class Step1Component implements OnInit, OnDestroy {
       this.eventTitle = savedData.title || '';
       this.description = savedData.description || '';
       this.selectedCategories = savedData.categories || [];
+      this.tags = savedData.tags || [];
       this.cdr.detectChanges();
     } catch (error) {
       console.error('Error loading saved data:', error);
@@ -94,7 +97,7 @@ export class Step1Component implements OnInit, OnDestroy {
 
   protected onCategoryChange() {
     if (this.selectedCategories.length > 3) {
-      this.selectedCategories.pop(); // Remove last category if limit exceeded
+      this.selectedCategories.pop();
       this.messageService.add({
         severity: 'warn',
         summary: this.translocoService.translate(
@@ -132,6 +135,7 @@ export class Step1Component implements OnInit, OnDestroy {
       await this.eventService.setEventInformation({
         type: this.eventType,
         title: this.eventTitle,
+        tags: this.tags,
         categories: this.selectedCategories,
         description: this.description,
       });

@@ -143,6 +143,9 @@
     "descriptionInput": {
       "label": "Description"
     },
+    "tagsInput": {
+      "label": "Add Tags"
+    },
     "continueButton": "Continue",
     "messages": {
       "categoryLimitTitle": "Selection Limit",

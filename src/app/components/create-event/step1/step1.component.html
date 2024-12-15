@@ -146,11 +146,15 @@
       }
     </div>
 
-    <div class="flex justify-content-center gap-3 mb-4">
-      <p-floatLabel>
-        <p-chips id="chips" [(ngModel)]="values" [max]="max" />
-        <label for="chips">Chips</label>
-      </p-floatLabel>
+    <div class="justify-content-center mb-4">
+  <span class="p-fluid">
+    <p-floatLabel>
+    <p-chips id="tags" [(ngModel)]="tags"/>
+    <label for="tags">{{
+        'createEventStep1Component.tagsInput.label' | transloco
+      }}</label>
+</p-floatLabel>
+  </span>
     </div>
 
     <!-- Description Input -->

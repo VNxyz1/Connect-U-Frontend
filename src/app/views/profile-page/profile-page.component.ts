@@ -26,6 +26,7 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { map } from 'rxjs/operators';
 import { TagModule } from 'primeng/tag';
 import { ChipsModule } from 'primeng/chips';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 type editProfileForm = FormGroup<{
   pronouns: FormControl<string>;
@@ -36,7 +37,6 @@ type editProfileForm = FormGroup<{
   selector: 'app-profile-page',
   standalone: true,
   imports: [
-    ButtonDirective,
     CardModule,
     AngularRemixIconComponent,
     AsyncPipe,
@@ -48,9 +48,9 @@ type editProfileForm = FormGroup<{
     Button,
     DropdownModule,
     TranslocoPipe,
-    NgClass,
     TagModule,
     ChipsModule,
+    AutoCompleteModule,
   ],
   providers: [UserService, MessageService, TranslocoService],
   templateUrl: './profile-page.component.html',
