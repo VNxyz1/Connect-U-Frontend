@@ -54,4 +54,3 @@ jobs:
 
       - name: Run check-format task
         run: npm run check-format
-
