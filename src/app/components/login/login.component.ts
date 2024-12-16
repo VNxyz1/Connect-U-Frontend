@@ -17,6 +17,7 @@ import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { SocketService } from '../../services/socket/socket.service';
 
 type LoginForm = FormGroup<{
   email: FormControl<string>;
@@ -68,6 +69,7 @@ export class LoginComponent {
     private router: Router,
     private messageService: MessageService,
     private translocoService: TranslocoService,
+    private readonly socket: SocketService,
   ) {}
 
   submitLogin() {

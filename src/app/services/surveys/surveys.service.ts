@@ -45,4 +45,8 @@ export class SurveysService {
   deleteSurvey(surveyId: number): Observable<OkResponse> {
     return this.http.delete<OkResponse>('survey/' + surveyId);
   }
+
+  updateSurveyEntry(surveyId: number): Observable<OkResponse> {
+    return this.http.patch<OkResponse>('survey/' + surveyId, {});
+  }
 }
