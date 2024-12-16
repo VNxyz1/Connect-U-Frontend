@@ -155,7 +155,10 @@ export class Step1Component implements OnInit, OnDestroy {
     const query = event.query.toLowerCase();
     this.tagService.getAllTags(query).subscribe({
       next: tags => (this.results = tags),
-      error: error => console.error('Error fetching tags:', error),
+      error: error => {
+        console.error('Error fetching tags:', error);
+        this.results = [];
+      },
     });
   }
 
@@ -180,6 +183,11 @@ export class Step1Component implements OnInit, OnDestroy {
         tokenInput.value = '';
       }
     }
+    console.log(this.tags);
+  }
+
+  blurTagInput() {
+    this.results = [];
   }
 
   ngOnDestroy() {
