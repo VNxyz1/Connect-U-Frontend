@@ -29,7 +29,11 @@
                 <div
                   class="flex align-items-center justify-content-between mb-2">
                   <div class="flex align-items-center">
-                    <p-checkbox binary="true" class="p-checkbox-rounded mr-2">
+                    <p-checkbox
+                      [ngModel]="isUserInEntry(entry)"
+                      binary="true"
+                      class="p-checkbox-rounded mr-2"
+                      (click)="updateSurveyEntry(entry.id)">
                     </p-checkbox>
                     <p class="m-0">{{ entry.content }}</p>
                   </div>
@@ -51,7 +55,7 @@
                 <div>
                   <!-- test functionality has to be updated -->
                   <p-progressBar
-                    [value]="(entry.users.length / votes) * 100"
+                    [value]="Math.round((entry.users.length / votes) * 100)"
                     [style]="{
                       height: '20px',
                       borderRadius: '40px',
