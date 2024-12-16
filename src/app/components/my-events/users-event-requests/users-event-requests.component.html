@@ -8,14 +8,14 @@
     </span>
   </div>
   @for (r of this.eventRequests; track r) {
-    <p-card class="p-3 cursor-pointer" [routerLink]="['/event/' + r.event.id]">
-      <div
-        class="flex flex-column md:flex-row align-items-start md:align-items-center pr-3">
+    <!-- [routerLink]="['/event/' + r.event.id]" -->
+    <p-card class="p-3 cursor-pointer">
+      <div class="flex flex-row align-items-center">
         <!-- Image -->
         <img
           src="https://via.placeholder.com/100"
           alt="{{ r.event.title }}-picture"
-          class="mb-3 md:mb-0"
+          class="mb-3 md:mb-0 hidden md:block"
           style="width: 70px; height: 70px" />
 
         <!-- Title and Details -->
@@ -23,7 +23,9 @@
           <!-- Title and Date -->
           <div
             class="justify-content-start align-items-start md:align-items-center">
-            <h3 class="mt-0 mb-0">{{ r.event.title }}</h3>
+            <h3 class="mt-0 mb-0">
+              {{ r.event.title + ' sadasd #d  dasdasdad dsad' }}
+            </h3>
             <div class="text-secondary mt-2 md:mt-0">
               <div class="flex align-items-center gap-1">
                 <rmx-icon
@@ -62,6 +64,7 @@
             (onClick)="deleteEventRequest(r.event.title, r.id, $event)">
             <ng-template pTemplate="icon">
               <rmx-icon
+                class="mr-2"
                 style="width: 16px; height: 16px"
                 name="close-line"></rmx-icon>
             </ng-template>
@@ -88,11 +91,15 @@
               <ng-template pTemplate="icon">
                 <rmx-icon
                   style="width: 16px; height: 16px"
+                  class="mr-2"
                   name="hourglass-fill"></rmx-icon>
               </ng-template>
             </p-button>
           }
+        </div>
 
+        <div
+          class="flex flex-column md:flex-row gap-2 align-items-center align-content-center ml-2 mt-3 md:mt-0">
           <!-- Arrow Icon -->
           <rmx-icon
             name="arrow-right-s-line"
