@@ -116,7 +116,14 @@
     },
     "errorMessages": {
       "registerFailed": "Registrierung fehlgeschlagen",
-      "registerFailedData": "Etwas scheint wohl schief gelaufen zu sein!"
+      "unknownError": "Ein unbekannter Fehler ist aufgetreten.",
+      "usernameWhitespace": "Der Benutzername darf nicht nur aus Leerzeichen bestehen.",
+      "firstNameWhitespace": "Der Vorname darf nicht nur aus Leerzeichen bestehen.",
+      "lastNameWhitespace": "Der Nachname darf nicht nur aus Leerzeichen bestehen.",
+      "passwordMismatch": "Die Passwörter müssen übereinstimmen.",
+      "emailTaken": "Diese E-Mail-Adresse ist bereits vergeben.",
+      "usernameTaken": "Dieser Benutzername ist bereits vergeben.",
+      "term": "Du musst die AGBs bestätigen, um dich registrieren zu können"
     }
   },
   "searchPageComponent": {
