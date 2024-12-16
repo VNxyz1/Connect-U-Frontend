@@ -146,20 +146,22 @@
       }
     </div>
 
-    <div class="justify-content-center mb-4">
+    <div class="justify-content-center mt-4 mb-4">
       <span class="p-fluid">
-        <p-floatLabel>
-          <p-autoComplete
-            id="tags"
-            [(ngModel)]="tags"
-            [suggestions]="results"
-            (completeMethod)="search($event)"
-            (onKeyUp)="onKeyUp($event)"
-            [multiple]="true" />
-          <label for="tags">{{
-            'createEventStep1Component.tagsInput.label' | transloco
-          }}</label>
-        </p-floatLabel>
+        <p-autoComplete
+          inputId="tags-input"
+          id="tags-input"
+          [placeholder]="
+            tags.length == 0
+              ? ('createEventStep1Component.tagsInput.label' | transloco)
+              : ''
+          "
+          [(ngModel)]="tags"
+          [suggestions]="results"
+          (completeMethod)="search($event)"
+          (onKeyUp)="onKeyUp($event)"
+          (onBlur)="blurTagInput()"
+          [multiple]="true" />
       </span>
     </div>
 
