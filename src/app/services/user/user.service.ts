@@ -6,6 +6,7 @@ import { ProfileData } from '../../interfaces/ProfileData';
 export type UpdateProfileBody = {
   pronouns: string;
   profileText: string;
+  tags: string[];
 };
 export type UpdatePasswordBody = {
   oldPassword: string;

@@ -143,6 +143,9 @@
     "descriptionInput": {
       "label": "Beschreibung"
     },
+    "tagsInput": {
+      "label": "Tags hinzufügen"
+    },
     "continueButton": "Weiter",
     "messages": {
       "categoryLimitTitle": "Kategorien Limitierung",
@@ -761,7 +764,6 @@
     "legal-disclosure": "Impressum",
     "privacy-policy": "Datenschutzerklärung",
     "terms": "Allgemeine Geschäftsbedingungen"
-
   },
   "profilePage": {
     "cardText": {
@@ -866,7 +868,7 @@
     "sidebarLink": "Details Ansehen",
     "deleteSurvey": "Umfrage löschen",
     "deleteConfirmationMessage": "Möchtest du die Umfrage wirklich löschen?",
-    "deleteConfirmationHeader":"Achtung",
+    "deleteConfirmationHeader": "Achtung",
     "errorTitle": "Fehler beim löschen!",
     "deleteErrorMessage": "Es scheint etwas schiefgelaufen zu sein. Bitte vergewissere dich, das du eine stabile Internetverbindung hast.",
     "successTitle": "Löschen Erfolgreich!",

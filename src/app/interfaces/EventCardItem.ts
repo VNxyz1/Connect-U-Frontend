@@ -5,6 +5,8 @@ import { StatusEnum } from './StatusEnum';
 export interface EventCardItem {
   id: string;
 
+  tags: string[];
+
   categories: Category[];
 
   dateAndTime: string;

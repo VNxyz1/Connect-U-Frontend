@@ -14,11 +14,9 @@ import { EventService } from '../../services/event/eventservice';
   selector: 'app-header',
   standalone: true,
   imports: [
-    NgOptimizedImage,
     ImageModule,
     AngularRemixIconComponent,
     Button,
-    NgClass,
     TranslocoPipe,
     ConfirmDialogModule,
   ],

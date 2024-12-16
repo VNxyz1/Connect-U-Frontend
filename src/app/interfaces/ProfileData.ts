@@ -14,5 +14,6 @@ export interface ProfileData {
   profileText: string;
   gender: number;
   isUser?: boolean;
+  tags: string[];
   imageUrl?: string;
 }

@@ -7,7 +7,6 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { RouterLink } from '@angular/router';
-import { TranslocoDirective } from '@jsverse/transloco';
 import { StatusEnum } from '../../interfaces/StatusEnum';
 import {
   DockPosition,
@@ -26,7 +25,6 @@ import { EventStatusService } from '../../services/event/event-status.service';
     SkeletonModule,
     TranslocoDatePipe,
     RouterLink,
-    TranslocoDirective,
     EventStatusIndicatorComponent,
   ],
   templateUrl: './event-card.component.html',
@@ -37,18 +35,6 @@ export class EventCardComponent {
 
   @Input({ transform: booleanAttribute }) showEventStatus: boolean = false;
   @Input({ transform: booleanAttribute }) compact: boolean = false;
-
-  // placeholder
-  ahhArr: string[] = [
-    'Placeholder',
-    'cause_missing_in_Backend',
-    'sdadsaddasddsdasdasdasd',
-    'asdsadasd',
-    'asdsadasd',
-    'asdsadasd',
-    'asdsadasd',
-    'asdsadasd',
-  ].slice(0, Math.floor(Math.random() * (7 - 1 + 1) + 1));
 
   constructor(private eventStatus: EventStatusService) {}
 
@@ -71,6 +57,5 @@ export class EventCardComponent {
     return this.eventStatus.getStatusColor(eventStatus);
   }
 
-  protected readonly StatusEnum = StatusEnum;
   protected readonly DockPosition = DockPosition;
 }
