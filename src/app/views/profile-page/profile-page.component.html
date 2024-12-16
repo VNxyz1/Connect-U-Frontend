@@ -44,22 +44,16 @@
             {{ data.profileText || 'Keine Beschreibung' }}
           </p>
         </div>
-        <div class="pt-3">
-          <span>
-            @for (tag of data.tags; track $index) {
-              <p-tag
-                [value]="tag"
-                severity="secondary"
-                [rounded]="true"
-                class="mr-1">
-                <ng-template pTemplate="icon">
-                  <rmx-icon
-                    name="price-tag-3-line"
-                    style="width: 16px; height: 16px" />
-                </ng-template>
-              </p-tag>
-            }
-          </span>
+        <div class="pt-3 grid gap-1 ml-1">
+          @for (tag of data.tags; track $index) {
+            <p-tag [value]="tag" severity="secondary" [rounded]="true">
+              <ng-template pTemplate="icon">
+                <rmx-icon
+                  name="price-tag-3-line"
+                  style="width: 16px; height: 16px" />
+              </ng-template>
+            </p-tag>
+          }
         </div>
       </p-card>
     }
