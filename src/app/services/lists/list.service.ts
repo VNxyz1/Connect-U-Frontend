@@ -67,6 +67,18 @@ export class ListService {
     );
   }
 
+  deleteList(listId: number): Observable<{ ok: boolean; message: string }> {
+    return this.http.delete<{ ok: boolean; message: string }>('list/' + listId);
+  }
+
+  deleteListEntry(
+    entryId: number,
+  ): Observable<{ ok: boolean; message: string }> {
+    return this.http.delete<{ ok: boolean; message: string }>(
+      'list-entry/' + entryId,
+    );
+  }
+
   assignToListEntry(entryId: number) {
     return this.http.patch<{ ok: boolean; message: string }>(
       'list-entry/' + entryId,
