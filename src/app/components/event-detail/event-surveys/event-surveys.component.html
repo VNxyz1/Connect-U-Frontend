@@ -1,11 +1,11 @@
-<div class="grid p-5 justify-content-center">
-  <div class="col-12 flex justify-content-center">
+<div class="p-5">
+  <div class="flex justify-content-center mb-5">
     <app-create-surveys (surveyCreated)="handleSurveyChange()" />
   </div>
-  <div class="col-12 lg:col-8">
+  <div class="grid justify-content-center">
     @if (eventSurveys$ | async; as surveys) {
       @for (survey of surveys; track $index) {
-        <div class="mb-3">
+        <div class="col-12 lg:w-8 mb-3">
           <app-card-survey
             [survey]="survey"
             (surveyDeleted)="handleSurveyChange()" />
