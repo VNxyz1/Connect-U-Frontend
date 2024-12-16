@@ -1,0 +1,69 @@
+<p-dialog
+  [(visible)]="notLoggedInDialogVisible"
+  [contentStyle]="{ overflow: 'visible' }"
+  contentStyleClass="border-round"
+  [showHeader]="false"
+  [draggable]="false"
+  [focusOnShow]="false"
+  modal
+  [closeOnEscape]="false"
+  [closable]="false"
+  [style]="{ width: '45rem' }">
+  <div class="py-4">
+    @if (loginRegisterSwitch) {
+      <app-login
+        [redirectTo]="'/event/' + eventId"
+        (toggleView)="toggleLoginRegisterSwitch()"
+        class="w-full" />
+    } @else {
+      <app-register (toggleView)="toggleLoginRegisterSwitch()" class="w-full" />
+    }
+  </div>
+</p-dialog>
+
+<!-- Display tabs if user is host or guest -->
+@if (
+  eventDetails &&
+  (eventDetails.isHost || eventDetails.isParticipant) &&
+  !url.includes('/requests') &&
+  !url.includes('/guests')
+) {
+  <p-tabMenu
+    [model]="eventTabMenuItems"
+    [(activeItem)]="activeTabItem"
+    (activeItemChange)="onActiveItemChange($event)">
+    <ng-template pTemplate="item" let-item>
+      <ng-container>
+        <a
+          [routerLink]="item.route"
+          [state]="item.state"
+          class="p-menuitem-link">
+          <!-- Add icon explicitly -->
+          <rmx-icon
+            style="width: 16px; height: 16px; margin-right: 8px"
+            [name]="item.icon"></rmx-icon>
+          <span class="hidden md:block">{{ item.label }}</span>
+        </a>
+      </ng-container>
+    </ng-template>
+  </p-tabMenu>
+}
+
+<!-- Display the event info if not logged in or not a participant -->
+@if (
+  eventDetails &&
+  ((activeTabItem && activeTabItem.id == 'infoTab') ||
+    (!eventDetails.isHost && !eventDetails.isParticipant)) &&
+  !url.includes('/requests') &&
+  !url.includes('/guests') &&
+  !url.includes('/lists') &&
+  !url.includes('/surveys')
+) {
+  <app-event-info
+    [getPreferredGendersString]="getPreferredGendersString"
+    [eventRequestsHost]="eventRequestsHost"
+    (eventDetailsUpdated)="onEventDetailsUpdated()">
+  </app-event-info>
+}
+
+<router-outlet></router-outlet>

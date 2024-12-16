@@ -2,6 +2,10 @@
 @import 'remixicon/fonts/remixicon.css';
 @import 'assets/themes/mytheme/theme.scss';
 
+body {
+  margin: 0;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -12,4 +16,65 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.vertical-resize-only {
+  resize: vertical;
+}
+
+.content {
+  max-width: 1000px;
+  margin: 0 auto; /* Centers the div horizontally */
+}
+
+@media screen and (min-width: 3400px) {
+  .content {
+    max-width: 1400px;
+    margin: 0 auto; /* Centers the div horizontally */
+  }
+}
+
+/* color classes */
+
+.color-secondary {
+  color: $secondaryColor;
+}
+/* BOTTOM BUTTONS CONTAINER, see at create-event pages */
+
+.fixed-bottom-responsive-container {
+  bottom: -20% !important;
+  position: relative;
+}
+
+@media screen and (min-width: 576px) {
+  .fixed-bottom-responsive-container {
+    bottom: 25% !important;
+  }
+}
+
+/* sliders with input fields */
+
+// Center the slider
+.centered-slider {
+  margin: 0 auto;
+  width: 60vw;
+  max-width: 800px;
+}
+
+/* Style input container */
+.slider-input-container {
+  width: 72vw;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+// Limit input field width to 4 characters
+.slider-input {
+  width: 10ch;
+  text-align: center;
+}
+
+//cursor-default
+.cursor-default {
+  cursor: default !important;
 }

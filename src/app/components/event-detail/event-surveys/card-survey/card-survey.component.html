@@ -1,0 +1,175 @@
+<p-card [ngClass]="{ 'p-0': survey.title }">
+  <div
+    class="flex align-items-center justify-content-between pr-3 cursor-pointer"
+    (click)="toggleExpand()">
+    <!-- Title and Description -->
+    <div class="flex flex-column flex-grow-1">
+      <h4 class="mt-0 mb-0">
+        <span>{{ survey.title }}</span>
+      </h4>
+      <p class="text-secondary mt-2 mb-2">
+        {{ survey.description }}
+      </p>
+    </div>
+
+    <!-- Toggle Icon -->
+    <div class="ml-2">
+      <rmx-icon
+        [name]="expanded ? 'arrow-down-s-line' : 'arrow-right-s-line'"
+        style="height: 26px; width: 26px; cursor: pointer"
+        (click)="toggleExpand()">
+      </rmx-icon>
+    </div>
+  </div>
+  @if (expanded) {
+    <div class="mt-3">
+      @if (surveyDetail$ | async; as surveyDetail) {
+        <ng-container>
+          @for (entry of surveyDetail.surveyEntries; track $index) {
+            <div class="mb-4 mt-4">
+              <div class="flex align-items-center justify-content-between mb-2">
+                <div class="flex align-items-center">
+                  <p-checkbox
+                    [ngModel]="isUserInEntry(entry)"
+                    binary="true"
+                    class="p-checkbox-rounded mr-2"
+                    (click)="updateSurveyEntry(entry.id)">
+                  </p-checkbox>
+                  <p class="m-0">{{ entry.content }}</p>
+                </div>
+                <div class="flex align-items-center">
+                  <div class="avatar-group mr-2">
+                    @for (user of entry.users.slice(0, 4); track $index) {
+                      <ng-container>
+                        <p-avatar
+                          image="images/userImg.png"
+                          shape="circle"
+                          size="normal">
+                        </p-avatar>
+                      </ng-container>
+                    }
+                  </div>
+                  <span class="ml-2">{{ entry.users.length }}</span>
+                </div>
+              </div>
+              <div>
+                <!-- test functionality has to be updated -->
+                <p-progressBar
+                  [value]="Math.round((entry.users.length / votes) * 100)"
+                  [style]="{
+                    height: '20px',
+                    borderRadius: '40px',
+                  }"
+                  class="mt-3">
+                </p-progressBar>
+              </div>
+            </div>
+          }
+        </ng-container>
+        <div class="text-center mt-6">
+          <p
+            class="text-primary cursor-pointer"
+            (click)="openSidebar(surveyDetail.surveyEntries)">
+            {{ 'surveyCardPage.sidebarLink' | transloco }}
+          </p>
+        </div>
+      } @else {
+        <div class="flex justify-content-between mb-2">
+          <div class="flex justify-content-start">
+            <p-skeleton size="2rem" styleClass="mr-2" />
+            <p-skeleton width="10rem" styleClass="mb-2" />
+          </div>
+          <p-skeleton shape="circle" size="2rem" styleClass="mr-2" />
+        </div>
+        <p-skeleton styleClass="mb-2" />
+
+        <div class="mt-4">
+          <div class="flex justify-content-between mb-2">
+            <div class="flex justify-content-start">
+              <p-skeleton size="2rem" styleClass="mr-2" />
+              <p-skeleton width="10rem" styleClass="mb-2" />
+            </div>
+            <p-skeleton shape="circle" size="2rem" styleClass="mr-2" />
+          </div>
+          <p-skeleton styleClass="mb-2" />
+        </div>
+        <div class="flex justify-content-center mt-3">
+          <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+        </div>
+      }
+    </div>
+  }
+</p-card>
+
+<p-sidebar
+  [(visible)]="sidebarVisible"
+  position="right"
+  [modal]="true"
+  [style]="{ width: '300px' }">
+  <h3 class="text-color-secondary">
+    {{ 'surveyCardPage.sidebarTitle' | transloco }}
+  </h3>
+  <ul class="list-none p-0">
+    @if (selectedSurveyEntries) {
+      @for (entry of getSortedEntries(selectedSurveyEntries); track $index) {
+        <li class="mb-3">
+          <div class="flex align-items-center">
+            <p class="mb-0 flex-grow-1">
+              <b>{{ entry.content }}</b>
+            </p>
+          </div>
+          @if (entry.users.length > 0) {
+            <div class="flex align-items-center mt-0">
+              @if (entry.users.length === maxVotes(selectedSurveyEntries)) {
+                <rmx-icon
+                  name="star-fill"
+                  class="-mt-3"
+                  style="
+                    color: gold;
+                    width: 16px;
+                    height: 16px;
+                    margin-right: 4px;
+                  ">
+                </rmx-icon>
+              }
+              <p class="mt-0">
+                <small
+                  ><b
+                    >{{ 'surveyCardPage.votes' | transloco }}
+                    {{ entry.users.length }}</b
+                  ></small
+                >
+              </p>
+            </div>
+          } @else {
+            <p class="mt-0">{{ 'surveyCardPage.noVotes' | transloco }}</p>
+          }
+          <div class="avatar-group mt-2">
+            @for (user of entry.users; track $index) {
+              <div
+                class="flex align-items-center mb-2 cursor-pointer"
+                [routerLink]="['/profile/' + user.id]">
+                <img
+                  src="images/userImg.png"
+                  alt="profile picture"
+                  class="border-circle mr-2"
+                  style="width: 20px; height: 20px" />
+                <p class="text-primary">{{ user.username }}</p>
+              </div>
+            }
+          </div>
+        </li>
+      }
+    }
+  </ul>
+  @if (survey.creator) {
+    <div class="absolute right-0 bottom-0 mr-3">
+      <h6 class="cursor-pointer" (click)="deleteSurvey(survey.id)">
+        <!-- (click)="deleteSurvey() -->
+        <span class="p-error">{{
+          'surveyCardPage.deleteSurvey' | transloco
+        }}</span>
+      </h6>
+    </div>
+  }
+</p-sidebar>

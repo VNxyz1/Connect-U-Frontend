@@ -1,6 +1,6 @@
 /// Background of a steps item
 /// @group menu
-$stepsItemBg: var(--surface-ground);
+$stepsItemBg: var(--var-white);
 
 /// Border of a steps item
 /// @group menu
@@ -40,7 +40,7 @@ $menuWidth: 12.5rem;
 
 /// Background of a menu
 /// @group menu
-$menuBg: var(--surface-ground);
+$menuBg: var(--white);
 
 /// Border of a menu
 /// @group menu
@@ -56,11 +56,11 @@ $menuitemPadding: 0.75rem 1rem;
 
 /// Border radius of a menuitem
 /// @group menu
-$menuitemBorderRadius: 0;
+$menuitemBorderRadius: 5;
 
 /// Text color of a menuitem
 /// @group menu
-$menuitemTextColor: $secondaryColor;
+$menuitemTextColor: $primaryColor;
 
 /// Icon color of a menuitem
 /// @group menu
@@ -76,7 +76,7 @@ $menuitemIconHoverColor: $textSecondaryColor;
 
 /// Background of a menuitem in hover state
 /// @group menu
-$menuitemHoverBg: $secondaryColor;
+$menuitemHoverBg: $normal-grey;
 
 /// Text color of a menuitem in focus state
 /// @group menu
@@ -96,7 +96,7 @@ $menuitemTextActiveColor: $secondaryColor;
 
 /// Icon color of a menuitem in active state
 /// @group menu
-$menuitemIconActiveColor: $textSecondaryColor;
+$menuitemIconActiveColor: $secondaryColor;
 
 /// Background of a menuitem in active state
 /// @group menu

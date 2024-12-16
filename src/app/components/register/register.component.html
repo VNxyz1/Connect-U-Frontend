@@ -1,0 +1,358 @@
+<div class="p-fluid w-full">
+  <div class="col-12">
+    <h2 class="w-full text-center">
+      {{ 'registerComponent.title' | transloco }}
+    </h2>
+    <form (ngSubmit)="submitRegister()" [formGroup]="form">
+      <div class="field mb-4">
+        <p-floatLabel>
+          <input
+            pInputText
+            formControlName="username"
+            type="text"
+            autocomplete="new-text"
+            aria-autocomplete="none"
+            id="username"
+            aria-required="true"
+            [attr.aria-invalid]="
+              form.get('username')?.invalid && form.get('username')?.touched
+            " />
+          <label for="username">{{
+            'registerComponent.usernameInput.placeholder' | transloco
+          }}</label>
+        </p-floatLabel>
+
+        @if (form.get('username')?.invalid && form.get('username')?.touched) {
+          @if (form.get('username')?.errors?.['required']) {
+            <small class="p-error">{{
+              'registerComponent.usernameInput.requiredWarning' | transloco
+            }}</small>
+          }
+          @if (form.get('username')?.errors?.['minlength']) {
+            <small class="p-error">{{
+              'registerComponent.usernameInput.lengthWarning' | transloco
+            }}</small>
+          }
+          @if (form.get('username')?.errors?.['maxlength']) {
+            <small class="p-error">{{
+              'registerComponent.usernameInput.maxLengthWarning' | transloco
+            }}</small>
+          }
+        }
+      </div>
+
+      <div class="field mb-4">
+        <p-floatLabel>
+          <input
+            id="email"
+            type="email"
+            pInputText
+            formControlName="email"
+            class="w-full"
+            autocomplete="new-text"
+            aria-autocomplete="none"
+            aria-required="true"
+            [attr.aria-invalid]="
+              form.get('email')?.invalid && form.get('email')?.touched
+            " />
+          <label for="email">{{
+            'registerComponent.emailInput.placeholder' | transloco
+          }}</label>
+        </p-floatLabel>
+
+        @if (form.get('email')?.invalid && form.get('email')?.touched) {
+          @if (form.get('email')?.errors?.['required']) {
+            <small class="p-error">{{
+              'registerComponent.emailInput.requiredWarning' | transloco
+            }}</small>
+          }
+          @if (form.get('email')?.errors?.['email']) {
+            <small class="p-error">{{
+              'registerComponent.emailInput.validEmailWarning' | transloco
+            }}</small>
+          }
+        }
+      </div>
+
+      <div class="field mb-4">
+        <p-floatLabel>
+          <input
+            id="firstName"
+            type="text"
+            pInputText
+            autocomplete="new-text"
+            aria-autocomplete="none"
+            formControlName="firstName"
+            class="w-full"
+            aria-required="true"
+            [attr.aria-invalid]="
+              form.get('firstName')?.invalid && form.get('firstName')?.touched
+            " />
+          <label for="firstName">{{
+            'registerComponent.firstnameInput.placeholder' | transloco
+          }}</label>
+        </p-floatLabel>
+        @if (form.get('firstName')?.invalid && form.get('firstName')?.touched) {
+          @if (form.get('firstName')?.errors?.['required']) {
+            <small class="p-error">{{
+              'registerComponent.firstnameInput.requiredWarning' | transloco
+            }}</small>
+          }
+          @if (form.get('firstName')?.errors?.['minlength']) {
+            <small class="p-error">{{
+              'registerComponent.firstnameInput.lengthWarning' | transloco
+            }}</small>
+          }
+          @if (form.get('firstName')?.errors?.['maxlength']) {
+            <small class="p-error">{{
+              'registerComponent.firstnameInput.maxLengthWarning' | transloco
+            }}</small>
+          }
+        }
+      </div>
+
+      <div class="field mb-4">
+        <p-floatLabel>
+          <input
+            pInputText
+            formControlName="lastName"
+            type="text"
+            id="lastName"
+            autocomplete="new-text"
+            aria-autocomplete="none"
+            class="w-full"
+            aria-required="true"
+            [attr.aria-invalid]="
+              form.get('lastName')?.invalid && form.get('lastName')?.touched
+            " />
+          <label for="lastName">{{
+            'registerComponent.lastnameInput.placeholder' | transloco
+          }}</label>
+        </p-floatLabel>
+
+        @if (form.get('lastName')?.invalid && form.get('lastName')?.touched) {
+          @if (form.get('lastName')?.errors?.['required']) {
+            <small class="p-error">{{
+              'registerComponent.lastnameInput.requiredWarning' | transloco
+            }}</small>
+          }
+          @if (form.get('lastName')?.errors?.['maxlength']) {
+            <small class="p-error">{{
+              'registerComponent.lastnameInput.maxLengthWarning' | transloco
+            }}</small>
+          }
+        }
+      </div>
+
+      <div class="field mb-4">
+        <p-floatLabel>
+          <p-calendar
+            [showIcon]="true"
+            inputId="templatedisplay"
+            id="calender"
+            aria-autocomplete="none"
+            formControlName="birthday"
+            aria-required="true"
+            [dateFormat]="calendarDateFormat"
+            [attr.aria-invalid]="
+              form.get('birthday')?.invalid && form.get('birthday')?.touched
+            ">
+            <ng-template
+              pTemplate="inputicon"
+              let-clickCallBack="clickCallBack">
+              <rmx-icon
+                style="width: 16px; height: 16px"
+                name="calendar-line"
+                (click)="clickCallBack($event)">
+              </rmx-icon>
+            </ng-template>
+          </p-calendar>
+          <label for="calender">{{
+            'registerComponent.calendarInput.placeholder' | transloco
+          }}</label>
+        </p-floatLabel>
+        @if (form.get('birthday')?.invalid && form.get('birthday')?.touched) {
+          @if (form.get('birthday')?.errors?.['required']) {
+            <small class="p-error">{{
+              'registerComponent.calendarInput.requiredWarning' | transloco
+            }}</small>
+          }
+          @if (form.get('birthday')?.errors?.['invalidDay']) {
+            <small class="p-error">{{
+              'registerComponent.calendarInput.invalidDayWarning' | transloco
+            }}</small>
+          }
+          @if (form.get('birthday')?.errors?.['minAge']) {
+            <small class="p-error">{{
+              'registerComponent.calendarInput.minAgeWarning' | transloco
+            }}</small>
+          }
+        }
+      </div>
+
+      <div class="field mb-4">
+        <p-floatLabel>
+          <p-dropdown
+            id="gender"
+            formControlName="gender"
+            [options]="genderOptions"
+            optionLabel="label"
+            aria-required="true"
+            [attr.aria-invalid]="
+              form.get('gender')?.invalid && form.get('gender')?.touched
+            " />
+          <label for="gender">{{
+            'registerComponent.genderInput.placeholder' | transloco
+          }}</label>
+        </p-floatLabel>
+
+        @if (form.get('gender')?.errors?.['required']) {
+          <small class="p-error">{{
+            'registerComponent.genderInput.requiredWarning' | transloco
+          }}</small>
+        }
+      </div>
+
+      <div class="field mb-4">
+        <p-floatLabel>
+          <p-password
+            id="password"
+            formControlName="password"
+            toggleMask
+            [feedback]="false"
+            class="w-full"
+            styleClass="w-full"
+            inputStyleClass="w-full"
+            autocomplete="new-password"
+            aria-autocomplete="none"
+            aria-required="true"
+            [attr.aria-invalid]="
+              form.get('password')?.invalid && form.get('password')?.touched
+            ">
+            <span>
+              <ng-template pTemplate="showicon">
+                <rmx-icon
+                  name="eye-line"
+                  style="width: 16px; height: 16px"></rmx-icon>
+              </ng-template>
+              <ng-template pTemplate="hideicon">
+                <rmx-icon
+                  name="eye-off-line"
+                  style="width: 16px; height: 16px"></rmx-icon>
+              </ng-template>
+            </span>
+          </p-password>
+          <label for="password">{{
+            'registerComponent.passwordInput.label' | transloco
+          }}</label>
+        </p-floatLabel>
+        @if (form.get('password')?.invalid && form.get('password')?.touched) {
+          @if (form.get('password')?.errors?.['required']) {
+            <small class="p-error">{{
+              'registerComponent.passwordInput.requiredWarning' | transloco
+            }}</small>
+          }
+          @if (form.get('password')?.errors?.['minlength']) {
+            <small class="p-error">{{
+              'registerComponent.passwordInput.lengthWarning' | transloco
+            }}</small>
+          }
+        }
+      </div>
+
+      <div class="field mb-4">
+        <p-floatLabel>
+          <p-password
+            autocomplete="new-password"
+            aria-autocomplete="none"
+            formControlName="passwordConfirm"
+            id="passwordConfirm"
+            toggleMask
+            [feedback]="false"
+            class="w-full"
+            styleClass="w-full"
+            inputStyleClass="w-full"
+            aria-required="true"
+            [attr.aria-invalid]="
+              form.get('password')?.invalid && form.get('password')?.touched
+            ">
+            <span>
+              <ng-template pTemplate="showicon">
+                <rmx-icon
+                  name="eye-line"
+                  style="width: 16px; height: 16px"></rmx-icon>
+              </ng-template>
+              <ng-template pTemplate="hideicon">
+                <rmx-icon
+                  name="eye-off-line"
+                  style="width: 16px; height: 16px"></rmx-icon>
+              </ng-template>
+            </span>
+          </p-password>
+          <label>{{
+            'registerComponent.confirmPasswordInput.placeholder' | transloco
+          }}</label>
+        </p-floatLabel>
+        @if (
+          form.get('passwordConfirm')?.invalid &&
+          form.get('passwordConfirm')?.touched
+        ) {
+          @if (form.get('passwordConfirm')?.errors?.['required']) {
+            <small class="p-error">{{
+              'registerComponent.confirmPasswordInput.requiredWarning'
+                | transloco
+            }}</small>
+          }
+          @if (form.errors?.['passwordMissmatch']) {
+            <small class="p-error">{{
+              'registerComponent.confirmPasswordInput.missMatchWarning'
+                | transloco
+            }}</small>
+          }
+        }
+      </div>
+      <div class="field mb-4">
+        <div>
+          {{ 'registerComponent.agbCheckbox.text' | transloco }}
+          <span
+            (click)="openGTC()"
+            class="text-color-secondary no-underline cursor-pointer"
+            >{{ 'registerComponent.agbCheckbox.agb' | transloco }}</span
+          >
+          <p-checkbox
+            formControlName="agb"
+            class="ml-3"
+            [binary]="true"
+            variant="filled"
+            inputId="agbCheckbox">
+          </p-checkbox>
+        </div>
+      </div>
+      <p-dialog
+        [(visible)]="gtcDialogVisible"
+        [modal]="true"
+        [maximizable]="true"
+        [style]="{ width: '50rem' }"
+        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+        <app-agb></app-agb>
+      </p-dialog>
+
+      <div class="field">
+        <p-button
+          [raised]="true"
+          type="submit"
+          [label]="'registerComponent.submitButton.label' | transloco"
+          [disabled]="form.invalid"
+          severity="success" />
+      </div>
+    </form>
+    <p class="text-center">
+      {{ 'registerComponent.alreadyAccount' | transloco }}
+      <a
+        (click)="toggleToLogin()"
+        class="text-color-secondary no-underline cursor-pointer"
+        >{{ 'registerComponent.loginLink' | transloco }}</a
+      >
+    </p>
+  </div>
+</div>

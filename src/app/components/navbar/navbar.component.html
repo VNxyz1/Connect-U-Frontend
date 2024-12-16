@@ -1,0 +1,109 @@
+<!-- Tab-bar for Mobile-View -->
+<div
+  class="w-full border-top-2 border-gray-50 surface-ground px-4 z-4 bottom-0 fixed md:hidden">
+  <div class="w-full flex pt-3 pb-3 justify-content-between">
+    <div class="col-fixed w-min p-0">
+      <p-button
+        [text]="true"
+        [severity]="getSeverity('/')"
+        (click)="navigateTo('/')">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            style="width: 24px; height: 24px"
+            [name]="activeIcon('/')"></rmx-icon>
+        </ng-template>
+      </p-button>
+    </div>
+    <!--
+    <div class="col-fixed w-min p-0">
+        <p-button
+          [text]="true"
+          [severity]="getSeverity('/search')"
+          (click)="navigateTo('/search')">
+          <ng-template pTemplate="icon">
+            <rmx-icon
+              style="width: 24px; height: 24px"
+              [name]="activeIcon('/search')"></rmx-icon>
+          </ng-template>
+        </p-button>
+    </div>
+  -->
+    <div class="col-fixed w-min p-0">
+      <p-button
+        [raised]="true"
+        severity="success"
+        (click)="navigateTo('/create-event/step1')">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            style="width: 24px; height: 24px"
+            name="add-line"></rmx-icon>
+        </ng-template>
+      </p-button>
+    </div>
+    <div class="col-fixed w-min p-0">
+      <p-button
+        [text]="true"
+        [severity]="getSeverity('/my-events')"
+        (click)="navigateTo('/my-events')">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            style="width: 24px; height: 24px"
+            [name]="activeIcon('/my-events')"></rmx-icon>
+        </ng-template>
+      </p-button>
+    </div>
+    <div class="col-fixed w-min p-0">
+      <p-button
+        [text]="true"
+        [severity]="getSeverity('/my-space')"
+        (click)="navigateTo('/my-space')">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            style="width: 24px; height: 24px"
+            [name]="activeIcon('/my-space')"></rmx-icon>
+        </ng-template>
+      </p-button>
+    </div>
+  </div>
+</div>
+
+<!-- Sidebar for Desktop-View -->
+<div class="hidden md:flex md:flex-column align-items-start">
+  <p-sidebar
+    modal="false"
+    dismissible="false"
+    showCloseIcon="false"
+    closeOnEscape="false"
+    [visible]="true"
+    position="left"
+    styleClass="w-2 p-0 m-0 h-full flex flex-column justify-content-between">
+    <div class="flex flex-column align-items-center pt-3 pb-3">
+      <p-image
+        src="images/logo_full_dark.svg"
+        [width]="isMd ? '120' : '150'"
+        alt="Connect-U Logo"
+        class="logo-container" />
+    </div>
+    <p-menu [model]="items" styleClass="border-none w-full p-0 m-0">
+      <ng-template pTemplate="item" let-item>
+        @if (item.route) {
+          <a
+            [routerLink]="item.route"
+            class="p-menuitem-link flex align-items-center">
+            <rmx-icon
+              style="width: 18px; height: 18px"
+              class="hidden lg:block"
+              [name]="item.icon"
+              [ngClass]="{ 'color-secondary': currentUrl === item.route }">
+            </rmx-icon>
+            <span
+              class="ml-0 lg:ml-3 p-0 m-0"
+              [ngClass]="{ 'color-secondary': currentUrl === item.route }">
+              {{ item.label }}
+            </span>
+          </a>
+        }
+      </ng-template>
+    </p-menu>
+  </p-sidebar>
+</div>

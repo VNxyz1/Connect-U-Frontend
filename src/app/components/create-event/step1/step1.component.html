@@ -1,0 +1,204 @@
+<div class="content pFocusTrap mt-5 h-100">
+  <div class="p-grid p-fluid column-gap-3">
+    <!-- Event Type Selection -->
+    <div
+      class="p-col-12 p-md-6 field flex flex-wrap gap-3 lg:gap-8 align-items-center justify-content-center">
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="event-type"
+          value="1"
+          [(ngModel)]="eventType"
+          id="type-1"
+          variant="filled" />
+        <label for="type-1" class="ml-2">
+          {{ 'createEventStep1Component.eventType.public' | transloco }}
+        </label>
+      </div>
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="event-type"
+          value="2"
+          [(ngModel)]="eventType"
+          id="type-2"
+          variant="filled" />
+        <label for="type-2" class="ml-2">
+          {{ 'createEventStep1Component.eventType.semiPublic' | transloco }}
+        </label>
+      </div>
+      <div class="flex align-items-center">
+        <p-radioButton
+          name="event-type"
+          value="3"
+          [(ngModel)]="eventType"
+          id="type-3"
+          variant="filled" />
+        <label for="type-3" class="ml-2">
+          {{ 'createEventStep1Component.eventType.private' | transloco }}
+        </label>
+      </div>
+      <p-button
+        [rounded]="true"
+        [text]="true"
+        [pTooltip]="tooltipContent"
+        tooltipPosition="bottom"
+        severity="secondary">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            class="mr-2"
+            style="width: 22px; height: 22px"
+            name="information-2-line">
+          </rmx-icon>
+        </ng-template>
+      </p-button>
+      <ng-template #tooltipContent>
+        <div class="flex align-items-center">
+          <span>
+            <strong
+              >{{
+                'createEventStep1Component.eventType.public' | transloco
+              }}:</strong
+            >
+            {{ 'createEventStep1Component.eventType.tooltip.public' | transloco
+            }}<br /><br />
+            <strong
+              >{{
+                'createEventStep1Component.eventType.semiPublic' | transloco
+              }}:</strong
+            >
+            {{
+              'createEventStep1Component.eventType.tooltip.semiPublic'
+                | transloco
+            }}<br /><br />
+            <strong
+              >{{
+                'createEventStep1Component.eventType.private' | transloco
+              }}:</strong
+            >
+            {{
+              'createEventStep1Component.eventType.tooltip.private' | transloco
+            }}
+          </span>
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- Event Title Input -->
+    <div class="p-col-12 p-md-6 field">
+      <p-floatLabel>
+        <input
+          #eventTitleInput="ngModel"
+          id="event-title"
+          type="text"
+          [maxLength]="50"
+          required
+          pInputText
+          [(ngModel)]="eventTitle"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              (eventTitleInput.invalid && submitted) ||
+              (eventTitleInput.dirty && eventTitleInput.invalid) ||
+              eventTitle.trim() === '',
+          }" />
+        <label for="event-title">{{
+          'createEventStep1Component.eventTitleInput.label' | transloco
+        }}</label>
+      </p-floatLabel>
+      @if (
+        (eventTitleInput.invalid && submitted) ||
+        (eventTitleInput.dirty && eventTitleInput.invalid) ||
+        eventTitle.trim() === ''
+      ) {
+        <small class="p-error">
+          {{
+            'createEventStep1Component.eventTitleInput.errorMessage' | transloco
+          }}
+        </small>
+      }
+    </div>
+
+    <!-- Categories Input -->
+    <div class="p-col-12 p-md-6 field">
+      <p-floatLabel>
+        <p-multiSelect
+          id="categories"
+          [options]="categories"
+          [(ngModel)]="selectedCategories"
+          required
+          optionLabel="name"
+          display="chip"
+          [showClear]="true"
+          [showToggleAll]="false"
+          (onChange)="onCategoryChange()"
+          styleClass="capitalize"
+          [ngClass]="{
+            'ng-invalid ng-dirty': submitted && selectedCategories.length === 0,
+          }"></p-multiSelect>
+        <label for="categories">{{
+          'createEventStep1Component.categoriesInput.label' | transloco
+        }}</label>
+      </p-floatLabel>
+      @if (selectedCategories.length === 0 && submitted) {
+        <small class="p-error">
+          {{
+            'createEventStep1Component.categoriesInput.errorMessage' | transloco
+          }}
+        </small>
+      }
+    </div>
+
+    <div class="justify-content-center mt-4 mb-4">
+      <span class="p-fluid">
+        <p-autoComplete
+          inputId="tags-input"
+          id="tags-input"
+          [placeholder]="
+            tags.length == 0
+              ? ('createEventStep1Component.tagsInput.label' | transloco)
+              : ''
+          "
+          [(ngModel)]="tags"
+          [suggestions]="results"
+          (completeMethod)="search($event)"
+          (onKeyUp)="onKeyUp($event)"
+          (onBlur)="blurTagInput()"
+          [multiple]="true" />
+      </span>
+    </div>
+
+    <!-- Description Input -->
+    <div class="p-col-12 field">
+      <p-floatLabel>
+        <textarea
+          id="description"
+          rows="5"
+          cols="30"
+          pInputTextarea
+          [(ngModel)]="description"
+          class="vertical-resize-only">
+        </textarea>
+        <label for="description">{{
+          'createEventStep1Component.descriptionInput.label' | transloco
+        }}</label>
+      </p-floatLabel>
+    </div>
+  </div>
+
+  <!-- Continue Button -->
+  <div class="flex fixed-bottom-responsive-container justify-content-end">
+    <div class="justify-content-end">
+      <p-button
+        [raised]="true"
+        severity="secondary"
+        [label]="'createEventStep1Component.continueButton' | transloco"
+        (onClick)="nextPage()">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            class="mr-2"
+            style="width: 16px; height: 16px"
+            name="arrow-right-circle-line">
+          </rmx-icon>
+        </ng-template>
+      </p-button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,138 @@
+<div class="content pFocusTrap mt-5">
+  <div class="p-fluid justify-content-center">
+    <div class="field">
+      <p-floatLabel class="mb-4">
+        <input
+          id="participantsNumber"
+          min="2"
+          type="number"
+          pInputText
+          [(ngModel)]="participantsNumber"
+          #participantsInput="ngModel"
+          required
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              (participantsInput.invalid && submitted) ||
+              (participantsInput.dirty && participantsInput.invalid),
+          }" />
+        <label for="participantsNumber">{{
+          'createEventStep3Component.participantsNumberInput.label' | transloco
+        }}</label>
+      </p-floatLabel>
+      @if (
+        (participantsInput.invalid && submitted) ||
+        (participantsInput.dirty && participantsInput.invalid)
+      ) {
+        <small class="p-error">
+          {{
+            'createEventStep3Component.participantsNumberInput.errorMessage'
+              | transloco
+          }}
+        </small>
+      }
+    </div>
+    <!--
+   <div class="field">
+     <p-floatLabel>
+       <p-multiSelect
+         id="participants"
+         [options]="participants"
+         [(ngModel)]="selectedParticipants"
+         optionLabel="name"
+         display="chip"
+         [showClear]="true"
+         styleClass="capitalize">
+       </p-multiSelect>
+       <label for="participants">{{
+         'createEventStep3Component.participantsInput.label' | transloco
+       }}</label>
+     </p-floatLabel>
+   </div>
+ -->
+    <div class="field">
+      <p-floatLabel>
+        <p-multiSelect
+          id="genders"
+          [options]="genders"
+          [(ngModel)]="preferredGenders"
+          optionLabel="label"
+          optionValue="value"
+          display="chip"
+          [showClear]="true"
+          styleClass="capitalize">
+        </p-multiSelect>
+        <label for="genders">{{
+          'createEventStep3Component.preferredGendersInput.label' | transloco
+        }}</label>
+      </p-floatLabel>
+    </div>
+
+    <h2>{{ 'createEventStep3Component.ageSection.title' | transloco }}</h2>
+
+    <div class="field justify-content-center w-full text-center">
+      <p-slider
+        [(ngModel)]="ageValues"
+        min="16"
+        max="99"
+        [range]="true"
+        styleClass="centered-slider"></p-slider>
+      <div
+        class="flex align-items-center justify-content-between mt-4 slider-input-container">
+        <!-- Minimum Age Input -->
+        <input
+          type="text"
+          pInputText
+          [ngModel]="ageValues[0]"
+          (ngModelChange)="onAgeChange(0, $event)"
+          class="slider-input" />
+        <!-- Maximum Age Input with "none" display for 99 -->
+        <input
+          type="text"
+          pInputText
+          [ngModel]="
+            ageValues[1] === 99 ? getMaxAgePlaceholder() : ageValues[1]
+          "
+          (ngModelChange)="onAgeChange(1, $event)"
+          class="slider-input" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <div
+    class="flex justify-content-between align-items-center fixed-bottom-responsive-container">
+    <div>
+      <p-button
+        [raised]="true"
+        [label]="'createEventStep3Component.navigationButtons.back' | transloco"
+        class="align-items-center"
+        (onClick)="prevPage()">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            class="mr-2"
+            style="width: 16px; height: 16px"
+            name="arrow-left-circle-line">
+          </rmx-icon>
+        </ng-template>
+      </p-button>
+    </div>
+    <div>
+      <p-button
+        [raised]="true"
+        severity="success"
+        [label]="
+          'createEventStep3Component.navigationButtons.finish' | transloco
+        "
+        class="align-items-center"
+        (onClick)="complete()">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            class="mr-2"
+            style="width: 16px; height: 16px"
+            name="check-line">
+          </rmx-icon>
+        </ng-template>
+      </p-button>
+    </div>
+  </div>
+</div>

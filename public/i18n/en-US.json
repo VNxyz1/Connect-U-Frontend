@@ -1,0 +1,898 @@
+{
+  "homepage": {
+    "title": "Events for You",
+    "upcomingEvents": {
+      "title": "Upcoming Events"
+    }
+  },
+  "loginComponent": {
+    "title": "LOGIN",
+    "noAccountYet": "No account yet?",
+    "registerLink": "Register here!",
+    "passwordInput": {
+      "lengthWarning": "The password must be at least 8 characters long.",
+      "requiredWarning": "Password is required.",
+      "placeholder": "Password",
+      "label": "Password"
+    },
+    "eMailInput": {
+      "validEmailWarning": "Please enter a valid email address.",
+      "requiredWarning": "Email is required.",
+      "placeholder": "Email",
+      "label": "Email"
+    },
+    "loginButtonLabel": "Login",
+    "messages": {
+      "loginFailed": "Login failed",
+      "loginDataUnknown": "A user with these login credentials is not known."
+    }
+  },
+  "logout": {
+    "messages": {
+      "error": {
+        "summary": "Logout Failed",
+        "detail": "You are currently not authorized to log out."
+      },
+      "success": {
+        "summary": "Logged Out",
+        "detail": "You have successfully logged out. Come back soon!"
+      }
+    }
+  },
+  "landingPage": {
+    "headerImageAlt": "connect-u logo",
+    "imageText": {
+      "title": "Event planning made easy ‒ for private meetups or public events.",
+      "subtitle": "Plan, Share, Connect."
+    }
+  },
+  "registerComponent": {
+    "title": "REGISTER",
+    "alreadyAccount": "Already have an account?",
+    "loginLink": "Log in here!",
+    "genderInput": {
+      "placeholder": "Gender*",
+      "requiredWarning": "You have to choose a Gender",
+      "label": "Gender"
+    },
+    "genderOption": {
+      "male": "Male",
+      "female": "Female",
+      "diverse": "Diverse"
+    },
+    "agbCheckbox": {
+      "text": "Please confirm our",
+      "agb": "terms and conditions."
+    },
+    "submitButton": {
+      "label": "Register"
+    },
+    "usernameInput": {
+      "placeholder": "Username*",
+      "lengthWarning": "Your username must be at least 3 characters long.",
+      "maxLengthWarning": "The user name must not have more than 20 characters.",
+      "requiredWarning": "A username is required!",
+      "label": "Username"
+    },
+    "emailInput": {
+      "placeholder": "Email*",
+      "validEmailWarning": "Please enter a valid email address.",
+      "requiredWarning": "An email address is required.",
+      "label": "Email"
+    },
+    "firstnameInput": {
+      "placeholder": "First name*",
+      "lengthWarning": "Your first name must be at least 2 characters long.",
+      "maxLengthWarning": "The first name should not contain more than 20 characters",
+      "requiredWarning": "A first name is required.",
+      "label": "First name"
+    },
+    "lastnameInput": {
+      "placeholder": "Last name*",
+      "lengthWarning": "Your last name must be at least 2 characters long.",
+      "maxLengthWarning": "The lastname should not contain more than 30 characters",
+      "requiredWarning": "A last name is required.",
+      "label": "Last name"
+    },
+    "calendarInput": {
+      "placeholder": "Birthdate*",
+      "requiredWarning": "A birthdate is required.",
+      "invalidDayWarning": "The entered date is invalid.",
+      "minAgeWarning": "You must be at least 16 years old.",
+      "label": "Birthdate"
+    },
+    "passwordInput": {
+      "placeholder": "Password*",
+      "lengthWarning": "The password must be at least 8 characters long.",
+      "requiredWarning": "A password is required.",
+      "label": "Password",
+      "toggleVisibility": "Toggle password visibility"
+    },
+    "confirmPasswordInput": {
+      "placeholder": "Repeat password*",
+      "requiredWarning": "Please repeat your password.",
+      "mismatchWarning": "The passwords do not match.",
+      "label": "Repeat password"
+    },
+    "errorMessages": {
+      "registerFailed": "Registration failed",
+      "unknownError": "An unknown error occurred.",
+      "usernameWhitespace": "Username cannot contain only whitespace.",
+      "firstNameWhitespace": "First name cannot contain only whitespace.",
+      "lastNameWhitespace": "Last name cannot contain only whitespace.",
+      "passwordMismatch": "Passwords must match.",
+      "emailTaken": "This e-mail address is already taken.",
+      "usernameTaken": "This username is already taken.",
+      "term": "You have to accept our Terms "
+    }
+  },
+  "searchPageComponent": {
+  },
+  "createEventStep1Component": {
+    "eventType": {
+      "public": "Public",
+      "semiPublic": "Semi-Public",
+      "private": "Private",
+      "tooltip": {
+        "public": "Everyone can apply directly.",
+        "semiPublic": "Participants need to be approved by the event host.",
+        "private": "Only the event host can invite participants, and the event will not appear on the page."
+      }
+    },
+    "eventTitleInput": {
+      "label": "Title",
+      "errorMessage": "The event title is required."
+    },
+    "categoriesInput": {
+      "label": "Select Categories",
+      "errorMessage": "At least one category must be selected."
+    },
+    "descriptionInput": {
+      "label": "Description"
+    },
+    "tagsInput": {
+      "label": "Add Tags"
+    },
+    "continueButton": "Continue",
+    "messages": {
+      "categoryLimitTitle": "Selection Limit",
+      "categoryLimitDetail": "You can select up to 3 categories only.",
+      "validationFailedTitle": "Validation Failed",
+      "validationFailedDetail": "Ensure all required fields are filled in correctly."
+    }
+  },
+  "createEventStep2Component": {
+    "dateAndTimeInput": {
+      "label": "Date and Time",
+      "errorMessage": "Date and time are required."
+    },
+    "addressSection": {
+      "title": "Address",
+      "onlineEventCheckbox": "Online Event",
+      "streetInput": {
+        "label": "Street",
+        "errorMessage": "Street is required."
+      },
+      "streetNumberInput": {
+        "label": "Street Number",
+        "errorMessage": "Street number is required."
+      },
+      "zipCodeInput": {
+        "label": "ZIP Code",
+        "errorMessageRequired": "ZIP Code is required.",
+        "errorMessageInvalid": "Please enter a valid ZIP Code (5 digits)."
+      },
+      "cityInput": {
+        "label": "City",
+        "errorMessage": "City is required."
+      },
+      "hideAddressCheckbox": "Hide Address",
+      "hideAddressTooltip": {
+        "content": "Check to hide Street and Street-Number for non-participants. ZIP Code and City remain visible."
+      }
+    },
+    "navigationButtons": {
+      "back": "Back",
+      "continue": "Continue"
+    },
+    "messages": {
+      "dateConfirmationMessage": "Date and time are set to the minimum. Do you want to proceed?",
+      "dateConfirmationHeader": "Confirm Date Selection",
+      "dateConfirmationSubmit": "Yes",
+      "dateConfirmationCancel": "Return"
+    }
+  },
+  "createEventStep3Component": {
+    "participantsNumberInput": {
+      "label": "Guest Number",
+      "errorMessage": "Guests Number is required and must be at least 2."
+    },
+    "participantsInput": {
+      "label": "Selected Guests"
+    },
+    "preferredGendersInput": {
+      "label": "Preferred Genders"
+    },
+    "ageSection": {
+      "title": "Age",
+      "maxAgePlaceholder": "none"
+    },
+    "navigationButtons": {
+      "back": "Back",
+      "finish": "Finish"
+    },
+    "genders": {
+      "male": "Male",
+      "female": "Female",
+      "divers": "Divers"
+    },
+    "messages": {
+      "eventCreatedSuccess": "Event \"{{title}}\" created successfully!",
+      "eventCreatedError": "Failed to create event.",
+      "eventCreatedErrorMessage": "Please try again later.",
+      "noEventIdError": "No Event ID found. Please try again."
+    }
+  },
+  "eventDetailPageComponent": {
+    "eventDetails": "Event Details",
+    "restrictions": "Access Restrictions",
+    "male": "men",
+    "female": "women",
+    "diverse": "diverse",
+    "age": "Age",
+    "gender": "Gender",
+    "from": "from",
+    "to": "to",
+    "years1": "years",
+    "years2": "years",
+    "error": "An error occurred.",
+    "join": "Join Event",
+    "request": "Request Event",
+    "request-pending": "Request pending",
+    "request-deleted": "Your request was deleted.",
+    "guests": {
+      "title": "Guests"
+    },
+    "host": "Host",
+    "requests": {
+      "title": "Requests",
+      "accepted-request": "The request from \"{{name}}\" was accepted!",
+      "denied-request": "The request from \"{{name}}\" was denied.",
+      "delete-request": "Delete Request"
+    },
+    "notExist": "It seems like the event you were looking for doesn't exist!",
+      "eventNotFound": "The event you are looking for does not exist.",
+      "userIsHost": "You are the host of this event and cannot join it.",
+      "alreadyParticipant": "You are already a participant in this event.",
+      "ageRequirementsNotMet": "You do not meet the age requirements for this event.",
+      "genderMismatch": "Your gender does not match the preferred genders for this event.",
+      "eventNotPublic": "This event is not public and cannot be joined directly.",
+    "requestAlreadyExists": "You have already sent a request for this event.",
+    "joined": "You've successfully joined the event!",
+    "requestSent": "Your request has been sent!",
+    "genericError": "Something went wrong with sending your request!",
+    "cancel-participation": "cancel participation",
+    "messages": {
+      "cancelParticipation": "Are you sure you want to cancel your participation in this event? If it is a non-public event, you will need to send a new request!",
+      "cancelParticipationHeader": "Event Participation Cancellation",
+      "participationCanceled": "Event participation cancellation successful!",
+      "cancelConfirm": "Return",
+      "submitConfirm": "Yes, I'm sure"
+    }
+  },
+  "eventPageComponent": {
+    "infoTab": "Information",
+    "listTab": "Lists",
+    "surveyTab": "Surveys"
+  },
+  "eventStatusIndicator": {
+    "finished": {
+      "text": "past"
+    },
+    "cancelled": {
+      "text": "cancelled"
+    },
+    "live": {
+      "text": "LIVE"
+    },
+    "upcoming": {
+      "text": "upcoming"
+    }
+  },
+  "eventListPage": {
+    "createListButton": {
+      "label": "Create List"
+    },
+    "createListModal": {
+      "header": "Create List",
+      "titleInput": {
+        "requiredError": "The title is required!",
+        "maxlengthError": "The titel can not exceed 100 characters.",
+        "label": "Title"
+      },
+      "descriptionInput": {
+        "requiredError": "The description is required!",
+        "label": "Description"
+      },
+      "cancelButton": {
+        "label": "Cancel"
+      },
+      "submitButton": {
+        "label": "Create"
+      },
+      "messages": {
+        "error": {
+          "summary": "Error",
+          "detail": "The list could not be created. Please try again later."
+        },
+        "success": {
+          "summary": "Created",
+          "detail": "The list \"{{name}}\" was created successfully."
+        }
+      }
+    },
+    "createListEntry": {
+      "messages": {
+        "error": {
+          "detail": "Try again another time",
+          "summary": "Failed to add list entry"
+        },
+        "similarEntry": {
+          "detail": "A list entry with the same description already exists.",
+          "summary": "Failed to add list entry"
+        }
+      }
+    },
+    "listEntry": {
+      "assignUser": {
+        "messages": {
+          "error": {
+            "detail": "Another user is already assigned",
+            "summary": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "registerComponentErrors": {
+    "You must accept the terms and conditions to register": "You must accept the terms and conditions to register",
+    "Passwords must match": "Passwords must match",
+    "You must be at least 16 years old to register.": "You must be at least 16 years old to register.",
+    "username is already taken": "The username is already taken.",
+    "e-mail address is already taken": "The e-mail address is already in use.",
+    "passwordConfirm must be longer than or equal to 8 characters": "The repeated password must be at least 8 characters long.",
+    "password must be longer than or equal to 8 characters": "The chosen password must be at least 8 characters long.",
+    "passwordConfirm should not be empty": "The password must be repeated correctly!",
+    "Username cannot contain only whitespace": "The username cannot consist of only whitespace.",
+    "username should not be empty": "The username must be filled in.",
+    "password should not be empty": "You must provide a password.",
+    "First name cannot contain only whitespace": "The first name cannot consist of only whitespace.",
+    "firstName should not be empty": "The first name cannot be empty.",
+    "Last name cannot contain only whitespace": "The last name cannot consist of only whitespace.",
+    "lastName should not be empty": "The last name cannot be empty."
+  },
+  "headerComponent": {
+    "mySpace": "My Space",
+    "myEvents": "My Events",
+    "search": "Search Events",
+    "createEvent": "Create Event",
+    "event": "Event View",
+    "settings": "Settings",
+    "profile": "Profile",
+    "account": "Account",
+    "closeConfirmationMessage": "Are you sure that you want to discard the event? Your draft will not be saved.",
+    "closeConfirmationHeader": "Discard Draft",
+    "information": "Information"
+  },
+  "navbarComponent": {
+    "mySpace": "My Space",
+    "myEvents": "My Events",
+    "search": "Search",
+    "createEvent": "Create Event"
+  },
+  "myEventPageComponent": {
+    "hosted": {
+      "title": "Hosted",
+      "text": "You currently don't have any events that you have created.",
+      "todo": "Create your own event!"
+    },
+    "guest": {
+      "title": "Guest",
+      "text": "You are not currently participating in any events.",
+      "todo": "Explore events based on your interests.",
+      "your-event-requests": "Your Event-Requests"
+    },
+    "favorite": {
+      "title": "Favorites",
+      "text": "You currently don't have any favorite events, consider adding some!"
+    },
+    "requests": {
+      "pending": "pending",
+      "your-request-denied": "Your request was denied.",
+      "try-again": "Request again",
+      "new-request": "New request for event \"{{title}}\" sent!",
+      "deleted-request": "Request for event \"{{title}}\" deleted.",
+      "delete-request": "Delete Request"
+    }
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "section1": {
+      "title": "1. Data Protection at a Glance",
+      "generalNotes": {
+        "title": "General Notes",
+        "content": "The following notes provide a simple overview of what happens to your personal data when you visit this website. Personal data refers to any data with which you can be personally identified. Detailed information on data protection can be found in our privacy policy listed below."
+      },
+      "dataCollection": {
+        "title": "Data Collection on this Website",
+        "responsible": {
+          "title": "Who is responsible for data collection on this website?",
+          "content": "The data processing on this website is carried out by the website operator. You can find their contact details in the section \"Notice on the Responsible Party\" in this privacy policy."
+        },
+        "how": {
+          "title": "How do we collect your data?",
+          "content1": "Your data is collected on the one hand by you providing it to us. This can, for example, be data that you enter into a contact form.",
+          "content2": "Other data is collected automatically or with your consent when you visit the website by our IT systems. This primarily includes technical data (e.g., internet browser, operating system, or time of page access). This data is collected automatically as soon as you enter this website."
+        }
+      },
+      "dataUsage": {
+        "title": "What do we use your data for?",
+        "content": "Some of the data is collected to ensure the error-free provision of the website. Other data may be used to analyze your user behavior. If contracts are concluded or initiated via the website, the transmitted data is also processed for contract offers, orders, or other inquiries."
+      },
+      "rights": {
+        "title": "What rights do you have regarding your data?",
+        "content": "You have the right to receive information about the origin, recipients, and purpose of your stored personal data at any time free of charge. You also have the right to request the correction or deletion of this data. If you have given consent to data processing, you can revoke this consent at any time for the future. Furthermore, you have the right to request the restriction of the processing of your personal data under certain circumstances. You also have the right to lodge a complaint with the competent supervisory authority.",
+        "additionalInfo": "For this purpose, as well as for further questions on the topic of data protection, you can contact us at any time."
+      },
+      "tools": {
+        "title": "Analysis Tools and Third-Party Tools",
+        "content1": "When visiting this website, your browsing behavior may be statistically analyzed. This is primarily done with so-called analysis programs.",
+        "content2": "Detailed information about these analysis programs can be found in the following privacy policy."
+      }
+    },
+    "section2": {
+      "title": "2. Hosting",
+      "hosting": {
+        "intro": "We host the content of our website with the following provider:"
+      },
+      "externalHosting": {
+        "title": "External Hosting",
+        "content1": "This website is hosted externally. The personal data collected on this website is stored on the servers of the hosting provider(s). This may include, in particular, IP addresses, contact requests, meta and communication data, contract data, contact details, names, website accesses, and other data generated via a website.",
+        "content2": "External hosting is carried out for the purpose of fulfilling contracts with our potential and existing customers (Art. 6 para. 1 lit. b GDPR) and in the interest of secure, fast, and efficient provision of our online offering by a professional provider (Art. 6 para. 1 lit. f GDPR). If consent has been requested, the processing is carried out exclusively based on Art. 6 para. 1 lit. a GDPR and § 25 para. 1 TDDPA, insofar as the consent includes the storage of cookies or access to information on the user’s end device (e.g., device fingerprinting) within the meaning of the TDDPA. The consent can be revoked at any time.",
+        "content3": "Our hosting provider(s) will only process your data to the extent necessary to fulfill their performance obligations and follow our instructions regarding this data.",
+        "host": "We use the following hosting provider(s):\nnone"
+      },
+      "dataProcessing": {
+        "title": "Data Processing Agreement",
+        "content": "We have concluded a data processing agreement (DPA) for the use of the above-mentioned service. This is a contract required under data protection law, which ensures that the provider processes the personal data of our website visitors only according to our instructions and in compliance with the GDPR."
+      }
+    },
+    "section3": {
+      "title": "3. General Notes and Mandatory Information",
+      "dataProtection": {
+        "title": "Data Protection",
+        "content1": "The operators of this site take the protection of your personal data very seriously. We treat your personal data confidentially and in accordance with statutory data protection regulations and this privacy policy.",
+        "content2": "When you use this website, various personal data is collected. Personal data is data that can be used to personally identify you. This privacy policy explains which data we collect and what we use it for. It also explains how and for what purpose this happens.",
+        "content3": "We point out that data transmission on the Internet (e.g., when communicating by email) can have security gaps. A complete protection of data against access by third parties is not possible."
+      },
+      "responsibleParty": {
+        "title": "Notice Concerning the Responsible Party",
+        "intro": "The responsible party for data processing on this website is:",
+        "details": "THm Gießen\nPhone: 123423414 124\nEmail: thm.giessen@web.com",
+        "definition": "The responsible party is the natural or legal person who alone or jointly with others decides on the purposes and means of processing personal data (e.g., names, email addresses, etc.)."
+      },
+      "storageDuration": {
+        "title": "Storage Duration",
+        "content": "Unless a more specific storage period has been specified within this privacy policy, your personal data will remain with us until the purpose for data processing no longer applies. If you make a legitimate request for deletion or withdraw your consent to data processing, your data will be deleted unless we have other legally permissible reasons for storing your personal data (e.g., tax or commercial retention periods); in the latter case, deletion takes place after these reasons cease to apply."
+      },
+      "legalBasis": {
+        "title": "General Notes on the Legal Basis for Data Processing on this Website",
+        "content": "If you have consented to data processing, we process your personal data on the basis of Art. 6 para. 1 lit. a GDPR or Art. 9 para. 2 lit. a GDPR if special categories of data according to Art. 9 para. 1 GDPR are processed. In the case of explicit consent to the transfer of personal data to third countries, data processing is also based on Art. 49 para. 1 lit. a GDPR. If you have consented to the storage of cookies or access to information on your device (e.g., via device fingerprinting), data processing is additionally based on § 25 para. 1 TDDDG. The consent can be revoked at any time. If your data is required to fulfill a contract or to carry out pre-contractual measures, we process your data on the basis of Art. 6 para. 1 lit. b GDPR. Furthermore, we process your data if it is required to fulfill a legal obligation on the basis of Art. 6 para. 1 lit. c GDPR. Data processing may also be based on our legitimate interest under Art. 6 para. 1 lit. f GDPR. The specific legal bases relevant in each case are explained in the following sections of this privacy policy."
+      },
+      "recipients": {
+        "title": "Recipients of Personal Data",
+        "content": "In the course of our business activities, we work with various external parties. This may also involve the transfer of personal data to these external parties. We only pass on personal data to external parties if it is necessary within the scope of fulfilling a contract, if we are legally obligated to do so (e.g., transfer of data to tax authorities), if we have a legitimate interest under Art. 6 para. 1 lit. f GDPR, or if another legal basis permits the data transfer. When using processors, we only transfer personal data of our customers on the basis of a valid processing agreement. In the case of joint processing, a joint processing agreement is concluded."
+      },
+      "withdrawal": {
+        "title": "Revocation of Your Consent to Data Processing",
+        "content": "Many data processing operations are only possible with your explicit consent. You can revoke consent that you have already given at any time. The legality of the data processing carried out before the revocation remains unaffected by the revocation."
+      },
+      "objection": {
+        "title": "Right to Object to Data Collection in Special Cases and to Direct Advertising (Art. 21 GDPR)",
+        "content1": "IF DATA PROCESSING IS BASED ON ART. 6 PARA. 1 LIT. E OR F GDPR, YOU HAVE THE RIGHT TO OBJECT TO THE PROCESSING OF YOUR PERSONAL DATA AT ANY TIME FOR REASONS ARISING FROM YOUR PARTICULAR SITUATION; THIS ALSO APPLIES TO PROFILING BASED ON THESE PROVISIONS. THE RESPECTIVE LEGAL BASIS ON WHICH PROCESSING IS BASED CAN BE FOUND IN THIS PRIVACY POLICY. IF YOU OBJECT, WE WILL NO LONGER PROCESS YOUR AFFECTED PERSONAL DATA UNLESS WE CAN DEMONSTRATE COMPELLING LEGITIMATE GROUNDS FOR THE PROCESSING THAT OUTWEIGH YOUR INTERESTS, RIGHTS, AND FREEDOMS OR THE PROCESSING IS FOR THE ASSERTION, EXERCISE, OR DEFENSE OF LEGAL CLAIMS (OBJECTION UNDER ART. 21 PARA. 1 GDPR).",
+        "content2": "IF YOUR PERSONAL DATA IS PROCESSED FOR DIRECT ADVERTISING, YOU HAVE THE RIGHT TO OBJECT TO THE PROCESSING OF YOUR PERSONAL DATA FOR SUCH ADVERTISING AT ANY TIME; THIS ALSO APPLIES TO PROFILING INSOFAR AS IT IS ASSOCIATED WITH SUCH DIRECT ADVERTISING. IF YOU OBJECT, YOUR PERSONAL DATA WILL THEN NO LONGER BE USED FOR DIRECT ADVERTISING PURPOSES (OBJECTION UNDER ART. 21 PARA. 2 GDPR)."
+      },
+      "complaint": {
+        "title": "Right to Lodge a Complaint with the Competent Supervisory Authority",
+        "content": "In the event of violations of the GDPR, data subjects have the right to lodge a complaint with a supervisory authority, particularly in the Member State of their habitual residence, their place of work, or the place of the alleged violation. The right to lodge a complaint exists without prejudice to other administrative or judicial remedies."
+      },
+      "dataPortability": {
+        "title": "Right to Data Portability",
+        "content": "You have the right to have data that we process automatically on the basis of your consent or in fulfillment of a contract handed over to you or a third party in a common, machine-readable format. If you request the direct transfer of the data to another responsible party, this will only be done to the extent technically feasible."
+      },
+      "accessCorrectionDeletion": {
+        "title": "Access, Correction, and Deletion",
+        "content": "Within the scope of applicable legal provisions, you have the right to free information about your stored personal data, its origin and recipient, and the purpose of the data processing and, if applicable, a right to correction or deletion of this data at any time. For this purpose and for further questions on the subject of personal data, you can contact us at any time."
+      },
+      "processingRestriction": {
+        "title": "Right to Restriction of Processing",
+        "intro": "You have the right to request the restriction of processing of your personal data. For this purpose, you can contact us at any time. The right to restriction of processing exists in the following cases:",
+        "condition1": "If you dispute the accuracy of your personal data stored by us, we usually need time to verify this. During the verification period, you have the right to request the restriction of processing of your personal data.",
+        "condition2": "If the processing of your personal data was/is unlawful, you can request the restriction of data processing instead of deletion.",
+        "condition3": "If we no longer need your personal data, but you need it to exercise, defend, or assert legal claims, you have the right to request the restriction of processing instead of deletion.",
+        "condition4": "If you have objected to processing pursuant to Art. 21 para. 1 GDPR, a balance must be struck between your interests and ours. As long as it has not been determined whose interests prevail, you have the right to request the restriction of processing of your personal data.",
+        "conclusion": "If you have restricted the processing of your personal data, such data – apart from being stored – may only be processed with your consent or for the assertion, exercise, or defense of legal claims or for the protection of the rights of another natural or legal person or for reasons of important public interest of the European Union or a Member State."
+      }
+    },
+    "section4": {
+      "title": "4. Data Collection on this Website",
+      "cookies": {
+        "title": "Cookies",
+        "content1": "Our websites use so-called 'cookies'. Cookies are small data packets that do no harm to your device. They are either temporarily stored for the duration of a session (session cookies) or permanently stored on your device (persistent cookies). Session cookies are automatically deleted after your visit ends. Persistent cookies remain stored on your device until you delete them yourself or your web browser performs an automatic deletion.",
+        "content2": "Cookies can be set by us (first-party cookies) or by third-party companies (so-called third-party cookies). Third-party cookies enable the integration of certain services provided by third-party companies within websites (e.g., cookies for processing payment services).",
+        "content3": "Cookies serve various purposes. Many cookies are technically necessary as certain website functions would not work without them (e.g., the shopping cart function or displaying videos). Other cookies may be used to analyze user behavior or for advertising purposes.",
+        "content4": "Cookies that are necessary for performing the electronic communication process, providing certain functions you desire (e.g., for the shopping cart function), or optimizing the website (e.g., cookies for measuring web audience) are stored based on Art. 6 para. 1 lit. f GDPR unless another legal basis is specified. The website operator has a legitimate interest in storing necessary cookies to ensure the technically error-free and optimized provision of its services. If consent for storing cookies and similar recognition technologies was requested, the processing is based solely on this consent (Art. 6 para. 1 lit. a GDPR and § 25 para. 1 TDDDG); the consent can be revoked at any time.",
+        "content5": "You can configure your browser to inform you about the setting of cookies, only allow cookies in individual cases, exclude the acceptance of cookies for specific cases or in general, and activate the automatic deletion of cookies when closing the browser. If cookies are deactivated, the functionality of this website may be restricted.",
+        "content6": "You can find information on the cookies and services used on this website in this privacy policy."
+      }
+    },
+    "section5": {
+      "title": "5. Plugins and Tools",
+      "googleFonts": {
+        "title": "Google Fonts (local hosting)",
+        "content1": "This site uses Google Fonts for the uniform presentation of fonts, which are provided by Google. The Google Fonts are installed locally. No connection to Google servers is established.",
+        "content2": "For more information on Google Fonts, see",
+        "link1": "https://developers.google.com/fonts/faq",
+        "and": "and in Google's privacy policy:",
+        "link2": "https://policies.google.com/privacy?hl=en"
+      },
+      "fontAwesome": {
+        "title": "Font Awesome (local hosting)",
+        "content1": "This site uses Font Awesome for the uniform presentation of fonts. Font Awesome is installed locally. No connection to servers of Fonticons, Inc. is established.",
+        "content2": "For more information about Font Awesome, see the privacy policy for Font Awesome at:",
+        "link": "https://fontawesome.com/privacy"
+      },
+      "myFonts": {
+        "title": "MyFonts",
+        "content1": "This site uses MyFonts. These are fonts that are loaded into your browser when you access our website to ensure a uniform typeface on the website. The provider is Monotype Imaging Holdings Inc., 600 Unicorn Park Drive, Woburn, Massachusetts 01801, USA.",
+        "content2": "To verify compliance with license terms and the number of monthly page views, MyFonts transfers your IP address along with the URL of our website and our contract data to its servers in the USA. According to Monotype, your IP address is anonymized immediately after transmission, making it impossible to link it to a person (anonymization).",
+        "content3": "For details, see the Monotype privacy policy at",
+        "link1": "https://www.monotype.com/legal/privacy-policy/web-font-tracking-privacy-policy",
+        "content4": "The company is certified under the 'EU-US Data Privacy Framework' (DPF). The DPF is an agreement between the European Union and the USA intended to ensure compliance with European data protection standards for data processing in the USA. Any company certified under the DPF is obligated to adhere to these data protection standards. For more information, visit the provider at the following link:",
+        "link2": "https://www.dataprivacyframework.gov/participant/6347"
+      },
+      "googleMaps": {
+        "title": "Google Maps",
+        "content1": "This site uses the Google Maps map service. The provider is Google Ireland Limited ('Google'), Gordon House, Barrow Street, Dublin 4, Ireland. With this service, we can integrate map material into our website.",
+        "content2": "To use the features of Google Maps, it is necessary to store your IP address. This information is generally transferred to a Google server in the USA and stored there. The provider of this site has no influence on this data transmission. If Google Maps is enabled, Google may use Google Fonts for the uniform representation of fonts. When you call up Google Maps, your browser loads the required web fonts into your browser cache to display texts and fonts correctly.",
+        "content3": "The use of Google Maps is in the interest of an attractive presentation of our online offers and to make the locations specified on our website easy to find. This constitutes a legitimate interest pursuant to Art. 6 para. 1 lit. f GDPR. If consent has been requested, processing is based solely on this consent (Art. 6 para. 1 lit. a GDPR and § 25 para. 1 TDDDG) insofar as the consent includes the storage of cookies or access to information on the user's device (e.g., device fingerprinting) under the TDDDG. Consent can be revoked at any time.",
+        "link1": "https://privacy.google.com/businesses/gdprcontrollerterms/",
+        "and": "and",
+        "link2": "https://privacy.google.com/businesses/gdprcontrollerterms/sccs/",
+        "content4": "For more information on handling user data, see Google's privacy policy at:",
+        "link3": "https://policies.google.com/privacy?hl=en",
+        "content5": "The company is certified under the 'EU-US Data Privacy Framework' (DPF). The DPF is an agreement between the European Union and the USA intended to ensure compliance with European data protection standards for data processing in the USA. Any company certified under the DPF is obligated to adhere to these data protection standards. For more information, visit the provider at the following link:",
+        "link4": "https://www.dataprivacyframework.gov/participant/5780"
+      },
+      "openStreetMap": {
+        "title": "OpenStreetMap",
+        "content1": "We use the map service OpenStreetMap (OSM).",
+        "content2": "We integrate the map material from OpenStreetMap on the server of the OpenStreetMap Foundation, St John’s Innovation Centre, Cowley Road, Cambridge, CB4 0WS, United Kingdom. The United Kingdom is considered a data protection-safe third country. This means that the United Kingdom has a level of data protection equivalent to that of the European Union. When using OpenStreetMap maps, a connection is established to the servers of the OpenStreetMap Foundation. Among other things, your IP address and other information about your behavior on this website may be transmitted to the OSMF. OpenStreetMap may store cookies in your browser or use similar recognition technologies.",
+        "content3": "The use of OpenStreetMap is in the interest of an attractive presentation of our online offers and an easy location of the places indicated on our website. This constitutes a legitimate interest pursuant to Art. 6 para. 1 lit. f GDPR. If consent has been requested, processing is based solely on this consent (Art. 6 para. 1 lit. a GDPR and § 25 para. 1 TDDDG) insofar as the consent includes the storage of cookies or access to information on the user's device (e.g., device fingerprinting) under the TDDDG. Consent can be revoked at any time."
+      }
+    },
+    "source": "Source:",
+    "sourceLink": "https://www.e-recht24.de"
+  },
+  "generalTermsAndConditions": {
+    "privacy policy": "",
+    "terms": {
+      "title": "Legal Disclosure",
+      "contact": {
+        "title": "Contact",
+        "phoneLabel": "Phone"
+      },
+      "euDisputeResolution": {
+        "title": "EU Dispute Resolution",
+        "content": "The European Commission provides a platform for online dispute resolution (ODR)",
+        "note": "Our email address can be found above in the legal notice."
+      },
+      "consumerDisputeResolution": {
+        "title": "Consumer Dispute Resolution / Universal Arbitration Board",
+        "content": "We are not willing or obliged to participate in dispute resolution proceedings before a consumer arbitration board."
+      },
+      "source": {
+        "content": "Source"
+      }
+    }
+  },
+  "termsAndConditions": {
+    "section1": {
+      "title": "Terms and Conditions",
+      "updated": "Last updated: {{date}}"
+    },
+    "section2": {
+      "generalTerms": {
+        "title": "General Terms",
+        "content1": "Welcome to ConnectU! These terms and conditions outline the rules and regulations for the use of ConnectU's Website.",
+        "content2": "By accessing this website we assume you accept these terms and conditions. Do not continue to use ConnectU if you do not agree to all the terms and conditions stated on this page.",
+        "content3": "The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice and all Agreements: 'Client', 'You' and 'Your' refers to you, the person log on this website and compliant to the Company’s terms and conditions. 'The Company', 'Ourselves', 'We', 'Our' and 'Us', refers to our Company. 'Party', 'Parties', or 'Us', refers to both the Client and ourselves. All terms refer to the offer, acceptance and consideration of payment necessary to undertake the process of our assistance to the Client in the most appropriate manner for the express purpose of meeting the Client’s needs in respect of provision of the Company’s stated services, in accordance with and subject to, prevailing law of Netherlands. Any use of the above terminology or other words in the singular, plural, capitalization and/or he/she or they, are taken as interchangeable and therefore as referring to same."
+      }
+    },
+    "section3": {
+      "license": {
+        "title": "License",
+        "content1": "Unless otherwise stated, ConnectU and/or its licensors own the intellectual property rights for all material on ConnectU. All intellectual property rights are reserved. You may access this from ConnectU for your own personal use subjected to restrictions set in these terms and conditions.",
+        "content2": "You must not: Republish material from ConnectU, Sell, rent or sub-license material from ConnectU, Reproduce, duplicate or copy material from ConnectU, Redistribute content from ConnectU. This Agreement shall begin on the date hereof."
+      }
+    },
+    "section4": {
+      "definitions": {
+        "title": "Definitions",
+        "cookie": "A cookie is a small file placed on your computer or device by a website that contains details of your browsing history on that website among its many uses.",
+        "company": "'Company' (referred to as either 'the Company', 'We', 'Us' or 'Our' in this Agreement) refers to ConnectU.",
+        "country": "'Country' refers to ConnectU.",
+        "device": "'Device' means any device that can access the Service such as a computer, a cellphone, or a digital tablet.",
+        "service": "'Service' refers to the Website.",
+        "thirdPartyService": "'Third-party Service' means any services or content (including data, information, applications, and other products services) provided by a third party that may be displayed, included, or made available by the Service.",
+        "you": "'You' means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable."
+      }
+    },
+    "section5": {
+      "restrictions": {
+        "title": "Restrictions",
+        "content1": "You are specifically restricted from all of the following: Publishing any Website material in any other media;",
+        "content2": "Selling, sublicensing, and/or otherwise commercializing any Website material;",
+        "content3": "Using this Website in any way that is or may be damaging to this Website."
+      }
+    },
+    "section6": {
+      "returnPolicy": {
+        "title": "Return Policy",
+        "content1": "Returns are only applicable within 30 days of purchase.",
+        "content2": "Refunds will be processed only if the items are in original condition."
+      }
+    },
+    "section7": {
+      "suggestions": {
+        "title": "Suggestions",
+        "content": "We welcome your feedback and suggestions to improve our Service."
+      }
+    },
+    "section8": {
+      "consent": {
+        "title": "Consent",
+        "content": "By using our website, you hereby consent to our Terms and Conditions."
+      }
+    },
+    "section9": {
+      "links": {
+        "title": "Links to Other Websites",
+        "content1": "Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company.",
+        "content2": "The Company has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third-party web sites or services."
+      }
+    },
+    "section10": {
+      "cookies": {
+        "title": "Cookies",
+        "content1": "This Website uses cookies to improve the user experience.",
+        "content2": "By continuing to use the site, you agree to the use of cookies.",
+        "content3": "You may disable cookies in your browser settings."
+      }
+    },
+    "section11": {
+      "changes": {
+        "title": "Changes to These Terms",
+        "content": "We reserve the right to update or change our Terms and Conditions at any time."
+      }
+    },
+    "section12": {
+      "modifications": {
+        "title": "Modifications",
+        "content": "The Company reserves the right to modify, suspend, or discontinue the Service at any time."
+      }
+    },
+    "section13": {
+      "thirdParty": {
+        "title": "Third-Party Services",
+        "content": "The Company is not responsible for third-party services linked to the Website."
+      }
+    },
+    "section14": {
+      "termAndTermination": {
+        "title": "Term and Termination",
+        "content": "The Agreement shall remain in effect until terminated by either party."
+      }
+    },
+    "section15": {
+      "copyright": {
+        "title": "Copyright",
+        "content": "All content and materials on this Website are owned by the Company and protected under copyright laws."
+      }
+    },
+    "section16": {
+      "indemnification": {
+        "title": "Indemnification",
+        "content": "You agree to indemnify and hold harmless the Company from any claims arising out of your use of the Website."
+      }
+    },
+    "section17": {
+      "noWarranties": {
+        "title": "No Warranties",
+        "content": "This Website is provided 'as is,' with all faults, and the Company expresses no representations or warranties of any kind."
+      }
+    },
+    "section18": {
+      "limitationOfLiability": {
+        "title": "Limitation of Liability",
+        "content": "The Company shall not be held liable for any damages arising out of the use of this Website."
+      }
+    },
+    "section19": {
+      "severability": {
+        "title": "Severability",
+        "content": "If any provision of these Terms is found to be invalid under any applicable law, such provisions shall be deleted without affecting the remaining provisions."
+      }
+    },
+    "section20": {
+      "waiver": {
+        "title": "Waiver",
+        "content": "The failure to enforce any right or provision of these Terms shall not be considered a waiver of those rights."
+      }
+    },
+    "section21": {
+      "amendments": {
+        "title": "Amendments",
+        "content": "We reserve the right to amend these Terms at any time."
+      }
+    },
+    "section22": {
+      "entireAgreement": {
+        "title": "Entire Agreement",
+        "content": "These Terms constitute the entire agreement between you and the Company."
+      }
+    },
+    "section23": {
+      "contact": {
+        "title": "Contact Us",
+        "email": "Email: connectu@business.com",
+        "phone": "Phone: 01234 56789"
+      }
+    }
+  },
+  "mySpacePage": {
+    "listing": {
+      "settings": "Settings",
+      "logout": "Log Out",
+      "information": "Information"
+    }
+  },
+  "informationPage": {
+      "legal-disclosure": "Legal Disclosure",
+      "privacy-policy": "Privacy Policy",
+    "terms": "Terms and Conditions"
+  },
+  "profilePage": {
+    "cardText": {
+      "aboutMe": "About Me",
+      "city": "No city specified"
+    },
+    "updateText": {
+      "pronouns": "Pronouns...",
+      "desc": "Description...",
+      "saveButton": "Save"
+    }
+  },
+  "accountPage": {
+    "headlines": {
+      "location": "Address",
+      "userData": "User Data"
+    },
+    "information": {
+      "title": "Change Gender?",
+      "text": "If you have changed your gender, please send us a message through our support. We will handle the change as quickly as possible.",
+      "team": "Your Connect-U Team"
+    },
+    "placeholder": {
+      "username": "Username",
+      "email": "Email Address",
+      "firstname": "First Name",
+      "lastname": "Last Name",
+      "gender": "Gender",
+      "street": "Street",
+      "houseNr": "House Number",
+      "zipCode": "ZIP Code",
+      "city": "City"
+    },
+    "button": {
+      "password": "Change Password",
+      "save": "Save"
+    },
+    "passwordForm": {
+      "title": "Change Password",
+      "oldPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Repeat New Password",
+      "errorTitle": "Change Password went wrong",
+      "missMatchError": "your new passwords does not match",
+      "wrongPassword": "Your old password is incorrect",
+      "warnings": {
+        "oldPasswordRequired": "You must enter your current password!",
+        "newPasswordMinLength": "Your new password must have at least 8 characters",
+        "newPasswordRequired": "You must enter a new password!",
+        "confirmPasswordMinLength": "You must correctly repeat your new password",
+        "confirmPasswordRequired": "You must correctly repeat your new password"
+      }
+    },
+    "adressForm": {
+      "warnings": {
+        "house": "House number is required",
+        "street": "Street is required",
+        "zipCode": "ZIP Code is required",
+        "city": "City is required",
+        "requirements": "Please provide either all address fields or leave them all empty."
+      }
+    },
+    "messages": {
+      "success": "Success",
+      "detailProfile": "Profile data has been successfully updated",
+      "detailPassword": "Password has been successfully changed",
+      "error": "Error",
+      "detailError": "A user with the given email or username may already exist",
+      "usernameTaken": "username is already taken",
+      "emailTaken": "e-mail address is already taken"
+    },
+    "genderOptions": {
+      "man": "Male",
+      "female": "Female",
+      "diverse": "Diverse"
+    }
+  },
+  "createSurveyPage": {
+    "headline": "Create Survey",
+    "choice": "Choices",
+    "info": "Start your survey by adding new choices!",
+    "placeholder": {
+      "title": "Title",
+      "description": "Description",
+      "newItem": "New Choice"
+    },
+    "button": {
+      "create": "Create"
+    },
+    "warning": "Warning!",
+    "errorTitle": "Error!",
+    "errorMessages": {
+      "requirementErr": "Please fill in all required fields",
+      "surveyError": "Please provide a valid choice",
+      "notEnoughSurveys": "You must provide at least 2 entries for the survey"
+    }
+  },
+  "surveyCardPage": {
+    "votes": "Votes: ",
+    "noVotes": "No one has voted for this option yet",
+    "sidebarTitle": "Vote Overview",
+    "sidebarLink": "View Details",
+    "deleteSurvey": "delete survey",
+    "deleteConfirmationMessage": "Are you sure you want to delete this survey?",
+    "deleteConfirmationHeader": "Warning",
+    "errorTitle": "Error during deletion!",
+    "deleteErrorMessage": "Something seems to have gone wrong. Please ensure you have a stable internet connection.",
+    "successTitle": "Deletion Successful!",
+    "deleteSuccessMessage": "Your survey has been successfully removed."
+  },
+  "listPage": {
+    "deleteListConfirmationMessage": "Are you sure you want to delete this list?",
+    "deleteListConfirmationHeader": "Delete List",
+    "deleteListSuccessTitle": "Deletion Successful!",
+    "deleteListSuccessMessage": "The list has been successfully removed.",
+    "deleteListErrorTitle": "Error Deleting List!",
+    "deleteListErrorMessage": "The list could not be deleted. Please try again.",
+    "deleteEntryConfirmationMessage": "Are you sure you want to delete this list entry?",
+    "deleteEntryConfirmationHeader": "Delete List Entry",
+    "deleteEntrySuccessTitle": "Deletion Successful!",
+    "deleteEntrySuccessMessage": "The list entry has been successfully removed.",
+    "deleteEntryErrorTitle": "Error Deleting Entry!",
+    "deleteEntryErrorMessage": "The list entry could not be deleted. Please try again."
+  }
+}

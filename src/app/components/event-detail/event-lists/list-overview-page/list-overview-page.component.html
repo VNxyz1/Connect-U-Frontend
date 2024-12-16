@@ -1,0 +1,38 @@
+<div class="grid justify-content-center">
+  <div class="col-12 mb-4 flex justify-content-center">
+    <app-create-list [eventId]="eventId" (created)="getAndSetLists()" />
+  </div>
+  <div class="col-12 px-3 flex justify-content-center">
+    <div class="grid w-full md:w-9 lg:w-7 gap-3">
+      @if (lists$ | async; as lists) {
+        @for (list of lists; track list.id) {
+          <div class="col-12">
+            <div
+              class="custom-card-container cursor-pointer grid px-2 py-1"
+              [routerLink]="['detail', list.id]">
+              <div class="col-11">
+                <div class="grid align-content-between">
+                  <div class="col-12">
+                    <span
+                      class="font-bold text-xl block"
+                      style="word-wrap: break-word"
+                      >{{ list.title }}</span
+                    >
+                  </div>
+                  <div class="col-12 pb-0">
+                    <span class="text-sm block" style="word-wrap: break-word">{{
+                      list.description
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-1 flex justify-content-center align-items-center">
+                <rmx-icon name="arrow-right-s-line" />
+              </div>
+            </div>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+<div class="p-fluid">
+  <!-- Umfrage erstellen Button -->
+  <p-button
+    label="{{ 'createSurveyPage.headline' | transloco }}"
+    severity="success"
+    raised
+    (click)="openDialog()"
+    class="p-button-raised p-button-primary"></p-button>
+
+  <!-- Dialog -->
+  <p-dialog
+    header="{{ 'createSurveyPage.headline' | transloco }}"
+    [(visible)]="displayDialog"
+    [modal]="true"
+    [style]="{ width: '600px' }"
+    [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
+    [closable]="true"
+    (onHide)="closeDialog()">
+    <form [formGroup]="surveyForm" (ngSubmit)="submitSurvey()">
+      <!-- Titel -->
+      <div class="field">
+        <p-floatLabel>
+          <input
+            id="title"
+            type="text"
+            pInputText
+            formControlName="title"
+            class="w-full" />
+          <label for="title">{{
+            'createSurveyPage.placeholder.title' | transloco
+          }}</label>
+        </p-floatLabel>
+      </div>
+
+      <!-- Beschreibung -->
+      <div class="field">
+        <p-floatLabel>
+          <textarea
+            id="description"
+            rows="3"
+            cols="30"
+            pInputTextarea
+            formControlName="description"
+            class="w-full"></textarea>
+          <label for="description">{{
+            'createSurveyPage.placeholder.description' | transloco
+          }}</label>
+        </p-floatLabel>
+      </div>
+
+      <!-- Neues Item immer oben -->
+      <form (submit)="addItem($event)" class="field">
+        <div class="flex align-items-center">
+          <input
+            type="text"
+            pInputText
+            maxlength="60"
+            [formControl]="newItem"
+            placeholder="{{
+              'createSurveyPage.placeholder.newItem' | transloco
+            }}"
+            class="flex-grow-1" />
+          <p-button
+            type="submit"
+            severity="secondary"
+            class="p-button-rounded ml-2">
+            <ng-template pTemplate="icon">
+              <rmx-icon name="check-line"></rmx-icon>
+            </ng-template>
+          </p-button>
+        </div>
+      </form>
+
+      <!-- Items -->
+      <div class="field mt-3">
+        <h4>{{ 'createSurveyPage.choice' | transloco }}</h4>
+        <div class="flex align-items-start">
+          <!-- Scrollbarer Bereich für Items -->
+          <div class="col-10">
+            @if (items.length <= 0) {
+              <p class="mt-0">{{ 'createSurveyPage.info' | transloco }}</p>
+            }
+            @for (item of items.controls; track $index) {
+              <div class="flex align-items-center mb-1">
+                <p-button
+                  text
+                  type="button"
+                  severity="danger"
+                  class="mr-2"
+                  (click)="removeItem($index)">
+                  <ng-template pTemplate="icon">
+                    <rmx-icon name="delete-bin-line"></rmx-icon>
+                  </ng-template>
+                </p-button>
+                <span>{{ item.value }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Speichern Button immer unten -->
+      <div class="flex justify-content-end mt-1 mb-3">
+        <p-button
+          label="{{ 'createSurveyPage.button.create' | transloco }}"
+          severity="success"
+          raised
+          type="submit"
+          class="p-button-raised p-button-primary"></p-button>
+      </div>
+    </form>
+  </p-dialog>
+</div>

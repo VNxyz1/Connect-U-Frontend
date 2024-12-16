@@ -8,9 +8,9 @@ $blue-20: #336288;
 $blue-40: #2c506c;
 $dark-grey: #333333;
 $dark-grey-20: #535353;
-$dark-grey-40: #737373;
-$normal-grey: #d3d3d3;
-$light-grey: #f4f4f4;
+$dark-grey-40: #767676;
+$normal-grey: #d1d1d1;
+$light-grey: #fafafa;
 $white: #ffffff;
 $black: #000000;
 $red: #d34e43;
@@ -37,7 +37,10 @@ $text-color: $dark-grey;
 $font-weight-bold: bold;
 $font-weight-normal: normal;
 $font-weight-semi-bold: 600;
-$font-family: 'Proxima Nova', sans-serif;
+$font-family-regular: 'Proxima Nova Rg', sans-serif;
+$font-family-semi-bold: 'Proxima Nova Lt', sans-serif;
+$font-family-black: 'Proxima Nova Bl', sans-serif;
+$font-family-bold: 'Proxima Nova Th', sans-serif;
 
 // Mandatory Designer Variables
 @import 'variables/general';
@@ -52,8 +55,8 @@ $font-family: 'Proxima Nova', sans-serif;
 @import 'variables/misc';
 
 :root {
-  font-family: #{$font-family};
-  --font-family: #{$font-family};
+  font-family: #{$font-family-regular};
+  --font-family: #{$font-family-regular};
 
   // Surface colors
   --surface-a: #{$light-grey} !important;
@@ -73,15 +76,24 @@ $font-family: 'Proxima Nova', sans-serif;
   --surface-700: #{$light-grey} !important;
   --surface-800: #{$light-grey} !important;
   --surface-900: #{$light-grey} !important;
+  --gray-50: #{$normal-grey} !important;
+  --gray-600: #{$normal-grey} !important;
+  --gray-700: #{$primaryDarkerColor} !important;
+  --gray-900: #{$primaryColor} !important;
+  --red-900: #{$red} !important;
+  --orange-900: #{$orange} !important;
+
+  --gray-50: #{$light-grey};
 
   // Text colors
   --text-color: #{$dark-grey} !important;
-  --text-color-secondary: #{$normal-grey} !important;
+  --text-color-secondary: #{$orange} !important;
 
   // Primary colors
   --primary-color: #{$blue} !important;
   --primary-color-text: #{$light-grey} !important;
   --secondary-color: #{$orange} !important;
+  --white: #{$white};
 
   // Padding, spacing, and radius
   --content-padding: #{$panelContentPadding} !important;
@@ -111,6 +123,19 @@ $font-family: 'Proxima Nova', sans-serif;
   //menu
 
   color-scheme: light;
+
+  //card
+  --card-shadow: $cardShadow;
+  --card-color: $panelContentTextColor;
+  --card-background: $panelContentBg;
+  --card-border-radius: $borderRadius;
+}
+
+.custom-card-container {
+  background: $panelContentBg;
+  color: $panelContentTextColor;
+  box-shadow: $cardShadow;
+  border-radius: $borderRadius;
 }
 
 body {
@@ -126,29 +151,44 @@ h5,
 h6,
 p,
 body {
-  font-family: $font-family;
+  font-family: $font-family-regular;
   color: $text-color;
 }
 
 h1 {
-  font-weight: $font-weight-bold;
-  font-size: 24px;
+  font-family: $font-family-black;
+  font-size: 26px;
 }
 
 h2 {
-  font-weight: $font-weight-semi-bold;
-  font-size: 20px;
+  font-family: $font-family-bold;
+  font-size: 24px;
 }
 
 h3 {
-  font-weight: $font-weight-semi-bold;
+  font-family: $font-family-semi-bold;
+  font-size: 24px;
+}
+
+h4 {
+  font-family: $font-family-semi-bold;
+  font-size: 22px;
+}
+
+h5 {
+  font-family: $font-family-semi-bold;
   font-size: 20px;
 }
 
+h6 {
+  font-family: $font-family-semi-bold;
+  font-size: 18px;
+}
 /* Buttons */
 
 .p-button {
   font-weight: $font-weight-semi-bold;
+  transition: none !important;
 }
 
 .p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
@@ -156,6 +196,10 @@ h3 {
     --secondary-color
   ); /* Set background color for checked state */
   border: none;
+}
+
+.p-calendar .p-datepicker-trigger {
+  background-color: $secondaryColor;
 }
 
 // Checked state
@@ -173,6 +217,10 @@ h3 {
   }
 }
 
+.p-float-label {
+  margin-top: 1.8em;
+}
+
 /* tag */
 
 .p-tag-secondary {
@@ -182,18 +230,72 @@ h3 {
 /* menues */
 
 // steps
+
+.p-steps {
+  background: $white !important;
+}
+
+.p-steps .p-steps-item:before {
+  border-top: none;
+}
+
 .p-steps .p-steps-item.p-highlight .p-steps-number {
   background: $secondaryColor; //active item background
 }
 
+.p-steps .p-steps-item .p-steps-number {
+  background: $light-grey; //active item background
+}
+
 // tab
 
+.p-tabmenu {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 2 !important;
+}
+
+/* Highlighted tab styling */
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
   border-color: $secondaryColor;
   color: $secondaryColor;
 }
 
-.p-tabmenu:hover {
-  border-color: $normal-grey;
-  color: $normal-grey;
+/* Ensure no spacing around the parent UL */
+.p-tabmenu .p-tabmenu-nav {
+  display: flex; /* Use flexbox for equal distribution */
+  padding: 0;
+  margin: 0; /* Remove any margins */
+  list-style: none; /* Ensure no bullets or default list styling */
+  width: 100%;
+  justify-content: center;
+}
+
+/* Set each LI to take up equal width */
+.p-tabmenu .p-tabmenu-nav li {
+  flex: 1; /* Distribute space equally among all list items */
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.p-tabmenu .p-tabmenu-nav .p-menuitem-link {
+  width: 100%;
+  color: $primaryColor;
+}
+
+.p-tabmenu .p-tabmenu-nav li a {
+  justify-content: center;
+}
+
+/* Highlighted tab styling */
+.p-tabmenu .p-tabmenu-nav li.p-highlight .p-menuitem-link {
+  color: $secondaryColor; /* Active color */
+  border-bottom: 2px solid $secondaryColor; /* Add visual indication for active tab */
+}
+
+// confirm dialogue
+
+.p-confirm-dialog-accept {
+  background-color: $successColor;
 }

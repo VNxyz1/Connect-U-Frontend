@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // PrimeNG Modules
@@ -57,11 +57,9 @@ import { AngularRemixIconComponent } from 'angular-remix-icon';
     ToastModule,
     TabMenuModule,
     ImageModule,
-    NgOptimizedImage,
     AngularRemixIconComponent,
   ],
   templateUrl: './styling-showcase-secret-page.component.html',
-  providers: [MessageService],
 })
 export class StylingShowcaseSecretPageComponent implements OnInit {
   constructor(public messageService: MessageService) {}
@@ -75,6 +73,8 @@ export class StylingShowcaseSecretPageComponent implements OnInit {
 
   values: string[] | undefined; //values for chips
   max = 4; //max for chips
+
+  rangeValues: number[] = [20, 80]; //range Slider
 
   togglePasswordVisibility(): void {
     this.passwordVisible = !this.passwordVisible;

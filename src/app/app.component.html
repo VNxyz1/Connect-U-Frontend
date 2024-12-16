@@ -1,1 +1,34 @@
-<router-outlet></router-outlet>
+@if (currentUrl) {
+  <div class="h-screen grid p-0 m-0 gap-0 align-content-start">
+    @if (!currentUrl.includes('/welcome')) {
+      <div
+        class="col-12 p-0 max-h-min"
+        [ngClass]="{
+          'md:col-offset-2 md:col-10':
+            !currentUrl.includes('/create-event') &&
+            (isLoggedIn | async) &&
+            !currentUrl.includes('welcome'),
+        }">
+        <app-header />
+      </div>
+    }
+    <div
+      class="col-12 p-0"
+      [ngClass]="{
+        'md:col-offset-2 md:col-10':
+          !currentUrl.includes('/create-event') && (isLoggedIn | async),
+      }">
+      <div>
+        <router-outlet />
+      </div>
+    </div>
+    @if (!currentUrl.includes('/create-event') && (isLoggedIn | async)) {
+      <div
+        class="bg-light-grey col-12 md:col-2 p-0 pt-7 md:pt-0 md:flex md:flex-column">
+        <app-navbar [currentUrl]="currentUrl" />
+      </div>
+    }
+  </div>
+}
+
+<p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />
