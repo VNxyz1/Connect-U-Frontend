@@ -8,6 +8,7 @@ import { SurveyEvent } from '../../../interfaces/Surveys';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { CreateListComponent } from '../event-lists/list-overview-page/create-list/create-list.component';
+import { SocketService } from '../../../services/socket/socket.service';
 
 @Component({
   selector: 'app-event-surveys',
@@ -28,14 +29,21 @@ export class EventSurveysComponent implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private surveysService: SurveysService,
+    private sockets: SocketService,
   ) {
     this.fetchSurveys();
   }
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('id')!;
-    console.log(this.eventId);
     this.fetchSurveys();
+
+    this.sockets.on('updateSurveyOverview').subscribe({
+      next: () => {
+        console.log('update surveys');
+        this.fetchSurveys();
+      },
+    });
   }
 
   fetchSurveys(): void {

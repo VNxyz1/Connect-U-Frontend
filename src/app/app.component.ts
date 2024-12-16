@@ -68,7 +68,12 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.userService.getUserData().subscribe({
-        next: data => this.socket.connectUser(data.id),
+        next: data => {
+          this.socket.connectUser(data.id);
+        },
+        error: err => {
+          console.error('Failed to fetch user data:', err);
+        },
       });
       this.initStorage(); // Initialize storage
     }

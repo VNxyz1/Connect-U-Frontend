@@ -8,14 +8,14 @@
       @for (event of events; track $index) {
         <div
           class="col-12 md:col-9 xl:col-4 justify-content-center mb-3 md:px-3">
-          <app-event-card [event]="event" />
+          <app-event-card [event]="event" class="w-full" />
         </div>
       }
     } @else {
       @for (event of [0, 1, 2, 3, 4]; track $index) {
         <div
           class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
-          <app-event-card skeleton />
+          <app-event-card skeleton class="w-full" />
         </div>
       }
     }

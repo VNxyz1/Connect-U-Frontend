@@ -116,7 +116,14 @@
     },
     "errorMessages": {
       "registerFailed": "Registrierung fehlgeschlagen",
-      "registerFailedData": "Etwas scheint wohl schief gelaufen zu sein!"
+      "unknownError": "Ein unbekannter Fehler ist aufgetreten.",
+      "usernameWhitespace": "Der Benutzername darf nicht nur aus Leerzeichen bestehen.",
+      "firstNameWhitespace": "Der Vorname darf nicht nur aus Leerzeichen bestehen.",
+      "lastNameWhitespace": "Der Nachname darf nicht nur aus Leerzeichen bestehen.",
+      "passwordMismatch": "Die Passwörter müssen übereinstimmen.",
+      "emailTaken": "Diese E-Mail-Adresse ist bereits vergeben.",
+      "usernameTaken": "Dieser Benutzername ist bereits vergeben.",
+      "term": "Du musst die AGBs bestätigen, um dich registrieren zu können"
     }
   },
   "searchPageComponent": {
@@ -873,5 +880,19 @@
     "deleteErrorMessage": "Es scheint etwas schiefgelaufen zu sein. Bitte vergewissere dich, das du eine stabile Internetverbindung hast.",
     "successTitle": "Löschen Erfolgreich!",
     "deleteSuccessMessage": "Deine Umfrage wurde erfolgreich entfernt."
+  },
+  "listPage": {
+    "deleteListConfirmationMessage": "Möchten Sie diese Liste wirklich löschen?",
+    "deleteListConfirmationHeader": "Liste löschen",
+    "deleteListSuccessTitle": "Löschen erfolgreich!",
+    "deleteListSuccessMessage": "Die Liste wurde erfolgreich entfernt.",
+    "deleteListErrorTitle": "Fehler beim Löschen!",
+    "deleteListErrorMessage": "Die Liste konnte nicht gelöscht werden. Bitte versuchen Sie es erneut.",
+    "deleteEntryConfirmationMessage": "Möchten Sie diesen Listeneintrag wirklich löschen?",
+    "deleteEntryConfirmationHeader": "Listeneintrag löschen",
+    "deleteEntrySuccessTitle": "Löschen erfolgreich!",
+    "deleteEntrySuccessMessage": "Der Listeneintrag wurde erfolgreich entfernt.",
+    "deleteEntryErrorTitle": "Fehler beim Löschen!",
+    "deleteEntryErrorMessage": "Der Listeneintrag konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
   }
 }

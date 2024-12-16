@@ -188,6 +188,7 @@ h6 {
 
 .p-button {
   font-weight: $font-weight-semi-bold;
+  transition: none !important;
 }
 
 .p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
@@ -251,6 +252,7 @@ h6 {
 .p-tabmenu {
   position: sticky !important;
   top: 0 !important;
+  z-index: 2 !important;
 }
 
 /* Highlighted tab styling */

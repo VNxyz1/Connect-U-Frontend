@@ -1,75 +1,89 @@
-<div>
-  <p-card class="p-3" [ngClass]="{ 'p-0': survey.title }">
-    <div class="flex align-items-center justify-content-between pr-3">
-      <!-- Title and Description -->
-      <div class="flex flex-column flex-grow-1">
-        <h4 class="mt-0 mb-0 cursor-pointer" (click)="toggleExpand()">
-          <span>{{ survey.title }}</span>
-        </h4>
-        <p class="text-secondary mt-2 mb-2" (click)="toggleExpand()">
-          {{ survey.description }}
-        </p>
-      </div>
-
-      <!-- Toggle Icon -->
-      <div class="ml-2">
-        <rmx-icon
-          [name]="expanded ? 'arrow-down-s-line' : 'arrow-right-s-line'"
-          style="height: 26px; width: 26px; cursor: pointer"
-          (click)="toggleExpand()">
-        </rmx-icon>
-      </div>
+<p-card [ngClass]="{ 'p-0': survey.title }">
+  <div
+    class="flex align-items-center justify-content-between pr-3 cursor-pointer"
+    (click)="toggleExpand()">
+    <!-- Title and Description -->
+    <div class="flex flex-column flex-grow-1">
+      <h4 class="mt-0 mb-0">
+        <span>{{ survey.title }}</span>
+      </h4>
+      <p class="text-secondary mt-2 mb-2">
+        {{ survey.description }}
+      </p>
     </div>
-    @if (expanded) {
-      <div class="mt-3">
-        @if (surveyDetail$ | async; as surveyDetail) {
-          <ng-container>
-            @for (entry of surveyDetail.surveyEntries; track $index) {
-              <div class="mb-4 mt-4">
-                <div
-                  class="flex align-items-center justify-content-between mb-2">
-                  <div class="flex align-items-center">
-                    <p-checkbox binary="true" class="p-checkbox-rounded mr-2">
-                    </p-checkbox>
-                    <p class="m-0">{{ entry.content }}</p>
-                  </div>
-                  <div class="flex align-items-center">
-                    <div class="avatar-group mr-2">
-                      @for (user of entry.users.slice(0, 4); track $index) {
-                        <ng-container>
-                          <p-avatar
-                            image="images/userImg.png"
-                            shape="circle"
-                            size="normal">
-                          </p-avatar>
-                        </ng-container>
-                      }
-                    </div>
-                    <span class="ml-2">{{ entry.users.length }}</span>
-                  </div>
+
+    <!-- Toggle Icon -->
+    <div class="ml-2">
+      <rmx-icon
+        [name]="expanded ? 'arrow-down-s-line' : 'arrow-right-s-line'"
+        style="height: 26px; width: 26px; cursor: pointer"
+        (click)="toggleExpand()">
+      </rmx-icon>
+    </div>
+  </div>
+  @if (expanded) {
+    <div class="mt-3">
+      @if (surveyDetail$ | async; as surveyDetail) {
+        <ng-container>
+          @for (entry of surveyDetail.surveyEntries; track $index) {
+            <div class="mb-4 mt-4">
+              <div class="flex align-items-center justify-content-between mb-2">
+                <div class="flex align-items-center">
+                  <p-checkbox
+                    [ngModel]="isUserInEntry(entry)"
+                    binary="true"
+                    class="p-checkbox-rounded mr-2"
+                    (click)="updateSurveyEntry(entry.id)">
+                  </p-checkbox>
+                  <p class="m-0">{{ entry.content }}</p>
                 </div>
-                <div>
-                  <!-- test functionality has to be updated -->
-                  <p-progressBar
-                    [value]="(entry.users.length / votes) * 100"
-                    [style]="{
-                      height: '20px',
-                      borderRadius: '40px',
-                    }"
-                    class="mt-3">
-                  </p-progressBar>
+                <div class="flex align-items-center">
+                  <div class="avatar-group mr-2">
+                    @for (user of entry.users.slice(0, 4); track $index) {
+                      <ng-container>
+                        <p-avatar
+                          image="images/userImg.png"
+                          shape="circle"
+                          size="normal">
+                        </p-avatar>
+                      </ng-container>
+                    }
+                  </div>
+                  <span class="ml-2">{{ entry.users.length }}</span>
                 </div>
               </div>
-            }
-          </ng-container>
-          <div class="text-center mt-6">
-            <p
-              class="text-primary cursor-pointer"
-              (click)="openSidebar(surveyDetail.surveyEntries)">
-              {{ 'surveyCardPage.sidebarLink' | transloco }}
-            </p>
+              <div>
+                <!-- test functionality has to be updated -->
+                <p-progressBar
+                  [value]="Math.round((entry.users.length / votes) * 100)"
+                  [style]="{
+                    height: '20px',
+                    borderRadius: '40px',
+                  }"
+                  class="mt-3">
+                </p-progressBar>
+              </div>
+            </div>
+          }
+        </ng-container>
+        <div class="text-center mt-6">
+          <p
+            class="text-primary cursor-pointer"
+            (click)="openSidebar(surveyDetail.surveyEntries)">
+            {{ 'surveyCardPage.sidebarLink' | transloco }}
+          </p>
+        </div>
+      } @else {
+        <div class="flex justify-content-between mb-2">
+          <div class="flex justify-content-start">
+            <p-skeleton size="2rem" styleClass="mr-2" />
+            <p-skeleton width="10rem" styleClass="mb-2" />
           </div>
-        } @else {
+          <p-skeleton shape="circle" size="2rem" styleClass="mr-2" />
+        </div>
+        <p-skeleton styleClass="mb-2" />
+
+        <div class="mt-4">
           <div class="flex justify-content-between mb-2">
             <div class="flex justify-content-start">
               <p-skeleton size="2rem" styleClass="mr-2" />
@@ -78,25 +92,14 @@
             <p-skeleton shape="circle" size="2rem" styleClass="mr-2" />
           </div>
           <p-skeleton styleClass="mb-2" />
-
-          <div class="mt-4">
-            <div class="flex justify-content-between mb-2">
-              <div class="flex justify-content-start">
-                <p-skeleton size="2rem" styleClass="mr-2" />
-                <p-skeleton width="10rem" styleClass="mb-2" />
-              </div>
-              <p-skeleton shape="circle" size="2rem" styleClass="mr-2" />
-            </div>
-            <p-skeleton styleClass="mb-2" />
-          </div>
-          <div class="flex justify-content-center mt-3">
-            <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
-          </div>
-        }
-      </div>
-    }
-  </p-card>
-</div>
+        </div>
+        <div class="flex justify-content-center mt-3">
+          <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+        </div>
+      }
+    </div>
+  }
+</p-card>
 
 <p-sidebar
   [(visible)]="sidebarVisible"

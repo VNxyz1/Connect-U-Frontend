@@ -19,9 +19,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { TranslocoService } from '@jsverse/transloco';
 import { SocketService } from '../../../../services/socket/socket.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const BadRequestMessages: Record<string, string> = {
   'A list entry with the same description already exists.':
@@ -54,9 +55,8 @@ export class ListDetailPageComponent implements OnInit {
   set listId(listId: number) {
     this._listId = listId;
   }
-
   listDetail$!: Observable<ListDetail>;
-
+  eventId!: string;
   _listId!: number;
 
   createInputVisible: boolean = true;
@@ -73,12 +73,18 @@ export class ListDetailPageComponent implements OnInit {
     private messageService: MessageService,
     private translocoService: TranslocoService,
     private sockets: SocketService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private confirmationService: ConfirmationService,
   ) {}
 
   ngOnInit(): void {
     this.getAndSetListDetails();
     this.sockets.on('updateListDetail').subscribe({
       next: () => this.getAndSetListDetails(),
+    });
+    this.route.paramMap.subscribe(params => {
+      this.eventId = params.get('id')!;
     });
   }
 
@@ -155,6 +161,100 @@ export class ListDetailPageComponent implements OnInit {
             'eventListPage.listEntry.assignUser.messages.error.detail',
           ),
         });
+      },
+    });
+  }
+
+  deleteList(listId: number): void {
+    this.confirmationService.confirm({
+      message: this.translocoService.translate(
+        'listPage.deleteListConfirmationMessage',
+      ),
+      header: this.translocoService.translate(
+        'listPage.deleteListConfirmationHeader',
+      ),
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.listService.deleteList(listId).subscribe({
+          next: () => {
+            if (this.eventId) {
+              this.router.navigate(['/event/' + this.eventId + '/lists']);
+            }
+            this.messageService.add({
+              severity: 'success',
+              summary: this.translocoService.translate(
+                'listPage.deleteListSuccessTitle',
+              ),
+              detail: this.translocoService.translate(
+                'listPage.deleteListSuccessMessage',
+              ),
+            });
+            console.log('List successfully deleted!');
+          },
+          error: err => {
+            this.messageService.add({
+              severity: 'error',
+              summary: this.translocoService.translate(
+                'listPage.deleteListErrorTitle',
+              ),
+              detail: this.translocoService.translate(
+                'listPage.deleteListErrorMessage',
+              ),
+            });
+            console.error('Error deleting list:', err);
+          },
+        });
+      },
+      reject: () => {
+        console.log('List deletion cancelled.');
+      },
+    });
+  }
+
+  deleteListEntry(entryId: number): void {
+    this.confirmationService.confirm({
+      message: this.translocoService.translate(
+        'listPage.deleteEntryConfirmationMessage',
+      ),
+      header: this.translocoService.translate(
+        'listPage.deleteEntryConfirmationHeader',
+      ),
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        if (entryId) {
+          this.listService.deleteListEntry(entryId).subscribe({
+            next: () => {
+              this.getAndSetListDetails();
+              this.messageService.add({
+                severity: 'success',
+                summary: this.translocoService.translate(
+                  'listPage.deleteEntrySuccessTitle',
+                ),
+                detail: this.translocoService.translate(
+                  'listPage.deleteEntrySuccessMessage',
+                ),
+              });
+              console.log('List entry successfully deleted!');
+            },
+            error: err => {
+              this.messageService.add({
+                severity: 'error',
+                summary: this.translocoService.translate(
+                  'listPage.deleteEntryErrorTitle',
+                ),
+                detail: this.translocoService.translate(
+                  'listPage.deleteEntryErrorMessage',
+                ),
+              });
+              console.error('Error deleting list entry:', err);
+            },
+          });
+        } else {
+          console.log('Invalid entry ID');
+        }
+      },
+      reject: () => {
+        console.log('List entry deletion cancelled.');
       },
     });
   }
