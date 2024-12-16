@@ -115,8 +115,15 @@
       "label": "Repeat password"
     },
     "errorMessages": {
-      "registerFailed": "register failed",
-      "registerFailedData": "Something went wrong!"
+      "registerFailed": "Registration failed",
+      "unknownError": "An unknown error occurred.",
+      "usernameWhitespace": "Username cannot contain only whitespace.",
+      "firstNameWhitespace": "First name cannot contain only whitespace.",
+      "lastNameWhitespace": "Last name cannot contain only whitespace.",
+      "passwordMismatch": "Passwords must match.",
+      "emailTaken": "This e-mail address is already taken.",
+      "usernameTaken": "This username is already taken.",
+      "term": "You have to accept our Terms "
     }
   },
   "searchPageComponent": {
