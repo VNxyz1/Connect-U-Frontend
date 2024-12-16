@@ -28,6 +28,7 @@ import { TagModule } from 'primeng/tag';
 import { ChipsModule } from 'primeng/chips';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TagService } from '../../services/tags/tag.service';
+import { keyframes } from '@angular/animations';
 
 type editProfileForm = FormGroup<{
   pronouns: FormControl<string>;
@@ -66,10 +67,10 @@ export class ProfilePageComponent implements OnInit {
   results: string[] = [];
 
   constructor(
-    private messageService: MessageService,
-    private route: ActivatedRoute,
-    private userService: UserService,
-    private tagService: TagService
+    private readonly messageService: MessageService,
+    private readonly route: ActivatedRoute,
+    private readonly userService: UserService,
+    private readonly tagService: TagService,
   ) {}
 
   form: editProfileForm = new FormGroup({
@@ -85,7 +86,7 @@ export class ProfilePageComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.userId = this.route.snapshot.paramMap.get('id') || '';
+    this.userId = this.route.snapshot.paramMap.get('id') ?? '';
     this.fetchData();
   }
 
@@ -155,17 +156,20 @@ export class ProfilePageComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     const triggerKeys = ['Enter', ' ', ','];
 
+    event.preventDefault();
+
     if (triggerKeys.includes(event.key)) {
       const tagValue = input.value.trim().replace(/,$/, '');
 
       if (tagValue) {
-        const tagsToAdd = tagValue.split(' ').map(tag => tag.trim()).filter(tag => tag.length > 0);
+        const tagsToAdd = tagValue
+          .split(' ')
+          .map(tag => tag.trim())
+          .filter(tag => tag.length > 0);
 
         const currentTags = this.form.controls.tags.value;
 
-        const updatedTags = [
-          ...new Set([...currentTags, ...tagsToAdd])
-        ];
+        const updatedTags = [...new Set([...currentTags, ...tagsToAdd])];
 
         this.form.controls.tags.setValue(updatedTags);
 
@@ -173,5 +177,4 @@ export class ProfilePageComponent implements OnInit {
       }
     }
   }
-
 }

@@ -2,7 +2,7 @@
   <!-- Profilbild mit Icons -->
   <div class="flex align-items-center justify-content-center">
     <img
-      src="images/userImg.png"
+      src="/images/userImg.png"
       alt="Profilbild"
       class="border-circle shadow-2 -mb-5 z-3"
       style="width: 150px; height: 150px; border: 4px solid white" />
@@ -68,7 +68,7 @@
   <!-- Edit Mode -->
   @if (editMode) {
     <p-card class="col-12 lg:col-6">
-      <form (ngSubmit)="submitEdit()" [formGroup]="form">
+      <form [formGroup]="form">
         <div class="field w-full mb-4">
           <p-floatLabel>
             <input
@@ -115,9 +115,9 @@
         </div>
         <div class="flex justify-content-end mt-3">
           <p-button
+            (click)="submitEdit()"
             raised
             [label]="'profilePage.updateText.saveButton' | transloco"
-            type="submit"
             severity="success"
             class="p-button-raised"></p-button>
         </div>

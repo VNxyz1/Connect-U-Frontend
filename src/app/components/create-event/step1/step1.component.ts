@@ -59,7 +59,7 @@ export class Step1Component implements OnInit, OnDestroy {
     private readonly messageService: MessageService,
     private readonly cdr: ChangeDetectorRef,
     private readonly translocoService: TranslocoService,
-    private readonly tagService: TagService
+    private readonly tagService: TagService,
   ) {
     this.router.events
       .pipe(
@@ -154,8 +154,8 @@ export class Step1Component implements OnInit, OnDestroy {
   search(event: any): void {
     const query = event.query.toLowerCase();
     this.tagService.getAllTags(query).subscribe({
-      next: (tags) => (this.results = tags),
-      error: (error) => console.error('Error fetching tags:', error),
+      next: tags => (this.results = tags),
+      error: error => console.error('Error fetching tags:', error),
     });
   }
 
@@ -166,7 +166,10 @@ export class Step1Component implements OnInit, OnDestroy {
       if (tokenInput.value) {
         let tagValue = tokenInput.value.trim().replace(/,$/, '');
 
-        const tagsToAdd: string[] = tagValue.split(/[\s,]+/).map(tag => tag.trim()).filter(tag => tag.length > 0);
+        const tagsToAdd: string[] = tagValue
+          .split(/[\s,]+/)
+          .map(tag => tag.trim())
+          .filter(tag => tag.length > 0);
 
         tagsToAdd.forEach(tag => {
           if (!this.tags.includes(tag)) {
