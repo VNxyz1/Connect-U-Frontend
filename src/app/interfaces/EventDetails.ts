@@ -9,6 +9,8 @@ export interface EventDetails {
 
   categories: Category[];
 
+  tags: string[];
+
   preferredGenders: Gender[];
 
   type: EventtypeEnum;

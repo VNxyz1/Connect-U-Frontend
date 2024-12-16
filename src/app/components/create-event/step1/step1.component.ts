@@ -7,13 +7,16 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { EventService } from '../../../services/event/eventservice';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subject, filter, takeUntil } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { NgClass } from '@angular/common';
 import { TooltipModule } from 'primeng/tooltip';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { ChipsModule } from 'primeng/chips';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { TagService } from '../../../services/tags/tag.service';
 
 @Component({
   selector: 'app-step1',
@@ -30,10 +33,16 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
     NgClass,
     TooltipModule,
     TranslocoPipe,
+    ChipsModule,
+    ReactiveFormsModule,
+    AutoCompleteModule,
   ],
   templateUrl: './step1.component.html',
 })
 export class Step1Component implements OnInit, OnDestroy {
+  values: string[] | undefined;
+  max = 50;
+  tags: string[] = [];
   eventType: number | undefined = 1;
   eventTitle: string = '';
   description: string = '';
@@ -41,6 +50,7 @@ export class Step1Component implements OnInit, OnDestroy {
   selectedCategories: number[] = [];
   submitted: boolean = false;
   private readonly unsubscribe$ = new Subject<void>();
+  results: string[] = [];
 
   constructor(
     public eventService: EventService,
@@ -49,6 +59,7 @@ export class Step1Component implements OnInit, OnDestroy {
     private readonly messageService: MessageService,
     private readonly cdr: ChangeDetectorRef,
     private readonly translocoService: TranslocoService,
+    private readonly tagService: TagService,
   ) {
     this.router.events
       .pipe(
@@ -82,6 +93,7 @@ export class Step1Component implements OnInit, OnDestroy {
       this.eventTitle = savedData.title || '';
       this.description = savedData.description || '';
       this.selectedCategories = savedData.categories || [];
+      this.tags = savedData.tags || [];
       this.cdr.detectChanges();
     } catch (error) {
       console.error('Error loading saved data:', error);
@@ -90,7 +102,7 @@ export class Step1Component implements OnInit, OnDestroy {
 
   protected onCategoryChange() {
     if (this.selectedCategories.length > 3) {
-      this.selectedCategories.pop(); // Remove last category if limit exceeded
+      this.selectedCategories.pop();
       this.messageService.add({
         severity: 'warn',
         summary: this.translocoService.translate(
@@ -121,13 +133,14 @@ export class Step1Component implements OnInit, OnDestroy {
           'createEventStep1Component.messages.validationFailedDetail',
         ),
       });
-      return; // Prevent navigation if validation fails
+      return;
     }
 
     try {
       await this.eventService.setEventInformation({
         type: this.eventType,
         title: this.eventTitle,
+        tags: this.tags,
         categories: this.selectedCategories,
         description: this.description,
       });
@@ -135,6 +148,37 @@ export class Step1Component implements OnInit, OnDestroy {
       this.router.navigate(['../step2'], { relativeTo: this.route });
     } catch (error) {
       console.error('Error saving event information or navigating:', error);
+    }
+  }
+
+  search(event: any): void {
+    const query = event.query.toLowerCase();
+    this.tagService.getAllTags(query).subscribe({
+      next: tags => (this.results = tags),
+      error: error => console.error('Error fetching tags:', error),
+    });
+  }
+
+  onKeyUp(event: KeyboardEvent) {
+    const triggerKeys = ['Enter', ' ', ','];
+    if (triggerKeys.includes(event.key)) {
+      let tokenInput = event.target as HTMLInputElement;
+      if (tokenInput.value) {
+        let tagValue = tokenInput.value.trim().replace(/,$/, '');
+
+        const tagsToAdd: string[] = tagValue
+          .split(/[\s,]+/)
+          .map(tag => tag.trim())
+          .filter(tag => tag.length > 0);
+
+        tagsToAdd.forEach(tag => {
+          if (!this.tags.includes(tag)) {
+            this.tags.push(tag);
+          }
+        });
+
+        tokenInput.value = '';
+      }
     }
   }
 

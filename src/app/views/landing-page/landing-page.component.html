@@ -1,6 +1,8 @@
-<div class="lg:px-5">
+<!-- landing page mobile view -->
+<div class="md:hidden px-2">
   <div class="grid justify-content-center">
-    <div class="col-10 sm:col-8 md:col-5 xl:col-3 flex justify-content-center">
+    <div
+      class="col-10 sm:col-10 md:col-5 xl:col-3 flex justify-content-center pt-5">
       <p-image
         [alt]="'landingPage.headerImageAlt' | transloco"
         src="./images/logo_full_dark.svg"
@@ -10,7 +12,7 @@
     </div>
   </div>
   <div class="grid justify-content-center">
-    <div class="col-10 sm:col-8 md:col-5 xl:col-3 flex justify-content-center">
+    <div class="col-10 sm:col-10 md:col-5 xl:col-3 flex justify-content-center">
       <h2 class="text-center mt-2">
         {{ 'landingPage.imageText.title' | transloco }} <br />
         <span class="text-color-secondary">{{
@@ -20,33 +22,78 @@
     </div>
   </div>
   <div class="grid justify-content-center">
-    <div class="col-10 sm:col-8 md:col-5 xl:col-3 flex justify-content-center">
+    <div class="col-10 sm:col-10 md:col-5 xl:col-3 flex justify-content-center">
       @if (switch) {
-        <app-login (toggleView)="toggleSwitch()" class="w-full" />
-      } @else {
         <app-register (toggleView)="toggleSwitch()" class="w-full" />
+      } @else {
+        <app-login (toggleView)="toggleSwitch()" class="w-full" />
       }
     </div>
   </div>
-  <router-outlet />
-  <div class="px-2">
-    <h3>Featured Events</h3>
-    <div class="grid justify-content-center xl:justify-content-start">
-      @if (events$ | async; as events) {
-        @for (event of events; track $index) {
-          <div
-            class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
-            <app-event-card [event]="event" />
-          </div>
-        }
-      } @else {
-        @for (event of [0, 1, 2, 3, 4]; track $index) {
-          <div
-            class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
-            <app-event-card skeleton />
-          </div>
-        }
-      }
+</div>
+
+<!-- landing page desktop view -->
+<div
+  class="hidden md:flex md:flex-column"
+  style="
+    background-image: url('/images/pexels-elevate-1267254.jpg');
+    background-size: cover;
+    background-position: center;
+  ">
+  <div class="grid">
+    <div class="col py-8 surface-0">
+      <div class="grid justify-content-center">
+        <div class="col-6 flex justify-content-center pt-5">
+          <p-image
+            [alt]="'landingPage.headerImageAlt' | transloco"
+            src="./images/logo_full_dark.svg"
+            class="w-full"
+            styleClass="w-full"
+            imageClass="w-full" />
+        </div>
+      </div>
+      <div class="grid justify-content-center">
+        <div class="col-6 flex justify-content-center">
+          <h2 class="text-center mt-2">
+            {{ 'landingPage.imageText.title' | transloco }} <br />
+            <span class="text-color-secondary">{{
+              'landingPage.imageText.subtitle' | transloco
+            }}</span>
+          </h2>
+        </div>
+      </div>
+      <div class="grid justify-content-center">
+        <div class="col-6 flex justify-content-center">
+          @if (switch) {
+            <app-register (toggleView)="toggleSwitch()" class="w-full" />
+          } @else {
+            <app-login (toggleView)="toggleSwitch()" class="w-full" />
+          }
+        </div>
+      </div>
     </div>
+    <div class="col-7"></div>
+  </div>
+</div>
+
+<router-outlet />
+<div class="px-2">
+  <h3>Featured Events</h3>
+  <div class="grid justify-content-center xl:justify-content-start">
+    @if (events$ | async; as events) {
+      @for (event of events; track $index) {
+        <div
+          class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+          <app-event-card [event]="event" class="w-full" />
+        </div>
+      }
+    } @else {
+      @for (event of [0, 1, 2, 3, 4]; track $index) {
+        <div
+          class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+          <app-event-card skeleton class="w-full" />
+        </div>
+      }
+    }
   </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Button, ButtonDirective } from 'primeng/button';
+import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +9,7 @@ import {
   UserService,
 } from '../../services/user/user.service';
 import { Observable } from 'rxjs';
-import { AsyncPipe, NgClass } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import {
   FormControl,
   FormGroup,
@@ -24,17 +24,21 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MessageService } from 'primeng/api';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { map } from 'rxjs/operators';
+import { TagModule } from 'primeng/tag';
+import { ChipsModule } from 'primeng/chips';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { TagService } from '../../services/tags/tag.service';
 
 type editProfileForm = FormGroup<{
   pronouns: FormControl<string>;
   profileText: FormControl<string>;
+  tags: FormControl<string[]>;
 }>;
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
   imports: [
-    ButtonDirective,
     CardModule,
     AngularRemixIconComponent,
     AsyncPipe,
@@ -46,9 +50,11 @@ type editProfileForm = FormGroup<{
     Button,
     DropdownModule,
     TranslocoPipe,
-    NgClass,
+    TagModule,
+    ChipsModule,
+    AutoCompleteModule,
   ],
-  providers: [UserService, MessageService, TranslocoService],
+  providers: [UserService, MessageService, TranslocoService, TagService],
   templateUrl: './profile-page.component.html',
 })
 export class ProfilePageComponent implements OnInit {
@@ -56,17 +62,22 @@ export class ProfilePageComponent implements OnInit {
   protected profileData$!: Observable<ProfileData>;
   protected editMode: boolean = false;
   protected isUser!: boolean | undefined;
+  max = 50;
+  results: string[] = [];
 
   constructor(
     private messageService: MessageService,
     private route: ActivatedRoute,
     private userService: UserService,
+    private tagService: TagService,
   ) {}
+
   form: editProfileForm = new FormGroup({
     pronouns: new FormControl<string>('', {
       nonNullable: true,
       validators: [Validators.required],
     }),
+    tags: new FormControl<string[]>([], { nonNullable: true }),
     profileText: new FormControl<string>('', {
       nonNullable: true,
       validators: [Validators.required],
@@ -85,6 +96,7 @@ export class ProfilePageComponent implements OnInit {
         this.form.patchValue({
           pronouns: data.pronouns || '',
           profileText: data.profileText || '',
+          tags: data.tags || [],
         });
         return data;
       }),
@@ -103,6 +115,8 @@ export class ProfilePageComponent implements OnInit {
       updateData.profileText =
         this.form.controls.profileText.value.trim() || undefined;
     }
+
+    updateData.tags = this.form.controls.tags.value;
 
     this.userService.updateProfileInformation(updateData).subscribe({
       next: () => {
@@ -123,5 +137,41 @@ export class ProfilePageComponent implements OnInit {
 
   toggleEditMode(): void {
     this.editMode = !this.editMode;
+  }
+
+  search(event: any): void {
+    const query = event.query;
+    this.tagService.getAllTags(query).subscribe({
+      next: tags => {
+        this.results = tags;
+      },
+      error: err => {
+        console.error('Error fetching tags:', err);
+        this.results = [];
+      },
+    });
+  }
+  onKeyUp(event: KeyboardEvent) {
+    const input = event.target as HTMLInputElement;
+    const triggerKeys = ['Enter', ' ', ','];
+
+    if (triggerKeys.includes(event.key)) {
+      const tagValue = input.value.trim().replace(/,$/, '');
+
+      if (tagValue) {
+        const tagsToAdd = tagValue
+          .split(' ')
+          .map(tag => tag.trim())
+          .filter(tag => tag.length > 0);
+
+        const currentTags = this.form.controls.tags.value;
+
+        const updatedTags = [...new Set([...currentTags, ...tagsToAdd])];
+
+        this.form.controls.tags.setValue(updatedTags);
+
+        input.value = '';
+      }
+    }
   }
 }

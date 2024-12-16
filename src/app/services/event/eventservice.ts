@@ -8,6 +8,7 @@ import { EventDetails } from '../../interfaces/EventDetails';
 
 export type EventData = {
   categories: number[];
+  tags: string[];
   dateAndTime: string;
   title: string;
   description: string;
@@ -202,6 +203,7 @@ export class EventService {
   private getDefaultEventData(): EventData {
     return {
       categories: [],
+      tags: [],
       dateAndTime: '',
       title: '',
       description: '',

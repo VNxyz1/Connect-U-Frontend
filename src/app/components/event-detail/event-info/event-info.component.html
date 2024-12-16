@@ -145,21 +145,21 @@
         <h3>{{ 'eventDetailPageComponent.eventDetails' | transloco }}</h3>
         <p>{{ eventDetails.description }}</p>
         <div>
-          <p-tag
-            severity="secondary"
-            value="Secondary"
-            [rounded]="true"
-            class="mr-1" />
-          <p-tag
-            severity="secondary"
-            value="Secondary"
-            [rounded]="true"
-            class="mr-1" />
-          <p-tag
-            severity="secondary"
-            value="Secondary"
-            [rounded]="true"
-            class="mr-1" />
+          <span>
+            @for (tag of eventDetails.tags; track $index) {
+              <p-tag
+                [value]="tag"
+                severity="secondary"
+                [rounded]="true"
+                class="mr-1">
+                <ng-template pTemplate="icon">
+                  <rmx-icon
+                    name="price-tag-3-line"
+                    style="width: 16px; height: 16px" />
+                </ng-template>
+              </p-tag>
+            }
+          </span>
         </div>
       </p-card>
 

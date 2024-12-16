@@ -150,6 +150,9 @@
     "descriptionInput": {
       "label": "Beschreibung"
     },
+    "tagsInput": {
+      "label": "Tags hinzufügen"
+    },
     "continueButton": "Weiter",
     "messages": {
       "categoryLimitTitle": "Kategorien Limitierung",
@@ -768,7 +771,6 @@
     "legal-disclosure": "Impressum",
     "privacy-policy": "Datenschutzerklärung",
     "terms": "Allgemeine Geschäftsbedingungen"
-
   },
   "profilePage": {
     "cardText": {
@@ -873,10 +875,24 @@
     "sidebarLink": "Details Ansehen",
     "deleteSurvey": "Umfrage löschen",
     "deleteConfirmationMessage": "Möchtest du die Umfrage wirklich löschen?",
-    "deleteConfirmationHeader":"Achtung",
+    "deleteConfirmationHeader": "Achtung",
     "errorTitle": "Fehler beim löschen!",
     "deleteErrorMessage": "Es scheint etwas schiefgelaufen zu sein. Bitte vergewissere dich, das du eine stabile Internetverbindung hast.",
     "successTitle": "Löschen Erfolgreich!",
     "deleteSuccessMessage": "Deine Umfrage wurde erfolgreich entfernt."
+  },
+  "listPage": {
+    "deleteListConfirmationMessage": "Möchten Sie diese Liste wirklich löschen?",
+    "deleteListConfirmationHeader": "Liste löschen",
+    "deleteListSuccessTitle": "Löschen erfolgreich!",
+    "deleteListSuccessMessage": "Die Liste wurde erfolgreich entfernt.",
+    "deleteListErrorTitle": "Fehler beim Löschen!",
+    "deleteListErrorMessage": "Die Liste konnte nicht gelöscht werden. Bitte versuchen Sie es erneut.",
+    "deleteEntryConfirmationMessage": "Möchten Sie diesen Listeneintrag wirklich löschen?",
+    "deleteEntryConfirmationHeader": "Listeneintrag löschen",
+    "deleteEntrySuccessTitle": "Löschen erfolgreich!",
+    "deleteEntrySuccessMessage": "Der Listeneintrag wurde erfolgreich entfernt.",
+    "deleteEntryErrorTitle": "Fehler beim Löschen!",
+    "deleteEntryErrorMessage": "Der Listeneintrag konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
   }
 }

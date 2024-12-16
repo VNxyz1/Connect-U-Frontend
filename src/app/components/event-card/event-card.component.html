@@ -142,14 +142,15 @@
       </ng-template>
       <ng-template pTemplate="content">
         <div class="grid min-h-full align-content-around">
-          <div class="col-12 grid p-2">
-            @for (tag of ahhArr.slice(0, 3); track $index) {
+          <div class="col-12 grid overflow-hidden" [style.height.px]="40">
+            @for (tag of event.tags; track $index) {
               <div class="col-fixed w-min p-1">
                 <p-tag [value]="tag" [rounded]="true" severity="secondary">
                   <ng-template pTemplate="icon">
                     <rmx-icon
                       name="price-tag-3-line"
-                      style="width: 16px; height: 16px" />
+                      style="width: 16px; height: 16px">
+                    </rmx-icon>
                   </ng-template>
                 </p-tag>
               </div>

@@ -106,7 +106,6 @@ export class CreateSurveysComponent implements OnInit {
         description: this.surveyForm.value.description || '',
         entries: entries,
       };
-      console.log('umfrage daten', surveyData);
       if (entries.length < 2) {
         this.messageService.add({
           severity: 'error',

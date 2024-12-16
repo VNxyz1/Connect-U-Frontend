@@ -15,7 +15,11 @@
       [responsiveOptions]="responsiveOptions">
       <ng-template let-event pTemplate="item">
         <div class="m-3">
-          <app-event-card [event]="event" compact showEventStatus />
+          <app-event-card
+            [event]="event"
+            compact
+            showEventStatus
+            class="w-full" />
         </div>
       </ng-template>
     </p-carousel>
@@ -36,7 +40,7 @@
     [responsiveOptions]="responsiveOptions">
     <ng-template let-event pTemplate="item">
       <div class="m-3">
-        <app-event-card skeleton compact showEventStatus />
+        <app-event-card skeleton compact showEventStatus class="w-full" />
       </div>
     </ng-template>
   </p-carousel>
