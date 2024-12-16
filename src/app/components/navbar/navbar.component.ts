@@ -65,10 +65,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
           });
 
         this.breakpointObserver
-          .observe([
-            Breakpoints.Handset,
-            '(max-width: 1085px)',
-          ])
+          .observe([Breakpoints.Handset, '(max-width: 1085px)'])
           .subscribe(result => {
             const breakpoints = result.breakpoints;
             this.isMobile = breakpoints[Breakpoints.Handset] || false;

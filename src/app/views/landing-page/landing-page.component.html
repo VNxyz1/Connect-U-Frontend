@@ -1,8 +1,8 @@
-
 <!-- landing page mobile view -->
 <div class="md:hidden">
-  <div class=" grid justify-content-center">
-    <div class="col-10 sm:col-8 md:col-5 xl:col-3 flex justify-content-center pt-5">
+  <div class="grid justify-content-center">
+    <div
+      class="col-10 sm:col-8 md:col-5 xl:col-3 flex justify-content-center pt-5">
       <p-image
         [alt]="'landingPage.headerImageAlt' | transloco"
         src="./images/logo_full_dark.svg"
@@ -15,7 +15,9 @@
     <div class="col-10 sm:col-8 md:col-5 xl:col-3 flex justify-content-center">
       <h2 class="text-center mt-2">
         {{ 'landingPage.imageText.title' | transloco }} <br />
-        <span class="text-color-secondary">{{ 'landingPage.imageText.subtitle' | transloco }}</span>
+        <span class="text-color-secondary">{{
+          'landingPage.imageText.subtitle' | transloco
+        }}</span>
       </h2>
     </div>
   </div>
@@ -31,9 +33,16 @@
 </div>
 
 <!-- landing page desktop view -->
-<div class="hidden md:flex md:flex-column" style="background-image: url('/images/pexels-elevate-1267254.jpg'); background-size: cover; background-position: center;">
+<div
+  class="hidden md:flex md:flex-column"
+  style="
+    background-image: url('/images/pexels-elevate-1267254.jpg');
+    background-size: cover;
+    background-position: center;
+  ">
   <div class="grid">
-    <div class="col py-8" style="background-color: rgba(255, 255, 255, 0.93);">>
+    <div class="col py-8" style="background-color: rgba(255, 255, 255, 0.93)">
+      >
       <div class="grid justify-content-center">
         <div class="col-5 flex justify-content-center pt-5">
           <p-image
@@ -48,7 +57,9 @@
         <div class="col-5 flex justify-content-center">
           <h2 class="text-center mt-2">
             {{ 'landingPage.imageText.title' | transloco }} <br />
-            <span class="text-color-secondary">{{ 'landingPage.imageText.subtitle' | transloco }}</span>
+            <span class="text-color-secondary">{{
+              'landingPage.imageText.subtitle' | transloco
+            }}</span>
           </h2>
         </div>
       </div>
@@ -65,7 +76,6 @@
     <div class="col-7"></div>
   </div>
 </div>
-
 
 <router-outlet />
 <div class="px-2">
@@ -88,4 +98,3 @@
     }
   </div>
 </div>
-

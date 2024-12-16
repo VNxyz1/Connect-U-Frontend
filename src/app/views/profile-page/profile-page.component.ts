@@ -69,7 +69,7 @@ export class ProfilePageComponent implements OnInit {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private userService: UserService,
-    private tagService: TagService
+    private tagService: TagService,
   ) {}
 
   form: editProfileForm = new FormGroup({
@@ -159,13 +159,14 @@ export class ProfilePageComponent implements OnInit {
       const tagValue = input.value.trim().replace(/,$/, '');
 
       if (tagValue) {
-        const tagsToAdd = tagValue.split(' ').map(tag => tag.trim()).filter(tag => tag.length > 0);
+        const tagsToAdd = tagValue
+          .split(' ')
+          .map(tag => tag.trim())
+          .filter(tag => tag.length > 0);
 
         const currentTags = this.form.controls.tags.value;
 
-        const updatedTags = [
-          ...new Set([...currentTags, ...tagsToAdd])
-        ];
+        const updatedTags = [...new Set([...currentTags, ...tagsToAdd])];
 
         this.form.controls.tags.setValue(updatedTags);
 
@@ -173,5 +174,4 @@ export class ProfilePageComponent implements OnInit {
       }
     }
   }
-
 }

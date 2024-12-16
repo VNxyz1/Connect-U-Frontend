@@ -19,6 +19,6 @@ export class TagService {
   getAllTags(tagSearch: string): Observable<string[]> {
     return this.http
       .get<GetTagDTO[]>(`tags/search?tagSearch=${tagSearch}`)
-      .pipe(map((tags) => tags.map((tag) => tag.title)));
+      .pipe(map(tags => tags.map(tag => tag.title)));
   }
 }
