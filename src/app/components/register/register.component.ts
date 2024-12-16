@@ -156,34 +156,41 @@ export class RegisterComponent {
       next: () => {
         window.location.reload();
       },
-      error: (errorResponse) => {
+      error: errorResponse => {
         console.log(errorResponse); // Debug
         const errorMessage = Array.isArray(errorResponse.message)
           ? errorResponse.message[0]
           : errorResponse.message;
         const errorMessagesMap: { [key: string]: string } = {
-          'Der Nutzername kann nicht nur aus Leerzeichen bestehen': 'registerComponent.errorMessages.usernameWhitespace',
-          'Der Vorname kann nicht nur aus Leerzeichen bestehen': 'registerComponent.errorMessages.firstNameWhitespace',
-          'Der Nachname darf nicht nur aus Leerzeichen bestehen': 'registerComponent.errorMessages.lastNameWhitespace',
-          'Die Passwörter stimmen nicht überein': 'registerComponent.errorMessages.passwordMismatch',
-          'Die E-Mail-Adresse wird bereits verwendet.': 'registerComponent.errorMessages.emailTaken',
-          'Der Benutzername ist bereits verwendet': 'registerComponent.errorMessages.usernameTaken',
-          'Du musst die AGBs bestätigen, um dich registrieren zu können': 'registerComponent.errorMessages.term'
+          'Der Nutzername kann nicht nur aus Leerzeichen bestehen':
+            'registerComponent.errorMessages.usernameWhitespace',
+          'Der Vorname kann nicht nur aus Leerzeichen bestehen':
+            'registerComponent.errorMessages.firstNameWhitespace',
+          'Der Nachname darf nicht nur aus Leerzeichen bestehen':
+            'registerComponent.errorMessages.lastNameWhitespace',
+          'Die Passwörter stimmen nicht überein':
+            'registerComponent.errorMessages.passwordMismatch',
+          'Die E-Mail-Adresse wird bereits verwendet.':
+            'registerComponent.errorMessages.emailTaken',
+          'Der Benutzername ist bereits verwendet':
+            'registerComponent.errorMessages.usernameTaken',
+          'Du musst die AGBs bestätigen, um dich registrieren zu können':
+            'registerComponent.errorMessages.term',
         };
-        const translationKey =
-          errorMessagesMap[errorMessage] || '';
+        const translationKey = errorMessagesMap[errorMessage] || '';
 
-        const translatedMessage = this.translocoService.translate(translationKey);
+        const translatedMessage =
+          this.translocoService.translate(translationKey);
 
         this.messageService.add({
           severity: 'error',
           summary: this.translocoService.translate(
-            'registerComponent.errorMessages.registerFailed'
+            'registerComponent.errorMessages.registerFailed',
           ),
           detail: translatedMessage,
         });
-      }
-    })
+      },
+    });
   }
   loadGenderOptions = () => {
     this.translocoService
