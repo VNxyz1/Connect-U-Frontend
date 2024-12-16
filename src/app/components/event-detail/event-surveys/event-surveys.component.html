@@ -5,9 +5,11 @@
   <div class="col-12 lg:col-8">
     @if (eventSurveys$ | async; as surveys) {
       @for (survey of surveys; track $index) {
-        <app-card-survey
-          [survey]="survey"
-          (surveyDeleted)="handleSurveyChange()" />
+        <div class="mb-3">
+          <app-card-survey
+            [survey]="survey"
+            (surveyDeleted)="handleSurveyChange()" />
+        </div>
       }
     }
   </div>

@@ -20,6 +20,8 @@ import { RouterLink } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { SocketService } from '../../../../services/socket/socket.service';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-card-survey',
@@ -57,10 +59,18 @@ export class CardSurveyComponent implements OnInit {
     private translocoService: TranslocoService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private sockets: SocketService,
+    private readonly auth: AuthService,
   ) {}
 
   ngOnInit(): void {
     this.fetchSurveyDetails();
+
+    this.sockets.on('updateSurveyDetail').subscribe(data => {
+      if (this.survey && this.survey.id == data.surveyId) {
+        this.fetchSurveyDetails();
+      }
+    });
   }
 
   toggleExpand(): void {
@@ -70,8 +80,22 @@ export class CardSurveyComponent implements OnInit {
     }
   }
 
+  isUserInEntry(entry: SurveyEntry): boolean {
+    return entry.users.some(user => user.isUser);
+  }
+
   fetchSurveyDetails(): void {
     this.surveyDetail$ = this.surveyService.getSurveyDetail(this.survey.id);
+
+    if (this.surveyDetail$) {
+      this.surveyDetail$.subscribe((surveyDetail: SurveyDetail) => {
+        // Calculate total votes from all survey entries
+        this.votes = surveyDetail.surveyEntries.reduce(
+          (totalVotes, entry) => totalVotes + entry.users.length,
+          0,
+        );
+      });
+    }
   }
 
   openSidebar(entries: SurveyEntry[]): void {
@@ -88,6 +112,22 @@ export class CardSurveyComponent implements OnInit {
 
   getSortedEntries(entries: SurveyEntry[]): SurveyEntry[] {
     return [...entries].sort((a, b) => b.users.length - a.users.length);
+  }
+
+  updateSurveyEntry(surveyId: number) {
+    this.surveyService.updateSurveyEntry(surveyId).subscribe({
+      next: () => {
+        this.fetchSurveyDetails();
+      },
+      error: err => {
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translocoService.translate(
+            'surveyCardPage.deleteErrorMessage',
+          ),
+        });
+      },
+    });
   }
 
   deleteSurvey(surveyId: number): void {
@@ -136,6 +176,8 @@ export class CardSurveyComponent implements OnInit {
       },
     });
   }
+
+  protected readonly Math = Math;
 }
 /*
 
