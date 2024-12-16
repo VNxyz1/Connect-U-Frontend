@@ -34,7 +34,6 @@ export class EventSurveysComponent implements OnInit {
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('id')!;
-    console.log(this.eventId);
     this.fetchSurveys();
   }
 
