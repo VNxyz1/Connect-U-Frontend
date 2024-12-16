@@ -1,13 +1,17 @@
 @if (currentUrl) {
   <div class="h-screen grid p-0 m-0 gap-0 align-content-start">
-    <div
-      class="col-12 p-0 max-h-min"
-      [ngClass]="{
-        'md:col-offset-2 md:col-10':
-          !currentUrl.includes('/create-event') && (isLoggedIn | async),
-      }">
-      <app-header />
-    </div>
+    @if (!currentUrl.includes('/welcome')) {
+      <div
+        class="col-12 p-0 max-h-min"
+        [ngClass]="{
+          'md:col-offset-2 md:col-10':
+            !currentUrl.includes('/create-event') &&
+            (isLoggedIn | async) &&
+            !currentUrl.includes('welcome'),
+        }">
+        <app-header />
+      </div>
+    }
     <div
       class="col-12 p-0"
       [ngClass]="{

@@ -44,7 +44,7 @@
     <div class="col py-8" style="background-color: rgba(255, 255, 255, 0.93)">
       >
       <div class="grid justify-content-center">
-        <div class="col-5 flex justify-content-center pt-5">
+        <div class="col-6 flex justify-content-center pt-5">
           <p-image
             [alt]="'landingPage.headerImageAlt' | transloco"
             src="./images/logo_full_dark.svg"
@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="grid justify-content-center">
-        <div class="col-5 flex justify-content-center">
+        <div class="col-6 flex justify-content-center">
           <h2 class="text-center mt-2">
             {{ 'landingPage.imageText.title' | transloco }} <br />
             <span class="text-color-secondary">{{
@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="grid justify-content-center">
-        <div class="col-5 flex justify-content-center">
+        <div class="col-6 flex justify-content-center">
           @if (switch) {
             <app-register (toggleView)="toggleSwitch()" class="w-full" />
           } @else {
