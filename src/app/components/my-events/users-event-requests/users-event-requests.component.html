@@ -8,8 +8,7 @@
     </span>
   </div>
   @for (r of this.eventRequests; track r) {
-    <!-- [routerLink]="['/event/' + r.event.id]" -->
-    <p-card class="p-3 cursor-pointer">
+    <p-card class="p-3 cursor-pointer" [routerLink]="['/event/' + r.event.id]">
       <div class="flex flex-row align-items-center">
         <!-- Image -->
         <img
@@ -24,7 +23,7 @@
           <div
             class="justify-content-start align-items-start md:align-items-center">
             <h3 class="mt-0 mb-0">
-              {{ r.event.title + ' sadasd #d  dasdasdad dsad' }}
+              {{ r.event.title }}
             </h3>
             <div class="text-secondary mt-2 md:mt-0">
               <div class="flex align-items-center gap-1">
