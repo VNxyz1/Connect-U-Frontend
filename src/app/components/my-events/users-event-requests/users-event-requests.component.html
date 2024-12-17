@@ -8,8 +8,7 @@
     </span>
   </div>
   @for (r of this.eventRequests; track r) {
-    <!-- [routerLink]="['/event/' + r.event.id]" -->
-    <p-card class="p-3 cursor-pointer">
+    <p-card class="p-3 cursor-pointer" [routerLink]="['/event/' + r.event.id]">
       <div class="flex flex-row align-items-center">
         <!-- Image -->
         <img
