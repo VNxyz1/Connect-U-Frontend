@@ -60,7 +60,11 @@
               </div>
               <div>
                 <p-progressBar
-                  [value]="votes > 0 ? Math.round((entry.users.length / votes) * 100) : 0"
+                  [value]="
+                    votes > 0
+                      ? Math.round((entry.users.length / votes) * 100)
+                      : 0
+                  "
                   [style]="{
                     height: '20px',
                     borderRadius: '40px',
@@ -138,10 +142,9 @@
                 </rmx-icon>
               }
               <p class="mt-0">
-                <small
-                  >
-                    {{ 'surveyCardPage.votes' | transloco }}
-                    {{ entry.users.length }}</small
+                <small>
+                  {{ 'surveyCardPage.votes' | transloco }}
+                  {{ entry.users.length }}</small
                 >
               </p>
             </div>
@@ -158,7 +161,7 @@
                   alt="profile picture"
                   class="border-circle mr-2"
                   style="width: 20px; height: 20px" />
-                <p class="text-primary mt-0 mb-0 ">{{ user.username }}</p>
+                <p class="text-primary mt-0 mb-0">{{ user.username }}</p>
               </div>
             }
           </div>
