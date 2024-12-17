@@ -27,11 +27,13 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { EventRequestService } from '../../../services/event/event-request/event-request.service';
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
-import { AsyncPipe, NgClass } from '@angular/common';
+import {AsyncPipe, NgClass, NgOptimizedImage} from '@angular/common';
 import { EventStatusIndicatorComponent } from '../../event-status-indicator/event-status-indicator.component';
 import { ProfileCardComponent } from '../../profile-card/profile-card.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { SkeletonModule } from 'primeng/skeleton';
+import {AvatarGroupModule} from 'primeng/avatargroup';
+import {AvatarModule} from 'primeng/avatar';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -68,6 +70,9 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     ConfirmDialogModule,
     SkeletonModule,
     NgClass,
+    AvatarGroupModule,
+    NgOptimizedImage,
+    AvatarModule,
   ],
   providers: [ConfirmationService],
 })

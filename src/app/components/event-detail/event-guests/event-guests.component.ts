@@ -13,6 +13,7 @@ import { Observable, throwError } from 'rxjs';
 import { EventService } from '../../../services/event/eventservice';
 import { EventDetails } from '../../../interfaces/EventDetails';
 import { ProfileCardComponent } from '../../profile-card/profile-card.component';
+import {AvatarGroupModule} from 'primeng/avatargroup';
 
 @Component({
   selector: 'app-event-guests',
@@ -25,6 +26,7 @@ import { ProfileCardComponent } from '../../profile-card/profile-card.component'
     TranslocoPipe,
     RouterLink,
     ProfileCardComponent,
+    AvatarGroupModule,
   ],
   templateUrl: './event-guests.component.html',
 })

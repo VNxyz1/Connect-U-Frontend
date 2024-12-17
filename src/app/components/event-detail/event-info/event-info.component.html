@@ -254,44 +254,44 @@
               <!-- Bottom Section -->
               <div class="flex justify-content-between align-items-center">
                 <!-- Profile Pictures (Left Bottom) -->
-                <div class="flex">
-                  @for (r of this.eventDetails.participants; track r) {
+                <p-avatarGroup>
+                  @for (r of eventDetails.participants.slice(0, 4); track r) {
                     @if (r.imageUrl) {
-                      <img
-                        [src]="'/path/to/profile/pictures/' + r.imageUrl"
-                        alt="{{ r.username }}"
-                        class="profile-picture"
-                        style="
-                          width: 3em;
-                          height: 3em;
-                          border-radius: 50%;
-                          margin-right: -5px;
-                          border: 2px solid white;
-                        " />
+                      <p-avatar
+                        [image]="r.imageUrl"
+                        shape="circle"
+                        size="large">
+                      </p-avatar>
                     } @else {
-                      <img
-                        src="https://via.placeholder.com/100"
-                        alt="{{ r.username }}"
-                        class="profile-picture"
-                        style="
-                          width: 3em;
-                          height: 3em;
-                          border-radius: 50%;
-                          margin-right: -5px;
-                          border: 2px solid white;
-                        " />
+                      <p-avatar
+                        image="/images/userImg.png"
+                        shape="circle"
+                        size="large"
+                        >
+                      </p-avatar>
                     }
                   }
-                </div>
+                  @if (eventDetails.participants.length > 5) {
+                    <p-avatar
+                      [label]="'+' + (eventDetails.participants.length - 4)"
+                      shape="circle"
+                      size="large"
+                      styleClass="flex align-items-center justify-content-center"
+                      >
+                    </p-avatar>
+                  }
+                </p-avatarGroup>
+
                 <!-- Icon (Bottom Right) -->
-                <div class="flex align-items-right">
+                <div class="flex align-items-center">
                   <rmx-icon
                     name="arrow-right-s-line"
-                    style="height: 26px; width: 26px"
+                    style="height: 26px; width: 26px;"
                     class="ml-2">
                   </rmx-icon>
                 </div>
               </div>
+
             </div>
           </p-card>
         }
