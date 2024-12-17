@@ -48,7 +48,6 @@
         </p-floatLabel>
       </div>
 
-      <!-- Neues Item immer oben -->
       <form (submit)="addItem($event)" class="field">
         <div class="flex align-items-center">
           <input
@@ -73,12 +72,12 @@
 
       <!-- Items -->
       <div class="field mt-3">
-        <h4>{{ 'createSurveyPage.choice' | transloco }}</h4>
+        <h4 class="mt-4 mb-0">{{ 'createSurveyPage.choice' | transloco }}</h4>
         <div class="flex align-items-start">
           <!-- Scrollbarer Bereich für Items -->
-          <div class="col-10">
+          <div class="col-10 pl-0">
             @if (items.length <= 0) {
-              <p class="mt-0">{{ 'createSurveyPage.info' | transloco }}</p>
+              <p class="mt-0 ">{{ 'createSurveyPage.info' | transloco }}</p>
             }
             @for (item of items.controls; track $index) {
               <div class="flex align-items-center mb-1">
