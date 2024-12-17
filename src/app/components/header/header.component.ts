@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgClass, NgOptimizedImage } from '@angular/common';
 import { ImageModule } from 'primeng/image';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';

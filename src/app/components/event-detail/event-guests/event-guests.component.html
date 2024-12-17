@@ -8,6 +8,7 @@
         {{ eventDetails.participantsNumber }}
       </span>
     </div>
+
     @for (r of this.eventDetails.participants; track r) {
       <app-profile-card [userProfile]="r" [showAge]="true" />
     }

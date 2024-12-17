@@ -209,6 +209,11 @@ h6 {
   color: $primaryTextColor; // Icon color inside the checked radio
 }
 
+.p-checkbox .p-highlight {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
 /* input */
 
 .p-inputtext {

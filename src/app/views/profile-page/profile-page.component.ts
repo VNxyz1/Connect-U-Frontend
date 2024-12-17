@@ -28,7 +28,6 @@ import { TagModule } from 'primeng/tag';
 import { ChipsModule } from 'primeng/chips';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TagService } from '../../services/tags/tag.service';
-import { keyframes } from '@angular/animations';
 
 type editProfileForm = FormGroup<{
   pronouns: FormControl<string>;
