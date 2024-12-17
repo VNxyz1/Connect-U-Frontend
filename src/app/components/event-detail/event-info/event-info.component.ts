@@ -22,7 +22,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { EventService } from '../../../services/event/eventservice';
 import { DialogModule } from 'primeng/dialog';
 import { AuthService } from '../../../services/auth/auth.service';
-import { EventRequestService } from '../../../services/event/event-request/event-request.service';
+import { EventRequestService } from '../../../services/event/event-request.service';
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
 import { NgClass, NgOptimizedImage } from '@angular/common';

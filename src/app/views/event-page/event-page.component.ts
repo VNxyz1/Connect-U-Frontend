@@ -17,7 +17,7 @@ import { Gender, GenderEnum } from '../../interfaces/Gender';
 import { EventInfoComponent } from '../../components/event-detail/event-info/event-info.component';
 import { AsyncPipe } from '@angular/common';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
-import { EventRequestService } from '../../services/event/event-request/event-request.service';
+import { EventRequestService } from '../../services/event/event-request.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { EventUserRequest } from '../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../interfaces/UsersEventRequest';

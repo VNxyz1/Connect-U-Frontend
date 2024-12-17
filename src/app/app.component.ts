@@ -23,7 +23,7 @@ import { ToastModule } from 'primeng/toast';
 import { TranslocoService } from '@jsverse/transloco';
 import { Observable } from 'rxjs';
 import { EventService } from './services/event/eventservice';
-import { EventRequestService } from './services/event/event-request/event-request.service';
+import { EventRequestService } from './services/event/event-request.service';
 import { UserService } from './services/user/user.service';
 
 @Component({
