@@ -37,8 +37,8 @@
                   <p class="m-0">{{ entry.content }}</p>
                 </div>
                 <div class="flex align-items-center">
-                  <div class="avatar-group mr-2">
-                    @for (user of entry.users.slice(0, 4); track $index) {
+                  <p-avatarGroup>
+                    @for (user of entry.users.slice(0, 2); track $index) {
                       <ng-container>
                         <p-avatar
                           image="images/userImg.png"
@@ -47,8 +47,15 @@
                         </p-avatar>
                       </ng-container>
                     }
-                  </div>
-                  <span class="ml-2">{{ entry.users.length }}</span>
+                    @if (entry.users.length > 2) {
+                      <p-avatar
+                        [label]="'+' + (entry.users.length - 2)"
+                        shape="circle"
+                        size="normal"
+                        styleClass="flex align-items-center justify-content-center">
+                      </p-avatar>
+                    }
+                  </p-avatarGroup>
                 </div>
               </div>
               <div>
