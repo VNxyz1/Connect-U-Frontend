@@ -51,7 +51,6 @@ export class CardSurveyComponent implements OnInit {
   expanded: boolean = false;
   sidebarVisible: boolean = false;
   selectedSurveyEntries: SurveyEntry[] = [];
-  // votes muss noch dynamisch angepasst werden für die Patch route!
   votes: number = 1;
 
   constructor(

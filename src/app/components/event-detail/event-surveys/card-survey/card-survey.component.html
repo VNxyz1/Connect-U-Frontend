@@ -25,16 +25,16 @@
       @if (surveyDetail$ | async; as surveyDetail) {
         <ng-container>
           @for (entry of surveyDetail.surveyEntries; track $index) {
-            <div class="mb-4 mt-4">
+            <div class="mb-4 mt-3">
               <div class="flex align-items-center justify-content-between mb-2">
                 <div class="flex align-items-center">
                   <p-checkbox
                     [ngModel]="isUserInEntry(entry)"
                     binary="true"
-                    class="p-checkbox-rounded mr-2"
+                    class="p-checkbox-rounded mr-2 mt-3"
                     (click)="updateSurveyEntry(entry.id)">
                   </p-checkbox>
-                  <p class="m-0">{{ entry.content }}</p>
+                  <p class="m-0 mt-3">{{ entry.content }}</p>
                 </div>
                 <div class="flex align-items-center">
                   <p-avatarGroup>
@@ -59,9 +59,8 @@
                 </div>
               </div>
               <div>
-                <!-- test functionality has to be updated -->
                 <p-progressBar
-                  [value]="Math.round((entry.users.length / votes) * 100)"
+                  [value]="votes > 0 ? Math.round((entry.users.length / votes) * 100) : 0"
                   [style]="{
                     height: '20px',
                     borderRadius: '40px',
@@ -140,10 +139,9 @@
               }
               <p class="mt-0">
                 <small
-                  ><b
-                    >{{ 'surveyCardPage.votes' | transloco }}
-                    {{ entry.users.length }}</b
-                  ></small
+                  >
+                    {{ 'surveyCardPage.votes' | transloco }}
+                    {{ entry.users.length }}</small
                 >
               </p>
             </div>
