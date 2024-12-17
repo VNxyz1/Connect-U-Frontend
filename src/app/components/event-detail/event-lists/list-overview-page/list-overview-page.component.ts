@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { List, ListService } from '../../../../services/lists/list.service';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { AsyncPipe } from '@angular/common';
@@ -24,6 +24,8 @@ export class ListOverviewPageComponent implements OnInit {
     this.eventId = id;
   }
 
+  private _listSubject$!: BehaviorSubject<List[]>;
+
   eventId!: string;
   lists$!: Observable<List[]>;
 
@@ -33,7 +35,12 @@ export class ListOverviewPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAndSetLists();
+    this.listService.getLists(this.eventId).subscribe({
+      next: res => {
+        this._listSubject$ = new BehaviorSubject<List[]>(res);
+        this.lists$ = this._listSubject$.asObservable();
+      },
+    });
 
     this.sockets.on('updateListOverview').subscribe({
       next: () => {
@@ -43,6 +50,8 @@ export class ListOverviewPageComponent implements OnInit {
   }
 
   getAndSetLists() {
-    this.lists$ = this.listService.getLists(this.eventId);
+    this.listService.getLists(this.eventId).subscribe({
+      next: res => this._listSubject$.next(res),
+    });
   }
 }
