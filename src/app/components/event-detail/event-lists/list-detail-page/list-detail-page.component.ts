@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {
   ListDetail,
   ListEntry,
@@ -55,6 +55,9 @@ export class ListDetailPageComponent implements OnInit {
   set listId(listId: number) {
     this._listId = listId;
   }
+
+  private _listDetailSubject$!: BehaviorSubject<ListDetail>;
+
   listDetail$!: Observable<ListDetail>;
   eventId!: string;
   _listId!: number;
@@ -79,7 +82,13 @@ export class ListDetailPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAndSetListDetails();
+    this.listService.getListDetail(this._listId).subscribe({
+      next: res => {
+        this._listDetailSubject$ = new BehaviorSubject<ListDetail>(res);
+        this.listDetail$ = this._listDetailSubject$.asObservable();
+      },
+    });
+
     this.sockets.on('updateListDetail').subscribe({
       next: () => this.getAndSetListDetails(),
     });
@@ -89,7 +98,9 @@ export class ListDetailPageComponent implements OnInit {
   }
 
   getAndSetListDetails() {
-    this.listDetail$ = this.listService.getListDetail(this._listId);
+    this.listService.getListDetail(this._listId).subscribe({
+      next: res => this._listDetailSubject$.next(res),
+    });
   }
 
   showCreateInput() {
