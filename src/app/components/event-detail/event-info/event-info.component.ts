@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { interval, Observable, of, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { EventDetails } from '../../../interfaces/EventDetails';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { ImageModule } from 'primeng/image';
@@ -21,13 +21,11 @@ import { EventtypeEnum } from '../../../interfaces/EventtypeEnum';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { EventService } from '../../../services/event/eventservice';
 import { DialogModule } from 'primeng/dialog';
-import { LoginComponent } from '../../login/login.component';
-import { RegisterComponent } from '../../register/register.component';
 import { AuthService } from '../../../services/auth/auth.service';
 import { EventRequestService } from '../../../services/event/event-request/event-request.service';
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
-import {AsyncPipe, NgClass, NgOptimizedImage} from '@angular/common';
+import { NgClass, NgOptimizedImage} from '@angular/common';
 import { EventStatusIndicatorComponent } from '../../event-status-indicator/event-status-indicator.component';
 import { ProfileCardComponent } from '../../profile-card/profile-card.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
