@@ -1,6 +1,6 @@
 import { ProfileData } from './ProfileData';
 
-export interface Message {
+export interface EventMessage {
   id: number,
   text: string,
   timestamp: string,
@@ -9,6 +9,6 @@ export interface Message {
 }
 
 export interface EventMessagesResponse {
-  readMessages: Message[];
-  unreadMessages: Message[];
+  readMessages: EventMessage[];
+  unreadMessages: EventMessage[];
 }

@@ -73,6 +73,7 @@ export class EventPageComponent implements OnInit {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.url = event.urlAfterRedirects;
+        this.setActiveTabItem();
       });
 
     this.eventId = this.route.snapshot.paramMap.get('id')!;
@@ -153,13 +154,23 @@ export class EventPageComponent implements OnInit {
             },
           },
           {
+            label: translations['eventPageComponent.chatTab'],
+            route: `/event/${this.eventId}/chat`,
+            icon: 'chat-3-line',
+            state: { eventDetails: this.eventDetails },
+            id: 'chatTab',
+            command: () => {
+              this.onActiveItemChange(this.eventTabMenuItems[1]);
+            },
+          },
+          {
             label: translations['eventPageComponent.listTab'],
             route: `/event/${this.eventId}/lists`,
             icon: 'list-check',
             state: { eventDetails: this.eventDetails },
             id: 'listTab',
             command: () => {
-              this.onActiveItemChange(this.eventTabMenuItems[1]);
+              this.onActiveItemChange(this.eventTabMenuItems[2]);
             },
           },
           {
@@ -169,17 +180,11 @@ export class EventPageComponent implements OnInit {
             state: { eventDetails: this.eventDetails },
             id: 'surveyTab',
             command: () => {
-              this.onActiveItemChange(this.eventTabMenuItems[2]);
+              this.onActiveItemChange(this.eventTabMenuItems[3]);
             },
           },
         ];
-        if (this.router.url.includes('/lists')) {
-          this.activeTabItem = this.eventTabMenuItems[1];
-        } else if (this.router.url.includes('/surveys')) {
-          this.activeTabItem = this.eventTabMenuItems[2];
-        } else {
-          this.activeTabItem = this.eventTabMenuItems[0];
-        }
+        this.setActiveTabItem();
       });
   }
 
@@ -225,5 +230,17 @@ export class EventPageComponent implements OnInit {
 
   protected onEventDetailsUpdated() {
     this.fetchEventDetails();
+  }
+
+  private setActiveTabItem() {
+    if (this.router.url.includes('/chat')) {
+      this.activeTabItem = this.eventTabMenuItems[1];
+    } else if (this.router.url.includes('/lists')) {
+      this.activeTabItem = this.eventTabMenuItems[2];
+    } else if (this.router.url.includes('/surveys')) {
+      this.activeTabItem = this.eventTabMenuItems[3];
+    } else {
+      this.activeTabItem = this.eventTabMenuItems[0];
+    }
   }
 }

@@ -284,7 +284,8 @@
   "eventPageComponent": {
     "infoTab": "Informationen",
     "listTab": "Listen",
-    "surveyTab": "Umfragen"
+    "surveyTab": "Umfragen",
+    "chatTab": "Chat"
   },
   "eventStatusIndicator": {
     "finished": {
@@ -354,6 +355,10 @@
         }
       }
     }
+  },
+  "eventChatPage": {
+    "unreadMessages": "ungelesene Nachricht(en)",
+    "you": "Du"
   },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "Du musst die AGBs bestätigen, um dich registrieren zu können",

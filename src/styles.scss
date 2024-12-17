@@ -78,3 +78,36 @@ body {
 .cursor-default {
   cursor: default !important;
 }
+
+
+/** chat**/
+
+/* Base speech bubble class */
+.speech-bubble {
+  position: relative;
+}
+
+/* Left side speech bubble tail */
+.speech-bubble-left::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -10px; /* Adjust tail position */
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  transform: rotate(-45deg);
+}
+
+/* Right side speech bubble tail */
+.speech-bubble-right::after {
+  content: '';
+  position: absolute;
+  bottom: 0; /* Adjust this for vertical alignment */
+  right: -10px; /* Moves the tail to the right side */
+  width: 0;
+  height: 0;
+  border: 10px solid transparent; /* Sets an invisible border on all sides */
+  border-left-color: inherit; /* Color of the speech bubble matches the background */
+  border-right: 0; /* Remove right border to create the tail effect */
+}

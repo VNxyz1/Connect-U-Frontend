@@ -1,1 +1,30 @@
-<p>event-chat works!</p>
+<div class="content col">
+  @if (messages$ | async; as Messages) {
+    @if (Messages.readMessages) {
+      @for (message of Messages.readMessages; track message.id) {
+        <div
+          class="flex mb-3"
+          [ngClass]="{'justify-content-end': message.writer.isUser, 'justify-content-start': !message.writer.isUser}">
+          <app-event-message [message]="message"></app-event-message>
+        </div>
+      }
+    }
+    @if (Messages.unreadMessages.length) {
+      <div class="success mb-3">
+        {{ Messages.unreadMessages.length }} {{ 'eventChatPage.unreadMessages' | transloco }}
+      </div>
+      @for (message of Messages.unreadMessages; track message.id) {
+        <div
+          class="flex mb-3"
+          [ngClass]="{'justify-content-end': message.writer.isUser, 'justify-content-start': !message.writer.isUser}">
+          <app-event-message [message]="message"></app-event-message>
+        </div>
+      }
+    }
+  } @else {
+    <!-- Skeleton Loading -->
+    <p-skeleton height="3rem" class="mb-2"></p-skeleton>
+    <p-skeleton height="3rem" class="mb-2"></p-skeleton>
+    <p-skeleton height="3rem" class="mb-2"></p-skeleton>
+  }
+</div>

@@ -1,0 +1,63 @@
+@if(message.writer){
+  <div
+    class="flex align-items-end justify-content-end"
+    [ngClass]="{ 'flex-row-reverse': message.writer.isUser }"
+  >
+    <!-- Avatar -->
+    <!--TODO Actual ProfilePicture -->
+    <p-avatar
+      [image]="'/images/userImg.png'"
+      class="mx-3"
+      size="large"
+      shape="circle"
+    />
+
+    <!-- Speech Bubble -->
+    <div
+      class="speech-bubble p-2 border-round-lg shadow-1 relative"
+      [ngClass]="{ 'speech-bubble-right': message.writer.isUser, 'speech-bubble-left': !message.writer.isUser }"
+    >
+      <!-- Message Header -->
+      <div
+        class="flex align-items-center gap-1 mb-2"
+        [ngClass]="{
+          'primaryTextColor': message.writer.isUser,
+          'color-secondary': message.isHost && !message.writer.isUser
+        }">
+        @if(message.isHost){
+            <rmx-icon
+              name="vip-crown-2-fill"
+              [ngClass]="{'color-secondary': message.isHost}"
+              style="width: 16px; height: 16px"
+              />
+        }
+      <span
+        class="font-bold"
+      >
+        {{ message.writer.isUser ? ('eventChatPage.you' | transloco) : message.writer.username }}
+      </span>
+        @if (message.writer.pronouns) {
+          <span class="text-sm text-gray-500">{{ message.writer.pronouns }}</span>
+        }
+      </div>
+
+      <!-- Message Text -->
+      <div class="text-sm text-color">
+        {{ message.text }}
+      </div>
+
+      <!-- Timestamp -->
+      <div class="text-right text-xs mt-2 text-gray-400">
+        {{ message.timestamp | translocoDate: { timeStyle: 'short' } }}
+      </div>
+    </div>
+  </div>
+}@else{
+  <p-avatar
+    image="/images/logoIcon.svg"
+    styleClass="mr-2"
+    size="xlarge"
+    shape="circle"
+  />
+}
+

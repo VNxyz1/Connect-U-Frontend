@@ -4,11 +4,36 @@ import { List } from '../../../services/lists/list.service';
 import { EventMessagesResponse } from '../../../interfaces/Messages';
 import { EventChatService } from '../../../services/event/event-chat.service';
 import { ActivatedRoute } from '@angular/router';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Messages } from 'primeng/messages';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
+import { Button } from 'primeng/button';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputTextModule } from 'primeng/inputtext';
+import { PaginatorModule } from 'primeng/paginator';
+import { PrimeTemplate } from 'primeng/api';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TranslocoPipe } from '@jsverse/transloco';
+import { EventMessageComponent } from './event-message/event-message.component';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-event-chat',
   standalone: true,
-  imports: [],
+  imports: [
+    AsyncPipe,
+    AngularRemixIconComponent,
+    Button,
+    InputGroupModule,
+    InputTextModule,
+    PaginatorModule,
+    PrimeTemplate,
+    ReactiveFormsModule,
+    TranslocoPipe,
+    EventMessageComponent,
+    NgClass,
+    SkeletonModule,
+  ],
   templateUrl: './event-chat.component.html',
 })
 export class EventChatComponent implements OnInit, OnDestroy {
@@ -46,4 +71,6 @@ export class EventChatComponent implements OnInit, OnDestroy {
       next: res => this._chatSubject$.next(res),
     });
   }
+
+  protected readonly Messages = Messages;
 }

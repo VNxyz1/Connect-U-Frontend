@@ -283,7 +283,8 @@
   "eventPageComponent": {
     "infoTab": "Information",
     "listTab": "Lists",
-    "surveyTab": "Surveys"
+    "surveyTab": "Surveys",
+    "chatTab": "Chat"
   },
   "eventStatusIndicator": {
     "finished": {
@@ -353,6 +354,10 @@
         }
       }
     }
+  },
+  "eventChatPage": {
+    "unreadMessages": "unread message(s)",
+    "you": "You"
   },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "You must accept the terms and conditions to register",
