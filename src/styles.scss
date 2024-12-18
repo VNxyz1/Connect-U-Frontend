@@ -82,32 +82,54 @@ body {
 
 /** chat**/
 
-/* Base speech bubble class */
 .speech-bubble {
-  position: relative;
+  --r: 1.25em;  /* the radius */
+  --t: 1.5em; /* the size of the tail */
+
+  max-width: 300px;
+  padding: 0.5em ;
+  border-inline: var(--t) solid #0000;
+  border-radius: calc(var(--r) + var(--t))/var(--r);
 }
 
-/* Left side speech bubble tail */
-.speech-bubble-left::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: -10px; /* Adjust tail position */
-  width: 0;
-  height: 0;
-  border: 10px solid transparent;
-  transform: rotate(-45deg);
+.speech-bubble-left {
+  --_p: 0;
+  border-bottom-left-radius: 0 0;
+  place-self: start;
+  mask:
+    radial-gradient(100% 100% at var(--_p) 0,#0000 99%,#000 102%)
+    var(--_p) 100%/var(--t) var(--t) no-repeat,
+    linear-gradient(135deg,$normal-grey,$normal-grey) padding-box;
+  background: linear-gradient(135deg,$normal-grey,$normal-grey) border-box;
+  color: $primaryTextColor;
 }
 
-/* Right side speech bubble tail */
-.speech-bubble-right::after {
-  content: '';
-  position: absolute;
-  bottom: 0; /* Adjust this for vertical alignment */
-  right: -10px; /* Moves the tail to the right side */
-  width: 0;
-  height: 0;
-  border: 10px solid transparent; /* Sets an invisible border on all sides */
-  border-left-color: inherit; /* Color of the speech bubble matches the background */
-  border-right: 0; /* Remove right border to create the tail effect */
+.speech-bubble-server {
+  --_p: 0;
+  border-bottom-left-radius: 0 0;
+  place-self: start;
+  mask:
+    radial-gradient(100% 100% at var(--_p) 0,#0000 99%,#000 102%)
+    var(--_p) 100%/var(--t) var(--t) no-repeat,
+    linear-gradient(135deg,$successColor,$successColor) padding-box;
+  background: linear-gradient(135deg,$successColor,$successColor) border-box;
+  color: $primaryTextColor;
+}
+
+.speech-bubble-right {
+  --_p: 100%;
+  border-bottom-right-radius: 0 0;
+  place-self: end;
+  mask:
+    radial-gradient(100% 100% at var(--_p) 0,#0000 99%,#000 102%)
+    var(--_p) 100%/var(--t) var(--t) no-repeat,
+    linear-gradient(135deg,$secondaryColor,$secondaryColor) padding-box;
+  background: linear-gradient(135deg,$secondaryColor,$secondaryColor) border-box;
+  color: $primaryTextColor;
+}
+
+.unread-messages {
+  background-color: rgba($successColor, 0.8);
+  color: $primaryTextColor;
+  width: 100vw;
 }
