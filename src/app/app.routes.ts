@@ -27,6 +27,7 @@ import { AccountManagePageComponent } from './views/account-manage-page/account-
 import { EventGuestsComponent } from './components/event-detail/event-guests/event-guests.component';
 import { InformationPageComponent } from './views/information-page/information-page.component';
 import { TermsPageComponent } from './views/terms-page/terms-page.component';
+import {ServerUnavailableComponent} from './views/server-unavailable/server-unavailable.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -159,6 +160,11 @@ export const routes: Routes = [
     path: 'account',
     title: 'Account | Connect-U',
     component: AccountManagePageComponent,
+  },
+  {
+    path: 'unavailable',
+    title: 'Unavailable | Connect-U',
+    component: ServerUnavailableComponent,
   },
   {
     path: '**',
