@@ -193,36 +193,31 @@ export class ProfilePageComponent implements OnInit {
   }
   onUploadImage(): void {
     if (this.uploadedFile) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const result = reader.result as string;
-        //jojo das splitet nen prefix raus der nicht in die db gehört but maybe splite ich zu viel
-        const base64Image = result.split(',')[1];
-        console.log(base64Image)
+      const formData = new FormData();
+      formData.append('file', this.uploadedFile);
 
-        this.userService.updateProfilePicture(base64Image).subscribe({
-          next: (data) => {
-            console.log(data.ok, data.message);
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Erfolg',
-              detail: 'Profilbild erfolgreich hochgeladen!',
-            });
-            this.closeUploadDialog();
-          },
-          error: (err) => {
-            console.error('Fehler beim Upload:', err);
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Fehler',
-              detail: 'Fehler beim Hochladen des Profilbildes.',
-            });
-          },
-        });
-      };
-      reader.readAsDataURL(this.uploadedFile);
+      this.userService.updateProfilePicture(formData).subscribe({
+        next: (data) => {
+          console.log(data.ok, data.message);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Erfolg',
+            detail: 'Profilbild erfolgreich hochgeladen!',
+          });
+          this.closeUploadDialog();
+        },
+        error: (err) => {
+          console.error('Fehler beim Upload:', err);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Fehler',
+            detail: 'Fehler beim Hochladen des Profilbildes.',
+          });
+        },
+      });
     }
   }
+
 
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
