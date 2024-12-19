@@ -781,6 +781,16 @@
       "pronouns": "Pronomen...",
       "desc": "Beschreibung...",
       "saveButton": "Speichern"
+    },
+    "updateProfilePic": {
+      "success": "Erfolg",
+      "error": "Fehler",
+      "errorFormat": "Es werden nur die Bildformate jpeg und png unterstützt",
+      "errorSize": "Die maximale Dateigröße beträgt 5 MB",
+      "successMessage": "Dein Bild wurde aktualisiert",
+      "errorMessage": "Fehler beim Hochladen des Profilbildes",
+      "cancel": "abbrechen",
+      "upload": "Hochladen"
     }
   },
   "accountPage": {

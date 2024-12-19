@@ -77,4 +77,8 @@ export class UserService {
   updatePassword(updateData: UpdatePasswordBody): Observable<ok> {
     return this.http.patch<ok>('user/password', updateData);
   }
+
+  updateProfilePicture(img: FormData): Observable<ok> {
+    return this.http.patch<ok>('user/profilePicture', img);
+  }
 }
