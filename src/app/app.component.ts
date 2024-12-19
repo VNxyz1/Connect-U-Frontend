@@ -25,6 +25,7 @@ import { Observable } from 'rxjs';
 import { EventService } from './services/event/eventservice';
 import { EventRequestService } from './services/event/event-request/event-request.service';
 import { UserService } from './services/user/user.service';
+import { LanguageService } from './services/language/language.service';
 
 @Component({
   selector: 'app-root',
@@ -46,6 +47,7 @@ import { UserService } from './services/user/user.service';
     UserService,
     ConfirmationService,
     SocketService,
+    LanguageService,
   ],
   templateUrl: './app.component.html',
 })

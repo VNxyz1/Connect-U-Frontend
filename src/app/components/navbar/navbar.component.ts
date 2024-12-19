@@ -18,6 +18,9 @@ import { NgClass } from '@angular/common';
 import { ImageModule } from 'primeng/image';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TranslocoService } from '@jsverse/transloco';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
+import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 
 @Component({
   selector: 'app-navbar',
@@ -30,6 +33,9 @@ import { TranslocoService } from '@jsverse/transloco';
     SidebarModule,
     NgClass,
     ImageModule,
+    DropdownModule,
+    FormsModule,
+    LanguageSelectorComponent,
   ],
   templateUrl: './navbar.component.html',
 })
@@ -156,6 +162,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
             route: '/my-space',
             icon: this.activeIcon('/my-space'),
             command: () => this.navigateTo('/my-space'),
+          },
+          {
+            label: translations['navbarComponent.selectLanguage'],
           },
         ];
       });
