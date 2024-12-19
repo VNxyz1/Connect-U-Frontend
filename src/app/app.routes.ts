@@ -27,6 +27,7 @@ import { AccountManagePageComponent } from './views/account-manage-page/account-
 import { EventGuestsComponent } from './components/event-detail/event-guests/event-guests.component';
 import { InformationPageComponent } from './views/information-page/information-page.component';
 import { TermsPageComponent } from './views/terms-page/terms-page.component';
+import { ShareProfilePageComponent } from './views/share-profile-page/share-profile-page.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -159,6 +160,13 @@ export const routes: Routes = [
     path: 'account',
     title: 'Account | Connect-U',
     component: AccountManagePageComponent,
+    canActivate: [isLoggedInGuard],
+  },
+  {
+    path: 'share-profile',
+    title: 'Share | Connect-U',
+    component: ShareProfilePageComponent,
+    canActivate: [isLoggedInGuard],
   },
   {
     path: '**',

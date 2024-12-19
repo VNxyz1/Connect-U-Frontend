@@ -382,7 +382,8 @@
     "account": "Account",
     "closeConfirmationMessage": "Are you sure that you want to discard the event? Your draft will not be saved.",
     "closeConfirmationHeader": "Discard Draft",
-    "information": "Information"
+    "information": "Information",
+    "shareProfile": "Friend request"
   },
   "navbarComponent": {
     "mySpace": "My Space",

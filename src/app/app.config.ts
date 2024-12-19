@@ -72,6 +72,8 @@ import {
   RiIdCardLine,
   RiDeleteBinLine,
   RiArrowDownSLine,
+  RiQrScan2Line,
+  RiRefreshLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
@@ -130,6 +132,8 @@ const icons = {
   RiScales3Line,
   RiIdCardLine,
   RiStarFill,
+  RiQrScan2Line,
+  RiRefreshLine,
 };
 
 export const translocoConfig = {

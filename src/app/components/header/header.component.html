@@ -54,6 +54,20 @@
         @case (currentUrl?.includes('/information')) {
           <h1 class="m-0">{{ 'headerComponent.information' | transloco }}</h1>
         }
+        @case (currentUrl?.includes('/share-profile')) {
+          <h1
+            class="m-0 max-w-full"
+            [lang]="translocoService.getActiveLang().split('_')[0]"
+            style="
+              -webkit-hyphens: auto;
+              -moz-hyphens: auto;
+              -ms-hyphens: auto;
+              hyphens: auto;
+              overflow-x: hidden;
+            ">
+            {{ 'headerComponent.shareProfile' | transloco }}
+          </h1>
+        }
         @default {
           <p-image
             src="images/logo_full_dark.svg"
@@ -62,7 +76,18 @@
         }
       }
     </div>
-    <div class="col"></div>
+    <div class="col flex justify-content-end">
+      <p-button
+        [text]="true"
+        severity="primary"
+        [routerLink]="['/share-profile']">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            style="width: 24px; height: 24px"
+            name="qr-scan-2-line"></rmx-icon>
+        </ng-template>
+      </p-button>
+    </div>
   </div>
 </div>
 

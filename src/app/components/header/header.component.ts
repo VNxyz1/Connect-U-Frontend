@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageModule } from 'primeng/image';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { Button } from 'primeng/button';
@@ -18,6 +18,7 @@ import { EventService } from '../../services/event/eventservice';
     Button,
     TranslocoPipe,
     ConfirmDialogModule,
+    RouterLink,
   ],
   templateUrl: './header.component.html',
 })
@@ -27,7 +28,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
-    private translocoService: TranslocoService,
+    protected translocoService: TranslocoService,
     private eventService: EventService,
   ) {}
 
