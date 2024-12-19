@@ -21,6 +21,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     InputTextModule,
     PaginatorModule,
     ReactiveFormsModule,
+
     TranslocoPipe,
     EventMessageComponent,
     NgClass,
