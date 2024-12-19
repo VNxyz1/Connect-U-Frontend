@@ -81,5 +81,4 @@ export class UserService {
   updateProfilePicture(img: FormData): Observable<ok> {
     return this.http.patch<ok>('user/profilePicture', img);
   }
-
 }

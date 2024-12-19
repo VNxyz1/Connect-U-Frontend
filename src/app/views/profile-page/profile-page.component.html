@@ -1,5 +1,5 @@
 <div class="flex flex-column align-items-center p-4 relative">
-
+  <p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />
   <div
     class="col-12 lg:col-6 flex align-items-center align-content-center justify-content-center">
     @if (isUser) {
@@ -10,25 +10,24 @@
         [src]="uploadedImagePreview || '/images/userImg.png'"
         alt="Profilbild"
         class="border-circle shadow-2 cursor-pointer -mb-5 z-3"
-        style="width: 150px; height: 150px; border: 4px solid white"
+        style="width: 150px; height: 150px; border: 4px solid #ee8418"
         (click)="triggerFileInput()" />
 
-      <!-- Versteckter File-Input -->
+      <!--hidden fileinput for pb upload-->
       <input
         type="file"
         #fileInput
         accept=".jpg, .jpeg, .png"
         style="display: none"
         (change)="onFileSelected($event)" />
-    }@else{
+    } @else {
       <img
         [src]="'/images/userImg.png'"
         alt="Profilbild"
         class="border-circle shadow-2 -mb-5 z-3"
-        style="width: 150px; height: 150px; border: 4px solid white"
-         />
+        style="width: 150px; height: 150px; border: 4px solid white" />
     }
-    <!-- Edit-Button (nur im normalen Modus sichtbar) -->
+    <!-- editmode button -->
     @if (isUser) {
       <div class="col-2">
         <p-button raised severity="info" class="mt-5 ml-2">
@@ -50,8 +49,7 @@
       [(visible)]="uploadDialogVisible"
       [modal]="true"
       [style]="{ width: '400px' }">
-      <!-- Bildvorschau -->
-      <div class="flex justify-content-center mb-4">
+      <div class="flex justify-content-center mb-4 mt-4">
         <div
           class="relative border-circle overflow-hidden"
           style="width: 200px; height: 200px; background-color: #f1f1f1">
@@ -62,17 +60,16 @@
         </div>
       </div>
 
-      <!-- Buttons -->
       <div class="flex justify-content-between mt-4 mb-4">
         <p-button
-          label="Abbrechen"
-          icon="pi pi-times"
+          raised
+          label="{{ 'profilePage.updateProfilePic.cancel' | transloco }}"
           severity="danger"
           (click)="closeUploadDialog()"
           class="p-button-text"></p-button>
         <p-button
-          label="Hochladen"
-          icon="pi pi-check"
+          raised
+          label="{{ 'profilePage.updateProfilePic.upload' | transloco }}"
           severity="success"
           (click)="onUploadImage()"
           [disabled]="!uploadedFile"></p-button>
@@ -127,7 +124,9 @@
                 maxlength="20"
                 class="w-full"
                 pInputText />
-              <label for="pronom">{{ 'profilePage.updateText.pronouns' | transloco }}</label>
+              <label for="pronom">{{
+                'profilePage.updateText.pronouns' | transloco
+              }}</label>
             </p-floatLabel>
           </div>
           <div class="field w-full mb-4">
@@ -140,7 +139,9 @@
                 formControlName="profileText"
                 id="profileText"
                 class="w-full"></textarea>
-              <label for="profileText">{{ 'profilePage.updateText.desc' | transloco }}</label>
+              <label for="profileText">{{
+                'profilePage.updateText.desc' | transloco
+              }}</label>
             </p-floatLabel>
           </div>
           <div class="justify-content-center mb-4">
@@ -153,7 +154,9 @@
                   (completeMethod)="search($event)"
                   (onKeyUp)="onKeyUp($event)"
                   [multiple]="true" />
-                <label for="tags">{{ 'createEventStep1Component.tagsInput.label' | transloco }}</label>
+                <label for="tags">{{
+                  'createEventStep1Component.tagsInput.label' | transloco
+                }}</label>
               </p-floatLabel>
             </span>
           </div>
