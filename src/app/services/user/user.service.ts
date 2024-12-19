@@ -81,4 +81,9 @@ export class UserService {
   updateProfilePicture(img: FormData): Observable<ok> {
     return this.http.patch<ok>('user/profilePicture', img);
   }
+  getImageFile(image:string):string{
+    const baseUrl:string = 'http://localhost:3000/api';
+    const path = `${baseUrl}/user/profilePicture/${image}`;
+    return path
+  }
 }

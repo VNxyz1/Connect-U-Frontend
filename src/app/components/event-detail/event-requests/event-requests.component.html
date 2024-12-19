@@ -13,7 +13,7 @@
       [routerLink]="['/profile/' + r.user.id]">
       <div class="flex align-items-center pr-3">
         <img
-          src="https://via.placeholder.com/100"
+          src="{{r.user.profilePicture}}"
           alt="{{ r.user.username }}-profile-picture"
           class="border-circle"
           style="width: 70px; height: 70px" />

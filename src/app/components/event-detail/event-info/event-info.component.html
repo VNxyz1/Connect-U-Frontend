@@ -191,7 +191,7 @@
                   @for (r of this.eventRequestsHost; track r) {
                     @if (r.user.imageUrl) {
                       <img
-                        [src]="'/path/to/profile/pictures/' + r.user.imageUrl"
+                        [src]="r.user.profilePicture"
                         alt="{{ r.user.username }}"
                         class="profile-picture"
                         style="
@@ -203,7 +203,7 @@
                         " />
                     } @else {
                       <img
-                        src="https://via.placeholder.com/100"
+                        src="{{r.user.profilePicture}}"
                         alt="{{ r.user.username }}"
                         class="profile-picture"
                         style="
@@ -256,15 +256,15 @@
                 <!-- Profile Pictures (Left Bottom) -->
                 <p-avatarGroup>
                   @for (r of eventDetails.participants.slice(0, 4); track r) {
-                    @if (r.imageUrl) {
+                    @if (r.profilePicture) {
                       <p-avatar
-                        [image]="r.imageUrl"
+                        [image]="r.profilePicture"
                         shape="circle"
                         size="large">
                       </p-avatar>
                     } @else {
                       <p-avatar
-                        image="/images/userImg.png"
+                        image="{{r.profilePicture}}"
                         shape="circle"
                         size="large">
                       </p-avatar>

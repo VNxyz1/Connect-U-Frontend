@@ -8,7 +8,7 @@ import {
   UpdateProfileBody,
   UserService,
 } from '../../services/user/user.service';
-import { Observable } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import {
   FormControl,
@@ -66,6 +66,9 @@ type editProfileForm = FormGroup<{
 export class ProfilePageComponent implements OnInit {
   protected userId!: string;
   protected profileData$!: Observable<ProfileData>;
+  protected profilePicture!: Observable<Object>;
+  protected imageUrl$!:Observable<any>;
+  url!:string;
   protected editMode: boolean = false;
   protected isUser!: boolean | undefined;
   max = 50;
@@ -73,6 +76,7 @@ export class ProfilePageComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
   uploadedFile: File | null = null;
   uploadedImagePreview: string | null = null;
+
 
   constructor(
     private readonly messageService: MessageService,
@@ -103,6 +107,14 @@ export class ProfilePageComponent implements OnInit {
     this.profileData$ = this.userService.getSpecificUserData(this.userId).pipe(
       map(data => {
         this.isUser = data.isUser;
+
+        const profilePicture = data.profilePicture
+          ? this.userService.getImageFile(data.profilePicture)
+          : this.userService.getImageFile('empty.png');
+
+        // Observable für die Bild-URL setzen
+        this.imageUrl$ = of(profilePicture);
+
         this.form.patchValue({
           pronouns: data.pronouns || '',
           profileText: data.profileText || '',

@@ -21,6 +21,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 })
 export class ProfileCardComponent {
   @Input() userProfile!: ProfileData;
+  @Input() imageUrl!: string;
   @Input() showAge: boolean = false;
   @Input() title!: string;
   @Input({ transform: booleanAttribute }) skeleton: boolean = false;
