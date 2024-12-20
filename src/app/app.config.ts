@@ -154,8 +154,8 @@ export const customMissingHandler = {
 
 export const translocoConfig = {
   config: {
-    availableLangs: ['en-US', 'de'],
-    defaultLang: 'de',
+    availableLangs: ['en-US', 'de-DE'],
+    defaultLang: 'de-DE',
     reRenderOnLangChange: true,
     prodMode: !isDevMode(),
     missingHandler: { logMissingKey: false }, // Disable missing key logs globally
@@ -183,7 +183,7 @@ export const appConfig: ApplicationConfig = {
     provideTranslocoLocale({
       langToLocaleMapping: {
         'en-US': 'en-US',
-        de: 'de-DE',
+        'de-DE': 'de-DE',
       },
     }),
   ],

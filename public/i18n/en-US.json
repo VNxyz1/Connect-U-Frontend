@@ -406,7 +406,8 @@
     "mySpace": "My Space",
     "myEvents": "My Events",
     "search": "Search",
-    "createEvent": "Create Event"
+    "createEvent": "Create Event",
+    "selectLanguage": "Language"
   },
   "myEventPageComponent": {
     "hosted": {
