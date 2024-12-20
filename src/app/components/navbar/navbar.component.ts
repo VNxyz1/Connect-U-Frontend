@@ -111,6 +111,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
       '/create-event/step1': 'add',
       '/my-events': 'function',
       '/my-space': 'user-3',
+      '/share-profile': 'qr-scan-2',
     };
 
     const baseIcon = iconBaseMap[path];
@@ -158,13 +159,16 @@ export class NavbarComponent implements OnInit, AfterViewInit {
             command: () => this.navigateTo('/my-events'),
           },
           {
+            label: translations['navbarComponent.shareProfile'],
+            route: '/share-profile',
+            icon: this.activeIcon('/share-profile'),
+            command: () => this.navigateTo('/share-profile'),
+          },
+          {
             label: translations['navbarComponent.mySpace'],
             route: '/my-space',
             icon: this.activeIcon('/my-space'),
             command: () => this.navigateTo('/my-space'),
-          },
-          {
-            label: translations['navbarComponent.selectLanguage'],
           },
         ];
       });

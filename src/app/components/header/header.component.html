@@ -77,11 +77,12 @@
       }
     </div>
     @if (isLoggedIn | async) {
-      <div class="col flex justify-content-end">
+      <div class="col flex md:block justify-content-end">
         <p-button
           [text]="true"
           severity="primary"
-          [routerLink]="['/share-profile']">
+          [routerLink]="['/share-profile']"
+          class="block md:hidden">
           <ng-template pTemplate="icon">
             <rmx-icon
               style="width: 24px; height: 24px"

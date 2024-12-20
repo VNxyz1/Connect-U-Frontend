@@ -384,14 +384,15 @@
     "information": "Informationen",
     "closeConfirmationMessage": "Bist Du sicher, dass du dein Event verwerfen möchtest? Dein Entwurf wird nicht gespeichert.",
     "closeConfirmationHeader": "Entwurf verwerfen",
-    "shareProfile": "Freundschaftsanfrage"
+    "shareProfile": "Profil Teilen"
   },
   "navbarComponent": {
     "mySpace": "Mein Bereich",
     "myEvents": "Meine Events",
     "search": "Suchen",
     "createEvent": "Event erstellen",
-    "selectLanguage": "Sprache"
+    "selectLanguage": "Sprache",
+    "shareProfile": "Profil Teilen"
   },
   "myEventPageComponent": {
     "hosted": {
