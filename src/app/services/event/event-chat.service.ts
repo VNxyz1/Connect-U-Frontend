@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
-import { List } from '../lists/list.service';
+import { Observable } from 'rxjs';
 import { EventMessagesResponse } from '../../interfaces/Messages';
 
 type OkResponse = {
