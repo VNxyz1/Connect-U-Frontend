@@ -90,6 +90,8 @@ body {
   padding: 0.5em ;
   border-inline: var(--t) solid #0000;
   border-radius: calc(var(--r) + var(--t))/var(--r);
+  color: $primaryTextColor;
+  margin-bottom: 0.5em;
 }
 
 .speech-bubble-left {
@@ -101,7 +103,7 @@ body {
     var(--_p) 100%/var(--t) var(--t) no-repeat,
     linear-gradient(135deg,$normal-grey,$normal-grey) padding-box;
   background: linear-gradient(135deg,$normal-grey,$normal-grey) border-box;
-  color: $primaryTextColor;
+  margin-inline-start: -0.25em;
 }
 
 .speech-bubble-server {
@@ -113,7 +115,7 @@ body {
     var(--_p) 100%/var(--t) var(--t) no-repeat,
     linear-gradient(135deg,$successColor,$successColor) padding-box;
   background: linear-gradient(135deg,$successColor,$successColor) border-box;
-  color: $primaryTextColor;
+  margin-inline-start: -0.25em;
 }
 
 .speech-bubble-right {
@@ -125,11 +127,21 @@ body {
     var(--_p) 100%/var(--t) var(--t) no-repeat,
     linear-gradient(135deg,$secondaryColor,$secondaryColor) padding-box;
   background: linear-gradient(135deg,$secondaryColor,$secondaryColor) border-box;
-  color: $primaryTextColor;
+  margin-inline-end: -0.25em;
 }
 
 .unread-messages {
   background-color: rgba($successColor, 0.8);
   color: $primaryTextColor;
   width: 100vw;
+}
+
+.chat-container {
+  height: calc(100vh - 13rem);
+}
+
+@media screen and (min-width: 768px) {
+  .chat-container {
+    height: calc(100vh - 9rem);
+  }
 }

@@ -2,14 +2,14 @@
   <div
     class="flex align-items-end justify-content-end"
     [ngClass]="{
-      'flex-row-reverse': message.writer?.isUser
+      'flex-row-reverse': message.writer.isUser
     }"
   >
     <!-- Avatar -->
     <div class="flex align-items-end">
       <p-avatar
         [image]="message.writer ? '/images/userImg.png' : '/images/logo_icon.svg'"
-        class="mx-0 mb-0 "
+        class="mx-0 mb-0 shadow-1"
         size="normal"
         shape="circle"
       />
@@ -19,8 +19,8 @@
     <div
       class="speech-bubble"
       [ngClass]="{
-        'speech-bubble-right': message.writer?.isUser,
-        'speech-bubble-left': !message.writer?.isUser,
+        'speech-bubble-right': message.writer.isUser,
+        'speech-bubble-left': !message.writer.isUser,
         'speech-bubble-server': !message.writer
       }"
     >
@@ -28,7 +28,7 @@
       <div
         class="flex align-items-center gap-1 mb-1"
         [ngClass]="{
-          'color-secondary': !message.writer?.isUser && message.writer
+          'color-secondary': !message.writer.isUser && message.writer
         }"
       >
         @if (message.isHost) {
@@ -44,8 +44,8 @@
               : 'Connect-U'
           }}
         </span>
-        @if (message.writer?.pronouns) {
-          <span class="text-sm">{{ message.writer.pronouns }}</span>
+        @if (message.writer.pronouns) {
+          <span class="text-sm ml-2 text-primary">{{ message.writer.pronouns }}</span>
         }
       </div>
 
