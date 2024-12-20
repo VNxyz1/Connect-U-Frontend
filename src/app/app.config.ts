@@ -76,7 +76,7 @@ import {
   RiVipCrown2Fill,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
-import { provideTransloco } from '@jsverse/transloco';
+import { provideTransloco, TranslocoMissingHandler, TranslocoMissingHandlerData } from '@jsverse/transloco';
 import { provideTranslocoLocale } from '@jsverse/transloco-locale';
 import { IonicStorageModule } from '@ionic/storage-angular';
 
@@ -136,12 +136,21 @@ const icons = {
   RiVipCrown2Fill,
 };
 
+// Custom missing handler to avoid console logs for missing keys
+export const customMissingHandler = {
+  handle: (key: string, data: TranslocoMissingHandlerData, params?: Record<string, any>) => {
+    console.error('Missing translation key:', key);
+    return key; // Return the key itself as a fallback
+  },
+};
+
 export const translocoConfig = {
   config: {
     availableLangs: ['en-US', 'de'],
     defaultLang: 'de',
     reRenderOnLangChange: true,
     prodMode: !isDevMode(),
+    missingHandler: { logMissingKey: false }, // Disable missing key logs globally
   },
   loader: TranslocoHttpLoader,
 };

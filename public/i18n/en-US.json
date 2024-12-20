@@ -366,6 +366,10 @@
       "empty": "Message cannot contain only whitespace.",
       "no-links": "Messages cannot contain links.",
       "generic": "An error occurred while sending your message. Please check your internet connection."
+    },
+    "server-messages": {
+      "new-list": "📋☑️ A new list titled \"{{title}}\" has been created for this event!",
+      "new-survey": "📊 A new survey titled \"{{title}}\" has been created for this event!"
     }
   },
   "registerComponentErrors": {

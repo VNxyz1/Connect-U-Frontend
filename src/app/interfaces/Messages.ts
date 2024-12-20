@@ -4,7 +4,7 @@ export interface EventMessage {
   id: number;
   text: string;
   timestamp: string;
-  writer: ProfileData;
+  writer: ProfileData | null;
   isHost: boolean;
 }
 

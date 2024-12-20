@@ -367,6 +367,10 @@
       "empty": "Nachricht darf nicht nur aus Leerzeichen bestehen.",
       "no-links": "Nachrichten dürfen keine Links enthalten.",
       "generic": "Beim Senden der Nachricht ist ein Fehler aufgetreten. Bitte überprüfe deine Internetverbindung."
+    },
+    "server-messages": {
+      "new-list": "📋☑️ Es wurde eine neue Liste \"{{title}}\" für dieses Event erstellt!",
+      "new-survey": "📊 Eine neue Umfrage \"{{title}}\" wurde für dieses Event erstellt!"
     }
   },
   "registerComponentErrors": {

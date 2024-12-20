@@ -9,8 +9,8 @@
               <div
                 class="col py-0 px-1 flex content my-2"
                 [ngClass]="{
-                  'justify-content-end': message.writer.isUser,
-                  'justify-content-start': !message.writer.isUser,
+                  'justify-content-end': message.writer?.isUser,
+                  'justify-content-start': !message.writer?.isUser
                 }">
                 <app-event-message [message]="message"></app-event-message>
               </div>
@@ -25,8 +25,8 @@
               <div
                 class="col py-0 px-1 flex content my-2"
                 [ngClass]="{
-                  'justify-content-end': message.writer.isUser,
-                  'justify-content-start': !message.writer.isUser,
+                  'justify-content-end': message.writer?.isUser,
+                  'justify-content-start': !message.writer?.isUser
                 }">
                 <app-event-message [message]="message"></app-event-message>
               </div>

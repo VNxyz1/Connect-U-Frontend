@@ -23,7 +23,7 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 export class EventMessageComponent {
   @Input() message!: EventMessage;
 
-  constructor(private readonly translocoService: TranslocoService) {}
+  constructor(protected readonly translocoService: TranslocoService) {}
 
   protected isShortEmojiOnly(text: string) {
     if (!text) return false; // Handle empty strings
@@ -72,5 +72,18 @@ export class EventMessageComponent {
         },
       );
     }
+  }
+
+  protected translateMessageText(text: string): string {
+    try {
+      const parsed = JSON.parse(text);
+      if (parsed.key && parsed.params) {
+        return this.translocoService.translate(parsed.key, parsed.params);
+      }
+    } catch {
+      // If not JSON, return the text directly
+      return text;
+    }
+    return text;
   }
 }
