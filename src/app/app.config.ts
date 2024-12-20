@@ -72,6 +72,8 @@ import {
   RiIdCardLine,
   RiDeleteBinLine,
   RiArrowDownSLine,
+  RiChat3Line,
+  RiVipCrown2Fill,
   RiQrScan2Line,
   RiRefreshLine,
   RiClipboardLine,
@@ -138,6 +140,8 @@ const icons = {
   RiQrScan2Fill,
   RiRefreshLine,
   RiClipboardLine,
+  RiChat3Line,
+  RiVipCrown2Fill,
 };
 
 export const translocoConfig = {

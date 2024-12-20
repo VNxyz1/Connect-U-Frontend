@@ -22,7 +22,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { EventService } from '../../../services/event/eventservice';
 import { DialogModule } from 'primeng/dialog';
 import { AuthService } from '../../../services/auth/auth.service';
-import { EventRequestService } from '../../../services/event/event-request/event-request.service';
+import { EventRequestService } from '../../../services/event/event-request.service';
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
 import { NgClass, NgOptimizedImage } from '@angular/common';
@@ -32,6 +32,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { SkeletonModule } from 'primeng/skeleton';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { AvatarModule } from 'primeng/avatar';
+import { UserService } from '../../../services/user/user.service';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -93,6 +94,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     private readonly messageService: MessageService,
     private readonly translocoService: TranslocoService,
     private readonly eventService: EventService,
+    protected userService: UserService,
     private readonly auth: AuthService,
     private readonly eventRequestService: EventRequestService,
     private readonly confirmationService: ConfirmationService,
@@ -145,6 +147,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
         this.fetchUserRequest();
         this.isLoading = false;
         this.eventDetailsUpdated.emit();
+        console.log(this.userService.getImageFile(details.host.profilePicture));
       },
       error: err => this.handleError(err),
     });

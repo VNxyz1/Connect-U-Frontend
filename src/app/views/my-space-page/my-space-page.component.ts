@@ -10,6 +10,7 @@ import { UserService } from '../../services/user/user.service';
 import { AsyncPipe } from '@angular/common';
 import { AuthService } from '../../services/auth/auth.service';
 import { MessageService } from 'primeng/api';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-my-space-page',
@@ -25,8 +26,7 @@ import { MessageService } from 'primeng/api';
   templateUrl: './my-space-page.component.html',
 })
 export class MySpacePageComponent implements OnInit {
-  profileData$!: Observable<ProfileData>;
-
+  profileData$!: Observable<{ userProfile: ProfileData; imageUrl: string }>;
   constructor(
     private userService: UserService,
     private router: Router,
@@ -39,7 +39,24 @@ export class MySpacePageComponent implements OnInit {
   }
 
   getProfileData() {
-    this.profileData$ = this.userService.getUserData();
+    this.userService.getUserData().subscribe(userData => {
+      const userId = userData.id;
+
+      this.profileData$ = this.userService.getSpecificUserData(userId).pipe(
+        map(data => {
+          console.log('Fetched User Data:', data);
+          const profilePicture = data.profilePicture
+            ? this.userService.getImageFile(data.profilePicture)
+            : this.userService.getImageFile('empty.png');
+          console.log('Profile Picture URL:', profilePicture);
+
+          return {
+            userProfile: data,
+            imageUrl: profilePicture,
+          };
+        }),
+      );
+    });
   }
 
   handleLogout() {

@@ -1,0 +1,47 @@
+<div #chatContainer class="chat-container overflow-scroll">
+  <div class="justify-content-center py-2">
+    @if (messages$ | async; as Messages) {
+      @if (Messages.readMessages.length || Messages.unreadMessages.length) {
+        @if (Messages.readMessages) {
+          @for (message of Messages.readMessages; track message.id) {
+            <div
+              class="col py-0 px-1 flex content my-2"
+              [ngClass]="{
+                'justify-content-end': message.writer.isUser,
+                'justify-content-start': !message.writer.isUser,
+              }">
+              <app-event-message [message]="message"></app-event-message>
+            </div>
+          }
+        }
+        @if (Messages.unreadMessages.length) {
+          <div class="unread-messages text-center p-1 my-1 align-items-center">
+            {{ Messages.unreadMessages.length }}
+            {{ 'eventChatPage.unreadMessages' | transloco }}
+          </div>
+          @for (message of Messages.unreadMessages; track message.id) {
+            <div
+              class="col py-0 px-1 flex content my-2"
+              [ngClass]="{
+                'justify-content-end': message.writer.isUser,
+                'justify-content-start': !message.writer.isUser,
+              }">
+              <app-event-message [message]="message"></app-event-message>
+            </div>
+          }
+        }
+      } @else {
+        <div class="top-auto flex flex-column align-items-center text-center">
+          <h3 class="text-lg font-bold mb-2">
+            {{ 'eventChatPage.no-messages' | transloco }}
+          </h3>
+        </div>
+      }
+    } @else {
+      <!-- Skeleton Loading -->
+      <p-skeleton height="3rem" class="mb-2"></p-skeleton>
+      <p-skeleton height="3rem" class="mb-2"></p-skeleton>
+      <p-skeleton height="3rem" class="mb-2"></p-skeleton>
+    }
+  </div>
+</div>

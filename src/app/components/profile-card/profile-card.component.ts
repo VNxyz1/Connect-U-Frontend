@@ -5,6 +5,7 @@ import { NgClass, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { SkeletonModule } from 'primeng/skeleton';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-profile-card',
@@ -21,7 +22,9 @@ import { SkeletonModule } from 'primeng/skeleton';
 })
 export class ProfileCardComponent {
   @Input() userProfile!: ProfileData;
+  @Input() imageUrl!: string;
   @Input() showAge: boolean = false;
   @Input() title!: string;
   @Input({ transform: booleanAttribute }) skeleton: boolean = false;
+  constructor(protected userService: UserService) {}
 }

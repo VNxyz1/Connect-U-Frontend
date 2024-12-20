@@ -283,7 +283,8 @@
   "eventPageComponent": {
     "infoTab": "Information",
     "listTab": "Lists",
-    "surveyTab": "Surveys"
+    "surveyTab": "Surveys",
+    "chatTab": "Chat"
   },
   "eventStatusIndicator": {
     "finished": {
@@ -353,6 +354,11 @@
         }
       }
     }
+  },
+  "eventChatPage": {
+    "unreadMessages": "unread message(s)",
+    "you": "You",
+    "no-messages": "It looks a bit empty here – be the first one to write a message!"
   },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "You must accept the terms and conditions to register",
@@ -784,6 +790,16 @@
       "pronouns": "Pronouns...",
       "desc": "Description...",
       "saveButton": "Save"
+    },
+    "updateProfilePic": {
+      "success": "Success",
+      "error": "Error",
+      "errorFormat": "Only jpeg and png image formats are supported",
+      "errorSize": "The maximum file size is 5 MB",
+      "successMessage": "Your picture has been updated",
+      "errorMessage": "Error uploading the profile picture",
+      "cancel": "Cancel",
+      "upload": "Upload"
     }
   },
   "accountPage": {

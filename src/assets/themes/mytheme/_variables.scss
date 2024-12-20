@@ -7,7 +7,7 @@ $blue: #4989bb;
 $blue-20: #336288;
 $blue-40: #2c506c;
 $dark-grey: #333333;
-$dark-grey-20: #535353;
+$dark-grey-20: #434343;
 $dark-grey-40: #767676;
 $normal-grey: #d1d1d1;
 $light-grey: #fafafa;
@@ -90,7 +90,7 @@ $font-family-bold: 'Proxima Nova Th', sans-serif;
   --text-color-secondary: #{$orange} !important;
 
   // Primary colors
-  --primary-color: #{$blue} !important;
+  --primary-color: #{$dark-grey} !important;
   --primary-color-text: #{$light-grey} !important;
   --secondary-color: #{$orange} !important;
   --white: #{$white};

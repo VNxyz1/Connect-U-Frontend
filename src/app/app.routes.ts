@@ -27,6 +27,7 @@ import { AccountManagePageComponent } from './views/account-manage-page/account-
 import { EventGuestsComponent } from './components/event-detail/event-guests/event-guests.component';
 import { InformationPageComponent } from './views/information-page/information-page.component';
 import { TermsPageComponent } from './views/terms-page/terms-page.component';
+import { EventChatComponent } from './components/event-detail/event-chat/event-chat.component';
 import { ShareProfilePageComponent } from './views/share-profile-page/share-profile-page.component';
 
 /**
@@ -89,6 +90,11 @@ export const routes: Routes = [
     title: 'Event | Connect-U',
     component: EventPageComponent,
     children: [
+      {
+        path: 'chat',
+        component: EventChatComponent,
+        canActivate: [isLoggedInGuard],
+      },
       {
         path: 'lists',
         component: EventListsComponent,
