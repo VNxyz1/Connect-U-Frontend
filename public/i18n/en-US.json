@@ -358,7 +358,8 @@
   "eventChatPage": {
     "unreadMessages": "unread message(s)",
     "you": "You",
-    "no-messages": "It looks a bit empty here – be the first one to write a message!"
+    "no-messages": "It looks a bit empty here – be the first one to write a message!",
+    "placeholder-input": "Type message..."
   },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "You must accept the terms and conditions to register",

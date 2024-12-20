@@ -19,6 +19,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { EventMessageComponent } from './event-message/event-message.component';
 import { SkeletonModule } from 'primeng/skeleton';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
+import { Button } from 'primeng/button';
 
 @Component({
   selector: 'app-event-chat',
@@ -34,6 +37,9 @@ import { SkeletonModule } from 'primeng/skeleton';
     EventMessageComponent,
     NgClass,
     SkeletonModule,
+    FloatLabelModule,
+    AngularRemixIconComponent,
+    Button,
   ],
   templateUrl: './event-chat.component.html',
 })
@@ -42,6 +48,7 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
   private eventId!: string;
   private _chatSubject$!: BehaviorSubject<EventMessagesResponse>;
   messages$!: Observable<EventMessagesResponse>;
+  newMessage!: string;
 
   constructor(
     private chatService: EventChatService,
@@ -92,5 +99,9 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
       const container = this.chatContainer.nativeElement;
       container.scrollTop = container.scrollHeight;
     }
+  }
+
+  protected sendMessage() {
+
   }
 }
