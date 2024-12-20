@@ -138,8 +138,8 @@ const icons = {
 
 export const translocoConfig = {
   config: {
-    availableLangs: ['en-US', 'de'],
-    defaultLang: 'de',
+    availableLangs: ['en-US', 'de-DE'],
+    defaultLang: 'de-DE',
     reRenderOnLangChange: true,
     prodMode: !isDevMode(),
   },
@@ -166,7 +166,7 @@ export const appConfig: ApplicationConfig = {
     provideTranslocoLocale({
       langToLocaleMapping: {
         'en-US': 'en-US',
-        de: 'de-DE',
+        'de-DE': 'de-DE',
       },
     }),
   ],
