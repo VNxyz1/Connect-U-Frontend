@@ -1,10 +1,10 @@
 <div class="content">
   <div class="m-3 mb-8 pt-5">
     <p-card>
-      <ul class="list-none p-0 m-0">
+      <ul class="list-none p-0 m-0 -my-2">
         <!-- Account Section -->
         <li
-          class="pt-0 col-12 flex justify-content-between align-items-center cursor-pointer"
+          class="p-3 pt-0 md:py-0 col-12 flex border-bottom-1 md:border-none border-gray-50 justify-content-between align-items-center cursor-pointer"
           [routerLink]="['/account']">
           <div class="flex align-items-center w-full">
             <rmx-icon name="id-card-line" class="mr-2"></rmx-icon>
@@ -13,6 +13,11 @@
           <rmx-icon
             name="arrow-right-s-line"
             style="height: 26px; width: 26px"></rmx-icon>
+        </li>
+        <!-- Language -->
+        <li
+          class="p-3 px-2 pb-0 col-12 flex justify-content-between align-items-center md:hidden">
+          <app-language-selector class="w-full" />
         </li>
       </ul>
     </p-card>
