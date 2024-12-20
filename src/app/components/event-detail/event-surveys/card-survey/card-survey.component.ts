@@ -21,6 +21,7 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SocketService } from '../../../../services/socket/socket.service';
+import { UserService } from '../../../../services/user/user.service';
 
 @Component({
   selector: 'app-card-survey',
@@ -57,6 +58,7 @@ export class CardSurveyComponent implements OnInit {
     private surveyService: SurveysService,
     private translocoService: TranslocoService,
     private confirmationService: ConfirmationService,
+    protected userService: UserService,
     private messageService: MessageService,
     private sockets: SocketService,
   ) {}

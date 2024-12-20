@@ -2,7 +2,9 @@
   <!-- Bereich für Profile-Data -->
   <div class="m-3">
     @if (profileData$ | async; as data) {
-      <app-profile-card [userProfile]="data.userProfile" [imageUrl]="data.imageUrl" ></app-profile-card>
+      <app-profile-card
+        [userProfile]="data.userProfile"
+        [imageUrl]="data.imageUrl"></app-profile-card>
     } @else {
       <app-profile-card skeleton></app-profile-card>
     }

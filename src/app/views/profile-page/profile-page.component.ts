@@ -8,7 +8,7 @@ import {
   UpdateProfileBody,
   UserService,
 } from '../../services/user/user.service';
-import {Observable, of} from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import {
   FormControl,
@@ -67,8 +67,8 @@ export class ProfilePageComponent implements OnInit {
   protected userId!: string;
   protected profileData$!: Observable<ProfileData>;
   protected profilePicture!: Observable<Object>;
-  protected imageUrl$!:Observable<any>;
-  url!:string;
+  protected imageUrl$!: Observable<any>;
+  url!: string;
   protected editMode: boolean = false;
   protected isUser!: boolean | undefined;
   max = 50;
@@ -76,7 +76,6 @@ export class ProfilePageComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
   uploadedFile: File | null = null;
   uploadedImagePreview: string | null = null;
-
 
   constructor(
     private readonly messageService: MessageService,

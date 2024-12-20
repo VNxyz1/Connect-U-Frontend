@@ -189,31 +189,17 @@
                 <!-- Profile Pictures (Left Bottom) -->
                 <div class="flex">
                   @for (r of this.eventRequestsHost; track r) {
-                    @if (r.user.imageUrl) {
-                      <img
-                        [src]="r.user.profilePicture"
-                        alt="{{ r.user.username }}"
-                        class="profile-picture"
-                        style="
-                          width: 3em;
-                          height: 3em;
-                          border-radius: 50%;
-                          margin-right: -5px;
-                          border: 2px solid white;
-                        " />
-                    } @else {
-                      <img
-                        src="{{r.user.profilePicture}}"
-                        alt="{{ r.user.username }}"
-                        class="profile-picture"
-                        style="
-                          width: 3em;
-                          height: 3em;
-                          border-radius: 50%;
-                          margin-right: -5px;
-                          border: 2px solid white;
-                        " />
-                    }
+                    <img
+                      [src]="userService.getImageFile(r.user.profilePicture)"
+                      alt="{{ r.user.username }}"
+                      class="profile-picture"
+                      style="
+                        width: 3em;
+                        height: 3em;
+                        border-radius: 50%;
+                        margin-right: -5px;
+                        border: 2px solid white;
+                      " />
                   }
                 </div>
                 <!-- Icon (Bottom Right) -->
@@ -256,19 +242,11 @@
                 <!-- Profile Pictures (Left Bottom) -->
                 <p-avatarGroup>
                   @for (r of eventDetails.participants.slice(0, 4); track r) {
-                    @if (r.profilePicture) {
-                      <p-avatar
-                        [image]="r.profilePicture"
-                        shape="circle"
-                        size="large">
-                      </p-avatar>
-                    } @else {
-                      <p-avatar
-                        image="{{r.profilePicture}}"
-                        shape="circle"
-                        size="large">
-                      </p-avatar>
-                    }
+                    <p-avatar
+                      [image]="userService.getImageFile(r.profilePicture)"
+                      shape="circle"
+                      size="large">
+                    </p-avatar>
                   }
                   @if (eventDetails.participants.length > 5) {
                     <p-avatar
