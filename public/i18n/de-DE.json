@@ -389,7 +389,8 @@
     "mySpace": "Mein Bereich",
     "myEvents": "Meine Events",
     "search": "Suchen",
-    "createEvent": "Event erstellen"
+    "createEvent": "Event erstellen",
+    "selectLanguage": "Sprache"
   },
   "myEventPageComponent": {
     "hosted": {
