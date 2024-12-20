@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { List } from '../lists/list.service';
 import { EventMessagesResponse } from '../../interfaces/Messages';
 
@@ -22,7 +22,9 @@ export class EventChatService {
    * @returns An Observable containing an object with arrays of read and unread messages.
    */
   getMessages(eventId: string): Observable<EventMessagesResponse> {
-    return this.http.get<EventMessagesResponse>('message/' + eventId);
+    return this.http.get<EventMessagesResponse>('message/' + eventId).pipe(
+      tap(res => console.log('Server response:', res))
+    );
   }
 
   /**

@@ -20,12 +20,8 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
   ],
   templateUrl: './event-message.component.html',
 })
-export class EventMessageComponent implements OnInit {
+export class EventMessageComponent {
   @Input() message!: EventMessage;
-
-  ngOnInit(): void {
-    console.log(this.message);
-  }
 
   constructor(private readonly translocoService: TranslocoService) {}
 
