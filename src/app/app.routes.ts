@@ -27,6 +27,7 @@ import { AccountManagePageComponent } from './views/account-manage-page/account-
 import { EventGuestsComponent } from './components/event-detail/event-guests/event-guests.component';
 import { InformationPageComponent } from './views/information-page/information-page.component';
 import { TermsPageComponent } from './views/terms-page/terms-page.component';
+import { EventChatComponent } from './components/event-detail/event-chat/event-chat.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -88,6 +89,11 @@ export const routes: Routes = [
     title: 'Event | Connect-U',
     component: EventPageComponent,
     children: [
+      {
+        path: 'chat',
+        component: EventChatComponent,
+        canActivate: [isLoggedInGuard],
+      },
       {
         path: 'lists',
         component: EventListsComponent,

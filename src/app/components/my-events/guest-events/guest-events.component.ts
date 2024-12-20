@@ -17,7 +17,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { CardModule } from 'primeng/card';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { EventRequestService } from '../../../services/event/event-request/event-request.service';
+import { EventRequestService } from '../../../services/event/event-request.service';
 
 @Component({
   selector: 'app-guest-events',

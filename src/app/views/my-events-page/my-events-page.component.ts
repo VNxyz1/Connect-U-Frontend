@@ -12,7 +12,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { UsersEventRequestsComponent } from '../../components/my-events/users-event-requests/users-event-requests.component';
-import { EventRequestService } from '../../services/event/event-request/event-request.service';
+import { EventRequestService } from '../../services/event/event-request.service';
 import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 
 @Component({
