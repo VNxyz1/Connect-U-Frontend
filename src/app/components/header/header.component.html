@@ -76,18 +76,22 @@
         }
       }
     </div>
-    <div class="col flex justify-content-end">
-      <p-button
-        [text]="true"
-        severity="primary"
-        [routerLink]="['/share-profile']">
-        <ng-template pTemplate="icon">
-          <rmx-icon
-            style="width: 24px; height: 24px"
-            name="qr-scan-2-line"></rmx-icon>
-        </ng-template>
-      </p-button>
-    </div>
+    @if (isLoggedIn | async) {
+      <div class="col flex justify-content-end">
+        <p-button
+          [text]="true"
+          severity="primary"
+          [routerLink]="['/share-profile']">
+          <ng-template pTemplate="icon">
+            <rmx-icon
+              style="width: 24px; height: 24px"
+              name="qr-scan-2-line"></rmx-icon>
+          </ng-template>
+        </p-button>
+      </div>
+    } @else {
+      <div class="col"></div>
+    }
   </div>
 </div>
 
