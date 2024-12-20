@@ -10,14 +10,15 @@
                 class="col py-0 px-1 flex content my-2"
                 [ngClass]="{
                   'justify-content-end': message.writer?.isUser,
-                  'justify-content-start': !message.writer?.isUser
+                  'justify-content-start': !message.writer?.isUser,
                 }">
                 <app-event-message [message]="message"></app-event-message>
               </div>
             }
           }
           @if (Messages.unreadMessages.length) {
-            <div class="unread-messages text-center p-1 my-1 align-items-center">
+            <div
+              class="col-12 unread-messages text-center justify-content-center p-1 my-1 align-items-center">
               {{ Messages.unreadMessages.length }}
               {{ 'eventChatPage.unreadMessages' | transloco }}
             </div>
@@ -26,7 +27,7 @@
                 class="col py-0 px-1 flex content my-2"
                 [ngClass]="{
                   'justify-content-end': message.writer?.isUser,
-                  'justify-content-start': !message.writer?.isUser
+                  'justify-content-start': !message.writer?.isUser,
                 }">
                 <app-event-message [message]="message"></app-event-message>
               </div>
@@ -49,7 +50,8 @@
   </div>
 
   <!-- Input Field -->
-  <div class="flex bg-white p-1 align-items-center justify-content-center sticky bottom-0">
+  <div
+    class="flex bg-white p-1 align-items-center justify-content-center sticky bottom-0">
     <p-inputGroup class="w-full max-w-30rem md:mb-5">
       <!-- Input Text -->
       <input
@@ -59,16 +61,14 @@
         (keyup.enter)="sendMessage()"
         autocomplete="off"
         pInputText
-        placeholder="{{'eventChatPage.placeholder-input' | transloco}}"
-        class="w-full"
-      />
+        placeholder="{{ 'eventChatPage.placeholder-input' | transloco }}"
+        class="w-full" />
       <!-- Send Button -->
       <p-button [raised]="true" severity="success" (onClick)="sendMessage()">
         <ng-template pTemplate="icon">
           <rmx-icon
             style="width: 16px; height: 16px"
-            name="check-line"
-          ></rmx-icon>
+            name="check-line"></rmx-icon>
         </ng-template>
       </p-button>
     </p-inputGroup>

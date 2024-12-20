@@ -46,7 +46,6 @@ export class EventSurveysComponent implements OnInit {
 
     this.sockets.on('updateSurveyOverview').subscribe({
       next: () => {
-        console.log('update surveys');
         this.fetchSurveys();
       },
     });

@@ -22,9 +22,7 @@ export class EventChatService {
    * @returns An Observable containing an object with arrays of read and unread messages.
    */
   getMessages(eventId: string): Observable<EventMessagesResponse> {
-    return this.http.get<EventMessagesResponse>('message/' + eventId).pipe(
-      tap(res => console.log('Server response:', res))
-    );
+    return this.http.get<EventMessagesResponse>('message/' + eventId);
   }
 
   /**
@@ -45,6 +43,8 @@ export class EventChatService {
    * @returns An Observable with a response indicating success or failure.
    */
   postChatMessage(eventId: string, content: string): Observable<OkResponse> {
-    return this.http.post<OkResponse>('message/' + eventId + '/message', { content });
+    return this.http.post<OkResponse>('message/' + eventId + '/message', {
+      content,
+    });
   }
 }

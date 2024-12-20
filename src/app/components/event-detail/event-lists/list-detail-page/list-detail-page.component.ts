@@ -200,7 +200,6 @@ export class ListDetailPageComponent implements OnInit {
                 'listPage.deleteListSuccessMessage',
               ),
             });
-            console.log('List successfully deleted!');
           },
           error: err => {
             this.messageService.add({
@@ -216,9 +215,7 @@ export class ListDetailPageComponent implements OnInit {
           },
         });
       },
-      reject: () => {
-        console.log('List deletion cancelled.');
-      },
+      reject: () => {},
     });
   }
 
@@ -245,7 +242,6 @@ export class ListDetailPageComponent implements OnInit {
                   'listPage.deleteEntrySuccessMessage',
                 ),
               });
-              console.log('List entry successfully deleted!');
             },
             error: err => {
               this.messageService.add({
@@ -261,12 +257,9 @@ export class ListDetailPageComponent implements OnInit {
             },
           });
         } else {
-          console.log('Invalid entry ID');
         }
       },
-      reject: () => {
-        console.log('List entry deletion cancelled.');
-      },
+      reject: () => {},
     });
   }
 }

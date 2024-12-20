@@ -76,7 +76,6 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
     // Subscribe to socket updates
     this.socketSubscription = this.sockets.on('updateChatMessages').subscribe({
       next: () => {
-        console.log('Socket received: updateChatMessages');
         this.getNewMessages();
       },
     });
@@ -88,7 +87,6 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
         this.cleanup();
       });
   }
-
 
   ngAfterViewInit(): void {
     setTimeout(() => this.scrollToBottom(), 0);
@@ -122,23 +120,15 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // Nullify messages observable
     this.messages$ = undefined!;
-
-    console.log('Cleanup called: Unsubscribed and cleaned up sockets and chatSubject');
   }
 
-
   private markMessagesAsRead() {
-    this.chatService.markMessagesAsRead(this.eventId).subscribe({
-      next: () => console.log('Messages marked as read'),
-      error: err => console.error('Error marking messages as read', err),
-    });
-
+    this.chatService.markMessagesAsRead(this.eventId).subscribe({});
   }
 
   private getNewMessages(): void {
     this.chatService.getMessages(this.eventId).subscribe({
       next: res => {
-        console.log(res);
         if (!this._chatSubject$) {
           // Initialize BehaviorSubject if not already done
           this._chatSubject$ = new BehaviorSubject<EventMessagesResponse>(res);
@@ -147,10 +137,6 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
           // Update BehaviorSubject with the new data
           this._chatSubject$.next(res);
         }
-
-        // Log unread messages
-        console.log('Unread Messages:', res.unreadMessages);
-        console.log('Read Messages:', res.readMessages);
 
         // Wait for Angular to render and detect changes, then scroll
         this.cdr.detectChanges();
@@ -164,7 +150,6 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private scrollToBottom(): void {
     if (this.chatContainer) {
-      console.log('scrollToBottom');
       const container = this.chatContainer.nativeElement;
       container.scrollTop = container.scrollHeight;
     }
@@ -173,31 +158,33 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
   protected sendMessage(): void {
     this.markMessagesAsRead();
     if (this.newMessage.trim()) {
-      console.log(this.newMessage);
-      this.chatService.postChatMessage(this.eventId, this.newMessage).subscribe({
-        next: res => {
-          this.newMessage = ''; // Clear the input field
-          this.getNewMessages(); // Refresh messages
+      this.chatService
+        .postChatMessage(this.eventId, this.newMessage)
+        .subscribe({
+          next: res => {
+            this.newMessage = ''; // Clear the input field
+            this.getNewMessages(); // Refresh messages
+          },
+          error: err => {
+            const errorDictionary: Record<string, string> = {
+              'Content is required': 'eventChatPage.errors.required',
+              'Content must not exceed 65000 characters':
+                'eventChatPage.errors.too-long',
+              'Content must not be empty or contain only whitespace':
+                'eventChatPage.errors.empty',
+              'Messages cannot contain links': 'eventChatPage.errors.no-links',
+            };
 
-        },
-        error: err => {
-          const errorDictionary: Record<string, string> = {
-            'Content is required': 'eventChatPage.errors.required',
-            'Content must not exceed 65000 characters': 'eventChatPage.errors.too-long',
-            'Content must not be empty or contain only whitespace': 'eventChatPage.errors.empty',
-            'Messages cannot contain links': 'eventChatPage.errors.no-links',
-          };
+            const serverMessage = err?.error?.message || 'Unknown error';
+            const translationKey =
+              errorDictionary[serverMessage] || 'eventChatPage.errors.generic';
 
-          const serverMessage = err?.error?.message || 'Unknown error';
-          const translationKey =
-            errorDictionary[serverMessage] || 'eventChatPage.errors.generic';
-
-          this.messageService.add({
-            severity: 'error',
-            summary: this.translocoService.translate(translationKey),
-          });
-        },
-      });
+            this.messageService.add({
+              severity: 'error',
+              summary: this.translocoService.translate(translationKey),
+            });
+          },
+        });
     }
   }
 }
