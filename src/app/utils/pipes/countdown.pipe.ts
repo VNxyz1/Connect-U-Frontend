@@ -5,9 +5,15 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class CountdownPipe implements PipeTransform {
-  transform(milliseconds: number): string {
+  transform(milliseconds: number, format: 'full' | 'minute' = 'full'): string {
     const minutes = Math.floor(milliseconds / 60000);
     const seconds = Math.floor((milliseconds % 60000) / 1000);
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+    switch (format) {
+      case 'full':
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      case 'minute':
+        return `${minutes}`;
+    }
   }
 }

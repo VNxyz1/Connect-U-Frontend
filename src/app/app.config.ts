@@ -74,6 +74,7 @@ import {
   RiArrowDownSLine,
   RiQrScan2Line,
   RiRefreshLine,
+  RiClipboardLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
@@ -134,6 +135,7 @@ const icons = {
   RiStarFill,
   RiQrScan2Line,
   RiRefreshLine,
+  RiClipboardLine,
 };
 
 export const translocoConfig = {

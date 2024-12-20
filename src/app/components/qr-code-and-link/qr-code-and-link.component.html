@@ -1,15 +1,37 @@
-<p-card header="Dein Anfrage Link">
+<p-card [header]="'shareProfilePage.shareHeader' | transloco">
   <div class="grid">
-    <div class="col-12 flex justify-content-center text-center">
+    <div class="col-12 text-center">
       @if (userService.inviteLink$ | async) {
         @if (userService.remainingTime$ | async; as remainingTime) {
-          Lasse jetzt eine Person deinen QR-Code Scannen, oder schicke ihr den
-          Link! Der Link ist {{ remainingTime | countdown }} min gültig.
+          {{
+            'shareProfilePage.linkExplanation'
+              | transloco: { time: (remainingTime | countdown: 'minute') }
+          }}
+          <br />
+          <br />
+
+          <span class="color-secondary">{{
+            remainingTime | countdown: 'full'
+          }}</span>
         } @else {
-          Loading...
+          <div class="grid">
+            <div class="col-12 p-0 flex justify-content-center">
+              <p-skeleton class="w-full" height="1rem" styleClass="mb-2" />
+            </div>
+            <div class="col-12 p-0 flex justify-content-center">
+              <p-skeleton class="w-full" height="1rem" styleClass="mb-2" />
+            </div>
+            <div class="col-12 p-0 flex justify-content-center">
+              <p-skeleton class="w-6" height="1rem" styleClass="mb-2" />
+            </div>
+            <div class="col-12"></div>
+            <div class="col-12 p-0 flex justify-content-center">
+              <p-skeleton class="w-2" height="1rem" styleClass="mb-2" />
+            </div>
+          </div>
         }
       } @else {
-        Dein Link ist abgelaufen! Generiere jetzt einen neuen!
+        {{ 'shareProfilePage.linkExpired' | transloco }}
       }
     </div>
     <div class="col-12 flex justify-content-center">
@@ -21,10 +43,34 @@
         </ng-template>
       </p-button>
     </div>
-    <div class="col-12 flex justify-content-center">qr code</div>
     <div class="col-12 flex justify-content-center">
       @if (userService.inviteLink$ | async; as inviteLink) {
-        {{ inviteLink }}
+        <qrcode
+          [qrdata]="inviteLink"
+          [width]="256"
+          imageSrc="images/icon_backgroun_round.png"
+          [imageWidth]="70"
+          [imageHeight]="70"
+          [errorCorrectionLevel]="'M'"></qrcode>
+      }
+    </div>
+    <div class="col-12 flex justify-content-center">
+      @if (userService.inviteLink$ | async; as inviteLink) {
+        <form (submit)="handleSubmitCopy($event, inviteLink)">
+          <p-inputGroup>
+            <input
+              type="text"
+              pInputText
+              readonly
+              placeholder="Generate new Link"
+              [value]="inviteLink" />
+            <button type="submit" pButton class="p-2" severity="secondary">
+              <rmx-icon
+                style="width: 24px; height: 24px"
+                name="clipboard-line"></rmx-icon>
+            </button>
+          </p-inputGroup>
+        </form>
       }
     </div>
   </div>

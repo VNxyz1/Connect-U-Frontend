@@ -895,5 +895,12 @@
     "deleteEntrySuccessMessage": "The list entry has been successfully removed.",
     "deleteEntryErrorTitle": "Error Deleting Entry!",
     "deleteEntryErrorMessage": "The list entry could not be deleted. Please try again."
+  },
+  "shareProfilePage": {
+    "successfullyCopiedMessage": "Your invitation link has been copied to the clipboard.",
+    "linkExpired": "Your link has expired! Generate a new one now!",
+    "linkExplanation": "Let someone scan your QR code now or send them the link! The link is valid for another {{ time }} minutes.",
+    "shareHeader": "Your personal invite"
   }
+
 }
