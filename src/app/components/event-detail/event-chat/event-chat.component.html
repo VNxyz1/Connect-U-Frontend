@@ -57,6 +57,7 @@
         type="text"
         [(ngModel)]="newMessage"
         (keyup.enter)="sendMessage()"
+        autocomplete="off"
         pInputText
         placeholder="{{'eventChatPage.placeholder-input' | transloco}}"
         class="w-full"
