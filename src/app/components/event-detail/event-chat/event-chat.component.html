@@ -5,19 +5,26 @@
         @for (message of Messages.readMessages; track message.id) {
           <div
             class="col py-0 px-1 flex content my-2"
-            [ngClass]="{'justify-content-end': message.writer.isUser, 'justify-content-start': !message.writer.isUser}">
+            [ngClass]="{
+              'justify-content-end': message.writer.isUser,
+              'justify-content-start': !message.writer.isUser,
+            }">
             <app-event-message [message]="message"></app-event-message>
           </div>
         }
       }
       @if (Messages.unreadMessages.length) {
         <div class="unread-messages text-center p-1 my-1 align-items-center">
-          {{ Messages.unreadMessages.length }} {{ 'eventChatPage.unreadMessages' | transloco }}
+          {{ Messages.unreadMessages.length }}
+          {{ 'eventChatPage.unreadMessages' | transloco }}
         </div>
         @for (message of Messages.unreadMessages; track message.id) {
           <div
             class="col py-0 px-1 flex content my-2"
-            [ngClass]="{'justify-content-end': message.writer.isUser, 'justify-content-start': !message.writer.isUser}">
+            [ngClass]="{
+              'justify-content-end': message.writer.isUser,
+              'justify-content-start': !message.writer.isUser,
+            }">
             <app-event-message [message]="message"></app-event-message>
           </div>
         }

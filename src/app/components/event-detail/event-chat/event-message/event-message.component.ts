@@ -27,7 +27,7 @@ export class EventMessageComponent implements OnInit {
     console.log(this.message);
   }
 
-  constructor(private readonly translocoService: TranslocoService,){}
+  constructor(private readonly translocoService: TranslocoService) {}
 
   protected isShortEmojiOnly(text: string) {
     if (!text) return false; // Handle empty strings
@@ -59,16 +59,22 @@ export class EventMessageComponent implements OnInit {
 
     if (isToday) {
       // If today, return time in HH:mm format
-      return messageDate.toLocaleTimeString(this.translocoService.getActiveLang(), {
-        hour: '2-digit',
-        minute: '2-digit',
-      });
+      return messageDate.toLocaleTimeString(
+        this.translocoService.getActiveLang(),
+        {
+          hour: '2-digit',
+          minute: '2-digit',
+        },
+      );
     } else {
       // Otherwise, return date in dd.MM format
-      return messageDate.toLocaleDateString(this.translocoService.getActiveLang(), {
-        day: '2-digit',
-        month: '2-digit',
-      });
+      return messageDate.toLocaleDateString(
+        this.translocoService.getActiveLang(),
+        {
+          day: '2-digit',
+          month: '2-digit',
+        },
+      );
     }
   }
 }

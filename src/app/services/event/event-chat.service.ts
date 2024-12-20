@@ -10,10 +10,9 @@ type OkResponse = {
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EventChatService {
-
   constructor(private readonly http: HttpClient) {}
 
   /**
@@ -26,6 +25,6 @@ export class EventChatService {
   }
 
   markMessagesAsRead(eventId: string): Observable<OkResponse> {
-    return this.http.post<OkResponse>('message/' + eventId  + '/read', {});
+    return this.http.post<OkResponse>('message/' + eventId + '/read', {});
   }
 }

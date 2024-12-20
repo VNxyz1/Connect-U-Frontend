@@ -1,4 +1,12 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { EventMessagesResponse } from '../../../interfaces/Messages';
 import { EventChatService } from '../../../services/event/event-chat.service';
@@ -38,7 +46,7 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private chatService: EventChatService,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -51,7 +59,6 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
         setTimeout(() => this.scrollToBottom(), 10);
       },
     });
-
   }
 
   ngAfterViewInit(): void {
@@ -87,4 +94,3 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 }
-

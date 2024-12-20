@@ -1,9 +1,9 @@
 import { ProfileData } from './ProfileData';
 
 export interface EventMessage {
-  id: number,
-  text: string,
-  timestamp: string,
+  id: number;
+  text: string;
+  timestamp: string;
   writer: ProfileData;
   isHost: boolean;
 }

@@ -88,7 +88,11 @@
     </div>
     <div class="grid justify-content-center mb-2">
       <div class="col-fixed w-max">
-        <p-button raised type="submit" severity="success" [disabled]="form.invalid">
+        <p-button
+          raised
+          type="submit"
+          severity="success"
+          [disabled]="form.invalid">
           {{ 'loginComponent.loginButtonLabel' | transloco }}
         </p-button>
       </div>
