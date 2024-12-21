@@ -224,7 +224,6 @@ export class ProfilePageComponent implements OnInit {
           });
           this.fetchData();
           this.closeUploadDialog();
-
         },
         error: err => {
           console.error('Fehler beim Upload:', err);
@@ -245,7 +244,12 @@ export class ProfilePageComponent implements OnInit {
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
 
-    if (file && (file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/gif')) {
+    if (
+      file &&
+      (file.type === 'image/png' ||
+        file.type === 'image/jpeg' ||
+        file.type === 'image/gif')
+    ) {
       if (file.size > 5242880) {
         this.messageService.add({
           severity: 'error',

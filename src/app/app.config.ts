@@ -77,7 +77,8 @@ import {
   RiQrScan2Line,
   RiRefreshLine,
   RiClipboardLine,
-  RiQrScan2Fill, RiCameraLine,
+  RiQrScan2Fill,
+  RiCameraLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { provideTransloco } from '@jsverse/transloco';
@@ -142,7 +143,7 @@ const icons = {
   RiClipboardLine,
   RiChat3Line,
   RiVipCrown2Fill,
-  RiCameraLine
+  RiCameraLine,
 };
 
 export const translocoConfig = {
