@@ -17,11 +17,13 @@
             }
           }
           @if (Messages.unreadMessages.length) {
-            <div
-              class="col-12 unread-messages text-center justify-content-center p-1 my-1 align-items-center">
-              {{ Messages.unreadMessages.length }}
-              {{ 'eventChatPage.unreadMessages' | transloco }}
-            </div>
+            @if (initialLoad) {
+              <div
+                class="col-12 unread-messages text-center justify-content-center p-1 my-1 align-items-center">
+                {{ Messages.unreadMessages.length }}
+                {{ 'eventChatPage.unreadMessages' | transloco }}
+              </div>
+            }
             @for (message of Messages.unreadMessages; track message.id) {
               <div
                 class="col py-0 px-1 flex content my-2"

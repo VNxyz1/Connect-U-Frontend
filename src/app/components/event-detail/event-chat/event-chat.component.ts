@@ -55,6 +55,7 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
   private userScrolled: boolean = false;
   private socketSubscription!: Subscription;
   private routeSubscription!: Subscription;
+  initialLoad = true;
 
   constructor(
     private chatService: EventChatService,
@@ -77,6 +78,7 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
     this.socketSubscription = this.sockets.on('updateChatMessages').subscribe({
       next: () => {
         this.getNewMessages();
+        this.initialLoad = false;
       },
     });
 
@@ -119,6 +121,7 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
     this._chatSubject$?.complete();
 
     // Nullify messages observable
+    this.initialLoad = true;
     this.messages$ = undefined!;
   }
 
@@ -136,6 +139,7 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
         } else {
           // Update BehaviorSubject with the new data
           this._chatSubject$.next(res);
+          this.markMessagesAsRead();
         }
 
         // Wait for Angular to render and detect changes, then scroll
@@ -164,6 +168,7 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
           next: res => {
             this.newMessage = ''; // Clear the input field
             this.getNewMessages(); // Refresh messages
+            this.markMessagesAsRead();
           },
           error: err => {
             const errorDictionary: Record<string, string> = {
