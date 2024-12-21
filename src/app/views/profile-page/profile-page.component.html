@@ -6,18 +6,27 @@
       <div class="col-2"></div>
     }
     @if (editMode) {
-      <img
-        [src]="imageUrl$ | async"
-        alt="Profilbild"
-        class="border-circle shadow-2 cursor-pointer -mb-5 z-3"
-        style="width: 150px; height: 150px; border: 4px solid #ee8418"
-        (click)="triggerFileInput()" />
+      <div class="relative" style="width: 150px; height: 150px;">
+        <img
+          [src]="imageUrl$ | async"
+          alt="Profilbild"
+          class="border-circle shadow-2 cursor-pointer z-3"
+          style="width: 150px; height: 150px; border: 4px solid #ee8418"
+          (click)="triggerFileInput()" />
+        <!-- Camera icon positioned in the middle -->
+        <rmx-icon
+          name="camera-line"
+          class="absolute z-4 cursor-pointer"
+          style="top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; width: 36px; height: 36px"
+          (click)="triggerFileInput()">
+        </rmx-icon>
+      </div>
 
       <!--hidden fileinput for pb upload-->
       <input
         type="file"
         #fileInput
-        accept=".jpg, .jpeg, .png"
+        accept=".jpg, .jpeg, .png, .apng, .gif, .svg ,.webp"
         style="display: none"
         (change)="onFileSelected($event)" />
     } @else {
