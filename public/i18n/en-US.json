@@ -400,14 +400,16 @@
     "account": "Account",
     "closeConfirmationMessage": "Are you sure that you want to discard the event? Your draft will not be saved.",
     "closeConfirmationHeader": "Discard Draft",
-    "information": "Information"
+    "information": "Information",
+    "shareProfile": "Share Profile"
   },
   "navbarComponent": {
     "mySpace": "My Space",
     "myEvents": "My Events",
     "search": "Search",
     "createEvent": "Create Event",
-    "selectLanguage": "Language"
+    "selectLanguage": "Language",
+    "shareProfile": "Share Profile"
   },
   "myEventPageComponent": {
     "hosted": {
@@ -923,5 +925,12 @@
     "deleteEntrySuccessMessage": "The list entry has been successfully removed.",
     "deleteEntryErrorTitle": "Error Deleting Entry!",
     "deleteEntryErrorMessage": "The list entry could not be deleted. Please try again."
+  },
+  "shareProfilePage": {
+    "successfullyCopiedMessage": "Your invitation link has been copied to the clipboard.",
+    "linkExpired": "Your link has expired! Generate a new one now!",
+    "linkExplanation": "Let someone scan your QR code now or send them the link! The link is valid for another {{ time }} minutes.",
+    "shareHeader": "Your personal invite"
   }
+
 }

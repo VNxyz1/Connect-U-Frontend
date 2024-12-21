@@ -401,14 +401,16 @@
     "account": "Konto",
     "information": "Informationen",
     "closeConfirmationMessage": "Bist Du sicher, dass du dein Event verwerfen möchtest? Dein Entwurf wird nicht gespeichert.",
-    "closeConfirmationHeader": "Entwurf verwerfen"
+    "closeConfirmationHeader": "Entwurf verwerfen",
+    "shareProfile": "Profil Teilen"
   },
   "navbarComponent": {
     "mySpace": "Mein Bereich",
     "myEvents": "Meine Events",
     "search": "Suchen",
     "createEvent": "Event erstellen",
-    "selectLanguage": "Sprache"
+    "selectLanguage": "Sprache",
+    "shareProfile": "Profil Teilen"
   },
   "myEventPageComponent": {
     "hosted": {
@@ -923,5 +925,11 @@
     "deleteEntrySuccessMessage": "Der Listeneintrag wurde erfolgreich entfernt.",
     "deleteEntryErrorTitle": "Fehler beim Löschen!",
     "deleteEntryErrorMessage": "Der Listeneintrag konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
+  },
+  "shareProfilePage": {
+    "successfullyCopiedMessage": "Dein Einladungslink wurde in die Zwischenablage kopiert.",
+    "linkExpired": "Dein Link ist abgelaufen! Generiere jetzt einen neuen!",
+    "linkExplanation": "Lasse jetzt eine Person deinen QR-Code Scannen, oder schicke ihr den Link! Der Link ist noch {{ time }} min gültig.",
+    "shareHeader": "Dein Anfrage Link"
   }
 }
