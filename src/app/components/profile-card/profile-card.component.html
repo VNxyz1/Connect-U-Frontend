@@ -8,7 +8,7 @@
     }
     <div class="flex align-items-center pr-3">
       <img
-        src="images/userImg.png"
+        [src]="userService.getImageFile(userProfile.profilePicture)"
         alt="profilbild"
         class="border-circle"
         style="width: 70px; height: 70px" />
