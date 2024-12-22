@@ -60,7 +60,7 @@ type editProfileForm = FormGroup<{
     FileUploadModule,
     ToastModule,
   ],
-  providers: [UserService, MessageService, TranslocoService, TagService],
+  providers: [UserService, MessageService, TagService],
   templateUrl: './profile-page.component.html',
 })
 export class ProfilePageComponent implements OnInit {
