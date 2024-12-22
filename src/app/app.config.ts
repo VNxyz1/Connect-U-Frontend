@@ -78,6 +78,7 @@ import {
   RiRefreshLine,
   RiClipboardLine,
   RiQrScan2Fill,
+  RiCameraLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import {
@@ -146,6 +147,7 @@ const icons = {
   RiClipboardLine,
   RiChat3Line,
   RiVipCrown2Fill,
+  RiCameraLine,
 };
 
 // Custom missing handler to avoid console logs for missing keys
