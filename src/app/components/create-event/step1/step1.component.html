@@ -3,6 +3,23 @@
     <!-- Event Type Selection -->
     <div
       class="p-col-12 p-md-6 field flex flex-wrap gap-3 lg:gap-8 align-items-center justify-content-center">
+      <!-- image for event  -->
+      <div class="col-12">
+        <!-- Image Preview -->
+        <img
+          [src]="'/images/placeholder-image.jpg'"
+          alt="Eventbild"
+          class="cursor-pointer border-round shadow-2"
+          style="width: 250px; height: 150px; object-fit: cover; border: 4px solid #ccc"
+          (click)="triggerFileInput()" />
+        <!-- Hidden File Input -->
+        <input
+          type="file"
+          accept=".jpg, .jpeg, .png"
+          #fileInput
+          style="display: none"
+          (change)="onFileSelected($event)" />
+      </div>
       <div class="flex align-items-center">
         <p-radioButton
           name="event-type"

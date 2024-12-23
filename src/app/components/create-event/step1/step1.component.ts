@@ -185,6 +185,12 @@ export class Step1Component implements OnInit, OnDestroy {
     }
     console.log(this.tags);
   }
+  triggerFileInput(){
+
+  }
+  onFileSelected(event:any){
+
+  }
 
   blurTagInput() {
     this.results = [];
