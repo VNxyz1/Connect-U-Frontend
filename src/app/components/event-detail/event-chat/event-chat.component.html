@@ -54,25 +54,28 @@
   <!-- Input Field -->
   <div
     class="flex bg-white p-1 align-items-center justify-content-center sticky bottom-0">
-    <p-inputGroup class="w-full max-w-30rem md:mb-5">
-      <!-- Input Text -->
+    <p-iconField
+      iconPosition="right"
+      class="justify-content-center max-w-30rem w-full md:mb-5">
+      <!-- Input Field -->
       <input
-        id="message"
-        type="text"
-        [(ngModel)]="newMessage"
-        (keyup.enter)="sendMessage()"
-        autocomplete="off"
         pInputText
         placeholder="{{ 'eventChatPage.placeholder-input' | transloco }}"
-        class="w-full" />
-      <!-- Send Button -->
-      <p-button [raised]="true" severity="success" (onClick)="sendMessage()">
-        <ng-template pTemplate="icon">
-          <rmx-icon
-            style="width: 16px; height: 16px"
-            name="check-line"></rmx-icon>
-        </ng-template>
-      </p-button>
-    </p-inputGroup>
+        class="flex-grow-1 w-full"
+        [(ngModel)]="newMessage"
+        (keydown.enter)="sendMessage()" />
+
+      <!-- Icon Button -->
+      <p-inputIcon
+        tabindex="0"
+        aria-label="Send message"
+        class="cursor-pointer"
+        (click)="sendMessage()">
+        @if (newMessage.trim().length > 0) {
+          <rmx-icon name="send-plane-fill" style="width: 1rem; height: 1rem">
+          </rmx-icon>
+        }
+      </p-inputIcon>
+    </p-iconField>
   </div>
 </div>

@@ -25,6 +25,8 @@ import { Button } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { SocketService } from '../../../services/socket/socket.service';
 import { filter } from 'rxjs/operators';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 @Component({
   selector: 'app-event-chat',
@@ -42,6 +44,8 @@ import { filter } from 'rxjs/operators';
     AngularRemixIconComponent,
     Button,
     TranslocoPipe,
+    IconFieldModule,
+    InputIconModule,
   ],
   templateUrl: './event-chat.component.html',
 })
@@ -50,7 +54,7 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
   private eventId!: string;
   private _chatSubject$!: BehaviorSubject<EventMessagesResponse>;
   messages$!: Observable<EventMessagesResponse>;
-  newMessage!: string;
+  newMessage: string = '';
 
   private userScrolled: boolean = false;
   private socketSubscription!: Subscription;
