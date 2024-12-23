@@ -1,4 +1,5 @@
 {
+  "profilePictureAlt": "Profile picture",
   "homepage": {
     "title": "Events for You",
     "upcomingEvents": {
@@ -796,7 +797,8 @@
   "profilePage": {
     "cardText": {
       "aboutMe": "About Me",
-      "city": "No city specified"
+      "city": "No city specified",
+      "noDescription": "No Description"
     },
     "updateText": {
       "pronouns": "Pronouns...",

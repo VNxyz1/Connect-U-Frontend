@@ -45,8 +45,8 @@
         </ng-template>
       </p-button>
     </div>
-    <div class="col-12 flex justify-content-center">
-      @if (userService.inviteLink$ | async; as inviteLink) {
+    @if (userService.inviteLink$ | async; as inviteLink) {
+      <div class="col-12 flex justify-content-center">
         @if (userService.remainingTime$ | async) {
           <qrcode
             [qrdata]="inviteLink"
@@ -58,10 +58,10 @@
         } @else {
           <p-skeleton height="210px" width="210px" styleClass="my-2" />
         }
-      }
-    </div>
-    <div class="col-12 flex justify-content-center">
-      @if (userService.inviteLink$ | async; as inviteLink) {
+      </div>
+    }
+    @if (userService.inviteLink$ | async; as inviteLink) {
+      <div class="col-12 flex justify-content-center">
         @if (userService.remainingTime$ | async) {
           <form (submit)="handleSubmitCopy($event, inviteLink)">
             <p-inputGroup>
@@ -81,7 +81,7 @@
         } @else {
           <p-skeleton class="w-8" height="2.5rem" styleClass="my-2" />
         }
-      }
-    </div>
+      </div>
+    }
   </div>
 </p-card>
