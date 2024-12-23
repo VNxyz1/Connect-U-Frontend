@@ -9,7 +9,7 @@
       <div class="relative" style="width: 150px; height: 150px">
         <img
           [src]="imageUrl$ | async"
-          alt="Profilbild"
+          [alt]="'profilePictureAlt' | transloco"
           class="border-circle shadow-2 cursor-pointer z-3"
           style="width: 150px; height: 150px; border: 4px solid #ee8418"
           (click)="triggerFileInput()" />
@@ -113,7 +113,10 @@
           <p
             class="mb-2 mt-2 pt-0"
             style="word-wrap: break-word; white-space: pre-wrap">
-            {{ data.profileText || 'Keine Beschreibung' }}
+            {{
+              data.profileText ||
+                ('profilePage.cardText.noDescription' | transloco)
+            }}
           </p>
         </div>
         <div class="pt-3 grid gap-1 ml-1">
