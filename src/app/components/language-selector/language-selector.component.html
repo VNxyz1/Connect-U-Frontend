@@ -2,7 +2,8 @@
   [options]="languageService.getAvailableLanguages()"
   [ngModel]="activeLanguage$ | async"
   class="w-full"
-  styleClass="w-full">
+  styleClass="w-full"
+  (onChange)="changeLanguage($event)">
   <ng-template pTemplate="selectedItem">
     @if (activeLanguage$ | async; as activeLanguage) {
       <div class="flex align-items-center gap-2">
@@ -29,9 +30,7 @@
     }
   </ng-template>
   <ng-template let-country pTemplate="item">
-    <div
-      class="flex align-items-center gap-2"
-      (click)="languageService.setActiveLanguage(country)">
+    <div class="flex align-items-center gap-2">
       <img
         [src]="
           languageService.getFlagLink(languageService.getCountryCode(country))
