@@ -14,6 +14,8 @@ import { Subject, takeUntil } from 'rxjs';
 import { NgClass } from '@angular/common';
 import { EventData } from '../../../services/event/eventservice';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { ProfileData } from '../../../interfaces/ProfileData';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-step3',
@@ -36,8 +38,9 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 export class Step3Component implements OnInit {
   title: string | undefined;
   participantsNumber: number | undefined;
-  participants: { id: number; name: string }[] = [];
-  selectedParticipants: number[] = [];
+  friends: ProfileData[] = [];
+  filteredFriends: ProfileData[] = [];
+  selectedFriends: ProfileData[] = [];
   genders: { label: string; value: number }[] = [];
   preferredGenders: number[] = [];
   ageValues: number[] = [16, 99];
@@ -50,11 +53,13 @@ export class Step3Component implements OnInit {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private translocoService: TranslocoService,
+    protected userService: UserService
   ) {}
 
   async ngOnInit() {
     await this.loadGenders();
     await this.insertValuesAgain();
+    this.loadFriends();
   }
 
   private async loadGenders() {
@@ -205,5 +210,87 @@ export class Step3Component implements OnInit {
 
     // Save event information
     await this.eventService.setEventInformation(data);
+  }
+
+  private loadFriends(): void {
+    this.friends = [
+      {
+        id: '1',
+        firstName: 'John',
+        lastName: 'Doe',
+        username: 'johndoe',
+        email: 'john@example.com',
+        city: 'Berlin',
+        streetNumber: '12',
+        birthday: '1990-01-01',
+        street: 'Main St',
+        zipCode: '10115',
+        age: '33',
+        pronouns: 'he/him',
+        profileText: 'Lorem ipsum',
+        gender: 1,
+        isUser: false,
+        tags: ['tag1'],
+        profilePicture: '',
+      },
+      {
+        id: '2',
+        firstName: 'Jane',
+        lastName: 'Smith',
+        username: 'janesmith',
+        email: 'jane@example.com',
+        city: 'Hamburg',
+        streetNumber: '34',
+        birthday: '1992-02-02',
+        street: 'Second St',
+        zipCode: '20144',
+        age: '31',
+        pronouns: 'she/her',
+        profileText: 'Lorem ipsum',
+        gender: 2,
+        isUser: false,
+        tags: ['tag2'],
+        profilePicture: '',
+      },
+      {
+        id: '3',
+        firstName: 'Alex',
+        lastName: 'Taylor',
+        username: 'alextaylor',
+        email: 'alex@example.com',
+        city: 'Munich',
+        streetNumber: '56',
+        birthday: '1995-03-03',
+        street: 'Third St',
+        zipCode: '80331',
+        age: '28',
+        pronouns: 'they/them',
+        profileText: 'Lorem ipsum',
+        gender: 2,
+        isUser: false,
+        tags: ['tag3'],
+        profilePicture: '',
+      },
+    ];
+
+    this.filteredFriends = [...this.friends]; // Initialize with all participants
+  }
+
+  protected updateFilteredFriends(): void {
+    this.filteredFriends = this.friends.filter(friend => {
+      // Convert age to number for comparison
+      const friendAge = Number(friend.age);
+
+      // Apply gender filter if preferredGenders is not empty
+      const genderMatches =
+        this.preferredGenders.length === 0 ||
+        this.preferredGenders.includes(friend.gender);
+
+      // Apply age filter
+      const ageMatches =
+        friendAge >= this.ageValues[0] && friendAge <= this.ageValues[1];
+
+      return genderMatches && ageMatches; // Combine both filters
+    });
   }
 }

@@ -31,24 +31,39 @@
         </small>
       }
     </div>
-    <!--
-   <div class="field">
-     <p-floatLabel>
-       <p-multiSelect
-         id="participants"
-         [options]="participants"
-         [(ngModel)]="selectedParticipants"
-         optionLabel="name"
-         display="chip"
-         [showClear]="true"
-         styleClass="capitalize">
-       </p-multiSelect>
-       <label for="participants">{{
-         'createEventStep3Component.participantsInput.label' | transloco
-       }}</label>
-     </p-floatLabel>
-   </div>
- -->
+
+    <div class="field">
+      <p-floatLabel>
+        <p-multiSelect
+          id="friends"
+          [options]="filteredFriends"
+          [(ngModel)]="selectedFriends"
+          optionLabel="firstName"
+          display="chip"
+          [showClear]="true"
+          styleClass="capitalize">
+          <ng-template let-friend pTemplate="item">
+            <div class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border">
+              <img
+                [src]="userService.getImageFile(friend.profilePicture)"
+                alt="profilbild"
+                class="border-circle"
+                style="width: 35px; height: 35px" />
+              <div>
+                <span class="font-medium"><strong>{{ friend.firstName }}</strong></span>
+                <div class="text-sm text-surface-500 dark:text-surface-400">
+                  {{ friend.username || 'No username available' }}
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-multiSelect>
+        <label for="friends">{{
+            'createEventStep3Component.participantsInput.label' | transloco
+          }}</label>
+      </p-floatLabel>
+    </div>
+
     <div class="field">
       <p-floatLabel>
         <p-multiSelect
@@ -59,6 +74,7 @@
           optionValue="value"
           display="chip"
           [showClear]="true"
+          (ngModelChange)="updateFilteredFriends()"
           styleClass="capitalize">
         </p-multiSelect>
         <label for="genders">{{
@@ -75,7 +91,8 @@
         min="16"
         max="99"
         [range]="true"
-        styleClass="centered-slider"></p-slider>
+        (ngModelChange)="updateFilteredFriends()"
+        styleClass="centered-slider" />
       <div
         class="flex align-items-center justify-content-between mt-4 slider-input-container">
         <!-- Minimum Age Input -->
