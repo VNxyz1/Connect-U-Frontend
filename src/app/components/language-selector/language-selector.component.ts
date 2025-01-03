@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DropdownModule } from 'primeng/dropdown';
+import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../services/language/language.service';
 import { Observable } from 'rxjs';
@@ -18,5 +18,9 @@ export class LanguageSelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.activeLanguage$ = this.languageService.getActiveLanguage();
+  }
+
+  changeLanguage($event: DropdownChangeEvent) {
+    this.languageService.setActiveLanguage($event.value);
   }
 }
