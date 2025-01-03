@@ -240,10 +240,6 @@ export class EventService {
     const url = `event/join/${eventId}`;
     return this.http.post<{ success: boolean; message: string }>(url, {}).pipe(
       map(response => {
-        console.log(
-          'User successfully added to the event participants:',
-          response,
-        );
         return response;
       }),
       catchError(error => {

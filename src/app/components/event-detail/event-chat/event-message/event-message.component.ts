@@ -20,14 +20,10 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
   ],
   templateUrl: './event-message.component.html',
 })
-export class EventMessageComponent implements OnInit {
+export class EventMessageComponent {
   @Input() message!: EventMessage;
 
-  ngOnInit(): void {
-    console.log(this.message);
-  }
-
-  constructor(private readonly translocoService: TranslocoService) {}
+  constructor(protected readonly translocoService: TranslocoService) {}
 
   protected isShortEmojiOnly(text: string) {
     if (!text) return false; // Handle empty strings
@@ -76,5 +72,18 @@ export class EventMessageComponent implements OnInit {
         },
       );
     }
+  }
+
+  protected translateMessageText(text: string): string {
+    try {
+      const parsed = JSON.parse(text);
+      if (parsed.key && parsed.params) {
+        return this.translocoService.translate(parsed.key, parsed.params);
+      }
+    } catch {
+      // If not JSON, return the text directly
+      return text;
+    }
+    return text;
   }
 }

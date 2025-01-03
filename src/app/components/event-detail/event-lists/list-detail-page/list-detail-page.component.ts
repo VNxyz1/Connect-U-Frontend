@@ -7,7 +7,7 @@ import {
 } from '../../../../services/lists/list.service';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { CheckboxModule } from 'primeng/checkbox';
-import { Button, ButtonDirective } from 'primeng/button';
+import { Button } from 'primeng/button';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { SkeletonModule } from 'primeng/skeleton';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -41,7 +41,6 @@ const BadRequestMessages: Record<string, string> = {
     NgOptimizedImage,
     InputGroupModule,
     InputTextModule,
-    ButtonDirective,
     ReactiveFormsModule,
     FormsModule,
   ],
@@ -72,13 +71,13 @@ export class ListDetailPageComponent implements OnInit {
   });
 
   constructor(
-    private listService: ListService,
-    private messageService: MessageService,
-    private translocoService: TranslocoService,
-    private sockets: SocketService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private confirmationService: ConfirmationService,
+    private readonly listService: ListService,
+    private readonly messageService: MessageService,
+    private readonly translocoService: TranslocoService,
+    private readonly sockets: SocketService,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute,
+    private readonly confirmationService: ConfirmationService,
   ) {}
 
   ngOnInit(): void {
@@ -200,7 +199,6 @@ export class ListDetailPageComponent implements OnInit {
                 'listPage.deleteListSuccessMessage',
               ),
             });
-            console.log('List successfully deleted!');
           },
           error: err => {
             this.messageService.add({
@@ -216,9 +214,7 @@ export class ListDetailPageComponent implements OnInit {
           },
         });
       },
-      reject: () => {
-        console.log('List deletion cancelled.');
-      },
+      reject: () => {},
     });
   }
 
@@ -245,7 +241,6 @@ export class ListDetailPageComponent implements OnInit {
                   'listPage.deleteEntrySuccessMessage',
                 ),
               });
-              console.log('List entry successfully deleted!');
             },
             error: err => {
               this.messageService.add({
@@ -260,13 +255,9 @@ export class ListDetailPageComponent implements OnInit {
               console.error('Error deleting list entry:', err);
             },
           });
-        } else {
-          console.log('Invalid entry ID');
         }
       },
-      reject: () => {
-        console.log('List entry deletion cancelled.');
-      },
+      reject: () => {},
     });
   }
 }

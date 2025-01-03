@@ -79,9 +79,14 @@ import {
   RiClipboardLine,
   RiQrScan2Fill,
   RiCameraLine,
+  RiSendPlaneFill,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
-import { provideTransloco } from '@jsverse/transloco';
+import {
+  provideTransloco,
+  TranslocoMissingHandler,
+  TranslocoMissingHandlerData,
+} from '@jsverse/transloco';
 import { provideTranslocoLocale } from '@jsverse/transloco-locale';
 import { IonicStorageModule } from '@ionic/storage-angular';
 
@@ -144,6 +149,19 @@ const icons = {
   RiChat3Line,
   RiVipCrown2Fill,
   RiCameraLine,
+  RiSendPlaneFill,
+};
+
+// Custom missing handler to avoid console logs for missing keys
+export const customMissingHandler = {
+  handle: (
+    key: string,
+    data: TranslocoMissingHandlerData,
+    params?: Record<string, any>,
+  ) => {
+    console.error('Missing translation key:', key);
+    return key; // Return the key itself as a fallback
+  },
 };
 
 export const translocoConfig = {
@@ -152,6 +170,7 @@ export const translocoConfig = {
     defaultLang: 'de-DE',
     reRenderOnLangChange: true,
     prodMode: !isDevMode(),
+    missingHandler: { logMissingKey: false }, // Disable missing key logs globally
   },
   loader: TranslocoHttpLoader,
 };

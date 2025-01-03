@@ -12,13 +12,7 @@ import { SocketService } from '../../../services/socket/socket.service';
 @Component({
   selector: 'app-event-surveys',
   standalone: true,
-  imports: [
-    CreateSurveysComponent,
-    CreateListComponent,
-    EventCardComponent,
-    CardSurveyComponent,
-    AsyncPipe,
-  ],
+  imports: [CreateSurveysComponent, CardSurveyComponent, AsyncPipe],
   templateUrl: './event-surveys.component.html',
 })
 export class EventSurveysComponent implements OnInit {
@@ -32,8 +26,8 @@ export class EventSurveysComponent implements OnInit {
   eventSurveys$!: Observable<SurveyEvent[]>;
 
   constructor(
-    private surveysService: SurveysService,
-    private sockets: SocketService,
+    private readonly surveysService: SurveysService,
+    private readonly sockets: SocketService,
   ) {}
 
   ngOnInit(): void {
@@ -46,7 +40,6 @@ export class EventSurveysComponent implements OnInit {
 
     this.sockets.on('updateSurveyOverview').subscribe({
       next: () => {
-        console.log('update surveys');
         this.fetchSurveys();
       },
     });
