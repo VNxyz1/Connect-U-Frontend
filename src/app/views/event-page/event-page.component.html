@@ -1,3 +1,35 @@
+<p-dialog [(visible)]="showInviteModal" modal="true" header="Invite Friends">
+  <div class="p-fluid">
+    <p-multiSelect
+      [options]="friends"
+      [(ngModel)]="selectedFriends"
+      optionLabel="firstName"
+      display="chip"
+      styleClass="capitalize">
+      <ng-template let-friend pTemplate="item">
+        <div class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border">
+          <img
+            [src]="userService.getImageFile(friend.profilePicture)"
+            alt="profilbild"
+            class="border-circle"
+            style="width: 35px; height: 35px" />
+          <div>
+            <span class="font-medium"><strong>{{ friend.firstName }}</strong></span>
+            <div class="text-sm text-surface-500 dark:text-surface-400">
+              {{ friend.username || 'No username available' }}
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-multiSelect>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton label="Invite" icon="pi pi-check" (click)="sendInvites()"></button>
+    <button pButton label="Cancel" class="p-button-secondary" icon="pi pi-times" (click)="showInviteModal=false"></button>
+  </ng-template>
+</p-dialog>
+
+
 <p-dialog
   [(visible)]="notLoggedInDialogVisible"
   [contentStyle]="{ overflow: 'visible' }"

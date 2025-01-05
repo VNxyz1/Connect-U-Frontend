@@ -9,13 +9,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageService, PrimeTemplate } from 'primeng/api';
 import { SliderModule } from 'primeng/slider';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MultiSelectModule } from 'primeng/multiselect';
 import { Subject, takeUntil } from 'rxjs';
 import { NgClass } from '@angular/common';
 import { EventData } from '../../../services/event/eventservice';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { ProfileData } from '../../../interfaces/ProfileData';
-import { UserService } from '../../../services/user/user.service';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @Component({
   selector: 'app-step3',
@@ -29,18 +27,15 @@ import { UserService } from '../../../services/user/user.service';
     InputTextModule,
     PrimeTemplate,
     SliderModule,
-    MultiSelectModule,
     NgClass,
     TranslocoPipe,
+    MultiSelectModule,
   ],
   templateUrl: './step3.component.html',
 })
 export class Step3Component implements OnInit {
   title: string | undefined;
   participantsNumber: number | undefined;
-  friends: ProfileData[] = [];
-  filteredFriends: ProfileData[] = [];
-  selectedFriends: ProfileData[] = [];
   genders: { label: string; value: number }[] = [];
   preferredGenders: number[] = [];
   ageValues: number[] = [16, 99];
@@ -52,14 +47,12 @@ export class Step3Component implements OnInit {
     private readonly messageService: MessageService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
-    private translocoService: TranslocoService,
-    protected userService: UserService
+    private translocoService: TranslocoService
   ) {}
 
   async ngOnInit() {
     await this.loadGenders();
     await this.insertValuesAgain();
-    this.loadFriends();
   }
 
   private async loadGenders() {
@@ -68,7 +61,6 @@ export class Step3Component implements OnInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: data => {
-          // Transform the genders to include translated label and value
           this.genders = data.map(gender => {
             let label = '';
             switch (gender.gender) {
@@ -117,7 +109,6 @@ export class Step3Component implements OnInit {
   protected complete() {
     this.submitted = true;
 
-    // Validate required fields
     if (
       !this.participantsNumber ||
       this.participantsNumber < 2 ||
@@ -125,55 +116,49 @@ export class Step3Component implements OnInit {
       this.ageValues[1] > 99 ||
       this.ageValues[0] > this.ageValues[1]
     ) {
-      return; // Stop execution if validation fails
+      return;
     }
 
-    // Save event information
     this.sendEventInformation();
 
-    // Submit event data to the server
     this.eventService.postEvent().subscribe({
       next: (response: any) => {
         const eventId = response?.eventId;
 
         if (eventId) {
-          // Add success message with translation
           this.messageService.add({
             severity: 'success',
             summary: this.translocoService.translate(
               'createEventStep3Component.messages.eventCreatedSuccess',
-              { title: this.title },
+              { title: this.title }
             ),
           });
 
           setTimeout(() => {
-            // Navigate to the created event page
-            this.router
-              .navigate([`../../event/${eventId}`], { relativeTo: this.route })
-              .then(() => {});
+            this.router.navigate([`../../event/${eventId}`], {
+              relativeTo: this.route,
+              queryParams: { fromCreate: true },
+            });
           }, 2000);
         } else {
           throw new Error(
             this.translocoService.translate(
-              'createEventStep3Component.messages.noEventIdError',
-            ),
+              'createEventStep3Component.messages.noEventIdError'
+            )
           );
         }
       },
       error: error => {
         console.error('Error posting event:', error);
-
-        // Add error message with translation
         this.messageService.add({
           severity: 'error',
           summary: this.translocoService.translate(
-            'createEventStep3Component.messages.eventCreatedError',
+            'createEventStep3Component.messages.eventCreatedError'
           ),
           detail: this.translocoService.translate(
-            'createEventStep3Component.messages.eventCreatedErrorMessage',
+            'createEventStep3Component.messages.eventCreatedErrorMessage'
           ),
         });
-
         return;
       },
     });
@@ -183,114 +168,26 @@ export class Step3Component implements OnInit {
     this.sendEventInformation();
     this.router
       .navigate(['../step2'], { relativeTo: this.route })
-      .then(() => {
-        // Navigation successful
-      })
+      .then(() => {})
       .catch(err => {
         console.error('Navigation error:', err);
       });
   }
 
   private async sendEventInformation() {
-    // Create partial event data object
     const data: Partial<EventData> = {
       participantsNumber: this.participantsNumber,
       preferredGenders: this.preferredGenders,
     };
 
-    // Only include startAge if it's not the default value of 16
     if (this.ageValues[0] !== 16) {
       data.startAge = this.ageValues[0];
     }
 
-    // Only include endAge if it's not the default value of 99
     if (this.ageValues[1] !== 99) {
       data.endAge = this.ageValues[1];
     }
 
-    // Save event information
     await this.eventService.setEventInformation(data);
-  }
-
-  private loadFriends(): void {
-    this.friends = [
-      {
-        id: '1',
-        firstName: 'John',
-        lastName: 'Doe',
-        username: 'johndoe',
-        email: 'john@example.com',
-        city: 'Berlin',
-        streetNumber: '12',
-        birthday: '1990-01-01',
-        street: 'Main St',
-        zipCode: '10115',
-        age: '33',
-        pronouns: 'he/him',
-        profileText: 'Lorem ipsum',
-        gender: 1,
-        isUser: false,
-        tags: ['tag1'],
-        profilePicture: '',
-      },
-      {
-        id: '2',
-        firstName: 'Jane',
-        lastName: 'Smith',
-        username: 'janesmith',
-        email: 'jane@example.com',
-        city: 'Hamburg',
-        streetNumber: '34',
-        birthday: '1992-02-02',
-        street: 'Second St',
-        zipCode: '20144',
-        age: '31',
-        pronouns: 'she/her',
-        profileText: 'Lorem ipsum',
-        gender: 2,
-        isUser: false,
-        tags: ['tag2'],
-        profilePicture: '',
-      },
-      {
-        id: '3',
-        firstName: 'Alex',
-        lastName: 'Taylor',
-        username: 'alextaylor',
-        email: 'alex@example.com',
-        city: 'Munich',
-        streetNumber: '56',
-        birthday: '1995-03-03',
-        street: 'Third St',
-        zipCode: '80331',
-        age: '28',
-        pronouns: 'they/them',
-        profileText: 'Lorem ipsum',
-        gender: 2,
-        isUser: false,
-        tags: ['tag3'],
-        profilePicture: '',
-      },
-    ];
-
-    this.filteredFriends = [...this.friends]; // Initialize with all participants
-  }
-
-  protected updateFilteredFriends(): void {
-    this.filteredFriends = this.friends.filter(friend => {
-      // Convert age to number for comparison
-      const friendAge = Number(friend.age);
-
-      // Apply gender filter if preferredGenders is not empty
-      const genderMatches =
-        this.preferredGenders.length === 0 ||
-        this.preferredGenders.includes(friend.gender);
-
-      // Apply age filter
-      const ageMatches =
-        friendAge >= this.ageValues[0] && friendAge <= this.ageValues[1];
-
-      return genderMatches && ageMatches; // Combine both filters
-    });
   }
 }

@@ -16,13 +16,13 @@
               (participantsInput.dirty && participantsInput.invalid),
           }" />
         <label for="participantsNumber">{{
-          'createEventStep3Component.participantsNumberInput.label' | transloco
-        }}</label>
+            'createEventStep3Component.participantsNumberInput.label' | transloco
+          }}</label>
       </p-floatLabel>
       @if (
         (participantsInput.invalid && submitted) ||
         (participantsInput.dirty && participantsInput.invalid)
-      ) {
+        ) {
         <small class="p-error">
           {{
             'createEventStep3Component.participantsNumberInput.errorMessage'
@@ -35,38 +35,6 @@
     <div class="field">
       <p-floatLabel>
         <p-multiSelect
-          id="friends"
-          [options]="filteredFriends"
-          [(ngModel)]="selectedFriends"
-          optionLabel="firstName"
-          display="chip"
-          [showClear]="true"
-          styleClass="capitalize">
-          <ng-template let-friend pTemplate="item">
-            <div class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border">
-              <img
-                [src]="userService.getImageFile(friend.profilePicture)"
-                alt="profilbild"
-                class="border-circle"
-                style="width: 35px; height: 35px" />
-              <div>
-                <span class="font-medium"><strong>{{ friend.firstName }}</strong></span>
-                <div class="text-sm text-surface-500 dark:text-surface-400">
-                  {{ friend.username || 'No username available' }}
-                </div>
-              </div>
-            </div>
-          </ng-template>
-        </p-multiSelect>
-        <label for="friends">{{
-            'createEventStep3Component.participantsInput.label' | transloco
-          }}</label>
-      </p-floatLabel>
-    </div>
-
-    <div class="field">
-      <p-floatLabel>
-        <p-multiSelect
           id="genders"
           [options]="genders"
           [(ngModel)]="preferredGenders"
@@ -74,12 +42,11 @@
           optionValue="value"
           display="chip"
           [showClear]="true"
-          (ngModelChange)="updateFilteredFriends()"
           styleClass="capitalize">
         </p-multiSelect>
         <label for="genders">{{
-          'createEventStep3Component.preferredGendersInput.label' | transloco
-        }}</label>
+            'createEventStep3Component.preferredGendersInput.label' | transloco
+          }}</label>
       </p-floatLabel>
     </div>
 
@@ -91,18 +58,15 @@
         min="16"
         max="99"
         [range]="true"
-        (ngModelChange)="updateFilteredFriends()"
         styleClass="centered-slider" />
       <div
         class="flex align-items-center justify-content-between mt-4 slider-input-container">
-        <!-- Minimum Age Input -->
         <input
           type="text"
           pInputText
           [ngModel]="ageValues[0]"
           (ngModelChange)="onAgeChange(0, $event)"
           class="slider-input" />
-        <!-- Maximum Age Input with "none" display for 99 -->
         <input
           type="text"
           pInputText
@@ -115,7 +79,6 @@
     </div>
   </div>
 
-  <!-- Footer Section -->
   <div
     class="flex justify-content-between align-items-center fixed-bottom-responsive-container">
     <div>

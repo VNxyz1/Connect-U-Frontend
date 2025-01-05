@@ -24,6 +24,10 @@ import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 import { DialogModule } from 'primeng/dialog';
 import { LoginComponent } from '../../components/login/login.component';
 import { RegisterComponent } from '../../components/register/register.component';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ProfileData } from '../../interfaces/ProfileData';
+import { UserService } from '../../services/user/user.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-event-page',
@@ -39,6 +43,8 @@ import { RegisterComponent } from '../../components/register/register.component'
     DialogModule,
     LoginComponent,
     RegisterComponent,
+    MultiSelectModule,
+    FormsModule,
   ],
 })
 export class EventPageComponent implements OnInit {
@@ -53,6 +59,10 @@ export class EventPageComponent implements OnInit {
   eventTabMenuItems: MenuItem[] = [];
   activeTabItem!: MenuItem;
 
+  friends: ProfileData[] = [];
+  selectedFriends: ProfileData[] = [];
+  showInviteModal: boolean = false;
+
   notLoggedInDialogVisible: boolean = false;
   loginRegisterSwitch: boolean = true;
 
@@ -63,6 +73,7 @@ export class EventPageComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     protected readonly messageService: MessageService,
     protected readonly eventRequestService: EventRequestService,
+    protected readonly userService: UserService,
     private auth: AuthService,
   ) {
     this.url = this.router.url;
@@ -90,6 +101,15 @@ export class EventPageComponent implements OnInit {
       // Monitor login state
 
       this.fetchEventDetails();
+      this.checkIfComingFromCreate();
+    }
+  }
+
+  private checkIfComingFromCreate(): void {
+    const fromCreate = this.route.snapshot.queryParamMap.get('fromCreate');
+    if (fromCreate === 'true') {
+      this.loadFriends();
+      this.showInviteModal = true;
     }
   }
 
@@ -242,5 +262,67 @@ export class EventPageComponent implements OnInit {
     } else {
       this.activeTabItem = this.eventTabMenuItems[0];
     }
+  }
+
+  private loadFriends(): void {
+    this.friends = [
+      {
+        id: '1',
+        firstName: 'John',
+        lastName: 'Doe',
+        username: 'johndoe',
+        email: 'john@example.com',
+        city: 'Berlin',
+        streetNumber: '12',
+        birthday: '1990-01-01',
+        street: 'Main St',
+        zipCode: '10115',
+        age: '33',
+        pronouns: 'he/him',
+        profileText: 'Lorem ipsum',
+        gender: 1,
+        isUser: false,
+        tags: ['tag1'],
+        profilePicture: 'john.png',
+      },
+      {
+        id: '2',
+        firstName: 'Jane',
+        lastName: 'Smith',
+        username: 'janesmith',
+        email: 'jane@example.com',
+        city: 'Hamburg',
+        streetNumber: '34',
+        birthday: '1992-02-02',
+        street: 'Second St',
+        zipCode: '20144',
+        age: '31',
+        pronouns: 'she/her',
+        profileText: 'Lorem ipsum',
+        gender: 2,
+        isUser: false,
+        tags: ['tag2'],
+        profilePicture: 'jane.png',
+      },
+    ];
+  }
+
+  sendInvites(): void {
+    const invites = this.selectedFriends.map(friend =>
+      this.eventRequestService.createInvite(this.eventId, friend.id).subscribe({
+        next: () =>
+          this.messageService.add({
+            severity: 'success',
+            summary: `Invitation sent to ${friend.firstName}`,
+          }),
+        error: err =>
+          this.messageService.add({
+            severity: 'error',
+            summary: `Failed to send invitation to ${friend.firstName}`,
+            detail: err.message,
+          }),
+      })
+    );
+    this.showInviteModal = false; // Close modal after sending invites
   }
 }
