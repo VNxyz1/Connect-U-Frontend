@@ -58,23 +58,29 @@
         min="16"
         max="99"
         [range]="true"
-        styleClass="centered-slider" />
-      <div
-        class="flex align-items-center justify-content-between mt-4 slider-input-container">
+        (ngModelChange)="onSliderChange($event)"
+        styleClass="centered-slider"
+      ></p-slider>
+      <div class="flex align-items-center justify-content-between mt-4 slider-input-container">
+        <!-- Minimum Age Input -->
         <input
           type="text"
           pInputText
-          [ngModel]="ageValues[0]"
-          (ngModelChange)="onAgeChange(0, $event)"
-          class="slider-input" />
+          [ngModel]="ageValues[0] ?? ''"
+        (ngModelChange)="onAgeChange(0, $event)"
+        (blur)="onAgeBlur(0)"
+        class="slider-input"
+        />
+
+        <!-- Maximum Age Input -->
         <input
           type="text"
           pInputText
-          [ngModel]="
-            ageValues[1] === 99 ? getMaxAgePlaceholder() : ageValues[1]
-          "
-          (ngModelChange)="onAgeChange(1, $event)"
-          class="slider-input" />
+          [ngModel]="ageValues[1] === 99 ? getMaxAgePlaceholder() : (ageValues[1] ?? '')"
+        (ngModelChange)="onAgeChange(1, $event)"
+        (blur)="onAgeBlur(1)"
+        class="slider-input"
+        />
       </div>
     </div>
   </div>

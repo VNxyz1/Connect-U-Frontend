@@ -14,6 +14,7 @@ import { NgClass } from '@angular/common';
 import { EventData } from '../../../services/event/eventservice';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-step3',
@@ -38,7 +39,8 @@ export class Step3Component implements OnInit {
   participantsNumber: number | undefined;
   genders: { label: string; value: number }[] = [];
   preferredGenders: number[] = [];
-  ageValues: number[] = [16, 99];
+  ageValues: (number | undefined)[] = [16, 99];
+  private ageChangeSubject = new Subject<{ index: number; value: number }>();
   submitted: boolean = false;
   private readonly unsubscribe$ = new Subject<void>();
 
@@ -48,9 +50,21 @@ export class Step3Component implements OnInit {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private translocoService: TranslocoService
-  ) {}
+  ) {
+    this.ageChangeSubject
+      .pipe(debounceTime(300)) // Adjust debounce time as needed (300ms is a good default)
+      .subscribe(({ index, value }) => {
+        this.applyAgeChange(index, value);
+      });
+  }
 
   async ngOnInit() {
+    this.ageChangeSubject
+      .pipe(debounceTime(300)) // Adjust debounce time as needed (300ms is a good default)
+      .subscribe(({ index, value }) => {
+        this.applyAgeChange(index, value);
+      });
+
     await this.loadGenders();
     await this.insertValuesAgain();
   }
@@ -101,20 +115,99 @@ export class Step3Component implements OnInit {
     );
   }
 
-  protected onAgeChange(index: number, value: string | number) {
-    this.ageValues[index] =
-      value === this.getMaxAgePlaceholder() ? 99 : Number(value);
+  protected onSliderChange(event: (number | undefined)[]): void {
+    // Sync slider changes to the inputs
+    this.ageValues = [...event]; // Ensure the array is updated
+  }
+
+  protected onAgeChange(index: number, value: string | number): void {
+    // Handle empty input
+    if (value === '') {
+      this.ageValues[index] = undefined; // Set the value to `undefined` temporarily
+      return;
+    }
+
+    const numericValue = Number(value);
+
+    // Ignore invalid input (non-numeric values)
+    if (isNaN(numericValue)) {
+      return;
+    }
+
+    // Update the age value without enforcing constraints immediately
+    this.ageValues[index] = numericValue;
+
+    // Debounce applying the value to the slider
+    this.ageChangeSubject.next({ index, value: numericValue });
+  }
+
+  protected onAgeBlur(index: number): void {
+    // Check if the input is not undefined
+    if (this.ageValues[index] !== undefined) {
+      const constrainedValue = Math.max(
+        16,
+        Math.min(this.ageValues[index] as number, index === 0 ? this.ageValues[1] ?? 99 : 99)
+      );
+
+      // Apply the constrained value
+      this.ageValues[index] = constrainedValue;
+
+      // Ensure the minimum age does not exceed the maximum age
+      if (this.ageValues[0] !== undefined && this.ageValues[1] !== undefined && this.ageValues[0] > this.ageValues[1]) {
+        this.ageValues[1] = this.ageValues[0];
+      }
+
+      // Sync the slider with the updated values
+      this.onSliderChange([...this.ageValues]);
+    } else {
+      // If the input is undefined (cleared), reset to default values
+      this.ageValues[index] = index === 0 ? 16 : 99;
+
+      // Sync the slider with the updated values
+      this.onSliderChange([...this.ageValues]);
+    }
+  }
+
+  private applyAgeChange(index: number, value: number): void {
+    // Apply constraints with debounce
+
+    const stringValue = value.toString();
+
+    if (stringValue === '') {
+      this.ageValues[index] = undefined; // Temporarily set the value to `undefined`
+      return;
+    }
+
+    if (index === 0) {
+      const numericValue = Number(value); // Convert the input value to a number
+      if (isNaN(numericValue)) return; // Do nothing if the value is not a valid number
+
+      // Apply constraints for the minimum age
+      this.ageValues[0] = Math.max(0, Math.min(numericValue, <number>this.ageValues[1]));
+    } else if (index === 1) {
+      const numericValue = Number(value); // Convert the input value to a number
+      if (isNaN(numericValue)) return; // Do nothing if the value is not a valid number
+
+      // Apply constraints for the maximum age
+      this.ageValues[1] = Math.min(99, Math.max(numericValue, <number>this.ageValues[0]));
+    }
+
+    // Ensure the min age is not greater than the max age
+    if (this.ageValues[0] && this.ageValues[1] && this.ageValues[0] > this.ageValues[1]) {
+      this.ageValues[1] = this.ageValues[0];
+    }
   }
 
   protected complete() {
     this.submitted = true;
 
     if (
+      this.ageValues[0] && this.ageValues[1] && (
       !this.participantsNumber ||
       this.participantsNumber < 2 ||
       this.ageValues[0] < 16 ||
       this.ageValues[1] > 99 ||
-      this.ageValues[0] > this.ageValues[1]
+      this.ageValues[0] > this.ageValues[1])
     ) {
       return;
     }
