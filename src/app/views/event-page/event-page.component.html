@@ -1,13 +1,41 @@
-<p-dialog [(visible)]="showInviteModal" modal="true" header="Invite Friends">
-  <div class="p-fluid">
-    <p-multiSelect
-      [options]="friends"
-      [(ngModel)]="selectedFriends"
-      optionLabel="firstName"
-      display="chip"
-      styleClass="capitalize">
+<p-dialog [(visible)]="showInviteModal"
+          modal
+          [header]="'eventPageComponent.inviteFriends' | transloco"
+          [draggable]="false"
+          contentStyleClass="border-round"
+  class="p-fluid w-30rem h-10rem"
+>
+  <div class="p-fluid w-30rem h-auto">
+    <div class="p-multiselect-container border-round p-component p-filled">
+      <!-- Header / Selected Friends -->
+      <div class="p-fluid h-3rem align-items-center">
+        @if(selectedFriends.length > 0) {
+          <p-chips
+            [ngModel]="selectedFriends"
+            field="firstName"
+            showClear="true"
+            [addOnTab]="false"
+            [addOnBlur]="false"
+            [inputStyle]="{ display: 'none' }"
+            [placeholder]="'eventPageComponent.selectFriends' | transloco">
+          </p-chips>
+        } @else {
+          <div class="p-chips-placeholder">
+            {{ 'eventPageComponent.selectFriends' | transloco }}
+          </div>
+        }
+      </div>
+
+      <p-listbox
+        [options]="friends"
+        [(ngModel)]="selectedFriends"
+        [multiple]="true"
+        [filter]="true"
+        optionLabel="firstName"
+        [style]="{ width: '30rem' }"
+        [listStyle]="{ 'max-height': '250px' }">
       <ng-template let-friend pTemplate="item">
-        <div class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border">
+        <div class="inline-flex items-center gap-2 px-2 py-2 cursor-pointer border-bottom">
           <img
             [src]="userService.getImageFile(friend.profilePicture)"
             alt="profilbild"
@@ -15,17 +43,32 @@
             style="width: 35px; height: 35px" />
           <div>
             <span class="font-medium"><strong>{{ friend.firstName }}</strong></span>
-            <div class="text-sm text-surface-500 dark:text-surface-400">
-              {{ friend.username || 'No username available' }}
+            <div class="text-sm">
+              &#64;{{ friend.username }}
             </div>
           </div>
         </div>
       </ng-template>
-    </p-multiSelect>
+      </p-listbox>
+    </div>
   </div>
   <ng-template pTemplate="footer">
-    <button pButton label="Invite" icon="pi pi-check" (click)="sendInvites()"></button>
-    <button pButton label="Cancel" class="p-button-secondary" icon="pi pi-times" (click)="showInviteModal=false"></button>
+    <p-button
+      [raised]="true"
+      severity="success"
+      [label]="
+          'eventPageComponent.sendInvites' | transloco
+        "
+      class="align-items-center"
+      (onClick)="sendInvites()">
+      <ng-template pTemplate="icon">
+        <rmx-icon
+          class="mr-2"
+          style="width: 16px; height: 16px"
+          name="check-line">
+        </rmx-icon>
+      </ng-template>
+    </p-button>
   </ng-template>
 </p-dialog>
 

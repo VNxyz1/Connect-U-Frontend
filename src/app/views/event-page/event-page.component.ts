@@ -10,7 +10,7 @@ import { catchError, filter } from 'rxjs/operators';
 import { EventService } from '../../services/event/eventservice';
 import { EventDetails } from '../../interfaces/EventDetails';
 import { MenuItem, MessageService } from 'primeng/api';
-import { TranslocoService } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ToastModule } from 'primeng/toast';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { Gender, GenderEnum } from '../../interfaces/Gender';
@@ -28,6 +28,10 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { ProfileData } from '../../interfaces/ProfileData';
 import { UserService } from '../../services/user/user.service';
 import { FormsModule } from '@angular/forms';
+import { Button } from 'primeng/button';
+import { ListboxModule } from 'primeng/listbox';
+import { ChipModule } from 'primeng/chip';
+import { ChipsModule } from 'primeng/chips';
 
 @Component({
   selector: 'app-event-page',
@@ -45,6 +49,11 @@ import { FormsModule } from '@angular/forms';
     RegisterComponent,
     MultiSelectModule,
     FormsModule,
+    Button,
+    TranslocoPipe,
+    ListboxModule,
+    ChipModule,
+    ChipsModule,
   ],
 })
 export class EventPageComponent implements OnInit {
@@ -109,7 +118,6 @@ export class EventPageComponent implements OnInit {
     const fromCreate = this.route.snapshot.queryParamMap.get('fromCreate');
     if (fromCreate === 'true') {
       this.loadFriends();
-      this.showInviteModal = true;
     }
   }
 
@@ -305,6 +313,17 @@ export class EventPageComponent implements OnInit {
         profilePicture: 'jane.png',
       },
     ];
+
+    this.showInviteModal = true;
+  }
+
+  toggleMultiSelection(friend: any): void {
+    const index = this.selectedFriends.findIndex(f => f.id === friend.id);
+    if (index === -1) {
+      this.selectedFriends.push(friend);
+    } else {
+      this.selectedFriends.splice(index, 1);
+    }
   }
 
   sendInvites(): void {
