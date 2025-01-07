@@ -1,4 +1,5 @@
 {
+  "profilePictureAlt": "Profilbild",
   "homepage": {
     "title": "Events für Dich",
     "upcomingEvents": {
@@ -359,7 +360,19 @@
   "eventChatPage": {
     "unreadMessages": "ungelesene Nachricht(en)",
     "you": "Du",
-    "no-messages": "Hier sieht es noch sehr leer aus – schreibe die erste Nachricht!"
+    "no-messages": "Hier sieht es noch sehr leer aus – schreibe die erste Nachricht!",
+    "placeholder-input": "Nachricht schreiben...",
+    "errors": {
+      "required": "Nachricht darf nicht leer sein.",
+      "too-long": "Nachricht darf 65.000 Zeichen nicht überschreiten.",
+      "empty": "Nachricht darf nicht nur aus Leerzeichen bestehen.",
+      "no-links": "Nachrichten dürfen keine Links enthalten.",
+      "generic": "Beim Senden der Nachricht ist ein Fehler aufgetreten. Bitte überprüfe deine Internetverbindung."
+    },
+    "server-messages": {
+      "new-list": "📋☑️ Es wurde eine neue Liste \"{{title}}\" für dieses Event erstellt!",
+      "new-survey": "📊 Eine neue Umfrage \"{{title}}\" wurde für dieses Event erstellt!"
+    }
   },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "Du musst die AGBs bestätigen, um dich registrieren zu können",
@@ -784,7 +797,8 @@
   "profilePage": {
     "cardText": {
       "aboutMe": "Über mich",
-      "city": "Kein Wohnort angegeben"
+      "city": "Kein Wohnort angegeben",
+      "noDescription": "Keine Beschreibung"
     },
     "updateText": {
       "pronouns": "Pronomen...",

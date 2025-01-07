@@ -60,7 +60,7 @@ type editProfileForm = FormGroup<{
     FileUploadModule,
     ToastModule,
   ],
-  providers: [UserService, MessageService, TranslocoService, TagService],
+  providers: [UserService, MessageService, TagService],
   templateUrl: './profile-page.component.html',
 })
 export class ProfilePageComponent implements OnInit {
@@ -222,6 +222,7 @@ export class ProfilePageComponent implements OnInit {
               'profilePage.updateProfilePic.successMessage',
             ),
           });
+          this.fetchData();
           this.closeUploadDialog();
         },
         error: err => {
@@ -243,7 +244,12 @@ export class ProfilePageComponent implements OnInit {
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
 
-    if (file && (file.type === 'image/png' || file.type === 'image/jpeg')) {
+    if (
+      file &&
+      (file.type === 'image/png' ||
+        file.type === 'image/jpeg' ||
+        file.type === 'image/gif')
+    ) {
       if (file.size > 5242880) {
         this.messageService.add({
           severity: 'error',
