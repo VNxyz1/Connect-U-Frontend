@@ -173,10 +173,9 @@ export class EventService {
       }),
     );
   }
-  postEventImage(eventId:string, file:File ){
-    const formData = new FormData();
-    formData.append('file', file);
-    return this.http.patch('event/eventPicture/'+ eventId, formData);
+  postEventImage(eventId:string, imgFile:FormData ){
+    console.log('file im service: ',imgFile)
+    return this.http.patch('event/eventPicture/'+ eventId, imgFile);
   }
 
   /**

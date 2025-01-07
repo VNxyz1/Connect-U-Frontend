@@ -63,6 +63,7 @@ export class Step3Component implements OnInit {
     const storedImageUrl = localStorage.getItem('eventImageBlob');
     if(storedImageUrl){
       this.eventImage = await this.blobUrlToFile(storedImageUrl, 'eventImage.jpg')
+      console.log('eventImage in Step3', this.eventImage)
     }
   }
 
@@ -150,7 +151,10 @@ export class Step3Component implements OnInit {
             ),
           });
           if(this.eventImage){
-            this.eventService.postEventImage(eventId, this.eventImage);
+            const formData = new FormData();
+            formData.append('file', this.eventImage);
+
+            this.eventService.postEventImage(eventId, formData);
             localStorage.removeItem('eventImageBlob');
           }
           setTimeout(() => {
