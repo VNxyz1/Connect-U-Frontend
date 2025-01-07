@@ -32,6 +32,7 @@ import { Button } from 'primeng/button';
 import { ListboxModule } from 'primeng/listbox';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
+import { FriendsService } from '../../services/friends/friends.service';
 
 @Component({
   selector: 'app-event-page',
@@ -83,6 +84,7 @@ export class EventPageComponent implements OnInit {
     protected readonly messageService: MessageService,
     protected readonly eventRequestService: EventRequestService,
     protected readonly userService: UserService,
+    private readonly friendsService: FriendsService,
     private auth: AuthService,
   ) {
     this.url = this.router.url;
@@ -273,9 +275,33 @@ export class EventPageComponent implements OnInit {
   }
 
   private loadFriends(): void {
+    /*
+    this.userService.getFriends() // Assuming `getFriends()` returns an Observable
+    .pipe(
+      catchError(err => {
+        console.error('Error fetching friends:', err);
+        this.router.navigate(['/404']); // Navigate to a 404 page or handle the error
+        return throwError(() => err);
+      })
+    )
+    .subscribe({
+      next: (data) => {
+        this.friends = data; // Assign the response to the `friends` array
+        if(data.length > 0) {
+           this.showInviteModal = true;
+        }
+      },
+      error: (err) => {
+        console.error('Error during subscription:', err);
+      }
+    });
+
+
+    */
+
     this.friends = [
       {
-        id: '1',
+        id: '14801e00-1883-4425-ac90-da8a16dfcfa8',
         firstName: 'John',
         lastName: 'Doe',
         username: 'johndoe',
@@ -291,10 +317,10 @@ export class EventPageComponent implements OnInit {
         gender: 1,
         isUser: false,
         tags: ['tag1'],
-        profilePicture: 'john.png',
+        profilePicture: 'empty.png',
       },
       {
-        id: '2',
+        id: '08c766dd-9fd2-46b4-a94d-caf85f319aa4',
         firstName: 'Jane',
         lastName: 'Smith',
         username: 'janesmith',
@@ -310,7 +336,26 @@ export class EventPageComponent implements OnInit {
         gender: 2,
         isUser: false,
         tags: ['tag2'],
-        profilePicture: 'jane.png',
+        profilePicture: 'empty.png',
+      },
+      {
+        id: '08c9876c-9fd2-2342-a94d-jknakd81u294udnjk',
+        firstName: 'Marcus',
+        lastName: 'P',
+        username: 'marcusp89',
+        email: 'jmm@example.com',
+        city: 'Hamburg',
+        streetNumber: '34',
+        birthday: '1992-02-02',
+        street: 'Second St',
+        zipCode: '20144',
+        age: '31',
+        pronouns: 'she/her',
+        profileText: 'Lorem ipsum',
+        gender: 2,
+        isUser: false,
+        tags: ['tag2'],
+        profilePicture: 'empty.png',
       },
     ];
 
@@ -332,16 +377,37 @@ export class EventPageComponent implements OnInit {
         next: () =>
           this.messageService.add({
             severity: 'success',
-            summary: `Invitation sent to ${friend.firstName}`,
+            summary: this.translocoService.translate(
+              'eventPageComponent.friends.inviteSuccess',
+              { name: friend.firstName }
+            ),
           }),
         error: err =>
           this.messageService.add({
             severity: 'error',
-            summary: `Failed to send invitation to ${friend.firstName}`,
-            detail: err.message,
+            summary: this.translocoService.translate(
+              'eventPageComponent.friends.inviteError',
+              { name: friend.firstName }
+            ),
           }),
       })
     );
     this.showInviteModal = false; // Close modal after sending invites
+  }
+
+  checkMaxSelection(event: any): void {
+    if (this.selectedFriends.length > (this.eventDetails.maxParticipantsNumber - this.eventDetails.participantsNumber)) {
+      // Remove the last selected friend if the limit is exceeded
+      this.selectedFriends.pop();
+
+      // Display a warning message
+      this.messageService.add({
+        styleClass: 'z-5',
+        severity: 'warning',
+        summary: this.translocoService.translate(
+          'eventPageComponent.friends.maxNumberExceeded'
+        ),
+      })
+    }
   }
 }

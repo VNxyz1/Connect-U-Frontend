@@ -285,7 +285,15 @@
     "infoTab": "Information",
     "listTab": "Lists",
     "surveyTab": "Surveys",
-    "chatTab": "Chat"
+    "chatTab": "Chat",
+    "friends": {
+      "inviteFriends": "Invite Friends",
+      "selectFriends": "Select Friends",
+      "sendInvites": "Send Invitations",
+      "inviteSuccess": "Invitation sent to {{name}} successfully.",
+      "inviteError": "Failed to send an invitation to {{name}}.",
+      "maxNumberExceeded": "You cannot invite more friends than the remaining slots."
+    }
   },
   "eventStatusIndicator": {
     "finished": {
