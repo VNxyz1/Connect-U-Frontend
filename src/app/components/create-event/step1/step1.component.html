@@ -7,7 +7,7 @@
       <div class="col-12">
         <!-- Image Preview -->
         <img
-          [src]="'/images/placeholder-image.jpg'"
+          [src]="uploadedImagePreview || '/images/placeholder-image.jpg'"
           alt="Eventbild"
           class="cursor-pointer border-round shadow-2"
           style="width: 250px; height: 150px; object-fit: cover; border: 4px solid #ccc"
@@ -15,7 +15,7 @@
         <!-- Hidden File Input -->
         <input
           type="file"
-          accept=".jpg, .jpeg, .png"
+          accept=".jpg, .jpeg, .png, .gif"
           #fileInput
           style="display: none"
           (change)="onFileSelected($event)" />

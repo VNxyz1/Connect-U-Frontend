@@ -173,6 +173,11 @@ export class EventService {
       }),
     );
   }
+  postEventImage(eventId:string, file:File ){
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.patch('event/eventPicture/'+ eventId, formData);
+  }
 
   /**
    * Fetches all events from the server.
@@ -273,4 +278,5 @@ export class EventService {
       }),
     );
   }
+
 }

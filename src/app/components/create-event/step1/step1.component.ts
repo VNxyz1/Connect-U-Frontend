@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import {Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { Button } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -51,6 +51,10 @@ export class Step1Component implements OnInit, OnDestroy {
   submitted: boolean = false;
   private readonly unsubscribe$ = new Subject<void>();
   results: string[] = [];
+
+  @ViewChild('fileInput') fileInput!: ElementRef;
+  uploadedFile: File | null = null;
+  uploadedImagePreview: string | null = null;
 
   constructor(
     public eventService: EventService,
@@ -112,6 +116,45 @@ export class Step1Component implements OnInit, OnDestroy {
           'createEventStep1Component.messages.categoryLimitDetail',
         ),
         life: 3000,
+      });
+    }
+  }
+  triggerFileInput(): void {
+    this.fileInput.nativeElement.click();
+  }
+
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+    const allowedFileTypes = ['image/png', 'image/jpeg', 'image/gif'];
+
+    if (file && allowedFileTypes.includes(file.type)) {
+      if (file.size > 5242880) { // Max size 5MB
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translocoService.translate('eventStep1.image.errorTitle'),
+          detail: this.translocoService.translate('eventStep1.image.errorSize'),
+        });
+        return;
+      }
+
+      // Datei als Blob speichern
+      const reader = new FileReader();
+      reader.onload = () => {
+        const blobUrl = URL.createObjectURL(file);
+
+        // Datei im LocalStorage speichern
+        localStorage.setItem('eventImageBlob', blobUrl);
+
+        // Vorschau anzeigen
+        this.uploadedImagePreview = blobUrl;
+      };
+      reader.readAsArrayBuffer(file);
+      console.log('Uploaded Image', file)
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: this.translocoService.translate('eventStep1.image.errorTitle'),
+        detail: this.translocoService.translate('eventStep1.image.errorFormat'),
       });
     }
   }
@@ -184,12 +227,6 @@ export class Step1Component implements OnInit, OnDestroy {
       }
     }
     console.log(this.tags);
-  }
-  triggerFileInput(){
-
-  }
-  onFileSelected(event:any){
-
   }
 
   blurTagInput() {

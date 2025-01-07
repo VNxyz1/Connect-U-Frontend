@@ -42,6 +42,7 @@ export class Step3Component implements OnInit {
   preferredGenders: number[] = [];
   ageValues: number[] = [16, 99];
   submitted: boolean = false;
+  eventImage:File | null = null;
   private readonly unsubscribe$ = new Subject<void>();
 
   constructor(
@@ -55,6 +56,14 @@ export class Step3Component implements OnInit {
   async ngOnInit() {
     await this.loadGenders();
     await this.insertValuesAgain();
+    await this.loadImageFromLocalStorage();
+  }
+
+  async loadImageFromLocalStorage(): Promise<void> {
+    const storedImageUrl = localStorage.getItem('eventImageBlob');
+    if(storedImageUrl){
+      this.eventImage = await this.blobUrlToFile(storedImageUrl, 'eventImage.jpg')
+    }
   }
 
   private async loadGenders() {
@@ -123,7 +132,7 @@ export class Step3Component implements OnInit {
       return; // Stop execution if validation fails
     }
 
-    // Save event information
+    // Save event information#
     this.sendEventInformation();
 
     // Submit event data to the server
@@ -140,7 +149,10 @@ export class Step3Component implements OnInit {
               { title: this.title },
             ),
           });
-
+          if(this.eventImage){
+            this.eventService.postEventImage(eventId, this.eventImage);
+            localStorage.removeItem('eventImageBlob');
+          }
           setTimeout(() => {
             // Navigate to the created event page
             this.router
@@ -205,5 +217,10 @@ export class Step3Component implements OnInit {
 
     // Save event information
     await this.eventService.setEventInformation(data);
+  }
+  private async blobUrlToFile(blobUrl: string, fileName: string): Promise<File> {
+    const response = await fetch(blobUrl);
+    const blob = await response.blob();
+    return new File([blob], fileName, { type: blob.type });
   }
 }
