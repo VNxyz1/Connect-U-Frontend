@@ -10,7 +10,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  NODE_VERSION: 20
 
 jobs:
   build-and-push-pr:
@@ -23,7 +22,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: 20
           check-latest: true
           cache: npm
 
@@ -45,9 +44,11 @@ jobs:
       - name: Extract PR ID and generate tags
         id: meta
         run: |
+          LOWERCASE_IMAGE_NAME=$(echo "${{ env.IMAGE_NAME }}" | tr '[:upper:]' '[:lower:]')
           echo "PR_ID=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
-          echo "TAG=test-${PR_ID}" >> $GITHUB_ENV
-          echo "Generated tag: test-${PR_ID}"
+          echo "IMAGE_NAME=${LOWERCASE_IMAGE_NAME}" >> $GITHUB_ENV
+          echo "TAG=test-${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+          echo "Generated tag: test-${{ github.event.pull_request.number }} for $LOWERCASE_IMAGE_NAME"
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
@@ -55,4 +56,4 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:test-${{ github.event.pull_request.number }}
