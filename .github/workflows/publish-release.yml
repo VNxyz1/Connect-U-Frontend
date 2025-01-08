@@ -5,19 +5,18 @@ on:
     branches:
       - main
       - release/*
-
+      - dev
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   NODE_VERSION: 20
 
-
 jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repositorycontainer registry push test
+      - name: Check out repository
         uses: actions/checkout@v4
 
       - name: Set up Node
@@ -40,7 +39,6 @@ jobs:
         with:
           path: ./*
           key: ${{ github.ref }}-${{ github.sha }}-setup
-
 
   build-and-push:
     needs: [setup]
@@ -72,12 +70,21 @@ jobs:
           labels: |
             type=raw,key=branch,value=${{ github.ref_name }}
 
+      - name: Generate version for dev images
+        if: github.ref == 'refs/heads/dev'
+        id: version
+        run: |
+          echo "DEV_VERSION=$(date +%Y%m%d%H%M%S)" >> $GITHUB_ENV
+          echo "Generated version: $DEV_VERSION"
+
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ steps.meta.outputs.tags }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev-${{ env.DEV_VERSION }}
           labels: ${{ steps.meta.outputs.labels }}
-

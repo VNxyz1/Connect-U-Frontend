@@ -1,0 +1,35 @@
+name: Cleanup Docker Images for Closed Pull Requests
+
+on:
+  pull_request:
+    types:
+      - closed
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  delete-pr-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.CR_PAT }}
+
+      - name: Extract PR ID
+        id: meta
+        run: |
+          echo "PR_ID=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+          echo "Generated tag for deletion: test-${PR_ID}"
+
+      - name: Delete Docker image
+        run: |
+          IMAGE=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:test-${{ env.PR_ID }}
+          echo "Deleting image: $IMAGE"
+          curl -X DELETE -H "Authorization: Bearer ${{ secrets.CR_PAT }}" \
+            https://ghcr.io/v2/${{ github.repository_owner }}/${{ github.event.repository.name }}/manifests/test-${{ env.PR_ID }}
