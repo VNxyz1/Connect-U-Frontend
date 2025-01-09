@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import {
   provideRouter,
-  withComponentInputBinding,
+  withComponentInputBinding, withInMemoryScrolling,
   withRouterConfig,
 } from '@angular/router';
 
@@ -182,6 +182,9 @@ export const appConfig: ApplicationConfig = {
       routes,
       withComponentInputBinding(),
       withRouterConfig({ paramsInheritanceStrategy: 'always' }),
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+      }),
     ),
     provideHttpClient(
       withFetch(),
