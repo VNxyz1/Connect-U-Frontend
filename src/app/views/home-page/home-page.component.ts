@@ -39,6 +39,9 @@ export class HomePageComponent implements OnInit {
   }
 
   loadNewPage(): void {
+    if (this.isLoading) {
+      return;
+    }
     this.isLoading = true;
     this.eventService.loadNextPage();
   }
