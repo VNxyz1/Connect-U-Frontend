@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { Observable } from 'rxjs';
+import {Observable, tap} from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventService } from '../../services/event/eventservice';
 import { EventCardComponent } from '../../components/event-card/event-card.component';
@@ -22,6 +22,7 @@ import {ScrollNearEndDirective} from '../../utils/scroll-near-end.directive';
 })
 export class HomePageComponent implements OnInit {
   events$!: Observable<EventCardItem[]>;
+  isLoading: boolean = false;
 
   constructor(private eventService: EventService) {}
 
@@ -30,10 +31,15 @@ export class HomePageComponent implements OnInit {
   }
 
   getEvents() {
-    this.events$ = this.eventService.getFyEvents();
+    this.events$ = this.eventService.getFyEvents().pipe(
+      tap({
+        next: () => this.isLoading = false,
+      }),
+    );
   }
 
   loadNewPage(): void {
+    this.isLoading = true;
     this.eventService.loadNextPage();
   }
 
