@@ -935,7 +935,7 @@
     "shareHeader": "Your personal invite"
   },
   "addFriendComponent": {
-    "friendship-created": "You are now friends with @\"{{name}}\"!",
+    "friendship-created": "You are now friends with @{{name}}!",
     "errors": {
       "invalidInviteLink": "The invitation link is not correct or has expired.",
       "self": "You cannot add yourself as a friend.",
@@ -943,6 +943,6 @@
       "genericError": "An unexpected error occurred. Please check your internet connection."
     },
     "accept-request": "Accept Friendship Request",
-    "already-friends": "You are already friends with @}\"{{name}}\"!"
+    "already-friends": "You are already friends with @{{name}}!"
   }
 }

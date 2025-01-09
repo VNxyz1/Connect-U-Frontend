@@ -935,7 +935,7 @@
     "shareHeader": "Dein Anfrage Link"
   },
   "addFriendComponent": {
-    "friendship-created": "Du bist nun mit @\"{{name}}\"  befreundet!",
+    "friendship-created": "Du bist nun mit @{{name}}  befreundet!",
     "errors": {
       "invalidInviteLink": "Der Einladungslink ist nicht korrekt oder abgelaufen.",
       "self": "Du kannst dich nicht selbst als Freund hinzufügen.",
@@ -943,6 +943,6 @@
       "genericError": "Ein unerwarteter Fehler ist aufgetreten. Bitte überprüfe deine Internetverbindung."
     },
     "accept-request": "Freundschaftsanfrage annehmen",
-    "already-friends": "Du bist bereits mit @}\"{{name}}\" befreundet!"
+    "already-friends": "Du bist bereits mit @}{{name}} befreundet!"
   }
 }

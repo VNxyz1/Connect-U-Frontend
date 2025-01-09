@@ -24,11 +24,11 @@ export class FriendsService {
    * @returns {Observable<OkResponse>} An observable with the server's response.
    */
   createFriendship(username: string, inviteId: string) {
-    return this.http.post<OkResponse>(`friends/${username}/${inviteId}`, {});
+    return this.http.put<OkResponse>(`friends/${username}/${inviteId}`, {});
   }
 
   getFriends(): Observable<ProfileData[]> {
-    return this.http.get<ProfileData[]>('friends');
+    return this.http.get<ProfileData[]>('friend');
   }
 
   checkIfFriend(username: string): Observable<boolean> {
