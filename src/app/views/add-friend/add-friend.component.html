@@ -1,0 +1,29 @@
+<div>
+  <app-profile-page></app-profile-page>
+
+  <div class="flex flex-wrap mt-4 content justify-content-center">
+
+    @if (!isAlreadyFriend) {
+      <p-button
+        [raised]="true"
+        label="{{
+                  'addFriendComponent.accept-request' | transloco
+                }}"
+        severity="success"
+        (onClick)="acceptFriendInvite()">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            style="width: 16px; height: 16px"
+            name="check-line"></rmx-icon>
+        </ng-template>
+      </p-button>
+    } @else {
+      <span>
+        {{
+          'addFriendComponent.already-friends' | transloco:{ name: username }
+        }}
+      </span>
+    }
+
+  </div>
+</div>
