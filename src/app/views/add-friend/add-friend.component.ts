@@ -8,9 +8,11 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { FriendsService } from '../../services/friends/friends.service';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
-  'Your invite link is not correct or expired': 'addFriendComponent.errors.invalidInviteLink',
+  'Your invite link is not correct or expired':
+    'addFriendComponent.errors.invalidInviteLink',
   'You cannot befriend yourself': 'addFriendComponent.errors.self',
-  'Invitation link doesnt exist': 'addFriendComponent.errors.invitationLinkNotExists'
+  'Invitation link doesnt exist':
+    'addFriendComponent.errors.invitationLinkNotExists',
 };
 
 @Component({
@@ -25,7 +27,7 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   ],
   templateUrl: './add-friend.component.html',
 })
-export class AddFriendComponent implements OnInit{
+export class AddFriendComponent implements OnInit {
   username!: string;
   inviteId!: string;
   isAlreadyFriend: boolean = false;
@@ -35,7 +37,8 @@ export class AddFriendComponent implements OnInit{
     protected readonly router: Router,
     protected readonly friendsService: FriendsService,
     protected messageService: MessageService,
-    protected readonly translocoService: TranslocoService) {}
+    protected readonly translocoService: TranslocoService,
+  ) {}
 
   ngOnInit(): void {
     this.username = this.route.snapshot.paramMap.get('username')!;
@@ -52,18 +55,20 @@ export class AddFriendComponent implements OnInit{
   }
 
   protected acceptFriendInvite() {
-    this.friendsService.createFriendship(this.username, this.inviteId).subscribe({
-      next: () => {
-        this.messageService.add({
-          severity: 'success',
-          summary: this.translocoService.translate(
-            'addFriendComponent.friendship-created',
-            { name: this.username }
-          ),
-        });
-      },
-      error: err => this.handleError(err),
-    });
+    this.friendsService
+      .createFriendship(this.username, this.inviteId)
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: this.translocoService.translate(
+              'addFriendComponent.friendship-created',
+              { name: this.username },
+            ),
+          });
+        },
+        error: err => this.handleError(err),
+      });
   }
 
   private handleError(err: any): void {
@@ -78,5 +83,4 @@ export class AddFriendComponent implements OnInit{
       summary: translatedMessage,
     });
   }
-
 }

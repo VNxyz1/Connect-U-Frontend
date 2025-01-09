@@ -2,13 +2,10 @@
   <app-profile-page [username]="username"></app-profile-page>
 
   <div class="flex flex-wrap mt-4 content justify-content-center">
-
     @if (!isAlreadyFriend) {
       <p-button
         [raised]="true"
-        label="{{
-                  'addFriendComponent.accept-request' | transloco
-                }}"
+        label="{{ 'addFriendComponent.accept-request' | transloco }}"
         severity="success"
         (onClick)="acceptFriendInvite()">
         <ng-template pTemplate="icon">
@@ -20,10 +17,9 @@
     } @else {
       <span>
         {{
-          'addFriendComponent.already-friends' | transloco:{ name: username }
+          'addFriendComponent.already-friends' | transloco: { name: username }
         }}
       </span>
     }
-
   </div>
 </div>

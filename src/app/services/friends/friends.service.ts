@@ -10,11 +10,10 @@ type OkResponse = {
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FriendsService {
-
-  constructor(private readonly http: HttpClient) { }
+  constructor(private readonly http: HttpClient) {}
 
   /**
    * Sends a POST request to create a friendship using a username and an inviteId.
@@ -33,7 +32,7 @@ export class FriendsService {
 
   checkIfFriend(username: string): Observable<boolean> {
     return this.getFriends().pipe(
-      map(friends => friends.some(friend => friend.username === username))
+      map(friends => friends.some(friend => friend.username === username)),
     );
   }
 }

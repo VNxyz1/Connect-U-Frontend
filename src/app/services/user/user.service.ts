@@ -153,7 +153,6 @@ export class UserService {
     this.expirationTimeSubject.next(null);
   }
 
-
   /**
    * fetches a specific User
    * @param username (username from a specific User)
