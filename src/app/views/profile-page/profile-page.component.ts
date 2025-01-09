@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
@@ -77,6 +77,9 @@ export class ProfilePageComponent implements OnInit {
   uploadedFile: File | null = null;
   uploadedImagePreview: string | null = null;
 
+  uploadDialogVisible: boolean = false;
+  @Input() username!: string;
+
   constructor(
     private readonly messageService: MessageService,
     private readonly route: ActivatedRoute,
@@ -103,25 +106,47 @@ export class ProfilePageComponent implements OnInit {
   }
 
   fetchData(): void {
-    this.profileData$ = this.userService.getSpecificUserData(this.userId).pipe(
-      map(data => {
-        this.isUser = data.isUser;
+    if (this.username) {
+      this.profileData$ = this.userService.getSpecificUserDataByUsername(this.username).pipe(
+        map(data => {
+          this.isUser = data.isUser;
 
-        const profilePicture = data.profilePicture
-          ? this.userService.getImageFile(data.profilePicture)
-          : this.userService.getImageFile('empty.png');
+          const profilePicture = data.profilePicture
+            ? this.userService.getImageFile(data.profilePicture)
+            : this.userService.getImageFile('empty.png');
 
-        // Observable für die Bild-URL setzen
-        this.imageUrl$ = of(profilePicture);
+          // Observable für die Bild-URL setzen
+          this.imageUrl$ = of(profilePicture);
 
-        this.form.patchValue({
-          pronouns: data.pronouns || '',
-          profileText: data.profileText || '',
-          tags: data.tags || [],
-        });
-        return data;
-      }),
-    );
+          this.form.patchValue({
+            pronouns: data.pronouns || '',
+            profileText: data.profileText || '',
+            tags: data.tags || [],
+          });
+          return data;
+        }),
+      );
+    } else {
+      this.profileData$ = this.userService.getSpecificUserData(this.userId).pipe(
+        map(data => {
+          this.isUser = data.isUser;
+
+          const profilePicture = data.profilePicture
+            ? this.userService.getImageFile(data.profilePicture)
+            : this.userService.getImageFile('empty.png');
+
+          // Observable für die Bild-URL setzen
+          this.imageUrl$ = of(profilePicture);
+
+          this.form.patchValue({
+            pronouns: data.pronouns || '',
+            profileText: data.profileText || '',
+            tags: data.tags || [],
+          });
+          return data;
+        }),
+      );
+    }
   }
 
   submitEdit() {
@@ -282,6 +307,4 @@ export class ProfilePageComponent implements OnInit {
       });
     }
   }
-
-  uploadDialogVisible: boolean = false;
 }
