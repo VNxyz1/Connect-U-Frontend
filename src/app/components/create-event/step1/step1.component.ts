@@ -149,7 +149,6 @@ export class Step1Component implements OnInit, OnDestroy {
         this.uploadedImagePreview = blobUrl;
       };
       reader.readAsArrayBuffer(file);
-      console.log('Uploaded Image', file)
     } else {
       this.messageService.add({
         severity: 'error',

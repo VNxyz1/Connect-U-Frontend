@@ -154,7 +154,9 @@ export class Step3Component implements OnInit {
             const formData = new FormData();
             formData.append('file', this.eventImage);
 
-            this.eventService.postEventImage(eventId, formData);
+            this.eventService.postEventImage(eventId, formData).subscribe({
+              next: data => console.log(data)
+            });
             localStorage.removeItem('eventImageBlob');
           }
           setTimeout(() => {

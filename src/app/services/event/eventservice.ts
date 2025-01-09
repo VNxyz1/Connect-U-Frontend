@@ -174,7 +174,7 @@ export class EventService {
     );
   }
   postEventImage(eventId:string, imgFile:FormData ){
-    console.log('file im service: ',imgFile)
+    console.log('file im service: ',imgFile, " id:", eventId)
     return this.http.patch('event/eventPicture/'+ eventId, imgFile);
   }
 
