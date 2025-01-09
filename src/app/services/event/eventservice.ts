@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../storage/storage.service';
-import {BehaviorSubject, Observable, scan, Subject, throwError} from 'rxjs';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventDetails } from '../../interfaces/EventDetails';
 
@@ -38,13 +38,11 @@ export class EventService {
   private readonly eventComplete = new Subject<EventData>();
   eventComplete$ = this.eventComplete.asObservable();
 
-
   private page = 0;
   private readonly pageSize = 12;
 
   // Source for loading data
   private loadNextPageSubject!: BehaviorSubject<EventCardItem[]>;
-
 
   constructor(
     private readonly http: HttpClient,
@@ -54,7 +52,7 @@ export class EventService {
       next: res => {
         this.loadNextPageSubject = new BehaviorSubject<EventCardItem[]>(res);
       },
-    })
+    });
   }
 
   /**
@@ -220,8 +218,8 @@ export class EventService {
         const currentItems = this.loadNextPageSubject.getValue();
         const updatedItems = [...currentItems, ...newItems];
         this.loadNextPageSubject.next(updatedItems);
-      }
-    })
+      },
+    });
   }
 
   /**

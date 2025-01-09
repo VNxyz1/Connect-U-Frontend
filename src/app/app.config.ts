@@ -6,7 +6,8 @@ import {
 } from '@angular/core';
 import {
   provideRouter,
-  withComponentInputBinding, withInMemoryScrolling,
+  withComponentInputBinding,
+  withInMemoryScrolling,
   withRouterConfig,
 } from '@angular/router';
 
@@ -84,7 +85,6 @@ import {
 import { TranslocoHttpLoader } from './transloco-loader';
 import {
   provideTransloco,
-  TranslocoMissingHandler,
   TranslocoMissingHandlerData,
 } from '@jsverse/transloco';
 import { provideTranslocoLocale } from '@jsverse/transloco-locale';
