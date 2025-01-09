@@ -6,6 +6,7 @@ import { EventService } from '../../services/event/eventservice';
 import { EventCardComponent } from '../../components/event-card/event-card.component';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { UpcomingEventsCarouselComponent } from '../../components/upcoming-events-carousel/upcoming-events-carousel.component';
+import {ScrollNearEndDirective} from '../../utils/scroll-near-end.directive';
 
 @Component({
   selector: 'app-home-page',
@@ -15,6 +16,7 @@ import { UpcomingEventsCarouselComponent } from '../../components/upcoming-event
     EventCardComponent,
     TranslocoPipe,
     UpcomingEventsCarouselComponent,
+    ScrollNearEndDirective,
   ],
   templateUrl: './home-page.component.html',
 })
@@ -28,6 +30,12 @@ export class HomePageComponent implements OnInit {
   }
 
   getEvents() {
-    this.events$ = this.eventService.getAllEvents();
+    this.events$ = this.eventService.getFyEvents();
   }
+
+  loadNewPage(): void {
+    this.eventService.loadNextPage();
+  }
+
+
 }

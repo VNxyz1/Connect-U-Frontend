@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../storage/storage.service';
-import { Observable, Subject, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import {BehaviorSubject, Observable, scan, Subject, throwError} from 'rxjs';
+import {catchError, map, switchMap} from 'rxjs/operators';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventDetails } from '../../interfaces/EventDetails';
 
@@ -38,10 +38,24 @@ export class EventService {
   private readonly eventComplete = new Subject<EventData>();
   eventComplete$ = this.eventComplete.asObservable();
 
+
+  private page = 0;
+  private readonly pageSize = 12;
+
+  // Source for loading data
+  private loadNextPageSubject!: BehaviorSubject<EventCardItem[]>;
+
+
   constructor(
     private readonly http: HttpClient,
     private readonly storageService: StorageService,
-  ) {}
+  ) {
+    this.loadPage(this.page, this.pageSize).subscribe({
+      next: res => {
+        this.loadNextPageSubject = new BehaviorSubject<EventCardItem[]>(res);
+      },
+    })
+  }
 
   /**
    * Retrieves the current event information from storage or initializes it with default values.
@@ -180,6 +194,34 @@ export class EventService {
    */
   getAllEvents(): Observable<EventCardItem[]> {
     return this.http.get<EventCardItem[]>('event/allEvents');
+  }
+
+  /**
+   * Fetches all fy-page events from the server.
+   * @returns {Observable<EventCardItem[]>} An observable that emits an array of event card items.
+   */
+  getFyEvents(): Observable<EventCardItem[]> {
+    return this.loadNextPageSubject.asObservable();
+  }
+
+  private loadPage(page: number, pageSize: number) {
+    return this.http.get<EventCardItem[]>('event/fy-page', {
+      params: {
+        page: page,
+        size: pageSize,
+      },
+    });
+  }
+
+  loadNextPage(): void {
+    this.page++;
+    this.loadPage(this.page, this.pageSize).subscribe({
+      next: newItems => {
+        const currentItems = this.loadNextPageSubject.getValue();
+        const updatedItems = [...currentItems, ...newItems];
+        this.loadNextPageSubject.next(updatedItems);
+      }
+    })
   }
 
   /**
