@@ -1,66 +1,69 @@
-<p-dialog [(visible)]="showInviteModal"
-          modal
-          [header]="'eventPageComponent.friends.inviteFriends' | transloco"
-          [draggable]="false"
-          contentStyleClass="border-round"
-  class="p-fluid w-30rem h-10rem"
->
-  <div class="p-fluid w-30rem h-auto">
-    <div class="p-multiselect-container border-round p-component p-filled">
-      <!-- Header / Selected Friends -->
-      <div class="p-fluid h-3rem align-items-center">
-        @if(selectedFriends.length > 0) {
-          <p-chips
-            [ngModel]="selectedFriends"
-            field="firstName"
-            showClear="true"
-            [addOnTab]="false"
-            [addOnBlur]="false"
-            [inputStyle]="{ display: 'none' }"
-            [placeholder]="'eventPageComponent.friends.selectFriends' | transloco">
-          </p-chips>
-        } @else {
-          <div class="p-chips-placeholder">
-            {{ 'eventPageComponent.friends.selectFriends' | transloco }}
-          </div>
-        }
-      </div>
+<p-dialog
+  [(visible)]="showInviteModal"
+  modal
+  [header]="'eventPageComponent.friends.inviteFriends' | transloco"
+  [draggable]="false"
+  contentStyleClass="border-round"
+  class="p-fluid w-full md:w-30rem h-10rem"
+  (onHide)="onInviteDialogClose()">
+  <div
+    class="p-fluid w-full md:w-30rem h-auto p-multiselect-container border-round p-component p-filled mt-2 mb-2">
+    <!-- Header / Selected Friends -->
+    <div class="p-fluid h-3rem">
+      @if (selectedFriends.length > 0) {
+        <p-chips
+          [(ngModel)]="selectedFriends"
+          field="firstName"
+          showClear="true"
+          [addOnTab]="false"
+          [addOnBlur]="false"
+          [inputStyle]="{ display: 'none' }"
+          [placeholder]="'eventPageComponent.friends.selectFriends' | transloco"
+          (ngModelChange)="onSelectedFriendsChange()">
+        </p-chips>
+      } @else {
+        <div class="p-chips-placeholder flex align-items-center h-3rem">
+          <span>{{
+            'eventPageComponent.friends.selectFriends' | transloco
+          }}</span>
+        </div>
+      }
+    </div>
 
-      <p-listbox
-        [options]="friends"
-        [(ngModel)]="selectedFriends"
-        [multiple]="true"
-        [filter]="true"
-        optionLabel="firstName"
-        [style]="{ width: '30rem' }"
-        [listStyle]="{ 'max-height': '250px' }"
-        (onChange)="checkMaxSelection($event)">
+    <p-listbox
+      [options]="friends"
+      [(ngModel)]="selectedFriends"
+      [multiple]="true"
+      [filter]="true"
+      optionLabel="firstName"
+      class="w-100"
+      [listStyle]="{ 'max-height': '250px' }"
+      (onChange)="checkMaxSelection($event)">
       <ng-template let-friend pTemplate="item">
-        <div class="inline-flex items-center gap-2 px-2 py-2 cursor-pointer border-bottom">
+        <div
+          class="inline-flex items-center gap-2 px-2 py-2 cursor-pointer border-bottom">
           <img
             [src]="userService.getImageFile(friend.profilePicture)"
             alt="profilbild"
             class="border-circle"
             style="width: 35px; height: 35px" />
           <div>
-            <span class="font-medium"><strong>{{ friend.firstName }}</strong></span>
-            <div class="text-sm">
-              &#64;{{ friend.username }}
-            </div>
+            <span class="font-medium"
+              ><strong>{{ friend.firstName }}</strong></span
+            >
+            <div class="text-sm">&#64;{{ friend.username }}</div>
           </div>
         </div>
       </ng-template>
-      </p-listbox>
-    </div>
+    </p-listbox>
   </div>
   <ng-template pTemplate="footer">
     <p-button
       [raised]="true"
       severity="success"
-      [label]="
-          'eventPageComponent.friends.sendInvites' | transloco
-        "
+      [label]="'eventPageComponent.friends.sendInvites' | transloco"
       class="align-items-center"
+      [disabled]="selectedFriends.length === 0"
       (onClick)="sendInvites()">
       <ng-template pTemplate="icon">
         <rmx-icon
@@ -72,7 +75,6 @@
     </p-button>
   </ng-template>
 </p-dialog>
-
 
 <p-dialog
   [(visible)]="notLoggedInDialogVisible"

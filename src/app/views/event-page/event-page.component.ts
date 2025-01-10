@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+} from '@angular/core';
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -20,7 +26,6 @@ import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { EventRequestService } from '../../services/event/event-request.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { EventUserRequest } from '../../interfaces/EventUserRequest';
-import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 import { DialogModule } from 'primeng/dialog';
 import { LoginComponent } from '../../components/login/login.component';
 import { RegisterComponent } from '../../components/register/register.component';
@@ -43,7 +48,6 @@ import { FriendsService } from '../../services/friends/friends.service';
     RouterOutlet,
     TabMenuModule,
     EventInfoComponent,
-    AsyncPipe,
     AngularRemixIconComponent,
     DialogModule,
     LoginComponent,
@@ -75,6 +79,8 @@ export class EventPageComponent implements OnInit {
 
   notLoggedInDialogVisible: boolean = false;
   loginRegisterSwitch: boolean = true;
+
+  selectedFriendsChange = new EventEmitter<any[]>();
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -113,6 +119,10 @@ export class EventPageComponent implements OnInit {
 
       this.fetchEventDetails();
       this.checkIfComingFromCreate();
+      this.selectedFriendsChange.subscribe(updatedFriends => {
+        // Update selectedFriends and ensure synchronization
+        this.selectedFriends = updatedFriends;
+      });
     }
   }
 
@@ -145,6 +155,15 @@ export class EventPageComponent implements OnInit {
         this.router.navigate(['/404']);
       },
     });
+  }
+
+  onSelectedFriendsChange(): void {
+    // Create a new reference with only valid friends
+    this.selectedFriends = this.selectedFriends.filter(friend =>
+      this.friends.some(f => f.id === friend.id),
+    );
+    // Emit the updated list
+    this.selectedFriendsChange.emit([...this.selectedFriends]);
   }
 
   private fetchEventRequestsHost(): void {
@@ -275,91 +294,32 @@ export class EventPageComponent implements OnInit {
   }
 
   private loadFriends(): void {
-    this.friendsService.getFriends() // Assuming `getFriends()` returns an Observable
-    .pipe(
-      catchError(err => {
-        console.error('Error fetching friends:', err);
-        this.router.navigate(['/404']); // Navigate to a 404 page or handle the error
-        return throwError(() => err);
-      })
-    )
-    .subscribe({
-      next: (data) => {
-        this.friends = data; // Assign the response to the `friends` array
-        if(data.length > 0) {
-           this.showInviteModal = true;
-        }
-      },
-      error: (err) => {
-        console.error('Error during subscription:', err);
-      }
-    });
-
-
-    this.friends = [
-      {
-        id: '14801e00-1883-4425-ac90-da8a16dfcfa8',
-        firstName: 'John',
-        lastName: 'Doe',
-        username: 'johndoe',
-        email: 'john@example.com',
-        city: 'Berlin',
-        streetNumber: '12',
-        birthday: '1990-01-01',
-        street: 'Main St',
-        zipCode: '10115',
-        age: '33',
-        pronouns: 'he/him',
-        profileText: 'Lorem ipsum',
-        gender: 1,
-        isUser: false,
-        tags: ['tag1'],
-        profilePicture: 'empty.png',
-      },
-      {
-        id: '08c766dd-9fd2-46b4-a94d-caf85f319aa4',
-        firstName: 'Jane',
-        lastName: 'Smith',
-        username: 'janesmith',
-        email: 'jane@example.com',
-        city: 'Hamburg',
-        streetNumber: '34',
-        birthday: '1992-02-02',
-        street: 'Second St',
-        zipCode: '20144',
-        age: '31',
-        pronouns: 'she/her',
-        profileText: 'Lorem ipsum',
-        gender: 2,
-        isUser: false,
-        tags: ['tag2'],
-        profilePicture: 'empty.png',
-      },
-      {
-        id: '08c9876c-9fd2-2342-a94d-jknakd81u294udnjk',
-        firstName: 'Marcus',
-        lastName: 'P',
-        username: 'marcusp89',
-        email: 'jmm@example.com',
-        city: 'Hamburg',
-        streetNumber: '34',
-        birthday: '1992-02-02',
-        street: 'Second St',
-        zipCode: '20144',
-        age: '31',
-        pronouns: 'she/her',
-        profileText: 'Lorem ipsum',
-        gender: 2,
-        isUser: false,
-        tags: ['tag2'],
-        profilePicture: 'empty.png',
-      },
-    ];
-
-    this.showInviteModal = true;
+    this.friendsService
+      .getFilteredFriendsForEvent(this.eventId) // Assuming `getFriends()` returns an Observable
+      .pipe(
+        catchError(err => {
+          console.error('Error fetching friends:', err);
+          this.router.navigate(['/404']); // Navigate to a 404 page or handle the error
+          return throwError(() => err);
+        }),
+      )
+      .subscribe({
+        next: data => {
+          this.friends = data; // Assign the response to the `friends` array
+          if (data.length > 0) {
+            this.showInviteModal = true;
+          }
+        },
+        error: err => {
+          console.error('Error during subscription:', err);
+        },
+      });
+    if (this.friends.length > 0) {
+      this.showInviteModal = true;
+    }
   }
 
-  toggleMultiSelection(friend: any): void {
+  protected toggleMultiSelection(friend: any): void {
     const index = this.selectedFriends.findIndex(f => f.id === friend.id);
     if (index === -1) {
       this.selectedFriends.push(friend);
@@ -368,7 +328,7 @@ export class EventPageComponent implements OnInit {
     }
   }
 
-  sendInvites(): void {
+  protected sendInvites(): void {
     const invites = this.selectedFriends.map(friend =>
       this.eventRequestService.createInvite(this.eventId, friend.id).subscribe({
         next: () =>
@@ -376,7 +336,7 @@ export class EventPageComponent implements OnInit {
             severity: 'success',
             summary: this.translocoService.translate(
               'eventPageComponent.friends.inviteSuccess',
-              { name: friend.firstName }
+              { name: friend.firstName },
             ),
           }),
         error: err =>
@@ -384,27 +344,47 @@ export class EventPageComponent implements OnInit {
             severity: 'error',
             summary: this.translocoService.translate(
               'eventPageComponent.friends.inviteError',
-              { name: friend.firstName }
+              { name: friend.firstName },
             ),
           }),
-      })
+      }),
     );
     this.showInviteModal = false; // Close modal after sending invites
+    this.onInviteDialogClose();
   }
 
-  checkMaxSelection(event: any): void {
-    if (this.selectedFriends.length > (this.eventDetails.maxParticipantsNumber - this.eventDetails.participantsNumber)) {
+  protected checkMaxSelection(event: any): void {
+    if (
+      this.selectedFriends.length >
+      this.eventDetails.maxParticipantsNumber -
+        this.eventDetails.participantsNumber
+    ) {
       // Remove the last selected friend if the limit is exceeded
       this.selectedFriends.pop();
 
-      // Display a warning message
+      // Display a warning message with a higher z-index
       this.messageService.add({
-        styleClass: 'z-5',
         severity: 'warning',
         summary: this.translocoService.translate(
-          'eventPageComponent.friends.maxNumberExceeded'
+          'eventPageComponent.friends.maxNumberExceeded',
         ),
-      })
+      });
+
+      this.selectedFriendsChange.emit(this.selectedFriends);
+    }
+  }
+
+  onInviteDialogClose() {
+    const queryParams = { ...this.route.snapshot.queryParams };
+
+    if (queryParams['fromCreate']) {
+      delete queryParams['fromCreate'];
+
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: queryParams,
+        replaceUrl: true,
+      });
     }
   }
 }

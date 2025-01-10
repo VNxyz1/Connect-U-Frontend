@@ -49,7 +49,7 @@ export class Step3Component implements OnInit {
     private readonly messageService: MessageService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
-    private translocoService: TranslocoService
+    private translocoService: TranslocoService,
   ) {
     this.ageChangeSubject
       .pipe(debounceTime(300)) // Adjust debounce time as needed (300ms is a good default)
@@ -146,14 +146,21 @@ export class Step3Component implements OnInit {
     if (this.ageValues[index] !== undefined) {
       const constrainedValue = Math.max(
         16,
-        Math.min(this.ageValues[index] as number, index === 0 ? this.ageValues[1] ?? 99 : 99)
+        Math.min(
+          this.ageValues[index] as number,
+          index === 0 ? (this.ageValues[1] ?? 99) : 99,
+        ),
       );
 
       // Apply the constrained value
       this.ageValues[index] = constrainedValue;
 
       // Ensure the minimum age does not exceed the maximum age
-      if (this.ageValues[0] !== undefined && this.ageValues[1] !== undefined && this.ageValues[0] > this.ageValues[1]) {
+      if (
+        this.ageValues[0] !== undefined &&
+        this.ageValues[1] !== undefined &&
+        this.ageValues[0] > this.ageValues[1]
+      ) {
         this.ageValues[1] = this.ageValues[0];
       }
 
@@ -183,17 +190,27 @@ export class Step3Component implements OnInit {
       if (isNaN(numericValue)) return; // Do nothing if the value is not a valid number
 
       // Apply constraints for the minimum age
-      this.ageValues[0] = Math.max(0, Math.min(numericValue, <number>this.ageValues[1]));
+      this.ageValues[0] = Math.max(
+        0,
+        Math.min(numericValue, <number>this.ageValues[1]),
+      );
     } else if (index === 1) {
       const numericValue = Number(value); // Convert the input value to a number
       if (isNaN(numericValue)) return; // Do nothing if the value is not a valid number
 
       // Apply constraints for the maximum age
-      this.ageValues[1] = Math.min(99, Math.max(numericValue, <number>this.ageValues[0]));
+      this.ageValues[1] = Math.min(
+        99,
+        Math.max(numericValue, <number>this.ageValues[0]),
+      );
     }
 
     // Ensure the min age is not greater than the max age
-    if (this.ageValues[0] && this.ageValues[1] && this.ageValues[0] > this.ageValues[1]) {
+    if (
+      this.ageValues[0] &&
+      this.ageValues[1] &&
+      this.ageValues[0] > this.ageValues[1]
+    ) {
       this.ageValues[1] = this.ageValues[0];
     }
   }
@@ -202,12 +219,13 @@ export class Step3Component implements OnInit {
     this.submitted = true;
 
     if (
-      this.ageValues[0] && this.ageValues[1] && (
-      !this.participantsNumber ||
-      this.participantsNumber < 2 ||
-      this.ageValues[0] < 16 ||
-      this.ageValues[1] > 99 ||
-      this.ageValues[0] > this.ageValues[1])
+      this.ageValues[0] &&
+      this.ageValues[1] &&
+      (!this.participantsNumber ||
+        this.participantsNumber < 2 ||
+        this.ageValues[0] < 16 ||
+        this.ageValues[1] > 99 ||
+        this.ageValues[0] > this.ageValues[1])
     ) {
       return;
     }
@@ -223,7 +241,7 @@ export class Step3Component implements OnInit {
             severity: 'success',
             summary: this.translocoService.translate(
               'createEventStep3Component.messages.eventCreatedSuccess',
-              { title: this.title }
+              { title: this.title },
             ),
           });
 
@@ -236,8 +254,8 @@ export class Step3Component implements OnInit {
         } else {
           throw new Error(
             this.translocoService.translate(
-              'createEventStep3Component.messages.noEventIdError'
-            )
+              'createEventStep3Component.messages.noEventIdError',
+            ),
           );
         }
       },
@@ -246,10 +264,10 @@ export class Step3Component implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: this.translocoService.translate(
-            'createEventStep3Component.messages.eventCreatedError'
+            'createEventStep3Component.messages.eventCreatedError',
           ),
           detail: this.translocoService.translate(
-            'createEventStep3Component.messages.eventCreatedErrorMessage'
+            'createEventStep3Component.messages.eventCreatedErrorMessage',
           ),
         });
         return;

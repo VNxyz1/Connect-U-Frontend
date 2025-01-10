@@ -16,13 +16,13 @@
               (participantsInput.dirty && participantsInput.invalid),
           }" />
         <label for="participantsNumber">{{
-            'createEventStep3Component.participantsNumberInput.label' | transloco
-          }}</label>
+          'createEventStep3Component.participantsNumberInput.label' | transloco
+        }}</label>
       </p-floatLabel>
       @if (
         (participantsInput.invalid && submitted) ||
         (participantsInput.dirty && participantsInput.invalid)
-        ) {
+      ) {
         <small class="p-error">
           {{
             'createEventStep3Component.participantsNumberInput.errorMessage'
@@ -45,8 +45,8 @@
           styleClass="capitalize">
         </p-multiSelect>
         <label for="genders">{{
-            'createEventStep3Component.preferredGendersInput.label' | transloco
-          }}</label>
+          'createEventStep3Component.preferredGendersInput.label' | transloco
+        }}</label>
       </p-floatLabel>
     </div>
 
@@ -59,28 +59,28 @@
         max="99"
         [range]="true"
         (ngModelChange)="onSliderChange($event)"
-        styleClass="centered-slider"
-      ></p-slider>
-      <div class="flex align-items-center justify-content-between mt-4 slider-input-container">
+        styleClass="centered-slider"></p-slider>
+      <div
+        class="flex align-items-center justify-content-between mt-4 slider-input-container">
         <!-- Minimum Age Input -->
         <input
           type="text"
           pInputText
           [ngModel]="ageValues[0] ?? ''"
-        (ngModelChange)="onAgeChange(0, $event)"
-        (blur)="onAgeBlur(0)"
-        class="slider-input"
-        />
+          (ngModelChange)="onAgeChange(0, $event)"
+          (blur)="onAgeBlur(0)"
+          class="slider-input" />
 
         <!-- Maximum Age Input -->
         <input
           type="text"
           pInputText
-          [ngModel]="ageValues[1] === 99 ? getMaxAgePlaceholder() : (ageValues[1] ?? '')"
-        (ngModelChange)="onAgeChange(1, $event)"
-        (blur)="onAgeBlur(1)"
-        class="slider-input"
-        />
+          [ngModel]="
+            ageValues[1] === 99 ? getMaxAgePlaceholder() : (ageValues[1] ?? '')
+          "
+          (ngModelChange)="onAgeChange(1, $event)"
+          (blur)="onAgeBlur(1)"
+          class="slider-input" />
       </div>
     </div>
   </div>
