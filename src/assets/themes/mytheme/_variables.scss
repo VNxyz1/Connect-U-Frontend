@@ -299,8 +299,17 @@ h6 {
   border-bottom: 2px solid $secondaryColor; /* Add visual indication for active tab */
 }
 
+/* Highlighted Listbox styling */
+.p-listbox .p-listbox-list .p-listbox-item.p-highlight {
+  background: $secondaryColor; /* Add visual indication for active tab */
+}
+
 // confirm dialogue
 
 .p-confirm-dialog-accept {
   background-color: $successColor;
+}
+
+.p-toast {
+  z-index: 1400;
 }

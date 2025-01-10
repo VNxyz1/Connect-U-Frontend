@@ -54,6 +54,9 @@
         @case (currentUrl?.includes('/information')) {
           <h1 class="m-0">{{ 'headerComponent.information' | transloco }}</h1>
         }
+        @case (currentUrl?.includes('/add-friend')) {
+          <h1 class="m-0">{{ 'headerComponent.addFriend' | transloco }}</h1>
+        }
         @case (currentUrl?.includes('/share-profile')) {
           <h1
             class="m-0 max-w-full"
