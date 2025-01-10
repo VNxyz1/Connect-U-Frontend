@@ -411,7 +411,8 @@
     "information": "Informationen",
     "closeConfirmationMessage": "Bist Du sicher, dass du dein Event verwerfen möchtest? Dein Entwurf wird nicht gespeichert.",
     "closeConfirmationHeader": "Entwurf verwerfen",
-    "shareProfile": "Profil Teilen"
+    "shareProfile": "Profil Teilen",
+    "addFriend": "Freundschaftsanfrage"
   },
   "navbarComponent": {
     "mySpace": "Mein Bereich",
@@ -941,5 +942,16 @@
     "linkExpired": "Dein Link ist abgelaufen! Generiere jetzt einen neuen!",
     "linkExplanation": "Lasse jetzt eine Person deinen QR-Code Scannen, oder schicke ihr den Link! Der Link ist noch {{ time }} min gültig.",
     "shareHeader": "Dein Anfrage Link"
+  },
+  "addFriendComponent": {
+    "friendship-created": "Du bist nun mit {{name}}  befreundet!",
+    "errors": {
+      "invalidInviteLink": "Der Einladungslink ist nicht korrekt oder abgelaufen.",
+      "self": "Du kannst dich nicht selbst als Freund hinzufügen.",
+      "invitationLinkNotExists": "Der Einladungslink existiert nicht.",
+      "genericError": "Ein unerwarteter Fehler ist aufgetreten. Bitte überprüfe deine Internetverbindung."
+    },
+    "accept-request": "Freundschaftsanfrage annehmen",
+    "already-friends": "Du bist bereits mit {{name}} befreundet!"
   }
 }

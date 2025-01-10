@@ -17,4 +17,5 @@ export interface ProfileData {
   tags: string[];
   imageUrl?: string;
   profilePicture: string;
+  areFriends?: boolean;
 }
