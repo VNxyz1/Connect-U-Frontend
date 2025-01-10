@@ -43,11 +43,13 @@ export class EventService {
   private fyPageSubject: BehaviorSubject<EventCardItem[]> = new BehaviorSubject<
     EventCardItem[]
   >([]);
+  private hasMoreFyEvents: boolean = true;
 
   private allEventsPage = 0;
   private readonly allEventsPageSize = 12;
   private allEventsSubject: BehaviorSubject<EventCardItem[]> =
     new BehaviorSubject<EventCardItem[]>([]);
+  private hasMoreAllEvents: boolean = true;
 
   constructor(
     private readonly http: HttpClient,
@@ -209,9 +211,17 @@ export class EventService {
   }
 
   loadNextAllEventsPage(): void {
+    if (!this.hasMoreFyEvents) {
+      return;
+    }
     this.allEventsPage++;
     this.loadAllEvents(this.allEventsPage, this.allEventsPageSize).subscribe({
       next: newItems => {
+        if (newItems.length === 0) {
+          this.hasMoreAllEvents = false;
+          return;
+        }
+
         const currentItems = this.allEventsSubject.getValue();
         const updatedItems = [...currentItems, ...newItems];
         this.allEventsSubject.next(updatedItems);
@@ -237,9 +247,17 @@ export class EventService {
   }
 
   loadNextFyPage(): void {
+    if (!this.hasMoreFyEvents) {
+      return;
+    }
     this.page++;
     this.loadFyPage(this.page, this.pageSize).subscribe({
       next: newItems => {
+        if (newItems.length === 0) {
+          this.hasMoreFyEvents = false;
+          return;
+        }
+
         const currentItems = this.fyPageSubject.getValue();
         const updatedItems = [...currentItems, ...newItems];
         this.fyPageSubject.next(updatedItems);
