@@ -275,8 +275,7 @@ export class EventPageComponent implements OnInit {
   }
 
   private loadFriends(): void {
-    /*
-    this.userService.getFriends() // Assuming `getFriends()` returns an Observable
+    this.friendsService.getFriends() // Assuming `getFriends()` returns an Observable
     .pipe(
       catchError(err => {
         console.error('Error fetching friends:', err);
@@ -296,8 +295,6 @@ export class EventPageComponent implements OnInit {
       }
     });
 
-
-    */
 
     this.friends = [
       {
