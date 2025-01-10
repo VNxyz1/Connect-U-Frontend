@@ -17,7 +17,8 @@
     } @else {
       <span>
         {{
-          'addFriendComponent.already-friends' | transloco: { name: username }
+          'addFriendComponent.already-friends'
+            | transloco: { name: firstnameFriend }
         }}
       </span>
     }

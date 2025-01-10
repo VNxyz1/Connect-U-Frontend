@@ -159,6 +159,6 @@ export class UserService {
    * @returns {Observable<ProfileData>} an Observable that emits the data of a user
    */
   getSpecificUserDataByUsername(username: string): Observable<ProfileData> {
-    return this.http.get<ProfileData>(`user/getUserByName/${username}`);
+    return this.http.get<ProfileData>(`user/friendProfile/${username}`);
   }
 }

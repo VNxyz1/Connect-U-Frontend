@@ -6,6 +6,7 @@ import { Button } from 'primeng/button';
 import { MessageService, PrimeTemplate } from 'primeng/api';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { FriendsService } from '../../services/friends/friends.service';
+import { UserService } from '../../services/user/user.service';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Your invite link is not correct or expired':
@@ -31,6 +32,7 @@ export class AddFriendComponent implements OnInit {
   username!: string;
   inviteId!: string;
   isAlreadyFriend: boolean = false;
+  firstnameFriend!: string;
 
   constructor(
     protected readonly route: ActivatedRoute,
@@ -38,6 +40,7 @@ export class AddFriendComponent implements OnInit {
     protected readonly friendsService: FriendsService,
     protected messageService: MessageService,
     protected readonly translocoService: TranslocoService,
+    protected readonly userService: UserService,
   ) {}
 
   ngOnInit(): void {
@@ -48,8 +51,12 @@ export class AddFriendComponent implements OnInit {
       this.router.navigate(['/404']);
     } else {
       // Check if the user is already a friend
-      this.friendsService.checkIfFriend(this.username).subscribe(isFriend => {
-        this.isAlreadyFriend = isFriend;
+      this.userService.getSpecificUserDataByUsername(this.username).subscribe({
+        next: data => {
+          this.isAlreadyFriend = data.areFriends ?? false;
+          this.firstnameFriend = data.firstName;
+        },
+        error: err => this.handleError(err),
       });
     }
   }
@@ -63,7 +70,7 @@ export class AddFriendComponent implements OnInit {
             severity: 'success',
             summary: this.translocoService.translate(
               'addFriendComponent.friendship-created',
-              { name: this.username },
+              { name: this.firstnameFriend },
             ),
           });
         },
