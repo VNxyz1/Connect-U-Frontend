@@ -27,12 +27,13 @@ export class FriendsService {
   }
 
   getFriends(): Observable<ProfileData[]> {
-    return this.http.get<ProfileData[]>('friend');
+    return this.http.get<ProfileData[]>('friends');
   }
 
-  checkIfFriend(username: string): Observable<boolean> {
-    return this.getFriends().pipe(
-      map(friends => friends.some(friend => friend.username === username)),
+  getFilteredFriendsForEvent(eventId: String): Observable<ProfileData[]> {
+    return this.http.get<ProfileData[]>(
+      `friends/filteredFriends/${eventId}`,
+      {},
     );
   }
 }

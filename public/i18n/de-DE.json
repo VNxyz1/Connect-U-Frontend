@@ -286,7 +286,15 @@
     "infoTab": "Informationen",
     "listTab": "Listen",
     "surveyTab": "Umfragen",
-    "chatTab": "Chat"
+    "chatTab": "Chat",
+    "friends": {
+      "inviteFriends": "Freunde einladen",
+      "selectFriends": "Freunde auswählen",
+      "sendInvites": "Einladungen senden",
+      "inviteSuccess": "Einladung erfolgreich an {{name}} gesendet.",
+      "inviteError": "Einladung an {{name}} konnte nicht gesendet werden.",
+      "maxNumberExceeded": "Du kannst nicht mehr Freunde einladen, als Plätze verfügbar sind."
+    }
   },
   "eventStatusIndicator": {
     "finished": {
