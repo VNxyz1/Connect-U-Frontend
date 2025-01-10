@@ -12,17 +12,17 @@
       <div class="col-8 pb-0">
         <div class="grid h-full align-content-between">
           <div class="col-12">
-            <span
-              class="m-0 px-2 font-bold text-xl block"
+            <h3
+              class="m-0"
               style="
                 overflow: hidden;
                 display: -webkit-box;
-                -webkit-line-clamp: 2;
-                line-clamp: 2;
+                -webkit-line-clamp: 1;
+                line-clamp: 1;
                 -webkit-box-orient: vertical;
               ">
               {{ event.title }}
-            </span>
+            </h3>
           </div>
           <div class="col-12 py-0 flex">
             <div
@@ -119,10 +119,10 @@
               : '',
           }">
           <div
-            class="bg-cover bg-center h-full w-full"
+            class="bg-cover bg-center h-full w-full flex-wrap flex align-content-between"
             [style]="{ 'background-image': toImageUrl(event.picture) }">
             <div
-              class="flex justify-content-between p-3 pl-0 align-content-center align-items-center">
+              class="col-12 flex justify-content-between p-3 pl-0 align-content-center align-items-center h-min">
               <span>
                 @if (showEventStatus) {
                   <app-event-status-indicator
@@ -136,6 +136,17 @@
                   <p-tag [value]="category.name" [rounded]="true" />
                 }
               </div>
+            </div>
+            <div
+              class="col-12 flex justify-content-between align-content-center align-items-center h-min">
+              @if (event.participatingFriend) {
+                <div
+                  class="col-fixed w-max flex gap-1 align-items-center text-center ml-auto">
+                  <div class="p-1 border-round-3xl bg-orange-900 text-white">
+                    <rmx-icon name="user-heart-line" />
+                  </div>
+                </div>
+              }
             </div>
           </div>
         </div>
@@ -169,9 +180,9 @@
               {{ event.title }}
             </h3>
           </div>
-          <div class="col-12 flex flex-wrap">
+          <div class="col-12 pt-3 gap-3 flex flex-wrap">
             <div
-              class="col-fixed w-max flex gap-1 align-items-center text-center">
+              class="col-fixed p-0 w-max flex gap-1 align-items-center text-center">
               <rmx-icon name="group-line" />
               <span
                 >{{ event.participantsNumber }}/{{
@@ -180,7 +191,7 @@
               >
             </div>
             <div
-              class="col-fixed w-max flex gap-1 align-items-center text-center">
+              class="col-fixed p-0 w-max flex gap-1 align-items-center text-center">
               <rmx-icon name="calendar-line" />
               <span>{{
                 toDate(event.dateAndTime)
@@ -188,7 +199,7 @@
               }}</span>
             </div>
             <div
-              class="col-fixed w-max flex gap-1 align-items-center text-center">
+              class="col-fixed p-0 w-max flex gap-1 align-items-center text-center">
               <rmx-icon name="map-pin-2-line" />
               <span>{{
                 event.city || (event.isOnline ? 'online' : '???')
