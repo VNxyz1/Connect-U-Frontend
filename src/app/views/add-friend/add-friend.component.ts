@@ -1,0 +1,93 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProfilePageComponent } from '../profile-page/profile-page.component';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
+import { Button } from 'primeng/button';
+import { MessageService, PrimeTemplate } from 'primeng/api';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { FriendsService } from '../../services/friends/friends.service';
+import { UserService } from '../../services/user/user.service';
+
+const ERROR_MESSAGE_MAPPING: Record<string, string> = {
+  'Your invite link is not correct or expired':
+    'addFriendComponent.errors.invalidInviteLink',
+  'You cannot befriend yourself': 'addFriendComponent.errors.self',
+  'Invitation link doesnt exist':
+    'addFriendComponent.errors.invitationLinkNotExists',
+};
+
+@Component({
+  selector: 'app-add-friend',
+  standalone: true,
+  imports: [
+    ProfilePageComponent,
+    AngularRemixIconComponent,
+    Button,
+    PrimeTemplate,
+    TranslocoPipe,
+  ],
+  templateUrl: './add-friend.component.html',
+})
+export class AddFriendComponent implements OnInit {
+  username!: string;
+  inviteId!: string;
+  isAlreadyFriend: boolean = false;
+  firstnameFriend!: string;
+
+  constructor(
+    protected readonly route: ActivatedRoute,
+    protected readonly router: Router,
+    protected readonly friendsService: FriendsService,
+    protected messageService: MessageService,
+    protected readonly translocoService: TranslocoService,
+    protected readonly userService: UserService,
+  ) {}
+
+  ngOnInit(): void {
+    this.username = this.route.snapshot.paramMap.get('username')!;
+    this.inviteId = this.route.snapshot.paramMap.get('inviteId')!;
+
+    if (!this.inviteId || !this.username) {
+      this.router.navigate(['/404']);
+    } else {
+      // Check if the user is already a friend
+      this.userService.getSpecificUserDataByUsername(this.username).subscribe({
+        next: data => {
+          this.isAlreadyFriend = data.areFriends ?? false;
+          this.firstnameFriend = data.firstName;
+        },
+        error: err => this.handleError(err),
+      });
+    }
+  }
+
+  protected acceptFriendInvite() {
+    this.friendsService
+      .createFriendship(this.username, this.inviteId)
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: this.translocoService.translate(
+              'addFriendComponent.friendship-created',
+              { name: this.firstnameFriend },
+            ),
+          });
+        },
+        error: err => this.handleError(err),
+      });
+  }
+
+  private handleError(err: any): void {
+    const translationKey =
+      ERROR_MESSAGE_MAPPING[err.error?.message] ||
+      'addFriendComponent.errors.genericError';
+
+    const translatedMessage = this.translocoService.translate(translationKey);
+
+    this.messageService.add({
+      severity: 'error',
+      summary: translatedMessage,
+    });
+  }
+}
