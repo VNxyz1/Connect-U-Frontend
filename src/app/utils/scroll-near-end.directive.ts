@@ -4,6 +4,7 @@ import {
   EventEmitter,
   HostListener,
   Input,
+  OnInit,
   Output,
 } from '@angular/core';
 
@@ -11,7 +12,7 @@ import {
   selector: '[appScrollNearEnd]',
   standalone: true,
 })
-export class ScrollNearEndDirective {
+export class ScrollNearEndDirective implements OnInit {
   @Output() nearEnd: EventEmitter<void> = new EventEmitter<void>();
 
   /**

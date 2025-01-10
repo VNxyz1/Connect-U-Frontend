@@ -108,7 +108,6 @@ export class UserService {
     const baseUrl: string = 'http://localhost:3000/api';
     const value = image == '' ? 'empty.png' : image;
     const path = `${baseUrl}/user/profilePicture/${value}`;
-    console.log(path);
     return path;
   }
 

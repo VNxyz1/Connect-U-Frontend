@@ -43,6 +43,6 @@ export class HomePageComponent implements OnInit {
       return;
     }
     this.isLoading = true;
-    this.eventService.loadNextPage();
+    this.eventService.loadNextFyPage();
   }
 }

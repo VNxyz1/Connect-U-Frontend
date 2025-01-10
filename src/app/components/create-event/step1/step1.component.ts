@@ -183,7 +183,6 @@ export class Step1Component implements OnInit, OnDestroy {
         tokenInput.value = '';
       }
     }
-    console.log(this.tags);
   }
 
   blurTagInput() {

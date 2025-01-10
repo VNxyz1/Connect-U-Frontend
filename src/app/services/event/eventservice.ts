@@ -40,19 +40,21 @@ export class EventService {
 
   private page = 0;
   private readonly pageSize = 12;
+  private fyPageSubject: BehaviorSubject<EventCardItem[]> = new BehaviorSubject<
+    EventCardItem[]
+  >([]);
 
-  // Source for loading data
-  private loadNextPageSubject!: BehaviorSubject<EventCardItem[]>;
+  private allEventsPage = 0;
+  private readonly allEventsPageSize = 12;
+  private allEventsSubject: BehaviorSubject<EventCardItem[]> =
+    new BehaviorSubject<EventCardItem[]>([]);
 
   constructor(
     private readonly http: HttpClient,
     private readonly storageService: StorageService,
   ) {
-    this.loadPage(this.page, this.pageSize).subscribe({
-      next: res => {
-        this.loadNextPageSubject = new BehaviorSubject<EventCardItem[]>(res);
-      },
-    });
+    this.loadNextFyPage();
+    this.loadNextAllEventsPage();
   }
 
   /**
@@ -191,7 +193,30 @@ export class EventService {
    * @returns {Observable<EventCardItem[]>} An observable that emits an array of event card items.
    */
   getAllEvents(): Observable<EventCardItem[]> {
-    return this.http.get<EventCardItem[]>('event/allEvents');
+    return this.allEventsSubject.asObservable();
+  }
+
+  private loadAllEvents(
+    page: number,
+    pageSize: number,
+  ): Observable<EventCardItem[]> {
+    return this.http.get<EventCardItem[]>('event/allEvents', {
+      params: {
+        page: page,
+        size: pageSize,
+      },
+    });
+  }
+
+  loadNextAllEventsPage(): void {
+    this.allEventsPage++;
+    this.loadAllEvents(this.allEventsPage, this.allEventsPageSize).subscribe({
+      next: newItems => {
+        const currentItems = this.allEventsSubject.getValue();
+        const updatedItems = [...currentItems, ...newItems];
+        this.allEventsSubject.next(updatedItems);
+      },
+    });
   }
 
   /**
@@ -199,10 +224,10 @@ export class EventService {
    * @returns {Observable<EventCardItem[]>} An observable that emits an array of event card items.
    */
   getFyEvents(): Observable<EventCardItem[]> {
-    return this.loadNextPageSubject.asObservable();
+    return this.fyPageSubject.asObservable();
   }
 
-  private loadPage(page: number, pageSize: number) {
+  private loadFyPage(page: number, pageSize: number) {
     return this.http.get<EventCardItem[]>('event/fy-page', {
       params: {
         page: page,
@@ -211,20 +236,20 @@ export class EventService {
     });
   }
 
-  loadNextPage(): void {
+  loadNextFyPage(): void {
     this.page++;
-    this.loadPage(this.page, this.pageSize).subscribe({
+    this.loadFyPage(this.page, this.pageSize).subscribe({
       next: newItems => {
-        const currentItems = this.loadNextPageSubject.getValue();
+        const currentItems = this.fyPageSubject.getValue();
         const updatedItems = [...currentItems, ...newItems];
-        this.loadNextPageSubject.next(updatedItems);
+        this.fyPageSubject.next(updatedItems);
       },
     });
   }
 
   /**
-   * Fetches the participating Events of an User
-   * @returns {Observable<EventCardItem[]>} An observable that emits an User specific array of event card items.
+   * Fetches the participating Events of a User
+   * @returns {Observable<EventCardItem[]>} An observable that emits a User specific array of event card items.
    */
   getParticipatingEvents(): Observable<EventCardItem[]> {
     return this.http.get<EventCardItem[]>('event/participatingEvents');
