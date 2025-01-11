@@ -4,6 +4,7 @@ import { BehaviorSubject, interval, Observable, takeWhile } from 'rxjs';
 import { ProfileData } from '../../interfaces/ProfileData';
 import { map } from 'rxjs/operators';
 import { StorageService } from '../storage/storage.service';
+import { environment } from '../../../environments/environment';
 
 export type UpdateProfileBody = {
   pronouns: string;
@@ -151,5 +152,14 @@ export class UserService {
 
     this.inviteLinkSubject.next(null);
     this.expirationTimeSubject.next(null);
+  }
+
+  /**
+   * fetches a specific User
+   * @param username (username from a specific User)
+   * @returns {Observable<ProfileData>} an Observable that emits the data of a user
+   */
+  getSpecificUserDataByUsername(username: string): Observable<ProfileData> {
+    return this.http.get<ProfileData>(`user/friendProfile/${username}`);
   }
 }

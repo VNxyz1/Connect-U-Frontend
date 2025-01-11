@@ -9,11 +9,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageService, PrimeTemplate } from 'primeng/api';
 import { SliderModule } from 'primeng/slider';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MultiSelectModule } from 'primeng/multiselect';
 import { Subject, takeUntil } from 'rxjs';
 import { NgClass } from '@angular/common';
 import { EventData } from '../../../services/event/eventservice';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-step3',
@@ -27,20 +28,19 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
     InputTextModule,
     PrimeTemplate,
     SliderModule,
-    MultiSelectModule,
     NgClass,
     TranslocoPipe,
+    MultiSelectModule,
   ],
   templateUrl: './step3.component.html',
 })
 export class Step3Component implements OnInit {
   title: string | undefined;
   participantsNumber: number | undefined;
-  participants: { id: number; name: string }[] = [];
-  selectedParticipants: number[] = [];
   genders: { label: string; value: number }[] = [];
   preferredGenders: number[] = [];
-  ageValues: number[] = [16, 99];
+  ageValues: (number | undefined)[] = [16, 99];
+  private ageChangeSubject = new Subject<{ index: number; value: number }>();
   submitted: boolean = false;
   eventImage:File | null = null;
   private readonly unsubscribe$ = new Subject<void>();
@@ -51,9 +51,21 @@ export class Step3Component implements OnInit {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private translocoService: TranslocoService,
-  ) {}
+  ) {
+    this.ageChangeSubject
+      .pipe(debounceTime(300)) // Adjust debounce time as needed (300ms is a good default)
+      .subscribe(({ index, value }) => {
+        this.applyAgeChange(index, value);
+      });
+  }
 
   async ngOnInit() {
+    this.ageChangeSubject
+      .pipe(debounceTime(300)) // Adjust debounce time as needed (300ms is a good default)
+      .subscribe(({ index, value }) => {
+        this.applyAgeChange(index, value);
+      });
+
     await this.loadGenders();
     await this.insertValuesAgain();
     await this.loadImageFromLocalStorage();
@@ -73,7 +85,6 @@ export class Step3Component implements OnInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: data => {
-          // Transform the genders to include translated label and value
           this.genders = data.map(gender => {
             let label = '';
             switch (gender.gender) {
@@ -114,35 +125,128 @@ export class Step3Component implements OnInit {
     );
   }
 
-  protected onAgeChange(index: number, value: string | number) {
-    this.ageValues[index] =
-      value === this.getMaxAgePlaceholder() ? 99 : Number(value);
+  protected onSliderChange(event: (number | undefined)[]): void {
+    // Sync slider changes to the inputs
+    this.ageValues = [...event]; // Ensure the array is updated
+  }
+
+  protected onAgeChange(index: number, value: string | number): void {
+    // Handle empty input
+    if (value === '') {
+      this.ageValues[index] = undefined; // Set the value to `undefined` temporarily
+      return;
+    }
+
+    const numericValue = Number(value);
+
+    // Ignore invalid input (non-numeric values)
+    if (isNaN(numericValue)) {
+      return;
+    }
+
+    // Update the age value without enforcing constraints immediately
+    this.ageValues[index] = numericValue;
+
+    // Debounce applying the value to the slider
+    this.ageChangeSubject.next({ index, value: numericValue });
+  }
+
+  protected onAgeBlur(index: number): void {
+    // Check if the input is not undefined
+    if (this.ageValues[index] !== undefined) {
+      const constrainedValue = Math.max(
+        16,
+        Math.min(
+          this.ageValues[index] as number,
+          index === 0 ? (this.ageValues[1] ?? 99) : 99,
+        ),
+      );
+
+      // Apply the constrained value
+      this.ageValues[index] = constrainedValue;
+
+      // Ensure the minimum age does not exceed the maximum age
+      if (
+        this.ageValues[0] !== undefined &&
+        this.ageValues[1] !== undefined &&
+        this.ageValues[0] > this.ageValues[1]
+      ) {
+        this.ageValues[1] = this.ageValues[0];
+      }
+
+      // Sync the slider with the updated values
+      this.onSliderChange([...this.ageValues]);
+    } else {
+      // If the input is undefined (cleared), reset to default values
+      this.ageValues[index] = index === 0 ? 16 : 99;
+
+      // Sync the slider with the updated values
+      this.onSliderChange([...this.ageValues]);
+    }
+  }
+
+  private applyAgeChange(index: number, value: number): void {
+    // Apply constraints with debounce
+
+    const stringValue = value.toString();
+
+    if (stringValue === '') {
+      this.ageValues[index] = undefined; // Temporarily set the value to `undefined`
+      return;
+    }
+
+    if (index === 0) {
+      const numericValue = Number(value); // Convert the input value to a number
+      if (isNaN(numericValue)) return; // Do nothing if the value is not a valid number
+
+      // Apply constraints for the minimum age
+      this.ageValues[0] = Math.max(
+        0,
+        Math.min(numericValue, <number>this.ageValues[1]),
+      );
+    } else if (index === 1) {
+      const numericValue = Number(value); // Convert the input value to a number
+      if (isNaN(numericValue)) return; // Do nothing if the value is not a valid number
+
+      // Apply constraints for the maximum age
+      this.ageValues[1] = Math.min(
+        99,
+        Math.max(numericValue, <number>this.ageValues[0]),
+      );
+    }
+
+    // Ensure the min age is not greater than the max age
+    if (
+      this.ageValues[0] &&
+      this.ageValues[1] &&
+      this.ageValues[0] > this.ageValues[1]
+    ) {
+      this.ageValues[1] = this.ageValues[0];
+    }
   }
 
   protected complete() {
     this.submitted = true;
 
-    // Validate required fields
     if (
-      !this.participantsNumber ||
-      this.participantsNumber < 2 ||
-      this.ageValues[0] < 16 ||
-      this.ageValues[1] > 99 ||
-      this.ageValues[0] > this.ageValues[1]
+      this.ageValues[0] &&
+      this.ageValues[1] &&
+      (!this.participantsNumber ||
+        this.participantsNumber < 2 ||
+        this.ageValues[0] < 16 ||
+        this.ageValues[1] > 99 ||
+        this.ageValues[0] > this.ageValues[1])
     ) {
-      return; // Stop execution if validation fails
+      return;
     }
 
-    // Save event information#
     this.sendEventInformation();
 
-    // Submit event data to the server
     this.eventService.postEvent().subscribe({
       next: (response: any) => {
         const eventId = response?.eventId;
 
         if (eventId) {
-          // Add success message with translation
           this.messageService.add({
             severity: 'success',
             summary: this.translocoService.translate(
@@ -160,10 +264,10 @@ export class Step3Component implements OnInit {
             localStorage.removeItem('eventImageBlob');
           }
           setTimeout(() => {
-            // Navigate to the created event page
-            this.router
-              .navigate([`../../event/${eventId}`], { relativeTo: this.route })
-              .then(() => {});
+            this.router.navigate([`../../event/${eventId}`], {
+              relativeTo: this.route,
+              queryParams: { fromCreate: true },
+            });
           }, 2000);
         } else {
           throw new Error(
@@ -175,8 +279,6 @@ export class Step3Component implements OnInit {
       },
       error: error => {
         console.error('Error posting event:', error);
-
-        // Add error message with translation
         this.messageService.add({
           severity: 'error',
           summary: this.translocoService.translate(
@@ -186,7 +288,6 @@ export class Step3Component implements OnInit {
             'createEventStep3Component.messages.eventCreatedErrorMessage',
           ),
         });
-
         return;
       },
     });
@@ -196,32 +297,26 @@ export class Step3Component implements OnInit {
     this.sendEventInformation();
     this.router
       .navigate(['../step2'], { relativeTo: this.route })
-      .then(() => {
-        // Navigation successful
-      })
+      .then(() => {})
       .catch(err => {
         console.error('Navigation error:', err);
       });
   }
 
   private async sendEventInformation() {
-    // Create partial event data object
     const data: Partial<EventData> = {
       participantsNumber: this.participantsNumber,
       preferredGenders: this.preferredGenders,
     };
 
-    // Only include startAge if it's not the default value of 16
     if (this.ageValues[0] !== 16) {
       data.startAge = this.ageValues[0];
     }
 
-    // Only include endAge if it's not the default value of 99
     if (this.ageValues[1] !== 99) {
       data.endAge = this.ageValues[1];
     }
 
-    // Save event information
     await this.eventService.setEventInformation(data);
   }
   private async blobUrlToFile(blobUrl: string, fileName: string): Promise<File> {

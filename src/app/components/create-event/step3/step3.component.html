@@ -31,24 +31,7 @@
         </small>
       }
     </div>
-    <!--
-   <div class="field">
-     <p-floatLabel>
-       <p-multiSelect
-         id="participants"
-         [options]="participants"
-         [(ngModel)]="selectedParticipants"
-         optionLabel="name"
-         display="chip"
-         [showClear]="true"
-         styleClass="capitalize">
-       </p-multiSelect>
-       <label for="participants">{{
-         'createEventStep3Component.participantsInput.label' | transloco
-       }}</label>
-     </p-floatLabel>
-   </div>
- -->
+
     <div class="field">
       <p-floatLabel>
         <p-multiSelect
@@ -75,6 +58,7 @@
         min="16"
         max="99"
         [range]="true"
+        (ngModelChange)="onSliderChange($event)"
         styleClass="centered-slider"></p-slider>
       <div
         class="flex align-items-center justify-content-between mt-4 slider-input-container">
@@ -82,23 +66,25 @@
         <input
           type="text"
           pInputText
-          [ngModel]="ageValues[0]"
+          [ngModel]="ageValues[0] ?? ''"
           (ngModelChange)="onAgeChange(0, $event)"
+          (blur)="onAgeBlur(0)"
           class="slider-input" />
-        <!-- Maximum Age Input with "none" display for 99 -->
+
+        <!-- Maximum Age Input -->
         <input
           type="text"
           pInputText
           [ngModel]="
-            ageValues[1] === 99 ? getMaxAgePlaceholder() : ageValues[1]
+            ageValues[1] === 99 ? getMaxAgePlaceholder() : (ageValues[1] ?? '')
           "
           (ngModelChange)="onAgeChange(1, $event)"
+          (blur)="onAgeBlur(1)"
           class="slider-input" />
       </div>
     </div>
   </div>
 
-  <!-- Footer Section -->
   <div
     class="flex justify-content-between align-items-center fixed-bottom-responsive-container">
     <div>

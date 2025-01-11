@@ -127,4 +127,16 @@ export class EventRequestService {
       .delete<{ success: boolean; message: string }>(url, {})
       .pipe();
   }
+
+  createInvite(
+    eventId: string,
+    userId: string,
+  ): Observable<{ success: boolean; message: string }> {
+    const url = `request/invite/${eventId}/${userId}`;
+    return this.http.post<{ success: boolean; message: string }>(url, {}).pipe(
+      catchError(error => {
+        return throwError(() => error);
+      }),
+    );
+  }
 }
