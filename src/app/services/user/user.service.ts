@@ -4,6 +4,7 @@ import { BehaviorSubject, interval, Observable, takeWhile } from 'rxjs';
 import { ProfileData } from '../../interfaces/ProfileData';
 import { map } from 'rxjs/operators';
 import { StorageService } from '../storage/storage.service';
+import { environment } from '../../../environments/environment';
 
 export type UpdateProfileBody = {
   pronouns: string;
@@ -105,9 +106,8 @@ export class UserService {
     return this.http.patch<ok>('user/profilePicture', img);
   }
   getImageFile(image: string): string {
-    const baseUrl: string = 'http://localhost:3000/api';
     const value = image == '' ? 'empty.png' : image;
-    const path = `${baseUrl}/user/profilePicture/${value}`;
+    const path = `${environment.apiConfig.urlPrefix}user/profilePicture/${value}`;
     return path;
   }
 
