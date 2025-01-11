@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { Button } from 'primeng/button';
@@ -13,6 +13,9 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { EventService } from '../../services/event/eventservice';
 import { TagService } from '../../services/tags/tag.service';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-search-page',
@@ -30,34 +33,94 @@ import { CheckboxModule } from 'primeng/checkbox';
     RadioButtonModule,
     TranslocoPipe,
     CheckboxModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './search-page.component.html',
 })
-export class SearchPageComponent {
+export class SearchPageComponent implements OnInit {
 
   constructor(
     public eventService: EventService,
     private readonly tagService: TagService,
     private translocoService: TranslocoService,
+    private activeRoute: ActivatedRoute,
+    private router: Router
   ) {
   }
+  fetchedCategories: { id: number; name: string }[] = [];
+  fetchedGenders: { value: number; label: string }[] = [];
+  fetchedTags: string[] = [];
 
-  tags: string[] = [];
-  eventTitle: string = '';
-  categories: { id: number; name: string }[] = [];
-  genders: { value: number; label: string }[] = [];
-  preferredGenders: number[] = [];
-  selectedCategories: string[] = [];
-  results: string[] = [];
   online: boolean = true;
   offline: boolean = true;
   public:boolean = true;
   halfPublic: boolean = true;
   friends: boolean = false;
 
+  form: FormGroup = new FormGroup({
+    tags: new FormControl<number[]>([]),
+    title: new FormControl<string>(''),
+    genders: new FormControl<number[]>([]),
+    categories: new FormControl<number[]>([]),
+    isOnline: new FormControl<boolean>(true),
+    isInPlace: new FormControl<boolean>(true),
+    isPublic: new FormControl<boolean>(true),
+    isHalfPublic: new FormControl<boolean>(true),
+    filterFriends: new FormControl<boolean>(false),
+  });
+
   async ngOnInit() {
     this.loadCategories();
     await this.loadGenders();
+
+    this.activeRoute.queryParams.subscribe(queryParams => {
+      this.addFormValues(this.form, queryParams);
+    });
+  }
+
+  private addFormValues(form: FormGroup, queryParams: Params) {
+    Object.keys(queryParams).forEach((key) => {
+      if (Array.isArray(queryParams[key]) && form.controls[key] instanceof FormGroup) {
+        const fc = form.controls[key] as FormGroup;
+        Object.keys(fc.controls).forEach((k) => {
+          const contains = queryParams[key].includes(k);
+          fc.controls[k].setValue(contains);
+        })
+      } else if (!Array.isArray(queryParams[key]) && form.controls[key] instanceof FormGroup) {
+        const fc = form.controls[key] as FormGroup;
+        Object.keys(fc.controls).forEach((k) => {
+          fc.controls[k].setValue(queryParams[key] === k);
+        })
+      } else if (form.controls[key]) {
+        form.controls[key].setValue(queryParams[key]);
+      }
+    })
+    console.log(this.form.value);
+    return form;
+  }
+
+  submit = () => {
+    if (this.form.valid) {
+      const params = this.parseToQueryParams(this.form);
+      this.router.navigate([], {queryParams: params});
+    }
+  }
+
+  parseToQueryParams(form: FormGroup) {
+    const queryParams: Params = {};
+    Object.keys(form.value).forEach((key  ) => {
+      const value = form.value[key];
+
+      if (!value) return;
+      if (form.controls[key] instanceof FormGroup) {
+            queryParams[key] = Object.keys(value).filter(k => value[k]);
+          } else if (value instanceof Date) {
+            queryParams[key] = value.toISOString();
+          } else {
+            queryParams[key] = value;
+          }
+    })
+    return queryParams;
   }
 
   private async loadGenders() {
@@ -65,7 +128,7 @@ export class SearchPageComponent {
       .getGenders()
       .subscribe({
         next: data => {
-          this.genders = data.map(gender => {
+          this.fetchedGenders = data.map(gender => {
             let label = '';
             switch (gender.gender) {
               case 1:
@@ -95,7 +158,7 @@ export class SearchPageComponent {
     this.eventService
       .getCategories()
       .subscribe({
-        next: data => (this.categories = data),
+        next: data => (this.fetchedCategories = data),
         error: error => console.error('Error loading categories:', error),
       });
   }
@@ -103,14 +166,12 @@ export class SearchPageComponent {
   search(event: any): void {
     const query = event.query.toLowerCase();
     this.tagService.getAllTags(query).subscribe({
-      next: tags => (this.results = tags),
+      next: fetchedTags => (this.fetchedTags = fetchedTags),
       error: error => {
         console.error('Error fetching tags:', error);
-        this.results = [];
+        this.fetchedTags = [];
       },
     });
   }
-
-  submit(): void {}
 }
 

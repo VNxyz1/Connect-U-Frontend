@@ -223,9 +223,9 @@
       "finish": "Finish"
     },
     "genders": {
-      "male": "Male",
-      "female": "Female",
-      "divers": "Divers"
+      "male": "Men",
+      "female": "Women",
+      "divers": "Diverse"
     },
     "messages": {
       "eventCreatedSuccess": "Event \"{{title}}\" created successfully!",

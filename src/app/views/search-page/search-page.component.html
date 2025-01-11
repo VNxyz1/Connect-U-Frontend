@@ -1,6 +1,8 @@
 <div class="content pFocusTrap mt-5 h-100">
+  <form [formGroup]="form">
   <div class="p-grid p-fluid column-gap-3">
 
+     <span class="font-bold text-2xl block md:px-2 mb-2 mt-4">Filter auswählen</span>
     <div class="p-col-12 p-md-6 field">
       <p-floatLabel>
         <input
@@ -9,7 +11,7 @@
           [maxLength]="50"
           required
           pInputText
-          [(ngModel)]="eventTitle"
+          formControlName="title"
            />
         <label for="event-title">{{
             'createEventStep1Component.eventTitleInput.label' | transloco
@@ -21,8 +23,8 @@
       <p-floatLabel>
         <p-multiSelect
           id="categories"
-          [options]="categories"
-          [(ngModel)]="selectedCategories"
+          [options]="fetchedCategories"
+          formControlName="categories"
           optionLabel="name"
           display="chip"
           [showClear]="true"
@@ -35,19 +37,18 @@
       </p-floatLabel>
     </div>
 
-
     <div class="justify-content-center mt-4 mb-4">
       <span class="p-fluid">
         <p-autoComplete
           inputId="tags-input"
           id="tags-input"
           [placeholder]="
-            tags.length == 0
+            fetchedTags.length == 0
               ? ('createEventStep1Component.tagsInput.label' | transloco)
               : ''
           "
-          [(ngModel)]="tags"
-          [suggestions]="results"
+          formControlName="tags"
+          [suggestions]="fetchedTags"
           (completeMethod)="search($event)"
           [multiple]="true" />
       </span>
@@ -62,7 +63,7 @@
           'createEventStep2Component.addressSection.onlineEventCheckbox'
             | transloco
         "
-      [(ngModel)]="online"
+                formControlName="online"
       [binary]="true"
       id="online-true"
       variant="filled">
@@ -73,8 +74,7 @@
           'createEventStep2Component.addressSection.onlineEventCheckbox'
             | transloco
         "
-      [(ngModel)]="offline"
-      [binary]="true"
+      formControlName="offline"      [binary]="true"
       id="online-false"
       variant="filled">
     </p-checkbox>
@@ -86,7 +86,7 @@
           'createEventStep2Component.addressSection.onlineEventCheckbox'
             | transloco
         "
-                [(ngModel)]="public"
+                formControlName="public"
                 [binary]="true"
                 id="public"
                 variant="filled">
@@ -97,8 +97,7 @@
           'createEventStep2Component.addressSection.onlineEventCheckbox'
             | transloco
         "
-      [(ngModel)]="halfPublic"
-      [binary]="true"
+      formControlName="halfPublic"      [binary]="true"
       id="halfPublic"
       variant="filled">
     </p-checkbox>
@@ -108,8 +107,7 @@
     <p-floatLabel>
       <p-multiSelect
         id="genders"
-        [options]="genders"
-        [(ngModel)]="preferredGenders"
+        [options]="fetchedGenders"
         optionLabel="label"
         optionValue="value"
         display="chip"
@@ -129,7 +127,7 @@
           'createEventStep2Component.addressSection.onlineEventCheckbox'
             | transloco
         "
-                [(ngModel)]="friends"
+                formControlName="friends"
                 [binary]="true"
                 id="friends"
                 variant="outlined">
@@ -153,4 +151,6 @@
       </p-button>
     </div>
   </div>
+
+  </form>
 </div>
