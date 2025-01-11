@@ -78,12 +78,12 @@ export class EventService {
     return await this.storageService.remove(this.storageKeyCreate);
   }
 
-  async setEventImage(base64Image:string): Promise<void>{
+  async setEventImage(base64Image: string): Promise<void> {
     const storageKey = 'eventImage';
     await this.storageService.set(storageKey, base64Image);
   }
 
-  async getEventImage(): Promise<string | null>{
+  async getEventImage(): Promise<string | null> {
     const storageKey = 'eventImage';
     return await this.storageService.get(storageKey);
   }
@@ -188,9 +188,9 @@ export class EventService {
       }),
     );
   }
-  postEventImage(eventId:string, imgFile:FormData ){
-    console.log('file im service: ',imgFile, " id:", eventId)
-    return this.http.patch('event/eventPicture/'+ eventId, imgFile);
+  postEventImage(eventId: string, imgFile: FormData) {
+    console.log('file im service: ', imgFile, ' id:', eventId);
+    return this.http.patch('event/eventPicture/' + eventId, imgFile);
   }
 
   /**
@@ -292,5 +292,4 @@ export class EventService {
       }),
     );
   }
-
 }

@@ -42,7 +42,7 @@ export class Step3Component implements OnInit {
   ageValues: (number | undefined)[] = [16, 99];
   private ageChangeSubject = new Subject<{ index: number; value: number }>();
   submitted: boolean = false;
-  eventImage:File | null = null;
+  eventImage: File | null = null;
   private readonly unsubscribe$ = new Subject<void>();
 
   constructor(
@@ -75,7 +75,10 @@ export class Step3Component implements OnInit {
     try {
       const storedBase64Image = await this.eventService.getEventImage(); // Aus StorageService laden
       if (storedBase64Image) {
-        this.eventImage = await this.base64ToFile(storedBase64Image, 'eventImage.jpg');
+        this.eventImage = await this.base64ToFile(
+          storedBase64Image,
+          'eventImage.jpg',
+        );
         console.log('Event image loaded:', this.eventImage);
       }
     } catch (error) {
@@ -258,12 +261,12 @@ export class Step3Component implements OnInit {
               { title: this.title },
             ),
           });
-          if(this.eventImage){
+          if (this.eventImage) {
             const formData = new FormData();
             formData.append('file', this.eventImage);
 
             this.eventService.postEventImage(eventId, formData).subscribe({
-              next: data => console.log(data)
+              next: data => console.log(data),
             });
             this.eventService.removeEventImage().then(r => console.log(r));
           }
@@ -326,7 +329,9 @@ export class Step3Component implements OnInit {
   private base64ToFile(base64: string, fileName: string): File {
     const byteString = atob(base64.split(',')[1]);
     const mimeType = base64.split(',')[0].match(/:(.*?);/)?.[1] || 'image/jpeg';
-    const byteNumbers = new Array(byteString.length).fill(0).map((_, i) => byteString.charCodeAt(i));
+    const byteNumbers = new Array(byteString.length)
+      .fill(0)
+      .map((_, i) => byteString.charCodeAt(i));
     const byteArray = new Uint8Array(byteNumbers);
     return new File([byteArray], fileName, { type: mimeType });
   }

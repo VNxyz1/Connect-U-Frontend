@@ -1,4 +1,11 @@
-import {Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectorRef,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { Button } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -131,10 +138,13 @@ export class Step1Component implements OnInit, OnDestroy {
     const allowedFileTypes = ['image/png', 'image/jpeg', 'image/gif'];
 
     if (file && allowedFileTypes.includes(file.type)) {
-      if (file.size > 5242880) { // Max size 5MB
+      if (file.size > 5242880) {
+        // Max size 5MB
         this.messageService.add({
           severity: 'error',
-          summary: this.translocoService.translate('eventStep1.image.errorTitle'),
+          summary: this.translocoService.translate(
+            'eventStep1.image.errorTitle',
+          ),
           detail: this.translocoService.translate('eventStep1.image.errorSize'),
         });
         return;
@@ -145,15 +155,19 @@ export class Step1Component implements OnInit, OnDestroy {
       reader.onload = async () => {
         const base64Image = reader.result as string;
 
-        try{
+        try {
           await this.eventService.setEventImage(base64Image);
           this.uploadedImagePreview = base64Image;
-        }catch (e) {
+        } catch (e) {
           console.error('Fehler beim Speichern des Bildes:', e);
           this.messageService.add({
             severity: 'error',
-            summary: this.translocoService.translate('eventStep1.image.errorTitle'),
-            detail: this.translocoService.translate('eventStep1.image.errorSave'),
+            summary: this.translocoService.translate(
+              'eventStep1.image.errorTitle',
+            ),
+            detail: this.translocoService.translate(
+              'eventStep1.image.errorSave',
+            ),
           });
         }
       };
