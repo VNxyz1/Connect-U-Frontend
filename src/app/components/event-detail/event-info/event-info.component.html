@@ -162,7 +162,7 @@
       <div class="">
         @if (
           eventDetails &&
-          eventRequestsHost.length > 0 &&
+          (eventRequestsHost.length > 0 || eventInvitesHost.length > 0) &&
           eventDetails.isHost &&
           eventDetails.status != 3 &&
           eventDetails.status != 4
@@ -176,12 +176,13 @@
               <div class="flex justify-content-between align-items-center mb-2">
                 <!-- Header Section (Left Top) -->
                 <h3 class="mt-0 mb-0">
-                  {{ 'eventDetailPageComponent.requests.title' | transloco }}
+                  {{ 'eventDetailPageComponent.requests.requests' | transloco }}/{{ 'eventDetailPageComponent.requests.invites' | transloco }}
                 </h3>
                 <!-- Request Count (Right Top, Aligned with Header) -->
                 <span class="color-secondary text-center w-2rem">{{
-                  this.eventRequestsHost.length
-                }}</span>
+                    (this.eventRequestsHost.length || 0) + (this.eventInvitesHost.length || 0)
+                  }}
+                </span>
               </div>
 
               <!-- Bottom Section -->

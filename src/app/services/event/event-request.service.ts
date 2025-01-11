@@ -139,4 +139,12 @@ export class EventRequestService {
       }),
     );
   }
+
+  getAllInvitesForEvent(eventId: string): Observable<EventUserRequest[]> {
+    return this.http.get<EventUserRequest[]>(`request/invite/event/${eventId}`);
+  }
+
+  deleteEventInvite(inviteId: number) {
+    return this.http.delete<{success: boolean; message: string}>(`request/invite/${inviteId}`);
+  }
 }

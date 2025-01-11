@@ -70,6 +70,7 @@ export class EventPageComponent implements OnInit {
   eventDetails!: EventDetails; // Resolved event details
   eventDetails$!: Observable<EventDetails>;
   eventRequestsHost: EventUserRequest[] = [];
+  eventInvitesHost: EventUserRequest[] = [];
   eventTabMenuItems: MenuItem[] = [];
   activeTabItem!: MenuItem;
 
@@ -148,6 +149,9 @@ export class EventPageComponent implements OnInit {
         if (this.eventDetails.isHost || this.eventDetails.isParticipant) {
           this.setupTabs();
           this.fetchEventRequestsHost();
+          setTimeout(() => {
+            this.fetchEventInvitesHost();
+          }, 100);
         }
       },
       error: err => {
@@ -174,6 +178,21 @@ export class EventPageComponent implements OnInit {
     this.eventRequestService.getEventHostRequests(this.eventId).subscribe({
       next: requests => {
         this.eventRequestsHost = requests;
+      },
+      error: err => {
+        console.error('Error fetching event requests:', err);
+      },
+    });
+  }
+
+  private fetchEventInvitesHost(): void {
+    if (!this.eventId || !this.eventDetails.isHost) {
+      return;
+    }
+
+    this.eventRequestService.getAllInvitesForEvent(this.eventId).subscribe({
+      next: data => {
+        this.eventInvitesHost = data;
       },
       error: err => {
         console.error('Error fetching event requests:', err);
@@ -331,23 +350,25 @@ export class EventPageComponent implements OnInit {
   protected sendInvites(): void {
     const invites = this.selectedFriends.map(friend =>
       this.eventRequestService.createInvite(this.eventId, friend.id).subscribe({
-        next: () =>
+        next: () => {
           this.messageService.add({
             severity: 'success',
             summary: this.translocoService.translate(
               'eventPageComponent.friends.inviteSuccess',
-              { name: friend.firstName },
+              { name: friend.firstName }
             ),
-          }),
+          });
+          this.onEventDetailsUpdated();
+        },
         error: err =>
           this.messageService.add({
             severity: 'error',
             summary: this.translocoService.translate(
               'eventPageComponent.friends.inviteError',
-              { name: friend.firstName },
+              { name: friend.firstName }
             ),
           }),
-      }),
+      })
     );
     this.showInviteModal = false; // Close modal after sending invites
     this.onInviteDialogClose();

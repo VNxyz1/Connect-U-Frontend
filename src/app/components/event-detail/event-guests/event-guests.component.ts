@@ -12,6 +12,8 @@ import { EventService } from '../../../services/event/eventservice';
 import { EventDetails } from '../../../interfaces/EventDetails';
 import { ProfileCardComponent } from '../../profile-card/profile-card.component';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { EventUserRequest } from '../../../interfaces/EventUserRequest';
+
 
 @Component({
   selector: 'app-event-guests',
@@ -34,11 +36,8 @@ export class EventGuestsComponent {
   protected eventDetails!: EventDetails;
 
   constructor(
-    private eventRequestService: EventRequestService,
     private route: ActivatedRoute,
     private router: Router,
-    private messageService: MessageService,
-    private translocoService: TranslocoService,
     private readonly eventService: EventService,
   ) {
     if (this.route.snapshot.paramMap.get('id')!) {
@@ -69,4 +68,6 @@ export class EventGuestsComponent {
       },
     });
   }
+
+
 }

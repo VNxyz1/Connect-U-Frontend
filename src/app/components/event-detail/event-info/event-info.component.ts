@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, throwError } from 'rxjs';
 import { EventDetails } from '../../../interfaces/EventDetails';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { ImageModule } from 'primeng/image';
@@ -33,6 +33,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { AvatarModule } from 'primeng/avatar';
 import { UserService } from '../../../services/user/user.service';
+import { catchError } from 'rxjs/operators';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -78,7 +79,9 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
 export class EventInfoComponent implements OnInit, OnDestroy {
   userRequest: UsersEventRequest | null = null;
   private userRequestSubscription!: Subscription;
+  private invitesSubscription!: Subscription;
   @Input() eventRequestsHost: EventUserRequest[] = [];
+  @Input() eventInvitesHost: EventUserRequest[] = [];
   @Output() eventDetailsUpdated = new EventEmitter<void>(); // Notify parent
 
   @Input() getPreferredGendersString!: (
@@ -144,6 +147,9 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     this.eventService.getEventDetails(this.eventId).subscribe({
       next: details => {
         this._eventDetails = details;
+        if (details.isHost) {
+          this.fetchEventInvites();
+        }
         this.fetchUserRequest();
         this.isLoading = false;
         this.eventDetailsUpdated.emit();
@@ -225,6 +231,20 @@ export class EventInfoComponent implements OnInit, OnDestroy {
         error: err => this.handleError(err),
       });
     }
+  }
+
+  private fetchEventInvites(){
+    this.invitesSubscription = this.eventRequestService
+      .getAllInvitesForEvent(this.eventId)
+      .subscribe({
+        next: data => {
+          this.eventInvitesHost = data;
+        },
+        error: err => {
+          console.error('Error fetching invites:', err);
+          this.userRequest = null; // Reset in case of error
+        },
+      });
   }
 
   private handleError(err: any): void {
