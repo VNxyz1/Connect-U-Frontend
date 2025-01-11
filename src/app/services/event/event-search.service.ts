@@ -33,7 +33,13 @@ export class EventSearchService {
     });
 
     return this.http
-      .get<EventCardItem[]>(`event/filteredEvents?${params.toString()}`)
+      .get<EventCardItem[]>(`event/filteredEvents`, {
+        params: {
+          ...updatedFilters,
+          page: 0,
+          size: 12
+        }
+      })
       .pipe(
         catchError((error) => {
           console.error('Error fetching filtered events:', error);

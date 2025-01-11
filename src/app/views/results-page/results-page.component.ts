@@ -9,7 +9,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EventCardComponent } from '../../components/event-card/event-card.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { EventSearchService } from '../../services/event/event-search.service';
 import { Observable, tap } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
@@ -45,13 +45,20 @@ export class ResultsPageComponent implements OnInit {
               private eventSearchService: EventSearchService,
   ) {
   }
+
   loading = true;
   events$!: Observable<EventCardItem[]>;
+  params: Params = { page: 1 }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.fetchFilteredEvents(params);
+      this.params = params;
     });
+  }
+
+  submit = () => {
+      this.router.navigate(['search'], {queryParams: this.params});
   }
 
   fetchFilteredEvents(params: any): void {
