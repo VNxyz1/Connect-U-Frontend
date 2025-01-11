@@ -16,6 +16,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../../../environments/environment';
+import { parseToQueryParams } from '../../utils/parsing/parsing';
 
 @Component({
   selector: 'app-search-page',
@@ -50,12 +51,6 @@ export class SearchPageComponent implements OnInit {
   fetchedCategories: { id: number; name: string }[] = [];
   fetchedGenders: { value: number; label: string }[] = [];
   fetchedTags: string[] = [];
-
-  online: boolean = true;
-  offline: boolean = true;
-  public:boolean = true;
-  halfPublic: boolean = true;
-  friends: boolean = false;
 
   form: FormGroup = new FormGroup({
     tags: new FormControl<number[]>([]),
@@ -101,26 +96,9 @@ export class SearchPageComponent implements OnInit {
 
   submit = () => {
     if (this.form.valid) {
-      const params = this.parseToQueryParams(this.form);
-      this.router.navigate([], {queryParams: params});
+      const params = parseToQueryParams(this.form);
+      this.router.navigate(['search', 'results'], {queryParams: params});
     }
-  }
-
-  parseToQueryParams(form: FormGroup) {
-    const queryParams: Params = {};
-    Object.keys(form.value).forEach((key  ) => {
-      const value = form.value[key];
-
-      if (!value) return;
-      if (form.controls[key] instanceof FormGroup) {
-            queryParams[key] = Object.keys(value).filter(k => value[k]);
-          } else if (value instanceof Date) {
-            queryParams[key] = value.toISOString();
-          } else {
-            queryParams[key] = value;
-          }
-    })
-    return queryParams;
   }
 
   private async loadGenders() {

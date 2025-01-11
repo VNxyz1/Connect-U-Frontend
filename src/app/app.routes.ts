@@ -30,6 +30,7 @@ import { TermsPageComponent } from './views/terms-page/terms-page.component';
 import { EventChatComponent } from './components/event-detail/event-chat/event-chat.component';
 import { ShareProfilePageComponent } from './views/share-profile-page/share-profile-page.component';
 import { AddFriendComponent } from './views/add-friend/add-friend.component';
+import { ResultsPageComponent } from './views/results-page/results-page.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -52,6 +53,11 @@ export const routes: Routes = [
     path: 'search',
     title: 'Search | Connect-U',
     component: SearchPageComponent,
+  },
+  {
+    path: 'search/results',
+    title: 'Search Results | Connect-U',
+    component: ResultsPageComponent,
   },
   {
     path: 'create-event',
