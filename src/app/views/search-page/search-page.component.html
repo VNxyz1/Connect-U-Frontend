@@ -58,47 +58,47 @@
 
   <div class="field">
     <p-checkbox class="mr-8"
-      name="online"
+      name="isOnline"
       [label]="
           'createEventStep2Component.addressSection.onlineEventCheckbox'
             | transloco
         "
-                formControlName="online"
       [binary]="true"
-      id="online-true"
+                formControlName="isOnline"
+      id="isOnline"
       variant="filled">
     </p-checkbox>
     <p-checkbox
-      name="offline"
+      name="isInPlace"
       [label]="
           'createEventStep2Component.addressSection.onlineEventCheckbox'
             | transloco
         "
-      formControlName="offline"      [binary]="true"
-      id="online-false"
+      formControlName="isInPlace"      [binary]="true"
+      id="isInPlace"
       variant="filled">
     </p-checkbox>
   </div>
   <div class="field">
     <p-checkbox class="mr-8"
-                name="public"
+                name="isPublic"
                 [label]="
           'createEventStep2Component.addressSection.onlineEventCheckbox'
             | transloco
         "
-                formControlName="public"
+                formControlName="isPublic"
                 [binary]="true"
-                id="public"
+                id="isPublic"
                 variant="filled">
     </p-checkbox>
     <p-checkbox
-      name="halfPublic"
+      name="isHalfPublic"
       [label]="
           'createEventStep2Component.addressSection.onlineEventCheckbox'
             | transloco
         "
-      formControlName="halfPublic"      [binary]="true"
-      id="halfPublic"
+      formControlName="isHalfPublic"      [binary]="true"
+      id="isHalfPublic"
       variant="filled">
     </p-checkbox>
   </div>
@@ -122,14 +122,14 @@
 
   <div class="field">
     <p-checkbox class="mr-8"
-                name="friends"
+                name="filterFriends"
                 [label]="
           'createEventStep2Component.addressSection.onlineEventCheckbox'
             | transloco
         "
-                formControlName="friends"
+                formControlName="filterFriends"
                 [binary]="true"
-                id="friends"
+                id="filterFriends"
                 variant="outlined">
     </p-checkbox>
     </div>
