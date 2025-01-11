@@ -1,8 +1,12 @@
-<h1 class="ml-3 md:px-2 mb-2 mt-4">Ergebnisse</h1>
+<h1 class="ml-3 md:px-2 mb-2 mt-4">{{
+    'resultsPageComponent.results' | transloco
+  }}</h1>
 @if (events$ | async; as events) {
   <div class="grid justify-content-between">
   <span class="col-fixed text-2xl block md:px-2 mb-2 mt-2 ml-3 text-color-secondary">
-  {{ (events$ | async)?.length || 0 }} passende Events gefunden!
+  {{ (events$ | async)?.length || 0 }} {{
+      'resultsPageComponent.eventsFound' | transloco
+    }}
       </span>
   <div class="col-fixed mt-2 mb-2 mr-5">
       <p-button class="raised" [raised]="true" severity="secondary" (onClick)="submit()">

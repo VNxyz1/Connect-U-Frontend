@@ -14,10 +14,9 @@ import { EventSearchService } from '../../services/event/event-search.service';
 import { Observable, tap } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { AsyncPipe } from '@angular/common';
-import { parseToQueryParams } from '../../utils/parsing/parsing';
 import { Button } from 'primeng/button';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
-import { map } from 'rxjs/operators';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-results-page',
@@ -36,6 +35,7 @@ import { map } from 'rxjs/operators';
     AsyncPipe,
     Button,
     AngularRemixIconComponent,
+    TranslocoPipe,
   ],
   templateUrl: './results-page.component.html',
 })

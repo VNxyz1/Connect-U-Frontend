@@ -60,7 +60,7 @@
     <p-checkbox class="mr-8"
       name="isOnline"
       [label]="
-          'createEventStep2Component.addressSection.onlineEventCheckbox'
+          'searchPageComponent.isOnline'
             | transloco
         "
       [binary]="true"
@@ -71,7 +71,7 @@
     <p-checkbox
       name="isInPlace"
       [label]="
-          'createEventStep2Component.addressSection.onlineEventCheckbox'
+          'searchPageComponent.isInPlace'
             | transloco
         "
       formControlName="isInPlace"      [binary]="true"
@@ -83,7 +83,7 @@
     <p-checkbox class="mr-8"
                 name="isPublic"
                 [label]="
-          'createEventStep2Component.addressSection.onlineEventCheckbox'
+          'searchPageComponent.isPublic'
             | transloco
         "
                 formControlName="isPublic"
@@ -94,7 +94,7 @@
     <p-checkbox
       name="isHalfPublic"
       [label]="
-          'createEventStep2Component.addressSection.onlineEventCheckbox'
+          'searchPageComponent.isHalfPublic'
             | transloco
         "
       formControlName="isHalfPublic"      [binary]="true"
@@ -124,7 +124,7 @@
     <p-checkbox class="mr-8"
                 name="filterFriends"
                 [label]="
-          'createEventStep2Component.addressSection.onlineEventCheckbox'
+          'searchPageComponent.filterFriends'
             | transloco
         "
                 formControlName="filterFriends"
@@ -139,7 +139,7 @@
       <p-button
         [raised]="true"
         severity="success"
-        [label]="'createEventStep1Component.continueButton' | transloco"
+        [label]="'searchPageComponent.filterButton' | transloco"
         (onClick)="submit()">
         <ng-template pTemplate="icon">
           <rmx-icon

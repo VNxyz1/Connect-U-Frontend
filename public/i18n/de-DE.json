@@ -129,6 +129,16 @@
     }
   },
   "searchPageComponent": {
+    "isOnline": "Online-Events",
+    "isInPlace": "Events vor Ort",
+    "isPublic": "öffentliche Events",
+    "isHalfPublic": "halböffentliche Events",
+    "filterFriends": "nur Events anzeigen, an denen Freunde teilnehmen",
+    "filterButton":"Events filtern"
+  },
+  "resultsPageComponent": {
+    "results": "Ergebnisse",
+    "eventsFound": "passende Events gefunden!"
   },
   "createEventStep1Component": {
     "eventType": {
