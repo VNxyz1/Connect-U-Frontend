@@ -63,7 +63,6 @@ export class EventRequestService {
         return matchingRequest || null;
       }),
       catchError(err => {
-        console.error('Error fetching user requests:', err);
         this.userRequestSubject.next(null);
         return throwError(() => err);
       }),

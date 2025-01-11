@@ -108,7 +108,6 @@ export class UserService {
   getImageFile(image: string): string {
     const value = image == '' ? 'empty.png' : image;
     const path = `${environment.apiConfig.urlPrefix}user/profilePicture/${value}`;
-    console.log(path);
     return path;
   }
 
