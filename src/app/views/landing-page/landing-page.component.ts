@@ -4,7 +4,7 @@ import { LoginComponent } from '../../components/login/login.component';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { AsyncPipe } from '@angular/common';
 import { EventCardComponent } from '../../components/event-card/event-card.component';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventService } from '../../services/event/eventservice';
 import { RouterOutlet } from '@angular/router';
@@ -41,9 +41,10 @@ export class LandingPageComponent implements OnInit {
   constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
-    this.events$ = this.eventService
-      .getAllEvents()
-      .pipe(map(data => data.events));
+    this.events$ = this.eventService.getAllEvents().pipe(
+      map(data => data.events),
+      tap(() => (this.isLoading = false)),
+    );
     this.hasMoreEvents$ = this.eventService
       .getAllEvents()
       .pipe(map(data => data.hasMore));
@@ -55,7 +56,6 @@ export class LandingPageComponent implements OnInit {
     }
     this.isLoading = true;
     this.eventService.loadNextAllEventsPage();
-    this.isLoading = false;
   }
 
   toggleSwitch(): void {

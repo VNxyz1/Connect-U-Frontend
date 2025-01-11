@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventService } from '../../services/event/eventservice';
 import { EventCardComponent } from '../../components/event-card/event-card.component';
@@ -29,9 +29,10 @@ export class HomePageComponent implements OnInit {
   constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
-    this.events$ = this.eventService
-      .getFyEvents()
-      .pipe(map(data => data.events));
+    this.events$ = this.eventService.getFyEvents().pipe(
+      map(data => data.events),
+      tap(() => (this.isLoading = false)),
+    );
     this.hasMoreEvents$ = this.eventService
       .getFyEvents()
       .pipe(map(data => data.hasMore));
@@ -43,6 +44,5 @@ export class HomePageComponent implements OnInit {
     }
     this.isLoading = true;
     this.eventService.loadNextFyPage();
-    this.isLoading = false;
   }
 }

@@ -224,6 +224,7 @@ export class EventService {
 
   loadNextAllEventsPage(): void {
     if (!this.hasMoreAllEventsSubject.getValue()) {
+      this.allEventsSubject.next(this.allEventsSubject.getValue());
       return;
     }
     this.allEventsPage++;
@@ -264,6 +265,7 @@ export class EventService {
 
   loadNextFyPage(): void {
     if (!this.hasMoreFyEventsSubject.getValue()) {
+      this.fyPageSubject.next(this.fyPageSubject.getValue());
       return;
     }
 
