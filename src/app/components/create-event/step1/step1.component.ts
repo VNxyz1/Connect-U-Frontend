@@ -93,11 +93,14 @@ export class Step1Component implements OnInit, OnDestroy {
   private async insertValuesAgain() {
     try {
       const savedData = await this.eventService.getEventCreateInformation();
+      const savedImage = await this.eventService.getEventImage();
+
       this.eventType = savedData.type || 1;
       this.eventTitle = savedData.title || '';
       this.description = savedData.description || '';
       this.selectedCategories = savedData.categories || [];
       this.tags = savedData.tags || [];
+      this.uploadedImagePreview = savedImage || null;
       this.cdr.detectChanges();
     } catch (error) {
       console.error('Error loading saved data:', error);
@@ -139,16 +142,22 @@ export class Step1Component implements OnInit, OnDestroy {
 
       // Datei als Blob speichern
       const reader = new FileReader();
-      reader.onload = () => {
-        const blobUrl = URL.createObjectURL(file);
+      reader.onload = async () => {
+        const base64Image = reader.result as string;
 
-        // Datei im LocalStorage speichern
-        localStorage.setItem('eventImageBlob', blobUrl);
-
-        // Vorschau anzeigen
-        this.uploadedImagePreview = blobUrl;
+        try{
+          await this.eventService.setEventImage(base64Image);
+          this.uploadedImagePreview = base64Image;
+        }catch (e) {
+          console.error('Fehler beim Speichern des Bildes:', e);
+          this.messageService.add({
+            severity: 'error',
+            summary: this.translocoService.translate('eventStep1.image.errorTitle'),
+            detail: this.translocoService.translate('eventStep1.image.errorSave'),
+          });
+        }
       };
-      reader.readAsArrayBuffer(file);
+      reader.readAsDataURL(file);
     } else {
       this.messageService.add({
         severity: 'error',
@@ -225,7 +234,6 @@ export class Step1Component implements OnInit, OnDestroy {
         tokenInput.value = '';
       }
     }
-    console.log(this.tags);
   }
 
   blurTagInput() {

@@ -78,6 +78,21 @@ export class EventService {
     return await this.storageService.remove(this.storageKeyCreate);
   }
 
+  async setEventImage(base64Image:string): Promise<void>{
+    const storageKey = 'eventImage';
+    await this.storageService.set(storageKey, base64Image);
+  }
+
+  async getEventImage(): Promise<string | null>{
+    const storageKey = 'eventImage';
+    return await this.storageService.get(storageKey);
+  }
+
+  async removeEventImage(): Promise<void> {
+    const storageKey = 'eventImageBlob';
+    await this.storageService.remove(storageKey);
+  }
+
   /**
    * Fetches all available categories from the server.
    * @returns {Observable<Category[]>} An observable that emits an array of categories.

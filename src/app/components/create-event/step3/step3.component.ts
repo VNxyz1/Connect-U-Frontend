@@ -68,14 +68,18 @@ export class Step3Component implements OnInit {
 
     await this.loadGenders();
     await this.insertValuesAgain();
-    await this.loadImageFromLocalStorage();
+    await this.loadImageFromStorage();
   }
 
-  async loadImageFromLocalStorage(): Promise<void> {
-    const storedImageUrl = localStorage.getItem('eventImageBlob');
-    if(storedImageUrl){
-      this.eventImage = await this.blobUrlToFile(storedImageUrl, 'eventImage.jpg')
-      console.log('eventImage in Step3', this.eventImage)
+  async loadImageFromStorage(): Promise<void> {
+    try {
+      const storedBase64Image = await this.eventService.getEventImage(); // Aus StorageService laden
+      if (storedBase64Image) {
+        this.eventImage = await this.base64ToFile(storedBase64Image, 'eventImage.jpg');
+        console.log('Event image loaded:', this.eventImage);
+      }
+    } catch (error) {
+      console.error('Error loading event image:', error);
     }
   }
 
@@ -261,7 +265,7 @@ export class Step3Component implements OnInit {
             this.eventService.postEventImage(eventId, formData).subscribe({
               next: data => console.log(data)
             });
-            localStorage.removeItem('eventImageBlob');
+            this.eventService.removeEventImage().then(r => console.log(r));
           }
           setTimeout(() => {
             this.router.navigate([`../../event/${eventId}`], {
@@ -319,9 +323,11 @@ export class Step3Component implements OnInit {
 
     await this.eventService.setEventInformation(data);
   }
-  private async blobUrlToFile(blobUrl: string, fileName: string): Promise<File> {
-    const response = await fetch(blobUrl);
-    const blob = await response.blob();
-    return new File([blob], fileName, { type: blob.type });
+  private base64ToFile(base64: string, fileName: string): File {
+    const byteString = atob(base64.split(',')[1]);
+    const mimeType = base64.split(',')[0].match(/:(.*?);/)?.[1] || 'image/jpeg';
+    const byteNumbers = new Array(byteString.length).fill(0).map((_, i) => byteString.charCodeAt(i));
+    const byteArray = new Uint8Array(byteNumbers);
+    return new File([byteArray], fileName, { type: mimeType });
   }
 }
