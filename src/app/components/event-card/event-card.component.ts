@@ -13,6 +13,7 @@ import {
   EventStatusIndicatorComponent,
 } from '../event-status-indicator/event-status-indicator.component';
 import { EventStatusService } from '../../services/event/event-status.service';
+import {EventService} from '../../services/event/eventservice';
 
 @Component({
   selector: 'app-event-card',
@@ -36,7 +37,7 @@ export class EventCardComponent {
   @Input({ transform: booleanAttribute }) showEventStatus: boolean = false;
   @Input({ transform: booleanAttribute }) compact: boolean = false;
 
-  constructor(private eventStatus: EventStatusService) {}
+  constructor(private eventStatus: EventStatusService, protected eventService:EventService) {}
 
   /**
    * Accepts an ISO-Date-String

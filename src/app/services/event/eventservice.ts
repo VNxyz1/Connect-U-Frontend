@@ -275,6 +275,12 @@ export class EventService {
     return this.http.get<EventCardItem[]>('event/upcoming');
   }
 
+  getEventTitleImage(image:string):string {
+    const baseUrl = 'http://localhost:3000/api';
+    const value = image == '' ? '' : image;
+    return `${baseUrl}/event/eventPicture/${value}`;
+  }
+
   removeEventParticipation(
     eventId: string,
   ): Observable<{ success: boolean; message: string }> {

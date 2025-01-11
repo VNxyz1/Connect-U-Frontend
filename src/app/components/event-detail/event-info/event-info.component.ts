@@ -93,7 +93,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     protected readonly route: ActivatedRoute,
     private readonly messageService: MessageService,
     private readonly translocoService: TranslocoService,
-    private readonly eventService: EventService,
+    protected readonly eventService: EventService,
     protected userService: UserService,
     private readonly auth: AuthService,
     private readonly eventRequestService: EventRequestService,

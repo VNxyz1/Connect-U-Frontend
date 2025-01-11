@@ -53,7 +53,7 @@
       <div class="flex justify-content-center p-0 sm:p-0 m-0">
         <p-image
           [alt]="'landingPage.headerImageAlt' | transloco"
-          src="./images/pexels-elevate-1267254.jpg"
+          [src]="eventService.getEventTitleImage(_eventDetails.picture)"
           class="w-full"
           styleClass="w-full"
           imageClass="w-full" />
@@ -89,7 +89,7 @@
             <div class="flex align-items-center">
               <rmx-icon
                 name="calendar-line"
-                class="mr-2 w-2rem h-2rem"></rmx-icon>
+                class="mr-2 w-2rem h-2rem"/>
               <p class="m-0 flex-grow-1 align-self-center">
                 {{
                   _eventDetails.dateAndTime
