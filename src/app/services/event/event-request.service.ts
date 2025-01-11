@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { StorageService } from '../storage/storage.service';
-import { EventDetails } from '../../interfaces/EventDetails';
 import { EventUserRequest } from '../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 
@@ -65,7 +63,6 @@ export class EventRequestService {
         return matchingRequest || null;
       }),
       catchError(err => {
-        console.error('Error fetching user requests:', err);
         this.userRequestSubject.next(null);
         return throwError(() => err);
       }),
