@@ -5,6 +5,7 @@ import { Observable, Subject, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventDetails } from '../../interfaces/EventDetails';
+import {environment} from '../../../environments/environment';
 
 export type EventData = {
   categories: number[];
@@ -276,9 +277,8 @@ export class EventService {
   }
 
   getEventTitleImage(image:string):string {
-    const baseUrl = 'http://localhost:3000/api';
     const value = image == '' ? '' : image;
-    return `${baseUrl}/event/eventPicture/${value}`;
+    return `${environment.apiConfig.urlPrefix}event/eventPicture/${value}`;
   }
 
   removeEventParticipation(
