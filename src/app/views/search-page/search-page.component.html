@@ -1,1 +1,156 @@
-<p>search-page works!</p>
+<div class="content pFocusTrap mt-5 h-100">
+  <div class="p-grid p-fluid column-gap-3">
+
+    <div class="p-col-12 p-md-6 field">
+      <p-floatLabel>
+        <input
+          id="event-title"
+          type="text"
+          [maxLength]="50"
+          required
+          pInputText
+          [(ngModel)]="eventTitle"
+           />
+        <label for="event-title">{{
+            'createEventStep1Component.eventTitleInput.label' | transloco
+          }}</label>
+      </p-floatLabel>
+    </div>
+
+    <div class="p-col-12 p-md-6 field">
+      <p-floatLabel>
+        <p-multiSelect
+          id="categories"
+          [options]="categories"
+          [(ngModel)]="selectedCategories"
+          optionLabel="name"
+          display="chip"
+          [showClear]="true"
+          [showToggleAll]="false"
+          styleClass="capitalize"
+          ></p-multiSelect>
+        <label for="categories">{{
+            'createEventStep1Component.categoriesInput.label' | transloco
+          }}</label>
+      </p-floatLabel>
+    </div>
+
+
+    <div class="justify-content-center mt-4 mb-4">
+      <span class="p-fluid">
+        <p-autoComplete
+          inputId="tags-input"
+          id="tags-input"
+          [placeholder]="
+            tags.length == 0
+              ? ('createEventStep1Component.tagsInput.label' | transloco)
+              : ''
+          "
+          [(ngModel)]="tags"
+          [suggestions]="results"
+          (completeMethod)="search($event)"
+          [multiple]="true" />
+      </span>
+    </div>
+  </div>
+
+
+  <div class="field">
+    <p-checkbox class="mr-8"
+      name="online"
+      [label]="
+          'createEventStep2Component.addressSection.onlineEventCheckbox'
+            | transloco
+        "
+      [(ngModel)]="online"
+      [binary]="true"
+      id="online-true"
+      variant="filled">
+    </p-checkbox>
+    <p-checkbox
+      name="offline"
+      [label]="
+          'createEventStep2Component.addressSection.onlineEventCheckbox'
+            | transloco
+        "
+      [(ngModel)]="offline"
+      [binary]="true"
+      id="online-false"
+      variant="filled">
+    </p-checkbox>
+  </div>
+  <div class="field">
+    <p-checkbox class="mr-8"
+                name="public"
+                [label]="
+          'createEventStep2Component.addressSection.onlineEventCheckbox'
+            | transloco
+        "
+                [(ngModel)]="public"
+                [binary]="true"
+                id="public"
+                variant="filled">
+    </p-checkbox>
+    <p-checkbox
+      name="halfPublic"
+      [label]="
+          'createEventStep2Component.addressSection.onlineEventCheckbox'
+            | transloco
+        "
+      [(ngModel)]="halfPublic"
+      [binary]="true"
+      id="halfPublic"
+      variant="filled">
+    </p-checkbox>
+  </div>
+
+  <div class="field">
+    <p-floatLabel>
+      <p-multiSelect
+        id="genders"
+        [options]="genders"
+        [(ngModel)]="preferredGenders"
+        optionLabel="label"
+        optionValue="value"
+        display="chip"
+        [showClear]="true"
+        styleClass="capitalize">
+      </p-multiSelect>
+      <label for="genders">{{
+          'createEventStep3Component.preferredGendersInput.label' | transloco
+        }}</label>
+    </p-floatLabel>
+  </div>
+
+  <div class="field">
+    <p-checkbox class="mr-8"
+                name="friends"
+                [label]="
+          'createEventStep2Component.addressSection.onlineEventCheckbox'
+            | transloco
+        "
+                [(ngModel)]="friends"
+                [binary]="true"
+                id="friends"
+                variant="outlined">
+    </p-checkbox>
+    </div>
+
+  <div class="flex fixed-bottom-responsive-container justify-content-end">
+    <div class="justify-content-end">
+      <p-button
+        [raised]="true"
+        severity="success"
+        [label]="'createEventStep1Component.continueButton' | transloco"
+        (onClick)="submit()">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            class="mr-2"
+            style="width: 16px; height: 16px"
+            name="arrow-right-circle-line">
+          </rmx-icon>
+        </ng-template>
+      </p-button>
+    </div>
+  </div>
+</div>
