@@ -134,7 +134,8 @@
     "isPublic": "Public Events",
     "isHalfPublic": "Semi-Public Events",
     "filterFriends": "only display events that friends are attending",
-    "filterButton":"Filter Events"
+    "filterButton":"Filter Events",
+    "selectFilters": "Select Filters"
   },
   "resultsPageComponent": {
     "results": "Results",

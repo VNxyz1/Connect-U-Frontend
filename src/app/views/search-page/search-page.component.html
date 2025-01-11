@@ -2,7 +2,9 @@
   <form [formGroup]="form">
   <div class="p-grid p-fluid column-gap-3">
 
-     <span class="font-bold text-2xl block md:px-2 mb-2 mt-4">Filter auswählen</span>
+     <span class="font-bold text-2xl block md:px-2 mb-2 mt-4">{{
+         'searchPageComponent.selectFilters' | transloco
+       }}</span>
     <div class="p-col-12 p-md-6 field">
       <p-floatLabel>
         <input
