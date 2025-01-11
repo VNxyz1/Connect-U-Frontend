@@ -1,8 +1,21 @@
-<span class="font-bold text-2xl block md:px-2 mb-2 mt-4">Suchergebnisse</span>
+<h1 class="ml-3 md:px-2 mb-2 mt-4">Ergebnisse</h1>
 @if (events$ | async; as events) {
-  <span class="text-2xl block md:px-2 mb-2 mt-4">
-  {{ (events$ | async)?.length || 0 }} Events gefunden!
+  <div class="flex">
+  <span class="text-2xl block md:px-2 mb-2 mt-4 ml-2 text-color-secondary">
+  {{ (events$ | async)?.length || 0 }} passende Events gefunden!
       </span>
+  <div class="mb-4">
+    <div class="flex gap-1 justify-content-end flex-none fixed">
+      <p-button class="raised" [raised]="true" severity="info">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            style="width: 16px; height: 16px"
+            name="heart-3-line"></rmx-icon>
+        </ng-template>
+      </p-button>
+    </div>
+  </div>
+  </div>
   <div class="px-2">
     <div class="grid justify-content-center xl:justify-content-start md:w-full">
       @for (event of events; track $index) {
@@ -13,14 +26,13 @@
       }
     </div>
   </div>
-      }
-@else {
+} @else {
   <div class="grid justify-content-center xl:justify-content-start md:w-full">
-  @for (event of [0, 1, 2, 3, 4]; track $index) {
-    <div
-      class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
-      <app-event-card skeleton class="w-full" />
-    </div>
-  }
+    @for (event of [0, 1, 2, 3, 4]; track $index) {
+      <div
+        class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+        <app-event-card skeleton class="w-full" />
+      </div>
+    }
   </div>
 }

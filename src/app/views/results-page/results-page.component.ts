@@ -11,10 +11,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EventCardComponent } from '../../components/event-card/event-card.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventSearchService } from '../../services/event/event-search.service';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { AsyncPipe } from '@angular/common';
-import { TranslocoPipe } from '@jsverse/transloco';
+import { parseToQueryParams } from '../../utils/parsing/parsing';
+import { Button } from 'primeng/button';
+import { AngularRemixIconComponent } from 'angular-remix-icon';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-results-page',
@@ -31,7 +34,8 @@ import { TranslocoPipe } from '@jsverse/transloco';
     ReactiveFormsModule,
     EventCardComponent,
     AsyncPipe,
-    TranslocoPipe,
+    Button,
+    AngularRemixIconComponent,
   ],
   templateUrl: './results-page.component.html',
 })
