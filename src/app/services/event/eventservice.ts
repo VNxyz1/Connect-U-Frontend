@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../storage/storage.service';
-import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subject,
+  throwError,
+} from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventDetails } from '../../interfaces/EventDetails';
@@ -43,13 +49,15 @@ export class EventService {
   private fyPageSubject: BehaviorSubject<EventCardItem[]> = new BehaviorSubject<
     EventCardItem[]
   >([]);
-  private hasMoreFyEvents: boolean = true;
+  private hasMoreFyEventsSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(true);
 
   private allEventsPage = 0;
   private readonly allEventsPageSize = 12;
   private allEventsSubject: BehaviorSubject<EventCardItem[]> =
     new BehaviorSubject<EventCardItem[]>([]);
-  private hasMoreAllEvents: boolean = true;
+  private hasMoreAllEventsSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(true);
 
   constructor(
     private readonly http: HttpClient,
@@ -190,12 +198,16 @@ export class EventService {
     );
   }
 
-  /**
-   * Fetches all events from the server.
-   * @returns {Observable<EventCardItem[]>} An observable that emits an array of event card items.
-   */
-  getAllEvents(): Observable<EventCardItem[]> {
-    return this.allEventsSubject.asObservable();
+  getAllEvents() {
+    return combineLatest([
+      this.allEventsSubject.asObservable(),
+      this.hasMoreAllEventsSubject.asObservable(),
+    ]).pipe(
+      map(([events, hasMore]) => ({
+        events,
+        hasMore,
+      })),
+    );
   }
 
   private loadAllEvents(
@@ -211,14 +223,14 @@ export class EventService {
   }
 
   loadNextAllEventsPage(): void {
-    if (!this.hasMoreFyEvents) {
+    if (!this.hasMoreAllEventsSubject.getValue()) {
       return;
     }
     this.allEventsPage++;
     this.loadAllEvents(this.allEventsPage, this.allEventsPageSize).subscribe({
       next: newItems => {
         if (newItems.length === 0) {
-          this.hasMoreAllEvents = false;
+          this.hasMoreAllEventsSubject.next(false);
           return;
         }
 
@@ -229,12 +241,16 @@ export class EventService {
     });
   }
 
-  /**
-   * Fetches all fy-page events from the server.
-   * @returns {Observable<EventCardItem[]>} An observable that emits an array of event card items.
-   */
-  getFyEvents(): Observable<EventCardItem[]> {
-    return this.fyPageSubject.asObservable();
+  getFyEvents() {
+    return combineLatest([
+      this.fyPageSubject.asObservable(),
+      this.hasMoreFyEventsSubject.asObservable(),
+    ]).pipe(
+      map(([events, hasMore]) => ({
+        events,
+        hasMore,
+      })),
+    );
   }
 
   private loadFyPage(page: number, pageSize: number) {
@@ -247,14 +263,15 @@ export class EventService {
   }
 
   loadNextFyPage(): void {
-    if (!this.hasMoreFyEvents) {
+    if (!this.hasMoreFyEventsSubject.getValue()) {
       return;
     }
+
     this.page++;
     this.loadFyPage(this.page, this.pageSize).subscribe({
       next: newItems => {
         if (newItems.length === 0) {
-          this.hasMoreFyEvents = false;
+          this.hasMoreFyEventsSubject.next(false);
           return;
         }
 

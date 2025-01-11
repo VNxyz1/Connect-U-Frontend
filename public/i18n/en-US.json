@@ -3,7 +3,8 @@
   "homepage": {
     "title": "Events for You",
     "upcomingEvents": {
-      "title": "Upcoming Events"
+      "title": "Upcoming Events",
+      "noMoreEvents": "No more upcoming events. Reload the page and see if there's something for you!"
     }
   },
   "loginComponent": {

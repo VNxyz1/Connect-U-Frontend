@@ -4,7 +4,7 @@ import { LoginComponent } from '../../components/login/login.component';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { AsyncPipe } from '@angular/common';
 import { EventCardComponent } from '../../components/event-card/event-card.component';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventService } from '../../services/event/eventservice';
 import { RouterOutlet } from '@angular/router';
@@ -12,6 +12,7 @@ import { RegisterComponent } from '../../components/register/register.component'
 import { MenuModule } from 'primeng/menu';
 import { SidebarModule } from 'primeng/sidebar';
 import { ScrollNearEndDirective } from '../../utils/scroll-near-end.directive';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-landing-page',
@@ -32,21 +33,20 @@ import { ScrollNearEndDirective } from '../../utils/scroll-near-end.directive';
 })
 export class LandingPageComponent implements OnInit {
   events$!: Observable<EventCardItem[]>;
+  hasMoreEvents$!: Observable<boolean>;
+
   switch: boolean = false;
   isLoading: boolean = false;
 
   constructor(private eventService: EventService) {}
 
-  async ngOnInit(): Promise<void> {
-    this.getEvents();
-  }
-
-  getEvents() {
-    this.events$ = this.eventService.getAllEvents().pipe(
-      tap({
-        next: () => (this.isLoading = false),
-      }),
-    );
+  ngOnInit(): void {
+    this.events$ = this.eventService
+      .getAllEvents()
+      .pipe(map(data => data.events));
+    this.hasMoreEvents$ = this.eventService
+      .getAllEvents()
+      .pipe(map(data => data.hasMore));
   }
 
   loadNewPage(): void {
@@ -55,7 +55,9 @@ export class LandingPageComponent implements OnInit {
     }
     this.isLoading = true;
     this.eventService.loadNextAllEventsPage();
+    this.isLoading = false;
   }
+
   toggleSwitch(): void {
     this.switch = !this.switch;
   }
