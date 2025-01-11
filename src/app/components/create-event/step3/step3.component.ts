@@ -268,14 +268,13 @@ export class Step3Component implements OnInit {
             this.eventService.postEventImage(eventId, formData).subscribe({
               next: data => console.log(data),
             });
-            this.eventService.removeEventImage().then(r => console.log(r));
-          }
-          setTimeout(() => {
-            this.router.navigate([`../../event/${eventId}`], {
-              relativeTo: this.route,
-              queryParams: { fromCreate: true },
+            this.eventService.removeEventImage().then(r => {
+              console.log(r);
+              this.navigateToEvent(eventId);
             });
-          }, 2000);
+          } else {
+            this.navigateToEvent(eventId);
+          }
         } else {
           throw new Error(
             this.translocoService.translate(
@@ -298,6 +297,15 @@ export class Step3Component implements OnInit {
         return;
       },
     });
+  }
+
+  private navigateToEvent(eventId: string): void {
+    setTimeout(() => {
+      this.router.navigate(['/event', eventId], {
+        relativeTo: this.route,
+        queryParams: { fromCreate: true },
+      });
+    }, 2000);
   }
 
   protected prevPage() {
