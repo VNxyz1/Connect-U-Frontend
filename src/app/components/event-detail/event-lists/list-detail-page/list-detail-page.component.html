@@ -94,9 +94,11 @@
               <div
                 class="col-fixed w-min flex align-items-center align-content-center">
                 <span class="mr-2">{{ listEntry.user?.username }}</span>
-                @if(listEntry.user){
+                @if (listEntry.user) {
                   <img
-                    ngSrc="{{ userService.getImageFile(listEntry.user?.profilePicture!) }}"
+                    ngSrc="{{
+                      userService.getImageFile(listEntry.user?.profilePicture!)
+                    }}"
                     alt="profile picture"
                     class="border-circle"
                     width="35"

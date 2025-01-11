@@ -52,7 +52,8 @@
           <div
             class="bg-cover bg-center h-full w-full"
             [style]="{
-              'background-image': 'url(' + eventService.getEventTitleImage(event.picture) + ')',
+              'background-image':
+                'url(' + eventService.getEventTitleImage(event.picture) + ')',
             }"></div>
         </div>
       </div>
@@ -120,7 +121,10 @@
           }">
           <div
             class="bg-cover bg-center h-full w-full"
-            [style]="{ 'background-image': 'url(' + eventService.getEventTitleImage(event.picture) + ')'}">
+            [style]="{
+              'background-image':
+                'url(' + eventService.getEventTitleImage(event.picture) + ')',
+            }">
             <div
               class="flex justify-content-between p-3 pl-0 align-content-center align-items-center">
               <span>
