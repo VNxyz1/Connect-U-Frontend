@@ -6,7 +6,7 @@ export function parseToQueryParams(form: FormGroup) {
   Object.keys(form.value).forEach((key  ) => {
     const value = form.value[key];
 
-    if (!value) return;
+    if (value === '') return;
     if (form.controls[key] instanceof FormGroup) {
       queryParams[key] = Object.keys(value).filter(k => value[k]);
     } else if (value instanceof Date) {

@@ -86,6 +86,8 @@ export class SearchPageComponent implements OnInit {
         Object.keys(fc.controls).forEach((k) => {
           fc.controls[k].setValue(queryParams[key] === k);
         })
+      } else if (form.controls[key] && typeof form.controls[key].value  == 'boolean')  {
+        form.controls[key].setValue(JSON.parse(queryParams[key]));
       } else if (form.controls[key]) {
         form.controls[key].setValue(queryParams[key]);
       }
@@ -95,10 +97,8 @@ export class SearchPageComponent implements OnInit {
   }
 
   submit = () => {
-    if (this.form.valid) {
       const params = parseToQueryParams(this.form);
       this.router.navigate(['search', 'results'], {queryParams: params});
-    }
   }
 
   private async loadGenders() {
