@@ -159,7 +159,17 @@
       "categoryLimitTitle": "Selection Limit",
       "categoryLimitDetail": "You can select up to 3 categories only.",
       "validationFailedTitle": "Validation Failed",
-      "validationFailedDetail": "Ensure all required fields are filled in correctly."
+      "validationFailedDetail": "Ensure all required fields are filled in correctly.",
+      "removedImageTitle": "Image removed",
+      "removedImage": "You removed the Event-Image successfully"
+    },
+    "errorMessages": {
+      "wrongFormatTitle": "Wrong Image Format",
+      "wrongFormat": "you have to choose a supported Format like .gif, .jpg, .png",
+      "couldntBeSaved": "your uploaded image couldn`t be saved",
+      "couldntBeSavedTitle": "Saving Error",
+      "sizedErrorTitle": "Size to big",
+      "sizedError": "You have to choose a file with max size of 5mb"
     }
   },
   "createEventStep2Component": {

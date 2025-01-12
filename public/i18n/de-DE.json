@@ -155,11 +155,22 @@
       "label": "Tags hinzufügen"
     },
     "continueButton": "Weiter",
+
     "messages": {
       "categoryLimitTitle": "Kategorien Limitierung",
       "categoryLimitDetail": "Du kannst nur bis zu 3 Kategorien auswählen.",
       "validationFailedTitle": "Validierung fehlgeschlagen",
-      "validationFailedDetail": "Bitte stelle sicher, dass alle erforderlichen Felder korrekt ausgefüllt sind."
+      "validationFailedDetail": "Bitte stelle sicher, dass alle erforderlichen Felder korrekt ausgefüllt sind.",
+      "removedImageTitle": "Bild entfernt!",
+      "removedImage": "Bild wurde erfolgreich entfernt, wähle gerne ein neues aus."
+    },
+    "errorMessages": {
+      "wrongFormatTitle": "Falsches Format",
+      "wrongFormat": "Du musst ein Bildformat nutzen welches wir unterstützen z.B. .gif, .jpg, .png",
+      "couldntBeSaved": "Dein Bild konnte nicht gespeichert werden",
+      "couldntBeSavedTitle": "Fehler",
+      "sizedErrorTitle": "Fehler",
+      "sizedError": "Das Bild darf maximal 5MB groß sein."
     }
   },
   "createEventStep2Component": {

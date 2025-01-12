@@ -143,9 +143,11 @@ export class Step1Component implements OnInit, OnDestroy {
         this.messageService.add({
           severity: 'error',
           summary: this.translocoService.translate(
-            'eventStep1.image.errorTitle',
+            'createEventStep1Component.errorMessages.sizedErrorTitle'
           ),
-          detail: this.translocoService.translate('eventStep1.image.errorSize'),
+          detail:this.translocoService.translate(
+            'createEventStep1Component.errorMessages.sizedError'
+          ),
         });
         return;
       }
@@ -163,10 +165,12 @@ export class Step1Component implements OnInit, OnDestroy {
           this.messageService.add({
             severity: 'error',
             summary: this.translocoService.translate(
-              'eventStep1.image.errorTitle',
+              'createEventStep1Component.errorMessages.couldntBeSavedTitle'
             ),
             detail: this.translocoService.translate(
-              'eventStep1.image.errorSave',
+              this.translocoService.translate(
+                'createEventStep1Component.errorMessages.couldntBeSaved'
+              )
             ),
           });
         }
@@ -175,8 +179,10 @@ export class Step1Component implements OnInit, OnDestroy {
     } else {
       this.messageService.add({
         severity: 'error',
-        summary: this.translocoService.translate('eventStep1.image.errorTitle'),
-        detail: this.translocoService.translate('eventStep1.image.errorFormat'),
+        summary: this.translocoService.translate(
+          'createEventStep1Component.errorMessages.wrongFormatTitle',
+        ),
+        detail: this.translocoService.translate('createEventStep1Component.errorMessages.wrongFormat'),
       });
     }
   }
@@ -248,6 +254,19 @@ export class Step1Component implements OnInit, OnDestroy {
         tokenInput.value = '';
       }
     }
+  }
+  removeImage(): void {
+    this.uploadedImagePreview = null;
+    this.uploadedFile = null;
+    this.messageService.add({
+      severity: 'info',
+      summary: this.translocoService.translate(
+        'createEventStep1Component.messages.removedImageTitle',
+      ),
+      detail: this.translocoService.translate(
+        'createEventStep1Component.messages.removedImage',
+      ),
+    });
   }
 
   blurTagInput() {
