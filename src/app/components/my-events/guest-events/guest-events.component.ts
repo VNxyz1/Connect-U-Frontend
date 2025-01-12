@@ -39,6 +39,7 @@ export class GuestEventsComponent implements OnInit, OnChanges {
   protected isLoading = true;
   @Output() hasEventsChange = new EventEmitter<boolean>();
   @Input() hasRequests!: boolean;
+  @Input() hasReqFromFriends!:boolean;
   currentUrl: string = '';
 
   private filtersSubject = new BehaviorSubject<{ name: string }[]>([]);

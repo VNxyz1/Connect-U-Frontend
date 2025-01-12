@@ -54,6 +54,7 @@ export class MyEventsPageComponent implements OnInit {
 
   hasEvents: boolean = false;
   eventRequests: UsersEventRequest[] = [];
+  eventRequestsFromFriends: UsersEventRequest[] = [];
 
   constructor(
     private router: Router,
@@ -84,6 +85,14 @@ export class MyEventsPageComponent implements OnInit {
         console.error('Failed to fetch user requests:', err);
       },
     });
+    this.eventRequestService.getInvitationFromFriends().subscribe({
+      next: friendRequest =>{
+        this.eventRequestsFromFriends = friendRequest;
+      },
+      error: err => {
+        console.error('Failed to fetch requests from Friends:', err);
+      }
+    })
   }
 
   private setupTabItems() {

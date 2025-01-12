@@ -93,6 +93,16 @@ export class EventRequestService {
     );
   }
 
+  getInvitationFromFriends(): Observable<UsersEventRequest[]>{
+    const url = `request/invite/user`;
+    return this.http.get<UsersEventRequest[]>(url).pipe(
+      catchError(err => {
+        console.error('Error fetching invitations by Friends: ', err)
+        return throwError(() => err);
+      })
+    )
+  }
+
   acceptUserRequest(
     requestId: number,
   ): Observable<{ success: boolean; message: string }> {
@@ -102,6 +112,11 @@ export class EventRequestService {
       .pipe();
   }
 
+  acceptFriendsRequest(requestId: number): Observable<{ success: boolean; message: string }> {
+    const url = `request/acceptInvite/${requestId}`;
+    return this.http.patch<{success:boolean; message:string}>(url, {}).pipe()
+  }
+
   denyUserRequest(
     requestId: number,
   ): Observable<{ success: boolean; message: string }> {
@@ -109,6 +124,11 @@ export class EventRequestService {
     return this.http
       .patch<{ success: boolean; message: string }>(url, {})
       .pipe();
+  }
+
+  denyFriendsRequest(requestId:number): Observable<{success:boolean; message:string}>{
+    const url = `request/denyInvite/${requestId}`;
+    return this.http.patch<{ success: boolean; message: string }>(url, {}).pipe();
   }
 
   /**

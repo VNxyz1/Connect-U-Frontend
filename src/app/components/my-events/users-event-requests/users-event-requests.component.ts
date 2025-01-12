@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { Button } from 'primeng/button';
@@ -9,6 +9,8 @@ import { RouterLink } from '@angular/router';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { HttpClient } from '@angular/common/http';
 import { EventRequestService } from '../../../services/event/event-request.service';
+import {Observable} from 'rxjs';
+import {AsyncPipe} from '@angular/common';
 
 @Component({
   selector: 'app-users-event-requests',
@@ -21,11 +23,13 @@ import { EventRequestService } from '../../../services/event/event-request.servi
     TranslocoPipe,
     RouterLink,
     TranslocoDatePipe,
+    AsyncPipe,
   ],
   templateUrl: './users-event-requests.component.html',
 })
-export class UsersEventRequestsComponent {
+export class UsersEventRequestsComponent implements OnInit {
   @Input() eventRequests!: UsersEventRequest[];
+  invites$!: Observable<UsersEventRequest[]>
 
   constructor(
     private http: HttpClient,
@@ -33,7 +37,10 @@ export class UsersEventRequestsComponent {
     private messageService: MessageService,
     private readonly translocoService: TranslocoService,
   ) {}
-
+  ngOnInit(){
+    this.invites$ = this.requestService.getInvitationFromFriends();
+    console.log(this.invites$.subscribe())
+  }
   protected deleteEventRequest(
     eventTitle: string,
     requestId: number,
@@ -87,6 +94,28 @@ export class UsersEventRequestsComponent {
         console.error('Error creating new request:', err);
       },
     });
+  }
+
+  protected denyFriendsRequestedEvent(inviteID:number){
+    this.requestService.denyFriendsRequest(inviteID).subscribe({
+      next: () => {
+        console.log("successfully denied")
+      },
+      error: err => {
+        console.error('Error deleting request:', err);
+      }
+    })
+  }
+
+  protected acceptFriendsRequestedEvent(inviteID:number){
+    this.requestService.acceptFriendsRequest(inviteID).subscribe({
+      next: ()=>{
+        console.log("successfully accepted")
+      },
+      error: err => {
+        console.error('Error deleting request:', err);
+      }
+    })
   }
 
   protected toDate(date: string): Date {

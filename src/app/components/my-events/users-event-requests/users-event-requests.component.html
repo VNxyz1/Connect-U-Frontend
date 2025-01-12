@@ -1,4 +1,87 @@
 <div class="px-2 container content">
+
+  <!-- Check if there are invites -->
+  @if (invites$ | async; as invites) {
+    @if (invites.length > 0) {
+      <div class="flex justify-content-between align-items-center">
+        <h2>Einladungen von Freunden</h2>
+        <span class="color-secondary">{{ invites.length }}</span>
+      </div>
+
+      @for (invite of invites; track invite.id) {
+        <p-card class="p-3 cursor-pointer" [routerLink]="['/event/' + invite.event.id]">
+          <div class="flex flex-row align-items-center">
+            <!-- Event Image -->
+            <img
+              [src]="invite.event.picture || 'https://via.placeholder.com/100'"
+              alt="{{ invite.event.title }}-picture"
+              class="mb-3 md:mb-0 hidden md:block"
+              style="width: 70px; height: 70px"
+            />
+
+
+            <!-- Event Details -->
+            <div class="flex flex-column flex-grow-1 ml-3">
+              <h3 class="mt-0 mb-0">{{ invite.event.title }}</h3>
+              <div class="text-secondary mt-2 md:mt-0">
+                <div class="flex align-items-center gap-1">
+                  <rmx-icon
+                    name="calendar-line"
+                    style="width: 16px; height: 16px"
+                    class="mr-1"
+                  ></rmx-icon>
+                  <p class="text-sm">
+                    Eingeladen von {{ invite.event.host.username }}
+                  </p>
+                  <p class="mt-0 mb-0">
+                    {{
+                      toDate(invite.event.dateAndTime)
+                        | translocoDate: { dateStyle: 'short' }
+                    }}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-column md:flex-row gap-2 align-items-center ml-auto">
+              <!-- Accept Button -->
+              <p-button
+                [raised]="true"
+                label="Akzeptieren"
+                severity="success"
+                (onClick)="acceptFriendsRequestedEvent(invite.id)"
+              >
+                <ng-template pTemplate="icon">
+                  <rmx-icon
+                    style="width: 16px; height: 16px"
+                    name="check-line"
+                  ></rmx-icon>
+                </ng-template>
+              </p-button>
+
+              <!-- Deny Button -->
+              <p-button
+                [raised]="true"
+                label="Ablehnen"
+                severity="danger"
+                (onClick)="denyFriendsRequestedEvent(invite.id)"
+              >
+                <ng-template pTemplate="icon">
+                  <rmx-icon
+                    style="width: 16px; height: 16px"
+                    name="close-line"
+                  ></rmx-icon>
+                </ng-template>
+              </p-button>
+            </div>
+          </div>
+        </p-card>
+      }
+    } @else {
+      <h2>Keine Einladungen vorhanden.</h2>
+    }
+  }
   <div class="flex justify-content-between align-items-center">
     <h2 class="">
       {{ 'myEventPageComponent.guest.your-event-requests' | transloco }}
