@@ -150,7 +150,6 @@ const icons = {
   RiVipCrown2Fill,
   RiCameraLine,
   RiSendPlaneFill,
-
 };
 
 // Custom missing handler to avoid console logs for missing keys

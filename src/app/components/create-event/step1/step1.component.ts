@@ -143,10 +143,10 @@ export class Step1Component implements OnInit, OnDestroy {
         this.messageService.add({
           severity: 'error',
           summary: this.translocoService.translate(
-            'createEventStep1Component.errorMessages.sizedErrorTitle'
+            'createEventStep1Component.errorMessages.sizedErrorTitle',
           ),
-          detail:this.translocoService.translate(
-            'createEventStep1Component.errorMessages.sizedError'
+          detail: this.translocoService.translate(
+            'createEventStep1Component.errorMessages.sizedError',
           ),
         });
         return;
@@ -165,12 +165,12 @@ export class Step1Component implements OnInit, OnDestroy {
           this.messageService.add({
             severity: 'error',
             summary: this.translocoService.translate(
-              'createEventStep1Component.errorMessages.couldntBeSavedTitle'
+              'createEventStep1Component.errorMessages.couldntBeSavedTitle',
             ),
             detail: this.translocoService.translate(
               this.translocoService.translate(
-                'createEventStep1Component.errorMessages.couldntBeSaved'
-              )
+                'createEventStep1Component.errorMessages.couldntBeSaved',
+              ),
             ),
           });
         }
@@ -182,7 +182,9 @@ export class Step1Component implements OnInit, OnDestroy {
         summary: this.translocoService.translate(
           'createEventStep1Component.errorMessages.wrongFormatTitle',
         ),
-        detail: this.translocoService.translate('createEventStep1Component.errorMessages.wrongFormat'),
+        detail: this.translocoService.translate(
+          'createEventStep1Component.errorMessages.wrongFormat',
+        ),
       });
     }
   }

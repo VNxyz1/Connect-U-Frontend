@@ -6,31 +6,29 @@
       <!-- image for event  -->
       <div class="flex col-12 justify-content-center">
         <!-- Image Preview -->
-        <div style="position: relative;">
+        <div style="position: relative">
           <img
             [src]="uploadedImagePreview || '/images/placeholder-image.jpg'"
             alt="Eventbild"
             class="cursor-pointer border-round shadow-2"
             style="
-        width: 350px;
-        height: 250px;
-        object-fit: cover;
-        border: 4px solid #ccc;"
-            (click)="triggerFileInput()"
-          />
-        @if(uploadedImagePreview){
-          <p-button
-            class="absolute -ml-4 -mt-3"
-            icon="true"
-            [raised]="true"
-            (click)="removeImage()">
-            <rmx-icon
-              name="close-line"
-              style="width: 25px; height: 25px;"
-            ></rmx-icon>
-          </p-button>
-        }
-
+              width: 350px;
+              height: 250px;
+              object-fit: cover;
+              border: 4px solid #ccc;
+            "
+            (click)="triggerFileInput()" />
+          @if (uploadedImagePreview) {
+            <p-button
+              class="absolute -ml-4 -mt-3"
+              icon="true"
+              [raised]="true"
+              (click)="removeImage()">
+              <rmx-icon
+                name="close-line"
+                style="width: 25px; height: 25px"></rmx-icon>
+            </p-button>
+          }
         </div>
         <!-- Hidden File Input -->
         <input
