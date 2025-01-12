@@ -110,6 +110,7 @@
     <p-floatLabel>
       <p-multiSelect
         id="genders"
+        formControlName="genders"
         [options]="fetchedGenders"
         optionLabel="label"
         optionValue="value"
@@ -137,6 +138,17 @@
     </p-checkbox>
     </div>
 
+    <span class="font-bold text-2xl block md:px-2 mb-2 mt-4">Sort Events</span>
+
+    <div class="justify-content-center mt-4 mb-4">
+    <p-dropdown
+        formControlName="sortOrder"
+        [options]= "sortOrderOptions"
+        optionLabel="name"
+        optionValue="value"
+    />
+      </div>
+
   <div class="flex fixed-bottom-responsive-container justify-content-end">
     <div class="justify-content-end">
       <p-button
@@ -155,6 +167,5 @@
     </div>
   </div>
   </div>
-
   </form>
 </div>

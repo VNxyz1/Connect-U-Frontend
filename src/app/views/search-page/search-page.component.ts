@@ -17,6 +17,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { parseToQueryParams } from '../../utils/parsing/parsing';
+import { SortOrder } from '../../interfaces/SearchParams';
 
 @Component({
   selector: 'app-search-page',
@@ -55,13 +56,14 @@ export class SearchPageComponent implements OnInit {
   form: FormGroup = new FormGroup({
     tags: new FormControl<number[]>([]),
     title: new FormControl<string>(''),
-    genders: new FormControl<number[]>([]),
+    genders: new FormControl<number[]>([1,2,3]),
     categories: new FormControl<number[]>([]),
     isOnline: new FormControl<boolean>(true),
     isInPlace: new FormControl<boolean>(true),
     isPublic: new FormControl<boolean>(true),
     isHalfPublic: new FormControl<boolean>(true),
     filterFriends: new FormControl<boolean>(false),
+    sortOrder: new FormControl<string>(''),
   });
 
   async ngOnInit() {
@@ -131,6 +133,15 @@ export class SearchPageComponent implements OnInit {
         error: error => console.error('Error loading genders:', error),
       });
   }
+
+  sortOrderOptions = [
+    { name: 'Newest First', value: 'newestFirst' },
+    { name: 'Oldest First', value: 'oldestFirst' },
+    { name: 'Upcoming Next', value: 'upcomingNext' },
+    { name: 'Upcoming Last', value: 'upcomingLast' },
+    { name: 'Alphabetical (A-Z)', value: 'alphabetical_asc' },
+    { name: 'Alphabetical (Z-A)', value: 'alphabetical_desc' },
+  ];
 
   private loadCategories() {
     this.eventService
