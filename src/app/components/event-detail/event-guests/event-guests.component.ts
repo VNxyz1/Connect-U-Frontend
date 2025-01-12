@@ -12,12 +12,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 @Component({
   selector: 'app-event-guests',
   standalone: true,
-  imports: [
-    CardModule,
-    TranslocoPipe,
-    ProfileCardComponent,
-    AvatarGroupModule,
-  ],
+  imports: [CardModule, TranslocoPipe, ProfileCardComponent, AvatarGroupModule],
   templateUrl: './event-guests.component.html',
 })
 export class EventGuestsComponent {
