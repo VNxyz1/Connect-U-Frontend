@@ -51,6 +51,14 @@ export class SearchPageComponent implements OnInit {
   }
   fetchedCategories: { id: number; name: string }[] = [];
   fetchedGenders: { value: number; label: string }[] = [];
+  sortOrderOptions: { value: string; name: string }[] = [
+    { name: 'searchPageComponent.sortOrder.newestFirst', value: 'newestFirst' },
+    { name: 'searchPageComponent.sortOrder.oldestFirst', value: 'oldestFirst' },
+    { name: 'searchPageComponent.sortOrder.upcomingNext', value: 'upcomingNext' },
+    { name: 'searchPageComponent.sortOrder.upcomingLast', value: 'upcomingLast' },
+    { name: 'searchPageComponent.sortOrder.alphabetical_asc', value: 'alphabetical_asc' },
+    { name: 'searchPageComponent.sortOrder.alphabetical_desc', value: 'alphabetical_desc' },
+  ];
   fetchedTags: string[] = [];
 
   form: FormGroup = new FormGroup({
@@ -63,7 +71,7 @@ export class SearchPageComponent implements OnInit {
     isPublic: new FormControl<boolean>(true),
     isHalfPublic: new FormControl<boolean>(true),
     filterFriends: new FormControl<boolean>(false),
-    sortOrder: new FormControl<string>(''),
+    sortOrder: new FormControl<string>('newestFirst'),
   });
 
   async ngOnInit() {
@@ -134,14 +142,6 @@ export class SearchPageComponent implements OnInit {
       });
   }
 
-  sortOrderOptions = [
-    { name: 'Newest First', value: 'newestFirst' },
-    { name: 'Oldest First', value: 'oldestFirst' },
-    { name: 'Upcoming Next', value: 'upcomingNext' },
-    { name: 'Upcoming Last', value: 'upcomingLast' },
-    { name: 'Alphabetical (A-Z)', value: 'alphabetical_asc' },
-    { name: 'Alphabetical (Z-A)', value: 'alphabetical_desc' },
-  ];
 
   private loadCategories() {
     this.eventService

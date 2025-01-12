@@ -15,12 +15,8 @@ export class EventSearchService {
   }
 
   getFilteredEvents(filters: SearchParams): Observable<EventCardItem[]> {
-    const defaultGenders = [1, 2, 3];
     const updatedFilters: SearchParams = {
       ...filters,
-      genders: Array.isArray(filters.genders)
-        ? Array.from(new Set([...filters.genders, ...defaultGenders]))
-        : defaultGenders,
     };
 
     const params = new URLSearchParams();

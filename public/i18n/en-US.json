@@ -135,7 +135,15 @@
     "isHalfPublic": "Semi-Public Events",
     "filterFriends": "only display events that friends are attending",
     "filterButton":"Filter Events",
-    "selectFilters": "Select Filters"
+    "selectFilters": "Select Filters",
+    "sortOrder": {
+      "newestFirst": "Newest First",
+      "oldestFirst": "Oldest First",
+      "upcomingNext": "Upcoming Next",
+      "upcomingLast": "Upcoming Last",
+      "alphabetical_asc": "Alphabetical (A-Z)",
+      "alphabetical_desc": "Alphabetical (Z-A)"
+    }
   },
   "resultsPageComponent": {
     "results": "Results",

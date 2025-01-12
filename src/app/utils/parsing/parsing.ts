@@ -15,5 +15,6 @@ export function parseToQueryParams(form: FormGroup) {
       queryParams[key] = value;
     }
   })
+
   return queryParams;
 }

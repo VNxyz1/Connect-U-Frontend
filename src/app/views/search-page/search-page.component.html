@@ -146,7 +146,14 @@
         [options]= "sortOrderOptions"
         optionLabel="name"
         optionValue="value"
-    />
+    >
+      <ng-template let-sorting pTemplate="selectedItem">
+        {{sorting.name | transloco}}
+      </ng-template>
+      <ng-template let-sorting pTemplate="item">
+        {{sorting.name | transloco}}
+      </ng-template>
+    </p-dropdown>
       </div>
 
   <div class="flex fixed-bottom-responsive-container justify-content-end">
