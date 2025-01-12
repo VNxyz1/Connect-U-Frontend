@@ -44,7 +44,20 @@
       <p-button
         [text]="true"
         [severity]="getSeverity('/my-events')"
-        (click)="navigateTo('/my-events')">
+        (click)="navigateTo('/my-events')"
+        styleClass="overflow-visible"
+      >
+        @if ((myEventsPushNotifications$ | async) != 0) {
+          <p-badge
+            [value]="myEventsPushNotifications$ | async"
+            severity="success"
+            [style]="{
+            position: 'absolute',
+            top: '1px',
+            right: '-1px',
+            'z-index': 1
+            }"/>
+        }
         <ng-template pTemplate="icon">
           <rmx-icon
             style="width: 24px; height: 24px"
