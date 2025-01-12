@@ -1,7 +1,11 @@
 <div class="mt-4 border-bottom-2 border-gray-50 z-4">
   <div class="flex align-items-center justify-content-between w-full mb-3">
     <div class="col align-items-center justify-content-start">
-      @if (currentUrl !== '/' && !currentUrl?.includes('create-event')) {
+      @if (
+        currentUrl !== '/' &&
+        !currentUrl?.includes('create-event') &&
+        !currentUrl?.includes('unavailable')
+      ) {
         <p-button
           [text]="true"
           severity="primary"
