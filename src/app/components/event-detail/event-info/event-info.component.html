@@ -360,8 +360,19 @@
                     name="logout-circle-line"></rmx-icon>
                 </ng-template>
               </p-button>
-            } @else if (eventDetails.isHost) {
-              <!-- TODO cancel event -->
+            } @else if (eventDetails.isHost && (this.eventDetails.maxParticipantsNumber - this.eventDetails.participantsNumber > 0)) {
+
+              <p-button
+                [label]="'eventPageComponent.friends.inviteFriends' | transloco"
+                (onClick)="onAddFriendsButtonPressed()"
+                severity="success">
+                <ng-template pTemplate="icon">
+                  <rmx-icon
+                    class="mr-1"
+                    style="width: 16px; height: 16px"
+                    name="user-add-line"></rmx-icon>
+                </ng-template>
+              </p-button>
             }
           } @else if (userRequest) {
             <!-- Responsive Container -->

@@ -142,7 +142,8 @@
     [getPreferredGendersString]="getPreferredGendersString"
     [eventRequestsHost]="eventRequestsHost"
     [eventInvitesHost]="eventInvitesHost"
-    (eventDetailsUpdated)="onEventDetailsUpdated()">
+    (eventDetailsUpdated)="onEventDetailsUpdated()"
+    (showInviteDialogue)="openInviteDialog(true)">
   </app-event-info>
 }
 

@@ -130,7 +130,31 @@ export class EventPageComponent implements OnInit {
   private checkIfComingFromCreate(): void {
     const fromCreate = this.route.snapshot.queryParamMap.get('fromCreate');
     if (fromCreate === 'true') {
-      this.loadFriends();
+      this.openInviteDialog(false)
+    }
+  }
+
+  protected openInviteDialog(buttonClicked: boolean): void {
+    let maxNumberUnreached = this.eventDetails.maxParticipantsNumber - this.eventDetails.participantsNumber > 0;
+    this.loadFriends()
+    if (this.friends.length > 0 && maxNumberUnreached) {
+      this.showInviteModal = true;
+    } else if (buttonClicked) {
+      if (maxNumberUnreached) {
+        this.messageService.add({
+          severity: 'info',
+          summary: this.translocoService.translate(
+            'eventPageComponent.friends.noFriendsToInvite'
+          ),
+        });
+      } else {
+        this.messageService.add({
+          severity: 'info',
+          summary: this.translocoService.translate(
+            'eventPageComponent.friends.noFriendsToInvite'
+          ),
+        });
+      }
     }
   }
 
@@ -325,17 +349,11 @@ export class EventPageComponent implements OnInit {
       .subscribe({
         next: data => {
           this.friends = data; // Assign the response to the `friends` array
-          if (data.length > 0) {
-            this.showInviteModal = true;
-          }
         },
         error: err => {
           console.error('Error during subscription:', err);
         },
       });
-    if (this.friends.length > 0) {
-      this.showInviteModal = true;
-    }
   }
 
   protected toggleMultiSelection(friend: any): void {

@@ -82,6 +82,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   private invitesSubscription!: Subscription;
   @Input() eventRequestsHost: EventUserRequest[] = [];
   @Input() eventInvitesHost: EventUserRequest[] = [];
+  @Output() showInviteDialogue: EventEmitter<boolean> = new EventEmitter();
   @Output() eventDetailsUpdated = new EventEmitter<void>(); // Notify parent
 
   @Input() getPreferredGendersString!: (
@@ -116,6 +117,11 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     this.getEventDetails();
   }
 
+  ngOnDestroy(): void {
+    // Clean up subscriptions
+    this.userRequestSubscription?.unsubscribe();
+  }
+
   private fetchUserRequest(): void {
     if (!this.eventId) {
       return;
@@ -134,9 +140,8 @@ export class EventInfoComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy(): void {
-    // Clean up subscriptions
-    this.userRequestSubscription?.unsubscribe();
+  protected onAddFriendsButtonPressed(): void {
+    this.showInviteDialogue.emit(true); // Emit event to notify parent
   }
 
   private getEventDetails(): void {
@@ -173,7 +178,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     return details;
   }
 
-  handleButtonClick(eventType: EventtypeEnum): void {
+  protected handleButtonClick(eventType: EventtypeEnum): void {
     if (eventType === EventtypeEnum.public) {
       this.joinPublicEvent();
     } else if (eventType === EventtypeEnum.halfPrivate) {
@@ -260,7 +265,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteEventRequest(id: number, $e: MouseEvent) {
+  protected deleteEventRequest(id: number, $e: MouseEvent) {
     $e.stopPropagation();
     this.eventRequestService.deleteUserRequest(id).subscribe({
       next: () => {
