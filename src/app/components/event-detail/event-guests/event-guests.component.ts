@@ -1,30 +1,20 @@
 import { Component } from '@angular/core';
-import { AngularRemixIconComponent } from 'angular-remix-icon';
-import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { MessageService, PrimeTemplate } from 'primeng/api';
-import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { EventRequestService } from '../../../services/event/event-request.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { TranslocoPipe } from '@jsverse/transloco';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { EventService } from '../../../services/event/eventservice';
 import { EventDetails } from '../../../interfaces/EventDetails';
 import { ProfileCardComponent } from '../../profile-card/profile-card.component';
 import { AvatarGroupModule } from 'primeng/avatargroup';
-import { EventUserRequest } from '../../../interfaces/EventUserRequest';
-
 
 @Component({
   selector: 'app-event-guests',
   standalone: true,
   imports: [
-    AngularRemixIconComponent,
-    Button,
     CardModule,
-    PrimeTemplate,
     TranslocoPipe,
-    RouterLink,
     ProfileCardComponent,
     AvatarGroupModule,
   ],
@@ -68,6 +58,4 @@ export class EventGuestsComponent {
       },
     });
   }
-
-
 }

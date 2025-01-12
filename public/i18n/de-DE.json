@@ -264,7 +264,7 @@
       "denied-request": "Die Anfrage von \"{{name}}\" wurde abgelehnt.",
       "delete-request": "Anfrage löschen",
       "invites": "Einladungen",
-      "deleted-invite": "Die Einladung für \"{{name}}\" wurde gelöscht.",
+      "deleted-invite": "Die Einladung für \"{{name}}\" wurde gelöscht."
     },
     "eventNotFound": "Das gesuchte Event existiert nicht.",
     "userIsHost": "Du bist der Gastgeber dieses Events und kannst nicht teilnehmen.",

@@ -142,6 +142,8 @@ export class EventRequestService {
   }
 
   deleteEventInvite(inviteId: number) {
-    return this.http.delete<{success: boolean; message: string}>(`request/invite/${inviteId}`);
+    return this.http.delete<{ success: boolean; message: string }>(
+      `request/invite/${inviteId}`,
+    );
   }
 }

@@ -13,7 +13,7 @@
       [routerLink]="['/profile/' + r.user.id]">
       <div class="flex align-items-center pr-3">
         <img
-          src="{{ r.user.profilePicture }}"
+          [src]="userService.getImageFile(r.user.profilePicture)"
           alt="{{ r.user.username }}-profile-picture"
           class="border-circle"
           style="width: 70px; height: 70px" />
@@ -71,7 +71,7 @@
       [routerLink]="['/profile/' + i.user.id]">
       <div class="flex align-items-center pr-3">
         <img
-          src="{{ i.user.profilePicture }}"
+          [src]="userService.getImageFile(i.user.profilePicture)"
           alt="{{ i.user.username }}-profile-picture"
           class="border-circle"
           style="width: 70px; height: 70px" />
@@ -102,4 +102,3 @@
     </p-card>
   }
 </div>
-

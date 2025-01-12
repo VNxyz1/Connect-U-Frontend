@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { CardModule } from 'primeng/card';
@@ -8,6 +8,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { forkJoin, Observable, tap } from 'rxjs';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-event-requests',
@@ -27,11 +28,12 @@ export class EventRequestsComponent implements OnInit {
   protected eventInvites: EventUserRequest[] = [];
 
   constructor(
+    protected userService: UserService,
     private eventRequestService: EventRequestService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private messageService: MessageService,
-    private translocoService: TranslocoService
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly messageService: MessageService,
+    private readonly translocoService: TranslocoService,
   ) {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
@@ -51,11 +53,14 @@ export class EventRequestsComponent implements OnInit {
           this.eventRequests = requests;
           this.eventInvites = invites;
 
-          if (this.eventInvites.length === 0 && this.eventRequests.length === 0) {
+          if (
+            this.eventInvites.length === 0 &&
+            this.eventRequests.length === 0
+          ) {
             this.router.navigate([`/event/${this.eventId}`]); // Redirect if both are empty
           }
         },
-        error: (err) => {
+        error: err => {
           console.error('Error fetching data:', err);
         },
       });
@@ -66,7 +71,7 @@ export class EventRequestsComponent implements OnInit {
     return this.eventRequestService.getEventHostRequests(eventId).pipe(
       tap(requests => {
         this.eventRequests = requests; // Populate eventRequests
-      })
+      }),
     );
   }
 
@@ -74,7 +79,7 @@ export class EventRequestsComponent implements OnInit {
     return this.eventRequestService.getAllInvitesForEvent(eventId).pipe(
       tap(invites => {
         this.eventInvites = invites; // Populate eventInvites
-      })
+      }),
     );
   }
 

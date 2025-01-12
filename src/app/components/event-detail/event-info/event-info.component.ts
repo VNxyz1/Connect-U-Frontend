@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Subscription, throwError } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { EventDetails } from '../../../interfaces/EventDetails';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { ImageModule } from 'primeng/image';
@@ -32,7 +32,6 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { AvatarModule } from 'primeng/avatar';
 import { UserService } from '../../../services/user/user.service';
-import { catchError } from 'rxjs/operators';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -119,6 +118,10 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     this.userRequestSubscription?.unsubscribe();
   }
 
+  get combinedAvatars(): any[] {
+    return [...this.eventRequestsHost, ...this.eventInvitesHost];
+  }
+
   private fetchUserRequest(): void {
     if (!this.eventId) {
       return;
@@ -162,16 +165,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
 
   private navigateTo404(): void {
     this.router.navigate(['/404']);
-  }
-
-  /**
-   * Transform the EventDetails if needed.
-   * @param details The EventDetails to transform.
-   * @returns Transformed EventDetails.
-   */
-  private transformEventDetails(details: EventDetails): EventDetails {
-    // Perform any transformations on the details here
-    return details;
   }
 
   protected handleButtonClick(eventType: EventtypeEnum): void {
@@ -234,7 +227,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     }
   }
 
-  private fetchEventInvites(){
+  private fetchEventInvites() {
     this.invitesSubscription = this.eventRequestService
       .getAllInvitesForEvent(this.eventId)
       .subscribe({
