@@ -26,4 +26,6 @@ export interface EventCardItem {
   participantsNumber: number;
 
   maxParticipantsNumber: number;
+
+  participatingFriend?: boolean;
 }

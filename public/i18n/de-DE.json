@@ -3,7 +3,8 @@
   "homepage": {
     "title": "Events für Dich",
     "upcomingEvents": {
-      "title": "Bevorstehende Events"
+      "title": "Bevorstehende Events",
+      "noMoreEvents": "Keine bevorstehenden Events mehr. Lade die Seite neu und schaue, ob es etwas für dich gibt!"
     }
   },
   "loginComponent": {

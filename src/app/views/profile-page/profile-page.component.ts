@@ -241,7 +241,6 @@ export class ProfilePageComponent implements OnInit {
 
       this.userService.updateProfilePicture(formData).subscribe({
         next: data => {
-          console.log(data.ok, data.message);
           this.messageService.add({
             severity: 'success',
             summary: this.translocoService.translate(

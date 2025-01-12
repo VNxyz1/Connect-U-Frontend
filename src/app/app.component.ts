@@ -13,11 +13,7 @@ import { SocketService } from './services/socket/socket.service';
 import { AsyncPipe, isPlatformBrowser, NgClass } from '@angular/common';
 import { AuthService } from './services/auth/auth.service';
 import { Storage } from '@ionic/storage-angular';
-import {
-  ConfirmationService,
-  MessageService,
-  PrimeNGConfig,
-} from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { filter } from 'rxjs/operators';
 import { ToastModule } from 'primeng/toast';
 import { TranslocoService } from '@jsverse/transloco';
@@ -64,7 +60,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly userService: UserService,
     private readonly storage: Storage,
     private readonly router: Router,
-    private primengConfig: PrimeNGConfig,
+
+    // Necessary to be initialised here!
+    private readonly languageService: LanguageService,
   ) {}
 
   ngOnInit(): void {
