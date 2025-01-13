@@ -17,9 +17,10 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { parseToQueryParams } from '../../utils/parsing/parsing';
 import { Gender } from '../../interfaces/Gender';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { map } from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
+import { SliderModule } from 'primeng/slider';
 
 @Component({
   selector: 'app-search-page',
@@ -39,6 +40,7 @@ import { map } from 'rxjs/operators';
     CheckboxModule,
     ReactiveFormsModule,
     AsyncPipe,
+    SliderModule,
   ],
   templateUrl: './search-page.component.html',
 })
@@ -79,6 +81,7 @@ export class SearchPageComponent implements OnInit {
     title: new FormControl<string>(''),
     genders: new FormControl<number[]>([1, 2, 3]),
     categories: new FormControl<number[]>([]),
+    ageRange: new FormControl<number[]>([16, 99]),
     isOnline: new FormControl<boolean>(true),
     isInPlace: new FormControl<boolean>(true),
     isPublic: new FormControl<boolean>(true),
@@ -141,6 +144,7 @@ export class SearchPageComponent implements OnInit {
 
   submit = () => {
     const params = parseToQueryParams(this.form);
+    console.log(params);
     this.router.navigate(['search', 'results'], { queryParams: params });
   };
 
@@ -182,6 +186,56 @@ export class SearchPageComponent implements OnInit {
       error: error => console.error('Error loading categories:', error),
     });
   }
+
+  protected onAgeChange(index: number, value: any): void {
+    const valueString = value.target.value.toString().trim();
+
+    if (valueString === '') {
+      const currentAgeRange = this.form.get('ageRange')?.value ?? [16, 99];
+      currentAgeRange[index] = undefined;
+      this.form.get('ageRange')?.setValue(currentAgeRange);
+      return;
+    }
+
+    const numericValue = Number(valueString);
+
+    if (isNaN(numericValue)) {
+      return;
+    }
+
+    const currentAgeRange = this.form.get('ageRange')?.value ?? [16, 99];
+    currentAgeRange[index] = numericValue;
+    this.form.get('ageRange')?.setValue(currentAgeRange);
+  }
+
+
+  protected onAgeBlur(index: number, e: any): void {
+    const currentAgeRange = this.form.get('ageRange')?.value ?? [16, 99];
+    const currentValue = Number(e.target.value.toString().trim());
+
+
+    if (currentValue === undefined || currentValue === null) {
+      currentAgeRange[index] = index === 0 ? 16 : 99;
+    } else {
+      const numericValue = Number(currentValue);
+
+      if (!isNaN(numericValue)) {
+        if (index === 0) {
+          currentAgeRange[0] = Math.max(16, Math.min(numericValue, currentAgeRange[1] ?? 99));
+        } else if (index === 1) {
+          currentAgeRange[1] = Math.min(99, Math.max(numericValue, currentAgeRange[0] ?? 16));
+        }
+
+        if (currentAgeRange[0] > currentAgeRange[1]) {
+          currentAgeRange[1] = currentAgeRange[0];
+        }
+      }
+    }
+
+    this.form.get('ageRange')?.setValue(currentAgeRange);
+  }
+
+
 
   search(event: any): void {
     const query = event.query.toLowerCase();

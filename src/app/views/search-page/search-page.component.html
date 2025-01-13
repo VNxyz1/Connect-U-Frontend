@@ -115,6 +115,43 @@
         </div>
       }
 
+      <h3>{{ 'createEventStep3Component.ageSection.title' | transloco }}</h3>
+
+      <div class="field justify-content-center w-full text-center">
+        <p-slider
+          formControlName="ageRange"
+          min="16"
+          max="99"
+          [range]="true"
+          styleClass="centered-slider">
+        </p-slider>
+        <div
+          class="flex align-items-center justify-content-between mt-4 slider-input-container">
+          <input
+            type="number"
+            pInputText
+            min="16"
+            max="99"
+            [value]="form.get('ageRange')?.value[0] ?? ''"
+            (change)="onAgeChange(0, $event)"
+            (blur)="onAgeBlur(0, $event)"
+            class="slider-input"
+          />
+
+          <input
+            type="number"
+            pInputText
+            min="16"
+            max="99"
+            [value]="form.get('ageRange')?.value[1] ?? ''"
+            (change)="onAgeChange(1, $event)"
+            (blur)="onAgeBlur(1, $event)"
+            class="slider-input"
+          />
+        </div>
+      </div>
+
+
       <div class="field mt-5">
         <p-checkbox
           class="mr-8"
