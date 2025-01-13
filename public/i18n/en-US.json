@@ -136,6 +136,7 @@
     "filterFriends": "only display events that friends are attending",
     "filterButton":"Filter Events",
     "selectFilters": "Select Filters",
+    "sortEvents": "Sort Events",
     "sortOrder": {
       "newestFirst": "Newest First",
       "oldestFirst": "Oldest First",

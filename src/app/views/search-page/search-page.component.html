@@ -1,4 +1,4 @@
-<div class="content pFocusTrap mt-5 h-100">
+<div class="content pFocusTrap h-100 p-3">
   <form [formGroup]="form">
     <div class="p-grid p-fluid column-gap-3">
       <span class="font-bold text-2xl block md:px-2 mb-2 mt-4">{{
@@ -18,7 +18,7 @@
           }}</label>
         </p-floatLabel>
       </div>
-      <!--
+
     <div class="p-col-12 p-md-6 field">
       <p-floatLabel>
         <p-multiSelect
@@ -54,11 +54,11 @@
           [multiple]="true" />
       </span>
     </div>
-    -->
 
-      <div class="field">
+
+      <div class="field pt-3">
         <p-checkbox
-          class="mr-8"
+          class="xl:mr-8 md:mr-6 lg:mr-8 mr-4"
           name="isOnline"
           [label]="'searchPageComponent.isOnline' | transloco"
           [binary]="true"
@@ -77,7 +77,7 @@
       </div>
       <div class="field">
         <p-checkbox
-          class="mr-8"
+          class="xl:mr-8 md:mr-8 lg:mr-8 mr-4 pr-1"
           name="isPublic"
           [label]="'searchPageComponent.isPublic' | transloco"
           formControlName="isPublic"
@@ -95,7 +95,7 @@
         </p-checkbox>
       </div>
       @if (fetchedGenders | async; as genderOptions) {
-        <div class="field">
+        <div class="field pt-3">
           <p-floatLabel>
             <p-multiSelect
               id="genders"
@@ -118,7 +118,7 @@
         </div>
       }
 
-      <div class="field">
+      <div class="field mt-5">
         <p-checkbox
           class="mr-8"
           name="filterFriends"
@@ -131,7 +131,7 @@
       </div>
 
       <span class="font-bold text-2xl block md:px-2 mb-2 mt-4"
-        >Sort Events</span
+        > {{ 'searchPageComponent.sortEvents' | transloco}}</span
       >
 
       <div class="justify-content-center mt-4 mb-4">
@@ -149,7 +149,7 @@
         </p-dropdown>
       </div>
 
-      <div class="flex fixed-bottom-responsive-container justify-content-end">
+      <div class="flex fixed-bottom-responsive-container justify-content-end mb-3 mt-2">
         <div class="justify-content-end">
           <p-button
             [raised]="true"

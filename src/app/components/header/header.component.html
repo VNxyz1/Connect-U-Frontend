@@ -42,6 +42,9 @@
         @case (currentUrl?.includes('/event')) {
           <h1 class="m-0">{{ 'headerComponent.event' | transloco }}</h1>
         }
+        @case (currentUrl?.includes('/search')) {
+          <h1 class="m-0">{{ 'headerComponent.search' | transloco }}</h1>
+        }
         @case (currentUrl?.includes('/settings')) {
           <h1 class="m-0">{{ 'headerComponent.settings' | transloco }}</h1>
         }

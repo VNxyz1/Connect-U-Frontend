@@ -77,7 +77,7 @@ export class SearchPageComponent implements OnInit {
   form: FormGroup = new FormGroup({
     tags: new FormControl<number[]>([]),
     title: new FormControl<string>(''),
-    genders: new FormControl<number[]>([]),
+    genders: new FormControl<number[]>([1,2,3]),
     categories: new FormControl<number[]>([]),
     isOnline: new FormControl<boolean>(true),
     isInPlace: new FormControl<boolean>(true),
@@ -121,7 +121,7 @@ export class SearchPageComponent implements OnInit {
       ) {
         form.controls[key].setValue(JSON.parse(queryParams[key]));
       } else if (form.controls[key] && key == 'genders') {
-        const arr: any[] = form.controls[key].value;
+        const arr: number[] = [];
 
         if (Array.isArray(queryParams[key])) {
           for (const k of queryParams[key]) {
@@ -175,15 +175,6 @@ export class SearchPageComponent implements OnInit {
     }
     return { label, value: gender.id };
   }
-
-  /**
-  private mapGenderIdsToLabels(genderIds: number[]): { label: string; value: number }[] {
-    return genderIds.map(id => {
-      const gender = this.fetchedGenders.find(g => g.value === id);
-      return gender ? { label: gender.label, value: id } : null;
-    }).filter(g => g !== null) as { label: string; value: number }[];
-  }
-*/
 
   private loadCategories() {
     this.eventService.getCategories().subscribe({
