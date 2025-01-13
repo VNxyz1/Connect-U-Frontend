@@ -258,10 +258,13 @@
     },
     "host": "Host",
     "requests": {
-      "title": "Requests",
+      "requests": "Requests",
       "accepted-request": "The request from \"{{name}}\" was accepted!",
       "denied-request": "The request from \"{{name}}\" was denied.",
-      "delete-request": "Delete Request"
+      "delete-request": "Delete Request",
+      "try-again": "Try again",
+      "invites": "Invites",
+      "deleted-invite": "The invite for \"{{name}}\" was deleted."
     },
     "notExist": "It seems like the event you were looking for doesn't exist!",
       "eventNotFound": "The event you are looking for does not exist.",
@@ -294,7 +297,8 @@
       "sendInvites": "Send Invitations",
       "inviteSuccess": "Invitation sent to {{name}} successfully.",
       "inviteError": "Failed to send an invitation to {{name}}.",
-      "maxNumberExceeded": "You cannot invite more friends than the remaining slots."
+      "maxNumberExceeded": "You cannot invite more friends than the remaining slots.",
+      "noFriendsToInvite": "You have no friends that fit the event requirements."
     }
   },
   "eventStatusIndicator": {

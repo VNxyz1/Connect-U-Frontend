@@ -1,7 +1,7 @@
 <div class="px-2 container content">
   <div class="flex justify-content-between align-items-center">
     <h2 class="">
-      {{ 'eventDetailPageComponent.requests.title' | transloco }}
+      {{ 'eventDetailPageComponent.requests.requests' | transloco }}
     </h2>
     <span class="color-secondary">
       {{ eventRequests.length }}
@@ -13,7 +13,7 @@
       [routerLink]="['/profile/' + r.user.id]">
       <div class="flex align-items-center pr-3">
         <img
-          src="{{ r.user.profilePicture }}"
+          [src]="userService.getImageFile(r.user.profilePicture)"
           alt="{{ r.user.username }}-profile-picture"
           class="border-circle"
           style="width: 70px; height: 70px" />
@@ -27,7 +27,7 @@
         <div class="flex align-items-center gap-2">
           <p-button
             [raised]="true"
-            (onClick)="denyRequest(r.user.username, r.id, $event)">
+            (onClick)="denyRequest(r.user.firstName, r.id, $event)">
             <ng-template pTemplate="icon">
               <rmx-icon
                 style="width: 16px; height: 16px"
@@ -37,11 +37,59 @@
           <p-button
             [raised]="true"
             severity="success"
-            (onClick)="acceptRequest(r.user.username, r.id, $event)">
+            (onClick)="acceptRequest(r.user.firstName, r.id, $event)">
             <ng-template pTemplate="icon">
               <rmx-icon
                 style="width: 16px; height: 16px"
                 name="check-line"></rmx-icon>
+            </ng-template>
+          </p-button>
+          <rmx-icon
+            name="arrow-right-s-line"
+            style="height: 26px; width: 26px"
+            class="">
+          </rmx-icon>
+        </div>
+      </div>
+    </p-card>
+  }
+</div>
+
+<div class="px-2 container content">
+  <div class="flex justify-content-between align-items-center">
+    <h2 class="">
+      {{ 'eventDetailPageComponent.requests.invites' | transloco }}
+    </h2>
+    <span class="color-secondary">
+      {{ eventInvites.length }}
+    </span>
+  </div>
+
+  @for (i of this.eventInvites; track i) {
+    <p-card
+      class="p-1 md:p-3 cursor-pointer"
+      [routerLink]="['/profile/' + i.user.id]">
+      <div class="flex align-items-center pr-3">
+        <img
+          [src]="userService.getImageFile(i.user.profilePicture)"
+          alt="{{ i.user.username }}-profile-picture"
+          class="border-circle"
+          style="width: 70px; height: 70px" />
+        <div class="flex flex-column ml-3 flex-grow-1">
+          <div>
+            <h3 class="mt-0 mb-0">{{ i.user.firstName }}, {{ i.user.age }}</h3>
+            <p class="text-secondary mt-0 mb-0">&#64;{{ i.user.username }}</p>
+          </div>
+        </div>
+
+        <div class="flex align-items-center gap-2">
+          <p-button
+            [raised]="true"
+            (onClick)="deleteInvite(i.user.firstName, i.id, $event)">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                style="width: 16px; height: 16px"
+                name="close-line"></rmx-icon>
             </ng-template>
           </p-button>
           <rmx-icon
