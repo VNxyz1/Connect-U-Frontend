@@ -1,0 +1,70 @@
+@if (message) {
+  <div
+    class="flex align-items-end justify-content-end"
+    [ngClass]="{
+      'flex-row-reverse': message.writer?.isUser,
+    }">
+    <!-- Avatar -->
+    <div class="flex align-items-end">
+      <p-avatar
+        [image]="
+          message.writer ? '/images/userImg.png' : '/images/logo-profile.svg'
+        "
+        class="mx-0 mb-0"
+        size="normal"
+        shape="circle" />
+    </div>
+
+    <!-- Speech Bubble -->
+    <div
+      class="speech-bubble"
+      [ngClass]="{
+        'speech-bubble-right': message.writer?.isUser,
+        'speech-bubble-left': message.writer && !message.writer.isUser,
+        'speech-bubble-server': !message.writer,
+      }">
+      <!-- Message Header -->
+      <div
+        class="flex align-items-center gap-1 mb-1"
+        [ngClass]="{
+          'color-secondary': message.writer && !message.writer.isUser,
+        }">
+        @if (message.isHost) {
+          <rmx-icon name="vip-crown-2-fill" style="width: 16px; height: 16px" />
+        }
+        <span class="font-bold">
+          {{
+            message.writer
+              ? message.writer.isUser
+                ? ('eventChatPage.you' | transloco)
+                : '@' + message.writer.username
+              : 'Connect-U'
+          }}
+        </span>
+        @if (message.writer?.pronouns) {
+          <span class="text-sm ml-2 text-primary">{{
+            message.writer?.pronouns
+          }}</span>
+        }
+      </div>
+
+      <div
+        class="text-sm flex flex-col flex-row justify-between align-items-end">
+        <!-- Message Text -->
+        <span
+          class=""
+          [ngClass]="{
+            'text-primary': message.writer,
+            'text-4xl': isShortEmojiOnly(message.text),
+          }">
+          {{ translateMessageText(message.text) }}
+        </span>
+
+        <!-- Timestamp -->
+        <span class="text-right text-xs mt-0 ml-2">
+          {{ getTimestamp(message.timestamp) }}
+        </span>
+      </div>
+    </div>
+  </div>
+}

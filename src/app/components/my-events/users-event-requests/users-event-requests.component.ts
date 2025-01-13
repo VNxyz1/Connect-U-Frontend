@@ -8,7 +8,7 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { RouterLink } from '@angular/router';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { HttpClient } from '@angular/common/http';
-import { EventRequestService } from '../../../services/event/event-request/event-request.service';
+import { EventRequestService } from '../../../services/event/event-request.service';
 
 @Component({
   selector: 'app-users-event-requests',

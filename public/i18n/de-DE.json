@@ -1,8 +1,11 @@
 {
+  "serverUnavailable": "Der Server ist aktuell nicht erreichbar. Versuche es später erneut.",
+  "profilePictureAlt": "Profilbild",
   "homepage": {
     "title": "Events für Dich",
     "upcomingEvents": {
-      "title": "Bevorstehende Events"
+      "title": "Bevorstehende Events",
+      "noMoreEvents": "Keine bevorstehenden Events mehr. Lade die Seite neu und schaue, ob es etwas für dich gibt!"
     }
   },
   "loginComponent": {
@@ -284,7 +287,16 @@
   "eventPageComponent": {
     "infoTab": "Informationen",
     "listTab": "Listen",
-    "surveyTab": "Umfragen"
+    "surveyTab": "Umfragen",
+    "chatTab": "Chat",
+    "friends": {
+      "inviteFriends": "Freunde einladen",
+      "selectFriends": "Freunde auswählen",
+      "sendInvites": "Einladungen senden",
+      "inviteSuccess": "Einladung erfolgreich an {{name}} gesendet.",
+      "inviteError": "Einladung an {{name}} konnte nicht gesendet werden.",
+      "maxNumberExceeded": "Du kannst nicht mehr Freunde einladen, als Plätze verfügbar sind."
+    }
   },
   "eventStatusIndicator": {
     "finished": {
@@ -355,6 +367,23 @@
       }
     }
   },
+  "eventChatPage": {
+    "unreadMessages": "ungelesene Nachricht(en)",
+    "you": "Du",
+    "no-messages": "Hier sieht es noch sehr leer aus – schreibe die erste Nachricht!",
+    "placeholder-input": "Nachricht schreiben...",
+    "errors": {
+      "required": "Nachricht darf nicht leer sein.",
+      "too-long": "Nachricht darf 65.000 Zeichen nicht überschreiten.",
+      "empty": "Nachricht darf nicht nur aus Leerzeichen bestehen.",
+      "no-links": "Nachrichten dürfen keine Links enthalten.",
+      "generic": "Beim Senden der Nachricht ist ein Fehler aufgetreten. Bitte überprüfe deine Internetverbindung."
+    },
+    "server-messages": {
+      "new-list": "📋☑️ Es wurde eine neue Liste \"{{title}}\" für dieses Event erstellt!",
+      "new-survey": "📊 Eine neue Umfrage \"{{title}}\" wurde für dieses Event erstellt!"
+    }
+  },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "Du musst die AGBs bestätigen, um dich registrieren zu können",
     "Passwords must match": "Die Passwörter stimmen nicht überein",
@@ -383,13 +412,17 @@
     "account": "Konto",
     "information": "Informationen",
     "closeConfirmationMessage": "Bist Du sicher, dass du dein Event verwerfen möchtest? Dein Entwurf wird nicht gespeichert.",
-    "closeConfirmationHeader": "Entwurf verwerfen"
+    "closeConfirmationHeader": "Entwurf verwerfen",
+    "shareProfile": "Profil Teilen",
+    "addFriend": "Freundschaftsanfrage"
   },
   "navbarComponent": {
     "mySpace": "Mein Bereich",
     "myEvents": "Meine Events",
     "search": "Suchen",
-    "createEvent": "Event erstellen"
+    "createEvent": "Event erstellen",
+    "selectLanguage": "Sprache",
+    "shareProfile": "Profil Teilen"
   },
   "myEventPageComponent": {
     "hosted": {
@@ -775,12 +808,23 @@
   "profilePage": {
     "cardText": {
       "aboutMe": "Über mich",
-      "city": "Kein Wohnort angegeben"
+      "city": "Kein Wohnort angegeben",
+      "noDescription": "Keine Beschreibung"
     },
     "updateText": {
       "pronouns": "Pronomen...",
       "desc": "Beschreibung...",
       "saveButton": "Speichern"
+    },
+    "updateProfilePic": {
+      "success": "Erfolg",
+      "error": "Fehler",
+      "errorFormat": "Es werden nur die Bildformate jpeg und png unterstützt",
+      "errorSize": "Die maximale Dateigröße beträgt 5 MB",
+      "successMessage": "Dein Bild wurde aktualisiert",
+      "errorMessage": "Fehler beim Hochladen des Profilbildes",
+      "cancel": "abbrechen",
+      "upload": "Hochladen"
     }
   },
   "accountPage": {
@@ -894,5 +938,22 @@
     "deleteEntrySuccessMessage": "Der Listeneintrag wurde erfolgreich entfernt.",
     "deleteEntryErrorTitle": "Fehler beim Löschen!",
     "deleteEntryErrorMessage": "Der Listeneintrag konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
+  },
+  "shareProfilePage": {
+    "successfullyCopiedMessage": "Dein Einladungslink wurde in die Zwischenablage kopiert.",
+    "linkExpired": "Dein Link ist abgelaufen! Generiere jetzt einen neuen!",
+    "linkExplanation": "Lasse jetzt eine Person deinen QR-Code Scannen, oder schicke ihr den Link! Der Link ist noch {{ time }} min gültig.",
+    "shareHeader": "Dein Anfrage Link"
+  },
+  "addFriendComponent": {
+    "friendship-created": "Du bist nun mit {{name}}  befreundet!",
+    "errors": {
+      "invalidInviteLink": "Der Einladungslink ist nicht korrekt oder abgelaufen.",
+      "self": "Du kannst dich nicht selbst als Freund hinzufügen.",
+      "invitationLinkNotExists": "Der Einladungslink existiert nicht.",
+      "genericError": "Ein unerwarteter Fehler ist aufgetreten. Bitte überprüfe deine Internetverbindung."
+    },
+    "accept-request": "Freundschaftsanfrage annehmen",
+    "already-friends": "Du bist bereits mit {{name}} befreundet!"
   }
 }

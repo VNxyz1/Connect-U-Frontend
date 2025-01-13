@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { StorageService } from '../../storage/storage.service';
-import { EventDetails } from '../../../interfaces/EventDetails';
-import { EventUserRequest } from '../../../interfaces/EventUserRequest';
-import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
+import { EventUserRequest } from '../../interfaces/EventUserRequest';
+import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -65,7 +63,6 @@ export class EventRequestService {
         return matchingRequest || null;
       }),
       catchError(err => {
-        console.error('Error fetching user requests:', err);
         this.userRequestSubject.next(null);
         return throwError(() => err);
       }),
@@ -126,5 +123,17 @@ export class EventRequestService {
     return this.http
       .delete<{ success: boolean; message: string }>(url, {})
       .pipe();
+  }
+
+  createInvite(
+    eventId: string,
+    userId: string,
+  ): Observable<{ success: boolean; message: string }> {
+    const url = `request/invite/${eventId}/${userId}`;
+    return this.http.post<{ success: boolean; message: string }>(url, {}).pipe(
+      catchError(error => {
+        return throwError(() => error);
+      }),
+    );
   }
 }

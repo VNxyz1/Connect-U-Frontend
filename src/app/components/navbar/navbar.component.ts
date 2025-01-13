@@ -18,6 +18,9 @@ import { NgClass } from '@angular/common';
 import { ImageModule } from 'primeng/image';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TranslocoService } from '@jsverse/transloco';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
+import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 
 @Component({
   selector: 'app-navbar',
@@ -30,6 +33,9 @@ import { TranslocoService } from '@jsverse/transloco';
     SidebarModule,
     NgClass,
     ImageModule,
+    DropdownModule,
+    FormsModule,
+    LanguageSelectorComponent,
   ],
   templateUrl: './navbar.component.html',
 })
@@ -105,6 +111,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
       '/create-event/step1': 'add',
       '/my-events': 'function',
       '/my-space': 'user-3',
+      '/share-profile': 'qr-scan-2',
     };
 
     const baseIcon = iconBaseMap[path];
@@ -150,6 +157,12 @@ export class NavbarComponent implements OnInit, AfterViewInit {
             route: '/my-events',
             icon: this.activeIcon('/my-events'),
             command: () => this.navigateTo('/my-events'),
+          },
+          {
+            label: translations['navbarComponent.shareProfile'],
+            route: '/share-profile',
+            icon: this.activeIcon('/share-profile'),
+            command: () => this.navigateTo('/share-profile'),
           },
           {
             label: translations['navbarComponent.mySpace'],

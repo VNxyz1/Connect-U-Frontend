@@ -1,8 +1,11 @@
 {
+  "serverUnavailable": "The server is currently unavailable. Please try again later.",
+  "profilePictureAlt": "Profile picture",
   "homepage": {
     "title": "Events for You",
     "upcomingEvents": {
-      "title": "Upcoming Events"
+      "title": "Upcoming Events",
+      "noMoreEvents": "No more upcoming events. Reload the page and see if there's something for you!"
     }
   },
   "loginComponent": {
@@ -283,7 +286,16 @@
   "eventPageComponent": {
     "infoTab": "Information",
     "listTab": "Lists",
-    "surveyTab": "Surveys"
+    "surveyTab": "Surveys",
+    "chatTab": "Chat",
+    "friends": {
+      "inviteFriends": "Invite Friends",
+      "selectFriends": "Select Friends",
+      "sendInvites": "Send Invitations",
+      "inviteSuccess": "Invitation sent to {{name}} successfully.",
+      "inviteError": "Failed to send an invitation to {{name}}.",
+      "maxNumberExceeded": "You cannot invite more friends than the remaining slots."
+    }
   },
   "eventStatusIndicator": {
     "finished": {
@@ -354,6 +366,23 @@
       }
     }
   },
+  "eventChatPage": {
+    "unreadMessages": "unread message(s)",
+    "you": "You",
+    "no-messages": "It looks a bit empty here – be the first one to write a message!",
+    "placeholder-input": "Type message...",
+    "errors": {
+      "required": "Message cannot be empty.",
+      "too-long": "Message cannot exceed 65000 characters.",
+      "empty": "Message cannot contain only whitespace.",
+      "no-links": "Messages cannot contain links.",
+      "generic": "An error occurred while sending your message. Please check your internet connection."
+    },
+    "server-messages": {
+      "new-list": "📋☑️ A new list titled \"{{title}}\" has been created for this event!",
+      "new-survey": "📊 A new survey titled \"{{title}}\" has been created for this event!"
+    }
+  },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "You must accept the terms and conditions to register",
     "Passwords must match": "Passwords must match",
@@ -382,13 +411,17 @@
     "account": "Account",
     "closeConfirmationMessage": "Are you sure that you want to discard the event? Your draft will not be saved.",
     "closeConfirmationHeader": "Discard Draft",
-    "information": "Information"
+    "information": "Information",
+    "shareProfile": "Share Profile",
+    "addFriend": "Friend Request"
   },
   "navbarComponent": {
     "mySpace": "My Space",
     "myEvents": "My Events",
     "search": "Search",
-    "createEvent": "Create Event"
+    "createEvent": "Create Event",
+    "selectLanguage": "Language",
+    "shareProfile": "Share Profile"
   },
   "myEventPageComponent": {
     "hosted": {
@@ -775,12 +808,23 @@
   "profilePage": {
     "cardText": {
       "aboutMe": "About Me",
-      "city": "No city specified"
+      "city": "No city specified",
+      "noDescription": "No Description"
     },
     "updateText": {
       "pronouns": "Pronouns...",
       "desc": "Description...",
       "saveButton": "Save"
+    },
+    "updateProfilePic": {
+      "success": "Success",
+      "error": "Error",
+      "errorFormat": "Only jpeg and png image formats are supported",
+      "errorSize": "The maximum file size is 5 MB",
+      "successMessage": "Your picture has been updated",
+      "errorMessage": "Error uploading the profile picture",
+      "cancel": "Cancel",
+      "upload": "Upload"
     }
   },
   "accountPage": {
@@ -894,5 +938,22 @@
     "deleteEntrySuccessMessage": "The list entry has been successfully removed.",
     "deleteEntryErrorTitle": "Error Deleting Entry!",
     "deleteEntryErrorMessage": "The list entry could not be deleted. Please try again."
+  },
+  "shareProfilePage": {
+    "successfullyCopiedMessage": "Your invitation link has been copied to the clipboard.",
+    "linkExpired": "Your link has expired! Generate a new one now!",
+    "linkExplanation": "Let someone scan your QR code now or send them the link! The link is valid for another {{ time }} minutes.",
+    "shareHeader": "Your personal invite"
+  },
+  "addFriendComponent": {
+    "friendship-created": "You are now friends with {{name}}!",
+    "errors": {
+      "invalidInviteLink": "The invitation link is not correct or has expired.",
+      "self": "You cannot add yourself as a friend.",
+      "invitationLinkNotExists": "The invitation link does not exist.",
+      "genericError": "An unexpected error occurred. Please check your internet connection."
+    },
+    "accept-request": "Accept Friendship Request",
+    "already-friends": "You are already friends with {{name}}!"
   }
 }

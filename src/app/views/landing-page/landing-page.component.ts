@@ -4,14 +4,15 @@ import { LoginComponent } from '../../components/login/login.component';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { AsyncPipe } from '@angular/common';
 import { EventCardComponent } from '../../components/event-card/event-card.component';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventService } from '../../services/event/eventservice';
 import { RouterOutlet } from '@angular/router';
 import { RegisterComponent } from '../../components/register/register.component';
-import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { MenuModule } from 'primeng/menu';
 import { SidebarModule } from 'primeng/sidebar';
+import { ScrollNearEndDirective } from '../../utils/scroll-near-end.directive';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-landing-page',
@@ -24,24 +25,39 @@ import { SidebarModule } from 'primeng/sidebar';
     EventCardComponent,
     RouterOutlet,
     RegisterComponent,
-    AngularRemixIconComponent,
     MenuModule,
     SidebarModule,
+    ScrollNearEndDirective,
   ],
   templateUrl: './landing-page.component.html',
 })
 export class LandingPageComponent implements OnInit {
   events$!: Observable<EventCardItem[]>;
+  hasMoreEvents$!: Observable<boolean>;
+
   switch: boolean = false;
+  isLoading: boolean = false;
+
   constructor(private eventService: EventService) {}
 
-  async ngOnInit(): Promise<void> {
-    this.getEvents();
+  ngOnInit(): void {
+    this.events$ = this.eventService.getAllEvents().pipe(
+      map(data => data.events),
+      tap(() => (this.isLoading = false)),
+    );
+    this.hasMoreEvents$ = this.eventService
+      .getAllEvents()
+      .pipe(map(data => data.hasMore));
   }
 
-  getEvents() {
-    this.events$ = this.eventService.getAllEvents();
+  loadNewPage(): void {
+    if (this.isLoading) {
+      return;
+    }
+    this.isLoading = true;
+    this.eventService.loadNextAllEventsPage();
   }
+
   toggleSwitch(): void {
     this.switch = !this.switch;
   }

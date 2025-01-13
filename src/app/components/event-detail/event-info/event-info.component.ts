@@ -21,17 +21,17 @@ import { EventtypeEnum } from '../../../interfaces/EventtypeEnum';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { EventService } from '../../../services/event/eventservice';
 import { DialogModule } from 'primeng/dialog';
-import { AuthService } from '../../../services/auth/auth.service';
-import { EventRequestService } from '../../../services/event/event-request/event-request.service';
+import { EventRequestService } from '../../../services/event/event-request.service';
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
-import { NgClass, NgOptimizedImage } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { EventStatusIndicatorComponent } from '../../event-status-indicator/event-status-indicator.component';
 import { ProfileCardComponent } from '../../profile-card/profile-card.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { SkeletonModule } from 'primeng/skeleton';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { AvatarModule } from 'primeng/avatar';
+import { UserService } from '../../../services/user/user.service';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -69,7 +69,6 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     SkeletonModule,
     NgClass,
     AvatarGroupModule,
-    NgOptimizedImage,
     AvatarModule,
   ],
   providers: [ConfirmationService],
@@ -93,7 +92,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     private readonly messageService: MessageService,
     private readonly translocoService: TranslocoService,
     private readonly eventService: EventService,
-    private readonly auth: AuthService,
+    protected userService: UserService,
     private readonly eventRequestService: EventRequestService,
     private readonly confirmationService: ConfirmationService,
   ) {}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageModule } from 'primeng/image';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { Button } from 'primeng/button';
@@ -8,6 +8,9 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { EventService } from '../../services/event/eventservice';
+import { AuthService } from '../../services/auth/auth.service';
+import { AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -18,22 +21,27 @@ import { EventService } from '../../services/event/eventservice';
     Button,
     TranslocoPipe,
     ConfirmDialogModule,
+    RouterLink,
+    AsyncPipe,
   ],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
   currentUrl: string | undefined;
 
+  isLoggedIn!: Observable<boolean>;
+
   constructor(
     private router: Router,
     private confirmationService: ConfirmationService,
-    private translocoService: TranslocoService,
+    protected translocoService: TranslocoService,
     private eventService: EventService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
     this.currentUrl = this.router.url;
-
+    this.isLoggedIn = this.authService.isLoggedIn();
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {

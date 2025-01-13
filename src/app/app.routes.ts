@@ -27,7 +27,10 @@ import { AccountManagePageComponent } from './views/account-manage-page/account-
 import { EventGuestsComponent } from './components/event-detail/event-guests/event-guests.component';
 import { InformationPageComponent } from './views/information-page/information-page.component';
 import { TermsPageComponent } from './views/terms-page/terms-page.component';
-import {ServerUnavailableComponent} from './views/server-unavailable/server-unavailable.component';
+import { EventChatComponent } from './components/event-detail/event-chat/event-chat.component';
+import { ShareProfilePageComponent } from './views/share-profile-page/share-profile-page.component';
+import { AddFriendComponent } from './views/add-friend/add-friend.component';
+import { ServerUnavailablePageComponent } from './views/server-unavailable-page/server-unavailable-page.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -39,6 +42,11 @@ export const routes: Routes = [
     title: 'Home | Connect-U',
     component: HomePageComponent,
     canActivate: [isLoggedInGuard],
+  },
+  {
+    path: 'unavailable',
+    title: 'Server unavailable | Connect-U',
+    component: ServerUnavailablePageComponent,
   },
   {
     path: 'welcome',
@@ -89,6 +97,11 @@ export const routes: Routes = [
     title: 'Event | Connect-U',
     component: EventPageComponent,
     children: [
+      {
+        path: 'chat',
+        component: EventChatComponent,
+        canActivate: [isLoggedInGuard],
+      },
       {
         path: 'lists',
         component: EventListsComponent,
@@ -160,11 +173,19 @@ export const routes: Routes = [
     path: 'account',
     title: 'Account | Connect-U',
     component: AccountManagePageComponent,
+    canActivate: [isLoggedInGuard],
   },
   {
-    path: 'unavailable',
-    title: 'Unavailable | Connect-U',
-    component: ServerUnavailableComponent,
+    path: 'share-profile',
+    title: 'Share | Connect-U',
+    component: ShareProfilePageComponent,
+    canActivate: [isLoggedInGuard],
+  },
+  {
+    path: 'add-friend/:username/:inviteId',
+    title: 'Add a Friend | Connect-U',
+    component: AddFriendComponent,
+    canActivate: [isLoggedInGuard],
   },
   {
     path: '**',
