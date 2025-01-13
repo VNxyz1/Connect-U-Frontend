@@ -263,6 +263,7 @@
       "accepted-request": "Die Anfrage von \"{{name}}\" wurde akzeptiert!",
       "denied-request": "Die Anfrage von \"{{name}}\" wurde abgelehnt.",
       "delete-request": "Anfrage löschen",
+      "try-again": "Erneut anfragen",
       "invites": "Einladungen",
       "deleted-invite": "Die Einladung für \"{{name}}\" wurde gelöscht."
     },

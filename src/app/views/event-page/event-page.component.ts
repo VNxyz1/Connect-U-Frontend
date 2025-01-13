@@ -112,7 +112,6 @@ export class EventPageComponent implements OnInit {
       // Monitor login state
 
       this.fetchEventDetails();
-      this.checkIfComingFromCreate();
       this.selectedFriendsChange.subscribe(updatedFriends => {
         // Update selectedFriends and ensure synchronization
         this.selectedFriends = updatedFriends;
@@ -168,6 +167,7 @@ export class EventPageComponent implements OnInit {
             this.fetchEventInvitesHost();
           }, 100);
         }
+        this.checkIfComingFromCreate();
       },
       error: err => {
         console.error('Error fetching event details:', err);

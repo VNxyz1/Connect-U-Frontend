@@ -261,6 +261,7 @@
       "accepted-request": "The request from \"{{name}}\" was accepted!",
       "denied-request": "The request from \"{{name}}\" was denied.",
       "delete-request": "Delete Request",
+      "try-again": "Try again",
       "invites": "Invites",
       "deleted-invite": "The invite for \"{{name}}\" was deleted."
     },
