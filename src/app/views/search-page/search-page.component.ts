@@ -77,7 +77,7 @@ export class SearchPageComponent implements OnInit {
   form: FormGroup = new FormGroup({
     tags: new FormControl<number[]>([]),
     title: new FormControl<string>(''),
-    genders: new FormControl<number[]>([1,2,3]),
+    genders: new FormControl<number[]>([1, 2, 3]),
     categories: new FormControl<number[]>([]),
     isOnline: new FormControl<boolean>(true),
     isInPlace: new FormControl<boolean>(true),

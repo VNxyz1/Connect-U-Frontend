@@ -19,42 +19,39 @@
         </p-floatLabel>
       </div>
 
-    <div class="p-col-12 p-md-6 field">
-      <p-floatLabel>
-        <p-multiSelect
-          id="categories"
-          [options]="fetchedCategories"
-          formControlName="categories"
-          optionLabel="name"
-          display="chip"
-          [showClear]="true"
-          [showToggleAll]="false"
-          styleClass="capitalize"
-          ></p-multiSelect>
-        <label for="categories">{{
+      <div class="p-col-12 p-md-6 field">
+        <p-floatLabel>
+          <p-multiSelect
+            id="categories"
+            [options]="fetchedCategories"
+            formControlName="categories"
+            optionLabel="name"
+            display="chip"
+            [showClear]="true"
+            [showToggleAll]="false"
+            styleClass="capitalize"></p-multiSelect>
+          <label for="categories">{{
             'createEventStep1Component.categoriesInput.label' | transloco
           }}</label>
-      </p-floatLabel>
-    </div>
+        </p-floatLabel>
+      </div>
 
-
-    <div class="justify-content-center mt-4 mb-4">
-      <span class="p-fluid">
-        <p-autoComplete
-          inputId="tags-input"
-          id="tags-input"
-          [placeholder]="
-            fetchedTags.length == 0
-              ? ('createEventStep1Component.tagsInput.label' | transloco)
-              : ''
-          "
-          formControlName="tags"
-          [suggestions]="fetchedTags"
-          (completeMethod)="search($event)"
-          [multiple]="true" />
-      </span>
-    </div>
-
+      <div class="justify-content-center mt-4 mb-4">
+        <span class="p-fluid">
+          <p-autoComplete
+            inputId="tags-input"
+            id="tags-input"
+            [placeholder]="
+              fetchedTags.length == 0
+                ? ('createEventStep1Component.tagsInput.label' | transloco)
+                : ''
+            "
+            formControlName="tags"
+            [suggestions]="fetchedTags"
+            (completeMethod)="search($event)"
+            [multiple]="true" />
+        </span>
+      </div>
 
       <div class="field pt-3">
         <p-checkbox
@@ -130,8 +127,8 @@
         </p-checkbox>
       </div>
 
-      <span class="font-bold text-2xl block md:px-2 mb-2 mt-4"
-        > {{ 'searchPageComponent.sortEvents' | transloco}}</span
+      <span class="font-bold text-2xl block md:px-2 mb-2 mt-4">
+        {{ 'searchPageComponent.sortEvents' | transloco }}</span
       >
 
       <div class="justify-content-center mt-4 mb-4">
@@ -149,7 +146,8 @@
         </p-dropdown>
       </div>
 
-      <div class="flex fixed-bottom-responsive-container justify-content-end mb-3 mt-2">
+      <div
+        class="flex fixed-bottom-responsive-container justify-content-end mb-3 mt-2">
         <div class="justify-content-end">
           <p-button
             [raised]="true"

@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageModule } from 'primeng/image';
-import { ActivatedRoute, NavigationEnd, Params, Router, RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Params,
+  Router,
+  RouterLink,
+} from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { Button } from 'primeng/button';
