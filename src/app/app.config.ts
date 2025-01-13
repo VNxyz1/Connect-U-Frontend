@@ -83,6 +83,7 @@ import {
   RiSendPlaneFill,
   RiUserHeartLine,
   RiFilterLine,
+  RiUserAddLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import {
@@ -152,6 +153,7 @@ const icons = {
   RiVipCrown2Fill,
   RiCameraLine,
   RiSendPlaneFill,
+  RiUserAddLine,
   RiUserHeartLine,
   RiFilterLine,
 };

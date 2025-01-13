@@ -81,8 +81,10 @@ export class HeaderComponent implements OnInit {
         this.eventService.removeEventInformation().then(() => {
           this.router.navigate(['/']);
         });
+        this.confirmationService.close();
       },
       reject: () => {
+        this.confirmationService.close();
         return;
       },
     });

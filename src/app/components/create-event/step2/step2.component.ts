@@ -126,9 +126,11 @@ export class Step2Component implements OnInit {
         ),
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
+          this.confirmationService.close();
           this.navigateNext();
         },
         reject: () => {
+          this.confirmationService.close();
           return;
         },
       });
