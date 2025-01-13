@@ -270,10 +270,13 @@
     },
     "host": "Veranstalter",
     "requests": {
-      "title": "Anfragen",
+      "requests": "Anfragen",
       "accepted-request": "Die Anfrage von \"{{name}}\" wurde akzeptiert!",
       "denied-request": "Die Anfrage von \"{{name}}\" wurde abgelehnt.",
-      "delete-request": "Anfrage löschen"
+      "delete-request": "Anfrage löschen",
+      "try-again": "Erneut anfragen",
+      "invites": "Einladungen",
+      "deleted-invite": "Die Einladung für \"{{name}}\" wurde gelöscht."
     },
     "eventNotFound": "Das gesuchte Event existiert nicht.",
     "userIsHost": "Du bist der Gastgeber dieses Events und kannst nicht teilnehmen.",
@@ -305,7 +308,8 @@
       "sendInvites": "Einladungen senden",
       "inviteSuccess": "Einladung erfolgreich an {{name}} gesendet.",
       "inviteError": "Einladung an {{name}} konnte nicht gesendet werden.",
-      "maxNumberExceeded": "Du kannst nicht mehr Freunde einladen, als Plätze verfügbar sind."
+      "maxNumberExceeded": "Du kannst nicht mehr Freunde einladen, als Plätze verfügbar sind.",
+      "noFriendsToInvite": "Keine deiner Freunde erfüllen die Zulassungsbeschränkungen des Events."
     }
   },
   "eventStatusIndicator": {
