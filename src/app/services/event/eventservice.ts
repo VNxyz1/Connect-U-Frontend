@@ -99,6 +99,7 @@ export class EventService {
   }
 
   async removeEventInformation(): Promise<void> {
+    this._eventCreateInformation = this.getDefaultEventData();
     return await this.storageService.remove(this.storageKeyCreate);
   }
 
