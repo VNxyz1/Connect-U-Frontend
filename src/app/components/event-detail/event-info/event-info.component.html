@@ -441,21 +441,20 @@
             </div>
           } @else {
             <!-- TODO if event outdated no button -->
-            <p-button
-              [raised]="true"
-              [label]="
-                eventDetails.type === 1 && !eventDetails.isParticipant
-                  ? ('eventDetailPageComponent.join' | transloco)
-                  : eventDetails.type === 2
-                    ? ('eventDetailPageComponent.request' | transloco)
-                    : eventDetails.type === 3
-                      ? ('eventDetailPageComponent.privateEvent' | transloco)
+            @if (eventDetails.type !== 3) {
+              <p-button
+                [raised]="true"
+                [label]="
+                  eventDetails.type === 1 && !eventDetails.isParticipant
+                    ? ('eventDetailPageComponent.join' | transloco)
+                    : eventDetails.type === 2
+                      ? ('eventDetailPageComponent.request' | transloco)
                       : ''
-              "
-              [disabled]="eventDetails.type === 3"
-              severity="success"
-              (click)="handleButtonClick(eventDetails.type)">
-            </p-button>
+                "
+                severity="success"
+                (click)="handleButtonClick(eventDetails.type)">
+              </p-button>
+            }
           }
         </div>
       </div>
