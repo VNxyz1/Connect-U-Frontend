@@ -168,13 +168,6 @@ export class EventInfoComponent implements OnInit, OnDestroy {
       this.joinPublicEvent();
     } else if (eventType === EventtypeEnum.halfPrivate) {
       this.requestToJoinEvent();
-    } else if (eventType === EventtypeEnum.private) {
-      this.messageService.add({
-        severity: 'info',
-        summary: this.translocoService.translate(
-          'eventDetailPageComponent.privateEvent',
-        ),
-      });
     }
   }
 
