@@ -34,13 +34,13 @@
 
 <!-- landing page desktop view -->
 <div
-  class="hidden md:flex md:flex-column h-screen"
+  class="hidden md:flex md:flex-column min-h-screen"
   style="
     background-image: url('/images/pexels-elevate-1267254.jpg');
     background-size: cover;
     background-position: center;
   ">
-  <div class="grid w-full h-screen">
+  <div class="grid w-full min-h-screen">
     <div class="col py-8 -m-2 surface-0">
       <div class="grid justify-content-center">
         <div class="col-6 flex justify-content-center pt-5">
@@ -79,16 +79,35 @@
 <router-outlet />
 <div class="px-2">
   <h3>Featured Events</h3>
-  <div class="grid justify-content-center xl:justify-content-start">
+  <div
+    appScrollNearEnd
+    (nearEnd)="loadNewPage()"
+    class="grid justify-content-center xl:justify-content-start md:w-full">
     @if (events$ | async; as events) {
       @for (event of events; track $index) {
         <div
-          class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+          class="col-12 md:col-9 xl:col-4 justify-content-center mb-3 md:px-3">
           <app-event-card [event]="event" class="w-full" />
         </div>
       }
+      @if (isLoading) {
+        @for (event of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; track $index) {
+          <div
+            class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+            <app-event-card skeleton class="w-full" />
+          </div>
+        }
+      }
+
+      @if (!(hasMoreEvents$ | async)) {
+        <div class="col-12 text-center my-4">
+          <span class="select-none">{{
+            'homepage.upcomingEvents.noMoreEvents' | transloco
+          }}</span>
+        </div>
+      }
     } @else {
-      @for (event of [0, 1, 2, 3, 4]; track $index) {
+      @for (event of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; track $index) {
         <div
           class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
           <app-event-card skeleton class="w-full" />

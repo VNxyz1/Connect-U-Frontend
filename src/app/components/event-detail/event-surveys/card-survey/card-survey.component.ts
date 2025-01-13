@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CardModule } from 'primeng/card';
-import { ButtonDirective } from 'primeng/button';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { AvatarModule } from 'primeng/avatar';
@@ -28,7 +27,6 @@ import { UserService } from '../../../../services/user/user.service';
   standalone: true,
   imports: [
     CardModule,
-    ButtonDirective,
     ProgressBarModule,
     AvatarGroupModule,
     AvatarModule,
@@ -161,11 +159,8 @@ export class CardSurveyComponent implements OnInit {
                 'surveyCardPage.deleteSuccessMessage',
               ),
             });
-
-            console.log('Survey successfully deleted!');
           },
           error: err => {
-            // Fehlernachricht anzeigen
             this.messageService.add({
               severity: 'error',
               summary: this.translocoService.translate(
@@ -179,9 +174,7 @@ export class CardSurveyComponent implements OnInit {
           },
         });
       },
-      reject: () => {
-        console.log('Survey deletion cancelled.');
-      },
+      reject: () => {},
     });
   }
 

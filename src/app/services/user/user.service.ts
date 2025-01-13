@@ -107,10 +107,8 @@ export class UserService {
   }
 
   getImageFile(image: string): string {
-    const baseUrl: string = 'http://localhost:3000/api';
     const value = image == '' ? 'empty.png' : image;
-    const path = `${baseUrl}/user/profilePicture/${value}`;
-    return path;
+    return  `${environment.apiConfig.urlPrefix}user/profilePicture/${value}`;
   }
 
   getInviteLink() {
