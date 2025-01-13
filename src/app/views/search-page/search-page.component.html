@@ -1,26 +1,24 @@
 <div class="content pFocusTrap mt-5 h-100">
   <form [formGroup]="form">
-  <div class="p-grid p-fluid column-gap-3">
-
-     <span class="font-bold text-2xl block md:px-2 mb-2 mt-4">{{
-         'searchPageComponent.selectFilters' | transloco
-       }}</span>
-    <div class="p-col-12 p-md-6 field">
-      <p-floatLabel>
-        <input
-          id="event-title"
-          type="text"
-          [maxLength]="50"
-          required
-          pInputText
-          formControlName="title"
-           />
-        <label for="event-title">{{
+    <div class="p-grid p-fluid column-gap-3">
+      <span class="font-bold text-2xl block md:px-2 mb-2 mt-4">{{
+        'searchPageComponent.selectFilters' | transloco
+      }}</span>
+      <div class="p-col-12 p-md-6 field">
+        <p-floatLabel>
+          <input
+            id="event-title"
+            type="text"
+            [maxLength]="50"
+            required
+            pInputText
+            formControlName="title" />
+          <label for="event-title">{{
             'createEventStep1Component.eventTitleInput.label' | transloco
           }}</label>
-      </p-floatLabel>
-    </div>
-    <!--
+        </p-floatLabel>
+      </div>
+      <!--
     <div class="p-col-12 p-md-6 field">
       <p-floatLabel>
         <p-multiSelect
@@ -58,121 +56,116 @@
     </div>
     -->
 
+      <div class="field">
+        <p-checkbox
+          class="mr-8"
+          name="isOnline"
+          [label]="'searchPageComponent.isOnline' | transloco"
+          [binary]="true"
+          formControlName="isOnline"
+          id="isOnline"
+          variant="filled">
+        </p-checkbox>
+        <p-checkbox
+          name="isInPlace"
+          [label]="'searchPageComponent.isInPlace' | transloco"
+          formControlName="isInPlace"
+          [binary]="true"
+          id="isInPlace"
+          variant="filled">
+        </p-checkbox>
+      </div>
+      <div class="field">
+        <p-checkbox
+          class="mr-8"
+          name="isPublic"
+          [label]="'searchPageComponent.isPublic' | transloco"
+          formControlName="isPublic"
+          [binary]="true"
+          id="isPublic"
+          variant="filled">
+        </p-checkbox>
+        <p-checkbox
+          name="isHalfPublic"
+          [label]="'searchPageComponent.isHalfPublic' | transloco"
+          formControlName="isHalfPublic"
+          [binary]="true"
+          id="isHalfPublic"
+          variant="filled">
+        </p-checkbox>
+      </div>
+      @if (fetchedGenders | async; as genderOptions) {
+        <div class="field">
+          <p-floatLabel>
+            <p-multiSelect
+              id="genders"
+              formControlName="genders"
+              [options]="genderOptions"
+              optionLabel="label"
+              optionValue="value"
+              display="chip"
+              [showClear]="true"
+              styleClass="capitalize">
+              <ng-template let-sorting pTemplate="item">
+                {{ sorting.label | transloco }}
+              </ng-template>
+            </p-multiSelect>
+            <label for="genders">{{
+              'createEventStep3Component.preferredGendersInput.label'
+                | transloco
+            }}</label>
+          </p-floatLabel>
+        </div>
+      }
 
-  <div class="field">
-    <p-checkbox class="mr-8"
-      name="isOnline"
-      [label]="
-          'searchPageComponent.isOnline'
-            | transloco
-        "
-      [binary]="true"
-                formControlName="isOnline"
-      id="isOnline"
-      variant="filled">
-    </p-checkbox>
-    <p-checkbox
-      name="isInPlace"
-      [label]="
-          'searchPageComponent.isInPlace'
-            | transloco
-        "
-      formControlName="isInPlace"      [binary]="true"
-      id="isInPlace"
-      variant="filled">
-    </p-checkbox>
-  </div>
-  <div class="field">
-    <p-checkbox class="mr-8"
-                name="isPublic"
-                [label]="
-          'searchPageComponent.isPublic'
-            | transloco
-        "
-                formControlName="isPublic"
-                [binary]="true"
-                id="isPublic"
-                variant="filled">
-    </p-checkbox>
-    <p-checkbox
-      name="isHalfPublic"
-      [label]="
-          'searchPageComponent.isHalfPublic'
-            | transloco
-        "
-      formControlName="isHalfPublic"      [binary]="true"
-      id="isHalfPublic"
-      variant="filled">
-    </p-checkbox>
-  </div>
-
-  <div class="field">
-    <p-floatLabel>
-      <p-multiSelect
-        id="genders"
-        formControlName="genders"
-        [options]="fetchedGenders"
-        optionLabel="label"
-        optionValue="value"
-        display="chip"
-        [showClear]="true"
-        styleClass="capitalize">
-      </p-multiSelect>
-      <label for="genders">{{
-          'createEventStep3Component.preferredGendersInput.label' | transloco
-        }}</label>
-    </p-floatLabel>
-  </div>
-
-  <div class="field">
-    <p-checkbox class="mr-8"
-                name="filterFriends"
-                [label]="
-          'searchPageComponent.filterFriends'
-            | transloco
-        "
-                formControlName="filterFriends"
-                [binary]="true"
-                id="filterFriends"
-                variant="outlined">
-    </p-checkbox>
-    </div>
-
-    <span class="font-bold text-2xl block md:px-2 mb-2 mt-4">Sort Events</span>
-
-    <div class="justify-content-center mt-4 mb-4">
-    <p-dropdown
-        formControlName="sortOrder"
-        [options]= "sortOrderOptions"
-        optionLabel="name"
-        optionValue="value"
-    >
-      <ng-template let-sorting pTemplate="selectedItem">
-        {{sorting.name | transloco}}
-      </ng-template>
-      <ng-template let-sorting pTemplate="item">
-        {{sorting.name | transloco}}
-      </ng-template>
-    </p-dropdown>
+      <div class="field">
+        <p-checkbox
+          class="mr-8"
+          name="filterFriends"
+          [label]="'searchPageComponent.filterFriends' | transloco"
+          formControlName="filterFriends"
+          [binary]="true"
+          id="filterFriends"
+          variant="outlined">
+        </p-checkbox>
       </div>
 
-  <div class="flex fixed-bottom-responsive-container justify-content-end">
-    <div class="justify-content-end">
-      <p-button
-        [raised]="true"
-        severity="success"
-        [label]="'searchPageComponent.filterButton' | transloco"
-        (onClick)="submit()">
-        <ng-template pTemplate="icon">
-          <rmx-icon
-            class="mr-2"
-            style="width: 16px; height: 16px"
-            name="arrow-right-circle-line">
-          </rmx-icon>
-        </ng-template>
-      </p-button>
+      <span class="font-bold text-2xl block md:px-2 mb-2 mt-4"
+        >Sort Events</span
+      >
+
+      <div class="justify-content-center mt-4 mb-4">
+        <p-dropdown
+          formControlName="sortOrder"
+          [options]="sortOrderOptions"
+          optionLabel="name"
+          optionValue="value">
+          <ng-template let-sorting pTemplate="selectedItem">
+            {{ sorting.name | transloco }}
+          </ng-template>
+          <ng-template let-sorting pTemplate="item">
+            {{ sorting.name | transloco }}
+          </ng-template>
+        </p-dropdown>
+      </div>
+
+      <div class="flex fixed-bottom-responsive-container justify-content-end">
+        <div class="justify-content-end">
+          <p-button
+            [raised]="true"
+            severity="success"
+            [label]="'searchPageComponent.filterButton' | transloco"
+            (onClick)="submit()">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                class="mr-2"
+                style="width: 16px; height: 16px"
+                name="arrow-right-circle-line">
+              </rmx-icon>
+            </ng-template>
+          </p-button>
+        </div>
+      </div>
     </div>
-  </div>
-  </div>
   </form>
 </div>

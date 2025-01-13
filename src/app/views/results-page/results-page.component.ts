@@ -11,7 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EventCardComponent } from '../../components/event-card/event-card.component';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { EventSearchService } from '../../services/event/event-search.service';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { AsyncPipe } from '@angular/common';
 import { Button } from 'primeng/button';
@@ -40,26 +40,26 @@ import { TranslocoPipe } from '@jsverse/transloco';
   templateUrl: './results-page.component.html',
 })
 export class ResultsPageComponent implements OnInit {
-  constructor(private router: Router,
-              private route: ActivatedRoute,
-              private eventSearchService: EventSearchService,
-  ) {
-  }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private eventSearchService: EventSearchService,
+  ) {}
 
   loading = true;
   events$!: Observable<EventCardItem[]>;
-  params: Params = { page: 1 }
+  params: Params = { page: 1 };
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
+    this.route.queryParams.subscribe(params => {
       this.fetchFilteredEvents(params);
       this.params = params;
     });
   }
 
   submit = () => {
-      this.router.navigate(['search'], {queryParams: this.params});
-  }
+    this.router.navigate(['search'], { queryParams: this.params });
+  };
 
   fetchFilteredEvents(params: any): void {
     this.loading = true;

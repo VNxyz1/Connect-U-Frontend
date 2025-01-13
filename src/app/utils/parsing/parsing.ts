@@ -3,7 +3,7 @@ import { Params } from '@angular/router';
 
 export function parseToQueryParams(form: FormGroup) {
   const queryParams: Params = {};
-  Object.keys(form.value).forEach((key  ) => {
+  Object.keys(form.value).forEach(key => {
     const value = form.value[key];
 
     if (value === '') return;
@@ -14,7 +14,7 @@ export function parseToQueryParams(form: FormGroup) {
     } else {
       queryParams[key] = value;
     }
-  })
+  });
 
   return queryParams;
 }

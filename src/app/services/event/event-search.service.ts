@@ -9,10 +9,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class EventSearchService {
-
-
-  constructor(private readonly http: HttpClient) {
-  }
+  constructor(private readonly http: HttpClient) {}
 
   getFilteredEvents(filters: SearchParams): Observable<EventCardItem[]> {
     const updatedFilters: SearchParams = {
@@ -22,7 +19,7 @@ export class EventSearchService {
     const params = new URLSearchParams();
     Object.entries(updatedFilters).forEach(([key, value]) => {
       if (Array.isArray(value)) {
-        value.forEach((val) => params.append(key, String(val)));
+        value.forEach(val => params.append(key, String(val)));
       } else if (value !== undefined && value !== null) {
         params.append(key, String(value));
       }
@@ -33,11 +30,11 @@ export class EventSearchService {
         params: {
           ...updatedFilters,
           page: 0,
-          size: 12
-        }
+          size: 12,
+        },
       })
       .pipe(
-        catchError((error) => {
+        catchError(error => {
           console.error('Error fetching filtered events:', error);
           return throwError(() => error);
         }),
