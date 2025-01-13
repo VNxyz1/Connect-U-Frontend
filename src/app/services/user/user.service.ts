@@ -108,7 +108,7 @@ export class UserService {
 
   getImageFile(image: string): string {
     const value = image == '' ? 'empty.png' : image;
-    return  `${environment.apiConfig.urlPrefix}user/profilePicture/${value}`;
+    return `${environment.apiConfig.urlPrefix}user/profilePicture/${value}`;
   }
 
   getInviteLink() {
