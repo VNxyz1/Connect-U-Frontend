@@ -24,6 +24,7 @@
     "@ionic/storage-angular": "^4.0.0",
     "@jsverse/transloco": "^7.5.0",
     "@jsverse/transloco-locale": "^7.0.1",
+    "@zxing/browser": "^0.1.5",
     "angular-remix-icon": "^8.0.0",
     "angularx-qrcode": "^18.0.2",
     "cordova-sqlite-storage": "^6.1.0",
