@@ -162,7 +162,7 @@
       <div class="">
         @if (
           eventDetails &&
-          eventRequestsHost.length > 0 &&
+          (eventRequestsHost.length > 0 || eventInvitesHost.length > 0) &&
           eventDetails.isHost &&
           eventDetails.status != 3 &&
           eventDetails.status != 4
@@ -176,31 +176,46 @@
               <div class="flex justify-content-between align-items-center mb-2">
                 <!-- Header Section (Left Top) -->
                 <h3 class="mt-0 mb-0">
-                  {{ 'eventDetailPageComponent.requests.title' | transloco }}
+                  {{
+                    'eventDetailPageComponent.requests.requests' | transloco
+                  }}/{{
+                    'eventDetailPageComponent.requests.invites' | transloco
+                  }}
                 </h3>
                 <!-- Request Count (Right Top, Aligned with Header) -->
-                <span class="color-secondary text-center w-2rem">{{
-                  this.eventRequestsHost.length
-                }}</span>
+                <span class="color-secondary text-center w-2rem"
+                  >{{
+                    (this.eventRequestsHost.length || 0) +
+                      (this.eventInvitesHost.length || 0)
+                  }}
+                </span>
               </div>
 
               <!-- Bottom Section -->
               <div class="flex justify-content-between align-items-center">
                 <!-- Profile Pictures (Left Bottom) -->
                 <div class="flex">
-                  @for (r of this.eventRequestsHost; track r) {
-                    <img
-                      [src]="userService.getImageFile(r.user.profilePicture)"
-                      alt="{{ r.user.username }}"
-                      class="profile-picture"
-                      style="
-                        width: 3em;
-                        height: 3em;
-                        border-radius: 50%;
-                        margin-right: -5px;
-                        border: 2px solid white;
-                      " />
-                  }
+                  <p-avatarGroup>
+                    <!-- Display the first 4 avatars -->
+                    @for (r of combinedAvatars.slice(0, 4); track r) {
+                      <p-avatar
+                        [image]="
+                          userService.getImageFile(r.user.profilePicture)
+                        "
+                        shape="circle"
+                        size="large">
+                      </p-avatar>
+                    }
+                    <!-- Display the "+X" avatar if there are more than 4 items -->
+                    @if (combinedAvatars.length > 4) {
+                      <p-avatar
+                        [label]="'+' + (combinedAvatars.length - 4)"
+                        shape="circle"
+                        size="large"
+                        styleClass="flex align-items-center justify-content-center">
+                      </p-avatar>
+                    }
+                  </p-avatarGroup>
                 </div>
                 <!-- Icon (Bottom Right) -->
                 <div class="flex align-items-right">
@@ -217,11 +232,16 @@
       </div>
 
       <div class="">
-        @if (eventDetails && eventDetails.participantsNumber > 0) {
+        @if (eventDetails) {
           <p-card
-            class="p-3 cursor-pointer"
-            [routerLink]="['guests']"
-            [relativeTo]="route">
+            class="p-3"
+            [routerLink]="
+              this.eventDetails.participantsNumber == 0 ? null : ['guests']
+            "
+            [relativeTo]="route"
+            [ngClass]="{
+              cursorPointer: this.eventDetails.participantsNumber > 0,
+            }">
             <div class="flex flex-column justify-content-between h-full">
               <!-- Top Section: Header and Count -->
               <div class="flex justify-content-between align-items-center mb-2">
@@ -259,13 +279,15 @@
                 </p-avatarGroup>
 
                 <!-- Icon (Bottom Right) -->
-                <div class="flex align-items-center">
-                  <rmx-icon
-                    name="arrow-right-s-line"
-                    style="height: 26px; width: 26px"
-                    class="ml-2">
-                  </rmx-icon>
-                </div>
+                @if (this.eventDetails.participantsNumber > 0) {
+                  <div class="flex align-items-center">
+                    <rmx-icon
+                      name="arrow-right-s-line"
+                      style="height: 26px; width: 26px"
+                      class="ml-2">
+                    </rmx-icon>
+                  </div>
+                }
               </div>
             </div>
           </p-card>
@@ -359,8 +381,25 @@
                     name="logout-circle-line"></rmx-icon>
                 </ng-template>
               </p-button>
-            } @else if (eventDetails.isHost) {
-              <!-- TODO cancel event -->
+            } @else if (
+              eventDetails.isHost &&
+              this.eventDetails.maxParticipantsNumber &&
+              this.eventDetails.maxParticipantsNumber -
+                this.eventDetails.participantsNumber >
+                0
+            ) {
+              <p-button
+                [label]="'eventPageComponent.friends.inviteFriends' | transloco"
+                (onClick)="onAddFriendsButtonPressed()"
+                severity="success"
+                raised>
+                <ng-template pTemplate="icon">
+                  <rmx-icon
+                    class="mr-1"
+                    style="width: 16px; height: 16px"
+                    name="user-add-line"></rmx-icon>
+                </ng-template>
+              </p-button>
             }
           } @else if (userRequest) {
             <!-- Responsive Container -->
@@ -402,21 +441,20 @@
             </div>
           } @else {
             <!-- TODO if event outdated no button -->
-            <p-button
-              [raised]="true"
-              [label]="
-                eventDetails.type === 1 && !eventDetails.isParticipant
-                  ? ('eventDetailPageComponent.join' | transloco)
-                  : eventDetails.type === 2
-                    ? ('eventDetailPageComponent.request' | transloco)
-                    : eventDetails.type === 3
-                      ? ('eventDetailPageComponent.privateEvent' | transloco)
+            @if (eventDetails.type !== 3) {
+              <p-button
+                [raised]="true"
+                [label]="
+                  eventDetails.type === 1 && !eventDetails.isParticipant
+                    ? ('eventDetailPageComponent.join' | transloco)
+                    : eventDetails.type === 2
+                      ? ('eventDetailPageComponent.request' | transloco)
                       : ''
-              "
-              [disabled]="eventDetails.type === 3"
-              severity="success"
-              (click)="handleButtonClick(eventDetails.type)">
-            </p-button>
+                "
+                severity="success"
+                (click)="handleButtonClick(eventDetails.type)">
+              </p-button>
+            }
           }
         </div>
       </div>
