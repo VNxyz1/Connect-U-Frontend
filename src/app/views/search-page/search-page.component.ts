@@ -101,7 +101,16 @@ export class SearchPageComponent implements OnInit {
 
   private addFormValues(form: FormGroup, queryParams: Params) {
     Object.keys(queryParams).forEach(key => {
-      if (
+      if (key === 'minAge' || key === 'maxAge') {
+        const currentAgeRange = form.get('ageRange')?.value ?? [16, 99];
+        if (key === 'minAge') {
+          currentAgeRange[0] = Number(queryParams[key]) || 16;
+        }
+        if (key === 'maxAge') {
+          currentAgeRange[1] = Number(queryParams[key]) || 99;
+        }
+        form.get('ageRange')?.setValue(currentAgeRange);
+      } else if (
         Array.isArray(queryParams[key]) &&
         form.controls[key] instanceof FormGroup
       ) {
@@ -138,13 +147,11 @@ export class SearchPageComponent implements OnInit {
         form.controls[key].setValue(queryParams[key]);
       }
     });
-    console.log(this.fetchedGenders);
     return form;
   }
 
   submit = () => {
     const params = parseToQueryParams(this.form);
-    console.log(params);
     this.router.navigate(['search', 'results'], { queryParams: params });
   };
 
@@ -208,11 +215,9 @@ export class SearchPageComponent implements OnInit {
     this.form.get('ageRange')?.setValue(currentAgeRange);
   }
 
-
   protected onAgeBlur(index: number, e: any): void {
     const currentAgeRange = this.form.get('ageRange')?.value ?? [16, 99];
     const currentValue = Number(e.target.value.toString().trim());
-
 
     if (currentValue === undefined || currentValue === null) {
       currentAgeRange[index] = index === 0 ? 16 : 99;
@@ -221,9 +226,15 @@ export class SearchPageComponent implements OnInit {
 
       if (!isNaN(numericValue)) {
         if (index === 0) {
-          currentAgeRange[0] = Math.max(16, Math.min(numericValue, currentAgeRange[1] ?? 99));
+          currentAgeRange[0] = Math.max(
+            16,
+            Math.min(numericValue, currentAgeRange[1] ?? 99),
+          );
         } else if (index === 1) {
-          currentAgeRange[1] = Math.min(99, Math.max(numericValue, currentAgeRange[0] ?? 16));
+          currentAgeRange[1] = Math.min(
+            99,
+            Math.max(numericValue, currentAgeRange[0] ?? 16),
+          );
         }
 
         if (currentAgeRange[0] > currentAgeRange[1]) {
@@ -234,8 +245,6 @@ export class SearchPageComponent implements OnInit {
 
     this.form.get('ageRange')?.setValue(currentAgeRange);
   }
-
-
 
   search(event: any): void {
     const query = event.query.toLowerCase();

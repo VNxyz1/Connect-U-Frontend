@@ -135,8 +135,7 @@
             [value]="form.get('ageRange')?.value[0] ?? ''"
             (change)="onAgeChange(0, $event)"
             (blur)="onAgeBlur(0, $event)"
-            class="slider-input"
-          />
+            class="slider-input" />
 
           <input
             type="number"
@@ -146,11 +145,9 @@
             [value]="form.get('ageRange')?.value[1] ?? ''"
             (change)="onAgeChange(1, $event)"
             (blur)="onAgeBlur(1, $event)"
-            class="slider-input"
-          />
+            class="slider-input" />
         </div>
       </div>
-
 
       <div class="field mt-5">
         <p-checkbox

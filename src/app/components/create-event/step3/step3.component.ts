@@ -187,7 +187,6 @@ export class Step3Component implements OnInit {
   }
 
   private applyAgeChange(index: number, value: number): void {
-
     const stringValue = value.toString();
 
     if (stringValue === '') {
