@@ -1,19 +1,7 @@
 <div class="mt-4 border-bottom-2 border-gray-50 z-4">
   <div class="flex align-items-center justify-content-between w-full mb-3">
     <div class="col align-items-center justify-content-start">
-      @if (currentUrl !== '/' && !currentUrl?.includes('create-event')) {
-        <p-button
-          [text]="true"
-          severity="primary"
-          (click)="backToLast()"
-          class="mr-3">
-          <ng-template pTemplate="icon">
-            <rmx-icon
-              style="width: 24px; height: 24px"
-              name="arrow-left-s-line"></rmx-icon>
-          </ng-template>
-        </p-button>
-      } @else if (currentUrl?.includes('create-event')) {
+      @if (currentUrl?.includes('create-event')) {
         <p-button
           [text]="true"
           severity="primary"
@@ -25,8 +13,33 @@
               name="close-line"></rmx-icon>
           </ng-template>
         </p-button>
+      } @else if (currentUrl?.includes('results')) {
+        <p-button
+          [text]="true"
+          severity="primary"
+          (click)="search()"
+          class="mr-3">
+          <ng-template pTemplate="icon">
+            <rmx-icon
+              style="width: 24px; height: 24px"
+              name="arrow-left-s-line"></rmx-icon>
+          </ng-template>
+        </p-button>
+      } @else {
+        <p-button
+          [text]="true"
+          severity="primary"
+          (click)="backToLast()"
+          class="mr-3">
+          <ng-template pTemplate="icon">
+            <rmx-icon
+              style="width: 24px; height: 24px"
+              name="arrow-left-s-line"></rmx-icon>
+          </ng-template>
+        </p-button>
       }
     </div>
+
 
     <div class="col-8 text-center">
       @switch (true) {
