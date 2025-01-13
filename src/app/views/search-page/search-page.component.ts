@@ -15,9 +15,7 @@ import { TagService } from '../../services/tags/tag.service';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { environment } from '../../../environments/environment';
 import { parseToQueryParams } from '../../utils/parsing/parsing';
-import { SortOrder } from '../../interfaces/SearchParams';
 
 @Component({
   selector: 'app-search-page',
@@ -102,7 +100,7 @@ export class SearchPageComponent implements OnInit {
         form.controls[key].setValue(queryParams[key]);
       }
     })
-    console.log(this.form.value);
+    console.log(this.fetchedGenders);
     return form;
   }
 
@@ -140,6 +138,13 @@ export class SearchPageComponent implements OnInit {
         },
         error: error => console.error('Error loading genders:', error),
       });
+  }
+
+  private mapGenderIdsToLabels(genderIds: number[]): { label: string; value: number }[] {
+    return genderIds.map(id => {
+      const gender = this.fetchedGenders.find(g => g.value === id);
+      return gender ? { label: gender.label, value: id } : null;
+    }).filter(g => g !== null) as { label: string; value: number }[];
   }
 
 
