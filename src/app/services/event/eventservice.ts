@@ -38,7 +38,8 @@ type Gender = { id: number; gender: number };
   providedIn: 'root',
 })
 export class EventService {
-  private readonly storageKeyCreate = 'eventCreateInformation'; // Key for stored data
+  private readonly storageKeyCreate = 'eventCreateInformation';
+  private readonly storageKeyEventImg = 'eventImage';
   private _eventCreateInformation: EventData | null = null;
 
   private readonly eventComplete = new Subject<EventData>();
@@ -101,6 +102,18 @@ export class EventService {
   async removeEventInformation(): Promise<void> {
     this._eventCreateInformation = this.getDefaultEventData();
     return await this.storageService.remove(this.storageKeyCreate);
+  }
+
+  async setEventImage(base64Image: string): Promise<void> {
+    await this.storageService.set(this.storageKeyEventImg, base64Image);
+  }
+
+  async getEventImage(): Promise<string | null> {
+    return await this.storageService.get(this.storageKeyEventImg);
+  }
+
+  async removeEventImage(): Promise<void> {
+    await this.storageService.remove(this.storageKeyEventImg);
   }
 
   /**
@@ -197,6 +210,10 @@ export class EventService {
         return throwError(() => error);
       }),
     );
+  }
+  postEventImage(eventId: string, imgFile: FormData) {
+    console.log('file im service: ', imgFile, ' id:', eventId);
+    return this.http.patch('event/eventPicture/' + eventId, imgFile);
   }
 
   getAllEvents() {
