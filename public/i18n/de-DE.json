@@ -969,5 +969,10 @@
     },
     "accept-request": "Freundschaftsanfrage annehmen",
     "already-friends": "Du bist bereits mit {{name}} befreundet!"
+  },
+  "404": {
+    "page-not-found": "Seite nicht gefunden",
+    "page-not-found-detail": "Wir konnten diese Seite nicht finden. Nicht einmal mit X-Ray.",
+    "back-to-home": "Zur Startseite"
   }
 }

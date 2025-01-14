@@ -968,5 +968,10 @@
     },
     "accept-request": "Accept Friendship Request",
     "already-friends": "You are already friends with {{name}}!"
+  },
+  "404": {
+    "page-not-found": "Page Not Found",
+    "page-not-found-detail": "We couldn't find that page! Not even with x-ray vision.",
+    "back-to-home": "Zur Startseite"
   }
 }
