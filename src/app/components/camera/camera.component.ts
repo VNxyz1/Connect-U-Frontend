@@ -10,12 +10,7 @@ import { SkeletonModule } from 'primeng/skeleton';
 @Component({
   selector: 'app-camera',
   standalone: true,
-  imports: [
-    WebcamModule,
-    TranslocoPipe,
-    CardModule,
-    SkeletonModule,
-  ],
+  imports: [WebcamModule, TranslocoPipe, CardModule, SkeletonModule],
   templateUrl: './camera.component.html',
 })
 export class CameraComponent implements OnInit {
