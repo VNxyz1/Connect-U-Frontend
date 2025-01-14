@@ -10,14 +10,7 @@
     <!-- QR Code Result Section -->
     <div class="col-12 text-center mt-3">
       <h2>{{ 'cameraComponent.scanResultTitle' | transloco }}</h2>
-      @if (qrResult) {
-        <p-button
-          [label]="qrResult"
-          (onClick)="navigateToLink(qrResult)"
-          raised
-          severity="success">
-        </p-button>
-      } @else {
+      @if (!qrResult) {
         <p>{{ 'cameraComponent.noScanResult' | transloco }}</p>
       }
     </div>

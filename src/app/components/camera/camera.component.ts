@@ -36,7 +36,6 @@ export class CameraComponent implements OnInit {
 
     try {
       const videoInputDevices = await BrowserQRCodeReader.listVideoInputDevices();
-      console.log('Available video input devices:', videoInputDevices);
 
       // Attempt to find a back camera
       const backCamera = videoInputDevices.find((device) =>
@@ -45,7 +44,15 @@ export class CameraComponent implements OnInit {
       const selectedCamera = backCamera || videoInputDevices[0]; // Use the first device if no back camera is found
 
       if (!selectedCamera) {
-        console.warn('No cameras found.');
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translocoService.translate(
+            'cameraComponent.message.no-camera-detected-title'
+          ),
+          detail: this.translocoService.translate(
+            'cameraComponent.message.no-camera-detected-detail'
+          ),
+        });
         return;
       }
 
@@ -66,6 +73,7 @@ export class CameraComponent implements OnInit {
               if (this.isValidQrCode(scannedText)) {
                 this.qrResult = this.extractPath(scannedText); // Extract and format the path
                 this.controls?.stop(); // Stop scanning after detecting a valid QR code
+                this.navigateToLink(this.qrResult);
               } else {
                 this.qrResult = null; // Invalidate the result if it's not valid
               }
@@ -137,7 +145,6 @@ export class CameraComponent implements OnInit {
       // If valid path segments are found, navigate to the target route
       if (filteredPathSegments.length > 0) {
         this.router.navigate(filteredPathSegments).catch((error) => {
-          console.error('Navigation Error:', error);
           this.messageService.add({
             severity: 'error',
             summary: this.translocoService.translate(
@@ -149,8 +156,6 @@ export class CameraComponent implements OnInit {
           });
         });
       } else {
-        // Handle case where no valid path segments are found
-        console.error('Invalid QR Code Detected (Path Segments):', qrResult);
         this.messageService.add({
           severity: 'warn',
           summary: this.translocoService.translate(
@@ -162,8 +167,7 @@ export class CameraComponent implements OnInit {
         });
       }
     } else {
-      // Handle case where the QR code does not match the current domain or path
-      console.error('Invalid QR Code Detected (Domain/Path Mismatch):', qrResult);
+
       this.messageService.add({
         severity: 'warn',
         summary: this.translocoService.translate(
@@ -199,10 +203,17 @@ export class CameraComponent implements OnInit {
           if (result) {
             this.qrResult = result.getText();
             this.controls?.stop(); // Stop scanning after detecting a QR code
-            console.log('QR Code detected:', this.qrResult);
           }
           if (error) {
-            console.warn('QR Code scanning error:', error);
+            this.messageService.add({
+              severity: 'error',
+              summary: this.translocoService.translate(
+                'cameraComponent.message.qr-scan-error-title'
+              ),
+              detail: this.translocoService.translate(
+                'cameraComponent.message.qr-scan-error-title'
+              ),
+            });
           }
         }
       );
