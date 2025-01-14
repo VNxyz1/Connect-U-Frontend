@@ -1,6 +1,7 @@
-<p-card [header]="'cameraComponent.card-header' | transloco" class="w-full max-w-30rem mx-auto">
+<p-card
+  [header]="'cameraComponent.card-header' | transloco"
+  class="w-full max-w-30rem mx-auto">
   <div class="grid">
-
     <!-- Video Section -->
     <div class="col-12">
       <div class="flex justify-content-center">
@@ -8,15 +9,13 @@
           class="w-20rem md:w-30rem h-auto border-round"
           id="video"
           autoplay
-          [hidden]="loading"
-        ></video>
+          [hidden]="loading"></video>
         @if (loading) {
           <p-skeleton
             width="20rem"
             height="20rem"
             styleClass="max-h-screen border-round"
-            shape="rectangle"
-          ></p-skeleton>
+            shape="rectangle"></p-skeleton>
         }
       </div>
     </div>

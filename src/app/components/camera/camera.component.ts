@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { WebcamInitError, WebcamModule } from 'ngx-webcam';
-import { MessageService, PrimeTemplate } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { BrowserQRCodeReader, IScannerControls } from '@zxing/browser';
-import { AngularRemixIconComponent } from 'angular-remix-icon';
-import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { window } from 'rxjs';
 import { Router } from '@angular/router';
 import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-camera',
   standalone: true,
-  imports: [WebcamModule, TranslocoPipe, AngularRemixIconComponent, Button, PrimeTemplate, CardModule, SkeletonModule],
+  imports: [
+    WebcamModule,
+    TranslocoPipe,
+    CardModule,
+    SkeletonModule,
+  ],
   templateUrl: './camera.component.html',
 })
 export class CameraComponent implements OnInit {
@@ -37,11 +39,12 @@ export class CameraComponent implements OnInit {
     this.qrCodeReader = new BrowserQRCodeReader();
 
     try {
-      const videoInputDevices = await BrowserQRCodeReader.listVideoInputDevices();
+      const videoInputDevices =
+        await BrowserQRCodeReader.listVideoInputDevices();
 
       // Attempt to find a back camera
-      const backCamera = videoInputDevices.find((device) =>
-        device.label.toLowerCase().includes('back')
+      const backCamera = videoInputDevices.find(device =>
+        device.label.toLowerCase().includes('back'),
       );
       const selectedCamera = backCamera || videoInputDevices[0]; // Use the first device if no back camera is found
 
@@ -49,10 +52,10 @@ export class CameraComponent implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: this.translocoService.translate(
-            'cameraComponent.message.no-camera-detected-title'
+            'cameraComponent.message.no-camera-detected-title',
           ),
           detail: this.translocoService.translate(
-            'cameraComponent.message.no-camera-detected-detail'
+            'cameraComponent.message.no-camera-detected-detail',
           ),
         });
         return;
@@ -60,7 +63,6 @@ export class CameraComponent implements OnInit {
       const videoElement = document.getElementById('video') as HTMLVideoElement;
 
       if (videoElement) {
-
         // Start the selected camera
         this.controls = await this.qrCodeReader.decodeFromVideoDevice(
           selectedCamera.deviceId,
@@ -76,20 +78,19 @@ export class CameraComponent implements OnInit {
                 this.navigateToLink(this.qrResult);
               } else {
                 this.qrResult = null; // Invalidate the result if it's not valid
-
               }
             }
-          }
+          },
         );
         this.loading = false;
       } else {
         this.messageService.add({
           severity: 'warn',
           summary: this.translocoService.translate(
-            'cameraComponent.message.initialization-error-title'
+            'cameraComponent.message.initialization-error-title',
           ),
           detail: this.translocoService.translate(
-            'cameraComponent.message.initialization-error-detail'
+            'cameraComponent.message.initialization-error-detail',
           ),
         });
       }
@@ -97,16 +98,19 @@ export class CameraComponent implements OnInit {
       // Allow camera switching only if there is no back camera
       if (!backCamera && videoInputDevices.length > 1) {
         this.allowCameraSwitching = true;
-        this.setupCameraSwitching(videoInputDevices as MediaDeviceInfo[], videoElement);
+        this.setupCameraSwitching(
+          videoInputDevices as MediaDeviceInfo[],
+          videoElement,
+        );
       }
     } catch (error) {
       this.messageService.add({
         severity: 'error',
         summary: this.translocoService.translate(
-          'cameraComponent.message.initialization-error-title'
+          'cameraComponent.message.initialization-error-title',
         ),
         detail: this.translocoService.translate(
-          'cameraComponent.message.initialization-error-detail'
+          'cameraComponent.message.initialization-error-detail',
         ),
       });
     }
@@ -129,12 +133,18 @@ export class CameraComponent implements OnInit {
 
   protected navigateToLink(qrResult: string): void {
     // Get the current domain without protocol
-    const currentDomain = globalThis.location.origin.replace(/^https?:\/\/[^/]+/, '');
+    const currentDomain = globalThis.location.origin.replace(
+      /^https?:\/\/[^/]+/,
+      '',
+    );
     console.log('Current Domain:', currentDomain);
     console.log('QR Result:', qrResult);
 
     // Validate if the QR result matches the current domain and includes the 'add-friend' path
-    if (qrResult.startsWith(currentDomain) && qrResult.includes('/add-friend/')) {
+    if (
+      qrResult.startsWith(currentDomain) &&
+      qrResult.includes('/add-friend/')
+    ) {
       // Remove the domain from the QR result to extract the relative path
       const path = qrResult.replace(/^https?:\/\/[^/]+/, '');
       console.log('Extracted Path:', path);
@@ -144,20 +154,19 @@ export class CameraComponent implements OnInit {
 
       // Find the index of 'add-friend' and get all segments starting from it
       const addFriendIndex = pathSegments.indexOf('add-friend');
-      const filteredPathSegments = addFriendIndex !== -1
-        ? pathSegments.slice(addFriendIndex)
-        : [];
+      const filteredPathSegments =
+        addFriendIndex !== -1 ? pathSegments.slice(addFriendIndex) : [];
 
       // If valid path segments are found, navigate to the target route
       if (filteredPathSegments.length > 0) {
-        this.router.navigate(filteredPathSegments).catch((error) => {
+        this.router.navigate(filteredPathSegments).catch(error => {
           this.messageService.add({
             severity: 'error',
             summary: this.translocoService.translate(
-              'cameraComponent.message.navigation-error-title'
+              'cameraComponent.message.navigation-error-title',
             ),
             detail: this.translocoService.translate(
-              'cameraComponent.message.navigation-error-detail'
+              'cameraComponent.message.navigation-error-detail',
             ),
           });
         });
@@ -165,22 +174,21 @@ export class CameraComponent implements OnInit {
         this.messageService.add({
           severity: 'warn',
           summary: this.translocoService.translate(
-            'cameraComponent.message.invalid-qr-code-title'
+            'cameraComponent.message.invalid-qr-code-title',
           ),
           detail: this.translocoService.translate(
-            'cameraComponent.message.invalid-qr-code-detail'
+            'cameraComponent.message.invalid-qr-code-detail',
           ),
         });
       }
     } else {
-
       this.messageService.add({
         severity: 'warn',
         summary: this.translocoService.translate(
-          'cameraComponent.message.invalid-qr-code-title'
+          'cameraComponent.message.invalid-qr-code-title',
         ),
         detail: this.translocoService.translate(
-          'cameraComponent.message.invalid-qr-code-detail'
+          'cameraComponent.message.invalid-qr-code-detail',
         ),
       });
     }
@@ -188,41 +196,43 @@ export class CameraComponent implements OnInit {
 
   private setupCameraSwitching(
     devices: MediaDeviceInfo[],
-    videoElement: HTMLVideoElement
+    videoElement: HTMLVideoElement,
   ): void {
     let currentIndex = 0; // Track the current camera index
 
-    document.getElementById('switchCameraButton')?.addEventListener('click', async () => {
-      // Stop the current camera
-      this.controls?.stop();
+    document
+      .getElementById('switchCameraButton')
+      ?.addEventListener('click', async () => {
+        // Stop the current camera
+        this.controls?.stop();
 
-      // Move to the next camera
-      currentIndex = (currentIndex + 1) % devices.length;
-      const nextCamera = devices[currentIndex];
+        // Move to the next camera
+        currentIndex = (currentIndex + 1) % devices.length;
+        const nextCamera = devices[currentIndex];
 
-      // Start the next camera
-      this.controls = await this.qrCodeReader!.decodeFromVideoDevice(
-        nextCamera.deviceId,
-        videoElement,
-        (result, error) => {
-          if (result) {
-            this.qrResult = result.getText();
-            this.controls?.stop(); // Stop scanning after detecting a QR code
-          }
-          if (error) {
-            this.messageService.add({
-              severity: 'error',
-              summary: this.translocoService.translate(
-                'cameraComponent.message.qr-scan-error-title'
-              ),
-              detail: this.translocoService.translate(
-                'cameraComponent.message.qr-scan-error-detail'
-              ),
-            });
-          }
-        }
-      );
-    });
+        // Start the next camera
+        this.controls = await this.qrCodeReader!.decodeFromVideoDevice(
+          nextCamera.deviceId,
+          videoElement,
+          (result, error) => {
+            if (result) {
+              this.qrResult = result.getText();
+              this.controls?.stop(); // Stop scanning after detecting a QR code
+            }
+            if (error) {
+              this.messageService.add({
+                severity: 'error',
+                summary: this.translocoService.translate(
+                  'cameraComponent.message.qr-scan-error-title',
+                ),
+                detail: this.translocoService.translate(
+                  'cameraComponent.message.qr-scan-error-detail',
+                ),
+              });
+            }
+          },
+        );
+      });
   }
 
   protected handleInitError(error: WebcamInitError): void {
@@ -230,10 +240,10 @@ export class CameraComponent implements OnInit {
       this.messageService.add({
         severity: 'info',
         summary: this.translocoService.translate(
-          'cameraComponent.message.access-denied-title'
+          'cameraComponent.message.access-denied-title',
         ),
         detail: this.translocoService.translate(
-          'cameraComponent.message.access-denied-detail'
+          'cameraComponent.message.access-denied-detail',
         ),
       });
     }

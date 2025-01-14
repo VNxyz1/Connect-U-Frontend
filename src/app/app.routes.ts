@@ -194,8 +194,8 @@ export const routes: Routes = [
         title: 'Scan QR Code | Connect-U',
         component: CameraComponent,
         canActivate: [isLoggedInGuard],
-      }
-    ]
+      },
+    ],
   },
   {
     path: 'add-friend/:username/:inviteId',

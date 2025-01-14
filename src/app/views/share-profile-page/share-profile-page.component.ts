@@ -12,7 +12,12 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-share-profile',
   standalone: true,
-  imports: [QrCodeAndLinkComponent, AngularRemixIconComponent, PrimeTemplate, TabMenuModule, EventInfoComponent, CameraComponent],
+  imports: [
+    QrCodeAndLinkComponent,
+    AngularRemixIconComponent,
+    PrimeTemplate,
+    TabMenuModule,
+  ],
   templateUrl: './share-profile-page.component.html',
 })
 export class ShareProfilePageComponent implements OnInit {
@@ -23,12 +28,11 @@ export class ShareProfilePageComponent implements OnInit {
   constructor(
     private readonly translocoService: TranslocoService,
     protected router: Router,
-  ){}
+  ) {}
 
   ngOnInit() {
     this.setupTabs();
-    this.activeTabItem = this.getActiveTabItem();
-    this.routeSubscription = this.router.events.subscribe((event) => {
+    this.routeSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.activeTabItem = this.getActiveTabItem();
       }
@@ -56,12 +60,11 @@ export class ShareProfilePageComponent implements OnInit {
             id: 'scan',
             command: () => {
               this.onActiveItemChange(this.tabMenuItems[1]);
-            }
-          }
+            },
+          },
         ];
         this.activeTabItem = this.getActiveTabItem();
-    });
-
+      });
   }
 
   protected onActiveItemChange(newActiveItem: MenuItem): void {
