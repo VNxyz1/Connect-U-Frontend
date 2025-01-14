@@ -256,10 +256,15 @@ h6 {
 
 .p-tabmenu {
   position: sticky !important;
-  top: 0 !important;
-  z-index: 2 !important;
+  top: 5.35rem;
+  z-index: 1 !important;
 }
 
+@media screen and (min-width: 900px) {
+  .p-tabmenu {
+    top: 5.1rem;
+  }
+}
 /* Highlighted tab styling */
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
   border-color: $secondaryColor;
