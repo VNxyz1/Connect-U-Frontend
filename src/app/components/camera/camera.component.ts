@@ -65,7 +65,6 @@ export class CameraComponent implements OnInit {
           (result, error) => {
             if (result) {
               const scannedText = result.getText();
-              console.log('QR Code detected:', scannedText);
 
               if (this.isValidQrCode(scannedText)) {
                 this.qrResult = scannedText;
@@ -134,9 +133,6 @@ export class CameraComponent implements OnInit {
   protected navigateToLink(qrResult: string): void {
     // Get the current domain without protocol
     const currentDomain = globalThis.location.origin;
-    console.log('Current Domain:', currentDomain);
-    console.log('QR Result:', qrResult);
-
     // Validate if the QR result matches the current domain and includes the 'add-friend' path
     if (
       qrResult.startsWith(currentDomain) &&
@@ -144,7 +140,6 @@ export class CameraComponent implements OnInit {
     ) {
       // Remove the domain from the QR result to extract the relative path
       const path = qrResult.replace(/^https?:\/\/[^/]+/, '');
-      console.log('Extracted Path:', path);
 
       // Split the path into segments and filter out empty parts
       const pathSegments = path.split('/').filter(Boolean);
