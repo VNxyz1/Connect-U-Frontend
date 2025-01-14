@@ -68,11 +68,20 @@ export class CameraComponent implements OnInit {
               console.log('QR Code detected:', scannedText);
 
               if (this.isValidQrCode(scannedText)) {
-                this.qrResult = this.extractPath(scannedText); // Extract and format the path
+                this.qrResult = scannedText;
                 this.controls?.stop(); // Stop scanning after detecting a valid QR code
                 this.navigateToLink(this.qrResult);
               } else {
                 this.qrResult = null; // Invalidate the result if it's not valid
+                this.messageService.add({
+                  severity: 'warn',
+                  summary: this.translocoService.translate(
+                    'cameraComponent.message.invalid-qr-code-title',
+                  ),
+                  detail: this.translocoService.translate(
+                    'cameraComponent.message.invalid-qr-code-detail',
+                  ),
+                });
               }
             }
           },
@@ -122,16 +131,9 @@ export class CameraComponent implements OnInit {
     );
   }
 
-  private extractPath(scannedText: string): string {
-    return scannedText.replace(/^https?:\/\//, ''); // Remove 'http://' or 'https://'
-  }
-
   protected navigateToLink(qrResult: string): void {
     // Get the current domain without protocol
-    const currentDomain = globalThis.location.origin.replace(
-      /^https?:\/\/[^/]+/,
-      '',
-    );
+    const currentDomain = globalThis.location.origin;
     console.log('Current Domain:', currentDomain);
     console.log('QR Result:', qrResult);
 
