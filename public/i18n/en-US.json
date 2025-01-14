@@ -954,5 +954,17 @@
     },
     "accept-request": "Accept Friendship Request",
     "already-friends": "You are already friends with {{name}}!"
+  },
+  "inviteByFriends": {
+    "title": "Invitations from Friends",
+    "detail": "You currently have no invitations from your friends.",
+    "acceptTitle": "Invitation Accepted",
+    "acceptDetail": "You have successfully accepted your friend's invitation.",
+    "acceptErrorTitle": "Error Accepting Invitation",
+    "acceptError": "An error occurred.",
+    "denyTitle": "Invitation Declined",
+    "denyMessage": "You have declined your friend's invitation.",
+    "denyErrorTitle": "Error Declining Invitation",
+    "denyErrorMessage": "An error occurred while trying to decline the invitation."
   }
 }

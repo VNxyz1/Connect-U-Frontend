@@ -954,5 +954,17 @@
     },
     "accept-request": "Freundschaftsanfrage annehmen",
     "already-friends": "Du bist bereits mit {{name}} befreundet!"
+  },
+  "inviteByFriends": {
+    "title": "Einladungen von Freunden",
+    "detail": "Du hast derzeit keine Einladungen von deinen Freunden.",
+    "acceptTitle": "Einladung angenommen.",
+    "acceptDetail": "Du hast die Einladung deines Freundes erfolgreich angenommen.",
+    "acceptErrorTitle": "Fehler bei Annahme",
+    "acceptError": "Ein Fehler ist aufgetreten",
+    "denyTitle": "Einladung abgelehnt",
+    "denyMessage": "Du hast die Einladung deines Freundes abgelehnt",
+    "denyErrorTitle":"Fehler beim Ablehnen",
+    "denyErrorMessage": "Es ist ein Fehler aufgetreten beim Versuch, die Einladung abzulehnen."
   }
 }

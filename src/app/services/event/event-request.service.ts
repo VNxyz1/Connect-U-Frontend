@@ -128,7 +128,7 @@ export class EventRequestService {
 
   denyFriendsRequest(requestId:number): Observable<{success:boolean; message:string}>{
     const url = `request/denyInvite/${requestId}`;
-    return this.http.patch<{ success: boolean; message: string }>(url, {}).pipe();
+    return this.http.patch<{ success: boolean; message: string }>(url, {});
   }
 
   /**

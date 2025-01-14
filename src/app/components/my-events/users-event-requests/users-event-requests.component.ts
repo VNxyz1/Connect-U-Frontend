@@ -38,8 +38,11 @@ export class UsersEventRequestsComponent implements OnInit {
     private readonly translocoService: TranslocoService,
   ) {}
   ngOnInit(){
+  this.loadInvites()
+  }
+
+  protected loadInvites(){
     this.invites$ = this.requestService.getInvitationFromFriends();
-    console.log(this.invites$.subscribe())
   }
   protected deleteEventRequest(
     eventTitle: string,
@@ -99,23 +102,50 @@ export class UsersEventRequestsComponent implements OnInit {
   protected denyFriendsRequestedEvent(inviteID:number){
     this.requestService.denyFriendsRequest(inviteID).subscribe({
       next: () => {
-        console.log("successfully denied")
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translocoService.translate(
+            'inviteByFriends.denyTitle'
+          ),
+          detail: this.translocoService.translate(
+            'inviteByFriends.denyMessage'
+          ),
+        });
+        this.loadInvites();
       },
-      error: err => {
-        console.error('Error deleting request:', err);
-      }
-    })
+      error: (err) => {
+        console.error('Error denying invitation:', err);
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translocoService.translate('eventInvite.deny.errorTitle'),
+          detail: this.translocoService.translate('eventInvite.deny.errorMessage'),
+        });
+      },
+    });
   }
 
   protected acceptFriendsRequestedEvent(inviteID:number){
     this.requestService.acceptFriendsRequest(inviteID).subscribe({
-      next: ()=>{
-        console.log("successfully accepted")
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translocoService.translate(
+            'inviteByFriends.acceptTitle'
+          ),
+          detail: this.translocoService.translate(
+            'inviteByFriends.acceptMessage'
+          ),
+        });
       },
-      error: err => {
-        console.error('Error deleting request:', err);
-      }
-    })
+      error: (err) => {
+        console.error('Error denying invitation:', err);
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translocoService.translate('eventInvite.deny.errorTitle'),
+          detail: this.translocoService.translate('eventInvite.deny.errorMessage'),
+        });
+      },
+    });
   }
 
   protected toDate(date: string): Date {
