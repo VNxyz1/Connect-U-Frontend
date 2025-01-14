@@ -57,7 +57,6 @@ function handle401Error(
       }),
       catchError(err => {
         refreshTokenSubject.next(null);
-        // TODO authService.logout();
         return throwError(() => err);
       }),
     );
