@@ -1,5 +1,23 @@
+<p-tabMenu
+  [model]="tabMenuItems"
+  [(activeItem)]="activeTabItem"
+  (activeItemChange)="onActiveItemChange($event)">
+  <ng-template pTemplate="item" let-item>
+    <ng-container>
+      <a [routerLink]="item.route" [state]="item.state" class="p-menuitem-link">
+        <!-- Add icon explicitly -->
+        <rmx-icon
+          style="width: 16px; height: 16px; margin-right: 8px"
+          [name]="item.icon"></rmx-icon>
+        <span class="hidden md:block">{{ item.label }}</span>
+      </a>
+    </ng-container>
+  </ng-template>
+</p-tabMenu>
+
 <div class="flex p-3 mb-2 justify-content-center">
-  <div class="w-full sm:w-9 md:w-8 lg:w-5 xl:w-4">
+  @if (!this.router.url.includes('/scan-qr')) {
     <app-qr-code-and-link />
-  </div>
+  }
+  <router-outlet></router-outlet>
 </div>

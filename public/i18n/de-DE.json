@@ -978,7 +978,9 @@
     "successfullyCopiedMessage": "Dein Einladungslink wurde in die Zwischenablage kopiert.",
     "linkExpired": "Dein Link ist abgelaufen! Generiere jetzt einen neuen!",
     "linkExplanation": "Lasse jetzt eine Person deinen QR-Code Scannen, oder schicke ihr den Link! Der Link ist noch {{ time }} min gültig.",
-    "shareHeader": "Dein Anfrage Link"
+    "shareHeader": "Dein Anfrage Link",
+    "tab-share": "Share",
+    "tab-scan": "Scan"
   },
   "addFriendComponent": {
     "friendship-created": "Du bist nun mit {{name}}  befreundet!",
@@ -990,6 +992,24 @@
     },
     "accept-request": "Freundschaftsanfrage annehmen",
     "already-friends": "Du bist bereits mit {{name}} befreundet!"
+  },
+  "cameraComponent": {
+    "card-header": "QR-Code scannen",
+    "scan-help": "Scanne den QR Code von Nutzern, um sie als Freunde hinzuzufügen!",
+    "message": {
+      "no-camera-detected-title": "Keine Kamera erkannt",
+      "no-camera-detected-detail": "Wir konnten keine Kamera auf deinem Gerät erkennen. Bitte stelle  sicher, dass eine Kamera verfügbar und zugänglich ist.",
+      "initialization-error-title": "Initialisierungsfehler",
+      "initialization-error-detail": "Beim Initialisieren der Kamera ist ein Fehler aufgetreten. Bitte überprüfe deine Kameraberechtigungen und versuche es erneut.",
+      "navigation-error-title": "Navigationsfehler",
+      "navigation-error-detail": "Es gab ein Problem beim Navigieren zum gescannten Link. Bitte versuche es erneut.",
+      "invalid-qr-code-title": "Ungültiger QR-Code",
+      "invalid-qr-code-detail": "Der gescannte QR-Code ist für diese Anwendung nicht gültig.",
+      "qr-scan-error-title": "QR-Code-Scan-Fehler",
+      "qr-scan-error-detail": "Beim Scannen des QR-Codes ist ein Fehler aufgetreten. Bitte stelle sicher, dass der QR-Code klar und innerhalb des Kamerabereichs ist.",
+      "access-denied-title": "Kamerazugriff verweigert",
+      "access-denied-detail": "Du hast den Zugriff auf die Kamera verweigert. Bitte aktiviere die Kameraberechtigungen, um QR-Codes zu scannen."
+    }
   },
   "404": {
     "page-not-found": "Seite nicht gefunden",
