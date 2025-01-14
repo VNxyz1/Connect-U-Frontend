@@ -132,7 +132,7 @@ export class SearchPageComponent implements OnInit {
         typeof form.controls[key].value == 'boolean'
       ) {
         form.controls[key].setValue(JSON.parse(queryParams[key]));
-      } else if (form.controls[key] && key == 'genders') {
+      }else if (form.controls[key] && (key === 'genders' || key === 'categories')) {
         const arr: number[] = [];
 
         if (Array.isArray(queryParams[key])) {
@@ -142,6 +142,7 @@ export class SearchPageComponent implements OnInit {
         } else {
           arr.push(Number(queryParams[key]));
         }
+
         form.controls[key].setValue(arr);
       } else if (form.controls[key]) {
         form.controls[key].setValue(queryParams[key]);
