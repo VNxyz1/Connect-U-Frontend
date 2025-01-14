@@ -76,7 +76,7 @@ export class ResultsPageComponent implements OnInit {
         console.error('Error fetching filtered events:', error);
         this.loading = false;
         return throwError(() => error);
-      })
+      }),
     );
   }
 }

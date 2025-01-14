@@ -19,7 +19,7 @@ import { parseToQueryParams } from '../../utils/parsing/parsing';
 import { Gender } from '../../interfaces/Gender';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import {  map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { SliderModule } from 'primeng/slider';
 
 @Component({
@@ -132,7 +132,10 @@ export class SearchPageComponent implements OnInit {
         typeof form.controls[key].value == 'boolean'
       ) {
         form.controls[key].setValue(JSON.parse(queryParams[key]));
-      }else if (form.controls[key] && (key === 'genders' || key === 'categories')) {
+      } else if (
+        form.controls[key] &&
+        (key === 'genders' || key === 'categories')
+      ) {
         const arr: number[] = [];
 
         if (Array.isArray(queryParams[key])) {
