@@ -14,7 +14,7 @@
             pInputText
             formControlName="title" />
           <label for="event-title">{{
-            'createEventStep1Component.eventTitleInput.label' | transloco
+            'searchPageComponent.eventTitleInput' | transloco
           }}</label>
         </p-floatLabel>
       </div>
@@ -32,7 +32,7 @@
             [showToggleAll]="false"
             styleClass="capitalize"></p-multiSelect>
           <label for="categories">{{
-            'createEventStep1Component.categoriesInput.label' | transloco
+            'searchPageComponent.categoriesInput' | transloco
           }}</label>
         </p-floatLabel>
       </div>
@@ -44,7 +44,7 @@
             id="tags-input"
             [placeholder]="
               fetchedTags.length == 0
-                ? ('createEventStep1Component.tagsInput.label' | transloco)
+                ? ('searchPageComponent.tagsInput' | transloco)
                 : ''
             "
             formControlName="tags"

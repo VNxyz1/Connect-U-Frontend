@@ -130,6 +130,10 @@
     }
   },
   "searchPageComponent": {
+    "eventTitleInput": "nach Titel filtern",
+    "tagsInput": "nach Tags filtern",
+    "categoriesInput": "nach Kategorien filtern",
+    "gendersInput": "Select with which genders you want to attend the event",
     "isOnline": "Online-Events",
     "isInPlace": "Events vor Ort",
     "isPublic": "öffentliche Events",

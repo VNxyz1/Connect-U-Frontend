@@ -130,6 +130,9 @@
     }
   },
   "searchPageComponent": {
+    "eventTitleInput": "filter by title",
+    "tagsInput": "filter by tags",
+    "categoriesInput": "filter by categories",
     "isOnline": "Online Events",
     "isInPlace": "In-Person Events",
     "isPublic": "Public Events",
