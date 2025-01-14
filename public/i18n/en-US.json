@@ -1,4 +1,5 @@
 {
+  "serverUnavailable": "The server is currently unavailable. Please try again later.",
   "profilePictureAlt": "Profile picture",
   "homepage": {
     "title": "Events for You",
@@ -978,6 +979,10 @@
       "access-denied-title": "Camera Access Denied",
       "access-denied-detail": "You denied camera access. Please enable camera permissions to scan QR codes."
     }
+  },
+  "404": {
+    "page-not-found": "Page Not Found",
+    "page-not-found-detail": "We couldn't find that page! Not even with x-ray vision.",
+    "back-to-home": "Zur Startseite"
   }
-
 }
