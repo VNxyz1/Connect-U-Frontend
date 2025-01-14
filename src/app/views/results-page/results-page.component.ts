@@ -11,12 +11,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EventCardComponent } from '../../components/event-card/event-card.component';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { EventSearchService } from '../../services/event/event-search.service';
-import { Observable } from 'rxjs';
+import { Observable, tap, throwError } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { AsyncPipe } from '@angular/common';
 import { Button } from 'primeng/button';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { catchError, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-results-page',
@@ -47,6 +48,7 @@ export class ResultsPageComponent implements OnInit {
   ) {}
 
   loading = true;
+  totalCount: number = 0;
   events$!: Observable<EventCardItem[]>;
   params: Params = { page: 1 };
 
@@ -63,7 +65,19 @@ export class ResultsPageComponent implements OnInit {
 
   fetchFilteredEvents(params: any): void {
     this.loading = true;
-    this.events$ = this.eventSearchService.getFilteredEvents(params);
-    this.loading = false;
+
+    this.events$ = this.eventSearchService.getFilteredEvents(params).pipe(
+      tap(({ totalCount }) => {
+        this.totalCount = totalCount;
+        console.log(totalCount);
+        this.loading = false;
+      }),
+      map(({ events }) => events),
+      catchError((error: any) => {
+        console.error('Error fetching filtered events:', error);
+        this.loading = false;
+        return throwError(() => error);
+      })
+    );
   }
 }

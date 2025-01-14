@@ -17,9 +17,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { parseToQueryParams } from '../../utils/parsing/parsing';
 import { Gender } from '../../interfaces/Gender';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { debounceTime, map } from 'rxjs/operators';
+import {  map } from 'rxjs/operators';
 import { SliderModule } from 'primeng/slider';
 
 @Component({

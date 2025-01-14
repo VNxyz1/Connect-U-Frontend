@@ -5,7 +5,7 @@
   <div class="grid justify-content-between">
     <span
       class="col-fixed text-2xl block md:px-2 mb-2 mt-2 ml-3 text-color-secondary">
-      {{ (events$ | async)?.length || 0 }}
+      {{ totalCount }}
       {{ 'resultsPageComponent.eventsFound' | transloco }}
     </span>
     <div class="col-fixed mt-2 mb-2 mr-5">
