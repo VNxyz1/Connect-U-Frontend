@@ -69,7 +69,6 @@ export class ResultsPageComponent implements OnInit {
     this.events$ = this.eventSearchService.getFilteredEvents(params).pipe(
       tap(({ totalCount }) => {
         this.totalCount = totalCount;
-        console.log(totalCount);
         this.loading = false;
       }),
       map(({ events }) => events),

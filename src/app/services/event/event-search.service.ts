@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SearchParams } from '../../interfaces/SearchParams';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
@@ -37,12 +37,16 @@ export class EventSearchService {
         map(response => {
           const { events, total } = response;
           const totalCount = total;
-          console.log(totalCount);
           return { events, totalCount };
         }),
         catchError(error => {
-          console.error('Error fetching filtered events:', error);
-          return throwError(() => error);
+          if (error.status === 404) {
+            return of({ events: [], totalCount: 0 });
+          }
+           else {
+            console.error('Error fetching filtered events:', error);
+            return throwError(() => error);
+          }
         }),
       );
   }
