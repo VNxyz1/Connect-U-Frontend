@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { CarouselModule } from 'primeng/carousel';
 import { EventService } from '../../services/event/eventservice';
-import { Button } from 'primeng/button';
 import { EventCardComponent } from '../event-card/event-card.component';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { catchError } from 'rxjs/operators';
@@ -16,7 +15,6 @@ import { SkeletonModule } from 'primeng/skeleton';
   imports: [
     AsyncPipe,
     CarouselModule,
-    Button,
     EventCardComponent,
     TranslocoPipe,
     SkeletonModule,
@@ -31,9 +29,12 @@ export class UpcomingEventsCarouselComponent implements OnInit {
   constructor(private eventService: EventService) {}
 
   ngOnInit() {
-    this.events$ = this.eventService
-      .getUpcomingEvents()
-      .pipe(catchError((error: Error) => of([])));
+    this.events$ = this.eventService.getUpcomingEvents().pipe(
+      catchError((error: Error) => {
+        console.log('waaaa', error);
+        return of([]);
+      }),
+    );
 
     this.innerWidth = window.innerWidth;
 
