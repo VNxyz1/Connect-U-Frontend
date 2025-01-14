@@ -30,6 +30,7 @@ import { TermsPageComponent } from './views/terms-page/terms-page.component';
 import { EventChatComponent } from './components/event-detail/event-chat/event-chat.component';
 import { ShareProfilePageComponent } from './views/share-profile-page/share-profile-page.component';
 import { AddFriendComponent } from './views/add-friend/add-friend.component';
+import { ServerUnavailablePageComponent } from './views/server-unavailable-page/server-unavailable-page.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -41,6 +42,11 @@ export const routes: Routes = [
     title: 'Home | Connect-U',
     component: HomePageComponent,
     canActivate: [isLoggedInGuard],
+  },
+  {
+    path: 'unavailable',
+    title: 'Server unavailable | Connect-U',
+    component: ServerUnavailablePageComponent,
   },
   {
     path: 'welcome',
