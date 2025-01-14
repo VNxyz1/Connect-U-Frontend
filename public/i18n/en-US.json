@@ -946,7 +946,9 @@
     "successfullyCopiedMessage": "Your invitation link has been copied to the clipboard.",
     "linkExpired": "Your link has expired! Generate a new one now!",
     "linkExplanation": "Let someone scan your QR code now or send them the link! The link is valid for another {{ time }} minutes.",
-    "shareHeader": "Your personal invite"
+    "shareHeader": "Your personal invite",
+    "tab-share": "Share",
+    "tab-scan": "Scan"
   },
   "addFriendComponent": {
     "friendship-created": "You are now friends with {{name}}!",
@@ -958,5 +960,24 @@
     },
     "accept-request": "Accept Friendship Request",
     "already-friends": "You are already friends with {{name}}!"
+  },
+  "cameraComponent": {
+    "card-header": "Scan QR Code",
+    "scan-help": "Scan the QR code of users to add them as a friend!",
+    "message": {
+      "no-camera-detected-title": "No Camera Detected",
+      "no-camera-detected-detail": "We could not detect any cameras on your device. Please ensure a camera is available and accessible.",
+      "initialization-error-title": "Initialization Error",
+      "initialization-error-detail": "An error occurred while initializing the camera. Please check your camera permissions and try again.",
+      "navigation-error-title": "Navigation Error",
+      "navigation-error-detail": "We encountered an issue navigating to the scanned link. Please try again.",
+      "invalid-qr-code-title": "Invalid QR Code",
+      "invalid-qr-code-detail": "The scanned QR code is not valid for this application.",
+      "qr-scan-error-title": "QR Code Scan Error",
+      "qr-scan-error-detail": "An error occurred while scanning the QR code. Please ensure the QR code is clear and within view of the camera.",
+      "access-denied-title": "Camera Access Denied",
+      "access-denied-detail": "You denied camera access. Please enable camera permissions to scan QR codes."
+    }
   }
+
 }

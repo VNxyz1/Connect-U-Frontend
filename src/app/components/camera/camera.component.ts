@@ -8,11 +8,12 @@ import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { window } from 'rxjs';
 import { Router } from '@angular/router';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-camera',
   standalone: true,
-  imports: [WebcamModule, TranslocoPipe, AngularRemixIconComponent, Button, PrimeTemplate, CardModule],
+  imports: [WebcamModule, TranslocoPipe, AngularRemixIconComponent, Button, PrimeTemplate, CardModule, SkeletonModule],
   templateUrl: './camera.component.html',
 })
 export class CameraComponent implements OnInit {
@@ -20,6 +21,7 @@ export class CameraComponent implements OnInit {
   private controls: IScannerControls | null = null;
   protected qrResult: string | null = null;
   protected allowCameraSwitching = false;
+  protected loading: boolean = true;
 
   constructor(
     private readonly messageService: MessageService,
@@ -55,11 +57,9 @@ export class CameraComponent implements OnInit {
         });
         return;
       }
-
       const videoElement = document.getElementById('video') as HTMLVideoElement;
 
       if (videoElement) {
-        console.log('Using video device:', selectedCamera.label);
 
         // Start the selected camera
         this.controls = await this.qrCodeReader.decodeFromVideoDevice(
@@ -76,15 +76,22 @@ export class CameraComponent implements OnInit {
                 this.navigateToLink(this.qrResult);
               } else {
                 this.qrResult = null; // Invalidate the result if it's not valid
+
               }
-            }
-            if (error) {
-              console.warn('QR Code scanning error:', error);
             }
           }
         );
+        this.loading = false;
       } else {
-        console.error('Video element not found.');
+        this.messageService.add({
+          severity: 'warn',
+          summary: this.translocoService.translate(
+            'cameraComponent.message.initialization-error-title'
+          ),
+          detail: this.translocoService.translate(
+            'cameraComponent.message.initialization-error-detail'
+          ),
+        });
       }
 
       // Allow camera switching only if there is no back camera
@@ -93,7 +100,6 @@ export class CameraComponent implements OnInit {
         this.setupCameraSwitching(videoInputDevices as MediaDeviceInfo[], videoElement);
       }
     } catch (error) {
-      console.error('Error initializing QR code scanner:', error);
       this.messageService.add({
         severity: 'error',
         summary: this.translocoService.translate(
@@ -193,7 +199,6 @@ export class CameraComponent implements OnInit {
       // Move to the next camera
       currentIndex = (currentIndex + 1) % devices.length;
       const nextCamera = devices[currentIndex];
-      console.log('Switching to video device:', nextCamera.label);
 
       // Start the next camera
       this.controls = await this.qrCodeReader!.decodeFromVideoDevice(
@@ -211,7 +216,7 @@ export class CameraComponent implements OnInit {
                 'cameraComponent.message.qr-scan-error-title'
               ),
               detail: this.translocoService.translate(
-                'cameraComponent.message.qr-scan-error-title'
+                'cameraComponent.message.qr-scan-error-detail'
               ),
             });
           }
@@ -237,6 +242,4 @@ export class CameraComponent implements OnInit {
   ngOnDestroy(): void {
     this.controls?.stop(); // Ensure the scanner is stopped when the component is destroyed
   }
-
-  protected readonly window = window;
 }

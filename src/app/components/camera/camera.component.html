@@ -1,29 +1,29 @@
-<p-card [header]="'cameraComponent.cardHeader' | transloco" class="w-full max-w-30rem mx-auto">
+<p-card [header]="'cameraComponent.card-header' | transloco" class="w-full max-w-30rem mx-auto">
   <div class="grid">
+
     <!-- Video Section -->
     <div class="col-12">
       <div class="flex justify-content-center">
-        <video class="w-full max-w-100 max-h-screen border-round" id="video" autoplay></video>
+        <video
+          class="w-20rem md:w-30rem h-auto border-round"
+          id="video"
+          autoplay
+          [hidden]="loading"
+        ></video>
+        @if (loading) {
+          <p-skeleton
+            width="20rem"
+            height="20rem"
+            styleClass="max-h-screen border-round"
+            shape="rectangle"
+          ></p-skeleton>
+        }
       </div>
     </div>
 
-    <!-- QR Code Result Section -->
-    <div class="col-12 text-center mt-3">
-      <h2>{{ 'cameraComponent.scanResultTitle' | transloco }}</h2>
-      @if (!qrResult) {
-        <p>{{ 'cameraComponent.noScanResult' | transloco }}</p>
-      }
+    <!-- Scan Help Text -->
+    <div class="col-12 text-center mt-2">
+      <p>{{ 'cameraComponent.scan-help' | transloco }}</p>
     </div>
-
-    <!-- Camera Switching Button -->
-    @if (allowCameraSwitching) {
-      <div class="col-12 flex justify-content-center mt-3">
-        <p-button id="switchCameraButton" raised severity="secondary">
-          <ng-template pTemplate="icon">
-            <rmx-icon style="width: 16px; height: 16px" name="camera-switch-line"></rmx-icon>
-          </ng-template>
-        </p-button>
-      </div>
-    }
   </div>
 </p-card>

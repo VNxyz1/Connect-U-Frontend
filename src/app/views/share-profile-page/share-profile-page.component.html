@@ -19,12 +19,10 @@
 </p-tabMenu>
 
 <div class="flex p-3 mb-2 justify-content-center">
-    @if (activeTabItem && activeTabItem.id == 'share') {
-      <app-qr-code-and-link />
-    } @else if (activeTabItem && activeTabItem.id == 'scan') {
-      <app-camera />
-    }
+  @if (!this.router.url.includes('/scan-qr')) {
+    <app-qr-code-and-link />
+  }
+  <router-outlet></router-outlet>
 </div>
 
-  <router-outlet></router-outlet>
 
