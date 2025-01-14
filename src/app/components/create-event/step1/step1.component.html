@@ -2,7 +2,42 @@
   <div class="p-grid p-fluid column-gap-3">
     <!-- Event Type Selection -->
     <div
-      class="p-col-12 p-md-6 field flex flex-wrap gap-3 lg:gap-8 align-items-center justify-content-center">
+      class="p-col-12 p-md-6 field flex flex-wrap gap-3 lg:gap-6 align-items-center justify-content-center">
+      <!-- image for event  -->
+      <div class="flex col-12 justify-content-center">
+        <!-- Image Preview -->
+        <div style="position: relative">
+          <img
+            [src]="uploadedImagePreview || '/images/placeholder-image.jpg'"
+            alt="Eventbild"
+            class="cursor-pointer border-round shadow-2"
+            style="
+              width: 350px;
+              height: 250px;
+              object-fit: cover;
+              border: 4px solid #ccc;
+            "
+            (click)="triggerFileInput()" />
+          @if (uploadedImagePreview) {
+            <p-button
+              class="absolute -ml-4 -mt-3"
+              icon="true"
+              [raised]="true"
+              (click)="removeImage()">
+              <rmx-icon
+                name="close-line"
+                style="width: 25px; height: 25px"></rmx-icon>
+            </p-button>
+          }
+        </div>
+        <!-- Hidden File Input -->
+        <input
+          type="file"
+          accept=".jpg, .jpeg, .png, .gif"
+          #fileInput
+          style="display: none"
+          (change)="onFileSelected($event)" />
+      </div>
       <div class="flex align-items-center">
         <p-radioButton
           name="event-type"
