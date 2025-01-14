@@ -1,19 +1,8 @@
-<div class="mt-4 border-bottom-2 border-gray-50 z-4">
-  <div class="flex align-items-center justify-content-between w-full mb-3">
+<div class="border-bottom-2 border-gray-50 z-4 sticky top-0 bg-main">
+  <div
+    class="flex align-items-center justify-content-between w-full pt-4 md:pt-3 mb-1 md:mb-2">
     <div class="col align-items-center justify-content-start">
-      @if (currentUrl?.includes('create-event')) {
-        <p-button
-          [text]="true"
-          severity="primary"
-          (click)="closeProcess()"
-          class="mr-3">
-          <ng-template pTemplate="icon">
-            <rmx-icon
-              style="width: 24px; height: 24px"
-              name="close-line"></rmx-icon>
-          </ng-template>
-        </p-button>
-      } @else if (currentUrl?.includes('results')) {
+      @if (currentUrl?.includes('results')) {
         <p-button
           [text]="true"
           severity="primary"
@@ -25,7 +14,23 @@
               name="arrow-left-s-line"></rmx-icon>
           </ng-template>
         </p-button>
-      } @else {
+      } @else if (currentUrl?.includes('create-event')) {
+        <p-button
+          [text]="true"
+          severity="primary"
+          (click)="closeProcess()"
+          class="mr-3">
+          <ng-template pTemplate="icon">
+            <rmx-icon
+              style="width: 24px; height: 24px"
+              name="close-line"></rmx-icon>
+          </ng-template>
+        </p-button>
+      } @if (
+        currentUrl !== '/' &&
+        !currentUrl?.includes('create-event') &&
+        !currentUrl?.includes('unavailable')
+      ) {
         <p-button
           [text]="true"
           severity="primary"
@@ -89,7 +94,7 @@
         @default {
           <p-image
             src="images/logo_full_dark.svg"
-            imageClass="max-w-20rem"
+            imageClass="max-w-12rem"
             alt="Connect-U Logo" />
         }
       }

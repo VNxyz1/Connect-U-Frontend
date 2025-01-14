@@ -42,6 +42,7 @@ export class Step3Component implements OnInit {
   ageValues: (number | undefined)[] = [16, 99];
   private ageChangeSubject = new Subject<{ index: number; value: number }>();
   submitted: boolean = false;
+  eventImage: File | null = null;
   private readonly unsubscribe$ = new Subject<void>();
 
   constructor(
@@ -67,6 +68,22 @@ export class Step3Component implements OnInit {
 
     await this.loadGenders();
     await this.insertValuesAgain();
+    await this.loadImageFromStorage();
+  }
+
+  async loadImageFromStorage(): Promise<void> {
+    try {
+      const storedBase64Image = await this.eventService.getEventImage(); // Aus StorageService laden
+      if (storedBase64Image) {
+        this.eventImage = await this.base64ToFile(
+          storedBase64Image,
+          'eventImage.jpg',
+        );
+        console.log('Event image loaded:', this.eventImage);
+      }
+    } catch (error) {
+      console.error('Error loading event image:', error);
+    }
   }
 
   private async loadGenders() {
@@ -250,13 +267,20 @@ export class Step3Component implements OnInit {
               { title: this.title },
             ),
           });
+          if (this.eventImage) {
+            const formData = new FormData();
+            formData.append('file', this.eventImage);
 
-          setTimeout(() => {
-            this.router.navigate([`../../event/${eventId}`], {
-              relativeTo: this.route,
-              queryParams: { fromCreate: true },
+            this.eventService.postEventImage(eventId, formData).subscribe({
+              next: data => console.log(data),
             });
-          }, 2000);
+            this.eventService.removeEventImage().then(r => {
+              console.log(r);
+              this.navigateToEvent(eventId);
+            });
+          } else {
+            this.navigateToEvent(eventId);
+          }
         } else {
           throw new Error(
             this.translocoService.translate(
@@ -279,6 +303,15 @@ export class Step3Component implements OnInit {
         return;
       },
     });
+  }
+
+  private navigateToEvent(eventId: string): void {
+    setTimeout(() => {
+      this.router.navigate(['/event', eventId], {
+        relativeTo: this.route,
+        queryParams: { fromCreate: true },
+      });
+    }, 2000);
   }
 
   protected prevPage() {
@@ -309,4 +342,13 @@ export class Step3Component implements OnInit {
   }
 
   protected readonly KeyboardEvent = KeyboardEvent;
+  private base64ToFile(base64: string, fileName: string): File {
+    const byteString = atob(base64.split(',')[1]);
+    const mimeType = base64.split(',')[0].match(/:(.*?);/)?.[1] || 'image/jpeg';
+    const byteNumbers = new Array(byteString.length)
+      .fill(0)
+      .map((_, i) => byteString.charCodeAt(i));
+    const byteArray = new Uint8Array(byteNumbers);
+    return new File([byteArray], fileName, { type: mimeType });
+  }
 }

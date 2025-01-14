@@ -66,28 +66,36 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.userService.getUserData().subscribe({
-        next: data => {
-          this.socket.connectUser(data.id);
-        },
-        error: err => {
-          console.error('Failed to fetch user data:', err);
-        },
-      });
-      this.initStorage(); // Initialize storage
-    }
-
-    this.isLoggedIn = this.auth.isLoggedIn();
-
     this.currentUrl = this.router.url;
-
     // Listen to route changes
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.currentUrl = event.url;
       });
+
+    this.auth.checkBackendHealth().subscribe({
+      error: () => this.router.navigate(['/unavailable']),
+      next: data => {
+        if (!data.ok) {
+          this.router.navigate(['/unavailable']);
+        } else {
+          if (isPlatformBrowser(this.platformId)) {
+            this.userService.getUserData().subscribe({
+              next: data => {
+                this.socket.connectUser(data.id);
+              },
+              error: err => {
+                console.error('Failed to fetch user data:', err);
+              },
+            });
+            this.initStorage(); // Initialize storage
+          }
+
+          this.isLoggedIn = this.auth.isLoggedIn();
+        }
+      },
+    });
   }
 
   async initStorage(): Promise<void> {

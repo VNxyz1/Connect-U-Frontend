@@ -111,4 +111,8 @@ export class AuthService {
         }),
       );
   }
+
+  checkBackendHealth() {
+    return this.http.get<{ ok: boolean; message: string }>('health');
+  }
 }

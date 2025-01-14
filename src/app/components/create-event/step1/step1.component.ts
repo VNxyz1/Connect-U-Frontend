@@ -1,4 +1,11 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ChangeDetectorRef,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { Button } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -52,6 +59,10 @@ export class Step1Component implements OnInit, OnDestroy {
   private readonly unsubscribe$ = new Subject<void>();
   results: string[] = [];
 
+  @ViewChild('fileInput') fileInput!: ElementRef;
+  uploadedFile: File | null = null;
+  uploadedImagePreview: string | null = null;
+
   constructor(
     public eventService: EventService,
     private readonly router: Router,
@@ -89,11 +100,15 @@ export class Step1Component implements OnInit, OnDestroy {
   private async insertValuesAgain() {
     try {
       const savedData = await this.eventService.getEventCreateInformation();
+      const savedImage = await this.eventService.getEventImage();
+
       this.eventType = savedData.type || 1;
       this.eventTitle = savedData.title || '';
       this.description = savedData.description || '';
       this.selectedCategories = savedData.categories || [];
       this.tags = savedData.tags || [];
+      this.uploadedImagePreview = savedImage || null;
+      console.log(savedImage);
       this.cdr.detectChanges();
     } catch (error) {
       console.error('Error loading saved data:', error);
@@ -112,6 +127,65 @@ export class Step1Component implements OnInit, OnDestroy {
           'createEventStep1Component.messages.categoryLimitDetail',
         ),
         life: 3000,
+      });
+    }
+  }
+  triggerFileInput(): void {
+    this.fileInput.nativeElement.click();
+  }
+
+  onFileSelected(event: any): void {
+    const file: File = event.target.files[0];
+    const allowedFileTypes = ['image/png', 'image/jpeg', 'image/gif'];
+
+    if (file && allowedFileTypes.includes(file.type)) {
+      if (file.size > 5242880) {
+        // Max size 5MB
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translocoService.translate(
+            'createEventStep1Component.errorMessages.sizedErrorTitle',
+          ),
+          detail: this.translocoService.translate(
+            'createEventStep1Component.errorMessages.sizedError',
+          ),
+        });
+        return;
+      }
+
+      // Datei als Blob speichern
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const base64Image = reader.result as string;
+
+        try {
+          await this.eventService.setEventImage(base64Image);
+          this.uploadedImagePreview = base64Image;
+        } catch (e) {
+          console.error('Fehler beim Speichern des Bildes:', e);
+          this.messageService.add({
+            severity: 'error',
+            summary: this.translocoService.translate(
+              'createEventStep1Component.errorMessages.couldntBeSavedTitle',
+            ),
+            detail: this.translocoService.translate(
+              this.translocoService.translate(
+                'createEventStep1Component.errorMessages.couldntBeSaved',
+              ),
+            ),
+          });
+        }
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: this.translocoService.translate(
+          'createEventStep1Component.errorMessages.wrongFormatTitle',
+        ),
+        detail: this.translocoService.translate(
+          'createEventStep1Component.errorMessages.wrongFormat',
+        ),
       });
     }
   }
@@ -183,6 +257,20 @@ export class Step1Component implements OnInit, OnDestroy {
         tokenInput.value = '';
       }
     }
+  }
+  removeImage(): void {
+    this.eventService.removeEventImage();
+    this.uploadedImagePreview = null;
+    this.uploadedFile = null;
+    this.messageService.add({
+      severity: 'info',
+      summary: this.translocoService.translate(
+        'createEventStep1Component.messages.removedImageTitle',
+      ),
+      detail: this.translocoService.translate(
+        'createEventStep1Component.messages.removedImage',
+      ),
+    });
   }
 
   blurTagInput() {
