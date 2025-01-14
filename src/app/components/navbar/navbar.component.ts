@@ -14,16 +14,16 @@ import { filter } from 'rxjs/operators';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
-import {AsyncPipe, NgClass} from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { ImageModule } from 'primeng/image';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TranslocoService } from '@jsverse/transloco';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
-import {PushNotificationService} from '../../services/push-notification/push-notification.service';
-import {Observable} from 'rxjs';
-import {BadgeModule} from 'primeng/badge';
+import { PushNotificationService } from '../../services/push-notification/push-notification.service';
+import { Observable } from 'rxjs';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
   selector: 'app-navbar',
@@ -86,7 +86,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
             this.isMd = breakpoints['(max-width: 1085px)'] || false;
           });
       });
-    this.myEventsPushNotifications$ = this.pushNotifications.getNavbarMyEvents();
+    this.myEventsPushNotifications$ =
+      this.pushNotifications.getNavbarMyEvents();
   }
 
   ngAfterViewInit() {
