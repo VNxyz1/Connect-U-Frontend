@@ -33,7 +33,7 @@ import { AddFriendComponent } from './views/add-friend/add-friend.component';
 import { QrCodeAndLinkComponent } from './components/qr-code-and-link/qr-code-and-link.component';
 import { CameraComponent } from './components/camera/camera.component';
 import { ServerUnavailablePageComponent } from './views/server-unavailable-page/server-unavailable-page.component';
-import {MyFriendsComponent} from './views/my-friends/my-friends.component';
+import { MyFriendsComponent } from './views/my-friends/my-friends.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)

@@ -16,12 +16,11 @@
       <ul class="list-none p-0 m-0 w-full">
         <!-- my friends -->
         <li
-        class="p-3 pt-0 pb-4 w-full col-12 border-bottom-1 border-gray-50 flex justify-content-between align-items-center cursor-pointer"
-        [routerLink]="['/my-friends']"
-        >
+          class="p-3 pt-0 pb-4 w-full col-12 border-bottom-1 border-gray-50 flex justify-content-between align-items-center cursor-pointer"
+          [routerLink]="['/my-friends']">
           <div class="flex align-items-center">
-            <rmx-icon class="mr-2" name="group-line"/>
-            <span>{{'mySpacePage.listing.myFriends' | transloco}}</span>
+            <rmx-icon class="mr-2" name="group-line" />
+            <span>{{ 'mySpacePage.listing.myFriends' | transloco }}</span>
           </div>
           <rmx-icon
             name="arrow-right-s-line"

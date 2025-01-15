@@ -14,9 +14,7 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
     AvatarModule,
     TranslocoPipe,
     AngularRemixIconComponent,
-    PrimeTemplate,
     NgClass,
-    TranslocoDatePipe,
   ],
   templateUrl: './event-message.component.html',
 })
