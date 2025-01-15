@@ -39,7 +39,11 @@ export class PushNotificationService {
     this.connectHostedEventsSocket();
   }
 
-  getNavbarMyEvents() {
+  /**
+   * Combines notification counts from hosted and guest events for the navbar.
+   * @returns {Observable<number>} Observable emitting the total notification count.
+   */
+  getNavbarMyEvents(): Observable<number> {
     return combineLatest([
       this.getMyEventsGuest(),
       this.getMyEventsHost(),
@@ -50,27 +54,47 @@ export class PushNotificationService {
     );
   }
 
-  getMyEventsGuest() {
+  /**
+   * Retrieves the total number of notifications for guest events.
+   * @returns {Observable<number>} Observable emitting the total number of guest event notifications.
+   */
+  getMyEventsGuest(): Observable<number> {
     return this.hostedEventsListSubject
       .asObservable()
       .pipe(this.mapToNotificationNumber());
   }
 
-  getMyEventsHost() {
+  /**
+   * Retrieves the total number of notifications for hosted events.
+   * @returns {Observable<number>} Observable emitting the total number of hosted event notifications.
+   */
+  getMyEventsHost(): Observable<number> {
     return this.guestEventsListSubject
       .asObservable()
       .pipe(this.mapToNotificationNumber());
   }
 
-  getHostedEventsList() {
+  /**
+   * Retrieves the list of hosted events and their notification counts.
+   * @returns {Observable<Map<string, number>>} Observable emitting a map of hosted event IDs and their notification counts.
+   */
+  getHostedEventsList(): Observable<Map<string, number>> {
     return this.hostedEventsListSubject.asObservable();
   }
 
-  getGuestEventsList() {
+  /**
+   * Retrieves the list of guest events and their notification counts.
+   * @returns {Observable<Map<string, number>>} Observable emitting a map of guest event IDs and their notification counts.
+   */
+  getGuestEventsList(): Observable<Map<string, number>> {
     return this.guestEventsListSubject.asObservable();
   }
 
-  getCompleteEventList() {
+  /**
+   * Combines the notification counts from both hosted and guest event lists.
+   * @returns {Observable<Map<string, number>>} Observable emitting a combined map of all event IDs and their notification counts.
+   */
+  getCompleteEventList(): Observable<Map<string, number>> {
     return combineLatest([
       this.getHostedEventsList(),
       this.getGuestEventsList(),
@@ -84,6 +108,10 @@ export class PushNotificationService {
     );
   }
 
+  /**
+   * Clears the notification count for a specific event.
+   * @param {string} eventId - The ID of the event to clear notifications for.
+   */
   clearEvent(eventId: string) {
     const guest = this.guestEventsListSubject.getValue();
     const hosted = this.hostedEventsListSubject.getValue();
@@ -96,6 +124,9 @@ export class PushNotificationService {
     }
   }
 
+  /**
+   * Establishes a socket connection to listen for new chat messages and updates notification counts.
+   */
   private connectHostedEventsSocket() {
     this.socket
       .on('newChatMessages')
@@ -124,7 +155,11 @@ export class PushNotificationService {
       });
   }
 
-  private loadPushNotifications() {
+  /**
+   * Loads initial push notifications for both hosted and guest events.
+   * @returns {Observable<void>} Observable that completes when notifications are loaded.
+   */
+  private loadPushNotifications(): Observable<void> {
     return combineLatest([
       this.http.get('push-notification/host').pipe(
         this.pipeMap(),
@@ -151,6 +186,10 @@ export class PushNotificationService {
     ]).pipe(map(() => void 0));
   }
 
+  /**
+   * Maps raw response data into a Map of event IDs and their notification counts.
+   * @returns {OperatorFunction<any, Map<string, number>>} Operator function to transform response data.
+   */
   private pipeMap(): OperatorFunction<any, Map<string, number>> {
     return map((data: any) => {
       const resultMap = new Map<string, number>();
@@ -163,12 +202,20 @@ export class PushNotificationService {
     });
   }
 
+  /**
+   * Catches errors and returns an empty map as a fallback.
+   * @returns {OperatorFunction<any, Map<string, number>>} Operator function to handle errors.
+   */
   private catchErrorToEmptyMap(): OperatorFunction<any, Map<string, number>> {
     return catchError(() => {
       return of(new Map<string, number>());
     });
   }
 
+  /**
+   * Maps a Map of event IDs to their total notification count.
+   * @returns {OperatorFunction<Map<string, number>, number>} Operator function to calculate total notifications.
+   */
   private mapToNotificationNumber() {
     return map((events: Map<string, number>) => {
       let count = 0;
@@ -179,7 +226,11 @@ export class PushNotificationService {
     });
   }
 
-  private fillMaps() {
+  /**
+   * Initializes maps for hosted and guest events with their IDs and default notification counts.
+   * @returns {Observable<void>} Observable that completes when maps are initialized.
+   */
+  private fillMaps(): Observable<void> {
     return combineLatest([
       this.eventService.getHostingEvents().pipe(
         this.fillMapsPipe(),
@@ -198,7 +249,11 @@ export class PushNotificationService {
     ]).pipe(map(() => void 0));
   }
 
-  private fillMapsPipe() {
+  /**
+   * Transforms a list of event card items into a Map with event IDs as keys and default notification counts as values.
+   * @returns {OperatorFunction<EventCardItem[], Map<string, number>>} Operator function for transformation.
+   */
+  private fillMapsPipe(): OperatorFunction<EventCardItem[], Map<string, number>> {
     return map((data: EventCardItem[]) => {
       const resultMap = new Map<string, number>();
       for (const event of data) {
@@ -208,6 +263,9 @@ export class PushNotificationService {
     });
   }
 
+  /**
+   * Initializes the push notification service by filling maps and loading notifications.
+   */
   private initializePushNotifications() {
     this.fillMaps()
       .pipe(concatMap(() => this.loadPushNotifications()))
