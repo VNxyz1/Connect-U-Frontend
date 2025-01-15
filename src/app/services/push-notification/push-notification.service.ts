@@ -3,15 +3,19 @@ import {
   BehaviorSubject,
   combineLatest,
   concatMap,
+  Observable,
   of,
   OperatorFunction,
   tap,
+  withLatestFrom,
 } from 'rxjs';
 import { SocketService } from '../socket/socket.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { EventService } from '../event/eventservice';
 import { EventCardItem } from '../../interfaces/EventCardItem';
+import { AppRoutes } from '../../interfaces/AppRoutes';
+import { CurrentUrlService } from '../current-url/current-url.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,11 +26,15 @@ export class PushNotificationService {
   private guestEventsListSubject: BehaviorSubject<Map<string, number>> =
     new BehaviorSubject<Map<string, number>>(new Map<string, number>());
 
+  private currentUrl$!: Observable<string>;
+
   constructor(
     private socket: SocketService,
     private eventService: EventService,
     private http: HttpClient,
+    private readonly currentUrl: CurrentUrlService,
   ) {
+    this.currentUrl$ = this.currentUrl.get();
     this.initializePushNotifications();
     this.connectHostedEventsSocket();
   }
@@ -89,21 +97,31 @@ export class PushNotificationService {
   }
 
   private connectHostedEventsSocket() {
-    this.socket.on('newChatMessages').subscribe({
-      next: (eventId: string) => {
-        const hosted = this.hostedEventsListSubject.getValue();
-        const guest = this.guestEventsListSubject.getValue();
-        if (hosted.has(eventId)) {
-          const count = hosted.get(eventId) || 0;
-          hosted.set(eventId, count + 1);
-          this.hostedEventsListSubject.next(hosted);
-        } else if (guest.has(eventId)) {
-          const count = guest.get(eventId) || 0;
-          guest.set(eventId, count + 1);
-          this.guestEventsListSubject.next(guest);
-        }
-      },
-    });
+    this.socket
+      .on('newChatMessages')
+      .pipe(
+        withLatestFrom(this.currentUrl$),
+        map(([eventId, currentUrl]) => {
+          const ignoreUrl = AppRoutes.EVENT.replace(':id', eventId);
+          const includesEventId = currentUrl.includes(ignoreUrl);
+          return includesEventId ? '' : eventId;
+        }),
+      )
+      .subscribe({
+        next: (eventId: string) => {
+          const hosted = this.hostedEventsListSubject.getValue();
+          const guest = this.guestEventsListSubject.getValue();
+          if (hosted.has(eventId)) {
+            const count = hosted.get(eventId) || 0;
+            hosted.set(eventId, count + 1);
+            this.hostedEventsListSubject.next(hosted);
+          } else if (guest.has(eventId)) {
+            const count = guest.get(eventId) || 0;
+            guest.set(eventId, count + 1);
+            this.guestEventsListSubject.next(guest);
+          }
+        },
+      });
   }
 
   private loadPushNotifications() {
