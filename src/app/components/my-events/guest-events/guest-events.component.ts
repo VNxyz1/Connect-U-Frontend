@@ -17,7 +17,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { CardModule } from 'primeng/card';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { EventRequestService } from '../../../services/event/event-request.service';
+import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
 
 @Component({
   selector: 'app-guest-events',
@@ -36,6 +36,7 @@ export class GuestEventsComponent implements OnInit, OnChanges {
   @Input() filters: { name: string }[] = [];
   events$!: Observable<EventCardItem[]>;
   filteredEvents$!: Observable<EventCardItem[]>;
+  pushNotifications!: Observable<Map<string, number>>;
   protected isLoading = true;
   @Output() hasEventsChange = new EventEmitter<boolean>();
   @Input() hasRequests!: boolean;
@@ -47,6 +48,7 @@ export class GuestEventsComponent implements OnInit, OnChanges {
     private readonly eventService: EventService,
     private router: Router,
     protected readonly route: ActivatedRoute,
+    private pushNotificationService: PushNotificationService,
   ) {
     this.router.events.subscribe(() => {
       this.currentUrl = this.router.url;
@@ -83,6 +85,7 @@ export class GuestEventsComponent implements OnInit, OnChanges {
         ),
       ),
     );
+    this.pushNotifications = this.pushNotificationService.getGuestEventsList();
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['filters']) {

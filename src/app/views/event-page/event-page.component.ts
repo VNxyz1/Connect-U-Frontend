@@ -1,5 +1,4 @@
 import {
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -38,6 +37,8 @@ import { ListboxModule } from 'primeng/listbox';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
 import { FriendsService } from '../../services/friends/friends.service';
+import { BadgeModule } from 'primeng/badge';
+import { PushNotificationService } from '../../services/push-notification/push-notification.service';
 
 @Component({
   selector: 'app-event-page',
@@ -59,6 +60,8 @@ import { FriendsService } from '../../services/friends/friends.service';
     ListboxModule,
     ChipModule,
     ChipsModule,
+    BadgeModule,
+    AsyncPipe,
   ],
 })
 export class EventPageComponent implements OnInit {
@@ -91,6 +94,7 @@ export class EventPageComponent implements OnInit {
     protected readonly eventRequestService: EventRequestService,
     protected readonly userService: UserService,
     private readonly friendsService: FriendsService,
+    private readonly pushNotificationService: PushNotificationService,
     private auth: AuthService,
   ) {
     this.url = this.router.url;
@@ -211,6 +215,7 @@ export class EventPageComponent implements OnInit {
             command: () => {
               this.onActiveItemChange(this.eventTabMenuItems[1]);
             },
+            iBadge: true,
           },
           {
             label: translations['eventPageComponent.listTab'],
@@ -386,5 +391,9 @@ export class EventPageComponent implements OnInit {
         replaceUrl: true,
       });
     }
+  }
+
+  getPushNotificationList() {
+    return this.pushNotificationService.getCompleteEventList();
   }
 }

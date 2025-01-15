@@ -47,7 +47,10 @@
         (click)="navigateTo('/my-events')"
         styleClass="overflow-visible">
         @if ((myEventsPushNotifications$ | async) != 0) {
-          <p-badge severity="success" styleClass="custom-badge" />
+          <p-badge
+            severity="success"
+            styleClass="custom-badge"
+            [value]="myEventsPushNotifications$ | async" />
         }
         <ng-template pTemplate="icon">
           <rmx-icon

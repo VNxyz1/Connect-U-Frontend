@@ -22,6 +22,7 @@ import { EventService } from './services/event/eventservice';
 import { EventRequestService } from './services/event/event-request.service';
 import { UserService } from './services/user/user.service';
 import { LanguageService } from './services/language/language.service';
+import { PushNotificationService } from './services/push-notification/push-notification.service';
 
 @Component({
   selector: 'app-root',
@@ -63,6 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     // Necessary to be initialised here!
     private readonly languageService: LanguageService,
+    private readonly pushNotificationService: PushNotificationService,
   ) {}
 
   ngOnInit(): void {
