@@ -10,12 +10,7 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 @Component({
   selector: 'app-event-message',
   standalone: true,
-  imports: [
-    AvatarModule,
-    TranslocoPipe,
-    AngularRemixIconComponent,
-    NgClass,
-  ],
+  imports: [AvatarModule, TranslocoPipe, AngularRemixIconComponent, NgClass],
   templateUrl: './event-message.component.html',
 })
 export class EventMessageComponent {
