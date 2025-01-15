@@ -253,7 +253,10 @@ export class PushNotificationService {
    * Transforms a list of event card items into a Map with event IDs as keys and default notification counts as values.
    * @returns {OperatorFunction<EventCardItem[], Map<string, number>>} Operator function for transformation.
    */
-  private fillMapsPipe(): OperatorFunction<EventCardItem[], Map<string, number>> {
+  private fillMapsPipe(): OperatorFunction<
+    EventCardItem[],
+    Map<string, number>
+  > {
     return map((data: EventCardItem[]) => {
       const resultMap = new Map<string, number>();
       for (const event of data) {
