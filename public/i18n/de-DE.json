@@ -811,6 +811,7 @@
   "mySpacePage": {
     "listing": {
       "settings": "Einstellungen",
+      "myFriends": "Meine Freunde",
       "logout": "Abmelden",
       "information": "Informationen"
     }

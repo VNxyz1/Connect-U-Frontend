@@ -810,6 +810,7 @@
   "mySpacePage": {
     "listing": {
       "settings": "Settings",
+      "myFriends": "My Friends",
       "logout": "Log Out",
       "information": "Information"
     }

@@ -10,13 +10,26 @@
     }
   </div>
 
-  <!-- Bereich für weitere Einstellungen -->
+  <!-- Section of User settings -->
   <div class="m-3 mb-8">
     <p-card>
       <ul class="list-none p-0 m-0 w-full">
-        <!-- Einstellungen -->
+        <!-- my friends -->
         <li
-          class="p-3 pt-0 pb-4 w-full col-12 border-bottom-1 border-gray-50 flex justify-content-between align-items-center cursor-pointer"
+        class="p-3 pt-0 pb-4 w-full col-12 border-bottom-1 border-gray-50 flex justify-content-between align-items-center cursor-pointer"
+        [routerLink]="['/my-friends']"
+        >
+          <div class="flex align-items-center">
+            <rmx-icon class="mr-2" name="group-line"/>
+            <span>{{'mySpacePage.listing.myFriends' | transloco}}</span>
+          </div>
+          <rmx-icon
+            name="arrow-right-s-line"
+            style="height: 26px; width: 26px" />
+        </li>
+        <!-- Settings -->
+        <li
+          class="p-3 py-4 w-full col-12 border-bottom-1 border-gray-50 flex justify-content-between align-items-center cursor-pointer"
           [routerLink]="['/settings']">
           <div class="flex align-items-center">
             <rmx-icon name="settings-5-line" class="mr-2"></rmx-icon>
@@ -26,6 +39,7 @@
             name="arrow-right-s-line"
             style="height: 26px; width: 26px" />
         </li>
+        <!-- Informations -->
         <li
           class="p-3 py-4 w-full col-12 border-bottom-1 border-gray-50 flex justify-content-between align-items-center cursor-pointer"
           [routerLink]="['/information']">
