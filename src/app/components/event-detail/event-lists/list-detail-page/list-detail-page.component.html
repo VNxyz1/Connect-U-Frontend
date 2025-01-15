@@ -97,7 +97,7 @@
                 @if (listEntry.user) {
                   <img
                     ngSrc="{{
-                      userService.getImageFile(listEntry.user?.profilePicture!)
+                      userService.getImageFile(listEntry.user.profilePicture)
                     }}"
                     alt="profile picture"
                     class="border-circle"
