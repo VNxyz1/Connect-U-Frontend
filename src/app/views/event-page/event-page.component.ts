@@ -1,9 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import {
   ActivatedRoute,
   NavigationEnd,

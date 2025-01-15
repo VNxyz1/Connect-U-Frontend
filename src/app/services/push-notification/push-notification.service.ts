@@ -68,10 +68,10 @@ export class PushNotificationService {
       this.getGuestEventsList(),
     ]).pipe(
       map(([hostedEvents, guestEvents]) => {
-        return new Map<string, number>(
-          ...Array.of(hostedEvents),
-          ...Array.of(guestEvents),
-        );
+        return new Map<string, number>([
+          ...Array.from(hostedEvents.entries()),
+          ...Array.from(guestEvents.entries()),
+        ]);
       }),
     );
   }
