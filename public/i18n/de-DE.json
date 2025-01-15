@@ -418,6 +418,7 @@
   },
   "headerComponent": {
     "mySpace": "Mein Bereich",
+    "myFriends": "Meine Freunde",
     "myEvents": "Meine Events",
     "search": "Events suchen",
     "createEvent": "Event erstellen",
