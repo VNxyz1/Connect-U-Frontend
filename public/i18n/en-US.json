@@ -1,9 +1,11 @@
 {
+  "serverUnavailable": "The server is currently unavailable. Please try again later.",
   "profilePictureAlt": "Profile picture",
   "homepage": {
     "title": "Events for You",
     "upcomingEvents": {
-      "title": "Upcoming Events"
+      "title": "Upcoming Events",
+      "noMoreEvents": "No more upcoming events. Reload the page and see if there's something for you!"
     }
   },
   "loginComponent": {
@@ -159,7 +161,17 @@
       "categoryLimitTitle": "Selection Limit",
       "categoryLimitDetail": "You can select up to 3 categories only.",
       "validationFailedTitle": "Validation Failed",
-      "validationFailedDetail": "Ensure all required fields are filled in correctly."
+      "validationFailedDetail": "Ensure all required fields are filled in correctly.",
+      "removedImageTitle": "Image removed",
+      "removedImage": "You removed the Event-Image successfully"
+    },
+    "errorMessages": {
+      "wrongFormatTitle": "Wrong Image Format",
+      "wrongFormat": "you have to choose a supported Format like .gif, .jpg, .png",
+      "couldntBeSaved": "your uploaded image couldn`t be saved",
+      "couldntBeSavedTitle": "Saving Error",
+      "sizedErrorTitle": "Size to big",
+      "sizedError": "You have to choose a file with max size of 5mb"
     }
   },
   "createEventStep2Component": {
@@ -256,10 +268,13 @@
     },
     "host": "Host",
     "requests": {
-      "title": "Requests",
+      "requests": "Requests",
       "accepted-request": "The request from \"{{name}}\" was accepted!",
       "denied-request": "The request from \"{{name}}\" was denied.",
-      "delete-request": "Delete Request"
+      "delete-request": "Delete Request",
+      "try-again": "Try again",
+      "invites": "Invites",
+      "deleted-invite": "The invite for \"{{name}}\" was deleted."
     },
     "notExist": "It seems like the event you were looking for doesn't exist!",
       "eventNotFound": "The event you are looking for does not exist.",
@@ -292,7 +307,8 @@
       "sendInvites": "Send Invitations",
       "inviteSuccess": "Invitation sent to {{name}} successfully.",
       "inviteError": "Failed to send an invitation to {{name}}.",
-      "maxNumberExceeded": "You cannot invite more friends than the remaining slots."
+      "maxNumberExceeded": "You cannot invite more friends than the remaining slots.",
+      "noFriendsToInvite": "You have no friends that fit the event requirements."
     }
   },
   "eventStatusIndicator": {
@@ -941,7 +957,9 @@
     "successfullyCopiedMessage": "Your invitation link has been copied to the clipboard.",
     "linkExpired": "Your link has expired! Generate a new one now!",
     "linkExplanation": "Let someone scan your QR code now or send them the link! The link is valid for another {{ time }} minutes.",
-    "shareHeader": "Your personal invite"
+    "shareHeader": "Your personal invite",
+    "tab-share": "Share",
+    "tab-scan": "Scan"
   },
   "addFriendComponent": {
     "friendship-created": "You are now friends with {{name}}!",
@@ -953,5 +971,28 @@
     },
     "accept-request": "Accept Friendship Request",
     "already-friends": "You are already friends with {{name}}!"
+  },
+  "cameraComponent": {
+    "card-header": "Scan QR Code",
+    "scan-help": "Scan the QR code of users to add them as a friend!",
+    "message": {
+      "no-camera-detected-title": "No Camera Detected",
+      "no-camera-detected-detail": "We could not detect any cameras on your device. Please ensure a camera is available and accessible.",
+      "initialization-error-title": "Initialization Error",
+      "initialization-error-detail": "An error occurred while initializing the camera. Please check your camera permissions and try again.",
+      "navigation-error-title": "Navigation Error",
+      "navigation-error-detail": "We encountered an issue navigating to the scanned link. Please try again.",
+      "invalid-qr-code-title": "Invalid QR Code",
+      "invalid-qr-code-detail": "The scanned QR code is not valid for this application.",
+      "qr-scan-error-title": "QR Code Scan Error",
+      "qr-scan-error-detail": "An error occurred while scanning the QR code. Please ensure the QR code is clear and within view of the camera.",
+      "access-denied-title": "Camera Access Denied",
+      "access-denied-detail": "You denied camera access. Please enable camera permissions to scan QR codes."
+    }
+  },
+  "404": {
+    "page-not-found": "Page Not Found",
+    "page-not-found-detail": "We couldn't find that page! Not even with x-ray vision.",
+    "back-to-home": "Zur Startseite"
   }
 }

@@ -30,6 +30,9 @@ import { TermsPageComponent } from './views/terms-page/terms-page.component';
 import { EventChatComponent } from './components/event-detail/event-chat/event-chat.component';
 import { ShareProfilePageComponent } from './views/share-profile-page/share-profile-page.component';
 import { AddFriendComponent } from './views/add-friend/add-friend.component';
+import { QrCodeAndLinkComponent } from './components/qr-code-and-link/qr-code-and-link.component';
+import { CameraComponent } from './components/camera/camera.component';
+import { ServerUnavailablePageComponent } from './views/server-unavailable-page/server-unavailable-page.component';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -41,6 +44,11 @@ export const routes: Routes = [
     title: 'Home | Connect-U',
     component: HomePageComponent,
     canActivate: [isLoggedInGuard],
+  },
+  {
+    path: 'unavailable',
+    title: 'Server unavailable | Connect-U',
+    component: ServerUnavailablePageComponent,
   },
   {
     path: 'welcome',
@@ -174,6 +182,20 @@ export const routes: Routes = [
     title: 'Share | Connect-U',
     component: ShareProfilePageComponent,
     canActivate: [isLoggedInGuard],
+    children: [
+      {
+        path: 'show-link',
+        title: 'Link | Connect-U',
+        component: QrCodeAndLinkComponent,
+        canActivate: [isLoggedInGuard],
+      },
+      {
+        path: 'scan-qr',
+        title: 'Scan QR Code | Connect-U',
+        component: CameraComponent,
+        canActivate: [isLoggedInGuard],
+      },
+    ],
   },
   {
     path: 'add-friend/:username/:inviteId',

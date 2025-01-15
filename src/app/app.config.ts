@@ -7,6 +7,7 @@ import {
 import {
   provideRouter,
   withComponentInputBinding,
+  withInMemoryScrolling,
   withRouterConfig,
 } from '@angular/router';
 
@@ -79,12 +80,15 @@ import {
   RiClipboardLine,
   RiQrScan2Fill,
   RiCameraLine,
+  RiUserHeartLine,
   RiSendPlaneFill,
+  RiUserAddLine,
+  RiQrCodeLine,
+  RiCameraSwitchLine,
 } from 'angular-remix-icon';
 import { TranslocoHttpLoader } from './transloco-loader';
 import {
   provideTransloco,
-  TranslocoMissingHandler,
   TranslocoMissingHandlerData,
 } from '@jsverse/transloco';
 import { provideTranslocoLocale } from '@jsverse/transloco-locale';
@@ -150,6 +154,10 @@ const icons = {
   RiVipCrown2Fill,
   RiCameraLine,
   RiSendPlaneFill,
+  RiUserAddLine,
+  RiUserHeartLine,
+  RiQrCodeLine,
+  RiCameraSwitchLine,
 };
 
 // Custom missing handler to avoid console logs for missing keys
@@ -182,6 +190,9 @@ export const appConfig: ApplicationConfig = {
       routes,
       withComponentInputBinding(),
       withRouterConfig({ paramsInheritanceStrategy: 'always' }),
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+      }),
     ),
     provideHttpClient(
       withFetch(),

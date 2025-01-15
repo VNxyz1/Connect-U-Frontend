@@ -13,11 +13,7 @@ import { SocketService } from './services/socket/socket.service';
 import { AsyncPipe, isPlatformBrowser, NgClass } from '@angular/common';
 import { AuthService } from './services/auth/auth.service';
 import { Storage } from '@ionic/storage-angular';
-import {
-  ConfirmationService,
-  MessageService,
-  PrimeNGConfig,
-} from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { filter } from 'rxjs/operators';
 import { ToastModule } from 'primeng/toast';
 import { TranslocoService } from '@jsverse/transloco';
@@ -64,32 +60,42 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly userService: UserService,
     private readonly storage: Storage,
     private readonly router: Router,
-    private primengConfig: PrimeNGConfig,
+
+    // Necessary to be initialised here!
+    private readonly languageService: LanguageService,
   ) {}
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.userService.getUserData().subscribe({
-        next: data => {
-          this.socket.connectUser(data.id);
-        },
-        error: err => {
-          console.error('Failed to fetch user data:', err);
-        },
-      });
-      this.initStorage(); // Initialize storage
-    }
-
-    this.isLoggedIn = this.auth.isLoggedIn();
-
     this.currentUrl = this.router.url;
-
     // Listen to route changes
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         this.currentUrl = event.url;
       });
+
+    this.auth.checkBackendHealth().subscribe({
+      error: () => this.router.navigate(['/unavailable']),
+      next: data => {
+        if (!data.ok) {
+          this.router.navigate(['/unavailable']);
+        } else {
+          if (isPlatformBrowser(this.platformId)) {
+            this.userService.getUserData().subscribe({
+              next: data => {
+                this.socket.connectUser(data.id);
+              },
+              error: err => {
+                console.error('Failed to fetch user data:', err);
+              },
+            });
+            this.initStorage(); // Initialize storage
+          }
+
+          this.isLoggedIn = this.auth.isLoggedIn();
+        }
+      },
+    });
   }
 
   async initStorage(): Promise<void> {

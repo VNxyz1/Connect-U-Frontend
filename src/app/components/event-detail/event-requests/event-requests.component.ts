@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { CardModule } from 'primeng/card';
@@ -7,6 +7,8 @@ import { EventRequestService } from '../../../services/event/event-request.servi
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
 import { MessageService } from 'primeng/api';
+import { forkJoin, Observable, tap } from 'rxjs';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-event-requests',
@@ -20,40 +22,69 @@ import { MessageService } from 'primeng/api';
   ],
   templateUrl: './event-requests.component.html',
 })
-export class EventRequestsComponent {
+export class EventRequestsComponent implements OnInit {
   eventId!: string;
   protected eventRequests: EventUserRequest[] = [];
+  protected eventInvites: EventUserRequest[] = [];
 
   constructor(
+    protected userService: UserService,
     private eventRequestService: EventRequestService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private messageService: MessageService,
-    private translocoService: TranslocoService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly messageService: MessageService,
+    private readonly translocoService: TranslocoService,
   ) {
-    if (this.route.snapshot.paramMap.get('id')!) {
-      this.eventId = this.route.snapshot.paramMap.get('id')!;
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.eventId = id;
     } else {
-      this.router.navigate(['/']);
-    }
-    if (this.eventId) {
-      this.fetchRequests(this.eventId);
+      this.router.navigate(['/']); // Redirect if no ID is provided
     }
   }
 
-  private fetchRequests(eventId: string): void {
-    this.eventRequestService.getEventHostRequests(eventId).subscribe({
-      next: requests => {
-        this.eventRequests = requests;
-      },
-      error: err => {
-        console.error('Error fetching event requests:', err);
-      },
-    });
+  async ngOnInit(): Promise<void> {
+    if (this.eventId) {
+      forkJoin({
+        requests: this.fetchRequests(this.eventId),
+        invites: this.fetchInvites(this.eventId),
+      }).subscribe({
+        next: ({ requests, invites }) => {
+          this.eventRequests = requests;
+          this.eventInvites = invites;
+
+          if (
+            this.eventInvites.length === 0 &&
+            this.eventRequests.length === 0
+          ) {
+            this.router.navigate([`/event/${this.eventId}`]); // Redirect if both are empty
+          }
+        },
+        error: err => {
+          console.error('Error fetching data:', err);
+        },
+      });
+    }
+  }
+
+  fetchRequests(eventId: string): Observable<EventUserRequest[]> {
+    return this.eventRequestService.getEventHostRequests(eventId).pipe(
+      tap(requests => {
+        this.eventRequests = requests; // Populate eventRequests
+      }),
+    );
+  }
+
+  fetchInvites(eventId: string): Observable<EventUserRequest[]> {
+    return this.eventRequestService.getAllInvitesForEvent(eventId).pipe(
+      tap(invites => {
+        this.eventInvites = invites; // Populate eventInvites
+      }),
+    );
   }
 
   protected denyRequest(
-    username: string,
+    firstname: string,
     requestId: number,
     e: MouseEvent,
   ): void {
@@ -68,9 +99,10 @@ export class EventRequestsComponent {
           severity: 'success',
           summary: this.translocoService.translate(
             'eventDetailPageComponent.requests.denied-request',
-            { name: username },
+            { name: firstname },
           ),
         });
+        this.checkAndRedirectToInfo();
       },
       error: err => {
         console.error('Error denying request:', err);
@@ -79,7 +111,7 @@ export class EventRequestsComponent {
   }
 
   protected acceptRequest(
-    username: string,
+    firstname: string,
     requestId: number,
     e: MouseEvent,
   ): void {
@@ -94,13 +126,43 @@ export class EventRequestsComponent {
           severity: 'success',
           summary: this.translocoService.translate(
             'eventDetailPageComponent.requests.accepted-request',
-            { name: username },
+            { name: firstname },
           ),
         });
+        this.checkAndRedirectToInfo();
       },
       error: err => {
         console.error('Error accepting request:', err);
       },
     });
+  }
+
+  deleteInvite(firstname: string, id: number, e: MouseEvent) {
+    e.stopPropagation();
+    this.eventRequestService.deleteEventInvite(id).subscribe({
+      next: () => {
+        // Remove the denied request from the array
+        this.eventInvites = this.eventInvites.filter(
+          invite => invite.id !== id,
+        );
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translocoService.translate(
+            'eventDetailPageComponent.requests.deleted-invite',
+            { name: firstname },
+          ),
+        });
+        this.checkAndRedirectToInfo();
+      },
+      error: err => {
+        console.error('Error denying request:', err);
+      },
+    });
+  }
+
+  private checkAndRedirectToInfo(): void {
+    if (this.eventRequests.length === 0 && this.eventInvites.length === 0) {
+      this.router.navigate([`/event/${this.eventId}`]);
+    }
   }
 }
