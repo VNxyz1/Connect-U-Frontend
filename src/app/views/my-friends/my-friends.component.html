@@ -1,1 +1,14 @@
-<p>my-friends works!</p>
+<div class="flex justify-content-center align-items-center">
+  <div class="grid lg:col-8">
+    @if (friends$ | async; as friends) {
+      @for (friend of friends; track $index) {
+        <div class="col-12">
+          <app-profile-card
+            [userProfile]="friend"
+            [imageUrl]="friend.imageUrl!">
+          </app-profile-card>
+        </div>
+      }
+    }
+  </div>
+</div>
