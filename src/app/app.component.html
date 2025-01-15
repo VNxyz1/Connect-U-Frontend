@@ -1,4 +1,4 @@
-@if (currentUrl) {
+@if (currentUrl$ | async; as currentUrl) {
   <div class="h-screen grid p-0 m-0 gap-0 align-content-start">
     @if (!currentUrl.includes('/welcome')) {
       <div

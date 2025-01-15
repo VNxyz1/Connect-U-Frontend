@@ -5,7 +5,6 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -14,7 +13,6 @@ import { AsyncPipe, isPlatformBrowser, NgClass } from '@angular/common';
 import { AuthService } from './services/auth/auth.service';
 import { Storage } from '@ionic/storage-angular';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { filter } from 'rxjs/operators';
 import { ToastModule } from 'primeng/toast';
 import { TranslocoService } from '@jsverse/transloco';
 import { Observable } from 'rxjs';
@@ -23,6 +21,7 @@ import { EventRequestService } from './services/event/event-request.service';
 import { UserService } from './services/user/user.service';
 import { LanguageService } from './services/language/language.service';
 import { PushNotificationService } from './services/push-notification/push-notification.service';
+import { CurrentUrlService } from './services/current-url/current-url.service';
 
 @Component({
   selector: 'app-root',
@@ -52,7 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'Connect-U-Frontend';
   private storageInitialized = false;
   isLoggedIn!: Observable<boolean>;
-  currentUrl: string | undefined = undefined;
+  currentUrl$!: Observable<string>;
 
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: Object,
@@ -60,7 +59,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly auth: AuthService,
     private readonly userService: UserService,
     private readonly storage: Storage,
-    private readonly router: Router,
+    private readonly currentUrl: CurrentUrlService,
 
     // Necessary to be initialised here!
     private readonly languageService: LanguageService,
@@ -82,14 +81,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.isLoggedIn = this.auth.isLoggedIn();
 
-    this.currentUrl = this.router.url;
-
-    // Listen to route changes
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.currentUrl = event.url;
-      });
+    this.currentUrl$ = this.currentUrl.get();
   }
 
   async initStorage(): Promise<void> {

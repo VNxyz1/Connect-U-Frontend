@@ -76,6 +76,18 @@ export class PushNotificationService {
     );
   }
 
+  clearEvent(eventId: string) {
+    const guest = this.guestEventsListSubject.getValue();
+    const hosted = this.hostedEventsListSubject.getValue();
+    if (guest.has(eventId)) {
+      guest.set(eventId, 0);
+      this.guestEventsListSubject.next(guest);
+    } else if (hosted.has(eventId)) {
+      hosted.set(eventId, 0);
+      this.hostedEventsListSubject.next(hosted);
+    }
+  }
+
   private connectHostedEventsSocket() {
     this.socket.on('newChatMessages').subscribe({
       next: (eventId: string) => {
