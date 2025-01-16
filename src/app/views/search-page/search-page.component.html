@@ -75,9 +75,7 @@
       </div>
       @if (formErrors['isOnlineInPlace']) {
         <small class="p-error">
-          {{
-            'searchPageComponent.errors.online' | transloco
-          }}
+          {{ 'searchPageComponent.errors.online' | transloco }}
         </small>
       }
       <div class="field pt-3 m-0">
@@ -101,39 +99,39 @@
       </div>
       @if (formErrors['isPublicHalfPublic']) {
         <small class="p-error">
-          {{
-            'searchPageComponent.errors.online' | transloco
-          }}
+          {{ 'searchPageComponent.errors.online' | transloco }}
         </small>
       }
 
       @if (fetchedGenders | async; as genderOptions) {
         <div class="field pt-3">
-          <p class="pt-4">{{ 'searchPageComponent.gendersInput' | transloco }}</p>
-            <p-multiSelect
-              id="genders"
-              formControlName="genders"
-              [options]="genderOptions"
-              optionLabel="label"
-              optionValue="value"
-              display="chip"
-              [showClear]="true"
-              styleClass="capitalize">
-              <ng-template let-sorting pTemplate="item">
-                {{ sorting.label | transloco }}
-              </ng-template>
-            </p-multiSelect>
+          <p class="pt-4">
+            {{ 'searchPageComponent.gendersInput' | transloco }}
+          </p>
+          <p-multiSelect
+            id="genders"
+            formControlName="genders"
+            [options]="genderOptions"
+            optionLabel="label"
+            optionValue="value"
+            display="chip"
+            [showClear]="true"
+            styleClass="capitalize">
+            <ng-template let-sorting pTemplate="item">
+              {{ sorting.label | transloco }}
+            </ng-template>
+          </p-multiSelect>
           @if (formErrors['genders']) {
             <small class="p-error">
-              {{
-                'searchPageComponent.errors.genders' | transloco
-              }}
+              {{ 'searchPageComponent.errors.genders' | transloco }}
             </small>
           }
         </div>
       }
 
-      <p class="pt-4">{{ 'createEventStep3Component.ageSection.title' | transloco }}</p>
+      <p class="pt-4">
+        {{ 'createEventStep3Component.ageSection.title' | transloco }}
+      </p>
 
       <div class="field justify-content-center w-full text-center">
         <p-slider
