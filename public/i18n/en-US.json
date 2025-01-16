@@ -444,6 +444,7 @@
   },
   "headerComponent": {
     "mySpace": "My Space",
+    "myFriends": "My Friends",
     "myEvents": "My Events",
     "search": "Search Events",
     "createEvent": "Create Event",
@@ -838,6 +839,7 @@
   "mySpacePage": {
     "listing": {
       "settings": "Settings",
+      "myFriends": "My Friends",
       "logout": "Log Out",
       "information": "Information"
     }
