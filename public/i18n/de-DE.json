@@ -460,7 +460,8 @@
       "delete-request": "Anfrage löschen",
       "try-again": "Erneut Anfragen",
       "new-request": "Es wurde eine neue Anfrage für das Event \"{{title}}\" verschickt!",
-      "deleted-request": "Die Anfrage für das Event \"{{title}}\" wurde gelöscht."
+      "deleted-request": "Die Anfrage für das Event \"{{title}}\" wurde gelöscht.",
+      "noRequests": "Du hast derzeit keine offenen Anfragen."
     }
   },
   "privacyPolicy": {
