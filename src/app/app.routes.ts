@@ -171,6 +171,7 @@ export const routes: Routes = [
     path: 'my-friends',
     title: 'My Friends | Connect-U',
     component: MyFriendsComponent,
+    canActivate: [isLoggedInGuard],
   },
   {
     path: 'information',
