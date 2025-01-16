@@ -5,6 +5,7 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -22,6 +23,7 @@ import { UserService } from './services/user/user.service';
 import { LanguageService } from './services/language/language.service';
 import { PushNotificationService } from './services/push-notification/push-notification.service';
 import { CurrentUrlService } from './services/current-url/current-url.service';
+import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -60,6 +62,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly userService: UserService,
     private readonly storage: Storage,
     private readonly currentUrl: CurrentUrlService,
+    private readonly router: Router,
 
     // Necessary to be initialised here!
     private readonly languageService: LanguageService,
@@ -67,21 +70,30 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.userService.getUserData().subscribe({
-        next: data => {
-          this.socket.connectUser(data.id);
-        },
-        error: err => {
-          console.error('Failed to fetch user data:', err);
-        },
-      });
-      this.initStorage(); // Initialize storage
-    }
-
-    this.isLoggedIn = this.auth.isLoggedIn();
-
     this.currentUrl$ = this.currentUrl.get();
+
+    this.auth.checkBackendHealth().subscribe({
+      error: () => this.router.navigate(['/unavailable']),
+      next: data => {
+        if (!data.ok) {
+          this.router.navigate(['/unavailable']);
+        } else {
+          if (isPlatformBrowser(this.platformId)) {
+            this.userService.getUserData().subscribe({
+              next: data => {
+                this.socket.connectUser(data.id);
+              },
+              error: err => {
+                console.error('Failed to fetch user data:', err);
+              },
+            });
+            this.initStorage(); // Initialize storage
+          }
+
+          this.isLoggedIn = this.auth.isLoggedIn();
+        }
+      },
+    });
   }
 
   async initStorage(): Promise<void> {

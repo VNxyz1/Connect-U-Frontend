@@ -42,6 +42,7 @@ export class Step3Component implements OnInit {
   ageValues: (number | undefined)[] = [16, 99];
   private ageChangeSubject = new Subject<{ index: number; value: number }>();
   submitted: boolean = false;
+  eventImage: File | null = null;
   private readonly unsubscribe$ = new Subject<void>();
 
   constructor(
@@ -67,6 +68,22 @@ export class Step3Component implements OnInit {
 
     await this.loadGenders();
     await this.insertValuesAgain();
+    await this.loadImageFromStorage();
+  }
+
+  async loadImageFromStorage(): Promise<void> {
+    try {
+      const storedBase64Image = await this.eventService.getEventImage(); // Aus StorageService laden
+      if (storedBase64Image) {
+        this.eventImage = await this.base64ToFile(
+          storedBase64Image,
+          'eventImage.jpg',
+        );
+        console.log('Event image loaded:', this.eventImage);
+      }
+    } catch (error) {
+      console.error('Error loading event image:', error);
+    }
   }
 
   private async loadGenders() {
@@ -120,7 +137,24 @@ export class Step3Component implements OnInit {
     this.ageValues = [...event]; // Ensure the array is updated
   }
 
-  protected onAgeChange(index: number, value: string | number): void {
+  protected onAgeChange(
+    index: number,
+    value: string | number,
+    event?: KeyboardEvent,
+  ): void {
+    const valueString = value.toString();
+    // Check if the key pressed was "Delete" or "Backspace"
+    if (
+      event?.key === 'Backspace' ||
+      event?.key === 'Delete' ||
+      valueString.length < 2
+    ) {
+      if (value === '') {
+        this.ageValues[index] = undefined; // Set the value to `undefined` temporarily
+      }
+      return;
+    }
+
     // Handle empty input
     if (value === '') {
       this.ageValues[index] = undefined; // Set the value to `undefined` temporarily
@@ -142,37 +176,44 @@ export class Step3Component implements OnInit {
   }
 
   protected onAgeBlur(index: number): void {
-    // Check if the input is not undefined
-    if (this.ageValues[index] !== undefined) {
-      const constrainedValue = Math.max(
-        16,
-        Math.min(
-          this.ageValues[index] as number,
-          index === 0 ? (this.ageValues[1] ?? 99) : 99,
-        ),
-      );
+    // Ensure value is valid only after the user blurs the input
+    const currentValue: number | string | undefined = this.ageValues[index];
 
-      // Apply the constrained value
-      this.ageValues[index] = constrainedValue;
-
-      // Ensure the minimum age does not exceed the maximum age
-      if (
-        this.ageValues[0] !== undefined &&
-        this.ageValues[1] !== undefined &&
-        this.ageValues[0] > this.ageValues[1]
-      ) {
-        this.ageValues[1] = this.ageValues[0];
-      }
-
-      // Sync the slider with the updated values
-      this.onSliderChange([...this.ageValues]);
-    } else {
-      // If the input is undefined (cleared), reset to default values
+    if (currentValue === undefined || currentValue === null) {
+      // Reset to default values if the input is empty
       this.ageValues[index] = index === 0 ? 16 : 99;
+    } else {
+      const numericValue = Number(currentValue);
 
-      // Sync the slider with the updated values
-      this.onSliderChange([...this.ageValues]);
+      // Ensure valid number before applying constraints
+      if (!isNaN(numericValue)) {
+        if (index === 0) {
+          // Minimum age cannot exceed maximum age or go below 16
+          this.ageValues[0] = Math.max(
+            16,
+            Math.min(numericValue, this.ageValues[1] ?? 99),
+          );
+        } else if (index === 1) {
+          // Maximum age cannot be less than minimum age or above 99
+          this.ageValues[1] = Math.min(
+            99,
+            Math.max(numericValue, this.ageValues[0] ?? 16),
+          );
+        }
+
+        // Ensure min <= max
+        if (
+          this.ageValues[0] !== undefined &&
+          this.ageValues[1] !== undefined &&
+          this.ageValues[0] > this.ageValues[1]
+        ) {
+          this.ageValues[1] = this.ageValues[0];
+        }
+      }
     }
+
+    // Sync the slider with the updated values
+    this.onSliderChange([...this.ageValues]);
   }
 
   private applyAgeChange(index: number, value: number): void {
@@ -244,13 +285,20 @@ export class Step3Component implements OnInit {
               { title: this.title },
             ),
           });
+          if (this.eventImage) {
+            const formData = new FormData();
+            formData.append('file', this.eventImage);
 
-          setTimeout(() => {
-            this.router.navigate([`../../event/${eventId}`], {
-              relativeTo: this.route,
-              queryParams: { fromCreate: true },
+            this.eventService.postEventImage(eventId, formData).subscribe({
+              next: data => console.log(data),
             });
-          }, 2000);
+            this.eventService.removeEventImage().then(r => {
+              console.log(r);
+              this.navigateToEvent(eventId);
+            });
+          } else {
+            this.navigateToEvent(eventId);
+          }
         } else {
           throw new Error(
             this.translocoService.translate(
@@ -273,6 +321,15 @@ export class Step3Component implements OnInit {
         return;
       },
     });
+  }
+
+  private navigateToEvent(eventId: string): void {
+    setTimeout(() => {
+      this.router.navigate(['/event', eventId], {
+        relativeTo: this.route,
+        queryParams: { fromCreate: true },
+      });
+    }, 2000);
   }
 
   protected prevPage() {
@@ -300,5 +357,16 @@ export class Step3Component implements OnInit {
     }
 
     await this.eventService.setEventInformation(data);
+  }
+
+  protected readonly KeyboardEvent = KeyboardEvent;
+  private base64ToFile(base64: string, fileName: string): File {
+    const byteString = atob(base64.split(',')[1]);
+    const mimeType = base64.split(',')[0].match(/:(.*?);/)?.[1] || 'image/jpeg';
+    const byteNumbers = new Array(byteString.length)
+      .fill(0)
+      .map((_, i) => byteString.charCodeAt(i));
+    const byteArray = new Uint8Array(byteNumbers);
+    return new File([byteArray], fileName, { type: mimeType });
   }
 }

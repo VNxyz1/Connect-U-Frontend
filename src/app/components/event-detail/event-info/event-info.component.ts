@@ -76,7 +76,10 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
 export class EventInfoComponent implements OnInit, OnDestroy {
   userRequest: UsersEventRequest | null = null;
   private userRequestSubscription!: Subscription;
+  private invitesSubscription!: Subscription;
   @Input() eventRequestsHost: EventUserRequest[] = [];
+  @Input() eventInvitesHost: EventUserRequest[] = [];
+  @Output() showInviteDialogue: EventEmitter<boolean> = new EventEmitter();
   @Output() eventDetailsUpdated = new EventEmitter<void>(); // Notify parent
 
   @Input() getPreferredGendersString!: (
@@ -110,6 +113,15 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     this.getEventDetails();
   }
 
+  ngOnDestroy(): void {
+    // Clean up subscriptions
+    this.userRequestSubscription?.unsubscribe();
+  }
+
+  get combinedAvatars(): any[] {
+    return [...this.eventRequestsHost, ...this.eventInvitesHost];
+  }
+
   private fetchUserRequest(): void {
     if (!this.eventId) {
       return;
@@ -128,9 +140,8 @@ export class EventInfoComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy(): void {
-    // Clean up subscriptions
-    this.userRequestSubscription?.unsubscribe();
+  protected onAddFriendsButtonPressed(): void {
+    this.showInviteDialogue.emit(true); // Emit event to notify parent
   }
 
   private getEventDetails(): void {
@@ -141,6 +152,9 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     this.eventService.getEventDetails(this.eventId).subscribe({
       next: details => {
         this._eventDetails = details;
+        if (details.isHost) {
+          this.fetchEventInvites();
+        }
         this.fetchUserRequest();
         this.isLoading = false;
         this.eventDetailsUpdated.emit();
@@ -153,28 +167,11 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     this.router.navigate(['/404']);
   }
 
-  /**
-   * Transform the EventDetails if needed.
-   * @param details The EventDetails to transform.
-   * @returns Transformed EventDetails.
-   */
-  private transformEventDetails(details: EventDetails): EventDetails {
-    // Perform any transformations on the details here
-    return details;
-  }
-
-  handleButtonClick(eventType: EventtypeEnum): void {
+  protected handleButtonClick(eventType: EventtypeEnum): void {
     if (eventType === EventtypeEnum.public) {
       this.joinPublicEvent();
     } else if (eventType === EventtypeEnum.halfPrivate) {
       this.requestToJoinEvent();
-    } else if (eventType === EventtypeEnum.private) {
-      this.messageService.add({
-        severity: 'info',
-        summary: this.translocoService.translate(
-          'eventDetailPageComponent.privateEvent',
-        ),
-      });
     }
   }
 
@@ -223,6 +220,20 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     }
   }
 
+  private fetchEventInvites() {
+    this.invitesSubscription = this.eventRequestService
+      .getAllInvitesForEvent(this.eventId)
+      .subscribe({
+        next: data => {
+          this.eventInvitesHost = data;
+        },
+        error: err => {
+          console.error('Error fetching invites:', err);
+          this.userRequest = null; // Reset in case of error
+        },
+      });
+  }
+
   private handleError(err: any): void {
     const translationKey =
       ERROR_MESSAGE_MAPPING[err.error?.message] ||
@@ -236,7 +247,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteEventRequest(id: number, $e: MouseEvent) {
+  protected deleteEventRequest(id: number, $e: MouseEvent) {
     $e.stopPropagation();
     this.eventRequestService.deleteUserRequest(id).subscribe({
       next: () => {

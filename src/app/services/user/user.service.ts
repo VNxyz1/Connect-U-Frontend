@@ -122,6 +122,7 @@ export class UserService {
   updateProfilePicture(img: FormData): Observable<ok> {
     return this.http.patch<ok>('user/profilePicture', img);
   }
+
   getImageFile(image: string): string {
     const value = image == '' ? 'empty.png' : image;
     return `${environment.apiConfig.urlPrefix}user/profilePicture/${value}`;

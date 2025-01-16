@@ -38,7 +38,7 @@
       optionLabel="firstName"
       class="w-100"
       [listStyle]="{ 'max-height': '250px' }"
-      (onChange)="checkMaxSelection($event)">
+      (onChange)="checkMaxSelection()">
       <ng-template let-friend pTemplate="item">
         <div
           class="inline-flex items-center gap-2 px-2 py-2 cursor-pointer border-bottom">
@@ -161,7 +161,9 @@
   <app-event-info
     [getPreferredGendersString]="getPreferredGendersString"
     [eventRequestsHost]="eventRequestsHost"
-    (eventDetailsUpdated)="onEventDetailsUpdated()">
+    [eventInvitesHost]="eventInvitesHost"
+    (eventDetailsUpdated)="onEventDetailsUpdated()"
+    (showInviteDialogue)="openInviteDialog(true)">
   </app-event-info>
 }
 

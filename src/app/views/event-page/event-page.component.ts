@@ -5,7 +5,7 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
+import { map, Observable, of, throwError } from 'rxjs';
 import { catchError, filter } from 'rxjs/operators';
 import { EventService } from '../../services/event/eventservice';
 import { EventDetails } from '../../interfaces/EventDetails';
@@ -15,7 +15,6 @@ import { ToastModule } from 'primeng/toast';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { Gender, GenderEnum } from '../../interfaces/Gender';
 import { EventInfoComponent } from '../../components/event-detail/event-info/event-info.component';
-import { AsyncPipe } from '@angular/common';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { EventRequestService } from '../../services/event/event-request.service';
 import { AuthService } from '../../services/auth/auth.service';
@@ -68,6 +67,7 @@ export class EventPageComponent implements OnInit {
   eventDetails!: EventDetails; // Resolved event details
   eventDetails$!: Observable<EventDetails>;
   eventRequestsHost: EventUserRequest[] = [];
+  eventInvitesHost: EventUserRequest[] = [];
   eventTabMenuItems: MenuItem[] = [];
   activeTabItem!: MenuItem;
 
@@ -117,7 +117,6 @@ export class EventPageComponent implements OnInit {
       // Monitor login state
 
       this.fetchEventDetails();
-      this.checkIfComingFromCreate();
       this.selectedFriendsChange.subscribe(updatedFriends => {
         // Update selectedFriends and ensure synchronization
         this.selectedFriends = updatedFriends;
@@ -145,8 +144,30 @@ export class EventPageComponent implements OnInit {
   private checkIfComingFromCreate(): void {
     const fromCreate = this.route.snapshot.queryParamMap.get('fromCreate');
     if (fromCreate === 'true') {
-      this.loadFriends();
+      this.openInviteDialog(false);
     }
+  }
+
+  protected openInviteDialog(buttonClicked: boolean): void {
+    const maxNumberUnreached =
+      this.eventDetails.maxParticipantsNumber -
+        this.eventDetails.participantsNumber >
+      0;
+
+    this.loadFriends().subscribe(hasFittingFriends => {
+      if (hasFittingFriends && maxNumberUnreached) {
+        this.showInviteModal = true;
+      } else if (buttonClicked) {
+        const messageKey = maxNumberUnreached
+          ? 'eventPageComponent.friends.noFriendsToInvite'
+          : 'eventPageComponent.friends.maxNumberExceeded';
+
+        this.messageService.add({
+          severity: 'info',
+          summary: this.translocoService.translate(messageKey),
+        });
+      }
+    });
   }
 
   private fetchEventDetails(): void {
@@ -164,7 +185,11 @@ export class EventPageComponent implements OnInit {
         if (this.eventDetails.isHost || this.eventDetails.isParticipant) {
           this.setupTabs();
           this.fetchEventRequestsHost();
+          setTimeout(() => {
+            this.fetchEventInvitesHost();
+          }, 100);
         }
+        this.checkIfComingFromCreate();
       },
       error: err => {
         console.error('Error fetching event details:', err);
@@ -197,10 +222,19 @@ export class EventPageComponent implements OnInit {
     });
   }
 
-  private clearEventState(): void {
-    this.eventDetails = undefined!;
-    this.eventTabMenuItems = [];
-    this.eventRequestsHost = [];
+  private fetchEventInvitesHost(): void {
+    if (!this.eventId || !this.eventDetails.isHost) {
+      return;
+    }
+
+    this.eventRequestService.getAllInvitesForEvent(this.eventId).subscribe({
+      next: data => {
+        this.eventInvitesHost = data;
+      },
+      error: err => {
+        console.error('Error fetching event requests:', err);
+      },
+    });
   }
 
   private setupTabs(): void {
@@ -310,30 +344,18 @@ export class EventPageComponent implements OnInit {
     }
   }
 
-  private loadFriends(): void {
-    this.friendsService
-      .getFilteredFriendsForEvent(this.eventId) // Assuming `getFriends()` returns an Observable
-      .pipe(
-        catchError(err => {
-          console.error('Error fetching friends:', err);
-          this.router.navigate(['/404']); // Navigate to a 404 page or handle the error
-          return throwError(() => err);
-        }),
-      )
-      .subscribe({
-        next: data => {
-          this.friends = data; // Assign the response to the `friends` array
-          if (data.length > 0) {
-            this.showInviteModal = true;
-          }
-        },
-        error: err => {
-          console.error('Error during subscription:', err);
-        },
-      });
-    if (this.friends.length > 0) {
-      this.showInviteModal = true;
-    }
+  private loadFriends(): Observable<boolean> {
+    return this.friendsService.getFilteredFriendsForEvent(this.eventId).pipe(
+      map(data => {
+        this.friends = data;
+        return this.friends.length > 0; // Return true if there are friends
+      }),
+      catchError(err => {
+        console.error('Error fetching friends:', err);
+        this.router.navigate(['/404']);
+        return of(false); // Return false if there’s an error
+      }),
+    );
   }
 
   protected toggleMultiSelection(friend: any): void {
@@ -346,16 +368,20 @@ export class EventPageComponent implements OnInit {
   }
 
   protected sendInvites(): void {
-    const invites = this.selectedFriends.map(friend =>
+    this.selectedFriends.map(friend =>
       this.eventRequestService.createInvite(this.eventId, friend.id).subscribe({
-        next: () =>
+        next: () => {
           this.messageService.add({
             severity: 'success',
             summary: this.translocoService.translate(
               'eventPageComponent.friends.inviteSuccess',
               { name: friend.firstName },
             ),
-          }),
+          });
+          this.onEventDetailsUpdated();
+          this.fetchEventDetails();
+          this.selectedFriends = [];
+        },
         error: err =>
           this.messageService.add({
             severity: 'error',
@@ -370,7 +396,7 @@ export class EventPageComponent implements OnInit {
     this.onInviteDialogClose();
   }
 
-  protected checkMaxSelection(event: any): void {
+  protected checkMaxSelection(): void {
     if (
       this.selectedFriends.length >
       this.eventDetails.maxParticipantsNumber -
