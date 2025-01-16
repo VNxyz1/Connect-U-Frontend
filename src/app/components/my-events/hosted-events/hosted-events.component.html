@@ -19,22 +19,22 @@
             <app-event-card skeleton class="w-full" />
           </div>
         }
+      } @else {
+        <div
+          class="col-12 flex flex-column align-items-center text-center mt-8 mb-8">
+          <h3 class="text-lg font-bold mb-4">
+            {{ 'myEventPageComponent.hosted.text' | transloco }}
+          </h3>
+          <h4 class="text-center mb-8">
+            {{ 'myEventPageComponent.hosted.todo' | transloco }}
+          </h4>
+
+          <rmx-icon
+            class="sm:hidden color-secondary mt-8 zoomindown animation-duration-2000 animation-iteration-1"
+            style="width: 50px; height: 50px"
+            name="arrow-down-line"></rmx-icon>
+        </div>
       }
     }
-  } @else {
-    <div
-      class="col-12 flex flex-column align-items-center text-center mt-8 mb-8">
-      <h3 class="text-lg font-bold mb-4">
-        {{ 'myEventPageComponent.hosted.text' | transloco }}
-      </h3>
-      <h4 class="text-center mb-8">
-        {{ 'myEventPageComponent.hosted.todo' | transloco }}
-      </h4>
-
-      <rmx-icon
-        class="sm:hidden color-secondary mt-8 zoomindown animation-duration-2000 animation-iteration-1"
-        style="width: 50px; height: 50px"
-        name="arrow-down-line"></rmx-icon>
-    </div>
   }
 </div>

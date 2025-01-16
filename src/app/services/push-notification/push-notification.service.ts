@@ -16,6 +16,9 @@ import { EventService } from '../event/eventservice';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { AppRoutes } from '../../interfaces/AppRoutes';
 import { CurrentUrlService } from '../current-url/current-url.service';
+import {EventRequestService} from '../event/event-request.service';
+import {UsersEventRequest} from '../../interfaces/UsersEventRequest';
+import {EventUserRequest} from '../../interfaces/EventUserRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +29,11 @@ export class PushNotificationService {
   private guestEventsListSubject: BehaviorSubject<Map<string, number>> =
     new BehaviorSubject<Map<string, number>>(new Map<string, number>());
 
+  private hostEventJoinRequestListSubject: BehaviorSubject<number> =
+    new BehaviorSubject<number>(0);
+  private guestEventJoinRequestListSubject: BehaviorSubject<number> =
+    new BehaviorSubject<number>(0);
+
   private currentUrl$!: Observable<string>;
 
   constructor(
@@ -33,6 +41,7 @@ export class PushNotificationService {
     private eventService: EventService,
     private http: HttpClient,
     private readonly currentUrl: CurrentUrlService,
+    private readonly eventRequestService: EventRequestService,
   ) {
     this.currentUrl$ = this.currentUrl.get();
     this.initializePushNotifications();
@@ -153,6 +162,16 @@ export class PushNotificationService {
           }
         },
       });
+    this.socket.on('newInvite').subscribe({
+      next: () => {
+
+      }
+    })
+    this.socket.on('inviteStatusChange').subscribe({
+      next: () => {
+
+      }
+    })
   }
 
   /**
@@ -278,5 +297,46 @@ export class PushNotificationService {
           console.error('Error initializing push notifications:', err);
         },
       });
+  }
+
+  private loadEventRequestNotifications() {
+    this.eventRequestService.getUsersRequests()
+      .pipe(
+        map((eventRequests: UsersEventRequest[]) => {
+          let count = 0;
+           eventRequests.forEach((req: UsersEventRequest) => {
+             if (req.denied) {
+               count++
+             }
+          })
+          return count;
+        }),
+        catchError(()=> of(0))
+      )
+      .subscribe({
+      next: (count: number) => {
+        this.guestEventJoinRequestListSubject.next(count)
+      },
+    })
+
+    //Todo: backendroute die alle requests pro eventid zurück gibt...
+    this.eventRequestService.getEventHostRequests()
+      .pipe(
+        map((eventRequests: EventUserRequest[]) => {
+          let count = 0;
+          eventRequests.forEach((req: EventUserRequest) => {
+            if (req.denied) {
+              count++
+            }
+          })
+          return count;
+        }),
+        catchError(()=> of(0))
+      )
+      .subscribe({
+        next: (count: number) => {
+          this.guestEventJoinRequestListSubject.next(count)
+        },
+      })
   }
 }

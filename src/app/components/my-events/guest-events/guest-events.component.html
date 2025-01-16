@@ -1,14 +1,12 @@
 <div class="grid justify-content-center">
-  @if (hasRequests) {
     <!--TODO or has past events -->
     <div class="m-3 mb-8 col-12">
       <p-card styleClass="w-full md:w-4">
         <ul class="list-none p-0 m-0">
           <!-- Event Requests - temporary style solution -->
-          @if (hasRequests) {
             <li
               class="p-3 py-0 w-full col-12 border-gray-50 flex justify-content-between align-items-center cursor-pointer"
-              [routerLink]="['my-requests']"
+              [routerLink]="['/' + AppRoutes.MY_EVENTS_REQUESTS]"
               [relativeTo]="route">
               <div class="flex align-items-center">
                 <rmx-icon name="mail-send-line" class="mr-2"></rmx-icon>
@@ -20,13 +18,11 @@
                 name="arrow-right-s-line"
                 style="height: 26px; width: 26px" />
             </li>
-          }
 
           <!-- Past Events -->
         </ul>
       </p-card>
     </div>
-  }
   <div class="col-12 grid">
     @if (filteredEvents$ | async; as events) {
       @if (pushNotifications | async; as push) {

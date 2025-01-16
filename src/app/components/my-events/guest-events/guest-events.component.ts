@@ -18,6 +18,7 @@ import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { CardModule } from 'primeng/card';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
+import {AppRoutes} from '../../../interfaces/AppRoutes';
 
 @Component({
   selector: 'app-guest-events',
@@ -92,4 +93,6 @@ export class GuestEventsComponent implements OnInit, OnChanges {
       this.filtersSubject.next(this.filters);
     }
   }
+
+  protected readonly AppRoutes = AppRoutes;
 }

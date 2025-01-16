@@ -444,7 +444,8 @@
       "try-again": "Request again",
       "new-request": "New request for event \"{{title}}\" sent!",
       "deleted-request": "Request for event \"{{title}}\" deleted.",
-      "delete-request": "Delete Request"
+      "delete-request": "Delete Request",
+      "noRequests": "There are no currently no requests."
     }
   },
   "privacyPolicy": {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, share, Subject } from 'rxjs';
+import {BehaviorSubject, shareReplay, Subject} from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
@@ -16,7 +16,7 @@ export class CurrentUrlService {
   }
 
   get() {
-    return this.currentUrlSubject.asObservable().pipe(share());
+    return this.currentUrlSubject.asObservable().pipe(shareReplay(1));
   }
 
   private subscribeToUrl() {
