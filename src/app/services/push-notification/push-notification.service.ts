@@ -64,6 +64,17 @@ export class PushNotificationService {
       map(([host, guest, jr]) => {
         return host + guest + jr;
       }),
+      tap(da => {
+        document.onblur = function () {
+          document.title = '( ' + da + ' ) | Connect-U';
+        };
+        document.onfocus = function () {
+          document.title = 'Connect-U';
+        };
+        if (!document.hasFocus() && da != 0) {
+          document.title = '(' + da + ') | Connect-U';
+        }
+      }),
     );
   }
 
