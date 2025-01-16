@@ -17,11 +17,5 @@ export class MyFriendsComponent implements OnInit {
 
   ngOnInit() {
     this.friends$ = this.friendsService.getFriends();
-
-    // Debug: Inhalte in der Konsole anzeigen
-    this.friends$.subscribe({
-      next: data => console.log('Fetched Friends:', data),
-      error: err => console.error('Error fetching friends:', err),
-    });
   }
 }
