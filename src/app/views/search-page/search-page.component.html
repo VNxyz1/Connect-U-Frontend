@@ -54,9 +54,9 @@
         </span>
       </div>
 
-      <div class="field pt-3 m-0">
+      <div class="field pt-3 m-0 row">
         <p-checkbox
-          class="xl:mr-8 md:mr-6 lg:mr-8 mr-3"
+          class="lg:col-3 col-7"
           name="isOnline"
           [label]="'searchPageComponent.isOnline' | transloco"
           [binary]="true"
@@ -64,7 +64,7 @@
           id="isOnline"
           variant="filled">
         </p-checkbox>
-        <p-checkbox
+        <p-checkbox class="lg:col-3 col-7"
           name="isInPlace"
           [label]="'searchPageComponent.isInPlace' | transloco"
           formControlName="isInPlace"
@@ -78,9 +78,9 @@
           {{ 'searchPageComponent.errors.online' | transloco }}
         </small>
       }
-      <div class="field pt-3 m-0">
+      <div class="field pt-3 m-0 row">
         <p-checkbox
-          class="xl:mr-8 md:mr-8 lg:mr-8 mr-3 pr-1"
+          class="lg:col-3 col-7"
           name="isPublic"
           [label]="'searchPageComponent.isPublic' | transloco"
           formControlName="isPublic"
@@ -89,6 +89,7 @@
           variant="filled">
         </p-checkbox>
         <p-checkbox
+          class="lg:col-3 col-7"
           name="isHalfPublic"
           [label]="'searchPageComponent.isHalfPublic' | transloco"
           formControlName="isHalfPublic"
