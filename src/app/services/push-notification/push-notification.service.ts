@@ -174,7 +174,7 @@ export class PushNotificationService {
       .pipe(
         withLatestFrom(this.currentUrl$),
         map(([eventId, currentUrl]) => {
-          const ignoreUrl = AppRoutes.EVENT.replace(':id', eventId);
+          const ignoreUrl = AppRoutes.EVENT_CHAT.replace(':id', eventId);
           const includesEventId = currentUrl.includes(ignoreUrl);
           return includesEventId ? '' : eventId;
         }),

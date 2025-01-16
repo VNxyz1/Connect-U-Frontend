@@ -88,9 +88,8 @@ export class AppComponent implements OnInit, OnDestroy {
             });
             this.initStorage(); // Initialize storage
           }
-
-          this.isLoggedIn = this.auth.isLoggedIn();
         }
+        this.isLoggedIn = this.auth.isLoggedIn();
       },
     });
   }
