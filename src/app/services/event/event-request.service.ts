@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  BehaviorSubject,
-  map,
-  Observable,
-  throwError,
-} from 'rxjs';
+import { BehaviorSubject, map, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { EventUserRequest } from '../../interfaces/EventUserRequest';

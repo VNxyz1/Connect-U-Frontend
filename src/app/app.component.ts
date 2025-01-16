@@ -5,7 +5,7 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -23,7 +23,6 @@ import { UserService } from './services/user/user.service';
 import { LanguageService } from './services/language/language.service';
 import { PushNotificationService } from './services/push-notification/push-notification.service';
 import { CurrentUrlService } from './services/current-url/current-url.service';
-import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',

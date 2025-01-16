@@ -33,6 +33,7 @@ import { ChipsModule } from 'primeng/chips';
 import { FriendsService } from '../../services/friends/friends.service';
 import { BadgeModule } from 'primeng/badge';
 import { PushNotificationService } from '../../services/push-notification/push-notification.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-event-page',

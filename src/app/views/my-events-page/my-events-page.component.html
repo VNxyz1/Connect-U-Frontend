@@ -16,28 +16,28 @@
   }
   -->
 
-    <!-- Tab Content -->
-    <div class="flex justify-content-center mt-4">
-      <div class="col-12 mb-6">
-        @if (activeTab === 'guest') {
-          @if (doesNotInclude('requests', currentUrl)) {
-            <app-guest-events
-              (hasEventsChange)="updateHasEvents($event)"
-              [filters]="selectedCategories"
-              [hasRequests]="eventRequests.length > 0" />
-          } @else {
-            <app-users-event-requests [eventRequests]="eventRequests" />
-          }
-        }
-        @if (activeTab === 'hosted') {
-          <app-hosted-events
+  <!-- Tab Content -->
+  <div class="flex justify-content-center mt-4">
+    <div class="col-12 mb-6">
+      @if (activeTab === 'guest') {
+        @if (doesNotInclude('requests', currentUrl)) {
+          <app-guest-events
             (hasEventsChange)="updateHasEvents($event)"
-            [filters]="selectedCategories" />
+            [filters]="selectedCategories"
+            [hasRequests]="eventRequests.length > 0" />
+        } @else {
+          <app-users-event-requests [eventRequests]="eventRequests" />
         }
-        <!-- has to be implemented -->
-        @if (activeTab === 'favorite') {
-          <app-favorite-events />
-        }
-      </div>
+      }
+      @if (activeTab === 'hosted') {
+        <app-hosted-events
+          (hasEventsChange)="updateHasEvents($event)"
+          [filters]="selectedCategories" />
+      }
+      <!-- has to be implemented -->
+      @if (activeTab === 'favorite') {
+        <app-favorite-events />
+      }
     </div>
+  </div>
 }
