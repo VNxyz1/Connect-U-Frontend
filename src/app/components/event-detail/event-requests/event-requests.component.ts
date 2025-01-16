@@ -125,6 +125,7 @@ export class EventRequestsComponent implements OnInit {
         this.eventRequests = this.eventRequests.filter(
           request => request.id !== requestId,
         );
+        this.pushNotificationService.loadEventRequestNotifications();
         this.messageService.add({
           severity: 'success',
           summary: this.translocoService.translate(
