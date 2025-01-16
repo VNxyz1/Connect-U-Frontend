@@ -388,7 +388,7 @@ export class EventPageComponent implements OnInit {
     }
   }
 
-  getPushNotificationList() {
-    return this.pushNotificationService.getCompleteEventList();
+  getPushNotificationListChat() {
+    return this.pushNotificationService.getChatNotificationList();
   }
 }

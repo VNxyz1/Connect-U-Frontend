@@ -179,9 +179,20 @@
                   {{ 'eventDetailPageComponent.requests.title' | transloco }}
                 </h3>
                 <!-- Request Count (Right Top, Aligned with Header) -->
-                <span class="color-secondary text-center w-2rem">{{
-                  this.eventRequestsHost.length
-                }}</span>
+                @if (eventRequestsHost.length > 0) {
+                  <span
+                    [style]="{
+                      'min-width': '20px',
+                      height: '20px',
+                    }"
+                    class="bg-blue-900 border-round-3xl border-blue-900 text-center text-white px-1 justify-content-center flex align-content-center align-items-center"
+                    >{{ eventRequestsHost.length }}</span
+                  >
+                } @else {
+                  <span class="color-secondary text-center w-2rem">{{
+                    eventRequestsHost.length
+                  }}</span>
+                }
               </div>
 
               <!-- Bottom Section -->
@@ -217,7 +228,7 @@
       </div>
 
       <div class="">
-        @if (eventDetails && eventDetails.participantsNumber > 0) {
+        @if (eventDetails) {
           <p-card
             class="p-3 cursor-pointer"
             [routerLink]="['guests']"

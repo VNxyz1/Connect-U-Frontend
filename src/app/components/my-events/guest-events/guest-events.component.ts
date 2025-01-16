@@ -18,7 +18,7 @@ import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { CardModule } from 'primeng/card';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
-import {AppRoutes} from '../../../interfaces/AppRoutes';
+import { AppRoutes } from '../../../interfaces/AppRoutes';
 
 @Component({
   selector: 'app-guest-events',

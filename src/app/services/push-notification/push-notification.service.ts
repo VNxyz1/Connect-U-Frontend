@@ -16,9 +16,8 @@ import { EventService } from '../event/eventservice';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { AppRoutes } from '../../interfaces/AppRoutes';
 import { CurrentUrlService } from '../current-url/current-url.service';
-import {EventRequestService} from '../event/event-request.service';
-import {UsersEventRequest} from '../../interfaces/UsersEventRequest';
-import {EventUserRequest} from '../../interfaces/EventUserRequest';
+import { EventRequestService } from '../event/event-request.service';
+import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -29,10 +28,11 @@ export class PushNotificationService {
   private guestEventsListSubject: BehaviorSubject<Map<string, number>> =
     new BehaviorSubject<Map<string, number>>(new Map<string, number>());
 
-  private hostEventJoinRequestListSubject: BehaviorSubject<number> =
-    new BehaviorSubject<number>(0);
   private guestEventJoinRequestListSubject: BehaviorSubject<number> =
     new BehaviorSubject<number>(0);
+  private hostEventJoinRequestListSubject: BehaviorSubject<
+    Map<string, number>
+  > = new BehaviorSubject<Map<string, number>>(new Map<string, number>());
 
   private currentUrl$!: Observable<string>;
 
@@ -45,6 +45,7 @@ export class PushNotificationService {
   ) {
     this.currentUrl$ = this.currentUrl.get();
     this.initializePushNotifications();
+    this.loadEventRequestNotifications();
     this.connectHostedEventsSocket();
   }
 
@@ -88,7 +89,19 @@ export class PushNotificationService {
    * @returns {Observable<Map<string, number>>} Observable emitting a map of hosted event IDs and their notification counts.
    */
   getHostedEventsList(): Observable<Map<string, number>> {
-    return this.hostedEventsListSubject.asObservable();
+    return combineLatest([
+      this.hostedEventsListSubject.asObservable(),
+      this.hostEventJoinRequestListSubject.asObservable(),
+    ]).pipe(
+      map(([hostedEvents, hostedRequests]) => {
+        const newMap = new Map<string, number>(hostedEvents);
+        for (const req of hostedRequests) {
+          const currentValue = newMap.get(req[0]) || 0;
+          newMap.set(req[0], currentValue + req[1]);
+        }
+        return newMap;
+      }),
+    );
   }
 
   /**
@@ -106,6 +119,20 @@ export class PushNotificationService {
   getCompleteEventList(): Observable<Map<string, number>> {
     return combineLatest([
       this.getHostedEventsList(),
+      this.getGuestEventsList(),
+    ]).pipe(
+      map(([hostedEvents, guestEvents]) => {
+        return new Map<string, number>([
+          ...Array.from(hostedEvents.entries()),
+          ...Array.from(guestEvents.entries()),
+        ]);
+      }),
+    );
+  }
+
+  getChatNotificationList(): Observable<Map<string, number>> {
+    return combineLatest([
+      this.hostedEventsListSubject.asObservable(),
       this.getGuestEventsList(),
     ]).pipe(
       map(([hostedEvents, guestEvents]) => {
@@ -163,15 +190,11 @@ export class PushNotificationService {
         },
       });
     this.socket.on('newInvite').subscribe({
-      next: () => {
-
-      }
-    })
+      next: () => {},
+    });
     this.socket.on('inviteStatusChange').subscribe({
-      next: () => {
-
-      }
-    })
+      next: () => {},
+    });
   }
 
   /**
@@ -235,7 +258,10 @@ export class PushNotificationService {
    * Maps a Map of event IDs to their total notification count.
    * @returns {OperatorFunction<Map<string, number>, number>} Operator function to calculate total notifications.
    */
-  private mapToNotificationNumber() {
+  private mapToNotificationNumber(): OperatorFunction<
+    Map<string, number>,
+    number
+  > {
     return map((events: Map<string, number>) => {
       let count = 0;
       events.forEach(event => {
@@ -300,43 +326,33 @@ export class PushNotificationService {
   }
 
   private loadEventRequestNotifications() {
-    this.eventRequestService.getUsersRequests()
+    this.eventRequestService
+      .getUsersRequests()
       .pipe(
         map((eventRequests: UsersEventRequest[]) => {
           let count = 0;
-           eventRequests.forEach((req: UsersEventRequest) => {
-             if (req.denied) {
-               count++
-             }
-          })
-          return count;
-        }),
-        catchError(()=> of(0))
-      )
-      .subscribe({
-      next: (count: number) => {
-        this.guestEventJoinRequestListSubject.next(count)
-      },
-    })
-
-    //Todo: backendroute die alle requests pro eventid zurück gibt...
-    this.eventRequestService.getEventHostRequests()
-      .pipe(
-        map((eventRequests: EventUserRequest[]) => {
-          let count = 0;
-          eventRequests.forEach((req: EventUserRequest) => {
+          eventRequests.forEach((req: UsersEventRequest) => {
             if (req.denied) {
-              count++
+              count++;
             }
-          })
+          });
           return count;
         }),
-        catchError(()=> of(0))
+        catchError(() => of(0)),
       )
       .subscribe({
         next: (count: number) => {
-          this.guestEventJoinRequestListSubject.next(count)
+          this.guestEventJoinRequestListSubject.next(count);
         },
-      })
+      });
+
+    this.http
+      .get<Record<string, number>>('push-notification/event-join-requests')
+      .pipe(this.pipeMap(), this.catchErrorToEmptyMap())
+      .subscribe({
+        next: (data: Map<string, number>) => {
+          this.hostEventJoinRequestListSubject.next(data);
+        },
+      });
   }
 }

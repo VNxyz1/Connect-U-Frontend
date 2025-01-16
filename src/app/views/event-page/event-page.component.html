@@ -118,7 +118,7 @@
           class="p-menuitem-link">
           <div class="flex relative justify-content-center">
             @if (item.iBadge) {
-              @if (getPushNotificationList() | async; as eventMap) {
+              @if (getPushNotificationListChat() | async; as eventMap) {
                 @if (eventMap.get(eventDetails.id); as val) {
                   <span
                     [style]="{
