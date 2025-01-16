@@ -54,7 +54,7 @@
         </span>
       </div>
 
-      <div class="field pt-3">
+      <div class="field pt-3 m-0">
         <p-checkbox
           class="xl:mr-8 md:mr-6 lg:mr-8 mr-4"
           name="isOnline"
@@ -73,7 +73,14 @@
           variant="filled">
         </p-checkbox>
       </div>
-      <div class="field">
+      @if (formErrors['isOnlineInPlace']) {
+        <small class="p-error">
+          {{
+            'searchPageComponent.errors.online' | transloco
+          }}
+        </small>
+      }
+      <div class="field pt-3 m-0">
         <p-checkbox
           class="xl:mr-8 md:mr-8 lg:mr-8 mr-4 pr-1"
           name="isPublic"
@@ -92,9 +99,17 @@
           variant="filled">
         </p-checkbox>
       </div>
+      @if (formErrors['isPublicHalfPublic']) {
+        <small class="p-error">
+          {{
+            'searchPageComponent.errors.online' | transloco
+          }}
+        </small>
+      }
+
       @if (fetchedGenders | async; as genderOptions) {
         <div class="field pt-3">
-          <p-floatLabel>
+          <p class="pt-4">{{ 'searchPageComponent.gendersInput' | transloco }}</p>
             <p-multiSelect
               id="genders"
               formControlName="genders"
@@ -108,15 +123,17 @@
                 {{ sorting.label | transloco }}
               </ng-template>
             </p-multiSelect>
-            <label for="genders">{{
-              'searchPageComponent.gendersInput'
-                | transloco
-            }}</label>
-          </p-floatLabel>
+          @if (formErrors['genders']) {
+            <small class="p-error">
+              {{
+                'searchPageComponent.errors.genders' | transloco
+              }}
+            </small>
+          }
         </div>
       }
 
-      <h3>{{ 'createEventStep3Component.ageSection.title' | transloco }}</h3>
+      <p class="pt-4">{{ 'createEventStep3Component.ageSection.title' | transloco }}</p>
 
       <div class="field justify-content-center w-full text-center">
         <p-slider

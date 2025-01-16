@@ -75,6 +75,7 @@ export class SearchPageComponent implements OnInit {
     },
   ];
   fetchedTags: string[] = [];
+  formErrors: { [key: string]: string } = {};
 
   form: FormGroup = new FormGroup({
     tags: new FormControl<number[]>([]),
@@ -154,9 +155,39 @@ export class SearchPageComponent implements OnInit {
     return form;
   }
 
+  validateForm(form: FormGroup): { valid: boolean; errors: { [key: string]: string } } {
+    const errors: { [key: string]: string } = {};
+
+    if (!form.controls['genders'].value || form.controls['genders'].value.length === 0) {
+      errors['genders'] = 'Genders cannot be empty.';
+    }
+
+    if (!form.controls['isOnline'].value && !form.controls['isInPlace'].value) {
+      errors['isOnlineInPlace'] = 'At least one of "isOnline" or "isInPlace" must be true.';
+    }
+
+    if (!form.controls['isPublic'].value && !form.controls['isHalfPublic'].value) {
+      errors['isPublicHalfPublic'] = 'At least one of "isPublic" or "isHalfPublic" must be true.';
+    }
+
+    return {
+      valid: Object.keys(errors).length === 0,
+      errors,
+    };
+  }
+
   submit = () => {
-    const params = parseToQueryParams(this.form);
-    this.router.navigate(['search', 'results'], { queryParams: params });
+
+    const validation = this.validateForm(this.form);
+
+    if (!validation.valid) {
+      this.formErrors = validation.errors;
+      console.log('Form is invalid:', validation.errors);
+      return;
+    }
+      const params = parseToQueryParams(this.form);
+      this.router.navigate(['search', 'results'], { queryParams: params });
+
   };
 
   private loadGenders() {

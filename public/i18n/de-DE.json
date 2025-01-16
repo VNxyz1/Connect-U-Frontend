@@ -142,6 +142,10 @@
     "filterButton":"Events filtern",
     "selectFilters": "Filter auswählen",
     "sortEvents": "Events sortieren",
+    "errors": {
+      "genders": "Du musst mindestens ein Geschlecht auswählen!",
+      "online": "Du musst mindestens eine Option auswählen!"
+    },
     "sortOrder": {
       "newestFirst": "Neueste zuerst",
       "oldestFirst": "Älteste zuerst",
