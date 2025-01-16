@@ -24,9 +24,9 @@ import { UserService } from '../user/user.service';
   providedIn: 'root',
 })
 export class PushNotificationService {
-  private hostedEventsListSubject: BehaviorSubject<Map<string, number>> =
+  private chatHostedEventsListSubject: BehaviorSubject<Map<string, number>> =
     new BehaviorSubject<Map<string, number>>(new Map<string, number>());
-  private guestEventsListSubject: BehaviorSubject<Map<string, number>> =
+  private chatGuestEventsListSubject: BehaviorSubject<Map<string, number>> =
     new BehaviorSubject<Map<string, number>>(new Map<string, number>());
 
   private guestEventJoinRequestListSubject: BehaviorSubject<number> =
@@ -80,7 +80,7 @@ export class PushNotificationService {
    * @returns {Observable<number>} Observable emitting the total number of hosted event notifications.
    */
   getMyEventsHost(): Observable<number> {
-    return this.guestEventsListSubject
+    return this.chatGuestEventsListSubject
       .asObservable()
       .pipe(this.mapToNotificationNumber());
   }
@@ -95,7 +95,7 @@ export class PushNotificationService {
    */
   getHostedEventsList(): Observable<Map<string, number>> {
     return combineLatest([
-      this.hostedEventsListSubject.asObservable(),
+      this.chatHostedEventsListSubject.asObservable(),
       this.hostEventJoinRequestListSubject.asObservable(),
     ]).pipe(
       map(([hostedEvents, hostedRequests]) => {
@@ -114,7 +114,7 @@ export class PushNotificationService {
    * @returns {Observable<Map<string, number>>} Observable emitting a map of guest event IDs and their notification counts.
    */
   getGuestEventsList(): Observable<Map<string, number>> {
-    return this.guestEventsListSubject.asObservable();
+    return this.chatGuestEventsListSubject.asObservable();
   }
 
   /**
@@ -137,7 +137,7 @@ export class PushNotificationService {
 
   getChatNotificationList(): Observable<Map<string, number>> {
     return combineLatest([
-      this.hostedEventsListSubject.asObservable(),
+      this.chatHostedEventsListSubject.asObservable(),
       this.getGuestEventsList(),
     ]).pipe(
       map(([hostedEvents, guestEvents]) => {
@@ -154,14 +154,14 @@ export class PushNotificationService {
    * @param {string} eventId - The ID of the event to clear notifications for.
    */
   clearEvent(eventId: string) {
-    const guest = this.guestEventsListSubject.getValue();
-    const hosted = this.hostedEventsListSubject.getValue();
+    const guest = this.chatGuestEventsListSubject.getValue();
+    const hosted = this.chatHostedEventsListSubject.getValue();
     if (guest.has(eventId)) {
       guest.set(eventId, 0);
-      this.guestEventsListSubject.next(guest);
+      this.chatGuestEventsListSubject.next(guest);
     } else if (hosted.has(eventId)) {
       hosted.set(eventId, 0);
-      this.hostedEventsListSubject.next(hosted);
+      this.chatHostedEventsListSubject.next(hosted);
     }
   }
 
@@ -181,16 +181,16 @@ export class PushNotificationService {
       )
       .subscribe({
         next: (eventId: string) => {
-          const hosted = this.hostedEventsListSubject.getValue();
-          const guest = this.guestEventsListSubject.getValue();
+          const hosted = this.chatHostedEventsListSubject.getValue();
+          const guest = this.chatGuestEventsListSubject.getValue();
           if (hosted.has(eventId)) {
             const count = hosted.get(eventId) || 0;
             hosted.set(eventId, count + 1);
-            this.hostedEventsListSubject.next(hosted);
+            this.chatHostedEventsListSubject.next(hosted);
           } else if (guest.has(eventId)) {
             const count = guest.get(eventId) || 0;
             guest.set(eventId, count + 1);
-            this.guestEventsListSubject.next(guest);
+            this.chatGuestEventsListSubject.next(guest);
           }
         },
       });
@@ -218,26 +218,26 @@ export class PushNotificationService {
    */
   private loadPushNotifications(): Observable<void> {
     return combineLatest([
-      this.http.get('push-notification/host').pipe(
+      this.http.get('push-notification/chat/host').pipe(
         this.pipeMap(),
         this.catchErrorToEmptyMap(),
         tap(data => {
-          const a = this.hostedEventsListSubject.getValue();
+          const a = this.chatHostedEventsListSubject.getValue();
           for (const event of data) {
             a.set(event[0], event[1]);
           }
-          this.hostedEventsListSubject.next(a);
+          this.chatHostedEventsListSubject.next(a);
         }),
       ),
-      this.http.get('push-notification/participant').pipe(
+      this.http.get('push-notification/chat/participant').pipe(
         this.pipeMap(),
         this.catchErrorToEmptyMap(),
         tap(data => {
-          const a = this.guestEventsListSubject.getValue();
+          const a = this.chatGuestEventsListSubject.getValue();
           for (const event of data) {
             a.set(event[0], event[1]);
           }
-          this.guestEventsListSubject.next(a);
+          this.chatGuestEventsListSubject.next(a);
         }),
       ),
     ]).pipe(map(() => void 0));
@@ -296,14 +296,14 @@ export class PushNotificationService {
         this.fillMapsPipe(),
         this.catchErrorToEmptyMap(),
         tap(data => {
-          this.hostedEventsListSubject.next(data);
+          this.chatHostedEventsListSubject.next(data);
         }),
       ),
       this.eventService.getParticipatingEvents().pipe(
         this.fillMapsPipe(),
         this.catchErrorToEmptyMap(),
         tap(data => {
-          this.guestEventsListSubject.next(data);
+          this.chatGuestEventsListSubject.next(data);
         }),
       ),
     ]).pipe(map(() => void 0));
