@@ -76,6 +76,9 @@
             {{ 'headerComponent.shareProfile' | transloco }}
           </h1>
         }
+        @case (currentUrl?.includes('/my-friends')) {
+          <h1 class="m-0">{{ 'headerComponent.myFriends' | transloco }}</h1>
+        }
         @default {
           <p-image
             src="images/logo_full_dark.svg"

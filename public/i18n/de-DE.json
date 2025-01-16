@@ -418,6 +418,7 @@
   },
   "headerComponent": {
     "mySpace": "Mein Bereich",
+    "myFriends": "Meine Freunde",
     "myEvents": "Meine Events",
     "search": "Events suchen",
     "createEvent": "Event erstellen",
@@ -811,6 +812,7 @@
   "mySpacePage": {
     "listing": {
       "settings": "Einstellungen",
+      "myFriends": "Meine Freunde",
       "logout": "Abmelden",
       "information": "Informationen"
     }
