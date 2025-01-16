@@ -2,15 +2,11 @@
   <div
     class="flex align-items-center justify-content-between w-full pt-4 md:pt-3 mb-1 md:mb-2">
     <div class="col align-items-center justify-content-start">
-      @if (
-        currentUrl !== '/' &&
-        !currentUrl?.includes('create-event') &&
-        !currentUrl?.includes('unavailable')
-      ) {
+      @if (currentUrl?.includes('results')) {
         <p-button
           [text]="true"
           severity="primary"
-          (click)="backToLast()"
+          (click)="search()"
           class="mr-3">
           <ng-template pTemplate="icon">
             <rmx-icon
@@ -30,6 +26,22 @@
               name="close-line"></rmx-icon>
           </ng-template>
         </p-button>
+      } @else if (
+        currentUrl !== '/' &&
+        !currentUrl?.includes('create-event') &&
+        !currentUrl?.includes('unavailable')
+      ) {
+        <p-button
+          [text]="true"
+          severity="primary"
+          (click)="backToLast()"
+          class="mr-3">
+          <ng-template pTemplate="icon">
+            <rmx-icon
+              style="width: 24px; height: 24px"
+              name="arrow-left-s-line"></rmx-icon>
+          </ng-template>
+        </p-button>
       }
     </div>
 
@@ -46,6 +58,9 @@
         }
         @case (currentUrl?.includes('/event')) {
           <h1 class="m-0">{{ 'headerComponent.event' | transloco }}</h1>
+        }
+        @case (currentUrl?.includes('/search')) {
+          <h1 class="m-0">{{ 'headerComponent.search' | transloco }}</h1>
         }
         @case (currentUrl?.includes('/settings')) {
           <h1 class="m-0">{{ 'headerComponent.settings' | transloco }}</h1>

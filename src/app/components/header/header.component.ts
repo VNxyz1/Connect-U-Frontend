@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageModule } from 'primeng/image';
-import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Params,
+  Router,
+  RouterLink,
+} from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { Button } from 'primeng/button';
@@ -11,6 +17,7 @@ import { EventService } from '../../services/event/eventservice';
 import { AuthService } from '../../services/auth/auth.service';
 import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
+import { parseToQueryParams } from '../../utils/parsing/parsing';
 
 @Component({
   selector: 'app-header',
@@ -28,7 +35,7 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
   currentUrl: string | undefined;
-
+  params: Params = { page: 1 };
   isLoggedIn!: Observable<boolean>;
 
   constructor(
@@ -37,6 +44,7 @@ export class HeaderComponent implements OnInit {
     protected translocoService: TranslocoService,
     private eventService: EventService,
     private authService: AuthService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
@@ -49,8 +57,15 @@ export class HeaderComponent implements OnInit {
       });
   }
 
+  search = () => {
+    this.route.queryParams.subscribe(params => {
+      this.params = params;
+    });
+    this.router.navigate(['search'], { queryParams: this.params });
+  };
+
   protected backToLast() {
-    window.history.back(); // Navigate to the previous page in the browser history
+    window.history.back();
   }
 
   protected closeProcess() {

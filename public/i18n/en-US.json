@@ -130,6 +130,34 @@
     }
   },
   "searchPageComponent": {
+    "eventTitleInput": "filter by title",
+    "tagsInput": "filter by tags",
+    "categoriesInput": "filter by categories",
+    "gendersInput": "Who do you want to attend the event with?",
+    "isOnline": "Online Events",
+    "isInPlace": "In-Person Events",
+    "isPublic": "Public Events",
+    "isHalfPublic": "Semi-Public Events",
+    "filterFriends": "only display events that friends are attending",
+    "filterButton":"Filter Events",
+    "selectFilters": "Select Filters",
+    "sortEvents": "Sort Events",
+    "errors": {
+      "genders": "You have to select at least one gender!",
+      "online": "You have to select at least one option!"
+    },
+    "sortOrder": {
+      "newestFirst": "Newest First",
+      "oldestFirst": "Oldest First",
+      "upcomingNext": "Upcoming Next",
+      "upcomingLast": "Upcoming Last",
+      "alphabetical_asc": "Alphabetical (A-Z)",
+      "alphabetical_desc": "Alphabetical (Z-A)"
+    }
+  },
+  "resultsPageComponent": {
+    "results": "Results",
+    "eventsFound": "matching events found!"
   },
   "createEventStep1Component": {
     "eventType": {
@@ -235,9 +263,9 @@
       "finish": "Finish"
     },
     "genders": {
-      "male": "Male",
-      "female": "Female",
-      "divers": "Divers"
+      "male": "Men",
+      "female": "Women",
+      "divers": "Diverse"
     },
     "messages": {
       "eventCreatedSuccess": "Event \"{{title}}\" created successfully!",
