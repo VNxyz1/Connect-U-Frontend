@@ -18,6 +18,7 @@ import { AppRoutes } from '../../interfaces/AppRoutes';
 import { CurrentUrlService } from '../current-url/current-url.service';
 import { EventRequestService } from '../event/event-request.service';
 import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -42,6 +43,7 @@ export class PushNotificationService {
     private http: HttpClient,
     private readonly currentUrl: CurrentUrlService,
     private readonly eventRequestService: EventRequestService,
+    private readonly userService: UserService,
   ) {
     this.currentUrl$ = this.currentUrl.get();
     this.initializePushNotifications();
@@ -57,9 +59,10 @@ export class PushNotificationService {
     return combineLatest([
       this.getMyEventsGuest(),
       this.getMyEventsHost(),
+      this.getGuestJoinRequest(),
     ]).pipe(
-      map(([host, guest]) => {
-        return host + guest;
+      map(([host, guest, jr]) => {
+        return host + guest + jr;
       }),
     );
   }
@@ -69,9 +72,7 @@ export class PushNotificationService {
    * @returns {Observable<number>} Observable emitting the total number of guest event notifications.
    */
   getMyEventsGuest(): Observable<number> {
-    return this.hostedEventsListSubject
-      .asObservable()
-      .pipe(this.mapToNotificationNumber());
+    return this.getHostedEventsList().pipe(this.mapToNotificationNumber());
   }
 
   /**
@@ -82,6 +83,10 @@ export class PushNotificationService {
     return this.guestEventsListSubject
       .asObservable()
       .pipe(this.mapToNotificationNumber());
+  }
+
+  getGuestJoinRequest(): Observable<number> {
+    return this.guestEventJoinRequestListSubject.asObservable();
   }
 
   /**
@@ -189,11 +194,21 @@ export class PushNotificationService {
           }
         },
       });
-    this.socket.on('newInvite').subscribe({
-      next: () => {},
+    this.eventRequestService.getNewInviteSocket().subscribe({
+      next: userId => {
+        const a = this.userService.getCurrentUserData();
+        if (a?.id == userId) {
+          this.loadEventRequestNotifications();
+        }
+      },
     });
-    this.socket.on('inviteStatusChange').subscribe({
-      next: () => {},
+    this.eventRequestService.getInviteStatusChangeSocket().subscribe({
+      next: userId => {
+        const a = this.userService.getCurrentUserData();
+        if (a?.id == userId) {
+          this.loadEventRequestNotifications();
+        }
+      },
     });
   }
 
@@ -325,7 +340,7 @@ export class PushNotificationService {
       });
   }
 
-  private loadEventRequestNotifications() {
+  loadEventRequestNotifications() {
     this.eventRequestService
       .getUsersRequests()
       .pipe(

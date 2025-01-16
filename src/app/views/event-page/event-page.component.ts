@@ -123,6 +123,23 @@ export class EventPageComponent implements OnInit {
         this.selectedFriends = updatedFriends;
       });
     }
+
+    this.eventRequestService.getNewInviteSocket().subscribe({
+      next: userId => {
+        const a = this.userService.getCurrentUserData();
+        if (a?.id == userId) {
+          this.fetchEventRequestsHost();
+        }
+      },
+    });
+    this.eventRequestService.getInviteStatusChangeSocket().subscribe({
+      next: userId => {
+        const a = this.userService.getCurrentUserData();
+        if (a?.id == userId) {
+          this.fetchEventRequestsHost();
+        }
+      },
+    });
   }
 
   private checkIfComingFromCreate(): void {

@@ -260,7 +260,8 @@
       "title": "Requests",
       "accepted-request": "The request from \"{{name}}\" was accepted!",
       "denied-request": "The request from \"{{name}}\" was denied.",
-      "delete-request": "Delete Request"
+      "delete-request": "Delete Request",
+      "try-again": "Erneut Anfragen"
     },
     "notExist": "It seems like the event you were looking for doesn't exist!",
       "eventNotFound": "The event you are looking for does not exist.",

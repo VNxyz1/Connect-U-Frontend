@@ -37,11 +37,12 @@ export class GuestEventsComponent implements OnInit, OnChanges {
   @Input() filters: { name: string }[] = [];
   events$!: Observable<EventCardItem[]>;
   filteredEvents$!: Observable<EventCardItem[]>;
-  pushNotifications!: Observable<Map<string, number>>;
   protected isLoading = true;
   @Output() hasEventsChange = new EventEmitter<boolean>();
   @Input() hasRequests!: boolean;
   currentUrl: string = '';
+  pushNotificationsEvents$!: Observable<Map<string, number>>;
+  pushNotificationsRequests$!: Observable<number>;
 
   private filtersSubject = new BehaviorSubject<{ name: string }[]>([]);
 
@@ -86,7 +87,10 @@ export class GuestEventsComponent implements OnInit, OnChanges {
         ),
       ),
     );
-    this.pushNotifications = this.pushNotificationService.getGuestEventsList();
+    this.pushNotificationsEvents$ =
+      this.pushNotificationService.getGuestEventsList();
+    this.pushNotificationsRequests$ =
+      this.pushNotificationService.getGuestJoinRequest();
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['filters']) {

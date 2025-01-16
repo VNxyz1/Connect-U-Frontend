@@ -262,7 +262,8 @@
       "title": "Anfragen",
       "accepted-request": "Die Anfrage von \"{{name}}\" wurde akzeptiert!",
       "denied-request": "Die Anfrage von \"{{name}}\" wurde abgelehnt.",
-      "delete-request": "Anfrage löschen"
+      "delete-request": "Anfrage löschen",
+      "try-again": "Erneut Anfragen"
     },
     "eventNotFound": "Das gesuchte Event existiert nicht.",
     "userIsHost": "Du bist der Gastgeber dieses Events und kannst nicht teilnehmen.",

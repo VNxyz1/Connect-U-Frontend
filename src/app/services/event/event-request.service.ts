@@ -1,15 +1,38 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  map,
+  Observable,
+  throwError,
+} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { EventUserRequest } from '../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
+import { SocketService } from '../socket/socket.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventRequestService {
-  constructor(private readonly http: HttpClient) {}
+  private readonly newInviteSocket$!: Observable<string>;
+  private readonly inviteStatusChangeSocket$!: Observable<string>;
+
+  constructor(
+    private readonly http: HttpClient,
+    private readonly socket: SocketService,
+  ) {
+    this.newInviteSocket$ = this.socket.on('newInvite');
+    this.inviteStatusChangeSocket$ = this.socket.on('inviteStatusChange');
+  }
+
+  getNewInviteSocket() {
+    return this.newInviteSocket$;
+  }
+
+  getInviteStatusChangeSocket() {
+    return this.inviteStatusChangeSocket$;
+  }
 
   /**
    * Creates a join request for the given event ID.

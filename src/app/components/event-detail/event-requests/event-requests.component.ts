@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { CardModule } from 'primeng/card';
@@ -7,6 +7,7 @@ import { EventRequestService } from '../../../services/event/event-request.servi
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
 import { MessageService } from 'primeng/api';
+import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
 
 @Component({
   selector: 'app-event-requests',
@@ -30,6 +31,7 @@ export class EventRequestsComponent {
     private router: Router,
     private messageService: MessageService,
     private translocoService: TranslocoService,
+    private pushNotificationService: PushNotificationService,
   ) {
     if (this.route.snapshot.paramMap.get('id')!) {
       this.eventId = this.route.snapshot.paramMap.get('id')!;
@@ -64,6 +66,7 @@ export class EventRequestsComponent {
         this.eventRequests = this.eventRequests.filter(
           request => request.id !== requestId,
         );
+        this.pushNotificationService.loadEventRequestNotifications();
         this.messageService.add({
           severity: 'success',
           summary: this.translocoService.translate(

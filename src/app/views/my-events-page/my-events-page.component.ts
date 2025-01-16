@@ -15,6 +15,7 @@ import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 import { CurrentUrlService } from '../../services/current-url/current-url.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-my-events-page',
@@ -61,6 +62,7 @@ export class MyEventsPageComponent implements OnInit {
     private readonly eventRequestService: EventRequestService,
     private readonly translocoService: TranslocoService,
     private readonly currentUrl: CurrentUrlService,
+    protected readonly userService: UserService,
   ) {
     this.currentUrl$ = this.currentUrl.get();
     this.setupTabItems();
@@ -69,6 +71,27 @@ export class MyEventsPageComponent implements OnInit {
   ngOnInit() {
     this.setupTabItems();
 
+    this.setEventRequests();
+
+    this.eventRequestService.getNewInviteSocket().subscribe({
+      next: userId => {
+        const a = this.userService.getCurrentUserData();
+        if (a?.id == userId) {
+          this.setEventRequests();
+        }
+      },
+    });
+    this.eventRequestService.getInviteStatusChangeSocket().subscribe({
+      next: userId => {
+        const a = this.userService.getCurrentUserData();
+        if (a?.id == userId) {
+          this.setEventRequests();
+        }
+      },
+    });
+  }
+
+  private setEventRequests() {
     this.eventRequestService.getUsersRequests().subscribe({
       next: requests => {
         this.eventRequests = requests;

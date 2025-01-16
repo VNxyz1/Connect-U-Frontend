@@ -2,7 +2,23 @@
   <!--TODO or has past events -->
   <div class="m-3 mb-8 col-12">
     <p-card styleClass="w-full md:w-4">
-      <ul class="list-none p-0 m-0">
+      <ul class="list-none p-0 m-0 relative">
+        @if (pushNotificationsRequests$ | async; as val) {
+          @if (val != 0) {
+            <span
+              [style]="{
+                position: 'absolute',
+                right: '-20px',
+                top: '-35px',
+                'z-index': 1,
+                'min-width': '20px',
+                height: '20px',
+              }"
+              class="bg-blue-900 border-round-3xl border-blue-900 text-center text-white px-1 justify-content-center flex align-content-center align-items-center"
+              >{{ val }}</span
+            >
+          }
+        }
         <!-- Event Requests - temporary style solution -->
         <li
           class="p-3 py-0 w-full col-12 border-gray-50 flex justify-content-between align-items-center cursor-pointer"
@@ -25,7 +41,7 @@
   </div>
   <div class="col-12 grid">
     @if (filteredEvents$ | async; as events) {
-      @if (pushNotifications | async; as push) {
+      @if (pushNotificationsEvents$ | async; as push) {
         @if (events.length > 0 && !isLoading) {
           @for (event of events; track $index) {
             <div

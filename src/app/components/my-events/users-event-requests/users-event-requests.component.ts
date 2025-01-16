@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { Button } from 'primeng/button';
@@ -7,8 +7,9 @@ import { MessageService, PrimeTemplate } from 'primeng/api';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { RouterLink } from '@angular/router';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { HttpClient } from '@angular/common/http';
 import { EventRequestService } from '../../../services/event/event-request.service';
+import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
+import { UserService } from '../../../services/user/user.service';
 
 @Component({
   selector: 'app-users-event-requests',
@@ -24,15 +25,18 @@ import { EventRequestService } from '../../../services/event/event-request.servi
   ],
   templateUrl: './users-event-requests.component.html',
 })
-export class UsersEventRequestsComponent {
+export class UsersEventRequestsComponent implements OnInit {
   @Input() eventRequests!: UsersEventRequest[];
 
   constructor(
-    private http: HttpClient,
     private readonly requestService: EventRequestService,
     private messageService: MessageService,
     private readonly translocoService: TranslocoService,
+    private pushNotificationService: PushNotificationService,
+    protected readonly userService: UserService,
   ) {}
+
+  ngOnInit(): void {}
 
   protected deleteEventRequest(
     eventTitle: string,
@@ -75,6 +79,7 @@ export class UsersEventRequestsComponent {
         if (request) {
           request.denied = false;
         }
+        this.pushNotificationService.loadEventRequestNotifications();
         this.messageService.add({
           severity: 'success',
           summary: this.translocoService.translate(
