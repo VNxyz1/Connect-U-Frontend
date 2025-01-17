@@ -184,18 +184,17 @@
                 </h3>
                 <!-- Request Count (Right Top, Aligned with Header) -->
 
-                  <span
-                    [style]="{
-                      'min-width': '20px',
-                      height: '20px',
-                    }"
-                    class="bg-blue-900 border-round-3xl border-blue-900 text-center text-white px-1 justify-content-center flex align-content-center align-items-center"
-                    >{{
-                      (this.eventRequestsHost.length || 0) +
-                        (this.eventInvitesHost.length || 0)
-                    }}</span
-                  >
-
+                <span
+                  [style]="{
+                    'min-width': '20px',
+                    height: '20px',
+                  }"
+                  class="bg-blue-900 border-round-3xl border-blue-900 text-center text-white px-1 justify-content-center flex align-content-center align-items-center"
+                  >{{
+                    (this.eventRequestsHost.length || 0) +
+                      (this.eventInvitesHost.length || 0)
+                  }}</span
+                >
               </div>
 
               <!-- Bottom Section -->
@@ -268,7 +267,10 @@
               <div class="flex justify-content-between align-items-center">
                 <!-- Profile Pictures (Left Bottom) -->
                 <p-avatarGroup>
-                  @for (r of eventDetails.participants.slice(0, 4); track $index) {
+                  @for (
+                    r of eventDetails.participants.slice(0, 4);
+                    track $index
+                  ) {
                     <p-avatar
                       [image]="userService.getImageFile(r.profilePicture)"
                       shape="circle"
