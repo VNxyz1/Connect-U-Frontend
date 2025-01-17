@@ -1,10 +1,10 @@
-<div class="content pFocusTrap mt-5 h-100">
+<div class="content pFocusTrap mt-2 h-100">
   <div class="p-grid p-fluid column-gap-3">
     <!-- Event Type Selection -->
     <div
       class="p-col-12 p-md-6 field flex flex-wrap gap-3 lg:gap-6 align-items-center justify-content-center">
       <!-- image for event  -->
-      <div class="flex col-12 justify-content-center">
+      <div class="flex col-12 justify-content-center pt-0">
         <!-- Image Preview -->
         <div style="position: relative">
           <img
@@ -38,6 +38,7 @@
           style="display: none"
           (change)="onFileSelected($event)" />
       </div>
+
       <div class="flex align-items-center">
         <p-radioButton
           name="event-type"
@@ -219,7 +220,7 @@
   </div>
 
   <!-- Continue Button -->
-  <div class="flex fixed-bottom-responsive-container justify-content-end">
+  <div class="flex fixed-bottom-responsive-container justify-content-end pb-3">
     <div class="justify-content-end">
       <p-button
         [raised]="true"

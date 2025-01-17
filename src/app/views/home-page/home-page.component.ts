@@ -6,8 +6,8 @@ import { EventService } from '../../services/event/eventservice';
 import { EventCardComponent } from '../../components/event-card/event-card.component';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { UpcomingEventsCarouselComponent } from '../../components/upcoming-events-carousel/upcoming-events-carousel.component';
-import { ScrollNearEndDirective } from '../../utils/scroll-near-end.directive';
 import { map } from 'rxjs/operators';
+import { ScrollNearEndDirective } from '../../utils/scroll-near-end.directive';
 
 @Component({
   selector: 'app-home-page',
