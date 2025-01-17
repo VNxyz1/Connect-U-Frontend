@@ -1,6 +1,6 @@
 export const environment = {
   apiConfig: {
-    socketUrl: '/api/',
+    socketUrl: '/',
     urlPrefix: '/api/',
     withCredentials: false,
   },
