@@ -345,8 +345,7 @@ export class SearchPageComponent implements OnInit {
 
     this.cityService.getCities(undefined, query).subscribe({
       next: (fetchedCities) => {
-        this.fetchedCities = fetchedCities.map(city => `${city.postalCode} ${city.name}`);
-        console.log(this.fetchedCities);
+        this.fetchedCities = Array.from(new Set(fetchedCities.map(city => city.name)));
       },
       error: (error) => {
         console.error('Error fetching cities:', error);
