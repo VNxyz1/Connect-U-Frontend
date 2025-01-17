@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -17,7 +17,6 @@ import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { SocketService } from '../../services/socket/socket.service';
 
 type LoginForm = FormGroup<{
   email: FormControl<string>;
@@ -80,7 +79,7 @@ export class LoginComponent {
         next: () => {
           this.router
             .navigate(this.redirectTo)
-            .then(() => window.location.reload());
+            //.then(() => window.location.reload());
         },
         error: err => {
           this.showError(err.status);
