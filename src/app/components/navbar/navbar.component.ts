@@ -167,6 +167,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
             route: '/my-events',
             icon: this.activeIcon('/my-events'),
             command: () => this.navigateTo('/my-events'),
+            iBadge: true,
           },
           {
             label: translations['navbarComponent.shareProfile'],
