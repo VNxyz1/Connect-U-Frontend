@@ -1,13 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageModule } from 'primeng/image';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  Params,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { Button } from 'primeng/button';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
@@ -17,7 +10,7 @@ import { EventService } from '../../services/event/eventservice';
 import { AuthService } from '../../services/auth/auth.service';
 import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
-import { parseToQueryParams } from '../../utils/parsing/parsing';
+import { CurrentUrlService } from '../../services/current-url/current-url.service';
 
 @Component({
   selector: 'app-header',
@@ -34,8 +27,9 @@ import { parseToQueryParams } from '../../utils/parsing/parsing';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
-  currentUrl: string | undefined;
+  currentUrl$!: Observable<string>;
   params: Params = { page: 1 };
+
   isLoggedIn!: Observable<boolean>;
 
   constructor(
@@ -45,16 +39,12 @@ export class HeaderComponent implements OnInit {
     private eventService: EventService,
     private authService: AuthService,
     private route: ActivatedRoute,
+    private currentUrl: CurrentUrlService,
   ) {}
 
   ngOnInit() {
-    this.currentUrl = this.router.url;
+    this.currentUrl$ = this.currentUrl.get();
     this.isLoggedIn = this.authService.isLoggedIn();
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.currentUrl = event.url;
-      });
   }
 
   search = () => {

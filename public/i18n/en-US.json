@@ -1,5 +1,4 @@
 {
-  "serverUnavailable": "The server is currently unavailable. Please try again later.",
   "profilePictureAlt": "Profile picture",
   "homepage": {
     "title": "Events for You",
@@ -488,7 +487,8 @@
       "try-again": "Request again",
       "new-request": "New request for event \"{{title}}\" sent!",
       "deleted-request": "Request for event \"{{title}}\" deleted.",
-      "delete-request": "Delete Request"
+      "delete-request": "Delete Request",
+      "noRequests": "There are currently no requests."
     }
   },
   "privacyPolicy": {

@@ -15,6 +15,8 @@ import { EventCardComponent } from '../../event-card/event-card.component';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { AsyncPipe } from '@angular/common';
 import { map, switchMap } from 'rxjs/operators';
+import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
   selector: 'app-hosted-events',
@@ -24,6 +26,7 @@ import { map, switchMap } from 'rxjs/operators';
     EventCardComponent,
     TranslocoPipe,
     AsyncPipe,
+    BadgeModule,
   ],
   templateUrl: './hosted-events.component.html',
 })
@@ -31,11 +34,15 @@ export class HostedEventsComponent implements OnInit, OnChanges {
   @Input() filters: { name: string }[] = [];
   events$!: Observable<EventCardItem[]>;
   filteredEvents$!: Observable<EventCardItem[]>;
+  pushNotifications!: Observable<Map<string, number>>;
   @Output() hasEventsChange = new EventEmitter<boolean>();
   protected isLoading = true;
   private filtersSubject = new BehaviorSubject<{ name: string }[]>([]);
 
-  constructor(private eventService: EventService) {}
+  constructor(
+    private eventService: EventService,
+    private pushNotificationService: PushNotificationService,
+  ) {}
 
   ngOnInit(): void {
     this.events$ = this.eventService.getHostingEvents().pipe(
@@ -64,6 +71,8 @@ export class HostedEventsComponent implements OnInit, OnChanges {
         ),
       ),
     );
+
+    this.pushNotifications = this.pushNotificationService.getHostedEventsList();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
