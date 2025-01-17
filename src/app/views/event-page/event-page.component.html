@@ -109,7 +109,8 @@
   <p-tabMenu
     [model]="eventTabMenuItems"
     [(activeItem)]="activeTabItem"
-    (activeItemChange)="onActiveItemChange($event)">
+    (activeItemChange)="onActiveItemChange($event)"
+    class="mb-8">
     <ng-template pTemplate="item" let-item>
       <ng-container>
         <a
@@ -147,24 +148,27 @@
   </p-tabMenu>
 }
 
-<!-- Display the event info if not logged in or not a participant -->
-@if (
-  eventDetails &&
-  ((activeTabItem && activeTabItem.id == 'infoTab') ||
-    (!eventDetails.isHost && !eventDetails.isParticipant)) &&
-  !url.includes('/requests') &&
-  !url.includes('/guests') &&
-  !url.includes('/lists') &&
-  !url.includes('/surveys') &&
-  !url.includes('/chat')
-) {
-  <app-event-info
-    [getPreferredGendersString]="getPreferredGendersString"
-    [eventRequestsHost]="eventRequestsHost"
-    [eventInvitesHost]="eventInvitesHost"
-    (eventDetailsUpdated)="onEventDetailsUpdated()"
-    (showInviteDialogue)="openInviteDialog(true)">
-  </app-event-info>
-}
+<div class="mt-2">
+  <!-- Display the event info if not logged in or not a participant -->
+  @if (
+    eventDetails &&
+    ((activeTabItem && activeTabItem.id == 'infoTab') ||
+      (!eventDetails.isHost && !eventDetails.isParticipant)) &&
+    !url.includes('/requests') &&
+    !url.includes('/guests') &&
+    !url.includes('/lists') &&
+    !url.includes('/surveys') &&
+    !url.includes('/chat')
+    ) {
+    <app-event-info
+      [getPreferredGendersString]="getPreferredGendersString"
+      [eventRequestsHost]="eventRequestsHost"
+      [eventInvitesHost]="eventInvitesHost"
+      (eventDetailsUpdated)="onEventDetailsUpdated()"
+      (showInviteDialogue)="openInviteDialog(true)">
+    </app-event-info>
+  }
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</div>
+

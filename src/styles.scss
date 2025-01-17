@@ -137,12 +137,12 @@ body {
 }
 
 .chat-container {
-  height: calc(100vh - 17rem);
+  height: calc(100vh - 14rem);
 }
 
 @media screen and (min-width: 768px) {
   .chat-container {
-    height: calc(100vh - 13rem);
+    height: calc(100vh - 11.5rem);
   }
 }
 
