@@ -30,9 +30,11 @@ import { TermsPageComponent } from './views/terms-page/terms-page.component';
 import { EventChatComponent } from './components/event-detail/event-chat/event-chat.component';
 import { ShareProfilePageComponent } from './views/share-profile-page/share-profile-page.component';
 import { AddFriendComponent } from './views/add-friend/add-friend.component';
+import { ResultsPageComponent } from './views/results-page/results-page.component';
 import { QrCodeAndLinkComponent } from './components/qr-code-and-link/qr-code-and-link.component';
 import { CameraComponent } from './components/camera/camera.component';
 import { ServerUnavailablePageComponent } from './views/server-unavailable-page/server-unavailable-page.component';
+import { MyFriendsComponent } from './views/my-friends/my-friends.component';
 import { AppRoutes } from './interfaces/AppRoutes';
 
 /**
@@ -61,6 +63,11 @@ export const routes: Routes = [
     path: AppRoutes.SEARCH,
     title: 'Search | Connect-U',
     component: SearchPageComponent,
+  },
+  {
+    path: 'search/results',
+    title: 'Search Results | Connect-U',
+    component: ResultsPageComponent,
   },
   {
     path: AppRoutes.CREATE_EVENT,
@@ -195,6 +202,12 @@ export const routes: Routes = [
     path: AppRoutes.SETTINGS,
     title: 'Settings | Connect-U',
     component: SettingsPageComponent,
+  },
+  {
+    path: 'my-friends',
+    title: 'My Friends | Connect-U',
+    component: MyFriendsComponent,
+    canActivate: [isLoggedInGuard],
   },
   {
     path: AppRoutes.INFORMATION,

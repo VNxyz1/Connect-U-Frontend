@@ -130,6 +130,34 @@
     }
   },
   "searchPageComponent": {
+    "eventTitleInput": "nach Titel filtern",
+    "tagsInput": "nach Tags filtern",
+    "categoriesInput": "nach Kategorien filtern",
+    "gendersInput": "Wen möchtest du dabei haben?",
+    "isOnline": "Online-Events",
+    "isInPlace": "Events vor Ort",
+    "isPublic": "öffentliche Events",
+    "isHalfPublic": "halböffentliche Events",
+    "filterFriends": "nur Events anzeigen, an denen Freunde teilnehmen",
+    "filterButton":"Events filtern",
+    "selectFilters": "Filter auswählen",
+    "sortEvents": "Events sortieren",
+    "errors": {
+      "genders": "Du musst mindestens ein Geschlecht auswählen!",
+      "online": "Du musst mindestens eine Option auswählen!"
+    },
+    "sortOrder": {
+      "newestFirst": "Neueste zuerst",
+      "oldestFirst": "Älteste zuerst",
+      "upcomingNext": "Nächste anstehende",
+      "upcomingLast": "Letzte anstehende",
+      "alphabetical_asc": "Alphabetisch (A-Z)",
+      "alphabetical_desc": "Alphabetisch (Z-A)"
+    }
+  },
+  "resultsPageComponent": {
+    "results": "Ergebnisse",
+    "eventsFound": "passende Events gefunden!"
   },
   "createEventStep1Component": {
     "eventType": {
@@ -417,6 +445,7 @@
   },
   "headerComponent": {
     "mySpace": "Mein Bereich",
+    "myFriends": "Meine Freunde",
     "myEvents": "Meine Events",
     "search": "Events suchen",
     "createEvent": "Event erstellen",
@@ -811,6 +840,7 @@
   "mySpacePage": {
     "listing": {
       "settings": "Einstellungen",
+      "myFriends": "Meine Freunde",
       "logout": "Abmelden",
       "information": "Informationen"
     }

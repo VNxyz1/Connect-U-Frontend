@@ -147,15 +147,12 @@ export class NavbarComponent implements OnInit, AfterViewInit {
             icon: this.activeIcon('/'),
             command: () => this.navigateTo('/'),
           },
-          // Commented out the search item
-          /*
           {
             label: translations['navbarComponent.search'],
             route: '/search',
             icon: this.activeIcon('/search'),
             command: () => this.navigateTo('/search'),
           },
-          */
           {
             label: translations['navbarComponent.createEvent'],
             route: '/create-event/step1',

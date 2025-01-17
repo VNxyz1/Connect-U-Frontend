@@ -80,8 +80,9 @@ import {
   RiClipboardLine,
   RiQrScan2Fill,
   RiCameraLine,
-  RiUserHeartLine,
   RiSendPlaneFill,
+  RiUserHeartLine,
+  RiFilterLine,
   RiUserAddLine,
   RiQrCodeLine,
   RiCameraSwitchLine,
@@ -156,6 +157,7 @@ const icons = {
   RiSendPlaneFill,
   RiUserAddLine,
   RiUserHeartLine,
+  RiFilterLine,
   RiQrCodeLine,
   RiCameraSwitchLine,
 };
