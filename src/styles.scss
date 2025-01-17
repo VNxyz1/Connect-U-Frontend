@@ -91,6 +91,10 @@ body {
   border-radius: calc(var(--r) + var(--t)) / var(--r);
   color: $primaryTextColor;
   margin-bottom: 0.5em;
+
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .speech-bubble-left {
