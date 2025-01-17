@@ -26,6 +26,7 @@
     "@capacitor/angular": "^2.0.3",
     "@capacitor/core": "^6.2.0",
     "@capacitor/ios": "^6.2.0",
+    "@capacitor/preferences": "^6.0.3",
     "@ionic/storage-angular": "^4.0.0",
     "@jsverse/transloco": "^7.5.0",
     "@jsverse/transloco-locale": "^7.0.1",

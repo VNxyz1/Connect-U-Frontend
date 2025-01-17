@@ -90,7 +90,7 @@
   <div class="py-4">
     @if (loginRegisterSwitch) {
       <app-login
-        [redirectTo]="'/event/' + eventId"
+        [redirectTo]="['/event', eventId]"
         (toggleView)="toggleLoginRegisterSwitch()"
         class="w-full" />
     } @else {
