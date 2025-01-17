@@ -1,7 +1,7 @@
 <div class="border-bottom-2 border-gray-50 z-4 sticky top-0 bg-main">
   <div
     class="flex align-items-center justify-content-between w-full pt-2 pb-1">
-    <div class="col align-items-center justify-content-start">
+    <div class="col col-2 align-items-center justify-content-start">
       @if (
         currentUrl !== '/' &&
         !currentUrl?.includes('create-event') &&
@@ -85,7 +85,7 @@
       }
     </div>
     @if (isLoggedIn | async) {
-      <div class="col flex md:block justify-content-end">
+      <div class="col-2 flex md:block justify-content-end">
         <p-button
           [text]="true"
           severity="primary"
@@ -99,7 +99,7 @@
         </p-button>
       </div>
     } @else {
-      <div class="col"></div>
+      <div class="col-2"></div>
     }
   </div>
 </div>
