@@ -21,6 +21,7 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 import { SliderModule } from 'primeng/slider';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-search-page',
@@ -41,6 +42,7 @@ import { SliderModule } from 'primeng/slider';
     ReactiveFormsModule,
     AsyncPipe,
     SliderModule,
+    CalendarModule,
   ],
   templateUrl: './search-page.component.html',
 })
@@ -51,7 +53,9 @@ export class SearchPageComponent implements OnInit {
     private translocoService: TranslocoService,
     private activeRoute: ActivatedRoute,
     private router: Router,
-  ) {}
+  ) {
+    this.setCalenderFormat();
+  }
   fetchedCategories: { id: number; name: string }[] = [];
   fetchedGenders!: Observable<{ label: string; value: number }[]>;
   sortOrderOptions: { value: string; name: string }[] = [
@@ -76,12 +80,17 @@ export class SearchPageComponent implements OnInit {
   ];
   fetchedTags: string[] = [];
   formErrors: { [key: string]: string } = {};
+  minDate: Date = new Date();
+  maxDate: Date = new Date(new Date().setFullYear(2099));
+  dateFormat: string = 'yy/MM/dd';
+  firstDayOfWeek: number = 0;
 
   form: FormGroup = new FormGroup({
     tags: new FormControl<number[]>([]),
     title: new FormControl<string>(''),
     genders: new FormControl<number[]>([1, 2, 3]),
     categories: new FormControl<number[]>([]),
+    dates: new FormControl<Date[]>([]),
     ageRange: new FormControl<number[]>([16, 99]),
     isOnline: new FormControl<boolean>(true),
     isInPlace: new FormControl<boolean>(true),
@@ -94,10 +103,23 @@ export class SearchPageComponent implements OnInit {
   async ngOnInit() {
     this.loadCategories();
     this.fetchedGenders = this.loadGenders();
+    this.setCalenderFormat();
 
     this.activeRoute.queryParams.subscribe(queryParams => {
       this.addFormValues(this.form, queryParams);
     });
+  }
+
+  private setCalenderFormat(): void {
+    const activeLang = this.translocoService.getActiveLang();
+
+    if (activeLang === 'us') {
+      this.firstDayOfWeek = 0; // Sunday
+      this.dateFormat = 'mm/dd/yy';
+    } else {
+      this.firstDayOfWeek = 1; // Monday
+      this.dateFormat = 'dd.mm.yy';
+    }
   }
 
   private addFormValues(form: FormGroup, queryParams: Params) {
@@ -134,6 +156,17 @@ export class SearchPageComponent implements OnInit {
       ) {
         form.controls[key].setValue(JSON.parse(queryParams[key]));
       } else if (
+        form.controls[key] &&
+        key === 'dates'
+      ) {
+        const arr: Date[] = [];
+          for (const k of queryParams[key]) {
+            const date = new Date(k);
+            arr.push(date);
+          }
+        form.controls[key].setValue(arr);
+      }
+      else if (
         form.controls[key] &&
         (key === 'genders' || key === 'categories')
       ) {
@@ -189,6 +222,8 @@ export class SearchPageComponent implements OnInit {
 
   submit = () => {
     const validation = this.validateForm(this.form);
+
+    console.log(this.form.controls['dates'].value)
 
     if (!validation.valid) {
       this.formErrors = validation.errors;

@@ -130,6 +130,7 @@
     }
   },
   "searchPageComponent": {
+    "datesInput": "filter by date",
     "eventTitleInput": "filter by title",
     "tagsInput": "filter by tags",
     "categoriesInput": "filter by categories",
