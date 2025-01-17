@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageModule } from 'primeng/image';
-import {Params, Router, RouterLink} from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterLink } from '@angular/router';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { Button } from 'primeng/button';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
@@ -10,7 +10,6 @@ import { EventService } from '../../services/event/eventservice';
 import { AuthService } from '../../services/auth/auth.service';
 import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
-import { parseToQueryParams } from '../../utils/parsing/parsing';
 import { CurrentUrlService } from '../../services/current-url/current-url.service';
 
 @Component({
