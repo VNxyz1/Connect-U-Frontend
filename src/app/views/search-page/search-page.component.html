@@ -54,6 +54,23 @@
         </span>
       </div>
 
+      <div class="justify-content-center mt-4 mb-4">
+        <span class="p-fluid">
+          <p-autoComplete
+            inputId="cities-input"
+            id="cities-input"
+            [placeholder]="
+              fetchedCities.length == 0
+                ? ('searchPageComponent.tagsInput' | transloco)
+                : ''
+            "
+            formControlName="cities"
+            [suggestions]="fetchedCities"
+            (completeMethod)="searchCities($event)"
+            [multiple]="true" />
+        </span>
+      </div>
+
       <div class="field pt-3 m-0 row">
         <p-checkbox
           class="lg:col-3 col-7"

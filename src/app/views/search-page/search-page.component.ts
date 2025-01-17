@@ -22,6 +22,7 @@ import { AsyncPipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 import { SliderModule } from 'primeng/slider';
 import { CalendarModule } from 'primeng/calendar';
+import { CityService } from '../../services/city/city.service';
 
 @Component({
   selector: 'app-search-page',
@@ -50,6 +51,7 @@ export class SearchPageComponent implements OnInit {
   constructor(
     public eventService: EventService,
     private readonly tagService: TagService,
+    private readonly cityService: CityService,
     private translocoService: TranslocoService,
     private activeRoute: ActivatedRoute,
     private router: Router,
@@ -79,6 +81,7 @@ export class SearchPageComponent implements OnInit {
     },
   ];
   fetchedTags: string[] = [];
+  fetchedCities: string[] = [];
   formErrors: { [key: string]: string } = {};
   minDate: Date = new Date();
   maxDate: Date = new Date(new Date().setFullYear(2099));
@@ -87,6 +90,7 @@ export class SearchPageComponent implements OnInit {
 
   form: FormGroup = new FormGroup({
     tags: new FormControl<number[]>([]),
+    cities: new FormControl<string[]>([]),
     title: new FormControl<string>(''),
     genders: new FormControl<number[]>([1, 2, 3]),
     categories: new FormControl<number[]>([]),
@@ -332,6 +336,21 @@ export class SearchPageComponent implements OnInit {
       error: error => {
         console.error('Error fetching tags:', error);
         this.fetchedTags = [];
+      },
+    });
+  }
+
+  searchCities(event: any): void {
+    const query = event.query.toLowerCase();
+
+    this.cityService.getCities(undefined, query).subscribe({
+      next: (fetchedCities) => {
+        this.fetchedCities = fetchedCities.map(city => `${city.postalCode} ${city.name}`);
+        console.log(this.fetchedCities);
+      },
+      error: (error) => {
+        console.error('Error fetching cities:', error);
+        this.fetchedCities = [];
       },
     });
   }
