@@ -24,7 +24,8 @@
           <app-guest-events
             (hasEventsChange)="updateHasEvents($event)"
             [filters]="selectedCategories"
-            [hasRequests]="eventRequests.length > 0" />
+            [hasRequests]="eventRequests.length > 0"
+            [hasReqFromFriends]="eventRequestsFromFriends.length > 0" />
         } @else {
           <app-users-event-requests [eventRequests]="eventRequests" />
         }
