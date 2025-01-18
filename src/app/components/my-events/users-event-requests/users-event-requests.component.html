@@ -11,7 +11,7 @@
           <div class="flex align-items-center">
             <!-- Image -->
             <img
-              [src]="invite.event.picture || 'https://via.placeholder.com/100'"
+              src="{{ eventService.getEventTitleImage(invite.event.picture) }}"
               alt="{{ invite.event.title }}-picture"
               style="width: 70px; height: 70px" />
             <div
