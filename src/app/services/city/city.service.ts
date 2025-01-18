@@ -22,7 +22,12 @@ export class CityService {
    * @returns An observable of cities, with only postalCode and name.
    */
 
-  getCities(postalCode?: string, name?: string,  page = 1, pageSize = 50): Observable<{ postalCode: string; name: string }[]> {
+  getCities(
+    postalCode?: string,
+    name?: string,
+    page = 1,
+    pageSize = 50,
+  ): Observable<{ postalCode: string; name: string }[]> {
     const params: any = { page, pageSize };
 
     if (postalCode) {
@@ -33,15 +38,13 @@ export class CityService {
       params.name = name;
     }
 
-    return this.http
-      .get<any[]>(`city/localities`, { params })
-      .pipe(
-        map(localities =>
-          localities.map(locality => ({
-            postalCode: locality.postalCode,
-            name: locality.name,
-          }))
-        )
-      );
+    return this.http.get<any[]>(`city/localities`, { params }).pipe(
+      map(localities =>
+        localities.map(locality => ({
+          postalCode: locality.postalCode,
+          name: locality.name,
+        })),
+      ),
+    );
   }
 }

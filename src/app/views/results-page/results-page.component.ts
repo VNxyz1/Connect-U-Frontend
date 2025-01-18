@@ -68,9 +68,9 @@ export class ResultsPageComponent implements OnInit {
       }),
     );
 
-    this.hasMoreEvents$ = this.eventSearchService.getFilteredEvents(params).pipe(
-      map(data => data.totalCount > (this.page * 12)),
-    );
+    this.hasMoreEvents$ = this.eventSearchService
+      .getFilteredEvents(params)
+      .pipe(map(data => data.totalCount > this.page * 12));
   }
 
   loadNewPage(): void {

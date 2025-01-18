@@ -30,6 +30,8 @@ export function parseToQueryParams(form: FormGroup) {
 }
 
 const formatToLocalDate = (date: Date): string => {
-  const adjustedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  const adjustedDate = new Date(
+    date.getTime() - date.getTimezoneOffset() * 60000,
+  );
   return adjustedDate.toISOString().split('T')[0];
 };

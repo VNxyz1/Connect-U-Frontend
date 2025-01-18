@@ -159,18 +159,14 @@ export class SearchPageComponent implements OnInit {
         typeof form.controls[key].value == 'boolean'
       ) {
         form.controls[key].setValue(JSON.parse(queryParams[key]));
-      } else if (
-        form.controls[key] &&
-        key === 'dates'
-      ) {
+      } else if (form.controls[key] && key === 'dates') {
         const arr: Date[] = [];
-          for (const k of queryParams[key]) {
-            const date = new Date(k);
-            arr.push(date);
-          }
+        for (const k of queryParams[key]) {
+          const date = new Date(k);
+          arr.push(date);
+        }
         form.controls[key].setValue(arr);
-      }
-      else if (
+      } else if (
         form.controls[key] &&
         (key === 'genders' || key === 'categories')
       ) {
@@ -227,7 +223,7 @@ export class SearchPageComponent implements OnInit {
   submit = () => {
     const validation = this.validateForm(this.form);
 
-    console.log(this.form.controls['dates'].value)
+    console.log(this.form.controls['dates'].value);
 
     if (!validation.valid) {
       this.formErrors = validation.errors;
@@ -344,10 +340,12 @@ export class SearchPageComponent implements OnInit {
     const query = event.query.toLowerCase();
 
     this.cityService.getCities(undefined, query).subscribe({
-      next: (fetchedCities) => {
-        this.fetchedCities = Array.from(new Set(fetchedCities.map(city => city.name)));
+      next: fetchedCities => {
+        this.fetchedCities = Array.from(
+          new Set(fetchedCities.map(city => city.name)),
+        );
       },
-      error: (error) => {
+      error: error => {
         console.error('Error fetching cities:', error);
         this.fetchedCities = [];
       },

@@ -4,7 +4,8 @@
     {{ 'resultsPageComponent.results' | transloco }}
   </h2>
   <div class="grid justify-content-between">
-    <span class="col-fixed text-2xl block md:px-2 mb-2 mt-2 ml-3 text-color-secondary">
+    <span
+      class="col-fixed text-2xl block md:px-2 mb-2 mt-2 ml-3 text-color-secondary">
       {{ totalCount }} {{ 'resultsPageComponent.eventsFound' | transloco }}
     </span>
     <div class="col-fixed mt-2 mb-2 mr-5">
@@ -14,7 +15,9 @@
         severity="secondary"
         (onClick)="submit()">
         <ng-template pTemplate="icon">
-          <rmx-icon style="width: 16px; height: 16px" name="filter-line"></rmx-icon>
+          <rmx-icon
+            style="width: 16px; height: 16px"
+            name="filter-line"></rmx-icon>
         </ng-template>
       </p-button>
     </div>
@@ -25,15 +28,18 @@
     (nearEnd)="loadNewPage()"
     class="grid justify-content-center xl:justify-content-start md:w-full">
     @if (events$ | async; as events) {
-      <div class="grid justify-content-center xl:justify-content-start md:w-full">
+      <div
+        class="grid justify-content-center xl:justify-content-start md:w-full">
         @for (event of events; track $index) {
-          <div class="col-12 md:col-9 xl:col-4 justify-content-center mb-3 md:px-3">
+          <div
+            class="col-12 md:col-9 xl:col-4 justify-content-center mb-3 md:px-3">
             <app-event-card [event]="event" class="w-full" />
           </div>
         }
         @if (isLoading) {
           @for (event of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; track $index) {
-            <div class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+            <div
+              class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
               <app-event-card skeleton class="w-full" />
             </div>
           }
@@ -48,9 +54,11 @@
         </div>
       }
     } @else {
-      <div class="grid justify-content-center xl:justify-content-start md:w-full">
+      <div
+        class="grid justify-content-center xl:justify-content-start md:w-full">
         @for (event of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; track $index) {
-          <div class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+          <div
+            class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
             <app-event-card skeleton class="w-full" />
           </div>
         }

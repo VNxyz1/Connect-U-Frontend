@@ -97,19 +97,29 @@
         </small>
       }
       <p-floatLabel>
-      <p-calendar formControlName="dates" [showIcon]="true"   [firstDayOfWeek]="firstDayOfWeek"
-                  [dateFormat]="dateFormat" [showOnFocus]="true" selectionMode="multiple" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" id="dates" inputId="dates">
-        <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
-          <rmx-icon
-            style="width: 16px; height: 16px"
-            name="calendar-line"
-            (click)="clickCallBack($event)">
-          </rmx-icon>
-        </ng-template>
-      </p-calendar>
+        <p-calendar
+          formControlName="dates"
+          [showIcon]="true"
+          [firstDayOfWeek]="firstDayOfWeek"
+          [dateFormat]="dateFormat"
+          [showOnFocus]="true"
+          selectionMode="multiple"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
+          [readonlyInput]="true"
+          id="dates"
+          inputId="dates">
+          <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
+            <rmx-icon
+              style="width: 16px; height: 16px"
+              name="calendar-line"
+              (click)="clickCallBack($event)">
+            </rmx-icon>
+          </ng-template>
+        </p-calendar>
         <label for="dates">{{
-            'searchPageComponent.datesInput' | transloco
-          }}</label>
+          'searchPageComponent.datesInput' | transloco
+        }}</label>
       </p-floatLabel>
 
       <div class="field pt-3 m-0 row">
