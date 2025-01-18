@@ -10,7 +10,7 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { EventRequestService } from '../../../services/event/event-request.service';
 import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
 import { UserService } from '../../../services/user/user.service';
-import {EventService} from '../../../services/event/eventservice';
+import { EventService } from '../../../services/event/eventservice';
 
 @Component({
   selector: 'app-users-event-requests',
@@ -35,7 +35,7 @@ export class UsersEventRequestsComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private pushNotificationService: PushNotificationService,
     protected readonly userService: UserService,
-    protected eventService:EventService
+    protected eventService: EventService,
   ) {}
 
   ngOnInit(): void {}
