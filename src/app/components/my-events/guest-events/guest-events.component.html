@@ -21,7 +21,6 @@
             }
           }
           <!-- Event Requests - temporary style solution -->
-          @if (hasRequests || hasReqFromFriends) {
             <li
               class="p-3 py-0 w-full col-12 border-gray-50 flex justify-content-between align-items-center cursor-pointer"
               [routerLink]="['/' + AppRoutes.MY_EVENTS_REQUESTS]"
@@ -36,8 +35,6 @@
                 name="arrow-right-s-line"
                 style="height: 26px; width: 26px" />
             </li>
-          }
-
           <!-- Past Events -->
         </ul>
       </p-card>

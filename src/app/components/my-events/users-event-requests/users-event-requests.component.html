@@ -1,5 +1,4 @@
 <div class="px-2 container content">
-
   <!-- Check if there are invites -->
   @if (invites$ | async; as invites) {
     @if (invites.length > 0) {
@@ -53,7 +52,7 @@
                 [raised]="true"
                 severity="success"
                 [disabled]="this.invite.denied"
-                (onClick)="acceptFriendsRequestedEvent(invite.id)">
+                (onClick)="acceptFriendsRequestedEvent(invite.id, invite.event)">
                 <ng-template pTemplate="icon">
                   <rmx-icon
                     style="width: 16px; height: 16px"
@@ -66,8 +65,16 @@
         </p-card>
       }
     } @else {
-      <h2>{{'inviteByFriends.title'|transloco}}</h2>
-      <p>{{'inviteByFriends.detail'|transloco}}</p>
+      <div class="flex justify-content-between align-items-center">
+        <h2>{{'inviteByFriends.title'| transloco}}</h2>
+        <span class="color-secondary">{{ invites.length }}</span>
+      </div>
+      <div
+        class="col-12 flex flex-column align-items-center text-center mt-8 mb-8">
+        <h2 class="text-lg font-bold mb-4">
+          {{ 'inviteByFriends.detail' | transloco }}
+        </h2>
+      </div>
     }
   }
   <div class="flex justify-content-between align-items-center">
@@ -78,9 +85,6 @@
       {{ eventRequests.length }}
     </span>
   </div>
-  @if(eventRequests.length == 0){
-    <p>Du hast zur Zeit keine Events angefragt.</p>
-  }
   @for (r of eventRequests; track r) {
     <div class="relative">
       @if (r.denied) {

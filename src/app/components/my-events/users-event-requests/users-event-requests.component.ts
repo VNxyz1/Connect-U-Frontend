@@ -5,7 +5,7 @@ import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { MessageService, PrimeTemplate } from 'primeng/api';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { RouterLink } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { EventRequestService } from '../../../services/event/event-request.service';
 import {Observable} from 'rxjs';
@@ -13,6 +13,7 @@ import {AsyncPipe} from '@angular/common';
 import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
 import { UserService } from '../../../services/user/user.service';
 import {HttpClient} from '@angular/common/http';
+import {EventDetails} from '../../../interfaces/EventDetails';
 
 @Component({
   selector: 'app-users-event-requests',
@@ -40,6 +41,7 @@ export class UsersEventRequestsComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private pushNotificationService: PushNotificationService,
     protected readonly userService: UserService,
+    protected router: Router,
   ) {}
   ngOnInit(){
   this.loadInvites()
@@ -129,7 +131,7 @@ export class UsersEventRequestsComponent implements OnInit {
     });
   }
 
-  protected acceptFriendsRequestedEvent(inviteID:number){
+  protected acceptFriendsRequestedEvent(inviteID:number, event:EventDetails){
     this.requestService.acceptFriendsRequest(inviteID).subscribe({
       next: () => {
         this.messageService.add({
@@ -138,9 +140,12 @@ export class UsersEventRequestsComponent implements OnInit {
             'inviteByFriends.acceptTitle'
           ),
           detail: this.translocoService.translate(
-            'inviteByFriends.acceptMessage'
+            'inviteByFriends.acceptDetail',
+            {title: event.title}
           ),
         });
+        this.router.navigate(['/event',event.id])
+
       },
       error: (err) => {
         console.error('Error denying invitation:', err);

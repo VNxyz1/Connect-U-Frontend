@@ -1007,7 +1007,7 @@
     "title": "Einladungen von Freunden",
     "detail": "Du hast derzeit keine Einladungen von deinen Freunden.",
     "acceptTitle": "Einladung angenommen.",
-    "acceptDetail": "Du hast die Einladung deines Freundes erfolgreich angenommen.",
+    "acceptDetail": "Du hast die Einladung deines Freundes erfolgreich angenommen. Für das Event \"{{title}}\" ",
     "acceptErrorTitle": "Fehler bei Annahme",
     "acceptError": "Ein Fehler ist aufgetreten",
     "denyTitle": "Einladung abgelehnt",

@@ -1006,7 +1006,7 @@
     "title": "Invitations from Friends",
     "detail": "You currently have no invitations from your friends.",
     "acceptTitle": "Invitation Accepted",
-    "acceptDetail": "You have successfully accepted your friend's invitation.",
+    "acceptDetail": "You have successfully accepted your friend's invitation. For the Event \"{{title}}\"",
     "acceptErrorTitle": "Error Accepting Invitation",
     "acceptError": "An error occurred.",
     "denyTitle": "Invitation Declined",
