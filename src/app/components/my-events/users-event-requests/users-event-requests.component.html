@@ -3,34 +3,34 @@
   @if (invites$ | async; as invites) {
     @if (invites.length > 0) {
       <div class="flex justify-content-between align-items-center">
-        <h2>{{'inviteByFriends.title'| transloco}}</h2>
+        <h2>{{ 'inviteByFriends.title' | transloco }}</h2>
         <span class="color-secondary">{{ invites.length }}</span>
       </div>
       @for (invite of invites; track invite.id) {
-        <p-card class="p-1 md:p-3 ">
+        <p-card class="p-1 md:p-3">
           <div class="flex align-items-center">
             <!-- Image -->
             <img
               [src]="invite.event.picture || 'https://via.placeholder.com/100'"
               alt="{{ invite.event.title }}-picture"
-              style="width: 70px; height: 70px"
-            />
-            <div class="flex flex-column ml-3 flex-grow-1 cursor-pointer" [routerLink]="['/event/' + invite.event.id]">
+              style="width: 70px; height: 70px" />
+            <div
+              class="flex flex-column ml-3 flex-grow-1 cursor-pointer"
+              [routerLink]="['/event/' + invite.event.id]">
               <h3 class="mt-0 mb-0">{{ invite.event.title }}</h3>
-              <p class="text-secondary mt-0 mb-0">
-              </p>
+              <p class="text-secondary mt-0 mb-0"></p>
               <div class="text-secondary mt-2">
                 <div class="flex align-items-center gap-1">
                   <rmx-icon
                     name="calendar-line"
                     style="width: 16px; height: 16px"
-                    class="mr-1"
-                  ></rmx-icon><p class="mt-0 mb-0">
-                  {{
-                    toDate(invite.event.dateAndTime)
-                      | translocoDate: { dateStyle: 'short' }
-                  }}
-                </p>
+                    class="mr-1"></rmx-icon>
+                  <p class="mt-0 mb-0">
+                    {{
+                      toDate(invite.event.dateAndTime)
+                        | translocoDate: { dateStyle: 'short' }
+                    }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -52,11 +52,11 @@
                 [raised]="true"
                 severity="success"
                 [disabled]="this.invite.denied"
-                (onClick)="acceptFriendsRequestedEvent(invite.id, invite.event)">
+                (onClick)="
+                  acceptFriendsRequestedEvent(invite.id, invite.event)
+                ">
                 <ng-template pTemplate="icon">
-                  <rmx-icon
-                    style="width: 16px; height: 16px"
-                    name="check-line">
+                  <rmx-icon style="width: 16px; height: 16px" name="check-line">
                   </rmx-icon>
                 </ng-template>
               </p-button>
@@ -66,7 +66,7 @@
       }
     } @else {
       <div class="flex justify-content-between align-items-center">
-        <h2>{{'inviteByFriends.title'| transloco}}</h2>
+        <h2>{{ 'inviteByFriends.title' | transloco }}</h2>
         <span class="color-secondary">{{ invites.length }}</span>
       </div>
       <div
@@ -148,39 +148,36 @@
               </span>
             }
 
-          <!-- Delete Request Button -->
-          <p-button
-            [raised]="true"
-            (onClick)="deleteEventRequest(r.event.title, r.id, $event)">
-            <ng-template pTemplate="icon">
-              <rmx-icon
-                style="width: 16px; height: 16px"
-                name="delete-bin-line"></rmx-icon>
-            </ng-template>
-          </p-button>
-
-          <!-- Try Again or Pending Button -->
-          @if (r.denied) {
+            <!-- Delete Request Button -->
             <p-button
               [raised]="true"
-              severity="success"
-              (onClick)="
-                createNewEventRequest(r.event.title, r.event.id, $event)
-              ">
-            </p-button>
-          } @else {
-            <p-button
-              [raised]="true"
-              disabled
-              severity="success">
+              (onClick)="deleteEventRequest(r.event.title, r.id, $event)">
               <ng-template pTemplate="icon">
                 <rmx-icon
                   style="width: 16px; height: 16px"
-                  name="hourglass-fill"></rmx-icon>
+                  name="delete-bin-line"></rmx-icon>
               </ng-template>
             </p-button>
-          }
-        </div>
+
+            <!-- Try Again or Pending Button -->
+            @if (r.denied) {
+              <p-button
+                [raised]="true"
+                severity="success"
+                (onClick)="
+                  createNewEventRequest(r.event.title, r.event.id, $event)
+                ">
+              </p-button>
+            } @else {
+              <p-button [raised]="true" disabled severity="success">
+                <ng-template pTemplate="icon">
+                  <rmx-icon
+                    style="width: 16px; height: 16px"
+                    name="hourglass-fill"></rmx-icon>
+                </ng-template>
+              </p-button>
+            }
+          </div>
 
           <div
             class="flex flex-column md:flex-row gap-2 align-items-center align-content-center ml-2 mt-3 md:mt-0">

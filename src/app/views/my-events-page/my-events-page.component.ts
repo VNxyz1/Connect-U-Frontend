@@ -102,13 +102,13 @@ export class MyEventsPageComponent implements OnInit {
       },
     });
     this.eventRequestService.getInvitationFromFriends().subscribe({
-      next: friendRequest =>{
+      next: friendRequest => {
         this.eventRequestsFromFriends = friendRequest;
       },
       error: err => {
         console.error('Failed to fetch requests from Friends:', err);
-      }
-    })
+      },
+    });
   }
 
   private setupTabItems() {

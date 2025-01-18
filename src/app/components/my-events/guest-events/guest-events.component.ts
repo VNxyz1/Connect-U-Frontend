@@ -40,7 +40,7 @@ export class GuestEventsComponent implements OnInit, OnChanges {
   protected isLoading = true;
   @Output() hasEventsChange = new EventEmitter<boolean>();
   @Input() hasRequests!: boolean;
-  @Input() hasReqFromFriends!:boolean;
+  @Input() hasReqFromFriends!: boolean;
   currentUrl: string = '';
   pushNotificationsEvents$!: Observable<Map<string, number>>;
   pushNotificationsRequests$!: Observable<number>;
