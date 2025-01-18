@@ -477,7 +477,8 @@
       "title": "Gast",
       "text": "Du nimmst zur Zeit an keinem Event teil.",
       "todo": "Erkundige Dich nach deinen Interessen.",
-      "your-event-requests": "Deine Eventanfragen"
+      "your-event-requests": "Deine Eventanfragen ",
+      "your-requests": "Deine Anfragen und Einladungen"
     },
     "favorite": {
       "title": "Favorisiert",
@@ -1002,6 +1003,18 @@
     },
     "accept-request": "Freundschaftsanfrage annehmen",
     "already-friends": "Du bist bereits mit {{name}} befreundet!"
+  },
+  "inviteByFriends": {
+    "title": "Einladungen von Freunden",
+    "detail": "Du hast derzeit keine Einladungen von deinen Freunden.",
+    "acceptTitle": "Einladung angenommen.",
+    "acceptDetail": "Du hast die Einladung deines Freundes erfolgreich angenommen. Für das Event \"{{title}}\" ",
+    "acceptErrorTitle": "Fehler bei Annahme",
+    "acceptError": "Ein Fehler ist aufgetreten",
+    "denyTitle": "Einladung abgelehnt",
+    "denyMessage": "Du hast die Einladung deines Freundes abgelehnt",
+    "denyErrorTitle":"Fehler beim Ablehnen",
+    "denyErrorMessage": "Es ist ein Fehler aufgetreten beim Versuch, die Einladung abzulehnen."
   },
   "cameraComponent": {
     "card-header": "QR-Code scannen",

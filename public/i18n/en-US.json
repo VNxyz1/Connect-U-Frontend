@@ -475,7 +475,8 @@
       "title": "Guest",
       "text": "You are not currently participating in any events.",
       "todo": "Explore events based on your interests.",
-      "your-event-requests": "Your Event-Requests"
+      "your-event-requests": "Your Event-Requests",
+      "your-requests": "Your Requests and Invitations"
     },
     "favorite": {
       "title": "Favorites",
@@ -1001,6 +1002,18 @@
     },
     "accept-request": "Accept Friendship Request",
     "already-friends": "You are already friends with {{name}}!"
+  },
+  "inviteByFriends": {
+    "title": "Invitations from Friends",
+    "detail": "You currently have no invitations from your friends.",
+    "acceptTitle": "Invitation Accepted",
+    "acceptDetail": "You have successfully accepted your friend's invitation. For the Event \"{{title}}\"",
+    "acceptErrorTitle": "Error Accepting Invitation",
+    "acceptError": "An error occurred.",
+    "denyTitle": "Invitation Declined",
+    "denyMessage": "You have declined your friend's invitation.",
+    "denyErrorTitle": "Error Declining Invitation",
+    "denyErrorMessage": "An error occurred while trying to decline the invitation."
   },
   "cameraComponent": {
     "card-header": "Scan QR Code",
