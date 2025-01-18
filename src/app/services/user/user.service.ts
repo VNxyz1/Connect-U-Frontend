@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, interval, Observable, takeWhile } from 'rxjs';
+import { BehaviorSubject, interval, Observable, takeWhile, tap } from 'rxjs';
 import { ProfileData } from '../../interfaces/ProfileData';
 import { map } from 'rxjs/operators';
 import { StorageService } from '../storage/storage.service';
@@ -43,6 +43,10 @@ export class UserService {
   inviteLink$ = this.inviteLinkSubject.asObservable();
   remainingTime$: Observable<number>;
 
+  private userdataSubject = new BehaviorSubject<ProfileData | undefined>(
+    undefined,
+  );
+
   constructor(
     private http: HttpClient,
     private storageService: StorageService,
@@ -55,6 +59,15 @@ export class UserService {
       takeWhile(time => time > 0, true),
     );
     this.loadStoredInviteLink();
+    this.getUserData().subscribe({});
+  }
+
+  getCurrentUserData() {
+    if (this.userdataSubject.getValue()) {
+      return this.userdataSubject.getValue();
+    }
+    this.getUserData().subscribe({});
+    return this.userdataSubject.getValue();
   }
 
   /**
@@ -62,7 +75,11 @@ export class UserService {
    * @returns {Observable<ProfileData>} an Observable that emits the Data of a User
    */
   getUserData(): Observable<ProfileData> {
-    return this.http.get<ProfileData>('user/userData');
+    return this.http.get<ProfileData>('user/userData').pipe(
+      tap(data => {
+        this.userdataSubject.next(data);
+      }),
+    );
   }
 
   /**

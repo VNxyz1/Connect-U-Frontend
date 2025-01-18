@@ -246,7 +246,6 @@ export class EventService {
       this.allEventsSubject.next(this.allEventsSubject.getValue());
       return;
     }
-    this.allEventsPage++;
     this.loadAllEvents(this.allEventsPage, this.allEventsPageSize).subscribe({
       next: newItems => {
         if (newItems.length === 0) {
@@ -259,6 +258,7 @@ export class EventService {
         this.allEventsSubject.next(updatedItems);
       },
     });
+    this.allEventsPage++;
   }
 
   getFyEvents() {
@@ -288,7 +288,6 @@ export class EventService {
       return;
     }
 
-    this.page++;
     this.loadFyPage(this.page, this.pageSize).subscribe({
       next: newItems => {
         if (newItems.length === 0) {
@@ -301,6 +300,7 @@ export class EventService {
         this.fyPageSubject.next(updatedItems);
       },
     });
+    this.page++;
   }
 
   /**

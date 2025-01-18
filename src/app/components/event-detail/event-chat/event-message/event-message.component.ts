@@ -11,14 +11,7 @@ import { UserService } from '../../../../services/user/user.service';
 @Component({
   selector: 'app-event-message',
   standalone: true,
-  imports: [
-    AvatarModule,
-    TranslocoPipe,
-    AngularRemixIconComponent,
-    PrimeTemplate,
-    NgClass,
-    TranslocoDatePipe,
-  ],
+  imports: [AvatarModule, TranslocoPipe, AngularRemixIconComponent, NgClass],
   templateUrl: './event-message.component.html',
 })
 export class EventMessageComponent {

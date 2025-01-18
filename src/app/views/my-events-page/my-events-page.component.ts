@@ -9,11 +9,13 @@ import { FormsModule } from '@angular/forms';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { MenuItem } from 'primeng/api';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
 import { UsersEventRequestsComponent } from '../../components/my-events/users-event-requests/users-event-requests.component';
 import { EventRequestService } from '../../services/event/event-request.service';
 import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
+import { CurrentUrlService } from '../../services/current-url/current-url.service';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-my-events-page',
@@ -28,12 +30,13 @@ import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
     FloatLabelModule,
     TabMenuModule,
     UsersEventRequestsComponent,
+    AsyncPipe,
   ],
   templateUrl: './my-events-page.component.html',
 })
 export class MyEventsPageComponent implements OnInit {
   activeTab: string = 'guest';
-  currentUrl: string = '';
+  currentUrl$!: Observable<string>;
   tabMenuItems: MenuItem[] = [];
 
   filterCategories = [
@@ -56,26 +59,39 @@ export class MyEventsPageComponent implements OnInit {
   eventRequests: UsersEventRequest[] = [];
 
   constructor(
-    private router: Router,
     private readonly eventRequestService: EventRequestService,
     private readonly translocoService: TranslocoService,
+    private readonly currentUrl: CurrentUrlService,
+    protected readonly userService: UserService,
   ) {
-    this.currentUrl = this.router.url;
+    this.currentUrl$ = this.currentUrl.get();
     this.setupTabItems();
   }
 
   ngOnInit() {
     this.setupTabItems();
-    this.router.events.subscribe(() => {
-      this.currentUrl = this.router.url;
+
+    this.setEventRequests();
+
+    this.eventRequestService.getNewInviteSocket().subscribe({
+      next: userId => {
+        const a = this.userService.getCurrentUserData();
+        if (a?.id == userId) {
+          this.setEventRequests();
+        }
+      },
     });
+    this.eventRequestService.getInviteStatusChangeSocket().subscribe({
+      next: userId => {
+        const a = this.userService.getCurrentUserData();
+        if (a?.id == userId) {
+          this.setEventRequests();
+        }
+      },
+    });
+  }
 
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.currentUrl = event.urlAfterRedirects;
-      });
-
+  private setEventRequests() {
     this.eventRequestService.getUsersRequests().subscribe({
       next: requests => {
         this.eventRequests = requests;
@@ -113,8 +129,8 @@ export class MyEventsPageComponent implements OnInit {
       });
   }
 
-  doesNotInclude(segment: string): boolean {
-    return !this.currentUrl.includes(segment);
+  doesNotInclude(segment: string, currentUrl: string): boolean {
+    return !currentUrl.includes(segment);
   }
 
   setActiveTab(tab: string): void {

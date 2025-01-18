@@ -14,6 +14,7 @@ import {
 } from '../event-status-indicator/event-status-indicator.component';
 import { EventStatusService } from '../../services/event/event-status.service';
 import { EventService } from '../../services/event/eventservice';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
   selector: 'app-event-card',
@@ -27,6 +28,7 @@ import { EventService } from '../../services/event/eventservice';
     TranslocoDatePipe,
     RouterLink,
     EventStatusIndicatorComponent,
+    BadgeModule,
   ],
   templateUrl: './event-card.component.html',
 })
@@ -36,6 +38,7 @@ export class EventCardComponent {
 
   @Input({ transform: booleanAttribute }) showEventStatus: boolean = false;
   @Input({ transform: booleanAttribute }) compact: boolean = false;
+  @Input() badge: number | undefined;
 
   constructor(
     private eventStatus: EventStatusService,
