@@ -14,7 +14,7 @@ export interface SearchParams {
   tags?: number[];
   minAge?: number;
   maxAge?: number;
-  genders: number[];
+  genders?: number[];
   isPublic?: boolean;
   isHalfPublic?: boolean;
   isOnline?: boolean;

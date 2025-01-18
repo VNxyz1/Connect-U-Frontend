@@ -266,9 +266,9 @@
       "finish": "Fertig"
     },
     "genders": {
-      "male": "Männlich",
-      "female": "Weiblich",
-      "divers": "Divers"
+      "male": "Männer",
+      "female": "Frauen",
+      "divers": "Diverse"
     },
     "messages": {
       "eventCreatedSuccess": "Event \"{{title}}\" wurde erfolgreich erstellt!",
