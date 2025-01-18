@@ -477,7 +477,8 @@
       "title": "Gast",
       "text": "Du nimmst zur Zeit an keinem Event teil.",
       "todo": "Erkundige Dich nach deinen Interessen.",
-      "your-event-requests": "Deine Eventanfragen/ Einladungen "
+      "your-event-requests": "Deine Eventanfragen ",
+      "your-requests": "Deine Anfragen und Einladungen"
     },
     "favorite": {
       "title": "Favorisiert",

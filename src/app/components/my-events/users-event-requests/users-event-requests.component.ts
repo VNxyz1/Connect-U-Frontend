@@ -12,7 +12,6 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
 import { UserService } from '../../../services/user/user.service';
-import { HttpClient } from '@angular/common/http';
 import { EventDetails } from '../../../interfaces/EventDetails';
 
 @Component({
@@ -35,7 +34,6 @@ export class UsersEventRequestsComponent implements OnInit {
   invites$!: Observable<UsersEventRequest[]>;
 
   constructor(
-    private http: HttpClient,
     private readonly requestService: EventRequestService,
     private messageService: MessageService,
     private readonly translocoService: TranslocoService,
