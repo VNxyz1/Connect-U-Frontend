@@ -1,11 +1,14 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.connectu.app',
+  appId: 'site.connect-u.app',
   appName: 'Connect-U',
   webDir: 'dist-app/connect-u-frontend/browser',
   plugins: {
     CapacitorCookies: {
+      enabled: true,
+    },
+    CapacitorHttp: {
       enabled: true,
     },
   },

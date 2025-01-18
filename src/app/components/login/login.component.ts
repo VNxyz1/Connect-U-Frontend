@@ -79,7 +79,7 @@ export class LoginComponent {
         next: () => {
           this.router
             .navigate(this.redirectTo)
-            //.then(() => window.location.reload());
+            .then(() => window.location.reload());
         },
         error: err => {
           this.showError(err.status);

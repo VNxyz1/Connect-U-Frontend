@@ -3,11 +3,10 @@ import { QrCodeAndLinkComponent } from '../../components/qr-code-and-link/qr-cod
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { EventInfoComponent } from '../../components/event-detail/event-info/event-info.component';
-import { CameraComponent } from '../../components/camera/camera.component';
 import { TranslocoService } from '@jsverse/transloco';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-share-profile',
@@ -79,4 +78,6 @@ export class ShareProfilePageComponent implements OnInit {
       return this.tabMenuItems[0]; // Return the first tab as default
     }
   }
+
+  protected readonly environment = environment;
 }

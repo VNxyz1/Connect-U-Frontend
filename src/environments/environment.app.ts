@@ -4,4 +4,5 @@ export const environment = {
     urlPrefix: 'https://dev.connect-u.site/api/',
     withCredentials: true,
   },
+  hideCamera: true,
 };
