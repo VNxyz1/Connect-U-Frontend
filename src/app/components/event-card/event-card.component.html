@@ -84,16 +84,6 @@
                 <p-skeleton height="1.5rem" width="5rem" styleClass="mb-2" />
               </div>
             </div>
-            <div class="col-12 p-0 flex">
-              <div
-                class="col-fixed w-max flex gap-1 align-items-center text-center">
-                <p-skeleton height="1.5rem" width="5rem" styleClass="mb-2" />
-              </div>
-              <div
-                class="col-fixed w-max flex gap-1 align-items-center text-center">
-                <p-skeleton height="1.5rem" width="5rem" styleClass="mb-2" />
-              </div>
-            </div>
           </div>
           <div class="col-4 p-0">
             <div
@@ -108,117 +98,133 @@
   }
 } @else {
   @if (!skeleton) {
-    <p-card
-      [styleClass]="
-        [
-          'h-full',
-          showEventStatus ? 'border-left-3 border-round' : '',
-          showEventStatus ? 'border-' + getStatusColor(event.status) : '',
-        ].join(' ')
-      "
-      class="h-full custom-card cursor-pointer"
-      [routerLink]="['/event', event.id]">
-      <ng-template pTemplate="header">
-        <div
-          class="overflow-hidden"
+    <div class="relative">
+      @if (badge) {
+        <span
           [style]="{
-            'aspect-ratio': '2/1',
-            'border-top-right-radius': 'var(--border-radius) !important',
-            'border-top-left-radius': !showEventStatus
-              ? 'var(--border-radius) !important'
-              : '',
-          }">
+            position: 'absolute',
+            right: '-4px',
+            top: '-4px',
+            'z-index': 1,
+            'min-width': '20px',
+            height: '20px',
+          }"
+          class="bg-blue-900 border-round-3xl border-blue-900 text-center text-white px-1 justify-content-center flex align-content-center align-items-center"
+          >{{ badge }}</span
+        >
+      }
+      <p-card
+        [styleClass]="
+          [
+            'h-full',
+            showEventStatus ? 'border-left-3 border-round' : '',
+            showEventStatus ? 'border-' + getStatusColor(event.status) : '',
+          ].join(' ')
+        "
+        class="h-full custom-card cursor-pointer"
+        [routerLink]="['/event', event.id]">
+        <ng-template pTemplate="header">
           <div
-            class="bg-cover bg-center h-full w-full flex-wrap flex align-content-between"
-            [style]="{ 'background-image': toImageUrl(event.picture) }">
+            class="overflow-hidden"
+            [style]="{
+              'aspect-ratio': '2/1',
+              'border-top-right-radius': 'var(--border-radius) !important',
+              'border-top-left-radius': !showEventStatus
+                ? 'var(--border-radius) !important'
+                : '',
+            }">
             <div
-              class="col-12 flex justify-content-between p-3 pl-0 align-content-center align-items-center h-min">
-              <span>
-                @if (showEventStatus) {
-                  <app-event-status-indicator
-                    [status]="event.status"
-                    dockingMode
-                    [dockPosition]="DockPosition.Left" />
-                }
-              </span>
-              <div class="flex gap-2">
-                @for (category of event.categories; track $index) {
-                  <p-tag [value]="category.name" [rounded]="true" />
+              class="bg-cover bg-center h-full w-full flex-wrap flex align-content-between"
+              [style]="{ 'background-image': toImageUrl(event.picture) }">
+              <div
+                class="col-12 flex justify-content-between p-3 pl-0 align-content-center align-items-center h-min">
+                <span>
+                  @if (showEventStatus) {
+                    <app-event-status-indicator
+                      [status]="event.status"
+                      dockingMode
+                      [dockPosition]="DockPosition.Left" />
+                  }
+                </span>
+                <div class="flex gap-2">
+                  @for (category of event.categories; track $index) {
+                    <p-tag [value]="category.name" [rounded]="true" />
+                  }
+                </div>
+              </div>
+              <div
+                class="col-12 flex justify-content-between align-content-center align-items-center h-min">
+                @if (event.participatingFriend) {
+                  <div
+                    class="col-fixed w-max flex gap-1 align-items-center text-center ml-auto">
+                    <div class="p-1 border-round-3xl bg-orange-900 text-white">
+                      <rmx-icon name="user-heart-line" />
+                    </div>
+                  </div>
                 }
               </div>
             </div>
-            <div
-              class="col-12 flex justify-content-between align-content-center align-items-center h-min">
-              @if (event.participatingFriend) {
-                <div
-                  class="col-fixed w-max flex gap-1 align-items-center text-center ml-auto">
-                  <div class="p-1 border-round-3xl bg-orange-900 text-white">
-                    <rmx-icon name="user-heart-line" />
-                  </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="content">
+          <div class="grid min-h-full align-content-around">
+            <div class="col-12 grid overflow-hidden" [style.height.px]="40">
+              @for (tag of event.tags; track $index) {
+                <div class="col-fixed w-min p-1">
+                  <p-tag [value]="tag" [rounded]="true" severity="secondary">
+                    <ng-template pTemplate="icon">
+                      <rmx-icon
+                        name="price-tag-3-line"
+                        style="width: 16px; height: 16px">
+                      </rmx-icon>
+                    </ng-template>
+                  </p-tag>
                 </div>
               }
             </div>
-          </div>
-        </div>
-      </ng-template>
-      <ng-template pTemplate="content">
-        <div class="grid min-h-full align-content-around">
-          <div class="col-12 grid overflow-hidden" [style.height.px]="40">
-            @for (tag of event.tags; track $index) {
-              <div class="col-fixed w-min p-1">
-                <p-tag [value]="tag" [rounded]="true" severity="secondary">
-                  <ng-template pTemplate="icon">
-                    <rmx-icon
-                      name="price-tag-3-line"
-                      style="width: 16px; height: 16px">
-                    </rmx-icon>
-                  </ng-template>
-                </p-tag>
+            <div class="col-12 px-2">
+              <h3
+                class="m-0"
+                style="
+                  overflow: hidden;
+                  display: -webkit-box;
+                  -webkit-line-clamp: 1;
+                  line-clamp: 1;
+                  -webkit-box-orient: vertical;
+                ">
+                {{ event.title }}
+              </h3>
+            </div>
+            <div class="col-12 pt-3 gap-3 flex flex-wrap">
+              <div
+                class="col-fixed p-0 w-max flex gap-1 align-items-center text-center">
+                <rmx-icon name="group-line" />
+                <span
+                  >{{ event.participantsNumber }}/{{
+                    event.maxParticipantsNumber
+                  }}</span
+                >
               </div>
-            }
-          </div>
-          <div class="col-12 px-2">
-            <h3
-              class="m-0"
-              style="
-                overflow: hidden;
-                display: -webkit-box;
-                -webkit-line-clamp: 1;
-                line-clamp: 1;
-                -webkit-box-orient: vertical;
-              ">
-              {{ event.title }}
-            </h3>
-          </div>
-          <div class="col-12 pt-3 gap-3 flex flex-wrap">
-            <div
-              class="col-fixed p-0 w-max flex gap-1 align-items-center text-center">
-              <rmx-icon name="group-line" />
-              <span
-                >{{ event.participantsNumber }}/{{
-                  event.maxParticipantsNumber
-                }}</span
-              >
-            </div>
-            <div
-              class="col-fixed p-0 w-max flex gap-1 align-items-center text-center">
-              <rmx-icon name="calendar-line" />
-              <span>{{
-                toDate(event.dateAndTime)
-                  | translocoDate: { dateStyle: 'short' }
-              }}</span>
-            </div>
-            <div
-              class="col-fixed p-0 w-max flex gap-1 align-items-center text-center">
-              <rmx-icon name="map-pin-2-line" />
-              <span>{{
-                event.city || (event.isOnline ? 'online' : '???')
-              }}</span>
+              <div
+                class="col-fixed p-0 w-max flex gap-1 align-items-center text-center">
+                <rmx-icon name="calendar-line" />
+                <span>{{
+                  toDate(event.dateAndTime)
+                    | translocoDate: { dateStyle: 'short' }
+                }}</span>
+              </div>
+              <div
+                class="col-fixed p-0 w-max flex gap-1 align-items-center text-center">
+                <rmx-icon name="map-pin-2-line" />
+                <span>{{
+                  event.city || (event.isOnline ? 'online' : '???')
+                }}</span>
+              </div>
             </div>
           </div>
-        </div>
-      </ng-template>
-    </p-card>
+        </ng-template>
+      </p-card>
+    </div>
   } @else {
     <p-card>
       <ng-template pTemplate="header">

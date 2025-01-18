@@ -1,8 +1,8 @@
-@if (currentUrl) {
-  <div class="h-screen grid p-0 m-0 gap-0 align-content-start overflow-auto">
+@if (currentUrl$ | async; as currentUrl) {
+  <div class="h-screen grid p-0 m-0 gap-0 align-content-start">
     @if (!currentUrl.includes('/welcome')) {
       <div
-        class="col-12 p-0 max-h-min sticky top-0 z-2"
+        class="col-12 p-0 max-h-min fixed top-0 z-2"
         [ngClass]="{
           'md:col-offset-2 md:col-10':
             !currentUrl.includes('/create-event') &&
@@ -13,14 +13,12 @@
       </div>
     }
     <div
-      class="col-12 p-0"
+      class="col-12 p-0 mt-8 -mb-8"
       [ngClass]="{
         'md:col-offset-2 md:col-10':
           !currentUrl.includes('/create-event') && (isLoggedIn | async),
       }">
-      <div>
-        <router-outlet />
-      </div>
+      <router-outlet />
     </div>
     @if (!currentUrl.includes('/create-event') && (isLoggedIn | async)) {
       <div

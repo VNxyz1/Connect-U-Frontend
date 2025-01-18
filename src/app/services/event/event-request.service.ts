@@ -4,12 +4,30 @@ import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { EventUserRequest } from '../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
+import { SocketService } from '../socket/socket.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventRequestService {
-  constructor(private readonly http: HttpClient) {}
+  private readonly newInviteSocket$!: Observable<string>;
+  private readonly inviteStatusChangeSocket$!: Observable<string>;
+
+  constructor(
+    private readonly http: HttpClient,
+    private readonly socket: SocketService,
+  ) {
+    this.newInviteSocket$ = this.socket.on('newInvite');
+    this.inviteStatusChangeSocket$ = this.socket.on('inviteStatusChange');
+  }
+
+  getNewInviteSocket() {
+    return this.newInviteSocket$;
+  }
+
+  getInviteStatusChangeSocket() {
+    return this.inviteStatusChangeSocket$;
+  }
 
   /**
    * Creates a join request for the given event ID.
@@ -93,10 +111,29 @@ export class EventRequestService {
     );
   }
 
+  getInvitationFromFriends(): Observable<UsersEventRequest[]> {
+    const url = `request/invite/user`;
+    return this.http.get<UsersEventRequest[]>(url).pipe(
+      catchError(err => {
+        console.error('Error fetching invitations by Friends: ', err);
+        return throwError(() => err);
+      }),
+    );
+  }
+
   acceptUserRequest(
     requestId: number,
   ): Observable<{ success: boolean; message: string }> {
     const url = `request/accept/${requestId}`;
+    return this.http
+      .patch<{ success: boolean; message: string }>(url, {})
+      .pipe();
+  }
+
+  acceptFriendsRequest(
+    requestId: number,
+  ): Observable<{ success: boolean; message: string }> {
+    const url = `request/acceptInvite/${requestId}`;
     return this.http
       .patch<{ success: boolean; message: string }>(url, {})
       .pipe();
@@ -109,6 +146,13 @@ export class EventRequestService {
     return this.http
       .patch<{ success: boolean; message: string }>(url, {})
       .pipe();
+  }
+
+  denyFriendsRequest(
+    requestId: number,
+  ): Observable<{ success: boolean; message: string }> {
+    const url = `request/denyInvite/${requestId}`;
+    return this.http.patch<{ success: boolean; message: string }>(url, {});
   }
 
   /**
