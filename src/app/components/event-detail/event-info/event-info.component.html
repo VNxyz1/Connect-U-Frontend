@@ -49,13 +49,14 @@
   </div>
 } @else {
   <div class="xl:mr-8 p-0 m-0 grid justify-content-center">
-    <div class="col-12 xl:col-7 ">
-      <div class="flex justify-content-center align-items-center w-full h-20rem sm:h-15rem lg:h-25rem overflow-hidden">
+    <div class="col-12 xl:col-7">
+      <div
+        class="flex justify-content-center align-items-center w-full h-20rem sm:h-15rem lg:h-25rem overflow-hidden">
         <img
           [src]="eventService.getEventTitleImage(_eventDetails.picture)"
           alt="{{ 'landingPage.headerImageAlt' | transloco }}"
           class="w-full h-auto"
-          style="object-fit: contain;" />
+          style="object-fit: contain" />
       </div>
     </div>
     <div class="col-12 xl:col-7">
