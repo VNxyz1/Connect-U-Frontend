@@ -238,7 +238,16 @@ h6 {
 // steps
 
 .p-steps {
+  position: sticky !important;
+  top: 4.3rem;
+  z-index: 1 !important;
   background: $white !important;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.p-steps li {
+  align-items: center !important;
 }
 
 .p-steps .p-steps-item:before {
