@@ -7,10 +7,12 @@ import { MessageService, PrimeTemplate } from 'primeng/api';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { RouterLink } from '@angular/router';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { HttpClient } from '@angular/common/http';
 import { EventRequestService } from '../../../services/event/event-request.service';
 import {Observable} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
+import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
+import { UserService } from '../../../services/user/user.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-users-event-requests',
@@ -36,6 +38,8 @@ export class UsersEventRequestsComponent implements OnInit {
     private readonly requestService: EventRequestService,
     private messageService: MessageService,
     private readonly translocoService: TranslocoService,
+    private pushNotificationService: PushNotificationService,
+    protected readonly userService: UserService,
   ) {}
   ngOnInit(){
   this.loadInvites()
@@ -85,6 +89,7 @@ export class UsersEventRequestsComponent implements OnInit {
         if (request) {
           request.denied = false;
         }
+        this.pushNotificationService.loadEventRequestNotifications();
         this.messageService.add({
           severity: 'success',
           summary: this.translocoService.translate(

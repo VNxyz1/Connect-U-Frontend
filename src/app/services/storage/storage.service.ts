@@ -12,7 +12,7 @@ export class StorageService {
   }
 
   async init() {
-    this._storage = await this.storage.create(); // Initialize storage instance
+    this._storage = await this.storage.create();
   }
 
   public async set(key: string, value: any): Promise<void> {

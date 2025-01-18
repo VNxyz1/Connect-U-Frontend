@@ -1,153 +1,175 @@
-<div class="mt-4 border-bottom-2 border-gray-50 z-4">
-  <div class="flex align-items-center justify-content-between w-full mb-3">
-    <div class="col align-items-center justify-content-start">
-      @if (currentUrl !== '/' && !currentUrl?.includes('create-event')) {
-        <p-button
-          [text]="true"
-          severity="primary"
-          (click)="backToLast()"
-          class="mr-3">
-          <ng-template pTemplate="icon">
-            <rmx-icon
-              style="width: 24px; height: 24px"
-              name="arrow-left-s-line"></rmx-icon>
-          </ng-template>
-        </p-button>
-      } @else if (currentUrl?.includes('create-event')) {
-        <p-button
-          [text]="true"
-          severity="primary"
-          (click)="closeProcess()"
-          class="mr-3">
-          <ng-template pTemplate="icon">
-            <rmx-icon
-              style="width: 24px; height: 24px"
-              name="close-line"></rmx-icon>
-          </ng-template>
-        </p-button>
-      }
-    </div>
-
-    <div class="col-8 text-center">
-      @switch (true) {
-        @case (currentUrl?.includes('/my-space')) {
-          <h1 class="m-0">{{ 'headerComponent.mySpace' | transloco }}</h1>
-        }
-        @case (currentUrl?.includes('/my-events')) {
-          <h1 class="m-0">{{ 'headerComponent.myEvents' | transloco }}</h1>
-        }
-        @case (currentUrl?.includes('/create-event')) {
-          <h1 class="m-0">{{ 'headerComponent.createEvent' | transloco }}</h1>
-        }
-        @case (currentUrl?.includes('/event')) {
-          <h1 class="m-0">{{ 'headerComponent.event' | transloco }}</h1>
-        }
-        @case (currentUrl?.includes('/settings')) {
-          <h1 class="m-0">{{ 'headerComponent.settings' | transloco }}</h1>
-        }
-        @case (currentUrl?.includes('/profile')) {
-          <h1 class="m-0">{{ 'headerComponent.profile' | transloco }}</h1>
-        }
-        @case (currentUrl?.includes('/account')) {
-          <h1 class="m-0">{{ 'headerComponent.account' | transloco }}</h1>
-        }
-        @case (currentUrl?.includes('/information')) {
-          <h1 class="m-0">{{ 'headerComponent.information' | transloco }}</h1>
-        }
-        @case (currentUrl?.includes('/add-friend')) {
-          <h1 class="m-0">{{ 'headerComponent.addFriend' | transloco }}</h1>
-        }
-        @case (currentUrl?.includes('/share-profile')) {
-          <h1
-            class="m-0 max-w-full"
-            [lang]="translocoService.getActiveLang().split('_')[0]"
-            style="
-              -webkit-hyphens: auto;
-              -moz-hyphens: auto;
-              -ms-hyphens: auto;
-              hyphens: auto;
-              overflow-x: hidden;
-            ">
-            {{ 'headerComponent.shareProfile' | transloco }}
-          </h1>
-        }
-        @default {
-          <p-image
-            src="images/logo_full_dark.svg"
-            imageClass="max-w-20rem"
-            alt="Connect-U Logo" />
-        }
-      }
-    </div>
-    @if (isLoggedIn | async) {
-      <div class="col flex md:block justify-content-end">
-        <p-button
-          [text]="true"
-          severity="primary"
-          [routerLink]="['/share-profile']"
-          class="block md:hidden">
-          <ng-template pTemplate="icon">
-            <rmx-icon
-              style="width: 24px; height: 24px"
-              name="qr-scan-2-line"></rmx-icon>
-          </ng-template>
-        </p-button>
-      </div>
-    } @else {
-      <div class="col"></div>
-    }
-  </div>
-</div>
-
-<p-confirmDialog #cdDiscard>
-  <ng-template pTemplate="headless" let-message>
+@if (currentUrl$ | async; as currentUrl) {
+  <div class="border-bottom-2 border-gray-50 z-4 top-0 bg-main">
     <div
-      class="flex flex-column align-items-center p-5 surface-overlay border-round">
-      <div
-        class="inline-flex justify-content-center align-items-center h-6rem w-6rem">
-        <rmx-icon
-          class="text-6xl"
-          style="height: 100px; width: 100px"
-          name="alert-line">
-        </rmx-icon>
+      class="flex align-items-center justify-content-between w-full pt-4 md:pt-3 mb-1 md:mb-2">
+      <div class="col align-items-center justify-content-start">
+        @if (currentUrl?.includes('results')) {
+          <p-button
+            [text]="true"
+            severity="primary"
+            (click)="search()"
+            class="mr-3">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                style="width: 24px; height: 24px"
+                name="arrow-left-s-line"></rmx-icon>
+            </ng-template>
+          </p-button>
+        } @else if (currentUrl?.includes('create-event')) {
+          <p-button
+            [text]="true"
+            severity="primary"
+            (click)="closeProcess()"
+            class="mr-3">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                style="width: 24px; height: 24px"
+                name="close-line"></rmx-icon>
+            </ng-template>
+          </p-button>
+        } @else if (
+          currentUrl !== '/' &&
+          !currentUrl?.includes('create-event') &&
+          !currentUrl?.includes('unavailable')
+        ) {
+          <p-button
+            [text]="true"
+            severity="primary"
+            (click)="backToLast()"
+            class="mr-3">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                style="width: 24px; height: 24px"
+                name="arrow-left-s-line"></rmx-icon>
+            </ng-template>
+          </p-button>
+        }
       </div>
-      <span class="font-bold text-2xl block mb-2 mt-4">
-        {{ message.header }}
-      </span>
-      <p class="mb-0">{{ message.message }}</p>
-      <div class="flex align-items-center justify-content-between gap-3 mt-4">
-        <p-button
-          label="{{
-            'createEventStep2Component.messages.dateConfirmationCancel'
-              | transloco
-          }}"
-          (click)="cdDiscard.reject()"
-          class="">
-          <ng-template pTemplate="icon">
-            <rmx-icon
-              class="mr-2"
-              style="width: 16px; height: 16px"
-              name="arrow-go-back-line">
-            </rmx-icon>
-          </ng-template>
-        </p-button>
-        <p-button
-          label="{{
-            'createEventStep2Component.messages.dateConfirmationSubmit'
-              | transloco
-          }}"
-          (click)="cdDiscard.accept()"
-          severity="success"
-          class="">
-          <ng-template pTemplate="icon">
-            <rmx-icon
-              class="mr-2"
-              style="width: 18px; height: 18px"
-              name="check-line">
-            </rmx-icon>
-          </ng-template>
-        </p-button>
+
+      <div class="col-8 text-center">
+        @switch (true) {
+          @case (currentUrl?.includes('/my-space')) {
+            <h1 class="m-0">{{ 'headerComponent.mySpace' | transloco }}</h1>
+          }
+          @case (currentUrl?.includes('/my-events')) {
+            <h1 class="m-0">{{ 'headerComponent.myEvents' | transloco }}</h1>
+          }
+          @case (currentUrl?.includes('/create-event')) {
+            <h1 class="m-0">{{ 'headerComponent.createEvent' | transloco }}</h1>
+          }
+          @case (currentUrl?.includes('/event')) {
+            <h1 class="m-0">{{ 'headerComponent.event' | transloco }}</h1>
+          }
+          @case (currentUrl?.includes('/settings')) {
+            <h1 class="m-0">{{ 'headerComponent.settings' | transloco }}</h1>
+          }
+          @case (currentUrl?.includes('/search')) {
+            <h1 class="m-0">{{ 'headerComponent.search' | transloco }}</h1>
+          }
+          @case (currentUrl?.includes('/profile')) {
+            <h1 class="m-0">{{ 'headerComponent.profile' | transloco }}</h1>
+          }
+          @case (currentUrl?.includes('/account')) {
+            <h1 class="m-0">{{ 'headerComponent.account' | transloco }}</h1>
+          }
+          @case (currentUrl?.includes('/information')) {
+            <h1 class="m-0">{{ 'headerComponent.information' | transloco }}</h1>
+          }
+          @case (currentUrl?.includes('/add-friend')) {
+            <h1 class="m-0">{{ 'headerComponent.addFriend' | transloco }}</h1>
+          }
+          @case (currentUrl?.includes('/share-profile')) {
+            <h1
+              class="m-0 max-w-full"
+              [lang]="translocoService.getActiveLang().split('_')[0]"
+              style="
+                -webkit-hyphens: auto;
+                -moz-hyphens: auto;
+                -ms-hyphens: auto;
+                hyphens: auto;
+                overflow-x: hidden;
+              ">
+              {{ 'headerComponent.shareProfile' | transloco }}
+            </h1>
+          }
+          @default {
+            <p-image
+              src="images/logo_full_dark.svg"
+              imageClass="max-w-12rem"
+              alt="Connect-U Logo" />
+          }
+        }
       </div>
+      @if (isLoggedIn | async) {
+        <div class="col flex md:block justify-content-end">
+          <p-button
+            [text]="true"
+            severity="primary"
+            [routerLink]="['/share-profile']"
+            class="block md:hidden">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                style="width: 24px; height: 24px"
+                name="qr-scan-2-line"></rmx-icon>
+            </ng-template>
+          </p-button>
+        </div>
+      } @else {
+        <div class="col"></div>
+      }
     </div>
-  </ng-template>
-</p-confirmDialog>
+  </div>
+
+  <p-confirmDialog #cdDiscard>
+    <ng-template pTemplate="headless" let-message>
+      <div
+        class="flex flex-column align-items-center p-5 surface-overlay border-round">
+        <div
+          class="inline-flex justify-content-center align-items-center h-6rem w-6rem">
+          <rmx-icon
+            class="text-6xl"
+            style="height: 100px; width: 100px"
+            name="alert-line">
+          </rmx-icon>
+        </div>
+        <span class="font-bold text-2xl block mb-2 mt-4">
+          {{ message.header }}
+        </span>
+        <p class="mb-0">{{ message.message }}</p>
+        <div class="flex align-items-center justify-content-between gap-3 mt-4">
+          <p-button
+            label="{{
+              'createEventStep2Component.messages.dateConfirmationCancel'
+                | transloco
+            }}"
+            (click)="cdDiscard.reject()"
+            class="">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                class="mr-2"
+                style="width: 16px; height: 16px"
+                name="arrow-go-back-line">
+              </rmx-icon>
+            </ng-template>
+          </p-button>
+          <p-button
+            label="{{
+              'createEventStep2Component.messages.dateConfirmationSubmit'
+                | transloco
+            }}"
+            (click)="cdDiscard.accept()"
+            severity="success"
+            class="">
+            <ng-template pTemplate="icon">
+              <rmx-icon
+                class="mr-2"
+                style="width: 18px; height: 18px"
+                name="check-line">
+              </rmx-icon>
+            </ng-template>
+          </p-button>
+        </div>
+      </div>
+    </ng-template>
+  </p-confirmDialog>
+}

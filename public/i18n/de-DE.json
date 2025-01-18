@@ -1,4 +1,5 @@
 {
+  "serverUnavailable": "Der Server ist aktuell nicht erreichbar. Versuche es später erneut.",
   "profilePictureAlt": "Profilbild",
   "homepage": {
     "title": "Events für Dich",
@@ -129,6 +130,34 @@
     }
   },
   "searchPageComponent": {
+    "eventTitleInput": "nach Titel filtern",
+    "tagsInput": "nach Tags filtern",
+    "categoriesInput": "nach Kategorien filtern",
+    "gendersInput": "Wen möchtest du dabei haben?",
+    "isOnline": "Online-Events",
+    "isInPlace": "Events vor Ort",
+    "isPublic": "öffentliche Events",
+    "isHalfPublic": "halböffentliche Events",
+    "filterFriends": "nur Events anzeigen, an denen Freunde teilnehmen",
+    "filterButton":"Events filtern",
+    "selectFilters": "Filter auswählen",
+    "sortEvents": "Events sortieren",
+    "errors": {
+      "genders": "Du musst mindestens ein Geschlecht auswählen!",
+      "online": "Du musst mindestens eine Option auswählen!"
+    },
+    "sortOrder": {
+      "newestFirst": "Neueste zuerst",
+      "oldestFirst": "Älteste zuerst",
+      "upcomingNext": "Nächste anstehende",
+      "upcomingLast": "Letzte anstehende",
+      "alphabetical_asc": "Alphabetisch (A-Z)",
+      "alphabetical_desc": "Alphabetisch (Z-A)"
+    }
+  },
+  "resultsPageComponent": {
+    "results": "Ergebnisse",
+    "eventsFound": "passende Events gefunden!"
   },
   "createEventStep1Component": {
     "eventType": {
@@ -160,7 +189,17 @@
       "categoryLimitTitle": "Kategorien Limitierung",
       "categoryLimitDetail": "Du kannst nur bis zu 3 Kategorien auswählen.",
       "validationFailedTitle": "Validierung fehlgeschlagen",
-      "validationFailedDetail": "Bitte stelle sicher, dass alle erforderlichen Felder korrekt ausgefüllt sind."
+      "validationFailedDetail": "Bitte stelle sicher, dass alle erforderlichen Felder korrekt ausgefüllt sind.",
+      "removedImageTitle": "Bild entfernt!",
+      "removedImage": "Bild wurde erfolgreich entfernt, wähle gerne ein neues aus."
+    },
+    "errorMessages": {
+      "wrongFormatTitle": "Falsches Format",
+      "wrongFormat": "Du musst ein Bildformat nutzen welches wir unterstützen z.B. .gif, .jpg, .png",
+      "couldntBeSaved": "Dein Bild konnte nicht gespeichert werden",
+      "couldntBeSavedTitle": "Fehler",
+      "sizedErrorTitle": "Fehler",
+      "sizedError": "Das Bild darf maximal 5MB groß sein."
     }
   },
   "createEventStep2Component": {
@@ -259,10 +298,13 @@
     },
     "host": "Veranstalter",
     "requests": {
-      "title": "Anfragen",
+      "requests": "Anfragen",
       "accepted-request": "Die Anfrage von \"{{name}}\" wurde akzeptiert!",
       "denied-request": "Die Anfrage von \"{{name}}\" wurde abgelehnt.",
-      "delete-request": "Anfrage löschen"
+      "delete-request": "Anfrage löschen",
+      "try-again": "Erneut anfragen",
+      "invites": "Einladungen",
+      "deleted-invite": "Die Einladung für \"{{name}}\" wurde gelöscht."
     },
     "eventNotFound": "Das gesuchte Event existiert nicht.",
     "userIsHost": "Du bist der Gastgeber dieses Events und kannst nicht teilnehmen.",
@@ -294,7 +336,8 @@
       "sendInvites": "Einladungen senden",
       "inviteSuccess": "Einladung erfolgreich an {{name}} gesendet.",
       "inviteError": "Einladung an {{name}} konnte nicht gesendet werden.",
-      "maxNumberExceeded": "Du kannst nicht mehr Freunde einladen, als Plätze verfügbar sind."
+      "maxNumberExceeded": "Du kannst nicht mehr Freunde einladen, als Plätze verfügbar sind.",
+      "noFriendsToInvite": "Keine deiner Freunde erfüllen die Zulassungsbeschränkungen des Events."
     }
   },
   "eventStatusIndicator": {
@@ -402,6 +445,7 @@
   },
   "headerComponent": {
     "mySpace": "Mein Bereich",
+    "myFriends": "Meine Freunde",
     "myEvents": "Meine Events",
     "search": "Events suchen",
     "createEvent": "Event erstellen",
@@ -445,7 +489,8 @@
       "delete-request": "Anfrage löschen",
       "try-again": "Erneut Anfragen",
       "new-request": "Es wurde eine neue Anfrage für das Event \"{{title}}\" verschickt!",
-      "deleted-request": "Die Anfrage für das Event \"{{title}}\" wurde gelöscht."
+      "deleted-request": "Die Anfrage für das Event \"{{title}}\" wurde gelöscht.",
+      "noRequests": "Du hast derzeit keine offenen Anfragen."
     }
   },
   "privacyPolicy": {
@@ -795,6 +840,7 @@
   "mySpacePage": {
     "listing": {
       "settings": "Einstellungen",
+      "myFriends": "Meine Freunde",
       "logout": "Abmelden",
       "information": "Informationen"
     }
@@ -942,7 +988,9 @@
     "successfullyCopiedMessage": "Dein Einladungslink wurde in die Zwischenablage kopiert.",
     "linkExpired": "Dein Link ist abgelaufen! Generiere jetzt einen neuen!",
     "linkExplanation": "Lasse jetzt eine Person deinen QR-Code Scannen, oder schicke ihr den Link! Der Link ist noch {{ time }} min gültig.",
-    "shareHeader": "Dein Anfrage Link"
+    "shareHeader": "Dein Anfrage Link",
+    "tab-share": "Share",
+    "tab-scan": "Scan"
   },
   "addFriendComponent": {
     "friendship-created": "Du bist nun mit {{name}}  befreundet!",
@@ -966,5 +1014,28 @@
     "denyMessage": "Du hast die Einladung deines Freundes abgelehnt",
     "denyErrorTitle":"Fehler beim Ablehnen",
     "denyErrorMessage": "Es ist ein Fehler aufgetreten beim Versuch, die Einladung abzulehnen."
+  },
+  "cameraComponent": {
+    "card-header": "QR-Code scannen",
+    "scan-help": "Scanne den QR Code von Nutzern, um sie als Freunde hinzuzufügen!",
+    "message": {
+      "no-camera-detected-title": "Keine Kamera erkannt",
+      "no-camera-detected-detail": "Wir konnten keine Kamera auf deinem Gerät erkennen. Bitte stelle  sicher, dass eine Kamera verfügbar und zugänglich ist.",
+      "initialization-error-title": "Initialisierungsfehler",
+      "initialization-error-detail": "Beim Initialisieren der Kamera ist ein Fehler aufgetreten. Bitte überprüfe deine Kameraberechtigungen und versuche es erneut.",
+      "navigation-error-title": "Navigationsfehler",
+      "navigation-error-detail": "Es gab ein Problem beim Navigieren zum gescannten Link. Bitte versuche es erneut.",
+      "invalid-qr-code-title": "Ungültiger QR-Code",
+      "invalid-qr-code-detail": "Der gescannte QR-Code ist für diese Anwendung nicht gültig.",
+      "qr-scan-error-title": "QR-Code-Scan-Fehler",
+      "qr-scan-error-detail": "Beim Scannen des QR-Codes ist ein Fehler aufgetreten. Bitte stelle sicher, dass der QR-Code klar und innerhalb des Kamerabereichs ist.",
+      "access-denied-title": "Kamerazugriff verweigert",
+      "access-denied-detail": "Du hast den Zugriff auf die Kamera verweigert. Bitte aktiviere die Kameraberechtigungen, um QR-Codes zu scannen."
+    }
+  },
+  "404": {
+    "page-not-found": "Seite nicht gefunden",
+    "page-not-found-detail": "Wir konnten diese Seite nicht finden. Nicht einmal mit X-Ray.",
+    "back-to-home": "Zur Startseite"
   }
 }

@@ -145,3 +145,14 @@ body {
     height: calc(100vh - 13rem);
   }
 }
+
+.custom-badge {
+  position: absolute;
+  top: 1px;
+  right: -1px;
+  z-index: 1;
+}
+
+.bg-main {
+  background-color: $light-grey;
+}

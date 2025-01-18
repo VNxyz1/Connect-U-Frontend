@@ -27,7 +27,7 @@ export class FriendsService {
   }
 
   getFriends(): Observable<ProfileData[]> {
-    return this.http.get<ProfileData[]>('friends');
+    return this.http.get<ProfileData[]>('friends/allFriends');
   }
 
   getFilteredFriendsForEvent(eventId: String): Observable<ProfileData[]> {

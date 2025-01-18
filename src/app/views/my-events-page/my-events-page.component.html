@@ -1,4 +1,4 @@
-<div class="">
+@if (currentUrl$ | async; as currentUrl) {
   <p-tabMenu [model]="tabMenuItems" [activeItem]="tabMenuItems.at(0)" />
 
   <!-- Filter
@@ -20,7 +20,7 @@
   <div class="flex justify-content-center mt-4">
     <div class="col-12 mb-6">
       @if (activeTab === 'guest') {
-        @if (doesNotInclude('requests')) {
+        @if (doesNotInclude('requests', currentUrl)) {
           <app-guest-events
             (hasEventsChange)="updateHasEvents($event)"
             [filters]="selectedCategories"
@@ -42,4 +42,4 @@
       }
     </div>
   </div>
-</div>
+}

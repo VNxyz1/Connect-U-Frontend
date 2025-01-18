@@ -4,12 +4,30 @@ import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { EventUserRequest } from '../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
+import { SocketService } from '../socket/socket.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventRequestService {
-  constructor(private readonly http: HttpClient) {}
+  private readonly newInviteSocket$!: Observable<string>;
+  private readonly inviteStatusChangeSocket$!: Observable<string>;
+
+  constructor(
+    private readonly http: HttpClient,
+    private readonly socket: SocketService,
+  ) {
+    this.newInviteSocket$ = this.socket.on('newInvite');
+    this.inviteStatusChangeSocket$ = this.socket.on('inviteStatusChange');
+  }
+
+  getNewInviteSocket() {
+    return this.newInviteSocket$;
+  }
+
+  getInviteStatusChangeSocket() {
+    return this.inviteStatusChangeSocket$;
+  }
 
   /**
    * Creates a join request for the given event ID.
@@ -154,6 +172,16 @@ export class EventRequestService {
       catchError(error => {
         return throwError(() => error);
       }),
+    );
+  }
+
+  getAllInvitesForEvent(eventId: string): Observable<EventUserRequest[]> {
+    return this.http.get<EventUserRequest[]>(`request/invite/event/${eventId}`);
+  }
+
+  deleteEventInvite(inviteId: number) {
+    return this.http.delete<{ success: boolean; message: string }>(
+      `request/invite/${inviteId}`,
     );
   }
 }
