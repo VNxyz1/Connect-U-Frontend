@@ -13,7 +13,7 @@
       </div>
     }
     <div
-      class="col-12 p-0 mt-8 -mb-8"
+      class="col-12 p-0 mt-6 mb-2 md:mb-0"
       [ngClass]="{
         'md:col-offset-2 md:col-10':
           !currentUrl.includes('/create-event') && (isLoggedIn | async),
@@ -22,7 +22,7 @@
     </div>
     @if (!currentUrl.includes('/create-event') && (isLoggedIn | async)) {
       <div
-        class="bg-light-grey col-12 md:col-2 p-0 pt-7 md:pt-0 md:flex md:flex-column">
+        class="bg-light-grey col-12 md:col-2 p-0 pt-6 md:pt-0 md:flex md:flex-column">
         <app-navbar [currentUrl]="currentUrl" />
       </div>
     }
