@@ -77,6 +77,8 @@
           }
           @case (currentUrl?.includes('/add-friend')) {
             <h1 class="m-0">{{ 'headerComponent.addFriend' | transloco }}</h1>
+          }@case(currentUrl?.includes('/my-friends')){
+            <h1 class="m-0"> {{'headerComponent.myFriends'| transloco}}</h1>
           }
           @case (currentUrl?.includes('/share-profile')) {
             <h1
