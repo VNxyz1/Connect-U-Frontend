@@ -870,6 +870,12 @@
       "errorMessage": "Error uploading the profile picture",
       "cancel": "Cancel",
       "upload": "Upload"
+    },
+    "deleteProfilePic": {
+      "success": "Profilbild gelöscht",
+      "error": "Fehler beim Löschen des Profilbildes",
+      "successMessage": "Ihr Profilbild wurde erfolgreich gelöscht",
+      "errorMessage": "Es ist ein Fehler beim Löschen des Profilbildes aufgetreten"
     }
   },
   "accountPage": {
