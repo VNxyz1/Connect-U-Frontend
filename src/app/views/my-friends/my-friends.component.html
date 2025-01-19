@@ -2,11 +2,11 @@
   <div class="grid lg:col-8">
     @if (friends$ | async; as friends) {
       @if(friends.length <= 0){
-        <div class="col-12">
+        <div class="col-12 mt-5">
           <p-card class="text-center mt-5">
             <div>
-              <h2>Such an empty place here</h2>
-              <p>go on an event to find new friends (:</p>
+              <h2>{{'myFriends.emptyTitle'| transloco}}</h2>
+              <p>{{'myFriends.emptyDetail'| transloco}}</p>
             </div>
           </p-card>
         </div>

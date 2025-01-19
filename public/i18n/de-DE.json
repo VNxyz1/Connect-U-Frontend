@@ -1038,5 +1038,9 @@
     "page-not-found": "Seite nicht gefunden",
     "page-not-found-detail": "Wir konnten diese Seite nicht finden. Nicht einmal mit X-Ray.",
     "back-to-home": "Zur Startseite"
+  },
+  "myFriends": {
+    "emptyTitle": "Etwas einsam hier",
+    "emptyDetail": "Such auf der Startseite doch nach einem Event, um deine Freundesliste zu erweitern! :)"
   }
 }

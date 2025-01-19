@@ -1037,5 +1037,9 @@
     "page-not-found": "Page Not Found",
     "page-not-found-detail": "We couldn't find that page! Not even with x-ray vision.",
     "back-to-home": "Zur Startseite"
+  },
+  "myFriends": {
+    "emptyTitle": "A bit lonely here",
+    "emptyDetail": "Check out the homepage for an event to expand your friends list! :)"
   }
 }
