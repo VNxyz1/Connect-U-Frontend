@@ -273,10 +273,6 @@ export class Step1Component implements OnInit, OnDestroy {
     });
   }
 
-  blurTagInput() {
-    this.results = [];
-  }
-
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
