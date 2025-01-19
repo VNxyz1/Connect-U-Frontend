@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router, RouterOutlet } from '@angular/router';
 import { EventSearchService } from '../../services/event/event-search.service';
-import { Observable, tap, throwError } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
-import { catchError, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Button } from 'primeng/button';
 import { AsyncPipe } from '@angular/common';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
@@ -11,6 +11,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { PaginatorModule } from 'primeng/paginator';
 import { EventCardComponent } from '../../components/event-card/event-card.component';
 import { ScrollNearEndDirective } from '../../utils/scroll-near-end.directive';
+import { SearchParams } from '../../interfaces/SearchParams';
 
 @Component({
   selector: 'app-results-page',
@@ -28,13 +29,11 @@ import { ScrollNearEndDirective } from '../../utils/scroll-near-end.directive';
   templateUrl: './results-page.component.html',
 })
 export class ResultsPageComponent implements OnInit {
-  loading = true;
   isLoading = false;
-  totalCount: number = 0;
-  page: number = 1;
+  totalCount$!: Observable<number>;
   events$!: Observable<EventCardItem[]>;
   hasMoreEvents$!: Observable<boolean>;
-  params: Params = { page: 1 };
+  params!: Params;
 
   constructor(
     private router: Router,
@@ -43,34 +42,23 @@ export class ResultsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.totalCount$ = this.eventSearchService.getTotalEventsCount();
     this.route.queryParams.subscribe(params => {
-      this.fetchFilteredEvents(params);
       this.params = params;
+      this.eventSearchService.initSearchParams(params as SearchParams);
     });
+
+    this.fetchFilteredEvents();
   }
 
-  fetchFilteredEvents(params: any): void {
-    this.loading = true;
-    this.isLoading = true;
-
-    this.events$ = this.eventSearchService.getFilteredEvents(params).pipe(
-      tap(({ totalCount }) => {
-        this.totalCount = totalCount;
-        this.loading = false;
-        this.isLoading = false;
-      }),
-      map(({ events }) => events),
-      catchError((error: any) => {
-        console.error('Error fetching filtered events:', error);
-        this.loading = false;
-        this.isLoading = false;
-        return throwError(() => error);
-      }),
+  fetchFilteredEvents(): void {
+    this.events$ = this.eventSearchService.getFilteredEvents().pipe(
+      map(data => data.events),
+      tap(() => (this.isLoading = false)),
     );
-
     this.hasMoreEvents$ = this.eventSearchService
-      .getFilteredEvents(params)
-      .pipe(map(data => data.totalCount > this.page * 12));
+      .getFilteredEvents()
+      .pipe(map(data => data.hasMore));
   }
 
   loadNewPage(): void {
@@ -78,9 +66,7 @@ export class ResultsPageComponent implements OnInit {
       return;
     }
     this.isLoading = true;
-    this.page++;
-    const updatedParams = { ...this.params, page: this.page };
-    this.fetchFilteredEvents(updatedParams);
+    this.eventSearchService.loadNextPage();
   }
 
   submit = () => {
