@@ -5,7 +5,7 @@ import {
   OnInit,
   PLATFORM_ID,
 } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -13,7 +13,6 @@ import { SocketService } from './services/socket/socket.service';
 import { AsyncPipe, isPlatformBrowser, NgClass } from '@angular/common';
 import { AuthService } from './services/auth/auth.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { filter } from 'rxjs/operators';
 import { ToastModule } from 'primeng/toast';
 import { TranslocoService } from '@jsverse/transloco';
 import { Observable } from 'rxjs';
@@ -21,6 +20,8 @@ import { EventService } from './services/event/eventservice';
 import { EventRequestService } from './services/event/event-request.service';
 import { UserService } from './services/user/user.service';
 import { LanguageService } from './services/language/language.service';
+import { PushNotificationService } from './services/push-notification/push-notification.service';
+import { CurrentUrlService } from './services/current-url/current-url.service';
 
 @Component({
   selector: 'app-root',
@@ -49,27 +50,24 @@ import { LanguageService } from './services/language/language.service';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Connect-U-Frontend';
   isLoggedIn!: Observable<boolean>;
-  currentUrl: string | undefined = undefined;
+  currentUrl$!: Observable<string>;
 
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: Object,
     private readonly socket: SocketService,
     private readonly auth: AuthService,
     private readonly userService: UserService,
+    private readonly storage: Storage,
+    private readonly currentUrl: CurrentUrlService,
     private readonly router: Router,
 
     // Necessary to be initialised here!
     private readonly languageService: LanguageService,
+    private readonly pushNotificationService: PushNotificationService,
   ) {}
 
   ngOnInit(): void {
-    this.currentUrl = this.router.url;
-    // Listen to route changes
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.currentUrl = event.url;
-      });
+    this.currentUrl$ = this.currentUrl.get();
 
     this.auth.checkBackendHealth().subscribe({
       error: () => this.router.navigate(['/unavailable']),
@@ -87,9 +85,8 @@ export class AppComponent implements OnInit, OnDestroy {
               },
             });
           }
-
-          this.isLoggedIn = this.auth.isLoggedIn();
         }
+        this.isLoggedIn = this.auth.isLoggedIn();
       },
     });
   }

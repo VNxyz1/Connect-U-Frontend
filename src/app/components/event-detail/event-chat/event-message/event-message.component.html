@@ -6,13 +6,21 @@
     }">
     <!-- Avatar -->
     <div class="flex align-items-end">
-      <p-avatar
-        [image]="
-          message.writer ? '/images/userImg.png' : '/images/logo-profile.svg'
+      @if (message.writer) {
+        <p-avatar
+          [image]="userService.getImageFile(message.writer.profilePicture)"
+          class="mx-0 mb-0"
+          size="normal"
+          shape="circle" />
+      } @else {
+        <p-avatar
+          image="
+          {{ '/images/logo-profile.svg' }}
         "
-        class="mx-0 mb-0"
-        size="normal"
-        shape="circle" />
+          class="mx-0 mb-0"
+          size="normal"
+          shape="circle" />
+      }
     </div>
 
     <!-- Speech Bubble -->
@@ -48,22 +56,21 @@
         }
       </div>
 
-      <div
-        class="text-sm flex flex-col flex-row justify-between align-items-end">
+      <div class="text-sm align-items-center">
         <!-- Message Text -->
-        <span
-          class=""
+        <div
+          class="col-12 p-0"
           [ngClass]="{
             'text-primary': message.writer,
             'text-4xl': isShortEmojiOnly(message.text),
           }">
           {{ translateMessageText(message.text) }}
-        </span>
+        </div>
 
         <!-- Timestamp -->
-        <span class="text-right text-xs mt-0 ml-2">
-          {{ getTimestamp(message.timestamp) }}
-        </span>
+        <div class="w-full mt-0 p-0 mr-0 ml-auto align-items-end text-right">
+          <span class="text-xs">{{ getTimestamp(message.timestamp) }}</span>
+        </div>
       </div>
     </div>
   </div>

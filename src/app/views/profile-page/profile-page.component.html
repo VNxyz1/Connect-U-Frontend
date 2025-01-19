@@ -27,6 +27,22 @@
           "
           (click)="triggerFileInput()">
         </rmx-icon>
+
+        <!-- Delete Button Positioned at the Top-Right -->
+        @if (profileData$ | async; as data) {
+          @if (data.profilePicture != 'empty.png') {
+            <p-button
+              class="absolute z-5 cursor-pointer border-none p-0 m-0 top-0 right-0"
+              (click)="deleteImage()"
+              raised>
+              <ng-template pTemplate="icon">
+                <rmx-icon
+                  name="delete-bin-line"
+                  style="font-size: 24px"></rmx-icon>
+              </ng-template>
+            </p-button>
+          }
+        }
       </div>
 
       <!--hidden fileinput for pb upload-->

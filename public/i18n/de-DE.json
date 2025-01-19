@@ -185,7 +185,6 @@
       "label": "Tags hinzufügen"
     },
     "continueButton": "Weiter",
-
     "messages": {
       "categoryLimitTitle": "Kategorien Limitierung",
       "categoryLimitDetail": "Du kannst nur bis zu 3 Kategorien auswählen.",
@@ -284,7 +283,7 @@
     "diverse": "Diverse",
     "age": "für Altersgruppe",
     "gender": "für Geschlechter",
-    "from": "von",
+    "from": "ab",
     "to": "bis",
     "years1": "Jahren",
     "years2": "Jahre",
@@ -478,7 +477,8 @@
       "title": "Gast",
       "text": "Du nimmst zur Zeit an keinem Event teil.",
       "todo": "Erkundige Dich nach deinen Interessen.",
-      "your-event-requests": "Deine Eventanfragen"
+      "your-event-requests": "Deine Eventanfragen ",
+      "your-requests": "Deine Anfragen und Einladungen"
     },
     "favorite": {
       "title": "Favorisiert",
@@ -490,7 +490,8 @@
       "delete-request": "Anfrage löschen",
       "try-again": "Erneut Anfragen",
       "new-request": "Es wurde eine neue Anfrage für das Event \"{{title}}\" verschickt!",
-      "deleted-request": "Die Anfrage für das Event \"{{title}}\" wurde gelöscht."
+      "deleted-request": "Die Anfrage für das Event \"{{title}}\" wurde gelöscht.",
+      "noRequests": "Du hast derzeit keine offenen Anfragen."
     }
   },
   "privacyPolicy": {
@@ -870,6 +871,12 @@
       "errorMessage": "Fehler beim Hochladen des Profilbildes",
       "cancel": "abbrechen",
       "upload": "Hochladen"
+    },
+    "deleteProfilePic": {
+      "success": "Profilbild gelöscht",
+      "error": "Fehler beim Löschen des Profilbildes",
+      "successMessage": "Ihr Profilbild wurde erfolgreich gelöscht",
+      "errorMessage": "Es ist ein Fehler beim Löschen des Profilbildes aufgetreten"
     }
   },
   "accountPage": {
@@ -1003,6 +1010,18 @@
     "accept-request": "Freundschaftsanfrage annehmen",
     "already-friends": "Du bist bereits mit {{name}} befreundet!"
   },
+  "inviteByFriends": {
+    "title": "Einladungen von Freunden",
+    "detail": "Du hast derzeit keine Einladungen von deinen Freunden.",
+    "acceptTitle": "Einladung angenommen.",
+    "acceptDetail": "Du hast die Einladung deines Freundes erfolgreich angenommen. Für das Event \"{{title}}\" ",
+    "acceptErrorTitle": "Fehler bei Annahme",
+    "acceptError": "Ein Fehler ist aufgetreten",
+    "denyTitle": "Einladung abgelehnt",
+    "denyMessage": "Du hast die Einladung deines Freundes abgelehnt",
+    "denyErrorTitle":"Fehler beim Ablehnen",
+    "denyErrorMessage": "Es ist ein Fehler aufgetreten beim Versuch, die Einladung abzulehnen."
+  },
   "cameraComponent": {
     "card-header": "QR-Code scannen",
     "scan-help": "Scanne den QR Code von Nutzern, um sie als Freunde hinzuzufügen!",
@@ -1025,5 +1044,9 @@
     "page-not-found": "Seite nicht gefunden",
     "page-not-found-detail": "Wir konnten diese Seite nicht finden. Nicht einmal mit X-Ray.",
     "back-to-home": "Zur Startseite"
+  },
+  "myFriends": {
+    "emptyTitle": "Etwas einsam hier...🏝️",
+    "emptyDetail": "Suche auf der Startseite nach einem Event, um deine Freundesliste zu erweitern!"
   }
 }

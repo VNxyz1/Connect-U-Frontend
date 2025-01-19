@@ -109,42 +109,65 @@
   <p-tabMenu
     [model]="eventTabMenuItems"
     [(activeItem)]="activeTabItem"
-    (activeItemChange)="onActiveItemChange($event)">
+    (activeItemChange)="onActiveItemChange($event)"
+    class="mb-8">
     <ng-template pTemplate="item" let-item>
       <ng-container>
         <a
           [routerLink]="item.route"
           [state]="item.state"
           class="p-menuitem-link">
-          <!-- Add icon explicitly -->
-          <rmx-icon
-            style="width: 16px; height: 16px; margin-right: 8px"
-            [name]="item.icon"></rmx-icon>
-          <span class="hidden md:block">{{ item.label }}</span>
+          <div class="flex relative justify-content-center">
+            @if (item.iBadge) {
+              @if (getPushNotificationListChat() | async; as eventMap) {
+                @if (eventMap.get(eventDetails.id); as val) {
+                  <span
+                    [style]="{
+                      position: 'absolute',
+                      right: '-30px',
+                      top: '-5px',
+                      'z-index': 1,
+                      'min-width': '20px',
+                      height: '20px',
+                    }"
+                    class="bg-blue-900 border-round-3xl border-blue-900 text-center text-white px-1 justify-content-center flex align-content-center align-items-center"
+                    >{{ val }}</span
+                  >
+                }
+              }
+            }
+            <rmx-icon
+              class="md:mr-2"
+              style="width: 16px; height: 16px"
+              [name]="item.icon"></rmx-icon>
+            <span class="hidden md:block">{{ item.label }}</span>
+          </div>
         </a>
       </ng-container>
     </ng-template>
   </p-tabMenu>
 }
 
-<!-- Display the event info if not logged in or not a participant -->
-@if (
-  eventDetails &&
-  ((activeTabItem && activeTabItem.id == 'infoTab') ||
-    (!eventDetails.isHost && !eventDetails.isParticipant)) &&
-  !url.includes('/requests') &&
-  !url.includes('/guests') &&
-  !url.includes('/lists') &&
-  !url.includes('/surveys') &&
-  !url.includes('/chat')
-) {
-  <app-event-info
-    [getPreferredGendersString]="getPreferredGendersString"
-    [eventRequestsHost]="eventRequestsHost"
-    [eventInvitesHost]="eventInvitesHost"
-    (eventDetailsUpdated)="onEventDetailsUpdated()"
-    (showInviteDialogue)="openInviteDialog(true)">
-  </app-event-info>
-}
+<div class="mt-2">
+  <!-- Display the event info if not logged in or not a participant -->
+  @if (
+    eventDetails &&
+    ((activeTabItem && activeTabItem.id == 'infoTab') ||
+      (!eventDetails.isHost && !eventDetails.isParticipant)) &&
+    !url.includes('/requests') &&
+    !url.includes('/guests') &&
+    !url.includes('/lists') &&
+    !url.includes('/surveys') &&
+    !url.includes('/chat')
+  ) {
+    <app-event-info
+      [getPreferredGendersString]="getPreferredGendersString"
+      [eventRequestsHost]="eventRequestsHost"
+      [eventInvitesHost]="eventInvitesHost"
+      (eventDetailsUpdated)="onEventDetailsUpdated()"
+      (showInviteDialogue)="openInviteDialog(true)">
+    </app-event-info>
+  }
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</div>

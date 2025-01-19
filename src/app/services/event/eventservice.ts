@@ -11,6 +11,7 @@ import {
 import { catchError, map } from 'rxjs/operators';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventDetails } from '../../interfaces/EventDetails';
+import { environment } from '../../../environments/environment';
 
 export type EventData = {
   categories: number[];
@@ -245,7 +246,6 @@ export class EventService {
       this.allEventsSubject.next(this.allEventsSubject.getValue());
       return;
     }
-    this.allEventsPage++;
     this.loadAllEvents(this.allEventsPage, this.allEventsPageSize).subscribe({
       next: newItems => {
         if (newItems.length === 0) {
@@ -258,6 +258,7 @@ export class EventService {
         this.allEventsSubject.next(updatedItems);
       },
     });
+    this.allEventsPage++;
   }
 
   getFyEvents() {
@@ -287,7 +288,6 @@ export class EventService {
       return;
     }
 
-    this.page++;
     this.loadFyPage(this.page, this.pageSize).subscribe({
       next: newItems => {
         if (newItems.length === 0) {
@@ -300,6 +300,7 @@ export class EventService {
         this.fyPageSubject.next(updatedItems);
       },
     });
+    this.page++;
   }
 
   /**
@@ -374,6 +375,11 @@ export class EventService {
 
   getUpcomingEvents(): Observable<EventCardItem[]> {
     return this.http.get<EventCardItem[]>('event/upcoming');
+  }
+
+  getEventTitleImage(image: string): string {
+    const value = image == '' ? '' : image;
+    return `${environment.apiConfig.urlPrefix}event/eventPicture/${value}`;
   }
 
   removeEventParticipation(

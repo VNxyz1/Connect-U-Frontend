@@ -91,6 +91,10 @@ body {
   border-radius: calc(var(--r) + var(--t)) / var(--r);
   color: $primaryTextColor;
   margin-bottom: 0.5em;
+
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .speech-bubble-left {
@@ -137,15 +141,44 @@ body {
 }
 
 .chat-container {
-  height: calc(100vh - 17rem);
+  height: calc(100vh - 14rem);
 }
 
 @media screen and (min-width: 768px) {
   .chat-container {
-    height: calc(100vh - 13rem);
+    height: calc(100vh - 11.5rem);
   }
+}
+
+.custom-badge {
+  position: absolute;
+  top: 1px;
+  right: -1px;
+  z-index: 1;
 }
 
 .bg-main {
   background-color: $light-grey;
+}
+
+.card-border-round {
+  border-radius: var(--card-border-radius) !important;
+}
+
+//card
+
+.event-card {
+  border-radius: var(--card-border-radius) !important;
+}
+
+.event-card .p-card-footer {
+  padding: 0 0 0 0 !important;
+}
+
+.event-card .p-card-body {
+  padding: 0 1rem 0.5rem 1rem;
+}
+
+.event-card .p-card-content {
+  padding: 1rem 0 0.25rem 0;
 }

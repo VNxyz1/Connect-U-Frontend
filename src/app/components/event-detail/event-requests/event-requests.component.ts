@@ -7,6 +7,7 @@ import { EventRequestService } from '../../../services/event/event-request.servi
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Button } from 'primeng/button';
 import { MessageService } from 'primeng/api';
+import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
 import { forkJoin, Observable, tap } from 'rxjs';
 import { UserService } from '../../../services/user/user.service';
 
@@ -29,17 +30,18 @@ export class EventRequestsComponent implements OnInit {
 
   constructor(
     protected userService: UserService,
-    private eventRequestService: EventRequestService,
+    private readonly eventRequestService: EventRequestService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly messageService: MessageService,
     private readonly translocoService: TranslocoService,
+    private readonly pushNotificationService: PushNotificationService,
   ) {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.eventId = id;
     } else {
-      this.router.navigate(['/']); // Redirect if no ID is provided
+      this.router.navigate(['/']);
     }
   }
 
@@ -95,6 +97,7 @@ export class EventRequestsComponent implements OnInit {
         this.eventRequests = this.eventRequests.filter(
           request => request.id !== requestId,
         );
+        this.pushNotificationService.loadEventRequestNotifications();
         this.messageService.add({
           severity: 'success',
           summary: this.translocoService.translate(
@@ -122,6 +125,7 @@ export class EventRequestsComponent implements OnInit {
         this.eventRequests = this.eventRequests.filter(
           request => request.id !== requestId,
         );
+        this.pushNotificationService.loadEventRequestNotifications();
         this.messageService.add({
           severity: 'success',
           summary: this.translocoService.translate(

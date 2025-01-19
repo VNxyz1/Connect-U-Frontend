@@ -21,12 +21,12 @@ import { EventMessageComponent } from './event-message/event-message.component';
 import { SkeletonModule } from 'primeng/skeleton';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
-import { Button } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { SocketService } from '../../../services/socket/socket.service';
 import { filter } from 'rxjs/operators';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
 
 @Component({
   selector: 'app-event-chat',
@@ -42,7 +42,6 @@ import { InputIconModule } from 'primeng/inputicon';
     SkeletonModule,
     FloatLabelModule,
     AngularRemixIconComponent,
-    Button,
     TranslocoPipe,
     IconFieldModule,
     InputIconModule,
@@ -69,6 +68,7 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
     private messageService: MessageService,
     private translocoService: TranslocoService,
     private sockets: SocketService,
+    private pushNotificationService: PushNotificationService,
   ) {
     this.eventId = this.route.snapshot.paramMap.get('id')!;
     this.getNewMessages();
@@ -131,6 +131,7 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private markMessagesAsRead() {
     this.chatService.markMessagesAsRead(this.eventId).subscribe({});
+    this.pushNotificationService.clearEvent(this.eventId);
   }
 
   private getNewMessages(): void {

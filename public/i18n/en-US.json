@@ -1,5 +1,4 @@
 {
-  "serverUnavailable": "The server is currently unavailable. Please try again later.",
   "profilePictureAlt": "Profile picture",
   "homepage": {
     "title": "Events for You",
@@ -476,7 +475,8 @@
       "title": "Guest",
       "text": "You are not currently participating in any events.",
       "todo": "Explore events based on your interests.",
-      "your-event-requests": "Your Event-Requests"
+      "your-event-requests": "Your Event-Requests",
+      "your-requests": "Your Requests and Invitations"
     },
     "favorite": {
       "title": "Favorites",
@@ -488,7 +488,8 @@
       "try-again": "Request again",
       "new-request": "New request for event \"{{title}}\" sent!",
       "deleted-request": "Request for event \"{{title}}\" deleted.",
-      "delete-request": "Delete Request"
+      "delete-request": "Delete Request",
+      "noRequests": "There are currently no requests."
     }
   },
   "privacyPolicy": {
@@ -869,6 +870,12 @@
       "errorMessage": "Error uploading the profile picture",
       "cancel": "Cancel",
       "upload": "Upload"
+    },
+    "deleteProfilePic": {
+      "success": "Profilbild gelöscht",
+      "error": "Fehler beim Löschen des Profilbildes",
+      "successMessage": "Ihr Profilbild wurde erfolgreich gelöscht",
+      "errorMessage": "Es ist ein Fehler beim Löschen des Profilbildes aufgetreten"
     }
   },
   "accountPage": {
@@ -1002,6 +1009,18 @@
     "accept-request": "Accept Friendship Request",
     "already-friends": "You are already friends with {{name}}!"
   },
+  "inviteByFriends": {
+    "title": "Invitations from Friends",
+    "detail": "You currently have no invitations from your friends.",
+    "acceptTitle": "Invitation Accepted",
+    "acceptDetail": "You have successfully accepted your friend's invitation. For the Event \"{{title}}\"",
+    "acceptErrorTitle": "Error Accepting Invitation",
+    "acceptError": "An error occurred.",
+    "denyTitle": "Invitation Declined",
+    "denyMessage": "You have declined your friend's invitation.",
+    "denyErrorTitle": "Error Declining Invitation",
+    "denyErrorMessage": "An error occurred while trying to decline the invitation."
+  },
   "cameraComponent": {
     "card-header": "Scan QR Code",
     "scan-help": "Scan the QR code of users to add them as a friend!",
@@ -1023,6 +1042,10 @@
   "404": {
     "page-not-found": "Page Not Found",
     "page-not-found-detail": "We couldn't find that page! Not even with x-ray vision.",
-    "back-to-home": "Zur Startseite"
+    "back-to-home": "Go to Homepage"
+  },
+  "myFriends": {
+    "emptyTitle": "It's bit lonely here...🏝️",
+    "emptyDetail": "Check out the homepage for an event to expand your friends list!"
   }
 }

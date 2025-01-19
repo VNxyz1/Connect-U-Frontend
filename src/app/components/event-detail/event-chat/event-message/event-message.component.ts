@@ -6,6 +6,7 @@ import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { PrimeTemplate } from 'primeng/api';
 import { NgClass } from '@angular/common';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
+import { UserService } from '../../../../services/user/user.service';
 
 @Component({
   selector: 'app-event-message',
@@ -16,7 +17,10 @@ import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 export class EventMessageComponent {
   @Input() message!: EventMessage;
 
-  constructor(protected readonly translocoService: TranslocoService) {}
+  constructor(
+    protected readonly translocoService: TranslocoService,
+    protected userService: UserService,
+  ) {}
 
   protected isShortEmojiOnly(text: string) {
     if (!text) return false; // Handle empty strings
