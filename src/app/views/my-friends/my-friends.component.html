@@ -1,12 +1,12 @@
 <div class="flex justify-content-center align-items-center ml-3 mr-3">
   <div class="grid lg:col-8">
     @if (friends$ | async; as friends) {
-      @if(friends.length <= 0){
+      @if (friends.length <= 0) {
         <div class="col-12 mt-5">
           <p-card class="text-center mt-5">
             <div>
-              <h2>{{'myFriends.emptyTitle'| transloco}}</h2>
-              <p>{{'myFriends.emptyDetail'| transloco}}</p>
+              <h2>{{ 'myFriends.emptyTitle' | transloco }}</h2>
+              <p>{{ 'myFriends.emptyDetail' | transloco }}</p>
             </div>
           </p-card>
         </div>
