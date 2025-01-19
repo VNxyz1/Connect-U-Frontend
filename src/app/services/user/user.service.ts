@@ -177,4 +177,8 @@ export class UserService {
   getSpecificUserDataByUsername(username: string): Observable<ProfileData> {
     return this.http.get<ProfileData>(`user/friendProfile/${username}`);
   }
+
+  deleteProfilePicture() {
+    return this.http.delete<ok>('user/profilePicture');
+  }
 }
