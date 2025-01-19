@@ -57,7 +57,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly socket: SocketService,
     private readonly auth: AuthService,
     private readonly userService: UserService,
-    private readonly storage: Storage,
     private readonly currentUrl: CurrentUrlService,
     private readonly router: Router,
 
