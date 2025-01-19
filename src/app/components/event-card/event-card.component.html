@@ -64,7 +64,7 @@
         [class]="
           [
             'h-full',
-            showEventStatus ? 'border-left-3 border-round' : '',
+            showEventStatus ? 'border-left-3 card-border-round' : '',
             showEventStatus ? 'border-' + getStatusColor(event.status) : '',
           ].join(' ')
         ">
@@ -117,7 +117,7 @@
         [styleClass]="
           [
             'h-full',
-            showEventStatus ? 'border-left-3 border-round' : '',
+            showEventStatus ? 'border-left-3 card-border-round' : '',
             showEventStatus ? 'border-' + getStatusColor(event.status) : '',
           ].join(' ')
         "
@@ -128,10 +128,10 @@
             class="overflow-hidden"
             [style]="{
               'aspect-ratio': '2/1',
-              'border-top-right-radius': 'var(--border-radius) !important',
-              'border-top-left-radius': !showEventStatus
-                ? 'var(--border-radius) !important'
-                : '',
+              'border-top-right-radius': 'var(--card-border-radius) !important',
+              'border-top-left-radius': showEventStatus
+                ? 'var(--card-border-radius)'
+                : 'var(--card-border-radius)',
             }">
             <div
               class="bg-cover bg-center h-full w-full flex-wrap flex align-content-between"
@@ -157,7 +157,7 @@
                 @if (event.participatingFriend) {
                   <div
                     class="col-fixed w-max flex gap-1 align-items-center text-center ml-auto">
-                    <div class="p-1 border-round-3xl bg-orange-900 text-white">
+                    <div class="p-2 border-round-3xl bg-orange-900 text-white">
                       <rmx-icon name="user-heart-line" />
                     </div>
                   </div>
@@ -167,10 +167,10 @@
           </div>
         </ng-template>
         <ng-template pTemplate="content">
-          <div class="grid min-h-full align-content-around">
+          <div class="grid min-h-full pt-0 align-content-center">
             <div class="col-12 grid overflow-hidden" [style.height.px]="40">
               @for (tag of event.tags; track $index) {
-                <div class="col-fixed w-min p-1">
+                <div class="col-fixed w-min p-1 no-wrap white-space-nowrap">
                   <p-tag [value]="tag" [rounded]="true" severity="secondary">
                     <ng-template pTemplate="icon">
                       <rmx-icon
@@ -182,7 +182,7 @@
                 </div>
               }
             </div>
-            <div class="col-12 px-2">
+            <div class="col-12">
               <h3
                 class="m-0"
                 style="
@@ -195,31 +195,33 @@
                 {{ event.title }}
               </h3>
             </div>
-            <div class="col-12 pt-3 gap-3 flex flex-wrap">
-              <div
-                class="col-fixed p-0 w-max flex gap-1 align-items-center text-center">
-                <rmx-icon name="group-line" />
-                <span
-                  >{{ event.participantsNumber }}/{{
-                    event.maxParticipantsNumber
-                  }}</span
-                >
-              </div>
-              <div
-                class="col-fixed p-0 w-max flex gap-1 align-items-center text-center">
-                <rmx-icon name="calendar-line" />
-                <span>{{
-                  toDate(event.dateAndTime)
-                    | translocoDate: { dateStyle: 'short' }
-                }}</span>
-              </div>
-              <div
-                class="col-fixed p-0 w-max flex gap-1 align-items-center text-center">
-                <rmx-icon name="map-pin-2-line" />
-                <span>{{
-                  event.city || (event.isOnline ? 'online' : '???')
-                }}</span>
-              </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="footer" class="pb-0">
+          <div class="col-12 gap-3 flex flex-wrap pt-0 pl-0">
+            <div
+              class="col-fixed p-0 w-max flex gap-1 align-items-center text-center">
+              <rmx-icon name="group-line" />
+              <span
+                >{{ event.participantsNumber }}/{{
+                  event.maxParticipantsNumber
+                }}</span
+              >
+            </div>
+            <div
+              class="col-fixed p-0 w-max flex gap-1 align-items-center text-center">
+              <rmx-icon name="calendar-line" />
+              <span>{{
+                toDate(event.dateAndTime)
+                  | translocoDate: { dateStyle: 'short' }
+              }}</span>
+            </div>
+            <div
+              class="col-fixed p-0 w-max flex gap-1 align-items-center text-center">
+              <rmx-icon name="map-pin-2-line" />
+              <span>{{
+                event.city || (event.isOnline ? 'online' : '???')
+              }}</span>
             </div>
           </div>
         </ng-template>
