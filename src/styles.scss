@@ -91,6 +91,10 @@ body {
   border-radius: calc(var(--r) + var(--t)) / var(--r);
   color: $primaryTextColor;
   margin-bottom: 0.5em;
+
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .speech-bubble-left {
@@ -137,12 +141,12 @@ body {
 }
 
 .chat-container {
-  height: calc(100vh - 17rem);
+  height: calc(100vh - 14rem);
 }
 
 @media screen and (min-width: 768px) {
   .chat-container {
-    height: calc(100vh - 13rem);
+    height: calc(100vh - 11.5rem);
   }
 }
 

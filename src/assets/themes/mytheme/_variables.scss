@@ -238,7 +238,16 @@ h6 {
 // steps
 
 .p-steps {
+  position: sticky !important;
+  top: 4.3rem;
+  z-index: 1 !important;
   background: $white !important;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.p-steps li {
+  align-items: center !important;
 }
 
 .p-steps .p-steps-item:before {
@@ -257,15 +266,10 @@ h6 {
 
 .p-tabmenu {
   position: sticky !important;
-  top: 5.35rem;
+  top: 4.25rem;
   z-index: 1 !important;
 }
 
-@media screen and (min-width: 900px) {
-  .p-tabmenu {
-    top: 5.1rem;
-  }
-}
 /* Highlighted tab styling */
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
   border-color: $secondaryColor;
