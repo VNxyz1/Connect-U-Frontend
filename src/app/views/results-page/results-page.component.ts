@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router, RouterOutlet } from '@angular/router';
 import { EventSearchService } from '../../services/event/event-search.service';
-import { Observable, of, tap, throwError } from 'rxjs';
+import { Observable, tap, throwError } from 'rxjs';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { catchError, map } from 'rxjs/operators';
 import { Button } from 'primeng/button';
