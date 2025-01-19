@@ -52,7 +52,8 @@
           <div
             class="bg-cover bg-center h-full w-full"
             [style]="{
-              'background-image': toImageUrl(event.picture),
+              'background-image':
+                'url(' + eventService.getEventTitleImage(event.picture) + ')',
             }"></div>
         </div>
       </div>
@@ -74,6 +75,16 @@
               <p-skeleton width="90%" height="1.5rem" />
             </div>
 
+            <div class="col-12 p-0 flex">
+              <div
+                class="col-fixed w-max flex gap-1 align-items-center text-center">
+                <p-skeleton height="1.5rem" width="5rem" styleClass="mb-2" />
+              </div>
+              <div
+                class="col-fixed w-max flex gap-1 align-items-center text-center">
+                <p-skeleton height="1.5rem" width="5rem" styleClass="mb-2" />
+              </div>
+            </div>
             <div class="col-12 p-0 flex">
               <div
                 class="col-fixed w-max flex gap-1 align-items-center text-center">
@@ -121,7 +132,7 @@
             showEventStatus ? 'border-' + getStatusColor(event.status) : '',
           ].join(' ')
         "
-        class="h-full custom-card cursor-pointer"
+        class="h-full cursor-pointer event-card"
         [routerLink]="['/event', event.id]">
         <ng-template pTemplate="header">
           <div
@@ -135,7 +146,10 @@
             }">
             <div
               class="bg-cover bg-center h-full w-full flex-wrap flex align-content-between"
-              [style]="{ 'background-image': toImageUrl(event.picture) }">
+              [style]="{
+                'background-image':
+                  'url(' + eventService.getEventTitleImage(event.picture) + ')',
+              }">
               <div
                 class="col-12 flex justify-content-between p-3 pl-0 align-content-center align-items-center h-min">
                 <span>
