@@ -1,10 +1,10 @@
-<div class="grid px-2 mt-2">
+<div class="grid mt-2 px-2">
   @if (filteredEvents$ | async; as events) {
     @if (pushNotifications | async; as push) {
       @if (events.length > 0 && !isLoading) {
         @for (event of events; track $index) {
           <div
-            class="col-12 sm:col-6 lg:col-4 justify-content-center mb-3 fadein animation-duration-300 animation-iteration-1">
+            class="col-12 md:col-6 xl:col-4 justify-content-center mb-3 fadein animation-duration-300 animation-iteration-1">
             <app-event-card
               [event]="event"
               showEventStatus
@@ -15,7 +15,7 @@
       } @else if (isLoading) {
         @for (event of [0, 1, 2, 3, 4]; track $index) {
           <div
-            class="col-12 md:col-9 xl:col-4 justify-content-center mb-3 md:px-3">
+            class="col-12 md:col-6 xl:col-4 justify-content-center mb-3 md:px-3">
             <app-event-card skeleton class="w-full" />
           </div>
         }

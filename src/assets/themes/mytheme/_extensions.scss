@@ -1,1 +1,209 @@
-/* Customizations to the designer theme should be defined here */
+.custom-card-container {
+  background: $panelContentBg;
+  color: $panelContentTextColor;
+  box-shadow: $cardShadow;
+  border-radius: $borderRadius;
+}
+
+body {
+  background: var(--surface-ground);
+}
+//headings
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+body {
+  font-family: $font-family-regular;
+  color: $text-color;
+}
+
+h1 {
+  font-family: $font-family-black;
+  font-size: 26px;
+}
+
+h2 {
+  font-family: $font-family-bold;
+  font-size: 24px;
+}
+
+h3 {
+  font-family: $font-family-semi-bold;
+  font-size: 24px;
+}
+
+h4 {
+  font-family: $font-family-semi-bold;
+  font-size: 22px;
+}
+
+h5 {
+  font-family: $font-family-semi-bold;
+  font-size: 20px;
+}
+
+h6 {
+  font-family: $font-family-semi-bold;
+  font-size: 18px;
+}
+/* Buttons */
+
+.p-button {
+  font-weight: $font-weight-semi-bold;
+  transition: none !important;
+}
+
+.p-radiobutton .p-radiobutton-box .p-radiobutton-icon {
+  background-color: var(
+    --secondary-color
+  ); /* Set background color for checked state */
+  border: none;
+}
+
+.p-calendar .p-datepicker-trigger {
+  background-color: $secondaryColor;
+}
+
+// Checked state
+.p-radiobutton .p-radiobutton-box.p-highlight {
+  background-color: var(--secondary-color); // Background color for checked
+  border-color: var(--secondary-color); // Border color for checked
+  color: $primaryTextColor; // Icon color inside the checked radio
+}
+
+.p-checkbox .p-highlight {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+/* input */
+
+.p-inputtext {
+  &:disabled {
+    background: $normal-grey;
+  }
+}
+
+.p-float-label {
+  margin-top: 1.8em;
+}
+
+/* tag */
+
+.p-tag-secondary {
+  background-color: var(--secondary-color);
+}
+
+/* menues */
+
+// steps
+
+.p-steps {
+  position: sticky !important;
+  top: 4.3rem;
+  z-index: 1 !important;
+  background: $white !important;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.p-steps li {
+  align-items: center !important;
+}
+
+.p-steps .p-steps-item:before {
+  border-top: none;
+}
+
+.p-steps .p-steps-item.p-highlight .p-steps-number {
+  background: $secondaryColor; //active item background
+}
+
+.p-steps .p-steps-item .p-steps-number {
+  background: $light-grey; //active item background
+}
+
+// tab
+
+.p-tabmenu {
+  position: sticky !important;
+  top: 4.25rem;
+  z-index: 1 !important;
+}
+
+/* Highlighted tab styling */
+.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
+  border-color: $secondaryColor;
+  color: $secondaryColor;
+}
+
+/* Ensure no spacing around the parent UL */
+.p-tabmenu .p-tabmenu-nav {
+  display: flex; /* Use flexbox for equal distribution */
+  padding: 0;
+  margin: 0; /* Remove any margins */
+  list-style: none; /* Ensure no bullets or default list styling */
+  width: 100%;
+  justify-content: center;
+}
+
+/* Set each LI to take up equal width */
+.p-tabmenu .p-tabmenu-nav li {
+  flex: 1; /* Distribute space equally among all list items */
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.p-tabmenu .p-tabmenu-nav .p-menuitem-link {
+  width: 100%;
+  color: $primaryColor;
+}
+
+.p-tabmenu .p-tabmenu-nav li a {
+  justify-content: center;
+}
+
+/* Highlighted tab styling */
+.p-tabmenu .p-tabmenu-nav li.p-highlight .p-menuitem-link {
+  color: $secondaryColor; /* Active color */
+  border-bottom: 2px solid $secondaryColor; /* Add visual indication for active tab */
+}
+
+/* Highlighted Listbox styling */
+.p-listbox .p-listbox-list .p-listbox-item.p-highlight {
+  background: $secondaryColor; /* Add visual indication for active tab */
+}
+
+// confirm dialogue
+
+.p-confirm-dialog-accept {
+  background-color: $successColor;
+}
+
+.p-toast {
+  z-index: 1400;
+}
+
+//card
+
+.p-card {
+  border-radius: var(--card-border-radius) !important;
+}
+
+.p-card .p-card-footer {
+  padding: 0 0 0 0 !important;
+}
+
+.p-card .p-card-body {
+  padding: 0 1rem 0.5rem 1rem;
+}
+
+.p-card .p-card-content {
+  padding: 1rem 0 0.25rem 0;
+}
