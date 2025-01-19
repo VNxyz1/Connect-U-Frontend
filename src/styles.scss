@@ -160,3 +160,7 @@ body {
 .bg-main {
   background-color: $light-grey;
 }
+
+.card-border-round {
+  border-radius: var(--card-border-radius) !important;
+}
