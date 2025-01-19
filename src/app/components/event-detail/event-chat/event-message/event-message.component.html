@@ -48,22 +48,21 @@
         }
       </div>
 
-      <div
-        class="text-sm flex flex-col flex-row justify-between align-items-end">
+      <div class="text-sm align-items-center">
         <!-- Message Text -->
-        <span
-          class=""
+        <div
+          class="col-12 p-0"
           [ngClass]="{
             'text-primary': message.writer,
             'text-4xl': isShortEmojiOnly(message.text),
           }">
           {{ translateMessageText(message.text) }}
-        </span>
+        </div>
 
         <!-- Timestamp -->
-        <span class="text-right text-xs mt-0 ml-2">
-          {{ getTimestamp(message.timestamp) }}
-        </span>
+        <div class="w-full mt-0 p-0 mr-0 ml-auto align-items-end text-right">
+          <span class="text-xs">{{ getTimestamp(message.timestamp) }}</span>
+        </div>
       </div>
     </div>
   </div>

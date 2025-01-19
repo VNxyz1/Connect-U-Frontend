@@ -51,13 +51,7 @@ export class AddFriendComponent implements OnInit {
       this.router.navigate(['/404']);
     } else {
       // Check if the user is already a friend
-      this.userService.getSpecificUserDataByUsername(this.username).subscribe({
-        next: data => {
-          this.isAlreadyFriend = data.areFriends ?? false;
-          this.firstnameFriend = data.firstName;
-        },
-        error: err => this.handleError(err),
-      });
+      this.getUserDataAndCheckIfFriends();
     }
   }
 
@@ -73,6 +67,7 @@ export class AddFriendComponent implements OnInit {
               { name: this.firstnameFriend },
             ),
           });
+          this.getUserDataAndCheckIfFriends();
         },
         error: err => this.handleError(err),
       });
@@ -88,6 +83,16 @@ export class AddFriendComponent implements OnInit {
     this.messageService.add({
       severity: 'error',
       summary: translatedMessage,
+    });
+  }
+
+  private getUserDataAndCheckIfFriends() {
+    this.userService.getSpecificUserDataByUsername(this.username).subscribe({
+      next: data => {
+        this.isAlreadyFriend = data.areFriends ?? false;
+        this.firstnameFriend = data.firstName;
+      },
+      error: err => this.handleError(err),
     });
   }
 }

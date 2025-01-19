@@ -1,4 +1,4 @@
-<div class="grid">
+<div class="grid px-2 mt-2">
   @if (filteredEvents$ | async; as events) {
     @if (pushNotifications | async; as push) {
       @if (events.length > 0 && !isLoading) {
