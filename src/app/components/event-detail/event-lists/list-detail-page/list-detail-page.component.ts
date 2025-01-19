@@ -23,6 +23,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { TranslocoService } from '@jsverse/transloco';
 import { SocketService } from '../../../../services/socket/socket.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../../../services/user/user.service';
 
 const BadRequestMessages: Record<string, string> = {
   'A list entry with the same description already exists.':
@@ -74,6 +75,7 @@ export class ListDetailPageComponent implements OnInit {
     private readonly listService: ListService,
     private readonly messageService: MessageService,
     private readonly translocoService: TranslocoService,
+    protected readonly userService: UserService,
     private readonly sockets: SocketService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,

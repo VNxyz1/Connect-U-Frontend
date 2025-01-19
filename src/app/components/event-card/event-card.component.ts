@@ -13,6 +13,7 @@ import {
   EventStatusIndicatorComponent,
 } from '../event-status-indicator/event-status-indicator.component';
 import { EventStatusService } from '../../services/event/event-status.service';
+import { EventService } from '../../services/event/eventservice';
 import { BadgeModule } from 'primeng/badge';
 
 @Component({
@@ -39,7 +40,10 @@ export class EventCardComponent {
   @Input({ transform: booleanAttribute }) compact: boolean = false;
   @Input() badge: number | undefined;
 
-  constructor(private eventStatus: EventStatusService) {}
+  constructor(
+    private eventStatus: EventStatusService,
+    protected eventService: EventService,
+  ) {}
 
   /**
    * Accepts an ISO-Date-String

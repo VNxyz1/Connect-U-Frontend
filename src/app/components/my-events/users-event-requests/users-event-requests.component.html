@@ -11,7 +11,7 @@
           <div class="flex align-items-center">
             <!-- Image -->
             <img
-              [src]="invite.event.picture || 'https://via.placeholder.com/100'"
+              src="{{ eventService.getEventTitleImage(invite.event.picture) }}"
               alt="{{ invite.event.title }}-picture"
               style="width: 70px; height: 70px" />
             <div
@@ -104,11 +104,13 @@
         [routerLink]="['/event/' + r.event.id]">
         <div class="flex flex-row align-items-center">
           <!-- Image -->
-          <img
-            src="https://via.placeholder.com/100"
-            alt="{{ r.event.title }}-picture"
-            class="mb-3 md:mb-0 hidden md:block"
-            style="width: 70px; height: 70px" />
+          <div class="overflow-hidden">
+            <img
+              src="{{ eventService.getEventTitleImage(r.event.picture) }}"
+              alt="{{ r.event.title }}-picture"
+              class="md:mb-0 hidden md:block"
+              style="width: 70px; height: 70px" />
+          </div>
 
           <!-- Title and Details -->
           <div class="flex flex-column flex-grow-1 ml-3">

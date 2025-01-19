@@ -11,6 +11,7 @@ import {
 import { catchError, map } from 'rxjs/operators';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventDetails } from '../../interfaces/EventDetails';
+import { environment } from '../../../environments/environment';
 
 export type EventData = {
   categories: number[];
@@ -374,6 +375,11 @@ export class EventService {
 
   getUpcomingEvents(): Observable<EventCardItem[]> {
     return this.http.get<EventCardItem[]>('event/upcoming');
+  }
+
+  getEventTitleImage(image: string): string {
+    const value = image == '' ? '' : image;
+    return `${environment.apiConfig.urlPrefix}event/eventPicture/${value}`;
   }
 
   removeEventParticipation(
