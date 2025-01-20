@@ -65,9 +65,16 @@ export class PushNotificationService {
         return host + guest + jr;
       }),
       tap(da => {
-        document.onblur = function () {
-          document.title = '( ' + da + ' ) | Connect-U';
-        };
+        if (da != 0) {
+          document.onblur = function () {
+            document.title = '( ' + da + ' ) | Connect-U';
+          };
+        } else {
+          document.onblur = function () {
+            document.title = 'Connect-U';
+          };
+        }
+
         document.onfocus = function () {
           document.title = 'Connect-U';
         };
