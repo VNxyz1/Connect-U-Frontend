@@ -85,7 +85,8 @@ body {
   --r: 1.25em; /* the radius */
   --t: 1.5em; /* the size of the tail */
 
-  max-width: 300px;
+  max-width: 380px;
+  min-width: 120px;
   padding: 0.5em;
   border-inline: var(--t) solid #0000;
   border-radius: calc(var(--r) + var(--t)) / var(--r);
@@ -181,4 +182,15 @@ body {
 
 .event-card .p-card-content {
   padding: 1rem 0 0.25rem 0;
+}
+
+//categories chips
+/* Specific style for the chips in your multi-select component */
+.categories-chips .p-multiselect-token {
+  background-color: $primaryColor !important; /* Replace with your desired color variable or hex code */
+}
+
+.categories-chips .p-multiselect-panel .p-checkbox-box.p-highlight {
+  background-color: $primaryColor !important; /* Background for the checkbox */
+  border-color: $primaryColor !important; /* Border color for the checkbox */
 }
