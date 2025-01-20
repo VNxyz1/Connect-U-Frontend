@@ -7,62 +7,63 @@
         <span class="color-secondary">{{ invites.length }}</span>
       </div>
       @for (invite of invites; track invite.id) {
-        <p-card class="p-1 md:p-3">
+        <div
+          class="custom-card-container event-card flex justify-content-between align-items-center h-auto border-round shadow-2 mb-3 mt-3 ">
+          <!-- Image -->
           <div class="flex align-items-center">
-            <!-- Image -->
-            <img
-              src="{{ eventService.getEventTitleImage(invite.event.picture) }}"
-              alt="{{ invite.event.title }}-picture"
-              style="width: 70px; height: 70px" />
+            <div
+              class="image-container overflow-hidden border-round"
+              style="width: 70px; height: 70px">
+              <div
+                class="bg-cover bg-center h-full w-full"
+                [style]="{
+                'background-image':
+                'url(' + eventService.getEventTitleImage(invite.event.picture) + ')'
+                }"></div>
+            </div>
             <div
               class="flex flex-column ml-3 flex-grow-1 cursor-pointer"
               [routerLink]="['/event/' + invite.event.id]">
-              <h3 class="mt-0 mb-0">{{ invite.event.title }}</h3>
-              <p class="text-secondary mt-0 mb-0"></p>
-              <div class="text-secondary mt-2">
-                <div class="flex align-items-center gap-1">
-                  <rmx-icon
-                    name="calendar-line"
-                    style="width: 16px; height: 16px"
-                    class="mr-1"></rmx-icon>
-                  <p class="mt-0 mb-0">
-                    {{
-                      toDate(invite.event.dateAndTime)
-                        | translocoDate: { dateStyle: 'short' }
-                    }}
-                  </p>
-                </div>
+              <h3 class="mt-0 mb-0 text-lg font-bold text-primary">
+                {{ invite.event.title }}
+              </h3>
+              <div class="flex align-items-center gap-1 mt-2 text-secondary">
+                <rmx-icon name="calendar-line" class="mr-1"></rmx-icon>
+                <span>{{
+                    toDate(invite.event.dateAndTime)
+                      | translocoDate: { dateStyle: 'short' }
+                  }}</span>
               </div>
             </div>
+          </div>
 
-            <!-- Action Buttons -->
-            <div class="flex align-items-center gap-2">
-              <p-button
-                [raised]="true"
-                icon="true"
-                (onClick)="denyFriendsRequestedEvent(invite.id)">
-                <ng-template pTemplate="icon">
-                  <rmx-icon
-                    style="width: 16px; height: 16px"
-                    name="delete-bin-line">
-                  </rmx-icon>
-                </ng-template>
-              </p-button>
-              <p-button
-                [raised]="true"
-                severity="success"
-                [disabled]="this.invite.denied"
-                (onClick)="
+          <!-- Action Buttons -->
+          <div class="flex align-items-center gap-2 mr-3">
+            <p-button
+              [raised]="true"
+              icon="true"
+              (onClick)="denyFriendsRequestedEvent(invite.id)">
+              <ng-template pTemplate="icon">
+                <rmx-icon
+                  style="width: 16px; height: 16px"
+                  name="delete-bin-line">
+                </rmx-icon>
+              </ng-template>
+            </p-button>
+            <p-button
+              [raised]="true"
+              severity="success"
+              [disabled]="this.invite.denied"
+              (onClick)="
                   acceptFriendsRequestedEvent(invite.id, invite.event)
                 ">
-                <ng-template pTemplate="icon">
-                  <rmx-icon style="width: 16px; height: 16px" name="check-line">
-                  </rmx-icon>
-                </ng-template>
-              </p-button>
-            </div>
+              <ng-template pTemplate="icon">
+                <rmx-icon style="width: 16px; height: 16px" name="check-line">
+                </rmx-icon>
+              </ng-template>
+            </p-button>
           </div>
-        </p-card>
+        </div>
       }
     } @else {
       <div class="flex justify-content-between align-items-center">
