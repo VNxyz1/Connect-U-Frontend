@@ -17,7 +17,7 @@ export const isNotLoggedInGuard: CanActivateFn = () => {
       return true;
     }),
     catchError(() => {
-      const landingpage = router.parseUrl('');
+      const landingpage = router.parseUrl('/unavailable');
       return of(new RedirectCommand(landingpage));
     }),
   );

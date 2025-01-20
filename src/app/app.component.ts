@@ -12,7 +12,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { SocketService } from './services/socket/socket.service';
 import { AsyncPipe, isPlatformBrowser, NgClass } from '@angular/common';
 import { AuthService } from './services/auth/auth.service';
-import { Storage } from '@ionic/storage-angular';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { TranslocoService } from '@jsverse/transloco';
@@ -50,7 +49,6 @@ import { CurrentUrlService } from './services/current-url/current-url.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Connect-U-Frontend';
-  private storageInitialized = false;
   isLoggedIn!: Observable<boolean>;
   currentUrl$!: Observable<string>;
 
@@ -59,7 +57,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly socket: SocketService,
     private readonly auth: AuthService,
     private readonly userService: UserService,
-    private readonly storage: Storage,
     private readonly currentUrl: CurrentUrlService,
     private readonly router: Router,
 
@@ -86,21 +83,11 @@ export class AppComponent implements OnInit, OnDestroy {
                 console.error('Failed to fetch user data:', err);
               },
             });
-            this.initStorage(); // Initialize storage
           }
         }
         this.isLoggedIn = this.auth.isLoggedIn();
       },
     });
-  }
-
-  async initStorage(): Promise<void> {
-    try {
-      await this.storage.create(); // Creates a storage instance
-      this.storageInitialized = true;
-    } catch (error) {
-      console.error('Error initializing storage:', error);
-    }
   }
 
   ngOnDestroy(): void {

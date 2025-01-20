@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
-import { Router, RouterLink, UrlTree } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -17,7 +17,6 @@ import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { SocketService } from '../../services/socket/socket.service';
 
 type LoginForm = FormGroup<{
   email: FormControl<string>;
@@ -31,7 +30,6 @@ type LoginForm = FormGroup<{
     InputTextModule,
     ReactiveFormsModule,
     PasswordModule,
-    RouterLink,
     ToastModule,
     TranslocoPipe,
     Button,
@@ -49,7 +47,7 @@ export class LoginComponent {
    * After the successful login the site is navigated to this url.
    * @default '/' navigates to the home-page
    */
-  @Input({ required: false }) redirectTo: string | UrlTree = '/';
+  @Input({ required: false }) redirectTo: any[] = [''];
 
   form: LoginForm = new FormGroup({
     email: new FormControl<string>('', {
@@ -69,7 +67,6 @@ export class LoginComponent {
     private router: Router,
     private messageService: MessageService,
     private translocoService: TranslocoService,
-    private readonly socket: SocketService,
   ) {}
 
   submitLogin() {
@@ -81,7 +78,7 @@ export class LoginComponent {
       .subscribe({
         next: () => {
           this.router
-            .navigateByUrl(this.redirectTo)
+            .navigate(this.redirectTo)
             .then(() => window.location.reload());
         },
         error: err => {
