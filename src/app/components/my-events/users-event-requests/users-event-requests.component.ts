@@ -27,7 +27,6 @@ import { EventDetails } from '../../../interfaces/EventDetails';
     RouterLink,
     TranslocoDatePipe,
     AsyncPipe,
-    ButtonDirective,
   ],
   templateUrl: './users-event-requests.component.html',
 })
