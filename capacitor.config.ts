@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'site.connect-u.app',
+  appId: 'com.connectu.app',
   appName: 'Connect-U',
   webDir: 'dist-app/connect-u-frontend/browser',
   plugins: {
