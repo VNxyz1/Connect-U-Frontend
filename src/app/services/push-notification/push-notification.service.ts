@@ -29,7 +29,7 @@ export class PushNotificationService {
   private chatGuestEventsListSubject: BehaviorSubject<Map<string, number>> =
     new BehaviorSubject<Map<string, number>>(new Map<string, number>());
 
-  private guestEventJoinRequestListSubject: BehaviorSubject<number> =
+  private guestEventJoinRequestsAndInvitesSubject: BehaviorSubject<number> =
     new BehaviorSubject<number>(0);
   private hostEventJoinRequestListSubject: BehaviorSubject<
     Map<string, number>
@@ -59,7 +59,7 @@ export class PushNotificationService {
     return combineLatest([
       this.getMyEventsGuest(),
       this.getMyEventsHost(),
-      this.getGuestJoinRequest(),
+      this.getGuestJoinRequestAndInvites(),
     ]).pipe(
       map(([host, guest, jr]) => {
         return host + guest + jr;
@@ -98,13 +98,20 @@ export class PushNotificationService {
    * @returns {Observable<number>} Observable emitting the total number of hosted event notifications.
    */
   getMyEventsGuest(): Observable<number> {
-    return this.chatGuestEventsListSubject
-      .asObservable()
-      .pipe(this.mapToNotificationNumber());
+    return combineLatest([
+      this.chatGuestEventsListSubject
+        .asObservable()
+        .pipe(this.mapToNotificationNumber()),
+      this.getGuestJoinRequestAndInvites(),
+    ]).pipe(
+      map(([guestChat, jonReqAndInvites]) => {
+        return guestChat + jonReqAndInvites;
+      }),
+    );
   }
 
-  getGuestJoinRequest(): Observable<number> {
-    return this.guestEventJoinRequestListSubject.asObservable();
+  getGuestJoinRequestAndInvites(): Observable<number> {
+    return this.guestEventJoinRequestsAndInvitesSubject.asObservable();
   }
 
   /**
@@ -367,15 +374,20 @@ export class PushNotificationService {
   }
 
   loadEventRequestNotifications() {
-    this.eventRequestService
-      .getUsersRequests()
+    combineLatest([
+      this.eventRequestService.getInvitationFromFriends(),
+      this.eventRequestService.getUsersRequests(),
+    ])
       .pipe(
-        map((eventRequests: UsersEventRequest[]) => {
+        map(([eventInvites, eventRequests]) => {
           let count = 0;
           eventRequests.forEach((req: UsersEventRequest) => {
             if (req.denied) {
               count++;
             }
+          });
+          eventInvites.forEach((req: UsersEventRequest) => {
+            count++;
           });
           return count;
         }),
@@ -383,7 +395,7 @@ export class PushNotificationService {
       )
       .subscribe({
         next: (count: number) => {
-          this.guestEventJoinRequestListSubject.next(count);
+          this.guestEventJoinRequestsAndInvitesSubject.next(count);
         },
       });
 

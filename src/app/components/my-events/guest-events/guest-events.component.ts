@@ -91,7 +91,7 @@ export class GuestEventsComponent implements OnInit, OnChanges {
     this.pushNotificationsEvents$ =
       this.pushNotificationService.getGuestEventsList();
     this.pushNotificationsRequests$ =
-      this.pushNotificationService.getGuestJoinRequest();
+      this.pushNotificationService.getGuestJoinRequestAndInvites();
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['filters']) {
