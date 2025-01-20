@@ -13,8 +13,8 @@ import { MenuModule } from 'primeng/menu';
 import { SidebarModule } from 'primeng/sidebar';
 import { ScrollNearEndDirective } from '../../utils/scroll-near-end.directive';
 import { map } from 'rxjs/operators';
-import {CardModule} from 'primeng/card';
-import {LanguageSelectorComponent} from '../../components/language-selector/language-selector.component';
+import { CardModule } from 'primeng/card';
+import { LanguageSelectorComponent } from '../../components/language-selector/language-selector.component';
 
 @Component({
   selector: 'app-landing-page',
