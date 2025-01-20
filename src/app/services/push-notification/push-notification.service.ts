@@ -59,10 +59,9 @@ export class PushNotificationService {
     return combineLatest([
       this.getMyEventsGuest(),
       this.getMyEventsHost(),
-      this.getGuestJoinRequestAndInvites(),
     ]).pipe(
-      map(([host, guest, jr]) => {
-        return host + guest + jr;
+      map(([host, guest]) => {
+        return host + guest;
       }),
       tap(da => {
         if (da != 0) {

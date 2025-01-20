@@ -183,7 +183,9 @@
                 <!-- Request Count (Right Top, Aligned with Header) -->
 
                 @if (requestPushNotifications | async; as pushNotifications) {
-                  @if (pushNotifications != 0) {
+                  @if (
+                    pushNotifications != 0 && eventRequestsHost.length != 0
+                  ) {
                     <span
                       [style]="{
                         'min-width': '20px',
