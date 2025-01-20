@@ -135,6 +135,8 @@
     "categoriesInput": "nach Kategorien filtern",
     "gendersInput": "Wen möchtest du dabei haben?",
     "isOnline": "Online-Events",
+    "datesInput": "nach Datum filtern",
+    "citiesInput": "nach Städten filtern",
     "isInPlace": "Events vor Ort",
     "isPublic": "öffentliche Events",
     "isHalfPublic": "halböffentliche Events",
@@ -264,9 +266,9 @@
       "finish": "Fertig"
     },
     "genders": {
-      "male": "Männlich",
-      "female": "Weiblich",
-      "divers": "Divers"
+      "male": "Männer",
+      "female": "Frauen",
+      "divers": "Diverse"
     },
     "messages": {
       "eventCreatedSuccess": "Event \"{{title}}\" wurde erfolgreich erstellt!",

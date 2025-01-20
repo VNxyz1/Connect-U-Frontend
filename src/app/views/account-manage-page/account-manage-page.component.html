@@ -382,7 +382,8 @@
                 id="zipCode"
                 type="text"
                 pInputText
-                formControlName="zipCode" />
+                formControlName="zipCode"
+                (ngModelChange)="onZipCodeChange($event)" />
               <label for="zipCode">{{
                 'accountPage.placeholder.zipCode' | transloco
               }}</label>
@@ -395,15 +396,22 @@
           </div>
           <div class="col-12 lg:col-6">
             <p-floatLabel>
-              <input id="city" type="text" pInputText formControlName="city" />
-              <label for="city">{{
-                'accountPage.placeholder.city' | transloco
-              }}</label>
+              <p-autoComplete
+                id="city"
+                formControlName="city"
+                [suggestions]="fetchedCities"
+                (completeMethod)="searchCities($event)"
+                [multiple]="false"
+                [minLength]="3"
+                [forceSelection]="true"></p-autoComplete>
+              <label for="city">
+                {{ 'accountPage.placeholder.city' | transloco }}
+              </label>
             </p-floatLabel>
             @if (accountForm.get('city')?.errors?.['required']) {
-              <small class="p-error">{{
-                'accountPage.adressForm.warnings.city' | transloco
-              }}</small>
+              <small class="p-error">
+                {{ 'accountPage.adressForm.warnings.city' | transloco }}
+              </small>
             }
           </div>
         </div>
