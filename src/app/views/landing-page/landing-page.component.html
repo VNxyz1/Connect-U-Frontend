@@ -31,18 +31,21 @@
     </div>
   </div>
   <div class="flex justify-content-center align-items-center p-0">
-    <p-card class="p-card-custom p-0 mt-3 event-card">
-      <ul class="flex list-none align-items-center p-0">
-        <li class="mx-4 cursor-pointer" [routerLink]="['/legal-disclosure']">
-          <span class="color-secondary">{{
-            'generalTermsAndConditions.terms.title' | transloco
-          }}</span>
-        </li>
-        <li class="mx-4 cursor-pointer">
-          <app-language-selector></app-language-selector>
-        </li>
-      </ul>
-    </p-card>
+    <ul class="flex list-none align-items-center p-0">
+      <li class="mx-4 cursor-pointer" [routerLink]="['/legal-disclosure']">
+        <span class="text-gray-50">{{
+          'generalTermsAndConditions.terms.title' | transloco
+        }}</span>
+      </li>
+      <li class="mx-4 cursor-pointer" [routerLink]="['/privacy-policy']">
+        <span class="text-gray-50">{{
+          'privacyPolicy.title' | transloco
+        }}</span>
+      </li>
+      <li class="mx-4 cursor-pointer">
+        <app-language-selector></app-language-selector>
+      </li>
+    </ul>
   </div>
 </div>
 
@@ -85,21 +88,22 @@
           }
         </div>
       </div>
-      <div class="flex justify-content-center align-items-center p-0">
-        <p-card class="p-card-custom p-0 mt-3 event-card">
-          <ul class="flex list-none align-items-center p-0">
-            <li
-              class="mx-4 cursor-pointer"
-              [routerLink]="['/legal-disclosure']">
-              <span class="color-secondary">{{
-                'generalTermsAndConditions.terms.title' | transloco
-              }}</span>
-            </li>
-            <li class="mx-4 cursor-pointer">
-              <app-language-selector></app-language-selector>
-            </li>
-          </ul>
-        </p-card>
+      <div class="flex justify-content-center align-items-center p-0 mt-4">
+        <ul class="flex list-none align-items-center p-0">
+          <li class="mx-4 cursor-pointer" [routerLink]="['/legal-disclosure']">
+            <span class="text-gray-50">{{
+              'generalTermsAndConditions.terms.title' | transloco
+            }}</span>
+          </li>
+          <li class="mx-4 cursor-pointer" [routerLink]="['/privacy-policy']">
+            <span class="text-gray-50">{{
+              'privacyPolicy.title' | transloco
+            }}</span>
+          </li>
+          <li class="mx-4 cursor-pointer">
+            <app-language-selector></app-language-selector>
+          </li>
+        </ul>
       </div>
     </div>
     <div class="col-7"></div>
