@@ -228,8 +228,6 @@ export class SearchPageComponent implements OnInit {
   submit = () => {
     const validation = this.validateForm(this.form);
 
-    console.log(this.form.controls['dates'].value);
-
     if (!validation.valid) {
       this.formErrors = validation.errors;
       console.log('Form is invalid:', validation.errors);
