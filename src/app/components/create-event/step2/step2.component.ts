@@ -15,6 +15,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CityService } from '../../../services/city/city.service';
 
 @Component({
   selector: 'app-step2',
@@ -33,6 +35,7 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
     ToastModule,
     TooltipModule,
     TranslocoPipe,
+    AutoCompleteModule,
   ],
   templateUrl: './step2.component.html',
 })
@@ -43,6 +46,7 @@ export class Step2Component implements OnInit {
   streetNumber: string = '';
   zipCode: string = '';
   city: string = '';
+  fetchedCities: string[] = [];
   hideAddress: boolean = false;
 
   zipCodeRegex: RegExp = /^\d{5}$/;
@@ -59,6 +63,7 @@ export class Step2Component implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private translocoService: TranslocoService,
+    private cityService: CityService,
   ) {
     this.setCalenderFormat();
     this.minDate = new Date();
@@ -137,6 +142,48 @@ export class Step2Component implements OnInit {
     } else {
       this.navigateNext();
     }
+  }
+
+  onZipCodeChange(zipCode: string): void {
+    if (zipCode && zipCode.length === 5) {
+      this.getCityByZipCode(zipCode);
+    } else {
+      this.city = '';
+    }
+  }
+
+  getCityByZipCode(zipCode: string): void {
+    this.cityService.getCities(zipCode, undefined).subscribe({
+      next: fetchedCities => {
+        if (fetchedCities && fetchedCities.length > 0) {
+          const city = fetchedCities[0];
+          this.city = city.name;
+          this.fetchedCities = [city.name];
+        } else {
+          this.fetchedCities = [];
+        }
+      },
+      error: error => {
+        console.error('Error fetching city by zip code:', error);
+        this.fetchedCities = [];
+      },
+    });
+  }
+
+  searchCities(event: any): void {
+    const query = event.query.toLowerCase();
+
+    this.cityService.getCities(undefined, query).subscribe({
+      next: fetchedCities => {
+        this.fetchedCities = Array.from(
+          new Set(fetchedCities.map(city => city.name)),
+        );
+      },
+      error: error => {
+        console.error('Error fetching cities:', error);
+        this.fetchedCities = [];
+      },
+    });
   }
 
   private navigateNext() {
