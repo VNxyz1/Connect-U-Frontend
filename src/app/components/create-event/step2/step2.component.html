@@ -142,11 +142,14 @@
               'ng-invalid ng-dirty':
                 (!online && zipCodeInput.invalid && submitted) ||
                 (zipCodeInput.dirty && zipCodeInput.invalid),
-            }" />
-          <label for="zipCode">{{
-            'createEventStep2Component.addressSection.zipCodeInput.label'
-              | transloco
-          }}</label>
+            }"
+            (ngModelChange)="onZipCodeChange($event)" />
+          <label for="zipCode">
+            {{
+              'createEventStep2Component.addressSection.zipCodeInput.label'
+                | transloco
+            }}
+          </label>
         </p-floatLabel>
         @if (!online && zipCodeInput.invalid && submitted) {
           <small class="p-error">
@@ -165,24 +168,32 @@
           </small>
         }
       </div>
+
       <div class="p-col-12 p-md-6 field">
         <p-floatLabel>
-          <input
+          <p-autoComplete
             #cityInput="ngModel"
-            pInputText
+            inputId="city"
             id="city"
             [(ngModel)]="city"
             [disabled]="online"
             [required]="!online"
+            [suggestions]="fetchedCities"
+            (completeMethod)="searchCities($event)"
+            [multiple]="false"
+            [minLength]="3"
+            [forceSelection]="true"
             [ngClass]="{
               'ng-invalid ng-dirty':
                 (!online && cityInput.invalid && submitted) ||
                 (cityInput.dirty && cityInput.invalid),
-            }" />
-          <label for="city">{{
-            'createEventStep2Component.addressSection.cityInput.label'
-              | transloco
-          }}</label>
+            }"></p-autoComplete>
+          <label for="city">
+            {{
+              'createEventStep2Component.addressSection.cityInput.label'
+                | transloco
+            }}
+          </label>
         </p-floatLabel>
         @if (!online && cityInput.invalid && submitted) {
           <small class="p-error">
