@@ -93,7 +93,6 @@ import {
   TranslocoMissingHandlerData,
 } from '@jsverse/transloco';
 import { provideTranslocoLocale } from '@jsverse/transloco-locale';
-import { IonicStorageModule } from '@ionic/storage-angular';
 
 const icons = {
   RiHome2Line,
@@ -204,7 +203,7 @@ export const appConfig: ApplicationConfig = {
     provideRemixIcon(icons),
     provideHttpClient(),
     provideTransloco(translocoConfig),
-    importProvidersFrom(IonicStorageModule.forRoot()),
+    importProvidersFrom(),
     provideTranslocoLocale({
       langToLocaleMapping: {
         'en-US': 'en-US',
