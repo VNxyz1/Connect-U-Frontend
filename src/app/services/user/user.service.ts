@@ -125,6 +125,9 @@ export class UserService {
 
   getImageFile(image: string): string {
     const value = image == '' ? 'empty.png' : image;
+    if (image == 'empty.png') {
+      return `/images/userImg.png`;
+    }
     return `${environment.apiConfig.urlPrefix}user/profilePicture/${value}`;
   }
 

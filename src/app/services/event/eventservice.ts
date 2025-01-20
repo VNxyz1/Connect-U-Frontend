@@ -379,6 +379,9 @@ export class EventService {
 
   getEventTitleImage(image: string): string {
     const value = image == '' ? '' : image;
+    if (image == 'empty.png') {
+      return `/images/img.png`;
+    }
     return `${environment.apiConfig.urlPrefix}event/eventPicture/${value}`;
   }
 
