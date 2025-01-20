@@ -252,6 +252,7 @@ export class EventPageComponent implements OnInit {
             command: () => {
               this.onActiveItemChange(this.eventTabMenuItems[0]);
             },
+            iBadge: 'detail',
           },
           {
             label: translations['eventPageComponent.chatTab'],
@@ -262,7 +263,7 @@ export class EventPageComponent implements OnInit {
             command: () => {
               this.onActiveItemChange(this.eventTabMenuItems[1]);
             },
-            iBadge: true,
+            iBadge: 'chat',
           },
           {
             label: translations['eventPageComponent.listTab'],
@@ -287,6 +288,19 @@ export class EventPageComponent implements OnInit {
         ];
         this.setActiveTabItem();
       });
+  }
+
+  getBadgeValue(key: 'chat' | 'detail') {
+    switch (key) {
+      case 'chat':
+        return this.getPushNotificationsChat(this.eventId);
+      case 'detail':
+        return this.pushNotificationService.getHostedEventsJoinRequestCount(
+          this.eventId,
+        );
+      default:
+        return of(0);
+    }
   }
 
   protected onActiveItemChange(newActiveItem: MenuItem): void {
@@ -432,7 +446,11 @@ export class EventPageComponent implements OnInit {
     }
   }
 
-  getPushNotificationListChat() {
-    return this.pushNotificationService.getChatNotificationList();
+  getPushNotificationsChat(eventId: string) {
+    return this.pushNotificationService.getChatNotificationList().pipe(
+      map(data => {
+        return data.get(eventId) || 0;
+      }),
+    );
   }
 }
