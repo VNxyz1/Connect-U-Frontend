@@ -88,7 +88,9 @@
                   [ngModel]="!!listEntry.user"
                   (click)="handleCheckboxChange(listEntry)" />
               </div>
-              <div class="col flex align-items-center">
+              <div
+                class="col flex align-items-center overflow-hidden"
+                style="word-break: break-word">
                 <span>{{ listEntry.content }}</span>
               </div>
               <div
