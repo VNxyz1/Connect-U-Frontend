@@ -8,7 +8,7 @@
       </div>
       @for (invite of invites; track invite.id) {
         <div
-          class="custom-card-container event-card flex justify-content-between align-items-center h-auto border-round shadow-2 mb-3 mt-3 ">
+          class="custom-card-container event-card flex justify-content-between align-items-center h-auto border-round shadow-2 mb-3 mt-3">
           <!-- Image -->
           <div class="flex align-items-center">
             <div
@@ -17,8 +17,10 @@
               <div
                 class="bg-cover bg-center h-full w-full"
                 [style]="{
-                'background-image':
-                'url(' + eventService.getEventTitleImage(invite.event.picture) + ')'
+                  'background-image':
+                    'url(' +
+                    eventService.getEventTitleImage(invite.event.picture) +
+                    ')',
                 }"></div>
             </div>
             <div
@@ -30,9 +32,9 @@
               <div class="flex align-items-center gap-1 mt-2 text-secondary">
                 <rmx-icon name="calendar-line" class="mr-1"></rmx-icon>
                 <span>{{
-                    toDate(invite.event.dateAndTime)
-                      | translocoDate: { dateStyle: 'short' }
-                  }}</span>
+                  toDate(invite.event.dateAndTime)
+                    | translocoDate: { dateStyle: 'short' }
+                }}</span>
               </div>
             </div>
           </div>
@@ -54,9 +56,7 @@
               [raised]="true"
               severity="success"
               [disabled]="this.invite.denied"
-              (onClick)="
-                  acceptFriendsRequestedEvent(invite.id, invite.event)
-                ">
+              (onClick)="acceptFriendsRequestedEvent(invite.id, invite.event)">
               <ng-template pTemplate="icon">
                 <rmx-icon style="width: 16px; height: 16px" name="check-line">
                 </rmx-icon>

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
-import {Button, ButtonDirective} from 'primeng/button';
+import { Button, ButtonDirective } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { MessageService, PrimeTemplate } from 'primeng/api';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
