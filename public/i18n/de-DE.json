@@ -1,8 +1,11 @@
 {
+  "serverUnavailable": "Der Server ist aktuell nicht erreichbar. Versuche es später erneut.",
+  "profilePictureAlt": "Profilbild",
   "homepage": {
     "title": "Events für Dich",
     "upcomingEvents": {
-      "title": "Bevorstehende Events"
+      "title": "Bevorstehende Events",
+      "noMoreEvents": "Keine bevorstehenden Events mehr. Lade die Seite neu und schaue, ob es etwas für dich gibt!"
     }
   },
   "loginComponent": {
@@ -127,6 +130,36 @@
     }
   },
   "searchPageComponent": {
+    "eventTitleInput": "nach Titel filtern",
+    "tagsInput": "nach Tags filtern",
+    "categoriesInput": "nach Kategorien filtern",
+    "gendersInput": "Wen möchtest du dabei haben?",
+    "isOnline": "Online-Events",
+    "datesInput": "nach Datum filtern",
+    "citiesInput": "nach Städten filtern",
+    "isInPlace": "Events vor Ort",
+    "isPublic": "öffentliche Events",
+    "isHalfPublic": "halböffentliche Events",
+    "filterFriends": "nur Events anzeigen, an denen Freunde teilnehmen",
+    "filterButton":"Events filtern",
+    "selectFilters": "Filter auswählen",
+    "sortEvents": "Events sortieren",
+    "errors": {
+      "genders": "Du musst mindestens ein Geschlecht auswählen!",
+      "online": "Du musst mindestens eine Option auswählen!"
+    },
+    "sortOrder": {
+      "newestFirst": "Neueste zuerst",
+      "oldestFirst": "Älteste zuerst",
+      "upcomingNext": "Nächste anstehende",
+      "upcomingLast": "Letzte anstehende",
+      "alphabetical_asc": "Alphabetisch (A-Z)",
+      "alphabetical_desc": "Alphabetisch (Z-A)"
+    }
+  },
+  "resultsPageComponent": {
+    "results": "Ergebnisse",
+    "eventsFound": "passende Events gefunden!"
   },
   "createEventStep1Component": {
     "eventType": {
@@ -158,7 +191,17 @@
       "categoryLimitTitle": "Kategorien Limitierung",
       "categoryLimitDetail": "Du kannst nur bis zu 3 Kategorien auswählen.",
       "validationFailedTitle": "Validierung fehlgeschlagen",
-      "validationFailedDetail": "Bitte stelle sicher, dass alle erforderlichen Felder korrekt ausgefüllt sind."
+      "validationFailedDetail": "Bitte stelle sicher, dass alle erforderlichen Felder korrekt ausgefüllt sind.",
+      "removedImageTitle": "Bild entfernt!",
+      "removedImage": "Bild wurde erfolgreich entfernt, wähle gerne ein neues aus."
+    },
+    "errorMessages": {
+      "wrongFormatTitle": "Falsches Format",
+      "wrongFormat": "Du musst ein Bildformat nutzen welches wir unterstützen z.B. .gif, .jpg, .png",
+      "couldntBeSaved": "Dein Bild konnte nicht gespeichert werden",
+      "couldntBeSavedTitle": "Fehler",
+      "sizedErrorTitle": "Fehler",
+      "sizedError": "Das Bild darf maximal 5MB groß sein."
     }
   },
   "createEventStep2Component": {
@@ -223,9 +266,9 @@
       "finish": "Fertig"
     },
     "genders": {
-      "male": "Männlich",
-      "female": "Weiblich",
-      "divers": "Divers"
+      "male": "Männer",
+      "female": "Frauen",
+      "divers": "Diverse"
     },
     "messages": {
       "eventCreatedSuccess": "Event \"{{title}}\" wurde erfolgreich erstellt!",
@@ -242,7 +285,7 @@
     "diverse": "Diverse",
     "age": "für Altersgruppe",
     "gender": "für Geschlechter",
-    "from": "von",
+    "from": "ab",
     "to": "bis",
     "years1": "Jahren",
     "years2": "Jahre",
@@ -257,10 +300,13 @@
     },
     "host": "Veranstalter",
     "requests": {
-      "title": "Anfragen",
+      "requests": "Anfragen",
       "accepted-request": "Die Anfrage von \"{{name}}\" wurde akzeptiert!",
       "denied-request": "Die Anfrage von \"{{name}}\" wurde abgelehnt.",
-      "delete-request": "Anfrage löschen"
+      "delete-request": "Anfrage löschen",
+      "try-again": "Erneut anfragen",
+      "invites": "Einladungen",
+      "deleted-invite": "Die Einladung für \"{{name}}\" wurde gelöscht."
     },
     "eventNotFound": "Das gesuchte Event existiert nicht.",
     "userIsHost": "Du bist der Gastgeber dieses Events und kannst nicht teilnehmen.",
@@ -284,7 +330,17 @@
   "eventPageComponent": {
     "infoTab": "Informationen",
     "listTab": "Listen",
-    "surveyTab": "Umfragen"
+    "surveyTab": "Umfragen",
+    "chatTab": "Chat",
+    "friends": {
+      "inviteFriends": "Freunde einladen",
+      "selectFriends": "Freunde auswählen",
+      "sendInvites": "Einladungen senden",
+      "inviteSuccess": "Einladung erfolgreich an {{name}} gesendet.",
+      "inviteError": "Einladung an {{name}} konnte nicht gesendet werden.",
+      "maxNumberExceeded": "Du kannst nicht mehr Freunde einladen, als Plätze verfügbar sind.",
+      "noFriendsToInvite": "Keine deiner Freunde erfüllen die Zulassungsbeschränkungen des Events."
+    }
   },
   "eventStatusIndicator": {
     "finished": {
@@ -355,6 +411,23 @@
       }
     }
   },
+  "eventChatPage": {
+    "unreadMessages": "ungelesene Nachricht(en)",
+    "you": "Du",
+    "no-messages": "Hier sieht es noch sehr leer aus – schreibe die erste Nachricht!",
+    "placeholder-input": "Nachricht schreiben...",
+    "errors": {
+      "required": "Nachricht darf nicht leer sein.",
+      "too-long": "Nachricht darf 65.000 Zeichen nicht überschreiten.",
+      "empty": "Nachricht darf nicht nur aus Leerzeichen bestehen.",
+      "no-links": "Nachrichten dürfen keine Links enthalten.",
+      "generic": "Beim Senden der Nachricht ist ein Fehler aufgetreten. Bitte überprüfe deine Internetverbindung."
+    },
+    "server-messages": {
+      "new-list": "📋☑️ Es wurde eine neue Liste \"{{title}}\" für dieses Event erstellt!",
+      "new-survey": "📊 Eine neue Umfrage \"{{title}}\" wurde für dieses Event erstellt!"
+    }
+  },
   "registerComponentErrors": {
     "You must accept the terms and conditions to register": "Du musst die AGBs bestätigen, um dich registrieren zu können",
     "Passwords must match": "Die Passwörter stimmen nicht überein",
@@ -374,6 +447,7 @@
   },
   "headerComponent": {
     "mySpace": "Mein Bereich",
+    "myFriends": "Meine Freunde",
     "myEvents": "Meine Events",
     "search": "Events suchen",
     "createEvent": "Event erstellen",
@@ -383,13 +457,17 @@
     "account": "Konto",
     "information": "Informationen",
     "closeConfirmationMessage": "Bist Du sicher, dass du dein Event verwerfen möchtest? Dein Entwurf wird nicht gespeichert.",
-    "closeConfirmationHeader": "Entwurf verwerfen"
+    "closeConfirmationHeader": "Entwurf verwerfen",
+    "shareProfile": "Profil Teilen",
+    "addFriend": "Freundschaftsanfrage"
   },
   "navbarComponent": {
     "mySpace": "Mein Bereich",
     "myEvents": "Meine Events",
     "search": "Suchen",
-    "createEvent": "Event erstellen"
+    "createEvent": "Event erstellen",
+    "selectLanguage": "Sprache",
+    "shareProfile": "Profil Teilen"
   },
   "myEventPageComponent": {
     "hosted": {
@@ -401,7 +479,8 @@
       "title": "Gast",
       "text": "Du nimmst zur Zeit an keinem Event teil.",
       "todo": "Erkundige Dich nach deinen Interessen.",
-      "your-event-requests": "Deine Eventanfragen"
+      "your-event-requests": "Deine Eventanfragen ",
+      "your-requests": "Deine Anfragen und Einladungen"
     },
     "favorite": {
       "title": "Favorisiert",
@@ -413,7 +492,8 @@
       "delete-request": "Anfrage löschen",
       "try-again": "Erneut Anfragen",
       "new-request": "Es wurde eine neue Anfrage für das Event \"{{title}}\" verschickt!",
-      "deleted-request": "Die Anfrage für das Event \"{{title}}\" wurde gelöscht."
+      "deleted-request": "Die Anfrage für das Event \"{{title}}\" wurde gelöscht.",
+      "noRequests": "Du hast derzeit keine offenen Anfragen."
     }
   },
   "privacyPolicy": {
@@ -763,6 +843,7 @@
   "mySpacePage": {
     "listing": {
       "settings": "Einstellungen",
+      "myFriends": "Meine Freunde",
       "logout": "Abmelden",
       "information": "Informationen"
     }
@@ -775,12 +856,29 @@
   "profilePage": {
     "cardText": {
       "aboutMe": "Über mich",
-      "city": "Kein Wohnort angegeben"
+      "city": "Kein Wohnort angegeben",
+      "noDescription": "Keine Beschreibung"
     },
     "updateText": {
       "pronouns": "Pronomen...",
       "desc": "Beschreibung...",
       "saveButton": "Speichern"
+    },
+    "updateProfilePic": {
+      "success": "Erfolg",
+      "error": "Fehler",
+      "errorFormat": "Es werden nur die Bildformate jpeg und png unterstützt",
+      "errorSize": "Die maximale Dateigröße beträgt 5 MB",
+      "successMessage": "Dein Bild wurde aktualisiert",
+      "errorMessage": "Fehler beim Hochladen des Profilbildes",
+      "cancel": "abbrechen",
+      "upload": "Hochladen"
+    },
+    "deleteProfilePic": {
+      "success": "Profilbild gelöscht",
+      "error": "Fehler beim Löschen des Profilbildes",
+      "successMessage": "Ihr Profilbild wurde erfolgreich gelöscht",
+      "errorMessage": "Es ist ein Fehler beim Löschen des Profilbildes aufgetreten"
     }
   },
   "accountPage": {
@@ -855,7 +953,7 @@
     "placeholder": {
       "title": "Titel",
       "description": "Beschreibung",
-      "newItem": "Neue Auswahl"
+      "newItem": "Neue Auswahlmöglichkeit"
     },
     "button": {
       "create": "Erstellen"
@@ -872,7 +970,7 @@
     "votes": "Abstimmungen: ",
     "noVotes": "Es hat noch niemand für diese Option abgestimmt",
     "sidebarTitle": "Stimmenübersicht",
-    "sidebarLink": "Details Ansehen",
+    "sidebarLink": "details ansehen",
     "deleteSurvey": "Umfrage löschen",
     "deleteConfirmationMessage": "Möchtest du die Umfrage wirklich löschen?",
     "deleteConfirmationHeader": "Achtung",
@@ -894,5 +992,63 @@
     "deleteEntrySuccessMessage": "Der Listeneintrag wurde erfolgreich entfernt.",
     "deleteEntryErrorTitle": "Fehler beim Löschen!",
     "deleteEntryErrorMessage": "Der Listeneintrag konnte nicht gelöscht werden. Bitte versuchen Sie es erneut."
+  },
+  "shareProfilePage": {
+    "successfullyCopiedMessage": "Dein Einladungslink wurde in die Zwischenablage kopiert.",
+    "linkExpired": "Dein Link ist abgelaufen! Generiere jetzt einen neuen!",
+    "linkExplanation": "Lasse jetzt eine Person deinen QR-Code Scannen, oder schicke ihr den Link! Der Link ist noch {{ time }} min gültig.",
+    "shareHeader": "Dein Anfrage Link",
+    "tab-share": "Share",
+    "tab-scan": "Scan"
+  },
+  "addFriendComponent": {
+    "friendship-created": "Du bist nun mit {{name}}  befreundet!",
+    "errors": {
+      "invalidInviteLink": "Der Einladungslink ist nicht korrekt oder abgelaufen.",
+      "self": "Du kannst dich nicht selbst als Freund hinzufügen.",
+      "invitationLinkNotExists": "Der Einladungslink existiert nicht.",
+      "genericError": "Ein unerwarteter Fehler ist aufgetreten. Bitte überprüfe deine Internetverbindung."
+    },
+    "accept-request": "Freundschaftsanfrage annehmen",
+    "already-friends": "Du bist bereits mit {{name}} befreundet!"
+  },
+  "inviteByFriends": {
+    "title": "Einladungen von Freunden",
+    "detail": "Du hast derzeit keine Einladungen von deinen Freunden.",
+    "acceptTitle": "Einladung angenommen.",
+    "acceptDetail": "Du hast die Einladung deines Freundes erfolgreich angenommen. Für das Event \"{{title}}\" ",
+    "acceptErrorTitle": "Fehler bei Annahme",
+    "acceptError": "Ein Fehler ist aufgetreten",
+    "denyTitle": "Einladung abgelehnt",
+    "denyMessage": "Du hast die Einladung deines Freundes abgelehnt",
+    "denyErrorTitle":"Fehler beim Ablehnen",
+    "denyErrorMessage": "Es ist ein Fehler aufgetreten beim Versuch, die Einladung abzulehnen."
+  },
+  "cameraComponent": {
+    "card-header": "QR-Code scannen",
+    "scan-help": "Scanne den QR Code von Nutzern, um sie als Freunde hinzuzufügen!",
+    "message": {
+      "no-camera-detected-title": "Keine Kamera erkannt",
+      "no-camera-detected-detail": "Wir konnten keine Kamera auf deinem Gerät erkennen. Bitte stelle  sicher, dass eine Kamera verfügbar und zugänglich ist.",
+      "initialization-error-title": "Initialisierungsfehler",
+      "initialization-error-detail": "Beim Initialisieren der Kamera ist ein Fehler aufgetreten. Bitte überprüfe deine Kameraberechtigungen und versuche es erneut.",
+      "navigation-error-title": "Navigationsfehler",
+      "navigation-error-detail": "Es gab ein Problem beim Navigieren zum gescannten Link. Bitte versuche es erneut.",
+      "invalid-qr-code-title": "Ungültiger QR-Code",
+      "invalid-qr-code-detail": "Der gescannte QR-Code ist für diese Anwendung nicht gültig.",
+      "qr-scan-error-title": "QR-Code-Scan-Fehler",
+      "qr-scan-error-detail": "Beim Scannen des QR-Codes ist ein Fehler aufgetreten. Bitte stelle sicher, dass der QR-Code klar und innerhalb des Kamerabereichs ist.",
+      "access-denied-title": "Kamerazugriff verweigert",
+      "access-denied-detail": "Du hast den Zugriff auf die Kamera verweigert. Bitte aktiviere die Kameraberechtigungen, um QR-Codes zu scannen."
+    }
+  },
+  "404": {
+    "page-not-found": "Seite nicht gefunden",
+    "page-not-found-detail": "Wir konnten diese Seite nicht finden. Nicht einmal mit X-Ray.",
+    "back-to-home": "Zur Startseite"
+  },
+  "myFriends": {
+    "emptyTitle": "Etwas einsam hier...🏝️",
+    "emptyDetail": "Suche auf der Startseite nach einem Event, um deine Freundesliste zu erweitern!"
   }
 }

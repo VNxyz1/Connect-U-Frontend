@@ -1,0 +1,53 @@
+<p-dropdown
+  [options]="languageService.getAvailableLanguages()"
+  [ngModel]="activeLanguage$ | async"
+  class="w-full"
+  styleClass="w-full"
+  (onChange)="changeLanguage($event)">
+  <ng-template pTemplate="selectedItem">
+    @if (activeLanguage$ | async; as activeLanguage) {
+      <div class="flex align-items-center gap-2">
+        <img
+          [src]="
+            languageService.getFlagLink(
+              languageService.getCountryCode(activeLanguage)
+            )
+          "
+          style="width: 20px"
+          [alt]="
+            languageService.getCountryName(
+              languageService.getCountryCode(activeLanguage)
+            )
+          " />
+        <div>
+          {{
+            languageService.getCountryName(
+              languageService.getCountryCode(activeLanguage)
+            )
+          }}
+        </div>
+      </div>
+    }
+  </ng-template>
+  <ng-template let-country pTemplate="item">
+    <div class="flex align-items-center gap-2">
+      <img
+        [src]="
+          languageService.getFlagLink(languageService.getCountryCode(country))
+        "
+        style="width: 20px"
+        [alt]="
+          languageService.getCountryName(
+            languageService.getCountryCode(country)
+          )
+        " />
+      <div>
+        {{
+          languageService.getCountryName(
+            languageService.getCountryCode(country)
+          )
+        }}
+      </div>
+    </div>
+  </ng-template>
+</p-dropdown>

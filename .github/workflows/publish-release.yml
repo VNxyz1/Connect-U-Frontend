@@ -6,34 +6,16 @@ on:
       - main
       - release/*
 
-
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  NODE_VERSION: 20
-
 
 jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repositorycontainer registry push test
+      - name: Check out repository
         uses: actions/checkout@v4
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          check-latest: true
-          cache: npm
-
-      - name: Install dependencies
-        run: |
-          npm install @angular/cli
-          npm ci
-
-      - name: Build project
-        run: npm run build
 
       - name: Cache setup
         uses: actions/cache@v4
@@ -56,7 +38,7 @@ jobs:
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
 
@@ -81,3 +63,28 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+  update-tag-dev:
+    needs: [ setup, build-and-push ]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/release/*'
+    steps:
+      - name: Clone target repository
+        env:
+          TARGET_REPO_PAT: ${{ secrets.CR_PAT }}
+        run: |
+          git clone https://x-access-token:${{ secrets.CR_PAT }}@github.com/VNxyz1/connect-u-deployment.git target-repo
+          cd target-repo
+
+      - name: Update image tag
+        run: |
+          cd target-repo
+          sed -i 's|image: ghcr.io/vnxyz1/connect-u-frontend:.*|image: ghcr.io/vnxyz1/connect-u-frontend:${{ github.ref_name }}|' connect-u/prod/argocd-conf/frontend-deployment.yaml
+
+      - name: Commit and push changes
+        run: |
+          cd target-repo
+          git config user.name "GitHub Action Bot"
+          git config user.email "actions@github.com"
+          git add connect-u/prod/argocd-conf/frontend-deployment.yaml
+          git commit -m "Update image tag to ${{ github.ref_name }}"
+          git push

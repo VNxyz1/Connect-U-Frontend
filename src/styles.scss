@@ -78,3 +78,119 @@ body {
 .cursor-default {
   cursor: default !important;
 }
+
+/** chat**/
+
+.speech-bubble {
+  --r: 1.25em; /* the radius */
+  --t: 1.5em; /* the size of the tail */
+
+  max-width: 380px;
+  min-width: 120px;
+  padding: 0.5em;
+  border-inline: var(--t) solid #0000;
+  border-radius: calc(var(--r) + var(--t)) / var(--r);
+  color: $primaryTextColor;
+  margin-bottom: 0.5em;
+
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.speech-bubble-left {
+  --_p: 0;
+  border-bottom-left-radius: 0 0;
+  place-self: start;
+  mask:
+    radial-gradient(100% 100% at var(--_p) 0, #0000 99%, #000 102%) var(--_p)
+      100% / var(--t) var(--t) no-repeat,
+    linear-gradient(135deg, $normal-grey, $normal-grey) padding-box;
+  background: linear-gradient(135deg, $normal-grey, $normal-grey) border-box;
+  margin-inline-start: -0.25em;
+}
+
+.speech-bubble-server {
+  --_p: 0;
+  border-bottom-left-radius: 0 0;
+  place-self: start;
+  mask:
+    radial-gradient(100% 100% at var(--_p) 0, #0000 99%, #000 102%) var(--_p)
+      100% / var(--t) var(--t) no-repeat,
+    linear-gradient(135deg, $successColor, $successColor) padding-box;
+  background: linear-gradient(135deg, $successColor, $successColor) border-box;
+  margin-inline-start: -0.25em;
+}
+
+.speech-bubble-right {
+  --_p: 100%;
+  border-bottom-right-radius: 0 0;
+  place-self: end;
+  mask:
+    radial-gradient(100% 100% at var(--_p) 0, #0000 99%, #000 102%) var(--_p)
+      100% / var(--t) var(--t) no-repeat,
+    linear-gradient(135deg, $secondaryColor, $secondaryColor) padding-box;
+  background: linear-gradient(135deg, $secondaryColor, $secondaryColor)
+    border-box;
+  margin-inline-end: -0.25em;
+}
+
+.unread-messages {
+  background-color: rgba($successColor, 0.8);
+  color: $primaryTextColor;
+  width: 100vw;
+}
+
+.chat-container {
+  height: calc(100vh - 14rem);
+}
+
+@media screen and (min-width: 768px) {
+  .chat-container {
+    height: calc(100vh - 11.5rem);
+  }
+}
+
+.custom-badge {
+  position: absolute;
+  top: 1px;
+  right: -1px;
+  z-index: 1;
+}
+
+.bg-main {
+  background-color: $light-grey;
+}
+
+.card-border-round {
+  border-radius: var(--card-border-radius) !important;
+}
+
+//card
+
+.event-card {
+  border-radius: var(--card-border-radius) !important;
+}
+
+.event-card .p-card-footer {
+  padding: 0 0 0 0 !important;
+}
+
+.event-card .p-card-body {
+  padding: 0 1rem 0.5rem 1rem;
+}
+
+.event-card .p-card-content {
+  padding: 1rem 0 0.25rem 0;
+}
+
+//categories chips
+/* Specific style for the chips in your multi-select component */
+.categories-chips .p-multiselect-token {
+  background-color: $primaryColor !important; /* Replace with your desired color variable or hex code */
+}
+
+.categories-chips .p-multiselect-panel .p-checkbox-box.p-highlight {
+  background-color: $primaryColor !important; /* Background for the checkbox */
+  border-color: $primaryColor !important; /* Border color for the checkbox */
+}

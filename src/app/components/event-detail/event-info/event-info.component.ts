@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { interval, Observable, of, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { EventDetails } from '../../../interfaces/EventDetails';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { ImageModule } from 'primeng/image';
@@ -21,10 +21,7 @@ import { EventtypeEnum } from '../../../interfaces/EventtypeEnum';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { EventService } from '../../../services/event/eventservice';
 import { DialogModule } from 'primeng/dialog';
-import { LoginComponent } from '../../login/login.component';
-import { RegisterComponent } from '../../register/register.component';
-import { AuthService } from '../../../services/auth/auth.service';
-import { EventRequestService } from '../../../services/event/event-request/event-request.service';
+import { EventRequestService } from '../../../services/event/event-request.service';
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
 import { AsyncPipe, NgClass } from '@angular/common';
@@ -32,6 +29,10 @@ import { EventStatusIndicatorComponent } from '../../event-status-indicator/even
 import { ProfileCardComponent } from '../../profile-card/profile-card.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { SkeletonModule } from 'primeng/skeleton';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { AvatarModule } from 'primeng/avatar';
+import { UserService } from '../../../services/user/user.service';
+import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -68,13 +69,19 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     ConfirmDialogModule,
     SkeletonModule,
     NgClass,
+    AvatarGroupModule,
+    AvatarModule,
+    AsyncPipe,
   ],
   providers: [ConfirmationService],
 })
 export class EventInfoComponent implements OnInit, OnDestroy {
   userRequest: UsersEventRequest | null = null;
   private userRequestSubscription!: Subscription;
+  private invitesSubscription!: Subscription;
   @Input() eventRequestsHost: EventUserRequest[] = [];
+  @Input() eventInvitesHost: EventUserRequest[] = [];
+  @Output() showInviteDialogue: EventEmitter<boolean> = new EventEmitter();
   @Output() eventDetailsUpdated = new EventEmitter<void>(); // Notify parent
 
   @Input() getPreferredGendersString!: (
@@ -84,15 +91,18 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   protected _eventDetails!: EventDetails;
   isLoading = true;
 
+  requestPushNotifications!: Observable<number>;
+
   constructor(
     private readonly router: Router,
     protected readonly route: ActivatedRoute,
     private readonly messageService: MessageService,
     private readonly translocoService: TranslocoService,
-    private readonly eventService: EventService,
-    private readonly auth: AuthService,
+    protected readonly eventService: EventService,
+    protected userService: UserService,
     private readonly eventRequestService: EventRequestService,
     private readonly confirmationService: ConfirmationService,
+    private readonly pushNotifications: PushNotificationService,
   ) {}
 
   get eventDetails(): EventDetails {
@@ -103,9 +113,21 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.eventId = this.route.snapshot.paramMap.get('id')!;
+    const eventId = this.route.snapshot.paramMap.get('id')!;
+    this.eventId = eventId;
+    this.requestPushNotifications =
+      this.pushNotifications.getHostedEventsJoinRequestCount(eventId);
 
     this.getEventDetails();
+  }
+
+  ngOnDestroy(): void {
+    // Clean up subscriptions
+    this.userRequestSubscription?.unsubscribe();
+  }
+
+  get combinedAvatars(): any[] {
+    return [...this.eventRequestsHost, ...this.eventInvitesHost];
   }
 
   private fetchUserRequest(): void {
@@ -126,9 +148,8 @@ export class EventInfoComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy(): void {
-    // Clean up subscriptions
-    this.userRequestSubscription?.unsubscribe();
+  protected onAddFriendsButtonPressed(): void {
+    this.showInviteDialogue.emit(true); // Emit event to notify parent
   }
 
   private getEventDetails(): void {
@@ -139,6 +160,9 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     this.eventService.getEventDetails(this.eventId).subscribe({
       next: details => {
         this._eventDetails = details;
+        if (details.isHost) {
+          this.fetchEventInvites();
+        }
         this.fetchUserRequest();
         this.isLoading = false;
         this.eventDetailsUpdated.emit();
@@ -151,28 +175,11 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     this.router.navigate(['/404']);
   }
 
-  /**
-   * Transform the EventDetails if needed.
-   * @param details The EventDetails to transform.
-   * @returns Transformed EventDetails.
-   */
-  private transformEventDetails(details: EventDetails): EventDetails {
-    // Perform any transformations on the details here
-    return details;
-  }
-
-  handleButtonClick(eventType: EventtypeEnum): void {
+  protected handleButtonClick(eventType: EventtypeEnum): void {
     if (eventType === EventtypeEnum.public) {
       this.joinPublicEvent();
     } else if (eventType === EventtypeEnum.halfPrivate) {
       this.requestToJoinEvent();
-    } else if (eventType === EventtypeEnum.private) {
-      this.messageService.add({
-        severity: 'info',
-        summary: this.translocoService.translate(
-          'eventDetailPageComponent.privateEvent',
-        ),
-      });
     }
   }
 
@@ -221,6 +228,20 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     }
   }
 
+  private fetchEventInvites() {
+    this.invitesSubscription = this.eventRequestService
+      .getAllInvitesForEvent(this.eventId)
+      .subscribe({
+        next: data => {
+          this.eventInvitesHost = data;
+        },
+        error: err => {
+          console.error('Error fetching invites:', err);
+          this.userRequest = null; // Reset in case of error
+        },
+      });
+  }
+
   private handleError(err: any): void {
     const translationKey =
       ERROR_MESSAGE_MAPPING[err.error?.message] ||
@@ -234,7 +255,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteEventRequest(id: number, $e: MouseEvent) {
+  protected deleteEventRequest(id: number, $e: MouseEvent) {
     $e.stopPropagation();
     this.eventRequestService.deleteUserRequest(id).subscribe({
       next: () => {
@@ -247,6 +268,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
         });
         this.fetchUserRequest();
         this.getEventDetails();
+        this.pushNotifications.loadEventRequestNotifications();
       },
       error: err => {
         console.error('Error deleting request:', err);
@@ -275,6 +297,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
               ),
             });
             this.getEventDetails();
+            this.pushNotifications.loadEventRequestNotifications();
           },
           error: err => {
             console.error('Error deleting request:', err);

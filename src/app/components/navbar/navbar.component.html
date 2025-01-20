@@ -14,20 +14,19 @@
         </ng-template>
       </p-button>
     </div>
-    <!--
+
     <div class="col-fixed w-min p-0">
-        <p-button
-          [text]="true"
-          [severity]="getSeverity('/search')"
-          (click)="navigateTo('/search')">
-          <ng-template pTemplate="icon">
-            <rmx-icon
-              style="width: 24px; height: 24px"
-              [name]="activeIcon('/search')"></rmx-icon>
-          </ng-template>
-        </p-button>
+      <p-button
+        [text]="true"
+        [severity]="getSeverity('/search')"
+        (click)="navigateTo('/search')">
+        <ng-template pTemplate="icon">
+          <rmx-icon
+            style="width: 24px; height: 24px"
+            [name]="activeIcon('/search')"></rmx-icon>
+        </ng-template>
+      </p-button>
     </div>
-  -->
     <div class="col-fixed w-min p-0">
       <p-button
         [raised]="true"
@@ -44,7 +43,14 @@
       <p-button
         [text]="true"
         [severity]="getSeverity('/my-events')"
-        (click)="navigateTo('/my-events')">
+        (click)="navigateTo('/my-events')"
+        styleClass="overflow-visible">
+        @if ((myEventsPushNotifications$ | async) != 0) {
+          <p-badge
+            severity="success"
+            styleClass="custom-badge"
+            [value]="myEventsPushNotifications$ | async" />
+        }
         <ng-template pTemplate="icon">
           <rmx-icon
             style="width: 24px; height: 24px"
@@ -56,7 +62,8 @@
       <p-button
         [text]="true"
         [severity]="getSeverity('/my-space')"
-        (click)="navigateTo('/my-space')">
+        (click)="navigateTo('/my-space')"
+        styleClass="overflow-visible">
         <ng-template pTemplate="icon">
           <rmx-icon
             style="width: 24px; height: 24px"
@@ -76,34 +83,63 @@
     closeOnEscape="false"
     [visible]="true"
     position="left"
-    styleClass="w-2 p-0 m-0 h-full flex flex-column justify-content-between">
-    <div class="flex flex-column align-items-center pt-3 pb-3">
-      <p-image
-        src="images/logo_full_dark.svg"
-        [width]="isMd ? '120' : '150'"
-        alt="Connect-U Logo"
-        class="logo-container" />
-    </div>
-    <p-menu [model]="items" styleClass="border-none w-full p-0 m-0">
-      <ng-template pTemplate="item" let-item>
-        @if (item.route) {
-          <a
-            [routerLink]="item.route"
-            class="p-menuitem-link flex align-items-center">
-            <rmx-icon
-              style="width: 18px; height: 18px"
-              class="hidden lg:block"
-              [name]="item.icon"
-              [ngClass]="{ 'color-secondary': currentUrl === item.route }">
-            </rmx-icon>
-            <span
-              class="ml-0 lg:ml-3 p-0 m-0"
-              [ngClass]="{ 'color-secondary': currentUrl === item.route }">
-              {{ item.label }}
-            </span>
-          </a>
-        }
-      </ng-template>
-    </p-menu>
+    class="align-content-between"
+    styleClass="w-2 p-0 m-0">
+    <ng-template pTemplate="headless">
+      <div
+        class="flex flex-column h-full justify-content-between align-content-around">
+        <div class="mt-5">
+          <div class="flex flex-column align-items-center pt-3 pb-3">
+            <p-image
+              src="images/logo_full_dark.svg"
+              [width]="isMd ? '120' : '150'"
+              alt="Connect-U Logo"
+              class="logo-container" />
+          </div>
+          <p-menu [model]="items" styleClass="border-none w-full p-0 m-0">
+            <ng-template pTemplate="item" let-item>
+              @if (item.route) {
+                <a
+                  [routerLink]="item.route"
+                  class="p-menuitem-link pl-4 flex align-items-center gap-2">
+                  <rmx-icon
+                    style="width: 18px; height: 18px"
+                    class="hidden lg:block"
+                    [name]="item.icon"
+                    [ngClass]="{
+                      'color-secondary': currentUrl === item.route,
+                    }">
+                  </rmx-icon>
+                  <span
+                    class="ml-0 p-0 m-0"
+                    [ngClass]="{
+                      'color-secondary': currentUrl === item.route,
+                    }">
+                    {{ item.label }}
+                  </span>
+                  @if (
+                    item.iBadge && (myEventsPushNotifications$ | async) != 0
+                  ) {
+                    <span
+                      [style]="{
+                        'z-index': 1,
+                        'min-width': '20px',
+                        height: '20px',
+                      }"
+                      class="bg-blue-900 border-round-3xl border-blue-900 text-center text-white px-1 justify-content-center flex align-content-center align-items-center"
+                      >{{ myEventsPushNotifications$ | async }}</span
+                    >
+                  }
+                </a>
+              }
+            </ng-template>
+          </p-menu>
+        </div>
+
+        <div class="mb-2 p-4">
+          <app-language-selector />
+        </div>
+      </div>
+    </ng-template>
   </p-sidebar>
 </div>

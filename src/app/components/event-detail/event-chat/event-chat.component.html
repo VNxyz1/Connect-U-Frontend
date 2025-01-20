@@ -1,0 +1,82 @@
+<div class="mt-0">
+  <!-- Chat Messages -->
+  <div
+    #chatContainer
+    class="chat-container overflow-scroll flex-grow-1 pb-4 mt-0">
+    <div class="justify-content-center py-2">
+      @if (messages$ | async; as Messages) {
+        @if (Messages.readMessages.length || Messages.unreadMessages.length) {
+          @if (Messages.readMessages) {
+            @for (message of Messages.readMessages; track message.id) {
+              <div
+                class="col py-0 px-1 flex content my-2"
+                [ngClass]="{
+                  'justify-content-end': message.writer?.isUser,
+                  'justify-content-start': !message.writer?.isUser,
+                }">
+                <app-event-message [message]="message"></app-event-message>
+              </div>
+            }
+          }
+          @if (Messages.unreadMessages.length) {
+            @if (initialLoad) {
+              <div
+                class="col-12 unread-messages text-center justify-content-center p-1 my-1 align-items-center">
+                {{ Messages.unreadMessages.length }}
+                {{ 'eventChatPage.unreadMessages' | transloco }}
+              </div>
+            }
+            @for (message of Messages.unreadMessages; track message.id) {
+              <div
+                class="col py-0 px-1 flex content my-2"
+                [ngClass]="{
+                  'justify-content-end': message.writer?.isUser,
+                  'justify-content-start': !message.writer?.isUser,
+                }">
+                <app-event-message [message]="message"></app-event-message>
+              </div>
+            }
+          }
+        } @else {
+          <div class="top-auto flex flex-column align-items-center text-center">
+            <h3 class="text-lg font-bold mb-2">
+              {{ 'eventChatPage.no-messages' | transloco }}
+            </h3>
+          </div>
+        }
+      } @else {
+        <!-- Skeleton Loading -->
+        <p-skeleton height="3rem" class="mb-2"></p-skeleton>
+        <p-skeleton height="3rem" class="mb-2"></p-skeleton>
+        <p-skeleton height="3rem" class="mb-2"></p-skeleton>
+      }
+    </div>
+  </div>
+
+  <!-- Input Field -->
+  <div class="flex align-items-center justify-content-center">
+    <p-iconField
+      iconPosition="right"
+      class="justify-content-center max-w-30rem w-full fixed md:mb-5 bg-white">
+      <!-- Input Field -->
+      <input
+        pInputText
+        placeholder="{{ 'eventChatPage.placeholder-input' | transloco }}"
+        class="flex-grow-1 w-full"
+        [(ngModel)]="newMessage"
+        (keydown.enter)="sendMessage()" />
+
+      <!-- Icon Button -->
+      <p-inputIcon
+        tabindex="0"
+        aria-label="Send message"
+        class="cursor-pointer"
+        (click)="sendMessage()">
+        @if (newMessage.trim().length > 0) {
+          <rmx-icon name="send-plane-fill" style="width: 1rem; height: 1rem">
+          </rmx-icon>
+        }
+      </p-inputIcon>
+    </p-iconField>
+  </div>
+</div>

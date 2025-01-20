@@ -14,10 +14,16 @@ import { filter } from 'rxjs/operators';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 import { SidebarModule } from 'primeng/sidebar';
-import { NgClass } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { ImageModule } from 'primeng/image';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { TranslocoService } from '@jsverse/transloco';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
+import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
+import { PushNotificationService } from '../../services/push-notification/push-notification.service';
+import { Observable } from 'rxjs';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
   selector: 'app-navbar',
@@ -30,6 +36,11 @@ import { TranslocoService } from '@jsverse/transloco';
     SidebarModule,
     NgClass,
     ImageModule,
+    DropdownModule,
+    FormsModule,
+    LanguageSelectorComponent,
+    BadgeModule,
+    AsyncPipe,
   ],
   templateUrl: './navbar.component.html',
 })
@@ -39,12 +50,15 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   isMd: boolean = false;
   isMobile: boolean = false;
 
+  myEventsPushNotifications$!: Observable<number>;
+
   constructor(
     private router: Router,
     private breakpointObserver: BreakpointObserver,
     private translocoService: TranslocoService,
     private renderer: Renderer2,
     private elRef: ElementRef,
+    private pushNotifications: PushNotificationService,
   ) {
     setTimeout(() => {
       this.updateMenuItems();
@@ -72,6 +86,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
             this.isMd = breakpoints['(max-width: 1085px)'] || false;
           });
       });
+    this.myEventsPushNotifications$ =
+      this.pushNotifications.getNavbarMyEvents();
   }
 
   ngAfterViewInit() {
@@ -105,6 +121,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
       '/create-event/step1': 'add',
       '/my-events': 'function',
       '/my-space': 'user-3',
+      '/share-profile': 'qr-scan-2',
     };
 
     const baseIcon = iconBaseMap[path];
@@ -130,15 +147,12 @@ export class NavbarComponent implements OnInit, AfterViewInit {
             icon: this.activeIcon('/'),
             command: () => this.navigateTo('/'),
           },
-          // Commented out the search item
-          /*
           {
             label: translations['navbarComponent.search'],
             route: '/search',
             icon: this.activeIcon('/search'),
             command: () => this.navigateTo('/search'),
           },
-          */
           {
             label: translations['navbarComponent.createEvent'],
             route: '/create-event/step1',
@@ -150,6 +164,13 @@ export class NavbarComponent implements OnInit, AfterViewInit {
             route: '/my-events',
             icon: this.activeIcon('/my-events'),
             command: () => this.navigateTo('/my-events'),
+            iBadge: true,
+          },
+          {
+            label: translations['navbarComponent.shareProfile'],
+            route: '/share-profile',
+            icon: this.activeIcon('/share-profile'),
+            command: () => this.navigateTo('/share-profile'),
           },
           {
             label: translations['navbarComponent.mySpace'],

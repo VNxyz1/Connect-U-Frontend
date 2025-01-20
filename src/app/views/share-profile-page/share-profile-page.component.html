@@ -1,0 +1,31 @@
+@if (!environment.hideCamera) {
+  <p-tabMenu
+    [model]="tabMenuItems"
+    [(activeItem)]="activeTabItem"
+    (activeItemChange)="onActiveItemChange($event)">
+    <ng-template pTemplate="item" let-item>
+      <ng-container>
+        <a
+          [routerLink]="item.route"
+          [state]="item.state"
+          class="p-menuitem-link">
+          <!-- Add icon explicitly -->
+          <rmx-icon
+            style="width: 16px; height: 16px; margin-right: 8px"
+            [name]="item.icon"></rmx-icon>
+          <span class="hidden md:block">{{ item.label }}</span>
+        </a>
+      </ng-container>
+    </ng-template>
+  </p-tabMenu>
+}
+
+<div class="flex p-3 mt-4 mb-2 justify-content-center">
+  @if (!this.router.url.includes('/scan-qr')) {
+    <app-qr-code-and-link />
+  }
+
+  @if (!environment.hideCamera) {
+    <router-outlet></router-outlet>
+  }
+</div>

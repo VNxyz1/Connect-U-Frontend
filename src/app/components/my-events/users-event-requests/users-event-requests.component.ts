@@ -1,14 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
-import { Button } from 'primeng/button';
+import { Button, ButtonDirective } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { MessageService, PrimeTemplate } from 'primeng/api';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { HttpClient } from '@angular/common/http';
-import { EventRequestService } from '../../../services/event/event-request/event-request.service';
+import { EventRequestService } from '../../../services/event/event-request.service';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
+import { UserService } from '../../../services/user/user.service';
+import { EventService } from '../../../services/event/eventservice';
+import { EventDetails } from '../../../interfaces/EventDetails';
 
 @Component({
   selector: 'app-users-event-requests',
@@ -21,19 +26,30 @@ import { EventRequestService } from '../../../services/event/event-request/event
     TranslocoPipe,
     RouterLink,
     TranslocoDatePipe,
+    AsyncPipe,
   ],
   templateUrl: './users-event-requests.component.html',
 })
-export class UsersEventRequestsComponent {
+export class UsersEventRequestsComponent implements OnInit {
   @Input() eventRequests!: UsersEventRequest[];
+  invites$!: Observable<UsersEventRequest[]>;
 
   constructor(
-    private http: HttpClient,
     private readonly requestService: EventRequestService,
     private messageService: MessageService,
     private readonly translocoService: TranslocoService,
+    private pushNotificationService: PushNotificationService,
+    protected readonly userService: UserService,
+    protected router: Router,
+    protected eventService: EventService,
   ) {}
+  ngOnInit() {
+    this.loadInvites();
+  }
 
+  protected loadInvites() {
+    this.invites$ = this.requestService.getInvitationFromFriends();
+  }
   protected deleteEventRequest(
     eventTitle: string,
     requestId: number,
@@ -46,6 +62,7 @@ export class UsersEventRequestsComponent {
         this.eventRequests = this.eventRequests.filter(
           request => request.id !== requestId,
         );
+        this.pushNotificationService.loadEventRequestNotifications();
         this.messageService.add({
           severity: 'success',
           summary: this.translocoService.translate(
@@ -75,6 +92,7 @@ export class UsersEventRequestsComponent {
         if (request) {
           request.denied = false;
         }
+        this.pushNotificationService.loadEventRequestNotifications();
         this.messageService.add({
           severity: 'success',
           summary: this.translocoService.translate(
@@ -85,6 +103,64 @@ export class UsersEventRequestsComponent {
       },
       error: err => {
         console.error('Error creating new request:', err);
+      },
+    });
+  }
+
+  protected denyFriendsRequestedEvent(inviteID: number) {
+    this.requestService.denyFriendsRequest(inviteID).subscribe({
+      next: () => {
+        this.pushNotificationService.loadEventRequestNotifications();
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translocoService.translate('inviteByFriends.denyTitle'),
+          detail: this.translocoService.translate(
+            'inviteByFriends.denyMessage',
+          ),
+        });
+        this.loadInvites();
+      },
+      error: err => {
+        console.error('Error denying invitation:', err);
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translocoService.translate(
+            'eventInvite.deny.errorTitle',
+          ),
+          detail: this.translocoService.translate(
+            'eventInvite.deny.errorMessage',
+          ),
+        });
+      },
+    });
+  }
+
+  protected acceptFriendsRequestedEvent(inviteID: number, event: EventDetails) {
+    this.requestService.acceptFriendsRequest(inviteID).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translocoService.translate(
+            'inviteByFriends.acceptTitle',
+          ),
+          detail: this.translocoService.translate(
+            'inviteByFriends.acceptDetail',
+            { title: event.title },
+          ),
+        });
+        this.router.navigate(['/event', event.id]);
+      },
+      error: err => {
+        console.error('Error denying invitation:', err);
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translocoService.translate(
+            'eventInvite.deny.errorTitle',
+          ),
+          detail: this.translocoService.translate(
+            'eventInvite.deny.errorMessage',
+          ),
+        });
       },
     });
   }

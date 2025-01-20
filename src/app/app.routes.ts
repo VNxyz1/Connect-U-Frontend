@@ -27,6 +27,15 @@ import { AccountManagePageComponent } from './views/account-manage-page/account-
 import { EventGuestsComponent } from './components/event-detail/event-guests/event-guests.component';
 import { InformationPageComponent } from './views/information-page/information-page.component';
 import { TermsPageComponent } from './views/terms-page/terms-page.component';
+import { EventChatComponent } from './components/event-detail/event-chat/event-chat.component';
+import { ShareProfilePageComponent } from './views/share-profile-page/share-profile-page.component';
+import { AddFriendComponent } from './views/add-friend/add-friend.component';
+import { ResultsPageComponent } from './views/results-page/results-page.component';
+import { QrCodeAndLinkComponent } from './components/qr-code-and-link/qr-code-and-link.component';
+import { CameraComponent } from './components/camera/camera.component';
+import { ServerUnavailablePageComponent } from './views/server-unavailable-page/server-unavailable-page.component';
+import { MyFriendsComponent } from './views/my-friends/my-friends.component';
+import { AppRoutes } from './interfaces/AppRoutes';
 
 /**
  * If the user is not logged in, he should be redirected to the landingpage (welcome)
@@ -34,134 +43,211 @@ import { TermsPageComponent } from './views/terms-page/terms-page.component';
  */
 export const routes: Routes = [
   {
-    path: '',
+    path: AppRoutes.HOME,
     title: 'Home | Connect-U',
     component: HomePageComponent,
     canActivate: [isLoggedInGuard],
   },
   {
-    path: 'welcome',
+    path: 'unavailable',
+    title: 'Server unavailable | Connect-U',
+    component: ServerUnavailablePageComponent,
+  },
+  {
+    path: AppRoutes.WELCOME,
     title: 'Welcome | Connect-U',
     component: LandingPageComponent,
     canActivate: [isNotLoggedInGuard],
   },
   {
-    path: 'search',
+    path: AppRoutes.SEARCH,
     title: 'Search | Connect-U',
     component: SearchPageComponent,
   },
   {
-    path: 'create-event',
+    path: 'search/results',
+    title: 'Search Results | Connect-U',
+    component: ResultsPageComponent,
+  },
+  {
+    path: AppRoutes.CREATE_EVENT,
     title: 'New Event | Connect-U',
     component: CreateEventPageComponent,
     canActivate: [isLoggedInGuard],
     children: [
       {
-        path: 'step1',
+        path: AppRoutes.CREATE_EVENT_STEP1.replace(
+          AppRoutes.CREATE_EVENT + '/',
+          '',
+        ),
         component: Step1Component,
       },
       {
-        path: 'step2',
+        path: AppRoutes.CREATE_EVENT_STEP2.replace(
+          AppRoutes.CREATE_EVENT + '/',
+          '',
+        ),
         component: Step2Component,
       },
       {
-        path: 'step3',
+        path: AppRoutes.CREATE_EVENT_STEP3.replace(
+          AppRoutes.CREATE_EVENT + '/',
+          '',
+        ),
         component: Step3Component,
       },
     ],
   },
   {
-    path: 'my-events',
+    path: AppRoutes.MY_EVENTS,
     title: 'My Events | Connect-U',
     component: MyEventsPageComponent,
     canActivate: [isLoggedInGuard],
-    children: [{ path: 'my-requests', component: UsersEventRequestsComponent }],
+    children: [
+      {
+        path: AppRoutes.MY_EVENTS_REQUESTS.replace(
+          AppRoutes.MY_EVENTS + '/',
+          '',
+        ),
+        component: UsersEventRequestsComponent,
+      },
+    ],
   },
   {
-    path: 'my-space',
+    path: AppRoutes.MY_SPACE,
     title: 'My Space | Connect-U',
     component: MySpacePageComponent,
     canActivate: [isLoggedInGuard],
   },
   {
-    path: 'event/:id',
+    path: AppRoutes.EVENT,
     title: 'Event | Connect-U',
     component: EventPageComponent,
     children: [
       {
-        path: 'lists',
+        path: AppRoutes.EVENT_CHAT.replace(AppRoutes.EVENT + '/', ''),
+        component: EventChatComponent,
+        canActivate: [isLoggedInGuard],
+      },
+      {
+        path: AppRoutes.EVENT_LISTS.replace(AppRoutes.EVENT + '/', ''),
         component: EventListsComponent,
         canActivate: [isLoggedInGuard],
         children: [
-          { path: '', component: ListOverviewPageComponent },
-          { path: 'detail/:listId', component: ListDetailPageComponent },
+          {
+            path: AppRoutes.EVENT_LISTS_OVERVIEW.replace(
+              AppRoutes.EVENT_LISTS + '/',
+              '',
+            ),
+            component: ListOverviewPageComponent,
+          },
+          {
+            path: AppRoutes.EVENT_LISTS_DETAIL.replace(
+              AppRoutes.EVENT_LISTS + '/',
+              '',
+            ),
+            component: ListDetailPageComponent,
+          },
         ],
       },
       {
-        path: 'surveys',
+        path: AppRoutes.EVENT_SURVEYS.replace(AppRoutes.EVENT + '/', ''),
         component: EventSurveysComponent,
         canActivate: [isLoggedInGuard],
       },
       {
-        path: 'requests',
+        path: AppRoutes.EVENT_REQUESTS.replace(AppRoutes.EVENT + '/', ''),
         component: EventRequestsComponent,
         canActivate: [isLoggedInGuard],
       },
       {
-        path: 'guests',
+        path: AppRoutes.EVENT_GUESTS.replace(AppRoutes.EVENT + '/', ''),
         component: EventGuestsComponent,
         canActivate: [isLoggedInGuard],
       },
     ],
   },
   {
-    path: 'profile/:id',
+    path: AppRoutes.PROFILE,
     title: 'Profile | Connect-U',
     component: ProfilePageComponent,
   },
   {
-    path: 'styling',
+    path: AppRoutes.STYLING,
     title: 'Styling | Connect-U',
     component: StylingShowcaseSecretPageComponent,
   },
   {
-    path: 'legal-disclosure',
+    path: AppRoutes.LEGAL_DISCLOSURE,
     title: 'Legal Disclosure | Connect-U',
     component: LegalDisclosurePageComponent,
   },
   {
-    path: 'privacy-policy',
+    path: AppRoutes.PRIVACY_POLICY,
     title: 'Privacy Policy | Connect-U',
     component: PrivacyPolicyPageComponent,
   },
 
   {
-    path: 'terms-and-conditions',
+    path: AppRoutes.TERMS_AND_CONDITIONS,
     title: 'Terms and Conditions | Connect-U',
     component: TermsPageComponent,
   },
   {
-    path: '404',
+    path: AppRoutes.NOT_FOUND,
     title: 'Not Found | Connect-U',
     component: NotFoundPageComponent,
   },
   {
-    path: 'settings',
+    path: AppRoutes.SETTINGS,
     title: 'Settings | Connect-U',
     component: SettingsPageComponent,
   },
   {
-    path: 'information',
+    path: 'my-friends',
+    title: 'My Friends | Connect-U',
+    component: MyFriendsComponent,
+    canActivate: [isLoggedInGuard],
+  },
+  {
+    path: AppRoutes.INFORMATION,
     title: 'Information | Connect-U',
     component: InformationPageComponent,
   },
   {
-    path: 'account',
+    path: AppRoutes.ACCOUNT,
     title: 'Account | Connect-U',
     component: AccountManagePageComponent,
+    canActivate: [isLoggedInGuard],
   },
   {
-    path: '**',
-    redirectTo: '404',
+    path: AppRoutes.SHARE_PROFILE,
+    title: 'Share | Connect-U',
+    component: ShareProfilePageComponent,
+    canActivate: [isLoggedInGuard],
+    children: [
+      {
+        path: 'show-link',
+        title: 'Link | Connect-U',
+        component: QrCodeAndLinkComponent,
+        canActivate: [isLoggedInGuard],
+      },
+      {
+        path: 'scan-qr',
+        title: 'Scan QR Code | Connect-U',
+        component: CameraComponent,
+        canActivate: [isLoggedInGuard],
+      },
+    ],
+  },
+  {
+    path: AppRoutes.ADD_FRIEND,
+    title: 'Add a Friend | Connect-U',
+    component: AddFriendComponent,
+    canActivate: [isLoggedInGuard],
+  },
+  {
+    path: AppRoutes.WILDCARD,
+    redirectTo: AppRoutes.NOT_FOUND,
   },
 ];

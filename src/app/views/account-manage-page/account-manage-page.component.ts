@@ -21,6 +21,8 @@ import { PasswordModule } from 'primeng/password';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { ToastModule } from 'primeng/toast';
 import { TooltipModule } from 'primeng/tooltip';
+import { CityService } from '../../services/city/city.service';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @Component({
   selector: 'app-account-manage-page',
@@ -38,18 +40,20 @@ import { TooltipModule } from 'primeng/tooltip';
     AngularRemixIconComponent,
     ToastModule,
     TooltipModule,
+    AutoCompleteModule,
   ],
 })
 export class AccountManagePageComponent implements OnInit {
   accountForm!: FormGroup;
   passwordForm!: FormGroup;
-
+  fetchedCities: string[] = [];
   passwordModalVisible: boolean = false;
 
   constructor(
     private messageService: MessageService,
     private userService: UserService,
     private translocoService: TranslocoService,
+    private cityService: CityService,
   ) {}
 
   ngOnInit(): void {
@@ -240,6 +244,48 @@ export class AccountManagePageComponent implements OnInit {
         },
       });
     }
+  }
+
+  onZipCodeChange(zipCode: string): void {
+    if (zipCode && zipCode.length === 5) {
+      this.getCityByZipCode(zipCode);
+    } else {
+      this.accountForm.get('city')?.setValue('');
+    }
+  }
+
+  getCityByZipCode(zipCode: string): void {
+    this.cityService.getCities(zipCode, undefined).subscribe({
+      next: fetchedCities => {
+        if (fetchedCities && fetchedCities.length > 0) {
+          const city = fetchedCities[0];
+          this.accountForm.get('city')?.setValue(city.name);
+          this.fetchedCities = [city.name];
+        } else {
+          this.fetchedCities = [];
+        }
+      },
+      error: error => {
+        console.error('Error fetching city by zip code:', error);
+        this.fetchedCities = [];
+      },
+    });
+  }
+
+  searchCities(event: any): void {
+    const query = event.query.toLowerCase();
+
+    this.cityService.getCities(undefined, query).subscribe({
+      next: fetchedCities => {
+        this.fetchedCities = Array.from(
+          new Set(fetchedCities.map(city => city.name)),
+        );
+      },
+      error: error => {
+        console.error('Error fetching cities:', error);
+        this.fetchedCities = [];
+      },
+    });
   }
 
   showPasswordModal(): void {

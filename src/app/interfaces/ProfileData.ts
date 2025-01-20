@@ -16,4 +16,6 @@ export interface ProfileData {
   isUser?: boolean;
   tags: string[];
   imageUrl?: string;
+  profilePicture: string;
+  areFriends?: boolean;
 }

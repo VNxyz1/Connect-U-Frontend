@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {
   ListDetail,
   ListEntry,
@@ -7,7 +7,7 @@ import {
 } from '../../../../services/lists/list.service';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { CheckboxModule } from 'primeng/checkbox';
-import { Button, ButtonDirective } from 'primeng/button';
+import { Button } from 'primeng/button';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { SkeletonModule } from 'primeng/skeleton';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -23,6 +23,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { TranslocoService } from '@jsverse/transloco';
 import { SocketService } from '../../../../services/socket/socket.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../../../services/user/user.service';
 
 const BadRequestMessages: Record<string, string> = {
   'A list entry with the same description already exists.':
@@ -41,7 +42,6 @@ const BadRequestMessages: Record<string, string> = {
     NgOptimizedImage,
     InputGroupModule,
     InputTextModule,
-    ButtonDirective,
     ReactiveFormsModule,
     FormsModule,
   ],
@@ -55,6 +55,9 @@ export class ListDetailPageComponent implements OnInit {
   set listId(listId: number) {
     this._listId = listId;
   }
+
+  private _listDetailSubject$!: BehaviorSubject<ListDetail>;
+
   listDetail$!: Observable<ListDetail>;
   eventId!: string;
   _listId!: number;
@@ -69,17 +72,24 @@ export class ListDetailPageComponent implements OnInit {
   });
 
   constructor(
-    private listService: ListService,
-    private messageService: MessageService,
-    private translocoService: TranslocoService,
-    private sockets: SocketService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private confirmationService: ConfirmationService,
+    private readonly listService: ListService,
+    private readonly messageService: MessageService,
+    private readonly translocoService: TranslocoService,
+    protected readonly userService: UserService,
+    private readonly sockets: SocketService,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute,
+    private readonly confirmationService: ConfirmationService,
   ) {}
 
   ngOnInit(): void {
-    this.getAndSetListDetails();
+    this.listService.getListDetail(this._listId).subscribe({
+      next: res => {
+        this._listDetailSubject$ = new BehaviorSubject<ListDetail>(res);
+        this.listDetail$ = this._listDetailSubject$.asObservable();
+      },
+    });
+
     this.sockets.on('updateListDetail').subscribe({
       next: () => this.getAndSetListDetails(),
     });
@@ -89,7 +99,9 @@ export class ListDetailPageComponent implements OnInit {
   }
 
   getAndSetListDetails() {
-    this.listDetail$ = this.listService.getListDetail(this._listId);
+    this.listService.getListDetail(this._listId).subscribe({
+      next: res => this._listDetailSubject$.next(res),
+    });
   }
 
   showCreateInput() {
@@ -189,7 +201,6 @@ export class ListDetailPageComponent implements OnInit {
                 'listPage.deleteListSuccessMessage',
               ),
             });
-            console.log('List successfully deleted!');
           },
           error: err => {
             this.messageService.add({
@@ -205,9 +216,7 @@ export class ListDetailPageComponent implements OnInit {
           },
         });
       },
-      reject: () => {
-        console.log('List deletion cancelled.');
-      },
+      reject: () => {},
     });
   }
 
@@ -234,7 +243,6 @@ export class ListDetailPageComponent implements OnInit {
                   'listPage.deleteEntrySuccessMessage',
                 ),
               });
-              console.log('List entry successfully deleted!');
             },
             error: err => {
               this.messageService.add({
@@ -249,13 +257,9 @@ export class ListDetailPageComponent implements OnInit {
               console.error('Error deleting list entry:', err);
             },
           });
-        } else {
-          console.log('Invalid entry ID');
         }
       },
-      reject: () => {
-        console.log('List entry deletion cancelled.');
-      },
+      reject: () => {},
     });
   }
 }

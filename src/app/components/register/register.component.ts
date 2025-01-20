@@ -17,7 +17,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageService, PrimeTemplate } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { RouterLink } from '@angular/router';
 import { DateService } from '../../services/date/date.service';
 import { AuthService, RegisterBody } from '../../services/auth/auth.service';
 import {
@@ -157,7 +156,6 @@ export class RegisterComponent {
         window.location.reload();
       },
       error: errorResponse => {
-        console.log(errorResponse); // Debug
         const errorMessage = Array.isArray(errorResponse.message)
           ? errorResponse.message[0]
           : errorResponse.message;

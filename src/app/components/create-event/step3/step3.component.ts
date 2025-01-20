@@ -9,11 +9,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageService, PrimeTemplate } from 'primeng/api';
 import { SliderModule } from 'primeng/slider';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MultiSelectModule } from 'primeng/multiselect';
 import { Subject, takeUntil } from 'rxjs';
 import { NgClass } from '@angular/common';
 import { EventData } from '../../../services/event/eventservice';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-step3',
@@ -27,21 +28,21 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
     InputTextModule,
     PrimeTemplate,
     SliderModule,
-    MultiSelectModule,
     NgClass,
     TranslocoPipe,
+    MultiSelectModule,
   ],
   templateUrl: './step3.component.html',
 })
 export class Step3Component implements OnInit {
   title: string | undefined;
   participantsNumber: number | undefined;
-  participants: { id: number; name: string }[] = [];
-  selectedParticipants: number[] = [];
   genders: { label: string; value: number }[] = [];
   preferredGenders: number[] = [];
-  ageValues: number[] = [16, 99];
+  ageValues: (number | undefined)[] = [16, 99];
+  private ageChangeSubject = new Subject<{ index: number; value: number }>();
   submitted: boolean = false;
+  eventImage: File | null = null;
   private readonly unsubscribe$ = new Subject<void>();
 
   constructor(
@@ -50,11 +51,39 @@ export class Step3Component implements OnInit {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private translocoService: TranslocoService,
-  ) {}
+  ) {
+    this.ageChangeSubject
+      .pipe(debounceTime(300))
+      .subscribe(({ index, value }) => {
+        this.applyAgeChange(index, value);
+      });
+  }
 
   async ngOnInit() {
+    this.ageChangeSubject
+      .pipe(debounceTime(300))
+      .subscribe(({ index, value }) => {
+        this.applyAgeChange(index, value);
+      });
+
     await this.loadGenders();
     await this.insertValuesAgain();
+    await this.loadImageFromStorage();
+  }
+
+  async loadImageFromStorage(): Promise<void> {
+    try {
+      const storedBase64Image = await this.eventService.getEventImage(); // Aus StorageService laden
+      if (storedBase64Image) {
+        this.eventImage = await this.base64ToFile(
+          storedBase64Image,
+          'eventImage.jpg',
+        );
+        console.log('Event image loaded:', this.eventImage);
+      }
+    } catch (error) {
+      console.error('Error loading event image:', error);
+    }
   }
 
   private async loadGenders() {
@@ -63,7 +92,6 @@ export class Step3Component implements OnInit {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: data => {
-          // Transform the genders to include translated label and value
           this.genders = data.map(gender => {
             let label = '';
             switch (gender.gender) {
@@ -104,35 +132,134 @@ export class Step3Component implements OnInit {
     );
   }
 
-  protected onAgeChange(index: number, value: string | number) {
-    this.ageValues[index] =
-      value === this.getMaxAgePlaceholder() ? 99 : Number(value);
+  protected onSliderChange(event: (number | undefined)[]): void {
+    this.ageValues = [...event];
+  }
+
+  protected onAgeChange(
+    index: number,
+    value: string | number,
+    event?: KeyboardEvent,
+  ): void {
+    const valueString = value.toString();
+    if (
+      event?.key === 'Backspace' ||
+      event?.key === 'Delete' ||
+      valueString.length < 2
+    ) {
+      if (value === '') {
+        this.ageValues[index] = undefined;
+      }
+      return;
+    }
+
+    if (value === '') {
+      this.ageValues[index] = undefined;
+      return;
+    }
+
+    const numericValue = Number(value);
+
+    if (isNaN(numericValue)) {
+      return;
+    }
+
+    this.ageValues[index] = numericValue;
+
+    this.ageChangeSubject.next({ index, value: numericValue });
+  }
+
+  protected onAgeBlur(index: number): void {
+    const currentValue: number | string | undefined = this.ageValues[index];
+
+    if (currentValue === undefined || currentValue === null) {
+      this.ageValues[index] = index === 0 ? 16 : 99;
+    } else {
+      const numericValue = Number(currentValue);
+
+      if (!isNaN(numericValue)) {
+        if (index === 0) {
+          this.ageValues[0] = Math.max(
+            16,
+            Math.min(numericValue, this.ageValues[1] ?? 99),
+          );
+        } else if (index === 1) {
+          this.ageValues[1] = Math.min(
+            99,
+            Math.max(numericValue, this.ageValues[0] ?? 16),
+          );
+        }
+
+        if (
+          this.ageValues[0] !== undefined &&
+          this.ageValues[1] !== undefined &&
+          this.ageValues[0] > this.ageValues[1]
+        ) {
+          this.ageValues[1] = this.ageValues[0];
+        }
+      }
+    }
+
+    this.onSliderChange([...this.ageValues]);
+  }
+
+  private applyAgeChange(index: number, value: number): void {
+    const stringValue = value.toString();
+
+    if (stringValue === '') {
+      this.ageValues[index] = undefined;
+      return;
+    }
+
+    if (index === 0) {
+      const numericValue = Number(value);
+      if (isNaN(numericValue)) return;
+
+      this.ageValues[0] = Math.max(
+        0,
+        Math.min(numericValue, <number>this.ageValues[1]),
+      );
+    } else if (index === 1) {
+      const numericValue = Number(value);
+      if (isNaN(numericValue)) return;
+
+      this.ageValues[1] = Math.min(
+        99,
+        Math.max(numericValue, <number>this.ageValues[0]),
+      );
+    }
+
+    if (
+      this.ageValues[0] &&
+      this.ageValues[1] &&
+      this.ageValues[0] > this.ageValues[1]
+    ) {
+      this.ageValues[1] = this.ageValues[0];
+    }
   }
 
   protected complete() {
     this.submitted = true;
 
-    // Validate required fields
     if (
-      !this.participantsNumber ||
-      this.participantsNumber < 2 ||
-      this.ageValues[0] < 16 ||
-      this.ageValues[1] > 99 ||
-      this.ageValues[0] > this.ageValues[1]
+      this.ageValues[0] &&
+      this.ageValues[1] &&
+      (!this.participantsNumber ||
+        this.participantsNumber < 2 ||
+        this.ageValues[0] < 16 ||
+        this.ageValues[1] > 99 ||
+        this.ageValues[0] > this.ageValues[1])
     ) {
-      return; // Stop execution if validation fails
+      return;
     }
 
-    // Save event information
     this.sendEventInformation();
 
-    // Submit event data to the server
     this.eventService.postEvent().subscribe({
       next: (response: any) => {
         const eventId = response?.eventId;
 
         if (eventId) {
-          // Add success message with translation
           this.messageService.add({
             severity: 'success',
             summary: this.translocoService.translate(
@@ -140,13 +267,20 @@ export class Step3Component implements OnInit {
               { title: this.title },
             ),
           });
+          if (this.eventImage) {
+            const formData = new FormData();
+            formData.append('file', this.eventImage);
 
-          setTimeout(() => {
-            // Navigate to the created event page
-            this.router
-              .navigate([`../../event/${eventId}`], { relativeTo: this.route })
-              .then(() => {});
-          }, 2000);
+            this.eventService.postEventImage(eventId, formData).subscribe({
+              next: data => console.log(data),
+            });
+            this.eventService.removeEventImage().then(r => {
+              console.log(r);
+              this.navigateToEvent(eventId);
+            });
+          } else {
+            this.navigateToEvent(eventId);
+          }
         } else {
           throw new Error(
             this.translocoService.translate(
@@ -157,8 +291,6 @@ export class Step3Component implements OnInit {
       },
       error: error => {
         console.error('Error posting event:', error);
-
-        // Add error message with translation
         this.messageService.add({
           severity: 'error',
           summary: this.translocoService.translate(
@@ -168,42 +300,55 @@ export class Step3Component implements OnInit {
             'createEventStep3Component.messages.eventCreatedErrorMessage',
           ),
         });
-
         return;
       },
     });
+  }
+
+  private navigateToEvent(eventId: string): void {
+    setTimeout(() => {
+      this.router.navigate(['/event', eventId], {
+        relativeTo: this.route,
+        queryParams: { fromCreate: true },
+      });
+    }, 2000);
   }
 
   protected prevPage() {
     this.sendEventInformation();
     this.router
       .navigate(['../step2'], { relativeTo: this.route })
-      .then(() => {
-        // Navigation successful
-      })
+      .then(() => {})
       .catch(err => {
         console.error('Navigation error:', err);
       });
   }
 
   private async sendEventInformation() {
-    // Create partial event data object
     const data: Partial<EventData> = {
       participantsNumber: this.participantsNumber,
       preferredGenders: this.preferredGenders,
     };
 
-    // Only include startAge if it's not the default value of 16
     if (this.ageValues[0] !== 16) {
       data.startAge = this.ageValues[0];
     }
 
-    // Only include endAge if it's not the default value of 99
     if (this.ageValues[1] !== 99) {
       data.endAge = this.ageValues[1];
     }
 
-    // Save event information
     await this.eventService.setEventInformation(data);
+  }
+
+  protected readonly KeyboardEvent = KeyboardEvent;
+  private base64ToFile(base64: string, fileName: string): File {
+    const byteString = atob(base64.split(',')[1]);
+    const mimeType = base64.split(',')[0].match(/:(.*?);/)?.[1] || 'image/jpeg';
+    const byteNumbers = new Array(byteString.length)
+      .fill(0)
+      .map((_, i) => byteString.charCodeAt(i));
+    const byteArray = new Uint8Array(byteNumbers);
+    return new File([byteArray], fileName, { type: mimeType });
   }
 }

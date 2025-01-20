@@ -88,18 +88,24 @@
                   [ngModel]="!!listEntry.user"
                   (click)="handleCheckboxChange(listEntry)" />
               </div>
-              <div class="col flex align-items-center">
+              <div
+                class="col flex align-items-center overflow-hidden"
+                style="word-break: break-word">
                 <span>{{ listEntry.content }}</span>
               </div>
               <div
                 class="col-fixed w-min flex align-items-center align-content-center">
                 <span class="mr-2">{{ listEntry.user?.username }}</span>
-                <img
-                  ngSrc="/images/userImg.png"
-                  alt="profile picture"
-                  class="border-circle"
-                  width="35"
-                  height="35" />
+                @if (listEntry.user) {
+                  <img
+                    ngSrc="{{
+                      userService.getImageFile(listEntry.user.profilePicture)
+                    }}"
+                    alt="profile picture"
+                    class="border-circle"
+                    width="35"
+                    height="35" />
+                }
               </div>
               <div class="col-fixed w-min flex align-items-center">
                 <p-button

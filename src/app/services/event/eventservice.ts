@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../storage/storage.service';
-import { Observable, Subject, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  combineLatest,
+  Observable,
+  Subject,
+  throwError,
+} from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { EventCardItem } from '../../interfaces/EventCardItem';
 import { EventDetails } from '../../interfaces/EventDetails';
+import { environment } from '../../../environments/environment';
 
 export type EventData = {
   categories: number[];
@@ -32,16 +39,35 @@ type Gender = { id: number; gender: number };
   providedIn: 'root',
 })
 export class EventService {
-  private readonly storageKeyCreate = 'eventCreateInformation'; // Key for stored data
+  private readonly storageKeyCreate = 'eventCreateInformation';
+  private readonly storageKeyEventImg = 'eventImage';
   private _eventCreateInformation: EventData | null = null;
 
   private readonly eventComplete = new Subject<EventData>();
   eventComplete$ = this.eventComplete.asObservable();
 
+  private page = 0;
+  private readonly pageSize = 12;
+  private fyPageSubject: BehaviorSubject<EventCardItem[]> = new BehaviorSubject<
+    EventCardItem[]
+  >([]);
+  private hasMoreFyEventsSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(true);
+
+  private allEventsPage = 0;
+  private readonly allEventsPageSize = 12;
+  private allEventsSubject: BehaviorSubject<EventCardItem[]> =
+    new BehaviorSubject<EventCardItem[]>([]);
+  private hasMoreAllEventsSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(true);
+
   constructor(
     private readonly http: HttpClient,
     private readonly storageService: StorageService,
-  ) {}
+  ) {
+    this.loadNextFyPage();
+    this.loadNextAllEventsPage();
+  }
 
   /**
    * Retrieves the current event information from storage or initializes it with default values.
@@ -75,7 +101,20 @@ export class EventService {
   }
 
   async removeEventInformation(): Promise<void> {
+    this._eventCreateInformation = this.getDefaultEventData();
     return await this.storageService.remove(this.storageKeyCreate);
+  }
+
+  async setEventImage(base64Image: string): Promise<void> {
+    await this.storageService.set(this.storageKeyEventImg, base64Image);
+  }
+
+  async getEventImage(): Promise<string | null> {
+    return await this.storageService.get(this.storageKeyEventImg);
+  }
+
+  async removeEventImage(): Promise<void> {
+    await this.storageService.remove(this.storageKeyEventImg);
   }
 
   /**
@@ -173,18 +212,100 @@ export class EventService {
       }),
     );
   }
+  postEventImage(eventId: string, imgFile: FormData) {
+    console.log('file im service: ', imgFile, ' id:', eventId);
+    return this.http.patch('event/eventPicture/' + eventId, imgFile);
+  }
 
-  /**
-   * Fetches all events from the server.
-   * @returns {Observable<EventCardItem[]>} An observable that emits an array of event card items.
-   */
-  getAllEvents(): Observable<EventCardItem[]> {
-    return this.http.get<EventCardItem[]>('event/allEvents');
+  getAllEvents() {
+    return combineLatest([
+      this.allEventsSubject.asObservable(),
+      this.hasMoreAllEventsSubject.asObservable(),
+    ]).pipe(
+      map(([events, hasMore]) => ({
+        events,
+        hasMore,
+      })),
+    );
+  }
+
+  private loadAllEvents(
+    page: number,
+    pageSize: number,
+  ): Observable<EventCardItem[]> {
+    return this.http.get<EventCardItem[]>('event/allEvents', {
+      params: {
+        page: page,
+        size: pageSize,
+      },
+    });
+  }
+
+  loadNextAllEventsPage(): void {
+    if (!this.hasMoreAllEventsSubject.getValue()) {
+      this.allEventsSubject.next(this.allEventsSubject.getValue());
+      return;
+    }
+    this.loadAllEvents(this.allEventsPage, this.allEventsPageSize).subscribe({
+      next: newItems => {
+        if (newItems.length === 0) {
+          this.hasMoreAllEventsSubject.next(false);
+          return;
+        }
+
+        const currentItems = this.allEventsSubject.getValue();
+        const updatedItems = [...currentItems, ...newItems];
+        this.allEventsSubject.next(updatedItems);
+      },
+    });
+    this.allEventsPage++;
+  }
+
+  getFyEvents() {
+    return combineLatest([
+      this.fyPageSubject.asObservable(),
+      this.hasMoreFyEventsSubject.asObservable(),
+    ]).pipe(
+      map(([events, hasMore]) => ({
+        events,
+        hasMore,
+      })),
+    );
+  }
+
+  private loadFyPage(page: number, pageSize: number) {
+    return this.http.get<EventCardItem[]>('event/fy-page', {
+      params: {
+        page: page,
+        size: pageSize,
+      },
+    });
+  }
+
+  loadNextFyPage(): void {
+    if (!this.hasMoreFyEventsSubject.getValue()) {
+      this.fyPageSubject.next(this.fyPageSubject.getValue());
+      return;
+    }
+
+    this.loadFyPage(this.page, this.pageSize).subscribe({
+      next: newItems => {
+        if (newItems.length === 0) {
+          this.hasMoreFyEventsSubject.next(false);
+          return;
+        }
+
+        const currentItems = this.fyPageSubject.getValue();
+        const updatedItems = [...currentItems, ...newItems];
+        this.fyPageSubject.next(updatedItems);
+      },
+    });
+    this.page++;
   }
 
   /**
-   * Fetches the participating Events of an User
-   * @returns {Observable<EventCardItem[]>} An observable that emits an User specific array of event card items.
+   * Fetches the participating Events of a User
+   * @returns {Observable<EventCardItem[]>} An observable that emits a User specific array of event card items.
    */
   getParticipatingEvents(): Observable<EventCardItem[]> {
     return this.http.get<EventCardItem[]>('event/participatingEvents');
@@ -240,10 +361,6 @@ export class EventService {
     const url = `event/join/${eventId}`;
     return this.http.post<{ success: boolean; message: string }>(url, {}).pipe(
       map(response => {
-        console.log(
-          'User successfully added to the event participants:',
-          response,
-        );
         return response;
       }),
       catchError(error => {
@@ -258,6 +375,11 @@ export class EventService {
 
   getUpcomingEvents(): Observable<EventCardItem[]> {
     return this.http.get<EventCardItem[]>('event/upcoming');
+  }
+
+  getEventTitleImage(image: string): string {
+    const value = image == '' ? '' : image;
+    return `${environment.apiConfig.urlPrefix}event/eventPicture/${value}`;
   }
 
   removeEventParticipation(

@@ -16,8 +16,7 @@
     <div class="ml-2">
       <rmx-icon
         [name]="expanded ? 'arrow-down-s-line' : 'arrow-right-s-line'"
-        style="height: 26px; width: 26px; cursor: pointer"
-        (click)="toggleExpand()">
+        style="height: 26px; width: 26px; cursor: pointer">
       </rmx-icon>
     </div>
   </div>
@@ -26,36 +25,52 @@
       @if (surveyDetail$ | async; as surveyDetail) {
         <ng-container>
           @for (entry of surveyDetail.surveyEntries; track $index) {
-            <div class="mb-4 mt-4">
+            <div class="mb-4 mt-3">
               <div class="flex align-items-center justify-content-between mb-2">
-                <div class="flex align-items-center">
+                <div class="flex align-items-center w-full">
                   <p-checkbox
                     [ngModel]="isUserInEntry(entry)"
                     binary="true"
-                    class="p-checkbox-rounded mr-2"
+                    class="p-checkbox-rounded mr-2 mt-3"
                     (click)="updateSurveyEntry(entry.id)">
                   </p-checkbox>
-                  <p class="m-0">{{ entry.content }}</p>
+                  <div
+                    class="text-wrap flex-grow-1 mr-2 overflow-hidden"
+                    style="word-break: break-word">
+                    {{ entry.content }}
+                  </div>
                 </div>
                 <div class="flex align-items-center">
-                  <div class="avatar-group mr-2">
-                    @for (user of entry.users.slice(0, 4); track $index) {
+                  <p-avatarGroup>
+                    @for (user of entry.users.slice(0, 2); track $index) {
                       <ng-container>
                         <p-avatar
-                          image="images/userImg.png"
+                          image="{{
+                            userService.getImageFile(user.profilePicture)
+                          }}"
                           shape="circle"
                           size="normal">
                         </p-avatar>
                       </ng-container>
                     }
-                  </div>
-                  <span class="ml-2">{{ entry.users.length }}</span>
+                    @if (entry.users.length > 2) {
+                      <p-avatar
+                        [label]="'+' + (entry.users.length - 2)"
+                        shape="circle"
+                        size="normal"
+                        styleClass="flex align-items-center justify-content-center">
+                      </p-avatar>
+                    }
+                  </p-avatarGroup>
                 </div>
               </div>
               <div>
-                <!-- test functionality has to be updated -->
                 <p-progressBar
-                  [value]="Math.round((entry.users.length / votes) * 100)"
+                  [value]="
+                    votes > 0
+                      ? Math.round((entry.users.length / votes) * 100)
+                      : 0
+                  "
                   [style]="{
                     height: '20px',
                     borderRadius: '40px',
@@ -106,70 +121,76 @@
   position="right"
   [modal]="true"
   [style]="{ width: '300px' }">
-  <h3 class="text-color-secondary">
-    {{ 'surveyCardPage.sidebarTitle' | transloco }}
-  </h3>
-  <ul class="list-none p-0">
-    @if (selectedSurveyEntries) {
-      @for (entry of getSortedEntries(selectedSurveyEntries); track $index) {
-        <li class="mb-3">
-          <div class="flex align-items-center">
-            <p class="mb-0 flex-grow-1">
-              <b>{{ entry.content }}</b>
-            </p>
-          </div>
-          @if (entry.users.length > 0) {
-            <div class="flex align-items-center mt-0">
-              @if (entry.users.length === maxVotes(selectedSurveyEntries)) {
-                <rmx-icon
-                  name="star-fill"
-                  class="-mt-3"
-                  style="
-                    color: gold;
-                    width: 16px;
-                    height: 16px;
-                    margin-right: 4px;
-                  ">
-                </rmx-icon>
-              }
-              <p class="mt-0">
-                <small
-                  ><b
-                    >{{ 'surveyCardPage.votes' | transloco }}
-                    {{ entry.users.length }}</b
-                  ></small
-                >
+  <div class="flex flex-column h-full">
+    <h3 class="text-color-secondary">
+      {{ 'surveyCardPage.sidebarTitle' | transloco }}
+    </h3>
+
+    <ul class="list-none p-0 flex-grow-1">
+      @if (selectedSurveyEntries) {
+        @for (entry of getSortedEntries(selectedSurveyEntries); track $index) {
+          <li class="mb-3">
+            <div class="flex align-items-center w-full">
+              <p
+                class="m-0 mt-3 text-wrap overflow-hidden"
+                style="word-break: break-word">
+                <b>{{ entry.content }}</b>
               </p>
             </div>
-          } @else {
-            <p class="mt-0">{{ 'surveyCardPage.noVotes' | transloco }}</p>
-          }
-          <div class="avatar-group mt-2">
-            @for (user of entry.users; track $index) {
-              <div
-                class="flex align-items-center mb-2 cursor-pointer"
-                [routerLink]="['/profile/' + user.id]">
-                <img
-                  src="images/userImg.png"
-                  alt="profile picture"
-                  class="border-circle mr-2"
-                  style="width: 20px; height: 20px" />
-                <p class="text-primary">{{ user.username }}</p>
+            @if (entry.users.length > 0) {
+              <div class="flex align-items-center mt-0">
+                @if (entry.users.length === maxVotes(selectedSurveyEntries)) {
+                  <rmx-icon
+                    name="star-fill"
+                    class="-mt-3"
+                    style="
+                      color: gold;
+                      width: 16px;
+                      height: 16px;
+                      margin-right: 4px;
+                    ">
+                  </rmx-icon>
+                }
+                <p class="mt-0">
+                  <small>
+                    {{ 'surveyCardPage.votes' | transloco }}
+                    {{ entry.users.length }}
+                  </small>
+                </p>
               </div>
+            } @else {
+              <p class="mt-0">{{ 'surveyCardPage.noVotes' | transloco }}</p>
             }
-          </div>
-        </li>
+            <div class="avatar-group">
+              @for (user of entry.users; track $index) {
+                <div
+                  class="flex align-items-center mb-2 cursor-pointer"
+                  [routerLink]="['/profile/' + user.id]">
+                  <p-avatar
+                    [image]="userService.getImageFile(user.profilePicture)"
+                    shape="circle"
+                    size="normal"
+                    class="mr-2">
+                  </p-avatar>
+                  <p class="text-primary mt-0 mb-0">{{ user.username }}</p>
+                </div>
+              }
+            </div>
+          </li>
+        }
       }
+    </ul>
+
+    @if (survey.creator) {
+      <div class="mt-auto">
+        <h6
+          class="cursor-pointer text-center"
+          (click)="deleteSurvey(survey.id)">
+          <span class="p-error">{{
+            'surveyCardPage.deleteSurvey' | transloco
+          }}</span>
+        </h6>
+      </div>
     }
-  </ul>
-  @if (survey.creator) {
-    <div class="absolute right-0 bottom-0 mr-3">
-      <h6 class="cursor-pointer" (click)="deleteSurvey(survey.id)">
-        <!-- (click)="deleteSurvey() -->
-        <span class="p-error">{{
-          'surveyCardPage.deleteSurvey' | transloco
-        }}</span>
-      </h6>
-    </div>
-  }
+  </div>
 </p-sidebar>

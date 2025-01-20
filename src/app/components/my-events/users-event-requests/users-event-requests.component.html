@@ -1,112 +1,188 @@
 <div class="px-2 container content">
-  <div class="flex justify-content-between align-items-center">
-    <h2 class="">
-      {{ 'myEventPageComponent.guest.your-event-requests' | transloco }}
-    </h2>
-    <span class="color-secondary">
-      {{ eventRequests.length }}
-    </span>
-  </div>
-  @for (r of this.eventRequests; track r) {
-    <p-card class="p-3 cursor-pointer" [routerLink]="['/event/' + r.event.id]">
-      <div class="flex flex-row align-items-center">
-        <!-- Image -->
-        <img
-          src="https://via.placeholder.com/100"
-          alt="{{ r.event.title }}-picture"
-          class="mb-3 md:mb-0 hidden md:block"
-          style="width: 70px; height: 70px" />
-
-        <!-- Title and Details -->
-        <div class="flex flex-column flex-grow-1 ml-3">
-          <!-- Title and Date -->
+  <!-- Check if there are invites -->
+  @if (invites$ | async; as invites) {
+    @if (invites.length > 0) {
+      <div class="flex justify-content-between align-items-center">
+        <h2>{{ 'inviteByFriends.title' | transloco }}</h2>
+        <span class="color-secondary">{{ invites.length }}</span>
+      </div>
+      @for (invite of invites; track invite.id) {
+        <div class="relative">
+          <span
+            [style]="{
+              position: 'absolute',
+              right: '-10px',
+              top: '-10px',
+              'z-index': 1,
+              'min-width': '20px',
+              height: '20px',
+            }"
+            class="bg-blue-900 border-round-3xl border-blue-900 text-center text-white px-1 justify-content-center flex align-content-center align-items-center"></span>
           <div
-            class="justify-content-start align-items-start md:align-items-center">
-            <h3 class="mt-0 mb-0">
-              {{ r.event.title }}
-            </h3>
-            <div class="text-secondary mt-2 md:mt-0">
-              <div class="flex align-items-center gap-1">
-                <rmx-icon
-                  name="calendar-line"
-                  style="width: 16px; height: 16px"
-                  class="mr-1"></rmx-icon>
-                <p class="mt-0 mb-0">
-                  {{
-                    toDate(r.event.dateAndTime)
-                      | translocoDate: { dateStyle: 'short' }
-                  }}
-                </p>
+            class="custom-card-container event-card flex justify-content-between align-items-center h-auto border-round shadow-2 mb-3 mt-3">
+            <div class="flex align-items-center">
+              <div
+                class="image-container overflow-hidden border-round-left"
+                style="width: 70px; height: 70px">
+                <div
+                  class="bg-cover bg-center h-full w-full"
+                  [style]="{
+                    'background-image':
+                      'url(' +
+                      eventService.getEventTitleImage(invite.event.picture) +
+                      ')',
+                  }"></div>
               </div>
+              <div
+                class="flex flex-column ml-3 flex-grow-1 cursor-pointer"
+                [routerLink]="['/event/' + invite.event.id]">
+                <h3 class="mt-0 mb-0 text-lg font-bold text-primary">
+                  {{ invite.event.title }}
+                </h3>
+                <div class="flex align-items-center gap-1 mt-2 text-secondary">
+                  <rmx-icon name="calendar-line" class="mr-1"></rmx-icon>
+                  <span>{{
+                    toDate(invite.event.dateAndTime)
+                      | translocoDate: { dateStyle: 'short' }
+                  }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex align-items-center gap-2 mr-3">
+              <p-button
+                [raised]="true"
+                icon="true"
+                (onClick)="denyFriendsRequestedEvent(invite.id)">
+                <ng-template pTemplate="icon">
+                  <rmx-icon
+                    style="width: 16px; height: 16px"
+                    name="delete-bin-line"></rmx-icon>
+                </ng-template>
+              </p-button>
+              <p-button
+                [raised]="true"
+                severity="success"
+                [disabled]="this.invite.denied"
+                (onClick)="
+                  acceptFriendsRequestedEvent(invite.id, invite.event)
+                ">
+                <ng-template pTemplate="icon">
+                  <rmx-icon
+                    style="width: 16px; height: 16px"
+                    name="check-line"></rmx-icon>
+                </ng-template>
+              </p-button>
             </div>
           </div>
         </div>
+      }
+    } @else {
+      <div class="flex justify-content-between align-items-center">
+        <h2>{{ 'inviteByFriends.title' | transloco }}</h2>
+        <span class="color-secondary">{{ invites.length }}</span>
+      </div>
+      <div
+        class="col-12 flex flex-column align-items-center text-center mt-8 mb-8">
+        <h2 class="text-lg font-bold mb-4">
+          {{ 'inviteByFriends.detail' | transloco }}
+        </h2>
+      </div>
+    }
+  }
 
-        <!-- Buttons and Arrow -->
+  <!-- Event Requests -->
+  <div class="flex justify-content-between align-items-center">
+    <h2>{{ 'myEventPageComponent.guest.your-event-requests' | transloco }}</h2>
+    <span class="color-secondary">{{ eventRequests.length }}</span>
+  </div>
+  @if (eventRequests.length > 0) {
+    @for (r of eventRequests; track r.id) {
+      <div class="relative">
+        @if (r.denied) {
+          <span
+            [style]="{
+              position: 'absolute',
+              right: '-10px',
+              top: '-10px',
+              'z-index': 1,
+              'min-width': '20px',
+              height: '20px',
+            }"
+            class="bg-blue-900 border-round-3xl border-blue-900 text-center text-white px-1 justify-content-center flex align-content-center align-items-center"></span>
+        }
         <div
-          class="flex flex-column md:flex-row gap-2 align-items-center ml-auto mt-3 md:mt-0">
-          <!-- Denied Message -->
-          @if (r.denied) {
-            <span class="text-danger text-center md:text-right mb-2 md:mb-0">
-              {{
-                'myEventPageComponent.requests.your-request-denied' | transloco
-              }}
-            </span>
-          }
-
-          <!-- Delete Request Button -->
-          <p-button
-            [raised]="true"
-            label="{{
-              'myEventPageComponent.requests.delete-request' | transloco
-            }}"
-            (onClick)="deleteEventRequest(r.event.title, r.id, $event)">
-            <ng-template pTemplate="icon">
-              <rmx-icon
-                class="mr-2"
-                style="width: 16px; height: 16px"
-                name="close-line"></rmx-icon>
-            </ng-template>
-          </p-button>
-
-          <!-- Try Again or Pending Button -->
-          @if (r.denied) {
+          class="custom-card-container event-card flex justify-content-between align-items-center h-auto border-round shadow-2 mb-3 mt-3">
+          <div class="flex align-items-center">
+            <div
+              class="image-container overflow-hidden border-round-left"
+              style="width: 70px; height: 70px">
+              <div
+                class="bg-cover bg-center h-full w-full"
+                [style]="{
+                  'background-image':
+                    'url(' +
+                    eventService.getEventTitleImage(r.event.picture) +
+                    ')',
+                }"></div>
+            </div>
+            <div
+              class="flex flex-column ml-3 flex-grow-1 cursor-pointer"
+              [routerLink]="['/event/' + r.event.id]">
+              <h3 class="mt-0 mb-0 text-lg font-bold text-primary">
+                {{ r.event.title }}
+              </h3>
+              <div class="flex align-items-center gap-1 mt-2 text-secondary">
+                <rmx-icon name="calendar-line" class="mr-1"></rmx-icon>
+                <span>{{
+                  toDate(r.event.dateAndTime)
+                    | translocoDate: { dateStyle: 'short' }
+                }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex align-items-center gap-2 mr-3">
             <p-button
               [raised]="true"
-              label="{{
-                'myEventPageComponent.requests.try-again' | transloco
-              }}"
-              severity="success"
-              (onClick)="
-                createNewEventRequest(r.event.title, r.event.id, $event)
-              ">
-            </p-button>
-          } @else {
-            <p-button
-              [raised]="true"
-              label="{{ 'myEventPageComponent.requests.pending' | transloco }}"
-              disabled
-              severity="success">
+              icon="true"
+              (onClick)="deleteEventRequest(r.event.title, r.id, $event)">
               <ng-template pTemplate="icon">
                 <rmx-icon
                   style="width: 16px; height: 16px"
-                  class="mr-2"
-                  name="hourglass-fill"></rmx-icon>
+                  name="delete-bin-line"></rmx-icon>
               </ng-template>
             </p-button>
-          }
-        </div>
-
-        <div
-          class="flex flex-column md:flex-row gap-2 align-items-center align-content-center ml-2 mt-3 md:mt-0">
-          <!-- Arrow Icon -->
-          <rmx-icon
-            name="arrow-right-s-line"
-            style="height: 26px; width: 26px"
-            class="cursor-pointer">
-          </rmx-icon>
+            @if (r.denied) {
+              <p-button
+                [raised]="true"
+                severity="success"
+                (onClick)="
+                  createNewEventRequest(r.event.title, r.event.id, $event)
+                ">
+                <ng-template pTemplate="icon">
+                  <rmx-icon
+                    style="width: 16px; height: 16px"
+                    name="refresh-line"></rmx-icon>
+                </ng-template>
+              </p-button>
+            } @else {
+              <p-button [raised]="true" disabled severity="success">
+                <ng-template pTemplate="icon">
+                  <rmx-icon
+                    style="width: 16px; height: 16px"
+                    name="hourglass-fill"></rmx-icon>
+                </ng-template>
+              </p-button>
+            }
+          </div>
         </div>
       </div>
-    </p-card>
+    }
+  } @else {
+    <div
+      class="col-12 flex flex-column align-items-center text-center mt-8 mb-8">
+      <h2 class="text-lg font-bold mb-4">
+        {{ 'myEventPageComponent.requests.noRequests' | transloco }}
+      </h2>
+    </div>
   }
 </div>

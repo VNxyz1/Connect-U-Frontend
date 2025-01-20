@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CardModule } from 'primeng/card';
-import { ButtonDirective } from 'primeng/button';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { AvatarModule } from 'primeng/avatar';
@@ -12,7 +11,7 @@ import {
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { AsyncPipe, NgClass } from '@angular/common';
 import { SurveysService } from '../../../../services/surveys/surveys.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { SidebarModule } from 'primeng/sidebar';
@@ -21,14 +20,13 @@ import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { SkeletonModule } from 'primeng/skeleton';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SocketService } from '../../../../services/socket/socket.service';
-import { AuthService } from '../../../../services/auth/auth.service';
+import { UserService } from '../../../../services/user/user.service';
 
 @Component({
   selector: 'app-card-survey',
   standalone: true,
   imports: [
     CardModule,
-    ButtonDirective,
     ProgressBarModule,
     AvatarGroupModule,
     AvatarModule,
@@ -47,24 +45,30 @@ import { AuthService } from '../../../../services/auth/auth.service';
 export class CardSurveyComponent implements OnInit {
   @Input() survey!: SurveyEvent;
   @Output() surveyDeleted: EventEmitter<void> = new EventEmitter();
+  private _surveyDetailSubject$!: BehaviorSubject<SurveyDetail>;
   surveyDetail$!: Observable<SurveyDetail>;
   expanded: boolean = false;
   sidebarVisible: boolean = false;
   selectedSurveyEntries: SurveyEntry[] = [];
-  // votes muss noch dynamisch angepasst werden für die Patch route!
   votes: number = 1;
 
   constructor(
     private surveyService: SurveysService,
     private translocoService: TranslocoService,
     private confirmationService: ConfirmationService,
+    protected userService: UserService,
     private messageService: MessageService,
     private sockets: SocketService,
-    private readonly auth: AuthService,
   ) {}
 
   ngOnInit(): void {
-    this.fetchSurveyDetails();
+    this.surveyService.getSurveyDetail(this.survey.id).subscribe({
+      next: res => {
+        this._surveyDetailSubject$ = new BehaviorSubject(res);
+        this.surveyDetail$ = this._surveyDetailSubject$.asObservable();
+        this.subscribeDetails();
+      },
+    });
 
     this.sockets.on('updateSurveyDetail').subscribe(data => {
       if (this.survey && this.survey.id == data.surveyId) {
@@ -85,17 +89,19 @@ export class CardSurveyComponent implements OnInit {
   }
 
   fetchSurveyDetails(): void {
-    this.surveyDetail$ = this.surveyService.getSurveyDetail(this.survey.id);
+    this.surveyService.getSurveyDetail(this.survey.id).subscribe({
+      next: res => this._surveyDetailSubject$.next(res),
+    });
+  }
 
-    if (this.surveyDetail$) {
-      this.surveyDetail$.subscribe((surveyDetail: SurveyDetail) => {
-        // Calculate total votes from all survey entries
-        this.votes = surveyDetail.surveyEntries.reduce(
-          (totalVotes, entry) => totalVotes + entry.users.length,
-          0,
-        );
-      });
-    }
+  subscribeDetails() {
+    this.surveyDetail$.subscribe((surveyDetail: SurveyDetail) => {
+      // Calculate total votes from all survey entries
+      this.votes = surveyDetail.surveyEntries.reduce(
+        (totalVotes, entry) => totalVotes + entry.users.length,
+        0,
+      );
+    });
   }
 
   openSidebar(entries: SurveyEntry[]): void {
@@ -119,7 +125,7 @@ export class CardSurveyComponent implements OnInit {
       next: () => {
         this.fetchSurveyDetails();
       },
-      error: err => {
+      error: () => {
         this.messageService.add({
           severity: 'error',
           summary: this.translocoService.translate(
@@ -131,6 +137,7 @@ export class CardSurveyComponent implements OnInit {
   }
 
   deleteSurvey(surveyId: number): void {
+    this.sidebarVisible = false;
     this.confirmationService.confirm({
       message: this.translocoService.translate(
         'surveyCardPage.deleteConfirmationMessage',
@@ -153,11 +160,8 @@ export class CardSurveyComponent implements OnInit {
                 'surveyCardPage.deleteSuccessMessage',
               ),
             });
-
-            console.log('Survey successfully deleted!');
           },
           error: err => {
-            // Fehlernachricht anzeigen
             this.messageService.add({
               severity: 'error',
               summary: this.translocoService.translate(
@@ -171,14 +175,9 @@ export class CardSurveyComponent implements OnInit {
           },
         });
       },
-      reject: () => {
-        console.log('Survey deletion cancelled.');
-      },
+      reject: () => {},
     });
   }
 
   protected readonly Math = Math;
 }
-/*
-
- */
