@@ -6,32 +6,33 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { EventDetails } from '../../../interfaces/EventDetails';
-import { Router, ActivatedRoute, RouterLink } from '@angular/router';
-import { ImageModule } from 'primeng/image';
-import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { TranslocoDatePipe } from '@jsverse/transloco-locale';
-import { AngularRemixIconComponent } from 'angular-remix-icon';
-import { CardModule } from 'primeng/card';
-import { TagModule } from 'primeng/tag';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { Button } from 'primeng/button';
-import { EventtypeEnum } from '../../../interfaces/EventtypeEnum';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { EventService } from '../../../services/event/eventservice';
-import { DialogModule } from 'primeng/dialog';
-import { EventRequestService } from '../../../services/event/event-request.service';
-import { EventUserRequest } from '../../../interfaces/EventUserRequest';
-import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
-import { NgClass } from '@angular/common';
-import { EventStatusIndicatorComponent } from '../../event-status-indicator/event-status-indicator.component';
-import { ProfileCardComponent } from '../../profile-card/profile-card.component';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { SkeletonModule } from 'primeng/skeleton';
-import { AvatarGroupModule } from 'primeng/avatargroup';
-import { AvatarModule } from 'primeng/avatar';
-import { UserService } from '../../../services/user/user.service';
+import { Observable, Subscription} from 'rxjs';
+import {EventDetails} from '../../../interfaces/EventDetails';
+import {Router, ActivatedRoute, RouterLink} from '@angular/router';
+import {ImageModule} from 'primeng/image';
+import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
+import {TranslocoDatePipe} from '@jsverse/transloco-locale';
+import {AngularRemixIconComponent} from 'angular-remix-icon';
+import {CardModule} from 'primeng/card';
+import {TagModule} from 'primeng/tag';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {Button} from 'primeng/button';
+import {EventtypeEnum} from '../../../interfaces/EventtypeEnum';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {EventService} from '../../../services/event/eventservice';
+import {DialogModule} from 'primeng/dialog';
+import {EventRequestService} from '../../../services/event/event-request.service';
+import {EventUserRequest} from '../../../interfaces/EventUserRequest';
+import {UsersEventRequest} from '../../../interfaces/UsersEventRequest';
+import {AsyncPipe, NgClass} from '@angular/common';
+import {EventStatusIndicatorComponent} from '../../event-status-indicator/event-status-indicator.component';
+import {ProfileCardComponent} from '../../profile-card/profile-card.component';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {SkeletonModule} from 'primeng/skeleton';
+import {AvatarGroupModule} from 'primeng/avatargroup';
+import {AvatarModule} from 'primeng/avatar';
+import {UserService} from '../../../services/user/user.service';
+import {PushNotificationService} from '../../../services/push-notification/push-notification.service';
 
 const ERROR_MESSAGE_MAPPING: Record<string, string> = {
   'Event not found': 'eventDetailPageComponent.eventNotFound',
@@ -70,6 +71,7 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     NgClass,
     AvatarGroupModule,
     AvatarModule,
+    AsyncPipe,
   ],
   providers: [ConfirmationService],
 })
@@ -89,6 +91,8 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   protected _eventDetails!: EventDetails;
   isLoading = true;
 
+  requestPushNotifications!: Observable<number>;
+
   constructor(
     private readonly router: Router,
     protected readonly route: ActivatedRoute,
@@ -98,6 +102,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
     protected userService: UserService,
     private readonly eventRequestService: EventRequestService,
     private readonly confirmationService: ConfirmationService,
+    private readonly pushNotifications: PushNotificationService,
   ) {}
 
   get eventDetails(): EventDetails {
@@ -108,7 +113,9 @@ export class EventInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.eventId = this.route.snapshot.paramMap.get('id')!;
+    const eventId = this.route.snapshot.paramMap.get('id')!;
+    this.eventId = eventId;
+    this.requestPushNotifications = this.pushNotifications.getHostedEventsJoinRequestCount(eventId);
 
     this.getEventDetails();
   }
