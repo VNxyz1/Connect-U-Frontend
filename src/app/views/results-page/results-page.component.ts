@@ -42,6 +42,7 @@ export class ResultsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.eventSearchService.resetService();
     this.totalCount$ = this.eventSearchService.getTotalEventsCount();
     this.route.queryParams.subscribe(params => {
       this.params = params;

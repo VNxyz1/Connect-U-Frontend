@@ -32,6 +32,16 @@ export class EventSearchService {
 
   constructor(private readonly http: HttpClient) {}
 
+  resetService() {
+    this.page = 0;
+    this.params = {
+      genders: [1, 2, 3],
+    };
+    this.totalEventCountSubject = new BehaviorSubject<number>(0);
+    this.hasMoreEventsSubject = new BehaviorSubject<boolean>(true);
+    this.eventsSubject = new BehaviorSubject<EventCardItem[]>([]);
+  }
+
   /**
    * Initializes search parameters to be used for filtering events.
    * @param {SearchParams} params - The search parameters to initialize.

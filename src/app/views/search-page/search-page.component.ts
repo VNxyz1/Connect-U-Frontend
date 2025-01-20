@@ -181,6 +181,11 @@ export class SearchPageComponent implements OnInit {
         }
 
         form.controls[key].setValue(arr);
+      } else if (
+        Array.isArray(form.controls[key].value) &&
+        !Array.isArray(queryParams[key])
+      ) {
+        form.controls[key].setValue([queryParams[key]]);
       } else if (form.controls[key]) {
         form.controls[key].setValue(queryParams[key]);
       }
