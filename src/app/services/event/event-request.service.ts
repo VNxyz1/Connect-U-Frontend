@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { EventUserRequest } from '../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 import { SocketService } from '../socket/socket.service';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,12 +14,34 @@ export class EventRequestService {
   private readonly newInviteSocket$!: Observable<string>;
   private readonly inviteStatusChangeSocket$!: Observable<string>;
 
+  private readonly invitesSubject$ = new BehaviorSubject<UsersEventRequest[]>(
+    [],
+  );
+
   constructor(
     private readonly http: HttpClient,
     private readonly socket: SocketService,
+    private readonly userService: UserService,
   ) {
     this.newInviteSocket$ = this.socket.on('newInvite');
     this.inviteStatusChangeSocket$ = this.socket.on('inviteStatusChange');
+
+    this.newInviteSocket$.subscribe({
+      next: userId => {
+        const a = this.userService.getCurrentUserData();
+        if (a?.id == userId) {
+          this.loadInvitationFromFriends();
+        }
+      },
+    });
+    this.inviteStatusChangeSocket$.subscribe({
+      next: userId => {
+        const a = this.userService.getCurrentUserData();
+        if (a?.id == userId) {
+          this.loadInvitationFromFriends();
+        }
+      },
+    });
   }
 
   getNewInviteSocket() {
@@ -112,13 +135,23 @@ export class EventRequestService {
   }
 
   getInvitationFromFriends(): Observable<UsersEventRequest[]> {
+    this.loadInvitationFromFriends();
+    return this.invitesSubject$.asObservable();
+  }
+
+  private loadInvitationFromFriends() {
     const url = `request/invite/user`;
-    return this.http.get<UsersEventRequest[]>(url).pipe(
-      catchError(err => {
-        console.error('Error fetching invitations by Friends: ', err);
-        return throwError(() => err);
-      }),
-    );
+    this.http
+      .get<UsersEventRequest[]>(url)
+      .pipe(
+        catchError(() => {
+          const arr: UsersEventRequest[] = [];
+          return of(arr);
+        }),
+      )
+      .subscribe(data => {
+        this.invitesSubject$.next(data);
+      });
   }
 
   acceptUserRequest(

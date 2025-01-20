@@ -90,7 +90,7 @@
   <div class="py-4">
     @if (loginRegisterSwitch) {
       <app-login
-        [redirectTo]="'/event/' + eventId"
+        [redirectTo]="['/event', eventId]"
         (toggleView)="toggleLoginRegisterSwitch()"
         class="w-full" />
     } @else {
@@ -118,22 +118,20 @@
           [state]="item.state"
           class="p-menuitem-link">
           <div class="flex relative justify-content-center">
-            @if (item.iBadge) {
-              @if (getPushNotificationListChat() | async; as eventMap) {
-                @if (eventMap.get(eventDetails.id); as val) {
-                  <span
-                    [style]="{
-                      position: 'absolute',
-                      right: '-30px',
-                      top: '-5px',
-                      'z-index': 1,
-                      'min-width': '20px',
-                      height: '20px',
-                    }"
-                    class="bg-blue-900 border-round-3xl border-blue-900 text-center text-white px-1 justify-content-center flex align-content-center align-items-center"
-                    >{{ val }}</span
-                  >
-                }
+            @if (getBadgeValue(item.iBadge) | async; as val) {
+              @if (val != 0) {
+                <span
+                  [style]="{
+                    position: 'absolute',
+                    right: '-30px',
+                    top: '-5px',
+                    'z-index': 1,
+                    'min-width': '20px',
+                    height: '20px',
+                  }"
+                  class="bg-blue-900 border-round-3xl border-blue-900 text-center text-white px-1 justify-content-center flex align-content-center align-items-center"
+                  >{{ val }}</span
+                >
               }
             }
             <rmx-icon

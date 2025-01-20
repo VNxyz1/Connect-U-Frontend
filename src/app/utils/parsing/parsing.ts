@@ -19,6 +19,8 @@ export function parseToQueryParams(form: FormGroup) {
       queryParams[key] = Object.keys(value).filter(k => value[k]);
     } else if (value instanceof Date) {
       queryParams[key] = value.toISOString();
+    } else if (Array.isArray(value) && value.every(v => v instanceof Date)) {
+      queryParams[key] = value.map(date => formatToLocalDate(date));
     } else {
       queryParams[key] = value;
     }
@@ -26,3 +28,10 @@ export function parseToQueryParams(form: FormGroup) {
 
   return queryParams;
 }
+
+const formatToLocalDate = (date: Date): string => {
+  const adjustedDate = new Date(
+    date.getTime() - date.getTimezoneOffset() * 60000,
+  );
+  return adjustedDate.toISOString().split('T')[0];
+};

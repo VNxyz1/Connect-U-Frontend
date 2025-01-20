@@ -4,4 +4,5 @@ export const environment = {
     urlPrefix: 'http://localhost:3000/api/',
     withCredentials: true,
   },
+  hideCamera: false,
 };

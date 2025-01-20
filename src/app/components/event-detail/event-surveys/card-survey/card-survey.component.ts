@@ -137,6 +137,7 @@ export class CardSurveyComponent implements OnInit {
   }
 
   deleteSurvey(surveyId: number): void {
+    this.sidebarVisible = false;
     this.confirmationService.confirm({
       message: this.translocoService.translate(
         'surveyCardPage.deleteConfirmationMessage',
@@ -180,6 +181,3 @@ export class CardSurveyComponent implements OnInit {
 
   protected readonly Math = Math;
 }
-/*
-
- */

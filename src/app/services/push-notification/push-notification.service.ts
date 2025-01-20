@@ -29,7 +29,7 @@ export class PushNotificationService {
   private chatGuestEventsListSubject: BehaviorSubject<Map<string, number>> =
     new BehaviorSubject<Map<string, number>>(new Map<string, number>());
 
-  private guestEventJoinRequestListSubject: BehaviorSubject<number> =
+  private guestEventJoinRequestsAndInvitesSubject: BehaviorSubject<number> =
     new BehaviorSubject<number>(0);
   private hostEventJoinRequestListSubject: BehaviorSubject<
     Map<string, number>
@@ -59,15 +59,21 @@ export class PushNotificationService {
     return combineLatest([
       this.getMyEventsGuest(),
       this.getMyEventsHost(),
-      this.getGuestJoinRequest(),
     ]).pipe(
-      map(([host, guest, jr]) => {
-        return host + guest + jr;
+      map(([host, guest]) => {
+        return host + guest;
       }),
       tap(da => {
-        document.onblur = function () {
-          document.title = '( ' + da + ' ) | Connect-U';
-        };
+        if (da != 0) {
+          document.onblur = function () {
+            document.title = '( ' + da + ' ) | Connect-U';
+          };
+        } else {
+          document.onblur = function () {
+            document.title = 'Connect-U';
+          };
+        }
+
         document.onfocus = function () {
           document.title = 'Connect-U';
         };
@@ -82,7 +88,7 @@ export class PushNotificationService {
    * Retrieves the total number of notifications for guest events.
    * @returns {Observable<number>} Observable emitting the total number of guest event notifications.
    */
-  getMyEventsGuest(): Observable<number> {
+  getMyEventsHost(): Observable<number> {
     return this.getHostedEventsList().pipe(this.mapToNotificationNumber());
   }
 
@@ -90,14 +96,21 @@ export class PushNotificationService {
    * Retrieves the total number of notifications for hosted events.
    * @returns {Observable<number>} Observable emitting the total number of hosted event notifications.
    */
-  getMyEventsHost(): Observable<number> {
-    return this.chatGuestEventsListSubject
-      .asObservable()
-      .pipe(this.mapToNotificationNumber());
+  getMyEventsGuest(): Observable<number> {
+    return combineLatest([
+      this.chatGuestEventsListSubject
+        .asObservable()
+        .pipe(this.mapToNotificationNumber()),
+      this.getGuestJoinRequestAndInvites(),
+    ]).pipe(
+      map(([guestChat, jonReqAndInvites]) => {
+        return guestChat + jonReqAndInvites;
+      }),
+    );
   }
 
-  getGuestJoinRequest(): Observable<number> {
-    return this.guestEventJoinRequestListSubject.asObservable();
+  getGuestJoinRequestAndInvites(): Observable<number> {
+    return this.guestEventJoinRequestsAndInvitesSubject.asObservable();
   }
 
   /**
@@ -116,6 +129,14 @@ export class PushNotificationService {
           newMap.set(req[0], currentValue + req[1]);
         }
         return newMap;
+      }),
+    );
+  }
+
+  getHostedEventsJoinRequestCount(eventId: string): Observable<number> {
+    return this.hostEventJoinRequestListSubject.asObservable().pipe(
+      map(data => {
+        return data.get(eventId) || 0;
       }),
     );
   }
@@ -352,15 +373,20 @@ export class PushNotificationService {
   }
 
   loadEventRequestNotifications() {
-    this.eventRequestService
-      .getUsersRequests()
+    combineLatest([
+      this.eventRequestService.getInvitationFromFriends(),
+      this.eventRequestService.getUsersRequests(),
+    ])
       .pipe(
-        map((eventRequests: UsersEventRequest[]) => {
+        map(([eventInvites, eventRequests]) => {
           let count = 0;
           eventRequests.forEach((req: UsersEventRequest) => {
             if (req.denied) {
               count++;
             }
+          });
+          eventInvites.forEach((req: UsersEventRequest) => {
+            count++;
           });
           return count;
         }),
@@ -368,7 +394,7 @@ export class PushNotificationService {
       )
       .subscribe({
         next: (count: number) => {
-          this.guestEventJoinRequestListSubject.next(count);
+          this.guestEventJoinRequestsAndInvitesSubject.next(count);
         },
       });
 

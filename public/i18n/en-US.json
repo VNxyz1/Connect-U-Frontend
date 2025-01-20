@@ -129,8 +129,10 @@
     }
   },
   "searchPageComponent": {
+    "datesInput": "filter by date",
     "eventTitleInput": "filter by title",
     "tagsInput": "filter by tags",
+    "citiesInput": "filter by cities",
     "categoriesInput": "filter by categories",
     "gendersInput": "Who do you want to attend the event with?",
     "isOnline": "Online Events",

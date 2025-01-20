@@ -4,4 +4,5 @@ export const environment = {
     urlPrefix: '/api/',
     withCredentials: false,
   },
+  hideCamera: false,
 };
