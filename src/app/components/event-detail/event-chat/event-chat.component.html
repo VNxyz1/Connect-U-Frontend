@@ -1,6 +1,8 @@
-<div class="flex flex-column">
+<div class="mt-0">
   <!-- Chat Messages -->
-  <div #chatContainer class="chat-container overflow-scroll flex-grow-1">
+  <div
+    #chatContainer
+    class="chat-container overflow-scroll flex-grow-1 pb-4 mt-0">
     <div class="justify-content-center py-2">
       @if (messages$ | async; as Messages) {
         @if (Messages.readMessages.length || Messages.unreadMessages.length) {
@@ -52,11 +54,10 @@
   </div>
 
   <!-- Input Field -->
-  <div
-    class="flex bg-white p-1 align-items-center justify-content-center sticky bottom-0">
+  <div class="flex align-items-center justify-content-center">
     <p-iconField
       iconPosition="right"
-      class="justify-content-center max-w-30rem w-full md:mb-5">
+      class="justify-content-center max-w-30rem w-full fixed md:mb-5 bg-white">
       <!-- Input Field -->
       <input
         pInputText
