@@ -5,7 +5,10 @@
     (activeItemChange)="onActiveItemChange($event)">
     <ng-template pTemplate="item" let-item>
       <ng-container>
-        <a [routerLink]="item.route" [state]="item.state" class="p-menuitem-link">
+        <a
+          [routerLink]="item.route"
+          [state]="item.state"
+          class="p-menuitem-link">
           <!-- Add icon explicitly -->
           <rmx-icon
             style="width: 16px; height: 16px; margin-right: 8px"
@@ -25,5 +28,4 @@
   @if (!environment.hideCamera) {
     <router-outlet></router-outlet>
   }
-
 </div>

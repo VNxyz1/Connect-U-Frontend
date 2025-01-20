@@ -90,7 +90,6 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-
   ngOnDestroy(): void {
     this.socket.disconnect();
   }

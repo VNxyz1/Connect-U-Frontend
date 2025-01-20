@@ -18,20 +18,20 @@ export class StorageService {
   public async set(key: string, value: any): Promise<void> {
     return await Preferences.set({
       key: key,
-      value: JSON.stringify(value)
+      value: JSON.stringify(value),
     });
   }
 
   public async get<T>(key: string): Promise<T | null> {
-     const res = await Preferences.get({key: key});
-     if (res.value === null) {
-       return res.value;
-     }
-     return JSON.parse(res.value);
+    const res = await Preferences.get({ key: key });
+    if (res.value === null) {
+      return res.value;
+    }
+    return JSON.parse(res.value);
   }
 
   public async remove(key: string): Promise<void> {
-    return await Preferences.remove({key: key});
+    return await Preferences.remove({ key: key });
   }
 
   public async clear(): Promise<void> {

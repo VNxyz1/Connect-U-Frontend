@@ -6,7 +6,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { TranslocoService } from '@jsverse/transloco';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import {environment} from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-share-profile',
