@@ -1,37 +1,40 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage-angular';
+import { Preferences } from '@capacitor/preferences';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
-  private _storage!: Storage;
+  // private _storage!: Storage;
 
-  constructor(private storage: Storage) {
+  constructor() {
     this.init();
   }
 
   async init() {
-    this._storage = await this.storage.create();
+    // this._storage = await this.storage.create();
   }
 
   public async set(key: string, value: any): Promise<void> {
-    if (!this._storage) await this.init();
-    return this._storage.set(key, value);
+    return await Preferences.set({
+      key: key,
+      value: JSON.stringify(value),
+    });
   }
 
   public async get<T>(key: string): Promise<T | null> {
-    if (!this._storage) await this.init();
-    return this._storage.get(key);
+    const res = await Preferences.get({ key: key });
+    if (res.value === null) {
+      return res.value;
+    }
+    return JSON.parse(res.value);
   }
 
   public async remove(key: string): Promise<void> {
-    if (!this._storage) await this.init();
-    return this._storage.remove(key);
+    return await Preferences.remove({ key: key });
   }
 
   public async clear(): Promise<void> {
-    if (!this._storage) await this.init();
-    return this._storage.clear();
+    return await Preferences.clear();
   }
 }

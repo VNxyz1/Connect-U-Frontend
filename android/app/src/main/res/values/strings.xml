@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Connect-U</string>
+    <string name="title_activity_main">Connect-U</string>
+    <string name="package_name">com.connectu.app</string>
+    <string name="custom_url_scheme">com.connectu.app</string>
+</resources>
