@@ -108,7 +108,6 @@ export class Step1Component implements OnInit, OnDestroy {
       this.selectedCategories = savedData.categories || [];
       this.tags = savedData.tags || [];
       this.uploadedImagePreview = savedImage || null;
-      console.log(savedImage);
       this.cdr.detectChanges();
     } catch (error) {
       console.error('Error loading saved data:', error);

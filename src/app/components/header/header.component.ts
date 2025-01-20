@@ -68,6 +68,7 @@ export class HeaderComponent implements OnInit {
       ),
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
+        this.eventService.removeEventImage();
         this.eventService.removeEventInformation().then(() => {
           this.router.navigate(['/']);
         });

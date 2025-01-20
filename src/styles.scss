@@ -160,3 +160,25 @@ body {
 .bg-main {
   background-color: $light-grey;
 }
+
+.card-border-round {
+  border-radius: var(--card-border-radius) !important;
+}
+
+//card
+
+.event-card {
+  border-radius: var(--card-border-radius) !important;
+}
+
+.event-card .p-card-footer {
+  padding: 0 0 0 0 !important;
+}
+
+.event-card .p-card-body {
+  padding: 0 1rem 0.5rem 1rem;
+}
+
+.event-card .p-card-content {
+  padding: 1rem 0 0.25rem 0;
+}

@@ -153,6 +153,35 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
+  protected deleteImage(): void {
+    this.userService.deleteProfilePicture().subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translocoService.translate(
+            'profilePage.deleteProfilePic.success',
+          ),
+          detail: this.translocoService.translate(
+            'profilePage.deleteProfilePic.successMessage',
+          ),
+        });
+        // Reset profile picture to default or fetch data again
+        this.fetchData();
+      },
+      error: (err: Error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translocoService.translate(
+            'profilePage.deleteProfilePic.error',
+          ),
+          detail: this.translocoService.translate(
+            'profilePage.deleteProfilePic.errorMessage',
+          ),
+        });
+      },
+    });
+  }
+
   submitEdit() {
     const updateData: Partial<UpdateProfileBody> = {};
 
