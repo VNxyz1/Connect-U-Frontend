@@ -82,7 +82,7 @@ export class PushNotificationService {
    * Retrieves the total number of notifications for guest events.
    * @returns {Observable<number>} Observable emitting the total number of guest event notifications.
    */
-  getMyEventsGuest(): Observable<number> {
+  getMyEventsHost(): Observable<number> {
     return this.getHostedEventsList().pipe(this.mapToNotificationNumber());
   }
 
@@ -90,7 +90,7 @@ export class PushNotificationService {
    * Retrieves the total number of notifications for hosted events.
    * @returns {Observable<number>} Observable emitting the total number of hosted event notifications.
    */
-  getMyEventsHost(): Observable<number> {
+  getMyEventsGuest(): Observable<number> {
     return this.chatGuestEventsListSubject
       .asObservable()
       .pipe(this.mapToNotificationNumber());

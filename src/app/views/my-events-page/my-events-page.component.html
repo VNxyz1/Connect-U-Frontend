@@ -2,7 +2,33 @@
   <p-tabMenu
     [model]="tabMenuItems"
     [activeItem]="tabMenuItems.at(0)"
-    class="top-0" />
+    class="top-0">
+    <ng-template pTemplate="item" let-item>
+      <ng-container>
+        <a class="p-menuitem-link">
+          <div class="flex relative justify-content-center">
+            @if (getBadgeValue(item.iBadge) | async; as val) {
+              @if (val != 0) {
+                <span
+                  [style]="{
+                    position: 'absolute',
+                    right: '-30px',
+                    top: '-5px',
+                    'z-index': 1,
+                    'min-width': '20px',
+                    height: '20px',
+                  }"
+                  class="bg-blue-900 border-round-3xl border-blue-900 text-center text-white px-1 justify-content-center flex align-content-center align-items-center"
+                  >{{ val }}</span
+                >
+              }
+            }
+            <span>{{ item.label | transloco }}</span>
+          </div>
+        </a>
+      </ng-container>
+    </ng-template>
+  </p-tabMenu>
 
   <!-- Filter
   @if (hasEvents) {
