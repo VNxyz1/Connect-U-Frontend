@@ -121,9 +121,8 @@ export class PushNotificationService {
   }
 
   getHostedEventsJoinRequestCount(eventId: string): Observable<number> {
-    return this.hostEventJoinRequestListSubject.asObservable()
-      .pipe(
-      map((data) => {
+    return this.hostEventJoinRequestListSubject.asObservable().pipe(
+      map(data => {
         return data.get(eventId) || 0;
       }),
     );
