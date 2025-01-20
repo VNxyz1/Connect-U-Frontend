@@ -13,10 +13,11 @@
       </div>
     }
     <div
-      class="col-12 p-0 mt-6 mb-2 md:mb-0"
+      class="col-12 p-0 mb-2 md:mb-0"
       [ngClass]="{
         'md:col-offset-2 md:col-10':
           !currentUrl.includes('/create-event') && (isLoggedIn | async),
+        'mt-8': (isLoggedIn | async),
       }">
       <router-outlet />
     </div>

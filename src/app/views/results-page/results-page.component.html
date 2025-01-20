@@ -1,11 +1,12 @@
-<h2 class="ml-3 md:px-2 mb-2 mt-4">
-  {{ 'resultsPageComponent.results' | transloco }}
-</h2>
-@if (events$ | async; as events) {
+<router-outlet />
+<div class="px-2">
+  <h2 class="ml-3 md:px-2 mb-2 mt-6">
+    {{ 'resultsPageComponent.results' | transloco }}
+  </h2>
   <div class="grid justify-content-between">
     <span
       class="col-fixed text-2xl block md:px-2 mb-2 mt-2 ml-3 text-color-secondary">
-      {{ totalCount }}
+      {{ totalCount$ | async }}
       {{ 'resultsPageComponent.eventsFound' | transloco }}
     </span>
     <div class="col-fixed mt-2 mb-2 mr-5">
@@ -22,23 +23,47 @@
       </p-button>
     </div>
   </div>
-  <div class="px-2">
-    <div class="grid justify-content-center xl:justify-content-start md:w-full">
-      @for (event of events; track $index) {
-        <div
-          class="col-12 md:col-9 xl:col-4 justify-content-center mb-3 md:px-3">
-          <app-event-card [event]="event" class="w-full" />
+
+  <div
+    appScrollNearEnd
+    (nearEnd)="loadNewPage()"
+    class="grid justify-content-center xl:justify-content-start md:w-full">
+    @if (events$ | async; as events) {
+      <div
+        class="grid justify-content-center xl:justify-content-start md:w-full">
+        @for (event of events; track $index) {
+          <div
+            class="col-12 md:col-9 xl:col-4 justify-content-center mb-3 md:px-3">
+            <app-event-card [event]="event" class="w-full" />
+          </div>
+        }
+        @if (isLoading) {
+          @for (event of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; track $index) {
+            <div
+              class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+              <app-event-card skeleton class="w-full" />
+            </div>
+          }
+        }
+      </div>
+
+      @if (!(hasMoreEvents$ | async)) {
+        <div class="col-12 text-center my-4">
+          <span class="select-none">
+            {{ 'homepage.upcomingEvents.noMoreEvents' | transloco }}
+          </span>
         </div>
       }
-    </div>
-  </div>
-} @else {
-  <div class="grid justify-content-center xl:justify-content-start md:w-full">
-    @for (event of [0, 1, 2, 3, 4]; track $index) {
+    } @else {
       <div
-        class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
-        <app-event-card skeleton class="w-full" />
+        class="grid justify-content-center xl:justify-content-start md:w-full">
+        @for (event of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]; track $index) {
+          <div
+            class="col-12 md:col-9 xl:col-4 flex justify-content-center mb-3 md:px-3">
+            <app-event-card skeleton class="w-full" />
+          </div>
+        }
       </div>
     }
   </div>
-}
+</div>
