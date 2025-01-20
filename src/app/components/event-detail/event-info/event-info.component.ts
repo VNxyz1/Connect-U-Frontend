@@ -268,6 +268,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
         });
         this.fetchUserRequest();
         this.getEventDetails();
+        this.pushNotifications.loadEventRequestNotifications();
       },
       error: err => {
         console.error('Error deleting request:', err);
@@ -296,6 +297,7 @@ export class EventInfoComponent implements OnInit, OnDestroy {
               ),
             });
             this.getEventDetails();
+            this.pushNotifications.loadEventRequestNotifications();
           },
           error: err => {
             console.error('Error deleting request:', err);
