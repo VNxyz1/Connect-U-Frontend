@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TabViewModule } from 'primeng/tabview';
-import { TranslocoService } from '@jsverse/transloco';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { GuestEventsComponent } from '../../components/my-events/guest-events/guest-events.component';
 import { HostedEventsComponent } from '../../components/my-events/hosted-events/hosted-events.component';
 import { FavoriteEventsComponent } from '../../components/my-events/favorite-events/favorite-events.component';
@@ -13,9 +13,10 @@ import { UsersEventRequestsComponent } from '../../components/my-events/users-ev
 import { EventRequestService } from '../../services/event/event-request.service';
 import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 import { CurrentUrlService } from '../../services/current-url/current-url.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { UserService } from '../../services/user/user.service';
+import { PushNotificationService } from '../../services/push-notification/push-notification.service';
 
 @Component({
   selector: 'app-my-events-page',
@@ -31,6 +32,7 @@ import { UserService } from '../../services/user/user.service';
     TabMenuModule,
     UsersEventRequestsComponent,
     AsyncPipe,
+    TranslocoPipe,
   ],
   templateUrl: './my-events-page.component.html',
 })
@@ -64,6 +66,7 @@ export class MyEventsPageComponent implements OnInit {
     private readonly translocoService: TranslocoService,
     private readonly currentUrl: CurrentUrlService,
     protected readonly userService: UserService,
+    protected readonly pushNotifications: PushNotificationService,
   ) {
     this.currentUrl$ = this.currentUrl.get();
     this.setupTabItems();
@@ -118,13 +121,13 @@ export class MyEventsPageComponent implements OnInit {
         this.tabMenuItems = [
           {
             label: translations['myEventPageComponent.guest.title'],
-            icon: 'pi pi-users',
             command: () => this.setActiveTab('guest'),
+            iBadge: 'guest',
           },
           {
             label: translations['myEventPageComponent.hosted.title'],
-            icon: 'pi pi-plus-circle',
             command: () => this.setActiveTab('hosted'),
+            iBadge: 'host',
           },
           // Commented out the favorite tab item
           /*
@@ -136,6 +139,17 @@ export class MyEventsPageComponent implements OnInit {
           */
         ];
       });
+  }
+
+  getBadgeValue(key: 'guest' | 'host') {
+    switch (key) {
+      case 'guest':
+        return this.pushNotifications.getMyEventsGuest();
+      case 'host':
+        return this.pushNotifications.getMyEventsHost();
+      default:
+        return of(0);
+    }
   }
 
   doesNotInclude(segment: string, currentUrl: string): boolean {

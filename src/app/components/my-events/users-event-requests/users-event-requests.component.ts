@@ -62,6 +62,7 @@ export class UsersEventRequestsComponent implements OnInit {
         this.eventRequests = this.eventRequests.filter(
           request => request.id !== requestId,
         );
+        this.pushNotificationService.loadEventRequestNotifications();
         this.messageService.add({
           severity: 'success',
           summary: this.translocoService.translate(
@@ -109,6 +110,7 @@ export class UsersEventRequestsComponent implements OnInit {
   protected denyFriendsRequestedEvent(inviteID: number) {
     this.requestService.denyFriendsRequest(inviteID).subscribe({
       next: () => {
+        this.pushNotificationService.loadEventRequestNotifications();
         this.messageService.add({
           severity: 'success',
           summary: this.translocoService.translate('inviteByFriends.denyTitle'),
