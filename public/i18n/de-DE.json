@@ -285,7 +285,7 @@
     "diverse": "Diverse",
     "age": "für Altersgruppe",
     "gender": "für Geschlechter",
-    "from": "von",
+    "from": "ab",
     "to": "bis",
     "years1": "Jahren",
     "years2": "Jahre",
@@ -873,6 +873,12 @@
       "errorMessage": "Fehler beim Hochladen des Profilbildes",
       "cancel": "abbrechen",
       "upload": "Hochladen"
+    },
+    "deleteProfilePic": {
+      "success": "Profilbild gelöscht",
+      "error": "Fehler beim Löschen des Profilbildes",
+      "successMessage": "Ihr Profilbild wurde erfolgreich gelöscht",
+      "errorMessage": "Es ist ein Fehler beim Löschen des Profilbildes aufgetreten"
     }
   },
   "accountPage": {
@@ -1040,5 +1046,9 @@
     "page-not-found": "Seite nicht gefunden",
     "page-not-found-detail": "Wir konnten diese Seite nicht finden. Nicht einmal mit X-Ray.",
     "back-to-home": "Zur Startseite"
+  },
+  "myFriends": {
+    "emptyTitle": "Etwas einsam hier...🏝️",
+    "emptyDetail": "Suche auf der Startseite nach einem Event, um deine Freundesliste zu erweitern!"
   }
 }

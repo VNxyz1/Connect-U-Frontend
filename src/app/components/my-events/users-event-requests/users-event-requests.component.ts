@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
 import { UserService } from '../../../services/user/user.service';
+import { EventService } from '../../../services/event/eventservice';
 import { EventDetails } from '../../../interfaces/EventDetails';
 
 @Component({
@@ -40,6 +41,7 @@ export class UsersEventRequestsComponent implements OnInit {
     private pushNotificationService: PushNotificationService,
     protected readonly userService: UserService,
     protected router: Router,
+    protected eventService: EventService,
   ) {}
   ngOnInit() {
     this.loadInvites();

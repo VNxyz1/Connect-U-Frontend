@@ -6,13 +6,21 @@
     }">
     <!-- Avatar -->
     <div class="flex align-items-end">
-      <p-avatar
-        [image]="
-          message.writer ? '/images/userImg.png' : '/images/logo-profile.svg'
+      @if (message.writer) {
+        <p-avatar
+          [image]="userService.getImageFile(message.writer.profilePicture)"
+          class="mx-0 mb-0"
+          size="normal"
+          shape="circle" />
+      } @else {
+        <p-avatar
+          image="
+          {{ '/images/logo-profile.svg' }}
         "
-        class="mx-0 mb-0"
-        size="normal"
-        shape="circle" />
+          class="mx-0 mb-0"
+          size="normal"
+          shape="circle" />
+      }
     </div>
 
     <!-- Speech Bubble -->
