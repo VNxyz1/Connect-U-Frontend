@@ -26,9 +26,11 @@
           formControlName="title"
           [class]="showNgInvalid('title') ? 'ng-invalid ng-dirty' : ''"
           [attr.aria-invalid]="showNgInvalid('title')" />
-        <label for="new-list-title">{{
-          'eventListPage.createListModal.titleInput.label' | transloco
-        }}</label>
+        <label for="new-list-title"
+          >{{
+            'eventListPage.createListModal.titleInput.label' | transloco
+          }}*</label
+        >
       </p-floatLabel>
       @if (showError('title')) {
         @if (form.get('title')?.errors?.['required']) {

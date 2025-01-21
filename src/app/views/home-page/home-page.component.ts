@@ -29,6 +29,7 @@ export class HomePageComponent implements OnInit {
   constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
+    this.eventService.initFyPage();
     this.events$ = this.eventService.getFyEvents().pipe(
       map(data => data.events),
       tap(() => (this.isLoading = false)),
