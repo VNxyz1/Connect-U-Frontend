@@ -137,7 +137,7 @@
           }" />
         <label for="event-title">{{
           'createEventStep1Component.eventTitleInput.label' | transloco
-        }}</label>
+        }}*</label>
       </p-floatLabel>
       @if (
         (eventTitleInput.invalid && submitted) ||
@@ -171,7 +171,7 @@
           }"></p-multiSelect>
         <label for="categories">{{
           'createEventStep1Component.categoriesInput.label' | transloco
-        }}</label>
+        }}*</label>
       </p-floatLabel>
       @if (selectedCategories.length === 0 && submitted) {
         <small class="p-error">

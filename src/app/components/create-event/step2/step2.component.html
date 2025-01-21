@@ -30,7 +30,7 @@
         </p-calendar>
         <label for="date">{{
           'createEventStep2Component.dateAndTimeInput.label' | transloco
-        }}</label>
+        }}*</label>
       </p-floatLabel>
       @if (
         (dateAndTimeInput.invalid && submitted) ||
@@ -61,7 +61,8 @@
       </p-checkbox>
     </div>
 
-    <div class="p-grid">
+    <div class="p-grid gap-2">
+      <!-- Street and Street Number -->
       <div class="p-col-12 p-md-6 field">
         <p-floatLabel>
           <input
@@ -72,19 +73,18 @@
             [disabled]="online"
             [required]="!online"
             [ngClass]="{
-              'ng-invalid ng-dirty':
-                (!online && streetInput.invalid && submitted) ||
-                (streetInput.dirty && streetInput.invalid),
-            }" />
+          'ng-invalid ng-dirty':
+            (!online && streetInput.invalid && submitted) ||
+            (streetInput.dirty && streetInput.invalid),
+        }" />
           <label for="street">{{
-            'createEventStep2Component.addressSection.streetInput.label'
-              | transloco
-          }}</label>
+              'createEventStep2Component.addressSection.streetInput.label' | transloco
+            }}*</label>
         </p-floatLabel>
         @if (
           (!online && streetInput.invalid && submitted) ||
           (streetInput.dirty && streetInput.invalid)
-        ) {
+          ) {
           <small class="p-error">
             {{
               'createEventStep2Component.addressSection.streetInput.errorMessage'
@@ -103,19 +103,19 @@
             [disabled]="online"
             [required]="!online"
             [ngClass]="{
-              'ng-invalid ng-dirty':
-                (!online && streetNumberInput.invalid && submitted) ||
-                (streetNumberInput.dirty && streetNumberInput.invalid),
-            }" />
+          'ng-invalid ng-dirty':
+            (!online && streetNumberInput.invalid && submitted) ||
+            (streetNumberInput.dirty && streetNumberInput.invalid),
+        }" />
           <label for="streetNumber">{{
-            'createEventStep2Component.addressSection.streetNumberInput.label'
-              | transloco
-          }}</label>
+              'createEventStep2Component.addressSection.streetNumberInput.label'
+                | transloco
+            }}*</label>
         </p-floatLabel>
         @if (
           (!online && streetNumberInput.invalid && submitted) ||
           (streetNumberInput.dirty && streetNumberInput.invalid)
-        ) {
+          ) {
           <small class="p-error">
             {{
               'createEventStep2Component.addressSection.streetNumberInput.errorMessage'
@@ -124,11 +124,9 @@
           </small>
         }
       </div>
-    </div>
 
-    <!-- ZIP Code and City -->
-    <div class="p-grid">
-      <div class="p-col-12 p-md-6 field">
+      <!-- ZIP Code and City -->
+      <div class="p-col-12 p-md-4 field">
         <p-floatLabel>
           <input
             #zipCodeInput="ngModel"
@@ -139,17 +137,15 @@
             [required]="!online"
             [pattern]="!online ? zipCodeRegex.source : ''"
             [ngClass]="{
-              'ng-invalid ng-dirty':
-                (!online && zipCodeInput.invalid && submitted) ||
-                (zipCodeInput.dirty && zipCodeInput.invalid),
-            }"
+          'ng-invalid ng-dirty':
+            (!online && zipCodeInput.invalid && submitted) ||
+            (zipCodeInput.dirty && zipCodeInput.invalid),
+        }"
             (ngModelChange)="onZipCodeChange($event)" />
-          <label for="zipCode">
-            {{
+          <label for="zipCode">{{
               'createEventStep2Component.addressSection.zipCodeInput.label'
                 | transloco
-            }}
-          </label>
+            }}*</label>
         </p-floatLabel>
         @if (!online && zipCodeInput.invalid && submitted) {
           <small class="p-error">
@@ -168,8 +164,7 @@
           </small>
         }
       </div>
-
-      <div class="p-col-12 p-md-6 field">
+      <div class="p-col-12 p-md-8 field">
         <p-floatLabel>
           <p-autoComplete
             #cityInput="ngModel"
@@ -184,16 +179,13 @@
             [minLength]="3"
             [forceSelection]="true"
             [ngClass]="{
-              'ng-invalid ng-dirty':
-                (!online && cityInput.invalid && submitted) ||
-                (cityInput.dirty && cityInput.invalid),
-            }"></p-autoComplete>
-          <label for="city">
-            {{
-              'createEventStep2Component.addressSection.cityInput.label'
-                | transloco
-            }}
-          </label>
+          'ng-invalid ng-dirty':
+            (!online && cityInput.invalid && submitted) ||
+            (cityInput.dirty && cityInput.invalid),
+        }"></p-autoComplete>
+          <label for="city">{{
+              'createEventStep2Component.addressSection.cityInput.label' | transloco
+            }}*</label>
         </p-floatLabel>
         @if (!online && cityInput.invalid && submitted) {
           <small class="p-error">
@@ -215,6 +207,7 @@
             | transloco
         "
         [(ngModel)]="hideAddress"
+        [disabled]="online"
         [binary]="true"
         id="hideAddress"
         variant="filled"
