@@ -44,6 +44,7 @@ import { CurrentUrlService } from './services/current-url/current-url.service';
     ConfirmationService,
     SocketService,
     LanguageService,
+    EventService,
   ],
   templateUrl: './app.component.html',
 })

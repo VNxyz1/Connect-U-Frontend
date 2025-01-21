@@ -65,8 +65,14 @@ export class EventService {
     private readonly http: HttpClient,
     private readonly storageService: StorageService,
   ) {
-    this.loadNextFyPage();
     this.loadNextAllEventsPage();
+  }
+
+  initFyPage(): void {
+    this.page = 0;
+    this.hasMoreFyEventsSubject = new BehaviorSubject<boolean>(true);
+    this.fyPageSubject = new BehaviorSubject<EventCardItem[]>([]);
+    this.loadNextFyPage();
   }
 
   /**
