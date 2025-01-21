@@ -1,4 +1,5 @@
 {
+  "serverUnavailable": "The server is currently unavailable. Please try again later.",
   "profilePictureAlt": "Profile picture",
   "homepage": {
     "title": "Events for You",
