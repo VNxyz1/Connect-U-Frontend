@@ -127,7 +127,7 @@ body {
   border-bottom-right-radius: 0 0;
   place-self: end;
   mask:
-    radial-gradient(100% 100% at var(--_p) 0, #0000 99%, #000 102%) var(--_p)
+    radial-gradient(100% 100% at var(--_p) 0, #0000 100%, #000 100%) var(--_p)
       100% / var(--t) var(--t) no-repeat,
     linear-gradient(135deg, $secondaryColor, $secondaryColor) padding-box;
   background: linear-gradient(135deg, $secondaryColor, $secondaryColor)
