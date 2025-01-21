@@ -135,9 +135,11 @@
               (eventTitleInput.dirty && eventTitleInput.invalid) ||
               eventTitle.trim() === '',
           }" />
-        <label for="event-title">{{
-          'createEventStep1Component.eventTitleInput.label' | transloco
-        }}*</label>
+        <label for="event-title"
+          >{{
+            'createEventStep1Component.eventTitleInput.label' | transloco
+          }}*</label
+        >
       </p-floatLabel>
       @if (
         (eventTitleInput.invalid && submitted) ||
@@ -169,9 +171,11 @@
           [ngClass]="{
             'ng-invalid ng-dirty': submitted && selectedCategories.length === 0,
           }"></p-multiSelect>
-        <label for="categories">{{
-          'createEventStep1Component.categoriesInput.label' | transloco
-        }}*</label>
+        <label for="categories"
+          >{{
+            'createEventStep1Component.categoriesInput.label' | transloco
+          }}*</label
+        >
       </p-floatLabel>
       @if (selectedCategories.length === 0 && submitted) {
         <small class="p-error">

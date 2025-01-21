@@ -15,9 +15,12 @@
               (participantsInput.invalid && submitted) ||
               (participantsInput.dirty && participantsInput.invalid),
           }" />
-        <label for="participantsNumber">{{
-          'createEventStep3Component.participantsNumberInput.label' | transloco
-        }}*</label>
+        <label for="participantsNumber"
+          >{{
+            'createEventStep3Component.participantsNumberInput.label'
+              | transloco
+          }}*</label
+        >
       </p-floatLabel>
       @if (
         (participantsInput.invalid && submitted) ||

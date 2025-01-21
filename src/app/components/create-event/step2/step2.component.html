@@ -28,9 +28,11 @@
             </rmx-icon>
           </ng-template>
         </p-calendar>
-        <label for="date">{{
-          'createEventStep2Component.dateAndTimeInput.label' | transloco
-        }}*</label>
+        <label for="date"
+          >{{
+            'createEventStep2Component.dateAndTimeInput.label' | transloco
+          }}*</label
+        >
       </p-floatLabel>
       @if (
         (dateAndTimeInput.invalid && submitted) ||
@@ -73,18 +75,21 @@
             [disabled]="online"
             [required]="!online"
             [ngClass]="{
-          'ng-invalid ng-dirty':
-            (!online && streetInput.invalid && submitted) ||
-            (streetInput.dirty && streetInput.invalid),
-        }" />
-          <label for="street">{{
-              'createEventStep2Component.addressSection.streetInput.label' | transloco
-            }}*</label>
+              'ng-invalid ng-dirty':
+                (!online && streetInput.invalid && submitted) ||
+                (streetInput.dirty && streetInput.invalid),
+            }" />
+          <label for="street"
+            >{{
+              'createEventStep2Component.addressSection.streetInput.label'
+                | transloco
+            }}*</label
+          >
         </p-floatLabel>
         @if (
           (!online && streetInput.invalid && submitted) ||
           (streetInput.dirty && streetInput.invalid)
-          ) {
+        ) {
           <small class="p-error">
             {{
               'createEventStep2Component.addressSection.streetInput.errorMessage'
@@ -103,19 +108,21 @@
             [disabled]="online"
             [required]="!online"
             [ngClass]="{
-          'ng-invalid ng-dirty':
-            (!online && streetNumberInput.invalid && submitted) ||
-            (streetNumberInput.dirty && streetNumberInput.invalid),
-        }" />
-          <label for="streetNumber">{{
+              'ng-invalid ng-dirty':
+                (!online && streetNumberInput.invalid && submitted) ||
+                (streetNumberInput.dirty && streetNumberInput.invalid),
+            }" />
+          <label for="streetNumber"
+            >{{
               'createEventStep2Component.addressSection.streetNumberInput.label'
                 | transloco
-            }}*</label>
+            }}*</label
+          >
         </p-floatLabel>
         @if (
           (!online && streetNumberInput.invalid && submitted) ||
           (streetNumberInput.dirty && streetNumberInput.invalid)
-          ) {
+        ) {
           <small class="p-error">
             {{
               'createEventStep2Component.addressSection.streetNumberInput.errorMessage'
@@ -137,15 +144,17 @@
             [required]="!online"
             [pattern]="!online ? zipCodeRegex.source : ''"
             [ngClass]="{
-          'ng-invalid ng-dirty':
-            (!online && zipCodeInput.invalid && submitted) ||
-            (zipCodeInput.dirty && zipCodeInput.invalid),
-        }"
+              'ng-invalid ng-dirty':
+                (!online && zipCodeInput.invalid && submitted) ||
+                (zipCodeInput.dirty && zipCodeInput.invalid),
+            }"
             (ngModelChange)="onZipCodeChange($event)" />
-          <label for="zipCode">{{
+          <label for="zipCode"
+            >{{
               'createEventStep2Component.addressSection.zipCodeInput.label'
                 | transloco
-            }}*</label>
+            }}*</label
+          >
         </p-floatLabel>
         @if (!online && zipCodeInput.invalid && submitted) {
           <small class="p-error">
@@ -179,13 +188,16 @@
             [minLength]="3"
             [forceSelection]="true"
             [ngClass]="{
-          'ng-invalid ng-dirty':
-            (!online && cityInput.invalid && submitted) ||
-            (cityInput.dirty && cityInput.invalid),
-        }"></p-autoComplete>
-          <label for="city">{{
-              'createEventStep2Component.addressSection.cityInput.label' | transloco
-            }}*</label>
+              'ng-invalid ng-dirty':
+                (!online && cityInput.invalid && submitted) ||
+                (cityInput.dirty && cityInput.invalid),
+            }"></p-autoComplete>
+          <label for="city"
+            >{{
+              'createEventStep2Component.addressSection.cityInput.label'
+                | transloco
+            }}*</label
+          >
         </p-floatLabel>
         @if (!online && cityInput.invalid && submitted) {
           <small class="p-error">
