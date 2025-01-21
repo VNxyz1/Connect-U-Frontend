@@ -2,7 +2,7 @@
   <!-- Chat Messages -->
   <div
     #chatContainer
-    class="chat-container overflow-scroll flex-grow-1 pb-4 mt-0">
+    class="chat-container overflow-scroll flex-grow-1 mb-8 mt-0">
     <div class="justify-content-center py-2">
       @if (messages$ | async; as Messages) {
         @if (Messages.readMessages.length || Messages.unreadMessages.length) {
@@ -54,29 +54,41 @@
   </div>
 
   <!-- Input Field -->
-  <div class="flex align-items-center justify-content-center">
-    <p-iconField
-      iconPosition="right"
-      class="justify-content-center max-w-30rem w-full fixed md:mb-5 bg-white">
-      <!-- Input Field -->
-      <input
-        pInputText
-        placeholder="{{ 'eventChatPage.placeholder-input' | transloco }}"
-        class="flex-grow-1 w-full"
-        [(ngModel)]="newMessage"
-        (keydown.enter)="sendMessage()" />
+  <div
+    class="col-12 md:col-10 flex justify-content-center fixed bg-white md:bottom-0"
+    style="bottom: 70px">
+    <div class="w-12 md:w-10 xl:w-6 grid justify-content-center">
+      <div class="col-12 md:col-8 pb-0">
+        <div class="grid">
+          <div class="col-12 mt-2">
+            <p-iconField iconPosition="right">
+              <!-- Input Field -->
+              <input
+                pInputText
+                placeholder="{{
+                  'eventChatPage.placeholder-input' | transloco
+                }}"
+                class="flex-grow-1 w-full"
+                [(ngModel)]="newMessage"
+                (keydown.enter)="sendMessage()" />
 
-      <!-- Icon Button -->
-      <p-inputIcon
-        tabindex="0"
-        aria-label="Send message"
-        class="cursor-pointer"
-        (click)="sendMessage()">
-        @if (newMessage.trim().length > 0) {
-          <rmx-icon name="send-plane-fill" style="width: 1rem; height: 1rem">
-          </rmx-icon>
-        }
-      </p-inputIcon>
-    </p-iconField>
+              <!-- Icon Button -->
+              <p-inputIcon
+                tabindex="0"
+                aria-label="Send message"
+                class="cursor-pointer"
+                (click)="sendMessage()">
+                @if (newMessage.trim().length > 0) {
+                  <rmx-icon
+                    name="send-plane-fill"
+                    style="width: 1rem; height: 1rem">
+                  </rmx-icon>
+                }
+              </p-inputIcon>
+            </p-iconField>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
