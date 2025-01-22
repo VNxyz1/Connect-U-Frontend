@@ -137,8 +137,16 @@ h6 {
 
 .p-tabmenu {
   position: sticky !important;
-  top: 4.25rem;
+  top: 3.85rem;
   z-index: 1 !important;
+}
+
+body.ios .p-tabmenu {
+  top: 6.85rem;
+}
+
+body.ios .p-steps {
+  top: 6.85rem;
 }
 
 /* Highlighted tab styling */

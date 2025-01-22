@@ -5,7 +5,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>&quot;In order to scan QR codes, we need to access your camera&quot;</string>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>base</string>
+	<string>en</string>
 	<key>CFBundleDisplayName</key>
 	<string>Connect-U</string>
 	<key>CFBundleExecutable</key>

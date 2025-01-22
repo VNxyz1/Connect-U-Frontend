@@ -1,6 +1,7 @@
-<!-- Tab-bar for Mobile-View -->
+<!-- Nav-bar for Mobile-View -->
 <div
-  class="w-full border-top-2 border-gray-50 surface-ground px-4 z-4 bottom-0 fixed md:hidden">
+  class="w-full border-top-2 border-gray-50 surface-ground px-4 z-4 bottom-0 fixed md:hidden"
+  [ngClass]="{ 'pb-3': isIosPlatform }">
   <div class="w-full flex pt-3 pb-3 justify-content-between">
     <div class="col-fixed w-min p-0">
       <p-button

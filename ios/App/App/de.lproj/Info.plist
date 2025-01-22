@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSCameraUsageDescription</key>
-	<string>&quot;In order to scan QR codes, we need to access your camera&quot;</string>
+	<string>&quot;Um QR-Codes scannen zu können, benötigen wir die Berechtigung, deine Kamera zu verwenden.&quot;</string>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>base</string>
+	<string>en</string>
 	<key>CFBundleDisplayName</key>
 	<string>Connect-U</string>
 	<key>CFBundleExecutable</key>
