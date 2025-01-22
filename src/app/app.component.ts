@@ -55,6 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isIos = Capacitor.getPlatform() === 'ios';
   isLoggedIn!: Observable<boolean>;
   currentUrl$!: Observable<string>;
+  toastBreakpoints: any;
 
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: Object,
@@ -74,6 +75,11 @@ export class AppComponent implements OnInit, OnDestroy {
     if (this.isIos) {
       this.renderer.addClass(document.body, 'ios');
     }
+
+    this.toastBreakpoints = this.isIos
+      ? { '920px': { width: '90%', top: '120' } }
+      : { '920px': { width: '90%', top: '30' } };
+
     this.currentUrl$ = this.currentUrl.get();
 
     this.auth.checkBackendHealth().subscribe({

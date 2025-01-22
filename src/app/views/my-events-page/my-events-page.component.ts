@@ -14,9 +14,10 @@ import { EventRequestService } from '../../services/event/event-request.service'
 import { UsersEventRequest } from '../../interfaces/UsersEventRequest';
 import { CurrentUrlService } from '../../services/current-url/current-url.service';
 import { Observable, of } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { UserService } from '../../services/user/user.service';
 import { PushNotificationService } from '../../services/push-notification/push-notification.service';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-my-events-page',
@@ -33,6 +34,7 @@ import { PushNotificationService } from '../../services/push-notification/push-n
     UsersEventRequestsComponent,
     AsyncPipe,
     TranslocoPipe,
+    NgClass,
   ],
   templateUrl: './my-events-page.component.html',
 })
@@ -40,6 +42,7 @@ export class MyEventsPageComponent implements OnInit {
   activeTab: string = 'guest';
   currentUrl$!: Observable<string>;
   tabMenuItems: MenuItem[] = [];
+  isIos = Capacitor.getPlatform() === 'ios';
 
   filterCategories = [
     { name: 'outdoor' },

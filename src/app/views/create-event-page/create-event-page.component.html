@@ -1,5 +1,6 @@
 <p-steps class="content" [model]="items" [readonly]="true" />
 
-<div class="px-2 content mt-6">
+<div class="px-2 content mt-6"
+  [ngClass]="{'pb-4': isIos}">
   <router-outlet></router-outlet>
 </div>

@@ -18,7 +18,7 @@
         'md:col-offset-2 md:col-10':
           !currentUrl.includes('/create-event') && (isLoggedIn | async),
         'mt-7': (isLoggedIn | async) && !currentUrl.includes('welcome'),
-        'mb-4 mt-2': isIos,
+        'mb-4 mt-8': isIos,
       }">
       <router-outlet />
     </div>
@@ -31,4 +31,4 @@
   </div>
 }
 
-<p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />
+<p-toast [breakpoints]="toastBreakpoints"></p-toast>

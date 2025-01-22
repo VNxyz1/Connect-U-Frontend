@@ -110,7 +110,7 @@ h6 {
 
 .p-steps {
   position: sticky !important;
-  top: 4.3rem;
+  top: 3.85rem;
   z-index: 1 !important;
   background: $white !important;
   align-items: center;
@@ -202,3 +202,8 @@ body.ios .p-steps {
 .p-toast {
   z-index: 1400;
 }
+
+body.ios .p-toast {
+  top: 90px;
+}
+
