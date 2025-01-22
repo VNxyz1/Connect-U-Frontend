@@ -17,7 +17,7 @@
       [ngClass]="{
         'md:col-offset-2 md:col-10':
           !currentUrl.includes('/create-event') && (isLoggedIn | async),
-        'mt-7': (isLoggedIn | async) && !currentUrl.includes('welcome'),
+        'mt-5': (isLoggedIn | async) && !currentUrl.includes('welcome'),
         'mb-4 mt-8': isIos,
       }">
       <router-outlet />
