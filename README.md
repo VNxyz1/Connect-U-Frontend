@@ -68,6 +68,8 @@ Run `npm run build` to build the project. The build artifacts will be stored in 
 Run `npm run build-app` to build the project with the app environment. Then run `npx cap add [ android | ios ]` to add your platform of choice.
 You now have to open the generated directory with Android Studio (for android) or Xcode (for ios).
 
+Further reading for the Capacitor workflow: [Capacitor Docs](https://capacitorjs.com/docs/v6/basics/workflow)
+
 ### Docker
 - Build a docker image of the current application with `docker build -t connect-u-frontend .`.
 - Run the docker container with `docker run -d -p 4200:4200 connect-u-frontend`
