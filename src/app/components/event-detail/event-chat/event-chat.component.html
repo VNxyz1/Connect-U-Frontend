@@ -2,7 +2,7 @@
   <!-- Chat Messages -->
   <div
     #chatContainer
-    class="chat-container overflow-scroll flex-grow-1 mb-8 mt-0">
+    class="chat-container overflow-scroll flex-grow-1 mb-8 mt-4">
     <div class="justify-content-center py-2">
       @if (messages$ | async; as Messages) {
         @if (Messages.readMessages.length || Messages.unreadMessages.length) {
@@ -56,7 +56,7 @@
   <!-- Input Field -->
   <div
     class="col-12 md:col-10 flex justify-content-center fixed bg-white md:bottom-0"
-    style="bottom: 70px">
+    [style.bottom.px]="isIos ? 85 : 70">
     <div class="w-12 md:w-10 xl:w-6 grid justify-content-center">
       <div class="col-12 md:col-8 pb-0">
         <div class="grid">
