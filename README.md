@@ -33,7 +33,7 @@ Run `npm run build` to build the project. The build artifacts will be stored in 
 
 ### App version
 Run `npm run build-app` to build the project with the app environment. Then run `npx cap add [ android | ios ]` to add your platform of choice.
-You now have to oben the generated directory with Android Studio (for android) or Xcode (for ios).
+You now have to open the generated directory with Android Studio (for android) or Xcode (for ios).
 
 ### Docker
 - Build a docker image of the current application with `docker build -t connect-u-frontend .`.
