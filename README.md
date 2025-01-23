@@ -37,13 +37,16 @@
       </ul>
     </li>
     <li>
+      <a href="#linter">Linter</a>
+    </li>
+    <li>
       <a href="#file-structure">File structure</a>
     </li>
     <li>
-      <a href="#contributing">File structure</a>
+      <a href="#contributing">Contributing</a>
     </li>
     <li>
-      <a href="#license">File structure</a>
+      <a href="#license">License</a>
     </li>
   </ol>
 </details>
@@ -70,9 +73,15 @@ You now have to open the generated directory with Android Studio (for android) o
 - Run the docker container with `docker run -d -p 4200:4200 connect-u-frontend`
 - It is now accessible on port `4200`
 
+## Linter
+
+```bash
+$ npm run lint
+```
 
 ## File structure
 A listing of the relevant files and directories.
+
 
 ```
 Connect-U-Frontend
