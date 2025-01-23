@@ -19,6 +19,36 @@
   <a href="https://github.com/VNxyz1/Connect-U-Frontend/pkgs/container/connect-u-frontend" target="_blank"><img src="https://img.shields.io/badge/Docker%20images-2496ED?logo=docker&logoColor=fff"/></a>
 </p>
 
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#dependencies">Dependencies</a>
+    </li>
+    <li>
+      <a href="#development-server">Development server</a>
+    </li>
+    <li>
+      <a href="#build">Build</a>
+      <ul>
+        <li><a href="#app-version">App version</a></li>
+        <li><a href="#docker">Docker</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#file-structure">File structure</a>
+    </li>
+    <li>
+      <a href="#contributing">File structure</a>
+    </li>
+    <li>
+      <a href="#license">File structure</a>
+    </li>
+  </ol>
+</details>
+
+
 
 ## Dependencies 
 - Be sure to have Angular-CLI v18+ installed.
@@ -90,3 +120,14 @@ Connect-U-Frontend
     │   ...
     
 ```
+
+## Contributing
+
+
+<a href="https://github.com/VNxyz1/Connect-U-Frontend/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=VNxyz1/Connect-U-Frontend" alt="contrib.rocks image" />
+</a>
+
+## License
+
+Distributed under the MIT License. See `LICENSE.md` for more information.
