@@ -27,6 +27,7 @@ import { filter } from 'rxjs/operators';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-event-chat',
@@ -54,6 +55,7 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
   private _chatSubject$!: BehaviorSubject<EventMessagesResponse>;
   messages$!: Observable<EventMessagesResponse>;
   newMessage: string = '';
+  isIos = Capacitor.getPlatform() === 'ios';
 
   private userScrolled: boolean = false;
   private socketSubscription!: Subscription;

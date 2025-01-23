@@ -1,7 +1,8 @@
 @if (currentUrl$ | async; as currentUrl) {
   <div class="border-bottom-2 border-gray-50 z-4 top-0 bg-main">
     <div
-      class="flex align-items-center justify-content-between w-full pt-2 pb-1">
+      class="flex align-items-center justify-content-between w-full pb-1"
+      [ngClass]="{ 'pt-6': isIosPlatform }">
       <div class="col align-items-center justify-content-start">
         @if (currentUrl?.includes('results')) {
           <p-button
