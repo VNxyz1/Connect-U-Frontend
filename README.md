@@ -11,6 +11,8 @@
   <a href="https://www.docker.com/" target="_blank"><img src="https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff"/></a>
   <a href="https://nodejs.org/" target="_blank"><img src="https://img.shields.io/badge/Node.js-6DA55F?logo=node.js&logoColor=white"/></a>
   <a href="https://www.npmjs.com/" target="_blank"><img src="https://img.shields.io/badge/npm-CB3837?logo=npm&logoColor=fff"/></a>
+  <a href="https://eslint.org/" target="_blank"><img src="https://img.shields.io/badge/eslint-3A33D1?logo=eslint&logoColor=white"/></a>
+  <a href="https://capacitorjs.com/" target="_blank"><img src="https://img.shields.io/badge/Capacitor-119EFF?logo=Capacitor&logoColor=white"/></a>
   <a href="https://www.android.com/intl/de_de/phones/" target="_blank"><img src="https://img.shields.io/badge/Android-3DDC84?logo=android&logoColor=white"/></a>
   <a href="https://developer.apple.com/ios/" target="_blank"><img src="https://img.shields.io/badge/iOS-000000?&logo=apple&logoColor=white"/></a>
   <a href="https://connect-u.site/" target="_blank"><img src="https://img.shields.io/website-up-down-green-red/http/argo.connect-u.site.svg"/></a>
