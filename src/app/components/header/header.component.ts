@@ -8,9 +8,10 @@ import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { EventService } from '../../services/event/eventservice';
 import { AuthService } from '../../services/auth/auth.service';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { Observable } from 'rxjs';
 import { CurrentUrlService } from '../../services/current-url/current-url.service';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-header',
@@ -23,12 +24,14 @@ import { CurrentUrlService } from '../../services/current-url/current-url.servic
     ConfirmDialogModule,
     RouterLink,
     AsyncPipe,
+    NgClass,
   ],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
   currentUrl$!: Observable<string>;
   params: Params = { page: 1 };
+  isIosPlatform = Capacitor.getPlatform() === 'ios';
 
   isLoggedIn!: Observable<boolean>;
 
@@ -40,7 +43,9 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private route: ActivatedRoute,
     private currentUrl: CurrentUrlService,
-  ) {}
+  ) {
+    console.log(Capacitor.getPlatform());
+  }
 
   ngOnInit() {
     this.currentUrl$ = this.currentUrl.get();
@@ -80,4 +85,6 @@ export class HeaderComponent implements OnInit {
       },
     });
   }
+
+  protected readonly Capacitor = Capacitor;
 }
