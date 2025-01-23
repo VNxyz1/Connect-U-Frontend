@@ -145,6 +145,10 @@ body {
   height: calc(100vh - 14rem);
 }
 
+body.ios .chat-container {
+  height: calc(100vh - 17.5rem);
+}
+
 @media screen and (min-width: 768px) {
   .chat-container {
     height: calc(100vh - 11.5rem);

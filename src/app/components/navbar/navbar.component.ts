@@ -24,6 +24,7 @@ import { LanguageSelectorComponent } from '../language-selector/language-selecto
 import { PushNotificationService } from '../../services/push-notification/push-notification.service';
 import { Observable } from 'rxjs';
 import { BadgeModule } from 'primeng/badge';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-navbar',
@@ -49,6 +50,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   items: MenuItem[] = [];
   isMd: boolean = false;
   isMobile: boolean = false;
+  isIosPlatform = Capacitor.getPlatform() === 'ios';
 
   myEventsPushNotifications$!: Observable<number>;
 
