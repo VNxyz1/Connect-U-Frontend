@@ -17,9 +17,9 @@ export class EventRequestService {
   private readonly invitesSubject$ = new BehaviorSubject<UsersEventRequest[]>(
     [],
   );
-  private readonly eventRequestsSubject$ = new BehaviorSubject<UsersEventRequest[]>(
-    [],
-  );
+  private readonly eventRequestsSubject$ = new BehaviorSubject<
+    UsersEventRequest[]
+  >([]);
 
   constructor(
     private readonly http: HttpClient,
@@ -161,9 +161,10 @@ export class EventRequestService {
           const arr: UsersEventRequest[] = [];
           return of(arr);
         }),
-      ).subscribe(data => {
-      this.eventRequestsSubject$.next(data);
-    });
+      )
+      .subscribe(data => {
+        this.eventRequestsSubject$.next(data);
+      });
   }
 
   acceptUserRequest(
