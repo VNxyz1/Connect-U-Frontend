@@ -1,12 +1,12 @@
 <div class="flex flex-column align-items-center p-4 relative">
   <p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />
   <div
-    class="col-12 lg:col-6 flex align-items-center align-content-center justify-content-center">
+    class="col-12 lg:col-6 flex align-items-center align-content-center justify-content-center mt-4">
     @if (isUser) {
       <div class="col-2"></div>
     }
     @if (editMode) {
-      <div class="relative" style="width: 150px; height: 150px">
+      <div class="relative -mb-5" style="width: 150px; height: 150px">
         <img
           [src]="imageUrl$ | async"
           [alt]="'profilePictureAlt' | transloco"
@@ -131,7 +131,7 @@
             style="word-wrap: break-word; white-space: pre-wrap">
             {{
               data.profileText ||
-                ('profilePage.cardText.noDescription' | transloco)
+              ('profilePage.cardText.noDescription' | transloco)
             }}
           </p>
         </div>
