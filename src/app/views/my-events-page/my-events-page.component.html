@@ -56,7 +56,7 @@
             [hasRequests]="eventRequests.length > 0"
             [hasReqFromFriends]="eventRequestsFromFriends.length > 0" />
         } @else {
-          <app-users-event-requests [eventRequests]="eventRequests" />
+          <app-users-event-requests />
         }
       }
       @if (activeTab === 'hosted') {
