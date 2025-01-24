@@ -204,10 +204,17 @@ export class ProfilePageComponent implements OnInit {
         this.form.reset();
       },
       error: (err: Error) => {
+        let message:string = "";
+        if(err.message){
+          err.message.includes('20')
+          message = this.translocoService.translate(
+            'profilePage.updateTags.tooLong');
+        }
         this.messageService.add({
           severity: 'error',
-          summary: 'Update Fehler',
-          detail: err.message || 'Ein Fehler ist aufgetreten.',
+          summary: this.translocoService.translate(
+            'profilePage.updateProfilePic.error'),
+          detail: message || 'Ein Fehler ist aufgetreten.',
         });
         console.error('Update Fehler:', err);
       },

@@ -879,6 +879,10 @@
       "error": "Fehler beim Löschen des Profilbildes",
       "successMessage": "Ihr Profilbild wurde erfolgreich gelöscht",
       "errorMessage": "Es ist ein Fehler beim Löschen des Profilbildes aufgetreten"
+    },
+    "updateTags": {
+      "error": "Error creating tags",
+      "tooLong": "The tags you provided exceed the maximum length of 20 characters!"
     }
   },
   "accountPage": {
