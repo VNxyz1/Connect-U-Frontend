@@ -19,6 +19,7 @@
               >
             }
           }
+          <!-- Event Requests - temporary style solution -->
           <li
             class="p-3 py-0 w-full col-12 border-gray-50 flex justify-content-between align-items-center cursor-pointer"
             [routerLink]="['/' + AppRoutes.MY_EVENTS_REQUESTS]"
@@ -33,15 +34,16 @@
               name="arrow-right-s-line"
               style="height: 26px; width: 26px" />
           </li>
+          <!-- Past Events -->
         </ul>
       </p-card>
     </div>
   </div>
   <div class="col-12 grid">
-    @if (notFinishedEvents$ | async; as notFinishedEvents) {
+    @if (filteredEvents$ | async; as events) {
       @if (pushNotificationsEvents$ | async; as push) {
-        @if (notFinishedEvents.length > 0 && !isLoading) {
-          @for (event of notFinishedEvents; track $index) {
+        @if (events.length > 0 && !isLoading) {
+          @for (event of events; track $index) {
             <div
               class="col-12 md:col-6 xl:col-4 justify-content-center mb-3 fadein animation-duration-300 animation-iteration-1">
               <app-event-card
@@ -53,25 +55,16 @@
           }
         }
       }
-    }
-    @if (finishedEvents$ | async; as finishedEvents) {
-      @if (pushNotificationsEvents$ | async; as push) {
-        @if (finishedEvents.length > 0 && !isLoading) {
-          <!-- Finished Events -->
-          <h3 class="text-lg font-bold mb-3">
-            {{ 'myEventPageComponent.guest.finished' | transloco }}
+      @if (events.length == 0) {
+        <div
+          class="top-auto w-12 flex flex-column align-items-center text-center">
+          <h3 class="text-lg font-bold mb-2">
+            {{ 'myEventPageComponent.guest.text' | transloco }}
           </h3>
-          @for (event of finishedEvents; track $index) {
-            <div
-              class="col-12 md:col-6 xl:col-4 justify-content-center mb-3 fadein animation-duration-300 animation-iteration-1">
-              <app-event-card
-                [event]="event"
-                showEventStatus
-                class="w-full"
-                [badge]="push.get(event.id)" />
-            </div>
-          }
-        }
+          <h4 class="text-base mb-2">
+            {{ 'myEventPageComponent.guest.todo' | transloco }}
+          </h4>
+        </div>
       }
     } @else if (isLoading) {
       @for (event of [0, 1, 2, 3, 4]; track $index) {

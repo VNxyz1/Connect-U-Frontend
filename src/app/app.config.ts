@@ -169,7 +169,7 @@ export const customMissingHandler = {
     params?: Record<string, any>,
   ) => {
     console.error('Missing translation key:', key);
-    return key;
+    return key; // Return the key itself as a fallback
   },
 };
 
@@ -179,7 +179,7 @@ export const translocoConfig = {
     defaultLang: 'de-DE',
     reRenderOnLangChange: true,
     prodMode: !isDevMode(),
-    missingHandler: { logMissingKey: false },
+    missingHandler: { logMissingKey: false }, // Disable missing key logs globally
   },
   loader: TranslocoHttpLoader,
 };
