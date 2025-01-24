@@ -8,17 +8,18 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { EventCardItem } from '../../../interfaces/EventCardItem';
-import { BehaviorSubject, finalize, Observable, tap } from 'rxjs';
+import { BehaviorSubject, finalize, Observable, of, tap } from 'rxjs';
 import { EventService } from '../../../services/event/eventservice';
 import { AsyncPipe } from '@angular/common';
 import { EventCardComponent } from '../../event-card/event-card.component';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
 import { CardModule } from 'primeng/card';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PushNotificationService } from '../../../services/push-notification/push-notification.service';
 import { AppRoutes } from '../../../interfaces/AppRoutes';
+import { StatusEnum } from '../../../interfaces/StatusEnum';
 
 @Component({
   selector: 'app-guest-events',
@@ -36,7 +37,8 @@ import { AppRoutes } from '../../../interfaces/AppRoutes';
 export class GuestEventsComponent implements OnInit, OnChanges {
   @Input() filters: { name: string }[] = [];
   events$!: Observable<EventCardItem[]>;
-  filteredEvents$!: Observable<EventCardItem[]>;
+  notFinishedEvents$!: Observable<EventCardItem[]>;
+  finishedEvents$!: Observable<EventCardItem[]>;
   protected isLoading = true;
   @Output() hasEventsChange = new EventEmitter<boolean>();
   @Input() hasRequests!: boolean;
@@ -62,6 +64,7 @@ export class GuestEventsComponent implements OnInit, OnChanges {
     this.router.events.subscribe(() => {
       this.currentUrl = this.router.url;
     });
+
     this.events$ = this.eventService.getParticipatingEvents().pipe(
       tap(() => {
         this.isLoading = true;
@@ -73,26 +76,60 @@ export class GuestEventsComponent implements OnInit, OnChanges {
         this.isLoading = false;
       }),
     );
-    this.filteredEvents$ = this.filtersSubject.pipe(
+
+    // Split events into finished and not finished
+    this.notFinishedEvents$ = this.filtersSubject.pipe(
       switchMap(filters =>
         this.events$.pipe(
           map(events =>
             filters.length > 0
-              ? events.filter(event =>
-                  event.categories.some(category =>
-                    filters.map(filter => filter.name).includes(category.name),
-                  ),
+              ? events.filter(
+                  event =>
+                    event.status !== StatusEnum.finished &&
+                    event.categories.some(category =>
+                      filters
+                        .map(filter => filter.name)
+                        .includes(category.name),
+                    ),
                 )
-              : events,
+              : events.filter(event => event.status !== StatusEnum.finished),
           ),
         ),
       ),
+      catchError(() => {
+        return of([]);
+      }),
     );
+
+    this.finishedEvents$ = this.filtersSubject.pipe(
+      switchMap(filters =>
+        this.events$.pipe(
+          map(events =>
+            filters.length > 0
+              ? events.filter(
+                  event =>
+                    event.status === StatusEnum.finished &&
+                    event.categories.some(category =>
+                      filters
+                        .map(filter => filter.name)
+                        .includes(category.name),
+                    ),
+                )
+              : events.filter(event => event.status === StatusEnum.finished),
+          ),
+        ),
+      ),
+      catchError(() => {
+        return of([]);
+      }),
+    );
+
     this.pushNotificationsEvents$ =
       this.pushNotificationService.getGuestEventsList();
     this.pushNotificationsRequests$ =
       this.pushNotificationService.getGuestJoinRequestAndInvites();
   }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['filters']) {
       this.filtersSubject.next(this.filters);
