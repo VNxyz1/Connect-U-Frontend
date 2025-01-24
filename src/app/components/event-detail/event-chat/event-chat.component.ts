@@ -173,8 +173,8 @@ export class EventChatComponent implements OnInit, OnDestroy, AfterViewInit {
         .postChatMessage(this.eventId, this.newMessage)
         .subscribe({
           next: res => {
-            this.newMessage = ''; // Clear the input field
-            this.getNewMessages(); // Refresh messages
+            this.newMessage = '';
+            this.getNewMessages();
             this.markMessagesAsRead();
           },
           error: err => {

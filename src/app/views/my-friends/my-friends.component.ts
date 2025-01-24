@@ -6,7 +6,6 @@ import { FriendsService } from '../../services/friends/friends.service';
 import { AsyncPipe } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
-import { EventCardComponent } from '../../components/event-card/event-card.component';
 import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({

@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { EventService } from '../../services/event/eventservice';
+import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { StepsModule } from 'primeng/steps';
 import { AuthService } from '../../services/auth/auth.service';

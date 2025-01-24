@@ -1,11 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { EventMessage } from '../../../../interfaces/Messages';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
-import { PrimeTemplate } from 'primeng/api';
 import { NgClass } from '@angular/common';
-import { TranslocoDatePipe } from '@jsverse/transloco-locale';
 import { UserService } from '../../../../services/user/user.service';
 
 @Component({

@@ -407,7 +407,7 @@ export class EventPageComponent implements OnInit {
           }),
       }),
     );
-    this.showInviteModal = false; // Close modal after sending invites
+    this.showInviteModal = false;
     this.onInviteDialogClose();
   }
 
@@ -417,10 +417,8 @@ export class EventPageComponent implements OnInit {
       this.eventDetails.maxParticipantsNumber -
         this.eventDetails.participantsNumber
     ) {
-      // Remove the last selected friend if the limit is exceeded
       this.selectedFriends.pop();
 
-      // Display a warning message with a higher z-index
       this.messageService.add({
         severity: 'warning',
         summary: this.translocoService.translate(
