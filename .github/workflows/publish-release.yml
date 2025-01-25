@@ -75,10 +75,17 @@ jobs:
           git clone https://x-access-token:${{ secrets.CR_PAT }}@github.com/VNxyz1/connect-u-deployment.git target-repo
           cd target-repo
 
+      - name: Format branch name for image tag
+        id: format-tag
+        run: |
+          BRANCH_NAME=${{ github.ref_name }}
+          FORMATTED_NAME=${BRANCH_NAME//\//-}
+          echo "FORMATTED_NAME=${FORMATTED_NAME}" >> $GITHUB_ENV
+
       - name: Update image tag
         run: |
           cd target-repo
-          sed -i 's|image: ghcr.io/vnxyz1/connect-u-frontend:.*|image: ghcr.io/vnxyz1/connect-u-frontend:${{ github.ref_name }}|' connect-u/prod/argocd-conf/frontend-deployment.yaml
+          sed -i 's|image: ghcr.io/vnxyz1/connect-u-frontend:.*|image: ghcr.io/vnxyz1/connect-u-frontend:${{ env.FORMATTED_NAME }}|' connect-u/prod/argocd-conf/frontend-deployment.yaml
 
       - name: Commit and push changes
         run: |
@@ -86,5 +93,5 @@ jobs:
           git config user.name "GitHub Action Bot"
           git config user.email "actions@github.com"
           git add connect-u/prod/argocd-conf/frontend-deployment.yaml
-          git commit -m "Update image tag to ${{ github.ref_name }}"
+          git commit -m "Update image tag to ${{ env.FORMATTED_NAME }}"
           git push
