@@ -24,6 +24,7 @@ import { TranslocoService } from '@jsverse/transloco';
 import { SocketService } from '../../../../services/socket/socket.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../../services/user/user.service';
+import { ProfileData } from '../../../../interfaces/ProfileData';
 
 const BadRequestMessages: Record<string, string> = {
   'A list entry with the same description already exists.':
@@ -261,5 +262,17 @@ export class ListDetailPageComponent implements OnInit {
       },
       reject: () => {},
     });
+  }
+
+  checkboxDisabled(listUser: ProfileData | null | undefined): boolean {
+    const ownUserId = this.userService.getCurrentUserData();
+    if (
+      listUser === null ||
+      listUser === undefined ||
+      listUser?.id === ownUserId?.id
+    ) {
+      return false;
+    }
+    return true;
   }
 }
