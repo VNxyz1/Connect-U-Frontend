@@ -5,6 +5,8 @@ import { ProfileData } from '../../interfaces/ProfileData';
 import { map } from 'rxjs/operators';
 import { StorageService } from '../storage/storage.service';
 import { environment } from '../../../environments/environment';
+import { CurrentUrlService } from '../current-url/current-url.service';
+import { AppRoutes } from '../../interfaces/AppRoutes';
 
 export type UpdateProfileBody = {
   pronouns: string;
@@ -43,6 +45,8 @@ export class UserService {
   inviteLink$ = this.inviteLinkSubject.asObservable();
   remainingTime$: Observable<number>;
 
+  private inviteLinkTimer: any;
+
   private userdataSubject = new BehaviorSubject<ProfileData | undefined>(
     undefined,
   );
@@ -50,6 +54,7 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private storageService: StorageService,
+    private currentUrl: CurrentUrlService,
   ) {
     this.remainingTime$ = interval(1000).pipe(
       map(() => {
@@ -131,13 +136,15 @@ export class UserService {
     return `${environment.apiConfig.urlPrefix}user/profilePicture/${value}`;
   }
 
-  getInviteLink() {
+  private getNewInviteLink() {
     return this.http.get<{ inviteLink: string; ttl: number }>(
       'user/inviteLink',
     );
   }
 
-  async setInviteLink(link: string, ttl: number): Promise<void> {
+  private async setInviteLink(link: string, ttl: number): Promise<void> {
+    clearTimeout(this.inviteLinkTimer);
+
     const expirationTime = Date.now() + ttl;
 
     await this.storageService.set(this.INVITE_LINK_KEY, link);
@@ -145,11 +152,34 @@ export class UserService {
 
     this.inviteLinkSubject.next(link);
     this.expirationTimeSubject.next(expirationTime);
+  }
 
-    setTimeout(() => this.clearInviteLink(), ttl);
+  private setLinkTimer(ttl: number) {
+    clearTimeout(this.inviteLinkTimer);
+    this.inviteLinkTimer = setTimeout(() => {
+      this.clearInviteLink();
+      const a = this.currentUrl.get().subscribe({
+        next: url => {
+          if (url.includes(AppRoutes.SHARE_PROFILE)) {
+            this.startInviteLinkGeneration();
+          }
+          a.unsubscribe();
+        },
+      });
+    }, ttl);
+  }
+
+  startInviteLinkGeneration(): void {
+    this.getNewInviteLink().subscribe({
+      next: async inviteLink => {
+        await this.setInviteLink(inviteLink.inviteLink, inviteLink.ttl);
+        this.setLinkTimer(inviteLink.ttl);
+      },
+    });
   }
 
   async loadStoredInviteLink(): Promise<void> {
+    clearTimeout(this.inviteLinkTimer);
     const link = await this.storageService.get<string>(this.INVITE_LINK_KEY);
     const expirationTime = await this.storageService.get<number>(this.TTL_KEY);
 
@@ -158,10 +188,18 @@ export class UserService {
       this.expirationTimeSubject.next(expirationTime);
 
       const remainingTime = expirationTime - Date.now();
-      setTimeout(() => this.clearInviteLink(), remainingTime);
+      this.setLinkTimer(remainingTime);
     } else {
+      clearTimeout(this.inviteLinkTimer);
       this.clearInviteLink();
     }
+  }
+
+  async hasActiveLink() {
+    const link = await this.storageService.get<string>(this.INVITE_LINK_KEY);
+    const expirationTime = await this.storageService.get<number>(this.TTL_KEY);
+    const relevant = (expirationTime || 0) > Date.now();
+    return link != null && expirationTime != null && relevant;
   }
 
   async clearInviteLink(): Promise<void> {
