@@ -72,7 +72,6 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     AvatarGroupModule,
     AvatarModule,
     AsyncPipe,
-    NgStyle,
   ],
   providers: [ConfirmationService],
 })
