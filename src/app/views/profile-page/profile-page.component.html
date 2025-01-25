@@ -1,12 +1,12 @@
 <div class="flex flex-column align-items-center p-4 relative">
   <p-toast [breakpoints]="{ '920px': { width: '90%', top: '30' } }" />
   <div
-    class="col-12 lg:col-6 flex align-items-center align-content-center justify-content-center">
+    class="col-12 lg:col-6 flex align-items-center align-content-center justify-content-center mt-4">
     @if (isUser) {
       <div class="col-2"></div>
     }
     @if (editMode) {
-      <div class="relative" style="width: 150px; height: 150px">
+      <div class="relative -mb-5" style="width: 150px; height: 150px">
         <img
           [src]="imageUrl$ | async"
           [alt]="'profilePictureAlt' | transloco"
@@ -21,7 +21,7 @@
         <!-- Camera icon positioned in the middle -->
         <rmx-icon
           name="camera-line"
-          class="absolute z-3 cursor-pointer"
+          class="absolute z-1 cursor-pointer"
           style="
             top: 50%;
             left: 50%;
@@ -37,7 +37,7 @@
         @if (profileData$ | async; as data) {
           @if (data.profilePicture != 'empty.png') {
             <p-button
-              class="absolute z-5 cursor-pointer border-none p-0 m-0 top-0 right-0"
+              class="absolute z-1 cursor-pointer border-none p-0 m-0 top-0 right-0"
               (click)="deleteImage()"
               raised>
               <ng-template pTemplate="icon">
@@ -61,7 +61,7 @@
       <img
         [src]="imageUrl$ | async"
         alt="Profilbild"
-        class="border-circle shadow-2 -mb-5 z-3"
+        class="border-circle shadow-2 -mb-5 z-1"
         style="
           width: 150px;
           height: 150px;

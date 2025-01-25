@@ -2,7 +2,7 @@
 
 # Compiled output
 /dist
-/dist-app
+/dist-app*
 /tmp
 /out-tsc
 /bazel-out
@@ -42,5 +42,3 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-
-
