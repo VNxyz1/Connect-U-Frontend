@@ -113,7 +113,7 @@ Connect-U-Frontend
 │   │
 │   └───environments
 │   │   │   environment.ts
-│   │   │   environment.app.ts
+│   │   │   environment.app-android.ts
 │   │   │   environment.development.ts
 │   │
 │   └───app
