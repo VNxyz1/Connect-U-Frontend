@@ -1,9 +1,29 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
+
+function addPlatformConfig(){
+  switch (process.env['PLATFORM']) {
+    case 'ios':
+    case 'IOS':
+    case 'Ios':
+    case 'IOs':
+      return {
+        webDir: 'dist-app-ios/connect-u-frontend/browser',
+      }
+    case 'android':
+    case 'Android':
+      return {
+        webDir: 'dist-app-android/connect-u-frontend/browser',
+      }
+  }
+  return {}
+}
+
+
 const config: CapacitorConfig = {
   appId: 'com.connectu.app',
   appName: 'Connect-U',
-  webDir: 'dist-app/connect-u-frontend/browser',
+  ...addPlatformConfig(),
   plugins: {
     CapacitorCookies: {
       enabled: true,
@@ -22,5 +42,7 @@ const config: CapacitorConfig = {
   //   }
   // }
 };
+
+
 
 export default config;

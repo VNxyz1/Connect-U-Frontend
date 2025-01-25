@@ -80,7 +80,7 @@
                 }
               ],
               "outputHashing": "all",
-              "outputPath": "dist-app/connect-u-frontend",
+              "outputPath": "dist-app-android/connect-u-frontend",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -102,7 +102,7 @@
                 }
               ],
               "outputHashing": "all",
-              "outputPath": "dist-app/connect-u-frontend",
+              "outputPath": "dist-app-ios/connect-u-frontend",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
