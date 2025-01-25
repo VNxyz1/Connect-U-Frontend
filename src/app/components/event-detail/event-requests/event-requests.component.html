@@ -16,7 +16,7 @@
           [src]="userService.getImageFile(r.user.profilePicture)"
           alt="{{ r.user.username }}-profile-picture"
           class="border-circle"
-          style="width: 70px; height: 70px" />
+          style="width: 70px; height: 70px; object-fit: cover" />
         <div class="flex flex-column ml-3 flex-grow-1">
           <div>
             <h3 class="mt-0 mb-0">{{ r.user.firstName }}, {{ r.user.age }}</h3>
@@ -74,7 +74,7 @@
           [src]="userService.getImageFile(i.user.profilePicture)"
           alt="{{ i.user.username }}-profile-picture"
           class="border-circle"
-          style="width: 70px; height: 70px" />
+          style="width: 70px; height: 70px; object-fit: cover" />
         <div class="flex flex-column ml-3 flex-grow-1">
           <div>
             <h3 class="mt-0 mb-0">{{ i.user.firstName }}, {{ i.user.age }}</h3>

@@ -10,13 +10,18 @@
         <img
           [src]="imageUrl$ | async"
           [alt]="'profilePictureAlt' | transloco"
-          class="border-circle shadow-2 cursor-pointer z-3"
-          style="width: 150px; height: 150px; border: 4px solid #ee8418"
+          class="border-circle shadow-2 overflow-hidden cursor-pointer z-3"
+          style="
+            width: 150px;
+            height: 150px;
+            border: 4px solid #ee8418;
+            object-fit: cover;
+          "
           (click)="triggerFileInput()" />
         <!-- Camera icon positioned in the middle -->
         <rmx-icon
           name="camera-line"
-          class="absolute z-4 cursor-pointer"
+          class="absolute z-3 cursor-pointer"
           style="
             top: 50%;
             left: 50%;
@@ -57,7 +62,12 @@
         [src]="imageUrl$ | async"
         alt="Profilbild"
         class="border-circle shadow-2 -mb-5 z-3"
-        style="width: 150px; height: 150px; border: 4px solid white" />
+        style="
+          width: 150px;
+          height: 150px;
+          border: 4px solid white;
+          object-fit: cover;
+        " />
     }
     <!-- editmode button -->
     @if (isUser) {
@@ -88,7 +98,8 @@
           <img
             [src]="uploadedImagePreview || '/images/userImg.png'"
             alt="Preview"
-            class="w-full h-full object-cover" />
+            class="w-full h-full overflow-hidden"
+            style="object-fit: cover" />
         </div>
       </div>
 
