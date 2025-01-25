@@ -1,8 +1,9 @@
-<div class="grid mt-1 px-2">
-  @if (filteredEvents$ | async; as events) {
+<div class="grid mt-2 px-2">
+  <!-- Not Finished Events Section -->
+  @if (notFinishedEvents$ | async; as notFinishedEvents) {
     @if (pushNotifications | async; as push) {
-      @if (events.length > 0 && !isLoading) {
-        @for (event of events; track $index) {
+      @if (notFinishedEvents.length > 0 && !isLoading) {
+        @for (event of notFinishedEvents; track $index) {
           <div
             class="col-12 md:col-6 xl:col-4 justify-content-center mb-3 fadein animation-duration-300 animation-iteration-1">
             <app-event-card
@@ -22,18 +23,36 @@
       } @else {
         <div
           class="col-12 flex flex-column align-items-center text-center mt-8 mb-8">
-          <h3 class="text-lg font-bold mb-4">
+          <h3 class="text-lg font-bold mb-2">
             {{ 'myEventPageComponent.hosted.text' | transloco }}
           </h3>
-          <h4 class="text-base mb-8">
+          <h4 class="text-base mb-2">
             {{ 'myEventPageComponent.hosted.todo' | transloco }}
           </h4>
-
-          <rmx-icon
-            class="sm:hidden color-secondary mt-8 zoomindown animation-duration-2000 animation-iteration-1"
-            style="width: 50px; height: 50px"
-            name="arrow-down-line"></rmx-icon>
         </div>
+      }
+    }
+  }
+  @if (finishedEvents$ | async; as finishedEvents) {
+    @if (pushNotifications | async; as push) {
+      @if (finishedEvents.length > 0 && !isLoading) {
+        @for (event of finishedEvents; track $index) {
+          <div
+            class="col-12 md:col-6 xl:col-4 justify-content-center mb-3 fadein animation-duration-300 animation-iteration-1">
+            <app-event-card
+              [event]="event"
+              showEventStatus
+              class="w-full"
+              [badge]="push.get(event.id)" />
+          </div>
+        }
+      } @else if (isLoading) {
+        @for (event of [0, 1, 2, 3, 4]; track $index) {
+          <div
+            class="col-12 md:col-6 xl:col-4 justify-content-center mb-3 md:px-3">
+            <app-event-card skeleton class="w-full" />
+          </div>
+        }
       }
     }
   }
