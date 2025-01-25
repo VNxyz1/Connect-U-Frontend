@@ -193,7 +193,9 @@
       "validationFailedTitle": "Validation Failed",
       "validationFailedDetail": "Ensure all required fields are filled in correctly.",
       "removedImageTitle": "Image removed",
-      "removedImage": "You removed the Event-Image successfully"
+      "removedImage": "You removed the Event-Image successfully",
+      "tagTooLongTitle": "Tag is too long!",
+      "tagTooLongDetail": "The tag you provided exceeds our maximum length of 20 characters."
     },
     "errorMessages": {
       "wrongFormatTitle": "Wrong Image Format",

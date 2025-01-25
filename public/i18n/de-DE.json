@@ -193,7 +193,9 @@
       "validationFailedTitle": "Validierung fehlgeschlagen",
       "validationFailedDetail": "Bitte stelle sicher, dass alle erforderlichen Felder korrekt ausgefüllt sind.",
       "removedImageTitle": "Bild entfernt!",
-      "removedImage": "Bild wurde erfolgreich entfernt, wähle gerne ein neues aus."
+      "removedImage": "Bild wurde erfolgreich entfernt, wähle gerne ein neues aus.",
+      "tagTooLongTitle": "Tag ist zu lang!",
+      "tagTooLongDetail": "Das von dir angegebene Tag überschreitet unsere maximale Länge von 20 Zeichen"
     },
     "errorMessages": {
       "wrongFormatTitle": "Falsches Format",
