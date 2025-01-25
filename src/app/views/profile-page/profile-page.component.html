@@ -10,7 +10,7 @@
         <img
           [src]="imageUrl$ | async"
           [alt]="'profilePictureAlt' | transloco"
-          class="border-circle shadow-2 cursor-pointer z-3"
+          class="border-circle bg-cover shadow-2 overflow-hidden cursor-pointer z-3"
           style="width: 150px; height: 150px; border: 4px solid #ee8418"
           (click)="triggerFileInput()" />
         <!-- Camera icon positioned in the middle -->
@@ -56,7 +56,7 @@
       <img
         [src]="imageUrl$ | async"
         alt="Profilbild"
-        class="border-circle shadow-2 -mb-5 z-3"
+        class="border-circle overflow-hidden bg-cover shadow-2 -mb-5 z-3"
         style="width: 150px; height: 150px; border: 4px solid white" />
     }
     <!-- editmode button -->
@@ -88,7 +88,7 @@
           <img
             [src]="uploadedImagePreview || '/images/userImg.png'"
             alt="Preview"
-            class="w-full h-full object-cover" />
+            class="w-full h-full overflow-hidden bg-cover" />
         </div>
       </div>
 
