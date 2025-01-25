@@ -209,9 +209,10 @@
                         [image]="
                           userService.getImageFile(r.user.profilePicture)
                         "
-                        [style]="{'width': '75px', 'height': '75px', 'object-fit': 'cover'}"
                         shape="circle"
-                        size="large">
+                        size="large"
+                        styleClass="avatar"
+                      >
                       </p-avatar>
                     }
                     <!-- Display the "+X" avatar if there are more than 4 items -->
@@ -220,8 +221,7 @@
                         [label]="'+' + (combinedAvatars.length - 4)"
                         shape="circle"
                         size="large"
-                        [style]="{'width': '75px', 'height': '75px', 'object-fit': 'cover'}"
-                        styleClass="flex align-items-center justify-content-center ">
+                        styleClass="flex align-items-center justify-content-center avatar">
                       </p-avatar>
                     }
                   </p-avatarGroup>
@@ -276,7 +276,7 @@
                   ) {
                     <p-avatar
                       [image]="userService.getImageFile(r.profilePicture)"
-                      [style]="{width: '75px', height: '75px', 'object-fit': 'cover'}"
+                      styleClass="avatar"
                       shape="circle"
                       size="large">
                     </p-avatar>
@@ -284,10 +284,9 @@
                   @if (eventDetails.participants.length > 5) {
                     <p-avatar
                       [label]="'+' + (eventDetails.participants.length - 4)"
-                      [style]="{'object-fit': 'cover', width: '75px', height: '75px'}"
                       shape="circle"
                       size="large"
-                      styleClass="flex align-items-center justify-content-center">
+                      styleClass="flex align-items-center justify-content-center avatar">
                     </p-avatar>
                   }
                 </p-avatarGroup>
