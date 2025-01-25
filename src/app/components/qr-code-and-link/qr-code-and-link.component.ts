@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { UserService } from '../../services/user/user.service';
 import { AsyncPipe } from '@angular/common';
@@ -31,7 +31,7 @@ import { SkeletonModule } from 'primeng/skeleton';
   ],
   templateUrl: './qr-code-and-link.component.html',
 })
-export class QrCodeAndLinkComponent {
+export class QrCodeAndLinkComponent implements OnInit {
   constructor(
     protected userService: UserService,
     private clip: Clipboard,
@@ -39,10 +39,17 @@ export class QrCodeAndLinkComponent {
     private translocoService: TranslocoService,
   ) {}
 
+  async ngOnInit() {
+    const hasActiveLink = await this.userService.hasActiveLink();
+    if (hasActiveLink) {
+      await this.userService.loadStoredInviteLink();
+    } else {
+      this.setInviteLink();
+    }
+  }
+
   setInviteLink() {
-    this.userService.getInviteLink().subscribe(inviteLink => {
-      this.userService.setInviteLink(inviteLink.inviteLink, inviteLink.ttl);
-    });
+    this.userService.startInviteLinkGeneration();
   }
 
   handleRefreshClick() {
