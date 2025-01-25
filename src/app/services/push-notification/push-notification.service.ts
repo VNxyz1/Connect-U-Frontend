@@ -70,13 +70,13 @@ export class PushNotificationService {
       }),
       tap(da => {
         if (da != 0) {
-          addEventListener('blur', ()=> {
+          addEventListener('blur', () => {
             document.title = '( ' + da + ' ) | Connect-U';
-          })
+          });
         } else {
-          addEventListener('blur', ()=> {
+          addEventListener('blur', () => {
             document.title = 'Connect-U';
-          })
+          });
         }
         addEventListener('focus', () => {
           document.title = 'Connect-U';
@@ -418,8 +418,9 @@ export class PushNotificationService {
     });
     addEventListener('focus', () => {
       const timeDiff = Date.now() - this.blurTime;
-      if (timeDiff >= 600000) { // 600000 ms: 10 min
-        console.log("triggered ", timeDiff)
+      if (timeDiff >= 600000) {
+        // 600000 ms: 10 min
+        console.log('triggered ', timeDiff);
         this.initializePushNotifications();
         this.loadEventRequestNotifications();
         this.connectHostedEventsSocket();

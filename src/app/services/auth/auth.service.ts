@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, from, map, Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { TranslocoService } from '@jsverse/transloco';
-import {StorageService} from '../storage/storage.service';
+import { StorageService } from '../storage/storage.service';
 
 type LoginBody = {
   email: string;
