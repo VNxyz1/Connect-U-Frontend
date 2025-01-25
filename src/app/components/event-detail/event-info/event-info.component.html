@@ -209,6 +209,7 @@
                         [image]="
                           userService.getImageFile(r.user.profilePicture)
                         "
+                        [style]="{'width': '75px', 'height': '75px', 'object-fit': 'cover'}"
                         shape="circle"
                         size="large">
                       </p-avatar>
@@ -219,7 +220,8 @@
                         [label]="'+' + (combinedAvatars.length - 4)"
                         shape="circle"
                         size="large"
-                        styleClass="flex align-items-center justify-content-center">
+                        [style]="{'width': '75px', 'height': '75px', 'object-fit': 'cover'}"
+                        styleClass="flex align-items-center justify-content-center ">
                       </p-avatar>
                     }
                   </p-avatarGroup>
@@ -238,7 +240,7 @@
         }
       </div>
 
-      <div class="">
+      <div>
         @if (eventDetails) {
           <p-card
             class="p-3"
@@ -274,6 +276,7 @@
                   ) {
                     <p-avatar
                       [image]="userService.getImageFile(r.profilePicture)"
+                      [style]="{width: '75px', height: '75px', 'object-fit': 'cover'}"
                       shape="circle"
                       size="large">
                     </p-avatar>
@@ -281,6 +284,7 @@
                   @if (eventDetails.participants.length > 5) {
                     <p-avatar
                       [label]="'+' + (eventDetails.participants.length - 4)"
+                      [style]="{'object-fit': 'cover', width: '75px', height: '75px'}"
                       shape="circle"
                       size="large"
                       styleClass="flex align-items-center justify-content-center">

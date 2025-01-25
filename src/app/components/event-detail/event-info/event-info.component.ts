@@ -24,7 +24,7 @@ import { DialogModule } from 'primeng/dialog';
 import { EventRequestService } from '../../../services/event/event-request.service';
 import { EventUserRequest } from '../../../interfaces/EventUserRequest';
 import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
-import { AsyncPipe, NgClass } from '@angular/common';
+import {AsyncPipe, NgClass, NgStyle} from '@angular/common';
 import { EventStatusIndicatorComponent } from '../../event-status-indicator/event-status-indicator.component';
 import { ProfileCardComponent } from '../../profile-card/profile-card.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -72,6 +72,7 @@ const ERROR_MESSAGE_MAPPING: Record<string, string> = {
     AvatarGroupModule,
     AvatarModule,
     AsyncPipe,
+    NgStyle,
   ],
   providers: [ConfirmationService],
 })
