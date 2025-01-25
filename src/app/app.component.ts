@@ -4,6 +4,7 @@ import {
   OnDestroy,
   OnInit,
   PLATFORM_ID,
+  Renderer2,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
@@ -22,6 +23,7 @@ import { UserService } from './services/user/user.service';
 import { LanguageService } from './services/language/language.service';
 import { PushNotificationService } from './services/push-notification/push-notification.service';
 import { CurrentUrlService } from './services/current-url/current-url.service';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-root',
@@ -50,8 +52,10 @@ import { CurrentUrlService } from './services/current-url/current-url.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Connect-U-Frontend';
+  isIos = Capacitor.getPlatform() === 'ios';
   isLoggedIn!: Observable<boolean>;
   currentUrl$!: Observable<string>;
+  toastBreakpoints: any;
 
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: Object,
@@ -60,6 +64,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly userService: UserService,
     private readonly currentUrl: CurrentUrlService,
     private readonly router: Router,
+    private renderer: Renderer2,
 
     // Necessary to be initialised here!
     private readonly languageService: LanguageService,
@@ -67,6 +72,14 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    if (this.isIos) {
+      this.renderer.addClass(document.body, 'ios');
+    }
+
+    this.toastBreakpoints = this.isIos
+      ? { '920px': { width: '90%', top: '120' } }
+      : { '920px': { width: '90%', top: '30' } };
+
     this.currentUrl$ = this.currentUrl.get();
 
     this.auth.checkBackendHealth().subscribe({

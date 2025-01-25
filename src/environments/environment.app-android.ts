@@ -1,7 +1,7 @@
 export const environment = {
   apiConfig: {
-    socketUrl: 'https://dev.connect-u.site/',
-    urlPrefix: 'https://dev.connect-u.site/api/',
+    socketUrl: 'https://connect-u.site/',
+    urlPrefix: 'https://connect-u.site/api/',
     withCredentials: true,
   },
   hideCamera: true,

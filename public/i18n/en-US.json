@@ -193,7 +193,9 @@
       "validationFailedTitle": "Validation Failed",
       "validationFailedDetail": "Ensure all required fields are filled in correctly.",
       "removedImageTitle": "Image removed",
-      "removedImage": "You removed the Event-Image successfully"
+      "removedImage": "You removed the Event-Image successfully",
+      "tagTooLongTitle": "Tag is too long!",
+      "tagTooLongDetail": "The tag you provided exceeds our maximum length of 20 characters."
     },
     "errorMessages": {
       "wrongFormatTitle": "Wrong Image Format",
@@ -879,6 +881,10 @@
       "error": "Fehler beim Löschen des Profilbildes",
       "successMessage": "Ihr Profilbild wurde erfolgreich gelöscht",
       "errorMessage": "Es ist ein Fehler beim Löschen des Profilbildes aufgetreten"
+    },
+    "updateTags": {
+      "error": "Error creating tags",
+      "tooLong": "The tags you provided exceed the maximum length of 20 characters!"
     }
   },
   "accountPage": {
@@ -1048,7 +1054,7 @@
     "back-to-home": "Go to Homepage"
   },
   "myFriends": {
-    "emptyTitle": "It's bit lonely here...🏝️",
+    "emptyTitle": "It's a bit lonely here...🏝️",
     "emptyDetail": "Check out the homepage for an event to expand your friends list!"
   }
 }

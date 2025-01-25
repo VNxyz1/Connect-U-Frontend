@@ -1,21 +1,22 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { EventService } from '../../services/event/eventservice';
+import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { ToastModule } from 'primeng/toast';
 import { StepsModule } from 'primeng/steps';
 import { AuthService } from '../../services/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgClass } from '@angular/common';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-create-event-page',
   standalone: true,
-  imports: [ToastModule, StepsModule],
+  imports: [StepsModule, NgClass],
   templateUrl: './create-event-page.component.html',
 })
 export class CreateEventPageComponent implements OnInit, OnDestroy {
   items: MenuItem[] | undefined;
   subscription: Subscription | undefined;
+  isIos = Capacitor.getPlatform() === 'ios';
 
   constructor(
     private authService: AuthService,

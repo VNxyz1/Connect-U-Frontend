@@ -248,7 +248,17 @@ export class Step1Component implements OnInit, OnDestroy {
           .filter(tag => tag.length > 0);
 
         tagsToAdd.forEach(tag => {
-          if (!this.tags.includes(tag)) {
+          if (tag.length > 20) {
+            this.messageService.add({
+              severity: 'error',
+              summary: this.translocoService.translate(
+                'createEventStep1Component.messages.tagTooLongTitle',
+              ),
+              detail: this.translocoService.translate(
+                'createEventStep1Component.messages.tagTooLongDetail',
+              ),
+            });
+          } else if (!this.tags.includes(tag)) {
             this.tags.push(tag);
           }
         });

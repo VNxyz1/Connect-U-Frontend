@@ -9,7 +9,7 @@
       {{ totalCount$ | async }}
       {{ 'resultsPageComponent.eventsFound' | transloco }}
     </span>
-    <div class="col-fixed mt-2 mb-2 mr-5">
+    <div class="col-fixed mt-2 mb-2 mr-5 ml-3 md:mr-3">
       <p-button
         class="raised"
         [raised]="true"
@@ -27,13 +27,13 @@
   <div
     appScrollNearEnd
     (nearEnd)="loadNewPage()"
-    class="grid justify-content-center xl:justify-content-start md:w-full">
+    class="grid justify-content-center xl:justify-content-start md:w-full px-4">
     @if (events$ | async; as events) {
       <div
         class="grid justify-content-center xl:justify-content-start md:w-full">
         @for (event of events; track $index) {
           <div
-            class="col-12 md:col-9 xl:col-4 justify-content-center mb-3 md:px-3">
+            class="col-12 md:col-9 xl:col-4 justify-content-center mb-3 px-1 md:px-3">
             <app-event-card [event]="event" class="w-full" />
           </div>
         }

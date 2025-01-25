@@ -407,7 +407,7 @@ export class EventPageComponent implements OnInit {
           }),
       }),
     );
-    this.showInviteModal = false; // Close modal after sending invites
+    this.showInviteModal = false;
     this.onInviteDialogClose();
   }
 

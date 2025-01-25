@@ -210,7 +210,8 @@
                           userService.getImageFile(r.user.profilePicture)
                         "
                         shape="circle"
-                        size="large">
+                        size="large"
+                        styleClass="avatar">
                       </p-avatar>
                     }
                     <!-- Display the "+X" avatar if there are more than 4 items -->
@@ -219,7 +220,7 @@
                         [label]="'+' + (combinedAvatars.length - 4)"
                         shape="circle"
                         size="large"
-                        styleClass="flex align-items-center justify-content-center">
+                        styleClass="flex align-items-center justify-content-center avatar">
                       </p-avatar>
                     }
                   </p-avatarGroup>
@@ -238,16 +239,16 @@
         }
       </div>
 
-      <div class="">
+      <div>
         @if (eventDetails) {
           <p-card
             class="p-3"
             [routerLink]="
-              this.eventDetails.participantsNumber == 0 ? null : ['guests']
+              eventDetails.participantsNumber == 0 ? null : ['guests']
             "
             [relativeTo]="route"
             [ngClass]="{
-              cursorPointer: this.eventDetails.participantsNumber > 0,
+              cursorPointer: eventDetails.participantsNumber > 0,
             }">
             <div class="flex flex-column justify-content-between h-full">
               <!-- Top Section: Header and Count -->
@@ -258,8 +259,8 @@
                 </h3>
                 <!-- Request Count (Right Top, Aligned with Header) -->
                 <span class="color-secondary text-center w-2rem"
-                  >{{ this.eventDetails.participantsNumber }}/{{
-                    this.eventDetails.maxParticipantsNumber
+                  >{{ eventDetails.participantsNumber }}/{{
+                    eventDetails.maxParticipantsNumber
                   }}</span
                 >
               </div>
@@ -274,6 +275,7 @@
                   ) {
                     <p-avatar
                       [image]="userService.getImageFile(r.profilePicture)"
+                      styleClass="avatar"
                       shape="circle"
                       size="large">
                     </p-avatar>
@@ -283,13 +285,13 @@
                       [label]="'+' + (eventDetails.participants.length - 4)"
                       shape="circle"
                       size="large"
-                      styleClass="flex align-items-center justify-content-center">
+                      styleClass="flex align-items-center justify-content-center avatar">
                     </p-avatar>
                   }
                 </p-avatarGroup>
 
                 <!-- Icon (Bottom Right) -->
-                @if (this.eventDetails.participantsNumber > 0) {
+                @if (eventDetails.participantsNumber > 0) {
                   <div class="flex align-items-center">
                     <rmx-icon
                       name="arrow-right-s-line"
@@ -393,9 +395,9 @@
               </p-button>
             } @else if (
               eventDetails.isHost &&
-              this.eventDetails.maxParticipantsNumber &&
-              this.eventDetails.maxParticipantsNumber -
-                this.eventDetails.participantsNumber >
+              eventDetails.maxParticipantsNumber &&
+              eventDetails.maxParticipantsNumber -
+                eventDetails.participantsNumber >
                 0
             ) {
               <p-button

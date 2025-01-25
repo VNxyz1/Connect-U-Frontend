@@ -84,6 +84,7 @@ h6 {
 /* Styles for p-checkbox when disabled */
 .p-checkbox .p-disabled {
   background: $normal-grey;
+  border-color: $normal-grey;
 }
 
 /* input */
@@ -110,7 +111,7 @@ h6 {
 
 .p-steps {
   position: sticky !important;
-  top: 4.3rem;
+  top: 3.85rem;
   z-index: 1 !important;
   background: $white !important;
   align-items: center;
@@ -137,8 +138,16 @@ h6 {
 
 .p-tabmenu {
   position: sticky !important;
-  top: 4.25rem;
+  top: 3.85rem;
   z-index: 1 !important;
+}
+
+body.ios .p-tabmenu {
+  top: 6.85rem;
+}
+
+body.ios .p-steps {
+  top: 6.85rem;
 }
 
 /* Highlighted tab styling */
@@ -193,4 +202,8 @@ h6 {
 
 .p-toast {
   z-index: 1400;
+}
+
+body.ios .p-toast {
+  top: 90px;
 }

@@ -193,7 +193,9 @@
       "validationFailedTitle": "Validierung fehlgeschlagen",
       "validationFailedDetail": "Bitte stelle sicher, dass alle erforderlichen Felder korrekt ausgefüllt sind.",
       "removedImageTitle": "Bild entfernt!",
-      "removedImage": "Bild wurde erfolgreich entfernt, wähle gerne ein neues aus."
+      "removedImage": "Bild wurde erfolgreich entfernt, wähle gerne ein neues aus.",
+      "tagTooLongTitle": "Tag ist zu lang!",
+      "tagTooLongDetail": "Das von dir angegebene Tag überschreitet unsere maximale Länge von 20 Zeichen"
     },
     "errorMessages": {
       "wrongFormatTitle": "Falsches Format",
@@ -879,6 +881,10 @@
       "error": "Fehler beim Löschen des Profilbildes",
       "successMessage": "Ihr Profilbild wurde erfolgreich gelöscht",
       "errorMessage": "Es ist ein Fehler beim Löschen des Profilbildes aufgetreten"
+    },
+    "updateTags": {
+      "error": "Fehler beim anlegen der Tags",
+      "tooLong": "die von dir angegebenen Tags überschreiten die maximale Länge von 20 Zeichen!"
     }
   },
   "accountPage": {

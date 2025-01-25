@@ -24,6 +24,8 @@ import { TranslocoService } from '@jsverse/transloco';
 import { SocketService } from '../../../../services/socket/socket.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../../services/user/user.service';
+import { Capacitor } from '@capacitor/core';
+import { ProfileData } from '../../../../interfaces/ProfileData';
 
 const BadRequestMessages: Record<string, string> = {
   'A list entry with the same description already exists.':
@@ -61,6 +63,7 @@ export class ListDetailPageComponent implements OnInit {
   listDetail$!: Observable<ListDetail>;
   eventId!: string;
   _listId!: number;
+  isIos = Capacitor.getPlatform() === 'ios';
 
   createInputVisible: boolean = true;
 
@@ -261,5 +264,17 @@ export class ListDetailPageComponent implements OnInit {
       },
       reject: () => {},
     });
+  }
+
+  checkboxDisabled(listUser: ProfileData | null | undefined): boolean {
+    const ownUserId = this.userService.getCurrentUserData();
+    if (
+      listUser === null ||
+      listUser === undefined ||
+      listUser?.id === ownUserId?.id
+    ) {
+      return false;
+    }
+    return true;
   }
 }
