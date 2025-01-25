@@ -65,8 +65,9 @@ Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The 
 Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ### App version
-Run `npm run build-app` to build the project with the app environment. Then run `npx cap add [ android | ios ]` to add your platform of choice.
-You now have to open the generated directory with Android Studio (for android) or Xcode (for ios).
+You can directly open the directory of your desired platform with Android Studio (for android) or Xcode (for ios).
+When changes were made to the code, you simply have to run `npm run build:sync-ios` or `npm run build:sync-android`, wait for the process to finish, and restart the project with your IDE (Android Studio or Xcode).
+
 
 Further reading for the Capacitor workflow: [Capacitor Docs](https://capacitorjs.com/docs/v6/basics/workflow)
 
@@ -113,7 +114,7 @@ Connect-U-Frontend
 │   │
 │   └───environments
 │   │   │   environment.ts
-│   │   │   environment.app.ts
+│   │   │   environment.app-android.ts
 │   │   │   environment.development.ts
 │   │
 │   └───app

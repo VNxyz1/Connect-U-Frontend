@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, from, map, Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { TranslocoService } from '@jsverse/transloco';
+import { StorageService } from '../storage/storage.service';
 
 type LoginBody = {
   email: string;
@@ -33,6 +34,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private translocoService: TranslocoService,
+    private storage: StorageService,
   ) {}
 
   isLoggedIn(): Observable<boolean> {
@@ -107,6 +109,7 @@ export class AuthService {
         map(res => {
           this.setAccessToken(undefined);
           this.refreshLoginStatus();
+          this.storage.clear();
           return res;
         }),
       );

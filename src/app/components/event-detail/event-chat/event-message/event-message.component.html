@@ -9,7 +9,8 @@
       @if (message.writer) {
         <p-avatar
           [image]="userService.getImageFile(message.writer.profilePicture)"
-          class="mx-0 mb-0"
+          class="mx-0 mb-0 bg-cover"
+          styleClass="avatar"
           size="normal"
           shape="circle" />
       } @else {

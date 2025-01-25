@@ -36,6 +36,7 @@ export class PushNotificationService {
   > = new BehaviorSubject<Map<string, number>>(new Map<string, number>());
 
   private currentUrl$!: Observable<string>;
+  private blurTime!: number;
 
   constructor(
     private socket: SocketService,
@@ -46,9 +47,13 @@ export class PushNotificationService {
     private readonly userService: UserService,
   ) {
     this.currentUrl$ = this.currentUrl.get();
+
+    // If something is added here, check if it should be added in addOnFocusEvent()!
     this.initializePushNotifications();
     this.loadEventRequestNotifications();
     this.connectHostedEventsSocket();
+
+    this.addOnFocusEvent();
   }
 
   /**
@@ -65,18 +70,17 @@ export class PushNotificationService {
       }),
       tap(da => {
         if (da != 0) {
-          document.onblur = function () {
+          addEventListener('blur', () => {
             document.title = '( ' + da + ' ) | Connect-U';
-          };
+          });
         } else {
-          document.onblur = function () {
+          addEventListener('blur', () => {
             document.title = 'Connect-U';
-          };
+          });
         }
-
-        document.onfocus = function () {
+        addEventListener('focus', () => {
           document.title = 'Connect-U';
-        };
+        });
         if (!document.hasFocus() && da != 0) {
           document.title = '(' + da + ') | Connect-U';
         }
@@ -406,5 +410,21 @@ export class PushNotificationService {
           this.hostEventJoinRequestListSubject.next(data);
         },
       });
+  }
+
+  private addOnFocusEvent() {
+    addEventListener('blur', () => {
+      this.blurTime = Date.now();
+    });
+    addEventListener('focus', () => {
+      const timeDiff = Date.now() - this.blurTime;
+      if (timeDiff >= 600000) {
+        // 600000 ms: 10 min
+        console.log('triggered ', timeDiff);
+        this.initializePushNotifications();
+        this.loadEventRequestNotifications();
+        this.connectHostedEventsSocket();
+      }
+    });
   }
 }
