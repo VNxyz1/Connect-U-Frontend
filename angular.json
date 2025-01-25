@@ -66,7 +66,7 @@
                 }
               ]
             },
-            "app": {
+            "app-android": {
               "budgets": [
                 {
                   "type": "initial",
@@ -80,11 +80,33 @@
                 }
               ],
               "outputHashing": "all",
-              "outputPath": "dist-app/connect-u-frontend",
+              "outputPath": "dist-app-android/connect-u-frontend",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.app.ts"
+                  "with": "src/environments/environment.app-android.ts"
+                }
+              ]
+            },
+            "app-ios": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1800kB",
+                  "maximumError": "3MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
+                }
+              ],
+              "outputHashing": "all",
+              "outputPath": "dist-app-ios/connect-u-frontend",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.app-ios.ts"
                 }
               ]
             }

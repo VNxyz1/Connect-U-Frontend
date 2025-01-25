@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'remixicon/fonts/remixicon.css';
 @import 'assets/themes/mytheme/theme.scss';
-
 body {
   margin: 0;
 }
@@ -178,6 +177,10 @@ body.ios .chat-container {
 
 .event-card .p-card-footer {
   padding: 0 0 0 0 !important;
+}
+
+.avatar > img {
+  object-fit: cover !important;
 }
 
 .event-card .p-card-body {
