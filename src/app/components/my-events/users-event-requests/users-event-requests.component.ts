@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsersEventRequest } from '../../../interfaces/UsersEventRequest';
 import { AngularRemixIconComponent } from 'angular-remix-icon';
-import { Button, ButtonDirective } from 'primeng/button';
+import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { MessageService, PrimeTemplate } from 'primeng/api';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
@@ -31,7 +31,7 @@ import { EventDetails } from '../../../interfaces/EventDetails';
   templateUrl: './users-event-requests.component.html',
 })
 export class UsersEventRequestsComponent implements OnInit {
-  @Input() eventRequests!: UsersEventRequest[];
+  eventRequests$!: Observable<UsersEventRequest[]>;
   invites$!: Observable<UsersEventRequest[]>;
 
   constructor(
@@ -49,6 +49,7 @@ export class UsersEventRequestsComponent implements OnInit {
 
   protected loadInvites() {
     this.invites$ = this.requestService.getInvitationFromFriends();
+    this.eventRequests$ = this.requestService.getUsersRequests();
   }
   protected deleteEventRequest(
     eventTitle: string,
@@ -58,10 +59,7 @@ export class UsersEventRequestsComponent implements OnInit {
     $e.stopPropagation();
     this.requestService.deleteUserRequest(requestId).subscribe({
       next: () => {
-        // Filter out the deleted request
-        this.eventRequests = this.eventRequests.filter(
-          request => request.id !== requestId,
-        );
+        this.eventRequests$ = this.requestService.getUsersRequests();
         this.pushNotificationService.loadEventRequestNotifications();
         this.messageService.add({
           severity: 'success',
@@ -86,12 +84,7 @@ export class UsersEventRequestsComponent implements OnInit {
     this.requestService.createJoinRequest(eventId).subscribe({
       next: () => {
         // Finde die Anfrage mit der entsprechenden Event-ID und aktualisiere sie
-        const request = this.eventRequests.find(
-          req => req.event.id === eventId,
-        );
-        if (request) {
-          request.denied = false;
-        }
+        this.eventRequests$ = this.requestService.getUsersRequests();
         this.pushNotificationService.loadEventRequestNotifications();
         this.messageService.add({
           severity: 'success',

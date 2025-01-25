@@ -244,11 +244,11 @@
           <p-card
             class="p-3"
             [routerLink]="
-              this.eventDetails.participantsNumber == 0 ? null : ['guests']
+              eventDetails.participantsNumber == 0 ? null : ['guests']
             "
             [relativeTo]="route"
             [ngClass]="{
-              cursorPointer: this.eventDetails.participantsNumber > 0,
+              cursorPointer: eventDetails.participantsNumber > 0,
             }">
             <div class="flex flex-column justify-content-between h-full">
               <!-- Top Section: Header and Count -->
@@ -259,8 +259,8 @@
                 </h3>
                 <!-- Request Count (Right Top, Aligned with Header) -->
                 <span class="color-secondary text-center w-2rem"
-                  >{{ this.eventDetails.participantsNumber }}/{{
-                    this.eventDetails.maxParticipantsNumber
+                  >{{ eventDetails.participantsNumber }}/{{
+                    eventDetails.maxParticipantsNumber
                   }}</span
                 >
               </div>
@@ -291,7 +291,7 @@
                 </p-avatarGroup>
 
                 <!-- Icon (Bottom Right) -->
-                @if (this.eventDetails.participantsNumber > 0) {
+                @if (eventDetails.participantsNumber > 0) {
                   <div class="flex align-items-center">
                     <rmx-icon
                       name="arrow-right-s-line"
@@ -395,9 +395,9 @@
               </p-button>
             } @else if (
               eventDetails.isHost &&
-              this.eventDetails.maxParticipantsNumber &&
-              this.eventDetails.maxParticipantsNumber -
-                this.eventDetails.participantsNumber >
+              eventDetails.maxParticipantsNumber &&
+              eventDetails.maxParticipantsNumber -
+                eventDetails.participantsNumber >
                 0
             ) {
               <p-button

@@ -17,6 +17,9 @@ export class EventRequestService {
   private readonly invitesSubject$ = new BehaviorSubject<UsersEventRequest[]>(
     [],
   );
+  private readonly eventRequestsSubject$ = new BehaviorSubject<
+    UsersEventRequest[]
+  >([]);
 
   constructor(
     private readonly http: HttpClient,
@@ -31,6 +34,7 @@ export class EventRequestService {
         const a = this.userService.getCurrentUserData();
         if (a?.id == userId) {
           this.loadInvitationFromFriends();
+          this.loadEventRequests();
         }
       },
     });
@@ -39,6 +43,7 @@ export class EventRequestService {
         const a = this.userService.getCurrentUserData();
         if (a?.id == userId) {
           this.loadInvitationFromFriends();
+          this.loadEventRequests();
         }
       },
     });
@@ -76,15 +81,8 @@ export class EventRequestService {
    * @returns {Observable<{ success: boolean; message: string }>}
    */
   getUsersRequests(): Observable<UsersEventRequest[]> {
-    const url = `request/join/user`;
-    return this.http.get<UsersEventRequest[]>(url).pipe(
-      map(res => {
-        return res;
-      }),
-      catchError(err => {
-        return throwError(() => err);
-      }),
-    );
+    this.loadEventRequests();
+    return this.eventRequestsSubject$.asObservable();
   }
 
   private userRequestSubject = new BehaviorSubject<UsersEventRequest | null>(
@@ -151,6 +149,21 @@ export class EventRequestService {
       )
       .subscribe(data => {
         this.invitesSubject$.next(data);
+      });
+  }
+
+  private loadEventRequests() {
+    const url = `request/join/user`;
+    this.http
+      .get<UsersEventRequest[]>(url)
+      .pipe(
+        catchError(() => {
+          const arr: UsersEventRequest[] = [];
+          return of(arr);
+        }),
+      )
+      .subscribe(data => {
+        this.eventRequestsSubject$.next(data);
       });
   }
 
