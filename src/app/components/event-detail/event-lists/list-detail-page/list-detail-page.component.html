@@ -85,6 +85,7 @@
                 <p-checkbox
                   binary
                   variant="filled"
+                  [disabled]="checkboxDisabled(listEntry.user)"
                   [ngModel]="!!listEntry.user"
                   (click)="handleCheckboxChange(listEntry)" />
               </div>

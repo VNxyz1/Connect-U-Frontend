@@ -19,7 +19,7 @@
                     height: '20px',
                   }"
                   class="bg-blue-900 border-round-3xl border-blue-900 text-center text-white px-1 justify-content-center flex align-content-center align-items-center"
-                  >{{ val }}</span
+                >{{ val }}</span
                 >
               }
             }
@@ -30,7 +30,7 @@
     </ng-template>
   </p-tabMenu>
 
-  <div class="flex justify-content-center mt-4" [ngClass]="{ 'mt-6': isIos }">
+  <div class="flex justify-content-center mt-5" [ngClass]="{ 'mt-6': isIos }">
     <div class="col-12 mb-6">
       @if (activeTab === 'guest') {
         @if (doesNotInclude('requests', currentUrl)) {
@@ -40,7 +40,7 @@
             [hasRequests]="eventRequests.length > 0"
             [hasReqFromFriends]="eventRequestsFromFriends.length > 0" />
         } @else {
-          <app-users-event-requests [eventRequests]="eventRequests" />
+          <app-users-event-requests />
         }
       }
       @if (activeTab === 'hosted') {

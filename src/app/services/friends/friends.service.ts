@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-import { SurveyCreateBody } from '../surveys/surveys.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ProfileData } from '../../interfaces/ProfileData';
+import { SocketService } from '../socket/socket.service';
+import { UserService } from '../user/user.service';
 
 type OkResponse = {
   ok: boolean;
@@ -13,7 +14,15 @@ type OkResponse = {
   providedIn: 'root',
 })
 export class FriendsService {
-  constructor(private readonly http: HttpClient) {}
+  private readonly friendsSubject$ = new BehaviorSubject<ProfileData[]>([]);
+
+  constructor(
+    private readonly http: HttpClient,
+    private readonly sockets: SocketService,
+    private readonly userService: UserService,
+  ) {
+    this.connectSockets();
+  }
 
   /**
    * Sends a POST request to create a friendship using a username and an inviteId.
@@ -27,7 +36,15 @@ export class FriendsService {
   }
 
   getFriends(): Observable<ProfileData[]> {
-    return this.http.get<ProfileData[]>('friends/allFriends');
+    this.reloadFriends();
+    return this.friendsSubject$.asObservable();
+  }
+
+  private reloadFriends() {
+    this.http.get<ProfileData[]>('friends/allFriends').subscribe({
+      next: result => this.friendsSubject$.next(result),
+      error: () => this.friendsSubject$.next([]),
+    });
   }
 
   getFilteredFriendsForEvent(eventId: String): Observable<ProfileData[]> {
@@ -35,5 +52,16 @@ export class FriendsService {
       `friends/filteredFriends/${eventId}`,
       {},
     );
+  }
+
+  private connectSockets() {
+    this.sockets.on('updateFriendList').subscribe({
+      next: (userId: string) => {
+        const a = this.userService.getCurrentUserData();
+        if (a?.id == userId) {
+          this.reloadFriends();
+        }
+      },
+    });
   }
 }
