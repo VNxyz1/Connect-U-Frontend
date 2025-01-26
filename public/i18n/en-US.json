@@ -672,7 +672,8 @@
       "title": "Legal Disclosure",
       "contact": {
         "title": "Contact",
-        "phoneLabel": "Phone"
+        "phoneLabel": "Phone",
+        "responsible": "Responsible for the content:"
       },
       "euDisputeResolution": {
         "title": "EU Dispute Resolution",
@@ -837,8 +838,8 @@
     "section23": {
       "contact": {
         "title": "Contact Us",
-        "email": "Email: connectu@business.com",
-        "phone": "Phone: 01234 56789"
+        "email": "Email: tina.haser@mni.thm",
+        "phone": "Phone: 06413090"
       }
     }
   },
